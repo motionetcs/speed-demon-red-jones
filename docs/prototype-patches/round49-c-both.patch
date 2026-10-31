@@ -1,0 +1,31 @@
+--- a/track-c/main.cpp
++++ b/track-c/main.cpp
+@@ -82,10 +82,14 @@
+     char digits[2] = {char('0' + n / 10 % 10), char('0' + n % 10)};
+     out.text({digits, 2});
+ }
+-struct Group {
+-    std::string_view country;
++struct alignas(64) Statistics {
+     int64_t count = 0, ids = 0, sum = 0, minimum = INT64_MAX, maximum = INT64_MIN;
+     int64_t names = 0, name_bytes = 0, note_bytes = 0;
++};
++static_assert(sizeof(Statistics) == 64);
++struct Group : Statistics {
++    std::string_view country;
++    explicit Group(std::string_view code) : country(code) {}
+ };
+ 
+ int main(int argc, char** argv) {
+@@ -176,10 +180,10 @@
+                         size_t country = region < region_lookup.size() && region_lookup[region] != no_region ? region_lookup[region] : unmatched;
+                         auto& entry = names.intern(name.value, local.storage, hash);
+                         Group& group = local.groups[country];
+-                        group.names += names.first(entry, country);
+                         ++group.count; group.ids += static_cast<int64_t>(id); group.sum += amount;
+                         group.minimum = std::min(group.minimum, amount); group.maximum = std::max(group.maximum, amount);
+                         group.name_bytes += name.bytes; group.note_bytes += note.bytes;
++                        group.names += names.first(entry, country);
+                     }
+                 } catch (const Canceled&) {
+                     return;

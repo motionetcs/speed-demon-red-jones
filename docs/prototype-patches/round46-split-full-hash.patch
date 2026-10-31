@@ -1,0 +1,50 @@
+--- a/track-c/names.hpp
++++ b/track-c/names.hpp
+@@ -39,17 +39,18 @@
+ };
+ struct Canceled {};
+ struct Names {
+-    struct Entry { std::atomic<uint64_t> state{0}; NameKey* key = nullptr; };
++    struct Entry { NameKey* key = nullptr; };
+     size_t capacity, words;
+     std::unique_ptr<Entry[]> entries;
++    std::unique_ptr<std::atomic<uint64_t>[]> states;
+     std::atomic<size_t> used{0};
+     std::atomic<bool> canceled{false}, too_small{false};
+     Names(size_t size, size_t countries) : capacity(size), words((countries + 63) / 64),
+-        entries(std::make_unique<Entry[]>(size)) {}
++        entries(std::make_unique<Entry[]>(size)), states(new std::atomic<uint64_t>[size]{}) {}
+     static uint64_t hash_key(std::string_view key) {
+         uint64_t hash = std::hash<std::string_view>{}(key); return hash < 2 ? hash + 2 : hash;
+     }
+-    void prefetch(uint64_t hash) const { __builtin_prefetch(&entries[hash & (capacity - 1)], 0, 1); }
++    void prefetch(uint64_t hash) const { size_t index = hash & (capacity - 1); __builtin_prefetch(&states[index], 0, 1); __builtin_prefetch(&entries[index], 0, 1); }
+     std::string_view bytes(const NameKey* key) const {
+         return {reinterpret_cast<const char*>(key) + sizeof(NameKey) + words * sizeof(std::atomic<uint64_t>), key->length};
+     }
+@@ -57,12 +58,12 @@
+         if (canceled.load(std::memory_order_relaxed)) throw Canceled{};
+         size_t index = hash & (capacity - 1);
+         for (;;) {
+-            Entry& entry = entries[index]; uint64_t state = entry.state.load(std::memory_order_acquire);
++            Entry& entry = entries[index]; auto& slot = states[index]; uint64_t state = slot.load(std::memory_order_acquire);
+             if (state == 0) {
+-                if (entry.state.compare_exchange_strong(state, 1, std::memory_order_acq_rel)) {
++                if (slot.compare_exchange_strong(state, 1, std::memory_order_acq_rel)) {
+                     try { entry.key = storage.make(key, words); }
+-                    catch (...) { canceled.store(true); entry.state.store(0, std::memory_order_release); throw; }
+-                    entry.state.store(hash, std::memory_order_release);
++                    catch (...) { canceled.store(true); slot.store(0, std::memory_order_release); throw; }
++                    slot.store(hash, std::memory_order_release);
+                     if (used.fetch_add(1, std::memory_order_relaxed) >= capacity * 7 / 8) {
+                         too_small.store(true); canceled.store(true); throw Canceled{};
+                     }
+@@ -71,7 +72,7 @@
+             }
+             while (state == 1) {
+                 if (canceled.load(std::memory_order_relaxed)) throw Canceled{};
+-                state = entry.state.load(std::memory_order_acquire);
++                state = slot.load(std::memory_order_acquire);
+             }
+             if (state == hash && bytes(entry.key) == key) return entry;
+             if (canceled.load(std::memory_order_relaxed)) throw Canceled{};

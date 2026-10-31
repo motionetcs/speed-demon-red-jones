@@ -1,0 +1,58 @@
+--- a/track-a/main.cpp
++++ b/track-a/main.cpp
+@@ -70,7 +70,26 @@
+         std::vector<uint16_t> order(paths.size()); std::iota(order.begin(), order.end(), 0);
+         std::sort(order.begin(), order.end(), [&](uint16_t a, uint16_t b) { return paths[a] < paths[b]; });
+         std::array<Output, 72> output;
++        std::array<std::atomic<bool>, 72> ready{};
++        std::atomic<bool> aborted{false};
++        std::exception_ptr write_error;
++        std::ofstream stream(run_paths.out / "summary.txt", std::ios::binary);
++        stream.exceptions(std::ios::badbit | std::ios::failbit);
++        std::thread writer([&] {
++            try {
++                for (unsigned hour = 0; hour < 72; ++hour) {
++                    ready[hour].wait(false, std::memory_order_acquire);
++                    if (aborted.load(std::memory_order_acquire)) return;
++                    auto& bytes = output[hour].bytes;
++                    stream.write(bytes.data(), static_cast<std::streamsize>(bytes.size()));
++                    std::string().swap(bytes);
++                }
++                stream.close();
++            } catch (...) { write_error = std::current_exception(); }
++        });
++        auto publish = [&](unsigned hour) { ready[hour].store(true, std::memory_order_release); ready[hour].notify_one(); };
+         std::atomic<unsigned> next_hour{0};
++        try {
+         parallel(threads, [&](unsigned) {
+             std::vector<Count> groups(paths.size());
+             std::vector<uint32_t> offsets(paths.size()), cursor(paths.size()), latencies;
+@@ -82,7 +101,7 @@
+                     count += chunk.records[hour].size(); first_line = std::min(first_line, chunk.first[hour]);
+                     for (uint32_t record : chunk.records[hour]) { auto& group = groups[record & 4095]; ++group.count; group.errors += (record >> 12) & 1; }
+                 }
+-                if (!count) continue;
++                if (!count) { publish(hour); continue; }
+                 uint32_t offset = 0;
+                 for (uint16_t key : order) { cursor[key] = offsets[key] = offset; offset += groups[key].count; }
+                 latencies.resize(count);
+@@ -112,10 +131,16 @@
+                     for (uint64_t value : {n, uint64_t(first[(50 * n + 99) / 100 - 1]), uint64_t(first[(95 * n + 99) / 100 - 1]), uint64_t(first[(99 * n + 99) / 100 - 1]), errors, errors * 1000000 / n}) { out.text(" "); out.number(static_cast<int64_t>(value)); }
+                     out.text("\n");
+                 }
++                publish(hour);
+             }
+         });
+-        std::ofstream stream(run_paths.out / "summary.txt", std::ios::binary);
+-        for (const auto& hour : output) stream.write(hour.bytes.data(), static_cast<std::streamsize>(hour.bytes.size()));
+-        stream.close(); if (!stream) throw std::runtime_error("cannot write summary.txt");
++        } catch (...) {
++            aborted.store(true, std::memory_order_release);
++            for (unsigned hour = 0; hour < 72; ++hour) publish(hour);
++            writer.join();
++            throw;
++        }
++        writer.join();
++        if (write_error) std::rethrow_exception(write_error);
+     } catch (const std::exception& e) { std::fprintf(stderr,"track-a: %s\n",e.what()); return 1; }
+ }

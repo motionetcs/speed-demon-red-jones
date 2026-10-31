@@ -1,0 +1,16 @@
+--- a/track-c/main.cpp
++++ b/track-c/main.cpp
+@@ -175,11 +175,12 @@
+                         int64_t amount = csv.amount(); csv.newline();
+                         size_t country = region < region_lookup.size() && region_lookup[region] != no_region ? region_lookup[region] : unmatched;
+                         auto& entry = names.intern(name.value, local.storage, hash);
++                        __builtin_prefetch(reinterpret_cast<char*>(entry.key) + sizeof(NameKey) + (country / 64) * sizeof(std::atomic<uint64_t>), 1, 1);
+                         Group& group = local.groups[country];
+-                        group.names += names.first(entry, country);
+                         ++group.count; group.ids += static_cast<int64_t>(id); group.sum += amount;
+                         group.minimum = std::min(group.minimum, amount); group.maximum = std::max(group.maximum, amount);
+                         group.name_bytes += name.bytes; group.note_bytes += note.bytes;
++                        group.names += names.first(entry, country);
+                     }
+                 } catch (const Canceled&) {
+                     return;

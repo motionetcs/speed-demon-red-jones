@@ -2,7 +2,7 @@
 
 Read `/data/graph.txt` and `/data/queries.txt`; write exactly `/out/distances.txt`. Local `--data` and `--out` options are supported. Standard C++20/OS facilities only. `SPEED_DEMON_THREADS=1` through `12` selects query workers; default12, retained after the current compact-loader configuration scored higher with twelve workers.
 
-Up to4 workers count outgoing/incoming degrees in newline-aligned chunks using shared atomic byte counters. A thread observing wrap255→0 records256 in its own spill map. After joining, the final byte plus every recorded spill gives the exact uint32 degree, including high-degree vertices. Prefix sums create forward/reverse CSR offsets, then byte storage is released.
+Up to12 workers count outgoing/incoming degrees in newline-aligned chunks using shared atomic byte counters. A thread observing wrap255→0 records256 in its own spill map. After joining, the final byte plus every recorded spill gives the exact uint32 degree, including high-degree vertices. Prefix sums create forward/reverse CSR offsets, then byte storage is released.
 
 The loader uses bounded16-row private batches to prefetch degree/cursor addresses, claim exact slots and prefetch final edge writes. Its extra scratch stays bounded per worker. The second parse claims disjoint edge slots with atomic16-bit cursors relative to4096-node block bases. A block is narrow only when its complete edge interval has at most65535 entries, so no live cursor can wrap. Larger blocks keep exact absolute uint32 cursors. The header/layout selects a specialization once before scattering; ordinary no-wide-block loops avoid per-edge fallback checks. All cursors are released before searches. Duplicates, parallel edges, zero weights and self-loops are retained. No-out sources and no-in targets permit exact rejection.
 
@@ -25,3 +25,5 @@ Specification: https://github.com/hackathon-raptors/speed-demon-2026/blob/main/s
 The Docker build retains profile-guided compilation after a real-board gain. `training_generator.py` is byte-identical to the official generator; it creates an independent full-scale seed and a second sample seed inside the offline build. GCC collects execution profiles, then recompiles without runtime instrumentation. The final stage copies only the executable. The published rules explicitly permit this training and exclude unchanged official generator copies from S. All untrained/full-output checks still apply; PERF.md distinguishes experiments from confirmed gains.
 
 The narrow-counter loader passes all official gates and improves observed D to60.023752 points/K15.866278, T0.329751 s, M76,771,328 bytes. Full record: `../docs/board-round7-narrow-d.json`. The immutable graph/search behavior is unchanged.
+
+Both loader passes use bounded16-row scratch batches to overlap degree/cursor/edge accesses. The final image caps process-local glibc arenas at2; no host setting is modified. Current exact run IDs and retention decisions are in PERF.md.

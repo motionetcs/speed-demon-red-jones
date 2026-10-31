@@ -41,7 +41,7 @@ int main(int argc, char** argv) {
         uint32_t n = scan.number(), m = scan.number();
         const char* edge_start = scan.p;
         while (edge_start < graph.data + graph.size && *edge_start <= ' ') ++edge_start;
-        unsigned loaders = std::min(threads, 4U);
+        unsigned loaders = std::min(threads, 12U);
         std::vector<const char*> boundaries(loaders + 1);
         boundaries.front() = edge_start; boundaries.back() = graph.data + graph.size;
         for (unsigned i = 1; i < loaders; ++i) {

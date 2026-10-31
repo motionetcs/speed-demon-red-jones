@@ -82,10 +82,14 @@ void money(Output& out, int64_t value) {
     char digits[2] = {char('0' + n / 10 % 10), char('0' + n % 10)};
     out.text({digits, 2});
 }
-struct Group {
-    std::string_view country;
+struct alignas(64) Statistics {
     int64_t count = 0, ids = 0, sum = 0, minimum = INT64_MAX, maximum = INT64_MIN;
     int64_t names = 0, name_bytes = 0, note_bytes = 0;
+};
+static_assert(sizeof(Statistics) == 64);
+struct Group : Statistics {
+    std::string_view country;
+    explicit Group(std::string_view code) : country(code) {}
 };
 
 int main(int argc, char** argv) {

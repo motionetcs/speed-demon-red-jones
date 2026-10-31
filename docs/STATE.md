@@ -4,11 +4,13 @@ Fresh Red Jones entry: https://github.com/motionetcs/speed-demon-red-jones ; pri
 
 ## Active pass starting09:33 UTC on31 October2026
 
-Round38 f378b2e improves D to60.654874/K16.334185. Round43 273c709 passes every gate but A71.663813 and C62.229676 fail to beat historical bests72.105578/66.473216; restore exactbf75194 A/C. D byte-identical repeat58.465751 is recorded as variation. Next isolated candidate: same D C++/PGO plus final-image MALLOC_ARENA_MAX=2. Full Linux/default and906 exact-image cases pass. round44-candidate-source-match.json proves all27 inputs, with only that one ENV difference in D. Capture its real result before any other runtime push; retain only if K>16.334185.
+Round38 improves D to60.654874/K16.334185; round44 cap2 improves it slightly to60.664986/K16.341793 (all gates). Losing A/C parser/grouped-table changes from rounds38/43 are reverted to exactbf75194 before the new candidates. Round45 writer, round46 split hashes and round49 scheduling losers are archived honestly. A/C still prefer12 workers.
 
-A ordered output writer and C separate full-hash state arrays are development prototypes only. They are not in scored folders and need screening/full validation before promotion. Native fixtures now use --run-id; original round38 shared adversarial paths were rerun in isolated suites and1047 exact-image Linux replays. All isolated and round43 suites pass. Original evidence is retained honestly with its limitation.
+Round51 is ready for exact-commit board submission: A Linux input MAP_POPULATE, C aligned worker-private aggregate counters, D12 loaders on the retained bounded prefetch loader plus cap2. All27 runtime/build/metadata inputs match exact Linux builds. Native/reference/strict sanitizer/race/full/default suites pass;1056 exact-image Linux replays and69 extra GCC15/Linux A ASAN/UBSAN integration runs pass. C/D source byte-identical to fully validated round50. Proof round51-candidate-source-match.json. No Mac speed claim is made for Linux-only A.
 
-The old baseline section below must be refreshed at final retention. No pre-event private implementation, cached answers or input recognition is used.
+Capture round51 real scores before another runtime push. Retain only if real K beats A27.676524/72.105578, C21.353266/66.473216, D16.341793/60.664986. Restore A/C tobf75194 or D to1ed8388 if needed. Exact candidate contexts and reports remain for rejected-source attribution. Update RESULTS/OWNER/SUBMISSION/this state after final selection; older baseline section follows for provenance.
+
+Native fixtures now use --run-id. The original round38 shared adversarial paths were corrected with isolated reruns and1047 matching Linux replays; preserved reports state the limitation. No pre-event private implementation, cached answers or input recognition is used.
 
 ## Retained runtime and real confirmation
 

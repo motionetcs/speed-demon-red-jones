@@ -27,7 +27,11 @@ struct MappedFile {
         }
         size = static_cast<size_t>(st.st_size);
         if (size) {
-            void* p = mmap(nullptr, size, PROT_READ, MAP_PRIVATE, fd, 0);
+            int flags = MAP_PRIVATE;
+#ifdef MAP_POPULATE
+            flags |= MAP_POPULATE; // Populate this input mapping before parallel parsing.
+#endif
+            void* p = mmap(nullptr, size, PROT_READ, flags, fd, 0);
             close(fd);
             if (p == MAP_FAILED) throw std::runtime_error("cannot map " + path.string());
             data = static_cast<const char*>(p);
