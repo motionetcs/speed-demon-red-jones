@@ -50,10 +50,6 @@ struct Names {
         uint64_t hash = std::hash<std::string_view>{}(key); return hash < 2 ? hash + 2 : hash;
     }
     void prefetch(uint64_t hash) const { __builtin_prefetch(&entries[hash & (capacity - 1)], 0, 1); }
-    void prefetch_key(uint64_t hash) const {
-        const auto& entry = entries[hash & (capacity - 1)];
-        if (entry.state.load(std::memory_order_acquire) > 1) __builtin_prefetch(entry.key, 0, 1);
-    }
     std::string_view bytes(const NameKey* key) const {
         return {reinterpret_cast<const char*>(key) + sizeof(NameKey) + words * sizeof(std::atomic<uint64_t>), key->length};
     }

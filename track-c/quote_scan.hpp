@@ -1,0 +1,37 @@
+#pragma once
+#include <bit>
+#include <cstdint>
+#include <cstring>
+#if defined(__AVX2__) || defined(__SSE2__)
+#include <immintrin.h>
+#elif defined(__ARM_NEON)
+#include <arm_neon.h>
+#endif
+
+// Only complete in-range vectors are loaded; the scalar tail uses memchr.
+inline const char* find_quote(const char* p, const char* end) {
+#if defined(__AVX2__)
+    while (end - p >= 32) {
+        auto bytes = _mm256_loadu_si256(reinterpret_cast<const __m256i*>(p));
+        uint32_t mask = static_cast<uint32_t>(_mm256_movemask_epi8(_mm256_cmpeq_epi8(bytes, _mm256_set1_epi8('"'))));
+        if (mask) return p + std::countr_zero(mask);
+        p += 32;
+    }
+#elif defined(__SSE2__)
+    while (end - p >= 16) {
+        auto bytes = _mm_loadu_si128(reinterpret_cast<const __m128i*>(p));
+        uint32_t mask = static_cast<uint32_t>(_mm_movemask_epi8(_mm_cmpeq_epi8(bytes, _mm_set1_epi8('"'))));
+        if (mask) return p + std::countr_zero(mask);
+        p += 16;
+    }
+#elif defined(__ARM_NEON) && __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
+    while (end - p >= 16) {
+        auto equal = vceqq_u8(vld1q_u8(reinterpret_cast<const uint8_t*>(p)), vdupq_n_u8('"'));
+        auto nibbles = vshrn_n_u16(vreinterpretq_u16_u8(equal), 4);
+        uint64_t mask = vget_lane_u64(vreinterpret_u64_u8(nibbles), 0);
+        if (mask) return p + std::countr_zero(mask) / 4;
+        p += 16;
+    }
+#endif
+    return static_cast<const char*>(std::memchr(p, '"', end - p));
+}

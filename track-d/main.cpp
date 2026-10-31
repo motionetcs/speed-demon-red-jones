@@ -30,7 +30,7 @@ using Item = std::pair<uint64_t, uint32_t>;
 int main(int argc, char** argv) {
     try {
         Paths paths(argc, argv);
-        unsigned threads = 12;
+        unsigned threads = 6;
         if (const char* value = std::getenv("SPEED_DEMON_THREADS")) {
             uint64_t requested = unsigned_number(value);
             if (requested < 1 || requested > 12) throw std::runtime_error("threads must be 1 to 12");

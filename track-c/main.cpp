@@ -1,9 +1,9 @@
 #include "io.hpp"
+#include "quote_scan.hpp"
 #include "parallel.hpp"
 #include "names.hpp"
 #include <array>
 #include <numeric>
-#include <unordered_map>
 #include <vector>
 
 struct Field { std::string_view value; size_t bytes; bool escaped; };
@@ -24,7 +24,7 @@ struct Csv {
         size_t bytes = 0;
         bool escaped = false;
         while (p < end) {
-            const char* quote = static_cast<const char*>(std::memchr(p, '"', end - p));
+            const char* quote = find_quote(p, end);
             if (!quote) throw std::runtime_error("unterminated quoted field");
             bytes += static_cast<size_t>(quote - segment);
             if (quote + 1 < end && quote[1] == '"') {
@@ -97,17 +97,23 @@ int main(int argc, char** argv) {
         auto h1 = region_csv.field(scratch, false); region_csv.comma();
         auto h2 = region_csv.field(scratch, false); region_csv.newline();
         if (h1.value != "region_id" || h2.value != "country") throw std::runtime_error("bad regions header");
-        std::unordered_map<std::string_view, uint16_t> countries;
-        std::vector<Group> groups;
         constexpr uint16_t missing = UINT16_MAX;
+        std::vector<uint16_t> country_index(26 * 26 * 26, missing);
+        std::vector<Group> groups;
         std::vector<uint16_t> lookup(1000000, missing);
         while (region_csv.p < region_csv.end) {
             uint64_t id = region_csv.integer();
-            auto country = region_csv.field(scratch, false).value; region_csv.newline();
-            auto [it, added] = countries.try_emplace(country, static_cast<uint16_t>(groups.size()));
-            if (added) groups.push_back(Group{country});
+            if (region_csv.end - region_csv.p < 3) throw std::runtime_error("short country code");
+            std::string_view country(region_csv.p, 3); region_csv.p += 3; region_csv.newline();
+            uint32_t code = 0;
+            for (unsigned char byte : country) {
+                if (byte < 'A' || byte > 'Z') throw std::runtime_error("invalid country code");
+                code = code * 26 + byte - 'A';
+            }
+            auto& dense = country_index[code];
+            if (dense == missing) { dense = static_cast<uint16_t>(groups.size()); groups.push_back(Group{country}); }
             if (id >= lookup.size()) lookup.resize(id + 1, missing);
-            lookup[id] = it->second;
+            lookup[id] = dense;
         }
         size_t unmatched = groups.size();
         groups.push_back(Group{"_UNMATCHED"});
@@ -150,28 +156,22 @@ int main(int argc, char** argv) {
                 try {
                     auto& local = locals[worker];
                     Csv csv{boundaries[worker], boundaries[worker + 1]};
-                    struct Row { std::string scratch; Field name; uint64_t id, hash; size_t note_bytes, country; int64_t amount; };
-                    std::array<Row, 8> batch;
-                    std::string unused;
+                    std::string name_scratch, unused;
                     while (csv.p < csv.end) {
-                        size_t size = 0;
-                        while (size < batch.size() && csv.p < csv.end) {
-                            auto& row = batch[size++]; csv.bom();
-                            row.id = csv.integer(); row.name = csv.field(row.scratch, true); csv.comma();
-                            row.hash = Names::hash_key(row.name.value); names.prefetch(row.hash);
-                            row.note_bytes = csv.field(unused, false).bytes; csv.comma();
-                            uint64_t region = csv.integer(); row.amount = csv.amount(); csv.newline();
-                            row.country = region < lookup.size() && lookup[region] != missing ? lookup[region] : unmatched;
-                        }
-                        for (size_t k = 0; k < size; ++k) names.prefetch_key(batch[k].hash);
-                        for (size_t k = 0; k < size; ++k) {
-                            auto& row = batch[k]; auto& entry = names.intern(row.name.value, local.storage, row.hash);
-                            Group& group = local.groups[row.country];
-                            group.names += names.first(entry, row.country);
-                            ++group.count; group.ids += static_cast<int64_t>(row.id); group.sum += row.amount;
-                            group.minimum = std::min(group.minimum, row.amount); group.maximum = std::max(group.maximum, row.amount);
-                            group.name_bytes += row.name.bytes; group.note_bytes += row.note_bytes;
-                        }
+                        csv.bom();
+                        uint64_t id = csv.integer();
+                        Field name = csv.field(name_scratch, true); csv.comma();
+                        uint64_t hash = Names::hash_key(name.value); names.prefetch(hash);
+                        Field note = csv.field(unused, false); csv.comma();
+                        uint64_t region = csv.integer();
+                        int64_t amount = csv.amount(); csv.newline();
+                        size_t country = region < lookup.size() && lookup[region] != missing ? lookup[region] : unmatched;
+                        auto& entry = names.intern(name.value, local.storage, hash);
+                        Group& group = local.groups[country];
+                        group.names += names.first(entry, country);
+                        ++group.count; group.ids += static_cast<int64_t>(id); group.sum += amount;
+                        group.minimum = std::min(group.minimum, amount); group.maximum = std::max(group.maximum, amount);
+                        group.name_bytes += name.bytes; group.note_bytes += note.bytes;
                     }
                 } catch (const Canceled&) {
                     return;

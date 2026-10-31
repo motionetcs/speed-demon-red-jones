@@ -171,3 +171,11 @@ A merged12-byte union-of-frontiers table matches public outputs but grows the wo
 On the current narrow-loader/compact-edge/band64 code, nine rotating trials measure six/eight/twelve workers at0.379554/0.370482/0.338913 s, with max native RSS177.26/182.55/192.48MB. This retests the current layout, not the older twelve-worker loader that lost on the board before later storage changes. Twelve is a time/memory tradeoff hypothesis; every algorithm remains exact and actual Intel/cgroup K decides retention. Default12 is validated separately from the benchmark's environment override. No native time is presented as an official improvement.
 
 The unchanged algorithm with default12 passes fresh tiny/sample seeds839/853/857, full public outputs at1/6/12 workers, strict ASAN/UBSAN and TSAN,256 independent Floyd–Warshall graphs/85,871 answers, all boundary/high-degree/wide-ID/64-bit cases, and852 exact-image Linux replays. Actual native and Linux defaults without overrides pass. Reports: `../docs/round18-*.json`. Real board K decides the default; no Intel gain is claimed yet.
+
+## Worker result and narrower-band hypothesis
+
+Round18 commit b1388b0 passed all gates: run-2b15f6245ed9, T=0.297638 s, M=94,314,496, S=728, K=16.026845, points=60.242402. Twelve workers/band64 beats prior60.051455/K15.886532; retain it as the board comparison baseline. Record: ../docs/board-round18-compact-batch.json.
+
+Next test six workers and band32 with the existing exact labels, queue fallbacks, edge/cursor storage and distance-bound proof. Nine rotating full-public native trials: band64/12=0.271934 s/191.27MB, band32/6=0.285759/176.54MB, band32/12=0.280890/191.04MB. Band32/12 is slower locally; only the memory-saving six-worker combination is submitted. Retain only if real total K improves.
+
+Round22/23 exact D source passes fresh863/877 ASAN/UBSAN, TSAN887, all adversarial/high-degree/wide-ID/MAX-weight/64-bit tests, public outputs1/6/12 workers,256 independent Floyd–Warshall graphs/85,871 answers, strict GCC band32 primitive models,843 exact-image Linux replays and actual native/Linux six-worker defaults. Source identities and raw records are in ../docs/round23-*.json and ../docs/round22-d-independent.json.

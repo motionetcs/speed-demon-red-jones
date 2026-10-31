@@ -1,6 +1,6 @@
 {
   "observed_at_utc": "2026-10-31T08:18:38.877571+00:00",
-  "scope": "All selected runtime/build inputs and track metadata match independently built, tested Linux contexts; documentation excluded",
+  "scope": "23 runtime/build inputs match the independent Linux build contexts; three hidden track metadata files are separately proven byte-identical to the all-gates-passing11e4673 source and checked by the entry audit.",
   "linux_report": "round18-selected-linux.json",
   "sha256": {
     "track-a/training_generator.py": "d82b43b8f617016808f85cbe9be86af1fee8466296a0848ab8e6908ee3c4b0b4",
@@ -27,5 +27,13 @@
     "track-d/decimal.hpp": "aee2210ac5894050834ffd37903718b3b7bdc6673240559baa85b350bea9b581",
     "track-d/parallel.hpp": "614e48333aabbd7a9d7b008119d41acc7f908e467769772d01e10d84c282bdab"
   },
-  "passed": true
+  "passed": true,
+  "metadata_baseline_commit": "11e467385c4d8869a4afbcc7bb8a80d42ff99e98",
+  "metadata_sha256": {
+    "track-a/.speed-demon.toml": "c9ae973186c14661797640f427009129e2a80d1aecefd5d4fa413ee7f3da44d8",
+    "track-c/.speed-demon.toml": "3371600b8033a377bc373378e703191dfec36c1ae991b617650dfa480edc00b4",
+    "track-d/.speed-demon.toml": "6d6100843803548ba58c1c1eaf2d1dbaecb9a431fd5c9a8408d214580466465c"
+  },
+  "total_current_inputs": 26,
+  "evidence_note": "Prototype copying used a shell glob, so hidden metadata was absent from the Linux context snapshot. Docker COPY does not read it; no compiled input differed. Metadata is verified separately rather than claimed as part of that build snapshot."
 }

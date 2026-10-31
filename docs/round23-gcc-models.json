@@ -1,0 +1,13 @@
+{
+  "observed_at_utc": "2026-10-31T08:52:29.301161+00:00",
+  "official_score": false,
+  "scope": "Assertions enabled, strict GCC15 Linux ASAN/UBSAN; explicit SSE2 and AVX2 quote models, exact endpoint/capacity and narrow-band queue models; emulated host, not performance evidence",
+  "image": "gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce",
+  "sha256": {
+    ".build/round23/source/track-c/quote_scan.hpp": "8bc88d241ac522dfffec18e022f1d9656ffe2459f0eb553bbf7b7c4574b0a02c",
+    ".build/round23/source/track-a/endpoint_table.hpp": "dea6e9d327e397e23588edf6cf32821efe79c6056d657080c320ae535416f931",
+    ".build/round23/source/track-d/radix_heap.hpp": "eee79d78872c24e54d27254c3b60c9856a79813ee71051066b6d5a1fb2fa4ccf"
+  },
+  "output": "PASS first-quote scalar reference, every byte/offset, random buffers and protected-page tails; SSE2\nPASS first-quote scalar reference, every byte/offset, random buffers and protected-page tails; AVX2\nPASS concurrent full-hash collisions, exact bytes, unique IDs, reserved states and 12-bit ID boundary\nPASS decimal reference/byte/guard-page checks and compact/wide queue/label model checks\n",
+  "passed": true
+}

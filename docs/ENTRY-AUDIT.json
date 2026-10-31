@@ -1,47 +1,44 @@
 {
-  "observed_at_utc": "2026-10-31T08:18:38.919459+00:00",
+  "observed_at_utc": "2026-10-31T09:01:46.156060+00:00",
   "scope": "Observable repository/history/build-policy checks, not an organizer eligibility certificate",
-  "source_commit": "81884c6db848ab479baed4ca1b80246180c1203c",
+  "source_commit": "b1388b098fc6ffd4fb8471b7cdd9d8c146fd9564",
   "dirty_paths": [
-    "M track-a/Dockerfile",
+    "M Makefile",
+    " M docs/round18-candidate-source-match.json",
     " M track-a/PERF.md",
+    " M track-a/endpoint_table.hpp",
     " M track-a/main.cpp",
+    " M track-c/Dockerfile",
     " M track-c/PERF.md",
     " M track-c/main.cpp",
     " M track-c/names.hpp",
     " M track-d/PERF.md",
     " M track-d/main.cpp",
-    "?? docs/prototype-patches/round16-a-sampled-hash.patch",
-    "?? docs/prototype-patches/round16-d-merged-labels.patch",
-    "?? docs/prototype-patches/round17-a-stream-output.patch",
-    "?? docs/prototype-patches/round17-c-numeric-batch16.patch",
-    "?? docs/prototype-patches/round17-c-numeric.patch",
-    "?? docs/prototype-patches/round17-d-twin-labels.patch",
-    "?? docs/prototype-patches/round18-a-fused6.patch",
-    "?? docs/round16-local-bench.json",
-    "?? docs/round16-start-board.json",
-    "?? docs/round16-start-comparison.json",
-    "?? docs/round17-local-bench.json",
-    "?? docs/round17-selected-bench.json",
-    "?? docs/round18-a-compact-bench.json",
-    "?? docs/round18-a-fused-bench.json",
-    "?? docs/round18-a-hash-bench.json",
-    "?? docs/round18-candidate-source-match.json",
-    "?? docs/round18-compact-boundaries-tsan.json",
-    "?? docs/round18-compact-boundaries.json",
-    "?? docs/round18-d-independent.json",
-    "?? docs/round18-gcc-endpoint-model.json",
-    "?? docs/round18-linux-default.json",
-    "?? docs/round18-native-default.json",
-    "?? docs/round18-selected-linux-cases.json",
-    "?? docs/round18-selected-linux.json",
-    "?? docs/round18-selected-public.json",
-    "?? docs/round18-selected-sanitize.json",
-    "?? docs/round18-selected-tiny.json",
-    "?? docs/round18-selected-tsan.json",
-    "?? tools/test_compact_records.py",
-    "?? tools/test_endpoint_table.cpp",
-    "?? track-a/endpoint_table.hpp"
+    " M track-d/radix_heap.hpp",
+    "?? docs/board-round18-compact-batch.json",
+    "?? docs/round18-after-board.json",
+    "?? docs/round18-after-comparison.json",
+    "?? docs/round19-c-country-map-bench.json",
+    "?? docs/round20-c-owner-bench.json",
+    "?? docs/round21-c-compact-slots-bench.json",
+    "?? docs/round22-compact-boundaries.json",
+    "?? docs/round22-country-codes.json",
+    "?? docs/round22-d-independent.json",
+    "?? docs/round22-local-bench.json",
+    "?? docs/round22-sanitize.json",
+    "?? docs/round23-a-boundaries.json",
+    "?? docs/round23-a-lazy-bench.json",
+    "?? docs/round23-a-sanitize.json",
+    "?? docs/round23-candidate-source-match.json",
+    "?? docs/round23-defaults.json",
+    "?? docs/round23-gcc-models.json",
+    "?? docs/round23-linux-cases.json",
+    "?? docs/round23-linux.json",
+    "?? docs/round23-public.json",
+    "?? docs/round23-tsan.json",
+    "?? tools/test_country_codes.py",
+    "?? tools/test_quote_scan.cpp",
+    "?? track-c/quote_scan.hpp"
   ],
   "repository": {
     "defaultBranchRef": {
@@ -304,6 +301,14 @@
       ]
     },
     {
+      "requirement": "Observed commit timestamps inside event: b1388b0",
+      "passed": true,
+      "evidence": [
+        "2026-10-31T13:48:39+05:30",
+        "2026-10-31T13:48:39+05:30"
+      ]
+    },
+    {
       "requirement": "A required file Dockerfile",
       "passed": true,
       "evidence": "track-a/Dockerfile"
@@ -417,6 +422,7 @@
         "Dockerfile",
         "names.hpp",
         "io.hpp",
+        "quote_scan.hpp",
         "README.md",
         "PERF.md",
         ".speed-demon.toml",
@@ -640,6 +646,11 @@
       "commit": "81884c6db848ab479baed4ca1b80246180c1203c",
       "author_time": "2026-10-31T13:21:34+05:30",
       "committer_time": "2026-10-31T13:21:34+05:30"
+    },
+    {
+      "commit": "b1388b098fc6ffd4fb8471b7cdd9d8c146fd9564",
+      "author_time": "2026-10-31T13:48:39+05:30",
+      "committer_time": "2026-10-31T13:48:39+05:30"
     }
   ],
   "future_requirements": [

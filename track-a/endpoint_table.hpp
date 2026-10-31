@@ -6,7 +6,7 @@
 #include <string_view>
 
 struct Endpoints {
-    static constexpr size_t capacity = 32768;
+    static constexpr size_t capacity = 8192;
     static constexpr uint64_t hash_mask = 0xffffffffffff0000ULL;
     struct Entry { std::atomic<uint64_t> state{0}; std::string_view value; };
     std::unique_ptr<Entry[]> entries = std::make_unique<Entry[]>(capacity);
