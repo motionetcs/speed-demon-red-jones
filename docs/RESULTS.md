@@ -1,43 +1,49 @@
 # Scored optimization results
 
-Official public-board snapshot: 2026-10-31T04:58:06Z. These are best observed practice-board machine scores; final holdout and judging totals are separate.
+Official board snapshot: 2026-10-31T07:17:20Z. These are public practice-board machine points, separate from final holdout scoring and human judging.
 
-Computed best-three machine-points geometric mean: **45.22 → 60.83**. Rank **44 → 30 of 56** eligible scored teams. Current leader: Cause Of Death, 78.62.
+Best-three machine-point geometric mean: **45.22 → 64.77**. Current rank **33/61** teams with three scored tracks; leader Cause Of Death **79.63**. The leaders remain ahead.
 
-| Track | Original points | Our best points | Leader points | Track rank |
+| Track | Original points | Our best points | Leader points | Rank |
 | --- | ---: | ---: | ---: | ---: |
-| A | 47.25 | 66.60 | 85.79 (NickTrapp) | 37/70 |
-| C | 40.42 | 63.35 | 79.34 (NickTrapp) | 30/59 |
-| D | 48.43 | 53.36 | 72.99 (Cause Of Death) | 30/60 |
+| A | 47.25 | 69.70 | 85.79 (NickTrapp) | 31/76 |
+| C | 40.42 | 64.90 | 80.65 (NickTrapp) | 31/63 |
+| D | 48.43 | 60.05 | 72.99 (Cause Of Death) | 21/66 |
 
-| Track | Best run ID | Time | Cgroup peak | K |
+| Track | Best run | Time | Cgroup peak | K |
 | --- | --- | ---: | ---: | ---: |
-| A | `run-c70da1f28b23` | 0.069571 s | 60.28 MB | 21.482224 |
-| C | `run-2f5d6b5da65d` | 0.099798 s | 14.08 MB | 18.492031 |
-| D | `run-f813e2d591b2` | 0.554190 s | 131.21 MB | 11.670991 |
+| A | `run-1f9a7602cf67` | 0.060856 s | 39.80 MB | 24.779894 |
+| C | `run-4bcf23d06742` | 0.088260 s | 12.45 MB | 19.865280 |
+| D | `run-9f77334ae44a` | 0.326739 s | 78.05 MB | 15.886532 |
 
 ## Exact retained-source confirmation
 
-Commit `07f2ac73092f64d98e40825809e88ce7010dca9f` passed every check, build, correctness, timeout, and sandbox gate. This latest combined confirmation is distinct from the best historical observations above. C and D use identical retained algorithms across those repeated runs; small timing/memory differences are variation.
+Commit `d28fe2590101b6b9a362e71b7bd8ee8f379f0741` passed **check, build, correctness, timeout and sandbox** for every selected track. All 25 runtime/build inputs and track metadata are byte-identical to the previously scored commit `61e345f`; documentation/tests are separate. This exact combined confirmation is distinct from historical best observations.
 
-| Track | Confirmation run | Time | Machine points |
+| Track | Confirmation run | Time | Points |
 | --- | --- | ---: | ---: |
-| A | `run-c70da1f28b23` | 0.069571 s | 66.603962 |
-| C | `run-9522fdbe2be1` | 0.100337 s | 63.220559 |
-| D | `run-9da2b9e55b4a` | 0.590860 s | 52.648366 |
+| A | `run-4055dcf05865` | 0.061166 s | 69.531199 |
+| C | `run-a3119404362b` | 0.096142 s | 64.042244 |
+| D | `run-f169e16c8fde` | 0.348996 s | 59.323451 |
 
-## Retained source
+Same-source practice runs vary, including the lower C/D values in this confirmation. No repeated-run delta is called a new algorithm improvement. Final scoring uses the separate holdout and organizer procedure.
 
-A uses twelve workers, direct field parsing, disjoint aggregation, and exact percentile selection. C uses twelve workers, quote-aware parsing, compact exact membership, and mapped name views with copies only for decoded escapes. D uses six query workers, at most four loaders, a lower-memory second parse into forward/reverse CSR, bidirectional radix Dijkstra, exact shared labels with private fallback, and lossless packed weights.
+## Retained techniques
 
-C's character arena ran faster but used too much official memory and was replaced. D's second pass was slower locally but improved official K by lowering peak memory. Twelve D workers looked faster on Apple ARM and scored worse on Intel, so six is retained. A's native compiler experiment scored lower; generic compilation is retained for A. C/D retain native compilation. Small repeat-run changes on unchanged code are identified as variation.
+- A: hour-owned small workspaces, exact percentile selection, twelve workers, generic GCC/sample PGO, original allocator environment.
+- C: quote-aware scalar field parser, exact decoded name keys co-located with actual atomic country words, release/acquire publication, twelve workers, native GCC/full+sample PGO.
+- D: exact byte-degree wrap recovery, narrow/wide atomic scatter cursors, lossless specialized edge encoding, private exact labels, distance bands of width 64 and batches of eight, six query workers/four loaders, native GCC/full+sample PGO.
 
-## Verification and evidence
+Flat/streaming A and SIMD C passed correctness but lowered real total K, so their runtime code was removed. Eight-byte parsing and extra label-prefetch prototypes were not promoted after marginal/slower local measurements. Other rejected experiments remain in per-track PERF.md and reproducible historical patches.
 
-Every submitted algorithm candidate passed targeted reference and adversarial comparisons, new independent generated seeds, published full-data hashes at multiple worker counts, memory/undefined-behavior and race checks for concurrency, and offline restricted GCC15 Linux validation. The retained D default was also exercised with no environment override. All scored submissions passed check, build, correctness, timeout, and sandbox gates. The live feed uses one timed run per push, so small differences are not statistical proof.
+## Verification and eligibility evidence
 
-Raw records and decisions: [optimization log](OPTIMIZATION.md), [comparison JSON](optimization-comparison.json), each track's `PERF.md`, and `board-opt-*.json`. `tools/compare_board.py` reproduces ranks from complete official feed snapshots. `tools/watch_board.py` ties results to an exact pushed commit.
+Final retained native/reference/new-seed/adversarial/full hashes and offline restricted GCC15/Linux full outputs pass. Retained algorithms also passed memory/UB and thread sanitizers, independent Floyd–Warshall graphs, exact name/country models, and exact degree/cursor ownership models. Linux/Apple development timings are not presented as official score evidence.
 
-The retained source is confirmed above. The subsequent documentation commit changes no Dockerfile, C++ source, header, build file, or track metadata.
+Reports: [final board](board-retained-final.json), [native](final-retained-native.json), [full public](final-retained-public.json), [Linux](final-retained-container.json), [source identity](final-retained-source-match.json), [leader comparison](optimization-comparison.json), [entry audit](ENTRY-AUDIT.md), [owner explanation](OWNER-BRIEFING.md).
 
-[Official team board](https://speeddemon.dev/board/#red-jones-00c4a7) · [Official JSON feed](https://s3.amazonaws.com/raptors.dev/speeddemon.dev/2026/board/board.json)
+The audit checks observable rules/provenance, not an organizer-issued eligibility certificate. Individual registration is entrant-confirmed; team registration/app scope/scored tracks are verified. AI assistance is disclosed; no personal-understanding attestation is invented.
+
+**Still required:** keep the passing `speed-demon` commit through 2 November 2026 at 15:00 UTC (20:30 IST), and make that MIT-licensed source public by 16:00 UTC (21:30 IST). The repository remains private; no automatic publication or monitor is scheduled.
+
+[Official team board](https://speeddemon.dev/board/#red-jones-00c4a7) · [Official feed](https://s3.amazonaws.com/raptors.dev/speeddemon.dev/2026/board/board.json)

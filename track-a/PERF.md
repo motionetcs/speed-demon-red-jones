@@ -142,3 +142,11 @@ Next memory hypothesis: replace hour line offsets/packed records with two input 
 ## Flat/streaming A: exact board result
 
 `run-26d56b69b86e` on `2917982a9d0d26a813aacd1f2065331f6866016c` passed all gates: T=0.076989 s, M=32,235,520 bytes, S=504, K=21.69994, points=66.822927. Record: `../docs/board-round8-flat-a12.json`. Memory falls to32.24MB, but runtime/source cost lowers K below24.779894. Reject this exact layout and restore the hour-owned sample-PGO configuration from61e345f. The six-worker local variant is not submitted; no six-worker board result is claimed. Reproduce the rejected source at2917982.
+
+## SIMD CSV comparison: exact board result
+
+`run-e84f4acc4192` on `1b21266eeee60232176372208d6c4120465ad988` passed all gates: T=0.061959 s, M=40,357,888 bytes, S=344, K=24.489659, points=69.449137. Record: `../docs/board-round10-simd-c.json`. Source/build inputs are unchanged from the retained configuration; the result is repeat variation.
+
+## Final retained-source confirmation
+
+`run-4055dcf05865` on `d28fe2590101b6b9a362e71b7bd8ee8f379f0741` passed all gates at 2026-10-31T07:14:38Z: T=0.061166 s, M=40,898,560 bytes, S=344, K=24.582383, points=69.531199. Exact record: `../docs/board-retained-final.json`. Runtime/build inputs match 61e345f byte for byte. This confirms the selected combination; historical best observations remain separate, and no repeat delta is called an algorithm gain. Subsequent documentation updates change no runtime/build/metadata input.

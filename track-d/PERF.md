@@ -143,3 +143,13 @@ Next loader hypothesis: shared byte degree counts plus exact256-wrap spills, the
 `run-f53c4e4a6ec9` on `2917982a9d0d26a813aacd1f2065331f6866016c` passed all gates: T=0.328593 s, M=76,972,032 bytes, S=728, K=15.885913, points=60.050609. Record: `../docs/board-round8-flat-a12.json`. Runtime/build source is unchanged; differences are repeat variation.
 
 A bounded eight-byte numeric-prefix parser passes std::from_chars/all-byte/guard-page, tiny and full-hash checks. Five alternating trials give0.315130 s old versus0.311449 s eight-byte, about1.2% local improvement. This is too small to establish a worthwhile total-score gain against added code/variation, so it is not promoted or board-submitted. Reports: round9-d-eight-*.json.
+
+## SIMD CSV comparison: exact board result
+
+`run-9f77334ae44a` on `1b21266eeee60232176372208d6c4120465ad988` passed all gates: T=0.326739 s, M=78,053,376 bytes, S=728, K=15.886532, points=60.051455. Record: `../docs/board-round10-simd-c.json`. Source/build inputs are unchanged from the retained configuration; the result is repeat variation.
+
+Neighbor-label prefetch prototypes pass fresh reference/adversarial and full-public outputs, but five alternating native trials measure0.345373 s without hints,0.349500 s locality1 and0.351072 s locality3. Both are slower and rejected before sanitizer/board promotion. Reproducible patches and raw round11-d-prefetch reports are retained outside scored folders.
+
+## Final retained-source confirmation
+
+`run-f169e16c8fde` on `d28fe2590101b6b9a362e71b7bd8ee8f379f0741` passed all gates at 2026-10-31T07:14:42Z: T=0.348996 s, M=78,278,656 bytes, S=728, K=15.362752, points=59.323451. Exact record: `../docs/board-retained-final.json`. Runtime/build inputs match 61e345f byte for byte. This confirms the selected combination; historical best observations remain separate, and no repeat delta is called an algorithm gain. Subsequent documentation updates change no runtime/build/metadata input.

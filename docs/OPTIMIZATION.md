@@ -1,5 +1,7 @@
 # Live optimization work
 
+> Current retained-source results are in [RESULTS.md](RESULTS.md). Earlier sections below are historical checkpoints, not instructions to restore their old sources. All accepted/rejected rounds and real IDs are retained in per-track PERF.md.
+
 Baseline snapshot: 31 October 2026, 04:00:12 UTC, preserved in `optimization-baseline-board.json`. These are public live-board measurements, not final holdout or judge totals.
 
 | Track | Our time | Leader time | Our K | Leader K | Our track rank |
@@ -73,3 +75,11 @@ Retained combination: A12 generic compiler/direct parser/exact selection; C12 na
 `07f2ac73092f64d98e40825809e88ce7010dca9f` passed all check/build/correctness/timeout/sandbox gates on the real board. A `run-c70da1f28b23`: 0.069571 s, K21.482224,66.603962 points. C `run-9522fdbe2be1`: 0.100337 s, K18.382779,63.220559 points. D `run-9da2b9e55b4a`: 0.590860 s, K11.297109,52.648366 points. These are the latest combined-source confirmation; best historical C/D records remain higher on identical retained algorithms. They are not conflated with this run.
 
 Retained source is A12/C12/D6. Seven optimization source revisions were actually scored after the baseline, including rejected configurations. All reports remain in this repository. `RESULTS.md` gives the final current leader comparison and distinguishes best observed records from the combined confirmation. The final documentation update changes no runtime build inputs.
+
+## Subsequent measured rounds and final selection
+
+A hour-owned workspaces and sample PGO remain strongest; glibc arena/threshold, full-PGO and flat/streaming alternatives scored lower. C compact keys, stable dense names/country bits and full-scale PGO remain strongest; character arenas, canonical interiors, delimiter-only and SIMD variants did not earn their time/memory/source costs on the board. D private labels, packed queues/bands, full-scale PGO, specialized edge decoding and narrow shared loader counters/cursors improve total K. Forward-only traversal, copied private loaders, wider bands, variable decoders and extra hints were rejected.
+
+The retained runtime is byte-identical to 61e345f and the final restored commit is confirmed in board-retained-final.json. Every selected track passed all gates. Best records and exact combined confirmation are reported separately; repeated same-source timing/memory variation is not an optimization claim. Source runtime dependencies remain zero (D=1). No unscored experiment is left in a track build folder.
+
+Final proof combines new reference/adversarial/full-output checks, strict sanitizers, independent graph/name/slot models, exact source fingerprints and offline Linux/default-contract gates. Rejected source remains in Git history and prototype patches. No cached answer or training artifact enters runtime. Full-scale training uses an independent generator seed, as expressly permitted by the published rules.

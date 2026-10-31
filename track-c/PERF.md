@@ -147,3 +147,7 @@ Next scanner hypothesis: SIMD equality masks locate comma/CR/LF for unquoted fie
 ## SIMD CSV comparison: exact board result
 
 `run-c4cd5934a4e4` on `1b21266eeee60232176372208d6c4120465ad988` passed all gates: T=0.089164 s, M=12,894,208 bytes, S=579, K=19.333879, points=64.315949. Record: `../docs/board-round10-simd-c.json`. Source growth outweighs the measured runtime/memory result, so restore the proven scalar-field/dense-key build from61e345f and remove csv_scan.hpp from the scored folder.
+
+## Final retained-source confirmation
+
+`run-a3119404362b` on `d28fe2590101b6b9a362e71b7bd8ee8f379f0741` passed all gates at 2026-10-31T07:14:40Z: T=0.096142 s, M=12,259,328 bytes, S=524, K=19.091712, points=64.042244. Exact record: `../docs/board-retained-final.json`. Runtime/build inputs match 61e345f byte for byte. This confirms the selected combination; historical best observations remain separate, and no repeat delta is called an algorithm gain. Subsequent documentation updates change no runtime/build/metadata input.

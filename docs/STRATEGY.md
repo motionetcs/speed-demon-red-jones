@@ -1,6 +1,6 @@
 # Strategy and competitive research
 
-Research date: 31 October 2026. This is an engineering recommendation, not a prediction of winning.
+Initial planning research: 31 October 2026, 03:25 UTC. Current completed setup/results are in SUBMISSION.md and RESULTS.md; the snapshot below predates registration. This is an engineering recommendation, not a prediction of winning.
 
 ## Evidence
 

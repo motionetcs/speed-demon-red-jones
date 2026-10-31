@@ -2,7 +2,7 @@
 
 Fresh C++20 implementations for Tracks A (request-log aggregation), C (hostile CSV join), and D (directed shortest paths). This project was created during the event from the official specifications. It uses no extra runtime libraries.
 
-All three tracks passed their first official live-board run on 31 October 2026. [Actual run IDs and measurements](docs/first-board-run.json) are retained, and each track's PERF.md cites its run. [Red Jones on the live board](https://speeddemon.dev/board/#red-jones-00c4a7). Final holdout scoring and judging are separate.
+All three retained tracks passed official gates again on 31 October 2026 at 07:14 UTC. Best observed machine points are A 69.70, C 64.90 and D 60.05; the leaders remain ahead. [Current results and exact confirmation](docs/RESULTS.md). The first official records are also preserved. [Actual run IDs and measurements](docs/first-board-run.json) are retained, and each track's PERF.md cites its run. [Red Jones on the live board](https://speeddemon.dev/board/#red-jones-00c4a7). Final holdout scoring and judging are separate.
 
 The reusable AI execution prompt is [CODEX_PROMPT.md](CODEX_PROMPT.md). The [strategy](docs/STRATEGY.md) contains the ideas, track decisions, current-rule research, and public competitor observations. The [owner briefing](docs/OWNER-BRIEFING.md) explains the techniques in plain language.
 
