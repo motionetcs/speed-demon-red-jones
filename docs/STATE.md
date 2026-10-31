@@ -4,15 +4,17 @@ Fresh Red Jones: https://github.com/motionetcs/speed-demon-red-jones ; private, 
 
 ## Selected algorithms and source
 
-All27 runtime/build/metadata inputs match all-gates scored eb80bc6d279802d8280a0dc15b8d824aa2d96ac1 and each current best track source, plus frozen71/native/full/default/Linux validation. A restores57cc23e standard hashing/fused/lazy/cutoff32. C retains67 bounded one-pass canonical-key pipeline:8 readers/4owners at12,512-record SPSC batches, exact full-key/country membership, growable private tables, exact local CSV synchronization and all widths. D retains57cc23e12-loader/16-row-prefetch/cap2 source.
+All27 runtime/build/metadata inputs match all-gates scored 0008c8ae9868ebf4746fa228ec813ab2dda8ab6d and each current best track source, plus frozen71/native/full/default/Linux validation. A restores57cc23e standard hashing/fused/lazy/cutoff32. C retains67 bounded one-pass canonical-key pipeline:8 readers/4owners at12,512-record SPSC batches, exact full-key/country membership, growable private tables, exact local CSV synchronization and all widths. D retains57cc23e12-loader/16-row-prefetch/cap2 source.
 
-Best A72.105578/K27.676524; C67.592444/K22.482722; D64.084694/K19.129071. C rises66.473216→66.848983→67.592444 in two genuine algorithms and repeats67.583792 on unchanged70 source. No new A/D algorithm gain in this pass. Round70 A CRC loses68.916469 despite every gate/model passing and is removed. All losses/raw reports/patches preserved; no unselected prototype in track directories.
+Best A72.140972/K27.721673; C67.613586/K22.504622; D64.084694/K19.129071. The small final A/C increases are unchanged-source variation; algorithmic C67 first scores67.592444. C rises66.473216→66.848983→67.592444 in two genuine algorithms and repeats67.583792 on unchanged70 source. No new A/D algorithm gain in this pass. Round70 A CRC loses68.916469 despite every gate/model passing and is removed. All losses/raw reports/patches preserved; no unselected prototype in track directories.
 
-Complete12:58:43 UTC snapshot: mean67.848530, rank32/75, leader Cause Of Death81.805732. A41/90,C30/76,D14/79. We are not first. Current overview RESULTS.md and round71-final-comparison.json.
+Complete2026-10-31T13:06:55Z snapshot: mean67.866704, rank32/75, leader Cause Of Death81.805732. A42/90,C30/76,D14/79. We are not first. Current overview RESULTS.md and round71-confirmed-comparison.json.
 
-## Immediate next step
+## Completion of this pass
 
-Capture a genuine official A/C/D result for the final restoration commit before claiming its confirmation. Current selected code already matches scored67; fresh final source/profile/image/default proof is round71-final-source-match.json. Update RESULTS/SUBMISSION/audit/STATE with actual final record, then make evidence-only commit. Do not reintroduce rejected CRC/native/allocator/endpoint/hash/reset variants without a new evidence-backed hypothesis.
+Final selected commit 0008c8ae9868ebf4746fa228ec813ab2dda8ab6d genuinely passes every official A/C/D gate, exact record board-round71-selected-final.json. All27 inputs match it and each current best track source; proof round71-final-source-match.json. Final Make/public/default and1134 per-image Linux replays pass. Later changes are documentation/evidence only. No active runtime candidate or board watcher remains.
+
+The last canonical512-event balance retest4/6/8/9/10 readers keeps8/4: other splits lose native full-public/hash-checked screening and are not promoted. Limits in round72-prototype-index.json. Do not reintroduce rejected CRC/native/allocator/endpoint/hash/reset variants without a new evidence-backed hypothesis. Number one remains unachieved; mean67.866704 versus leader81.805732. Future work must address a substantial measured gap, not relabel repeat variation as a gain.
 
 ## Evidence and operation
 

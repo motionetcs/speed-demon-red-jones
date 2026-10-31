@@ -1,13 +1,13 @@
 # Scored optimization results
 
-Complete public-board snapshot: **2026-10-31T12:58:43Z**. These are practice machine points; final holdout and human judging are separate.
+Complete public-board snapshot: **2026-10-31T13:06:55Z**. These are practice machine points; final holdout and human judging are separate.
 
-This pass raises the best-three mean **67.471954 → 67.848530**. Rank changes **29/71 → 32/75** as other teams improve. Overall leader Cause Of Death: **81.805732**. We are not first.
+This pass raises the best-three mean **67.471954 → 67.866704**. Rank changes **29/71 → 32/75** as other teams improve. Overall leader Cause Of Death: **81.805732**. We are not first.
 
 | Track | Starting best | Current best | Rank | Track leader |
 | --- | ---: | ---: | ---: | --- |
-| A | 72.105578 | 72.105578 | 41/90 | Cause Of Death 86.819493 |
-| C | 66.473216 | 67.592444 | 30/76 | NickTrapp 83.006413 |
+| A | 72.105578 | 72.140972 | 42/90 | Cause Of Death 86.819493 |
+| C | 66.473216 | 67.613586 | 30/76 | NickTrapp 83.006413 |
 | D | 64.084694 | 64.084694 | 14/79 | Cause Of Death 73.008704 |
 
 ## Retained changes and exact selected source
@@ -16,7 +16,17 @@ C adds two measured improvements: exact local CSV synchronization, then a bounde
 
 A retains exact57cc23e source: fused four-byte records/full uint32 escapes, full endpoint equality, lazy hour storage and sort cutoff32. All allocator/scalar/native/CRC variants that fail real K are removed. D retains exact57cc23e:12 loaders,16-row degree/cursor/edge prefetch, compact exact storage/distances/queues and process-local arena cap2. Its64.084694 best is an unchanged-source repeat, not a new D algorithm gain in this pass.
 
-Every one of27 selected source/build/metadata inputs matches **eb80bc6d279802d8280a0dc15b8d824aa2d96ac1**, which passes every official gate for A/C/D, and each track's current best source. Proof: [round71-final-source-match.json](round71-final-source-match.json). A fresh official confirmation of the restoration commit is the next final step; documentation/evidence-only changes do not alter these inputs.
+Every one of27 selected source/build/metadata inputs matches **0008c8ae9868ebf4746fa228ec813ab2dda8ab6d**, which passes every official gate for A/C/D, and each track's current best source. Proof: [round71-final-source-match.json](round71-final-source-match.json). The final restoration is genuinely confirmed for every track in [board-round71-selected-final.json](board-round71-selected-final.json). Subsequent evidence/prose changes preserve every compiled input.
+
+## Exact final confirmation
+
+| Track | Real run | Time | Charged memory | K | Points |
+| --- | --- | ---: | ---: | ---: | ---: |
+| A | `run-15bb24b2ed98` | 0.050478 s | 33,771,520 B | 27.721673 | 72.140972 |
+| C | `run-55821b17a8ec` | 0.062220 s | 13,447,168 B | 22.504622 | 67.613586 |
+| D | `run-e3b408a1cd25` | 0.229840 s | 90,148,864 B | 18.242324 | 63.054009 |
+
+A72.140972 and C67.613586 slightly exceed their previous best observations on unchanged source; these deltas are variation, not additional algorithms. D63.054009 is below its unchanged-source historical64.084694. No further runtime candidate or board watcher remains.
 
 ## Genuine new candidate batches
 
@@ -40,7 +50,7 @@ The earlier round38 shared test-path limitation is preserved and corrected by is
 
 ## Next optimization evidence
 
-Retained-source high-level native profiles identify A parsing (~25 ms of45.5 ms) and D search (~154 ms of272 ms) as largest local phases. They are Apple diagnostics, not Intel phase measurements. Endpoint pipelines/prefetch, C probing/layout/word/hash, graph staging/private degrees and D hash/reset variants fail their recorded tradeoffs. Reproducible patches and precise screening-versus-full-validation limits are indexed in round57-59, round61, round63-64, round65-67 and round68-70 prototype reports. No rejected implementation remains in a track folder.
+Retained-source high-level native profiles identify A parsing (~25 ms of45.5 ms) and D search (~154 ms of272 ms) as largest local phases. They are Apple diagnostics, not Intel phase measurements. Endpoint pipelines/prefetch, C probing/layout/word/hash, graph staging/private degrees and D hash/reset variants fail their recorded tradeoffs. Reproducible patches and precise screening-versus-full-validation limits are indexed in round57-59, round61, round63-64, round65-67 and round68-70 prototype reports. A final compact-event balance retest at4/6/8/9/10 readers also keeps8: every alternative is slower, without any runtime change (round72-prototype-index.json). No rejected implementation remains in a track folder.
 
 ## Entry requirements
 
@@ -50,4 +60,4 @@ Fresh event-written code, MIT attribution, disclosed AI assistance, required bra
 
 The saved four-emoji target exceeds the observed overall leader at the recorded time; counts can change through visitors. No reactions were added during this pass. Reactions do not change K, rank or demon level. Saved proof: emoji-status.json and emoji-result.jpg.
 
-[Full leader snapshot](round71-final-board.json) · [Comparison](round71-final-comparison.json) · [Entry audit](ENTRY-AUDIT.md) · [Live board](https://speeddemon.dev/board/#red-jones-00c4a7)
+[Full confirmed snapshot](round71-confirmed-board.json) · [Comparison](round71-confirmed-comparison.json) · [Entry audit](ENTRY-AUDIT.md) · [Live board](https://speeddemon.dev/board/#red-jones-00c4a7)

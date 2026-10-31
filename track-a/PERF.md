@@ -266,3 +266,6 @@ Fresh1237/1249 ASAN/UBSAN,1259 TSAN, full1/6/12 outputs, all methods/hours, exac
 
 
 Round70 7402c7f, run-67c43ed0dfc4 passes all official gates: T0.066032 s/M34426880/S405/K23.89623/68.916469 points. The hardware CRC version loses to27.676524, so restore every57cc23e A source/build/metadata input and README. No A algorithm gain is claimed. Actual final compilation uses the standard full-byte hash and full equality. Exact report ../docs/board-round70-endpoint-crc.json.
+
+
+Final selected combination 0008c8ae9868ebf4746fa228ec813ab2dda8ab6d, run-15bb24b2ed98 passes check/build/correctness/timeout/sandbox: T0.050478 s/M33771520/S378/K27.721673/72.140972 points. All27 current inputs match this exact commit and each best track source in ../docs/round71-final-source-match.json. A/C small new best observations are unchanged-source variation; the two real C algorithm improvements are recorded separately. Further updates are evidence/prose only. Report ../docs/board-round71-selected-final.json.

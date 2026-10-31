@@ -257,3 +257,6 @@ Five current retained-source instrumented Apple runs, full hashes checked: degre
 
 
 Round70 7402c7f, run-121a8b2f038c passes all official gates: T0.289287 s/M91000832/S772/K16.229738/60.515575 points. Code is unchanged57cc23e. This lower repeat is retained honestly as variation, not described as an algorithm change. Exact report ../docs/board-round70-endpoint-crc.json.
+
+
+Final selected combination 0008c8ae9868ebf4746fa228ec813ab2dda8ab6d, run-e3b408a1cd25 passes check/build/correctness/timeout/sandbox: T0.22984 s/M90148864/S772/K18.242324/63.054009 points. All27 current inputs match this exact commit and each best track source in ../docs/round71-final-source-match.json. A/C small new best observations are unchanged-source variation; the two real C algorithm improvements are recorded separately. Further updates are evidence/prose only. Report ../docs/board-round71-selected-final.json.

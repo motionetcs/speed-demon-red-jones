@@ -273,3 +273,9 @@ Round67 eb80bc6, run-b070e35b2761 passes every gate: T0.062764 s/M13,221,888/S66
 
 
 Round70 7402c7f, run-d2e3d6e500a5 passes all official gates: T0.062559 s/M13357056/S660/K22.473765/67.583792 points. Code is byte-identical to the retained67 pipeline. This67.583792 repeat is within0.01 point of67.592444 and also exceeds the preceding66.848983; it confirms the measured pipeline improvement without inventing another algorithm gain. Exact report ../docs/board-round70-endpoint-crc.json.
+
+
+Final selected combination 0008c8ae9868ebf4746fa228ec813ab2dda8ab6d, run-55821b17a8ec passes check/build/correctness/timeout/sandbox: T0.06222 s/M13447168/S660/K22.504622/67.613586 points. All27 current inputs match this exact commit and each best track source in ../docs/round71-final-source-match.json. A/C small new best observations are unchanged-source variation; the two real C algorithm improvements are recorded separately. Further updates are evidence/prose only. Report ../docs/board-round71-selected-final.json.
+
+
+Post-canonical pipeline balance retest (same512-event keys/layout), eleven rotating full-public native trials, every hash checked: readers/owners4/8=0.085573 s,6/6=0.072830,8/4=0.069911,9/3=0.074627,10/2=0.097526. Default8/4 wins; all others rejected at screening only, with no broad sanitizer/board claim. Total workers remain12. Raw round72-canonical-pipeline-balance-bench.json and round72-prototype-index.json preserve exact compiler overrides. No runtime change follows this screen.
