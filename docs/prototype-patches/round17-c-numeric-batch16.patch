@@ -1,0 +1,120 @@
+--- a/track-c/main.cpp
++++ b/track-c/main.cpp
+@@ -1,4 +1,5 @@
+ #include "io.hpp"
++#include "decimal.hpp"
+ #include "parallel.hpp"
+ #include "names.hpp"
+ #include <array>
+@@ -51,8 +52,7 @@
+     }
+     uint64_t integer() {
+         const char* start = p;
+-        uint64_t value = 0;
+-        while (p < end && *p >= '0' && *p <= '9') value = value * 10 + *p++ - '0';
++        uint64_t value = decimal_digits(p, end);
+         if (p == start) throw std::runtime_error("missing CSV integer");
+         comma();
+         return value;
+@@ -61,8 +61,7 @@
+         bool negative = p < end && *p == '-';
+         if (negative) ++p;
+         const char* start = p;
+-        uint64_t value = 0;
+-        while (p < end && *p >= '0' && *p <= '9') value = value * 10 + *p++ - '0';
++        uint64_t value = decimal_digits(p, end);
+         if (p == start || p == end || *p++ != '.' || end - p < 2 || p[0] < '0' || p[0] > '9' || p[1] < '0' || p[1] > '9')
+             throw std::runtime_error("invalid money");
+         value = value * 100 + (p[0] - '0') * 10 + p[1] - '0'; p += 2;
+@@ -150,22 +149,28 @@
+                 try {
+                     auto& local = locals[worker];
+                     Csv csv{boundaries[worker], boundaries[worker + 1]};
+-                    std::string name_scratch, unused;
++                    struct Row { std::string scratch; Field name; uint64_t id, hash; size_t note_bytes, country; int64_t amount; };
++                    std::array<Row, 16> batch;
++                    std::string unused;
+                     while (csv.p < csv.end) {
+-                        csv.bom();
+-                        uint64_t id = csv.integer();
+-                        Field name = csv.field(name_scratch, true); csv.comma();
+-                        uint64_t hash = Names::hash_key(name.value); names.prefetch(hash);
+-                        Field note = csv.field(unused, false); csv.comma();
+-                        uint64_t region = csv.integer();
+-                        int64_t amount = csv.amount(); csv.newline();
+-                        size_t country = region < lookup.size() && lookup[region] != missing ? lookup[region] : unmatched;
+-                        auto& entry = names.intern(name.value, local.storage, hash);
+-                        Group& group = local.groups[country];
+-                        group.names += names.first(entry, country);
+-                        ++group.count; group.ids += static_cast<int64_t>(id); group.sum += amount;
+-                        group.minimum = std::min(group.minimum, amount); group.maximum = std::max(group.maximum, amount);
+-                        group.name_bytes += name.bytes; group.note_bytes += note.bytes;
++                        size_t size = 0;
++                        while (size < batch.size() && csv.p < csv.end) {
++                            auto& row = batch[size++]; csv.bom();
++                            row.id = csv.integer(); row.name = csv.field(row.scratch, true); csv.comma();
++                            row.hash = Names::hash_key(row.name.value); names.prefetch(row.hash);
++                            row.note_bytes = csv.field(unused, false).bytes; csv.comma();
++                            uint64_t region = csv.integer(); row.amount = csv.amount(); csv.newline();
++                            row.country = region < lookup.size() && lookup[region] != missing ? lookup[region] : unmatched;
++                        }
++                        for (size_t k = 0; k < size; ++k) names.prefetch_key(batch[k].hash);
++                        for (size_t k = 0; k < size; ++k) {
++                            auto& row = batch[k]; auto& entry = names.intern(row.name.value, local.storage, row.hash);
++                            Group& group = local.groups[row.country];
++                            group.names += names.first(entry, row.country);
++                            ++group.count; group.ids += static_cast<int64_t>(row.id); group.sum += row.amount;
++                            group.minimum = std::min(group.minimum, row.amount); group.maximum = std::max(group.maximum, row.amount);
++                            group.name_bytes += row.name.bytes; group.note_bytes += row.note_bytes;
++                        }
+                     }
+                 } catch (const Canceled&) {
+                     return;
+--- a/track-c/names.hpp
++++ b/track-c/names.hpp
+@@ -50,6 +50,10 @@
+         uint64_t hash = std::hash<std::string_view>{}(key); return hash < 2 ? hash + 2 : hash;
+     }
+     void prefetch(uint64_t hash) const { __builtin_prefetch(&entries[hash & (capacity - 1)], 0, 1); }
++    void prefetch_key(uint64_t hash) const {
++        const auto& entry = entries[hash & (capacity - 1)];
++        if (entry.state.load(std::memory_order_acquire) > 1) __builtin_prefetch(entry.key, 0, 1);
++    }
+     std::string_view bytes(const NameKey* key) const {
+         return {reinterpret_cast<const char*>(key) + sizeof(NameKey) + words * sizeof(std::atomic<uint64_t>), key->length};
+     }
+--- /dev/null
++++ b/track-c/decimal.hpp
+@@ -0,0 +1,22 @@
++#pragma once
++#include <bit>
++#include <cstdint>
++#include <cstring>
++
++// Four ASCII digits in one bounded load. Every byte is validated before batching.
++inline uint64_t decimal_digits(const char*& p, const char* end) {
++    uint64_t value = 0;
++    if constexpr (std::endian::native == std::endian::little) {
++        while (end - p >= 4) {
++            uint32_t bytes;
++            std::memcpy(&bytes, p, 4);
++            uint32_t digits = bytes ^ 0x30303030U;
++            if ((digits & 0xf0f0f0f0U) || ((digits + 0x06060606U) & 0x10101010U)) break;
++            uint32_t pairs = (digits & 0x00ff00ffU) * 10 + ((digits >> 8) & 0x00ff00ffU);
++            value = value * 10000 + (pairs & 0xffffU) * 100 + (pairs >> 16);
++            p += 4;
++        }
++    }
++    while (p < end && *p >= '0' && *p <= '9') value = value * 10 + *p++ - '0';
++    return value;
++}
+--- a/track-c/Dockerfile
++++ b/track-c/Dockerfile
+@@ -1,6 +1,6 @@
+ FROM gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce AS build
+ WORKDIR /src
+-COPY training_generator.py main.cpp io.hpp parallel.hpp names.hpp ./
++COPY training_generator.py main.cpp decimal.hpp io.hpp parallel.hpp names.hpp ./
+ RUN g++ -std=c++20 -O3 -march=native -DNDEBUG -pthread -static -fprofile-generate=/profile -fprofile-update=atomic main.cpp -o /solution
+ RUN python3 training_generator.py --seed 1000003 --scale full --out /training && /solution --data /training --out /training-output && python3 training_generator.py --seed 130363 --scale sample --out /training && /solution --data /training --out /training-output
+ RUN g++ -std=c++20 -O3 -march=native -DNDEBUG -pthread -static -fprofile-use=/profile -fprofile-correction -Werror=missing-profile main.cpp -o /solution

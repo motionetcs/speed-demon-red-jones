@@ -150,22 +150,28 @@ int main(int argc, char** argv) {
                 try {
                     auto& local = locals[worker];
                     Csv csv{boundaries[worker], boundaries[worker + 1]};
-                    std::string name_scratch, unused;
+                    struct Row { std::string scratch; Field name; uint64_t id, hash; size_t note_bytes, country; int64_t amount; };
+                    std::array<Row, 8> batch;
+                    std::string unused;
                     while (csv.p < csv.end) {
-                        csv.bom();
-                        uint64_t id = csv.integer();
-                        Field name = csv.field(name_scratch, true); csv.comma();
-                        uint64_t hash = Names::hash_key(name.value); names.prefetch(hash);
-                        Field note = csv.field(unused, false); csv.comma();
-                        uint64_t region = csv.integer();
-                        int64_t amount = csv.amount(); csv.newline();
-                        size_t country = region < lookup.size() && lookup[region] != missing ? lookup[region] : unmatched;
-                        auto& entry = names.intern(name.value, local.storage, hash);
-                        Group& group = local.groups[country];
-                        group.names += names.first(entry, country);
-                        ++group.count; group.ids += static_cast<int64_t>(id); group.sum += amount;
-                        group.minimum = std::min(group.minimum, amount); group.maximum = std::max(group.maximum, amount);
-                        group.name_bytes += name.bytes; group.note_bytes += note.bytes;
+                        size_t size = 0;
+                        while (size < batch.size() && csv.p < csv.end) {
+                            auto& row = batch[size++]; csv.bom();
+                            row.id = csv.integer(); row.name = csv.field(row.scratch, true); csv.comma();
+                            row.hash = Names::hash_key(row.name.value); names.prefetch(row.hash);
+                            row.note_bytes = csv.field(unused, false).bytes; csv.comma();
+                            uint64_t region = csv.integer(); row.amount = csv.amount(); csv.newline();
+                            row.country = region < lookup.size() && lookup[region] != missing ? lookup[region] : unmatched;
+                        }
+                        for (size_t k = 0; k < size; ++k) names.prefetch_key(batch[k].hash);
+                        for (size_t k = 0; k < size; ++k) {
+                            auto& row = batch[k]; auto& entry = names.intern(row.name.value, local.storage, row.hash);
+                            Group& group = local.groups[row.country];
+                            group.names += names.first(entry, row.country);
+                            ++group.count; group.ids += static_cast<int64_t>(row.id); group.sum += row.amount;
+                            group.minimum = std::min(group.minimum, row.amount); group.maximum = std::max(group.maximum, row.amount);
+                            group.name_bytes += row.name.bytes; group.note_bytes += row.note_bytes;
+                        }
                     }
                 } catch (const Canceled&) {
                     return;

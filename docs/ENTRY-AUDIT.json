@@ -1,22 +1,47 @@
 {
-  "observed_at_utc": "2026-10-31T07:51:33.889205+00:00",
+  "observed_at_utc": "2026-10-31T08:18:38.919459+00:00",
   "scope": "Observable repository/history/build-policy checks, not an organizer eligibility certificate",
-  "source_commit": "11e467385c4d8869a4afbcc7bb8a80d42ff99e98",
+  "source_commit": "81884c6db848ab479baed4ca1b80246180c1203c",
   "dirty_paths": [
-    "M docs/ENTRY-AUDIT.json",
-    " M docs/ENTRY-AUDIT.md",
-    " M docs/OWNER-BRIEFING.md",
-    " M docs/RESULTS.md",
-    " M docs/STATE.md",
-    " M docs/emoji-result.jpg",
-    " M docs/emoji-status.json",
-    " M docs/optimization-comparison.json",
-    " M docs/optimization-current-board.json",
-    " M docs/prototype-patches/README.md",
-    " M tools/audit_entry.py",
+    "M track-a/Dockerfile",
     " M track-a/PERF.md",
-    "?? docs/board-round15-offsets.json",
-    "?? docs/round15-final-source-match.json"
+    " M track-a/main.cpp",
+    " M track-c/PERF.md",
+    " M track-c/main.cpp",
+    " M track-c/names.hpp",
+    " M track-d/PERF.md",
+    " M track-d/main.cpp",
+    "?? docs/prototype-patches/round16-a-sampled-hash.patch",
+    "?? docs/prototype-patches/round16-d-merged-labels.patch",
+    "?? docs/prototype-patches/round17-a-stream-output.patch",
+    "?? docs/prototype-patches/round17-c-numeric-batch16.patch",
+    "?? docs/prototype-patches/round17-c-numeric.patch",
+    "?? docs/prototype-patches/round17-d-twin-labels.patch",
+    "?? docs/prototype-patches/round18-a-fused6.patch",
+    "?? docs/round16-local-bench.json",
+    "?? docs/round16-start-board.json",
+    "?? docs/round16-start-comparison.json",
+    "?? docs/round17-local-bench.json",
+    "?? docs/round17-selected-bench.json",
+    "?? docs/round18-a-compact-bench.json",
+    "?? docs/round18-a-fused-bench.json",
+    "?? docs/round18-a-hash-bench.json",
+    "?? docs/round18-candidate-source-match.json",
+    "?? docs/round18-compact-boundaries-tsan.json",
+    "?? docs/round18-compact-boundaries.json",
+    "?? docs/round18-d-independent.json",
+    "?? docs/round18-gcc-endpoint-model.json",
+    "?? docs/round18-linux-default.json",
+    "?? docs/round18-native-default.json",
+    "?? docs/round18-selected-linux-cases.json",
+    "?? docs/round18-selected-linux.json",
+    "?? docs/round18-selected-public.json",
+    "?? docs/round18-selected-sanitize.json",
+    "?? docs/round18-selected-tiny.json",
+    "?? docs/round18-selected-tsan.json",
+    "?? tools/test_compact_records.py",
+    "?? tools/test_endpoint_table.cpp",
+    "?? track-a/endpoint_table.hpp"
   ],
   "repository": {
     "defaultBranchRef": {
@@ -271,6 +296,14 @@
       ]
     },
     {
+      "requirement": "Observed commit timestamps inside event: 81884c6",
+      "passed": true,
+      "evidence": [
+        "2026-10-31T13:21:34+05:30",
+        "2026-10-31T13:21:34+05:30"
+      ]
+    },
+    {
       "requirement": "A required file Dockerfile",
       "passed": true,
       "evidence": "track-a/Dockerfile"
@@ -323,6 +356,7 @@
         "Dockerfile",
         "io.hpp",
         "README.md",
+        "endpoint_table.hpp",
         "PERF.md",
         ".speed-demon.toml",
         "main.cpp",
@@ -601,6 +635,11 @@
       "commit": "11e467385c4d8869a4afbcc7bb8a80d42ff99e98",
       "author_time": "2026-10-31T13:17:37+05:30",
       "committer_time": "2026-10-31T13:17:37+05:30"
+    },
+    {
+      "commit": "81884c6db848ab479baed4ca1b80246180c1203c",
+      "author_time": "2026-10-31T13:21:34+05:30",
+      "committer_time": "2026-10-31T13:21:34+05:30"
     }
   ],
   "future_requirements": [

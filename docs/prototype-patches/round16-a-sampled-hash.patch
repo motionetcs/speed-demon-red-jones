@@ -1,0 +1,37 @@
+--- a/track-a/main.cpp
++++ b/track-a/main.cpp
+@@ -3,7 +3,16 @@
+ #include "parallel.hpp"
+ #include <atomic>
+ #include <numeric>
++#include <bit>
+ 
++static uint64_t endpoint_hash(std::string_view key) {
++    if (key.size() < 8) return std::hash<std::string_view>{}(key);
++    uint64_t a, b, c;
++    std::memcpy(&a, key.data(), 8); std::memcpy(&b, key.data() + key.size() - 8, 8);
++    std::memcpy(&c, key.data() + (key.size() - 8) / 2, 8);
++    uint64_t h = a * 0x9e3779b97f4a7c15ULL ^ std::rotr(b, 23) ^ c * 0xc2b2ae3d27d4eb4fULL ^ key.size();
++    return h ^ (h >> 32);
++}
+ struct Count { uint32_t count = 0, errors = 0; };
+ struct Workspace {
+     struct Slot { std::string_view key; uint32_t id = UINT32_MAX; };
+@@ -13,7 +22,7 @@
+     std::vector<uint64_t> records;
+     std::vector<uint32_t> offsets, cursor, latencies, order;
+     uint32_t intern(std::string_view key) {
+-        size_t slot = std::hash<std::string_view>{}(key) & (table.size() - 1);
++        size_t slot = endpoint_hash(key) & (table.size() - 1);
+         while (table[slot].id != UINT32_MAX) {
+             if (table[slot].key == key) return table[slot].id;
+             slot = (slot + 1) & (table.size() - 1);
+@@ -23,7 +32,7 @@
+         if (paths.size() * 2 > table.size()) {
+             table.assign(table.size() * 2, Slot{});
+             for (uint32_t i = 0; i < paths.size(); ++i) {
+-                size_t p = std::hash<std::string_view>{}(paths[i]) & (table.size() - 1);
++                size_t p = endpoint_hash(paths[i]) & (table.size() - 1);
+                 while (table[p].id != UINT32_MAX) p = (p + 1) & (table.size() - 1);
+                 table[p] = Slot{paths[i], i};
+             }

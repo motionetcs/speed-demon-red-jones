@@ -1,0 +1,52 @@
+--- a/track-a/main.cpp
++++ b/track-a/main.cpp
+@@ -3,6 +3,7 @@
+ #include "parallel.hpp"
+ #include <atomic>
+ #include <numeric>
++#include <mutex>
+ 
+ struct Count { uint32_t count = 0, errors = 0; };
+ struct Workspace {
+@@ -74,6 +75,19 @@
+             }
+         });
+         std::array<Output, 72> output;
++        std::ofstream stream(paths.out / "summary.txt", std::ios::binary);
++        std::array<bool, 72> ready{};
++        unsigned written = 0;
++        std::mutex write_mutex;
++        auto publish = [&](unsigned hour) {
++            std::lock_guard lock(write_mutex);
++            ready[hour] = true;
++            while (written < 72 && ready[written]) {
++                auto& bytes = output[written++].bytes;
++                stream.write(bytes.data(), static_cast<std::streamsize>(bytes.size()));
++                std::string().swap(bytes);
++            }
++        };
+         std::atomic<unsigned> next_hour{0};
+         parallel(threads, [&](unsigned) {
+             Workspace local;
+@@ -84,7 +98,7 @@
+                 std::fill(local.groups.begin(), local.groups.end(), Count{});
+                 size_t count = 0;
+                 for (const auto& chunk : chunks) count += chunk.lines[hour].steps.size();
+-                if (!count) continue;
++                if (!count) { publish(hour); continue; }
+                 local.records.reserve(count);
+                 std::string label;
+                 for (auto& chunk : chunks) {
+@@ -148,10 +162,10 @@
+                     }
+                     out.text("\n");
+                 }
++                publish(hour);
+             }
+         });
+-        std::ofstream stream(paths.out / "summary.txt", std::ios::binary);
+-        for (const auto& hour : output) stream.write(hour.bytes.data(), static_cast<std::streamsize>(hour.bytes.size()));
++
+         stream.close();
+         if (!stream) throw std::runtime_error("cannot write summary.txt");
+     } catch (const std::exception& error) {
