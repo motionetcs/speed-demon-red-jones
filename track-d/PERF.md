@@ -432,3 +432,6 @@ Fresh sample1801/1811 strict ASAN/UBSAN,1819 TSAN, public1/6/12, all high-degree
 
 
 173/7e77576 run-23119d6ff01a passes all five real gates: T0.196418s/M76791808/S862/K20.042317/65.097396 points. REJECT adjacency maps/optional hint: K20.042317/65.097396 fails20.248361/65.319494. T0.196418 versus0.194716 grows0.87%, M76,791,808 versus76,922,880B is nearly flat, S862 versus827 grows4.23%. No physical-THP/phase/cause conclusion is exposed. Restore original D files/Makefile exactlyb693b45 and remove edge_pages.hpp. Raw ../docs/board-round173-adjacency-pages.json.
+
+
+175/e8a5109 run-7585eaad5db7 passes all five real restoration gates: T0.227310s/M77152256/S827/K18.729354/63.626140 points. Original storage restored byte-for-byte. Lower same-source repeat;163 best65.319494/K20.248361 stays separate. Every29 input/file set matches current selected and best-track sources; fresh Make/public/defaults and original D996 new-reference cases pass. Raw ../docs/board-round175-selected-confirmation.json and round175-final-source-match.json.

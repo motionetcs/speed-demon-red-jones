@@ -497,3 +497,6 @@ Exact current C image passes285 regular replays plus228 every-topology valid/24 
 
 
 173/7e77576 run-35e53b7b8fe0 passes all five real gates: T0.062480s/M12267520/S672/K22.812203/67.908361 points. Unchanged selected165 C lower repeat;167 best68.028087/K22.938327 remains separate. Raw ../docs/board-round173-adjacency-pages.json.
+
+
+175/e8a5109 run-5faf38e26ef1 passes all five real restoration gates: T0.062531s/M11665408/S672/K23.033578/68.118071 points. Higher unchanged selected165 source best68.118071/K23.033578 is variation. Every29 input/file set matches current selected and best-track sources; fresh Make/public/defaults and original D996 new-reference cases pass. Raw ../docs/board-round175-selected-confirmation.json and round175-final-source-match.json.

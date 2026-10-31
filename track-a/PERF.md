@@ -435,3 +435,6 @@ Frozen16311 paired full-public hash trials: retained0.041741292s/RSS259522560, c
 
 
 173/7e77576 run-c2db1706a5b4 passes all five real gates: T0.043747s/M21037056/S497/K31.418092/74.858990 points. Unchanged selected165 A higher best74.858990/K31.418092 is repeat variation, not a new algorithm. Raw ../docs/board-round173-adjacency-pages.json.
+
+
+175/e8a5109 run-7fb1c0ca32f8 passes all five real restoration gates: T0.042786s/M20979712/S497/K31.786315/75.112009 points. Higher unchanged selected165 source best75.112009/K31.786315 is variation, not another algorithm gain. Every29 input/file set matches current selected and best-track sources; fresh Make/public/defaults and original D996 new-reference cases pass. Raw ../docs/board-round175-selected-confirmation.json and round175-final-source-match.json.
