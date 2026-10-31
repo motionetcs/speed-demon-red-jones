@@ -4,13 +4,13 @@ Fresh Red Jones entry: https://github.com/motionetcs/speed-demon-red-jones ; pri
 
 ## Retained runtime
 
-Retained source commit `d28fe2590101b6b9a362e71b7bd8ee8f379f0741` is pushed and scored; every A/C/D gate passed in board-retained-final.json. All 25 runtime/build inputs and track metadata match 61e345f, proven in final-retained-source-match.json. Fresh final native/adversarial/public and restricted GCC15/Linux full hashes pass again. Only documentation/test updates follow that exact source confirmation.
+Retained runtime/build source commit `11e467385c4d8869a4afbcc7bb8a80d42ff99e98` is pushed and scored; every A/C/D gate passed in board-round15-offsets.json. All25 current runtime/build inputs and track metadata match that exact scored commit, proven in round15-final-source-match.json. A adds lossless16-bit line-offset deltas with full32-bit escape anchors. C/D match the previously confirmed d28fe25 runtime inputs byte for byte. Only documentation/test updates follow this exact confirmation.
 
-- A: twelve workers; generic GCC, PGO trained on sample seeds 104729 and 130363; hour-owned workspaces, exact ranks, original allocator environment. Best 69.704972 points / K 24.779894, run-1f9a7602cf67.
+- A: twelve workers; generic GCC, PGO trained on sample seeds 104729 and 130363; hour-owned workspaces, lossless16-bit line deltas/32-bit absolute escapes, exact ranks, original allocator environment. Best70.144504 points / K25.286579, run-c26f23dfdc36.
 - C: twelve workers; native GCC, PGO trained on full seed 1000003 and sample seed 130363; scalar quote-aware fields, dense immutable decoded names plus actual atomic country words, exact equality/growing table. Best 64.904735 / K 19.865280, run-4bcf23d06742.
 - D: six query workers/up to four loaders; native GCC/full+sample PGO; exact byte degree wraps and narrow/wide shared cursors, specialized 21-bit/11-bit edges with exact larger-node/weight fallback, private labels, distance bands of width 64 and batches of eight. Best 60.051455 / K 15.886532, run-9f77334ae44a. Same-source repeated records are variation, not new algorithm gains.
 
-Flat/streaming A, SIMD C, wider D bands, variable edge decoding, private loader copies, hardware hashing, private membership, eight-digit parsing and extra label prefetch were rejected based on documented total-score/local evidence. Never reintroduce them from Apple timing alone. Source and truthful raw reports remain in history and docs/prototype-patches. No unscored runtime prototype is retained.
+Flat/streaming A, SIMD C, wider D bands, variable edge decoding, private loader copies, hardware hashing, private membership, eight-digit parsing and extra label prefetch were rejected based on documented total-score/local evidence. Never reintroduce them from Apple timing alone. Source and truthful raw reports remain in history and docs/prototype-patches. No unscored runtime prototype is retained. C membership-read and D negative-filter experiments were reverted after lower real K; small-group A selection and D corridors were rejected as slower locally.
 
 ## Iteration rules
 
@@ -26,4 +26,6 @@ Registration is entrant-confirmed; team form/app access and real scored A/C/D ar
 
 Freeze: 2 November 2026 at 15:00 UTC (20:30 IST). Preserve the passing branch commit and publish that MIT source by 16:00 UTC (21:30 IST). Private is allowed before then. No publication or monitoring automation is scheduled. The owner must remain reachable and may need to explain the approach; OWNER-BRIEFING.md is an honest guide, not a claim that the owner has reviewed it.
 
-Final saved machine snapshot: 2026-10-31T07:17:20Z; mean 64.767116, rank 33/61, leader 79.630832. Leaders remain ahead; no win is claimed. No unscored runtime candidate remains.
+Final saved machine snapshot: 2026-10-31T07:50:02Z; mean64.902963, rank32/66, leader80.244238. Leaders remain ahead; no win is claimed. No unscored runtime candidate remains.
+
+Separate clicker counts: respect3,123 / devils10,371 / pumpkins24 / cans21, total13,539; demon level18. Visible controls were used, no counter API or rate-limit bypass. A bulk pumpkin hold was blocked by automatic review and stopped. No finite cap was shown; do not claim a maximum or clicker leadership.

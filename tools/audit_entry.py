@@ -64,7 +64,7 @@ def main():
         'review_notes':['Reviewed solution source uses standard C++ and OS input/output only.',
           'No baked answers, seed recognition, or pre-event implementation was imported into this fresh repository.',
           'Byte-identical synthetic input/output hashes are checks outside scored runtime folders, not answer caches in the images.',
-          'No board attack or artificial social-reaction activity is part of this entry.']}
+          'User-requested emoji reactions used visible board controls; the separate Clicking Devils totals do not change machine scores. No direct counter edits, identity changes or rate-limit bypass were used. A bulk pumpkin hold was blocked by automatic review and stopped.']}
     (ROOT/'docs/ENTRY-AUDIT.json').write_text(json.dumps(report,indent=2)+'\n')
     print('PASS' if report['all_current_checks_passed'] else 'FAIL',len(checks),'observable checks; publication still pending' if repo['isPrivate'] else 'observable checks; source public')
     return 0 if report['all_current_checks_passed'] else 1

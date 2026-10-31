@@ -10,7 +10,7 @@ This hackathon supplies three data-processing problems we are entering. Our prog
 
 A prepass indexes request lines by full UTC hour, then each worker processes one hour in a small reusable workspace. We keep every latency, including duplicate requests, and calculate exact nearest-rank percentiles. For101 sorted requests, p50 is the51st, p95 the96th and p99 the100th. An HTTP499 is not a server error;500 through599 are. Integer arithmetic makes parts per million exact.
 
-The log is not sorted; every request still reaches its correct hour. Endpoint views refer to the mapped input and complete bytes are compared. We release each completed hour's line offsets and sort output by UTC hour and endpoint. A later two-pass/streaming design saved memory but scored lower and was rejected; the current source is the stronger hour-owned version.
+The log is not sorted; every request still reaches its correct hour. Endpoint views refer to the mapped input and complete bytes are compared. Line positions are stored as small gaps;65535 marks an escape carrying the complete32-bit position. The decoder reconstructs every exact position, including large gaps. We release each completed hour's indexes and sort output by UTC hour and endpoint. A later two-pass/streaming design saved memory but scored lower and was rejected; the current source is the stronger hour-owned version.
 
 ## C: CSV records
 
