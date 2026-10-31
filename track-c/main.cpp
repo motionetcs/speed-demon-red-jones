@@ -1,4 +1,6 @@
 #include "io.hpp"
+#include "parallel.hpp"
+#include "names.hpp"
 #include <array>
 #include <deque>
 #include <numeric>
@@ -100,41 +102,76 @@ int main(int argc, char** argv) {
         }
         size_t unmatched = groups.size();
         groups.push_back(Group{"_UNMATCHED"});
-        size_t words = (groups.size() + 63) / 64;
-        std::unordered_map<std::string_view, uint32_t> names;
-        names.reserve(120000);
-        std::deque<std::string> decoded_names;
-        std::vector<uint64_t> membership;
-        Csv csv{records.data, records.data + records.size};
-        csv.bom();
+        Csv header{records.data, records.data + records.size};
+        header.bom();
         for (auto expected : {"id", "name", "note", "region_id", "amount"}) {
-            if (csv.field(scratch, true).value != expected) throw std::runtime_error("bad records header");
-            if (std::string_view(expected) != "amount") csv.comma(); else csv.newline();
+            if (header.field(scratch, true).value != expected) throw std::runtime_error("bad records header");
+            if (std::string_view(expected) != "amount") header.comma(); else header.newline();
         }
-        std::string name_scratch, unused;
-        while (csv.p < csv.end) {
-            csv.bom();
-            uint64_t id = unsigned_number(csv.field(unused, false).value); csv.comma();
-            Field name = csv.field(name_scratch, true); csv.comma();
-            Field note = csv.field(unused, false); csv.comma();
-            uint64_t region = unsigned_number(csv.field(unused, false).value); csv.comma();
-            int64_t amount = cents(csv.field(unused, false).value); csv.newline();
-            size_t country = region < lookup.size() && lookup[region] != missing ? lookup[region] : unmatched;
-            auto it = names.find(name.value);
-            if (it == names.end()) {
-                std::string_view stable = name.value;
-                if (name.escaped) { decoded_names.emplace_back(name.value); stable = decoded_names.back(); }
-                it = names.emplace(stable, static_cast<uint32_t>(names.size())).first;
-                membership.resize(membership.size() + words, 0);
+        unsigned threads = worker_count();
+        const char* start = header.p;
+        const char* end = records.data + records.size;
+        std::vector<const char*> raw(threads + 1), boundaries(threads + 1);
+        std::vector<unsigned char> parity(threads);
+        for (unsigned i = 0; i <= threads; ++i) raw[i] = start + (end - start) * i / threads;
+        parallel(threads, [&](unsigned i) {
+            parity[i] = static_cast<unsigned char>(std::count(raw[i], raw[i + 1], '"') & 1);
+        });
+        boundaries.front() = start; boundaries.back() = end;
+        bool inside = false;
+        for (unsigned i = 1; i < threads; ++i) {
+            inside = inside != bool(parity[i - 1]);
+            bool quoted = inside;
+            const char* p = raw[i];
+            if (!(p == start || (p[-1] == '\n' && !quoted))) {
+                while (p < end) {
+                    char byte = *p++;
+                    if (byte == '"') quoted = !quoted;
+                    if (byte == '\n' && !quoted) break;
+                }
             }
-            // Exact country membership per interned name replaces millions of set nodes.
-            uint64_t& word = membership[size_t(it->second) * words + country / 64];
-            uint64_t bit = uint64_t(1) << (country % 64);
-            Group& group = groups[country];
-            group.names += (word & bit) == 0; word |= bit;
-            ++group.count; group.ids += static_cast<int64_t>(id); group.sum += amount;
-            group.minimum = std::min(group.minimum, amount); group.maximum = std::max(group.maximum, amount);
-            group.name_bytes += name.bytes; group.note_bytes += note.bytes;
+            boundaries[i] = p;
+        }
+        struct Local { std::vector<Group> groups; std::deque<std::string> storage; };
+        for (size_t capacity = 131072;; capacity *= 2) {
+            Names names(capacity, groups.size());
+            std::vector<Local> locals(threads);
+            for (auto& local : locals) local.groups = groups;
+            parallel(threads, [&](unsigned worker) {
+                try {
+                    auto& local = locals[worker];
+                    Csv csv{boundaries[worker], boundaries[worker + 1]};
+                    std::string name_scratch, unused;
+                    while (csv.p < csv.end) {
+                        csv.bom();
+                        uint64_t id = unsigned_number(csv.field(unused, false).value); csv.comma();
+                        Field name = csv.field(name_scratch, true); csv.comma();
+                        Field note = csv.field(unused, false); csv.comma();
+                        uint64_t region = unsigned_number(csv.field(unused, false).value); csv.comma();
+                        int64_t amount = cents(csv.field(unused, false).value); csv.newline();
+                        size_t country = region < lookup.size() && lookup[region] != missing ? lookup[region] : unmatched;
+                        auto& entry = names.intern(name.value, local.storage);
+                        Group& group = local.groups[country];
+                        group.names += names.first(entry, country);
+                        ++group.count; group.ids += static_cast<int64_t>(id); group.sum += amount;
+                        group.minimum = std::min(group.minimum, amount); group.maximum = std::max(group.maximum, amount);
+                        group.name_bytes += name.bytes; group.note_bytes += note.bytes;
+                    }
+                } catch (const Canceled&) {
+                    return;
+                } catch (...) {
+                    names.canceled.store(true);
+                    throw;
+                }
+            });
+            if (names.too_small.load()) continue; // Reparse with a larger exact table, never an approximate count.
+            for (const auto& local : locals) for (size_t i = 0; i < groups.size(); ++i) {
+                auto& group = groups[i]; const auto& value = local.groups[i];
+                group.count += value.count; group.ids += value.ids; group.sum += value.sum;
+                group.minimum = std::min(group.minimum, value.minimum); group.maximum = std::max(group.maximum, value.maximum);
+                group.names += value.names; group.name_bytes += value.name_bytes; group.note_bytes += value.note_bytes;
+            }
+            break;
         }
         std::sort(groups.begin(), groups.end(), [](const Group& a, const Group& b) { return a.country < b.country; });
         Output output;

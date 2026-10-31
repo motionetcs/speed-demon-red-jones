@@ -20,3 +20,5 @@ This is the fresh Red Jones Speed Demon entry. Read `CODEX_PROMPT.md` for the fu
 ## Active optimization round
 
 The user requested comparison with leaders and continued optimization of A/C/D using real board runs. The baseline comparison is `docs/OPTIMIZATION.md` and `optimization-baseline-board.json`. A's parallel aggregation candidate has passed targeted differential, sanitizer, thread-sanitizer, and Linux container checks. Await its exact-commit board report before judging improvement. C and D retain their existing passing source until their own candidates are ready.
+
+Optimization checkpoint: A's twelve-worker version scored as `run-ca62e267fa82`: 0.081951 s, K=19.908239, 64.951642 points, every gate passed. C's parallel version is fully checked locally and in Linux containers and is being sent alongside A's six-worker comparison. D has an uncommitted bidirectional/sparse-distance prototype; do not accidentally include it until its full-data and sanitizer checks pass. Board watcher: `python3 tools/watch_board.py --report <path>` checks exact commit identity.

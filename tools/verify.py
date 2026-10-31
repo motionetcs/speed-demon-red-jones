@@ -110,6 +110,32 @@ def adversarial():
     for label, records in [("eof", c.RULES_RECORDS), ("bom-eof", c.BOM + c.RULES_RECORDS),
                            ("lf", c.RULES_RECORDS + c.LF), ("crlf", c.RULES_RECORDS + c.CRLF)]:
         rows.append(check("c", "c-grammar-" + label, {"records.csv": records, "regions.csv": c.RULES_REGIONS}, c.RULES_OUTPUT))
+    if "c" in ACTIVE_TRACKS:
+        import csv
+        import io
+        stream = io.StringIO(newline="")
+        writer = csv.writer(stream, lineterminator="\r\n")
+        stream.write("\ufeff")
+        writer.writerow(["id", "name", "note", "region_id", "amount"])
+        for i in range(120000):
+            number, letters = i, []
+            for _ in range(4):
+                letters.append(chr(97 + number % 26)); number //= 26
+            if i and i % 37 == 0:
+                stream.write("\ufeff")
+            writer.writerow([i + 1, "name" + "".join(letters), 'first,"quoted"\nsecond\ufeff' if i % 13 == 0 else "note", 1, "-0.05" if i % 7 == 0 else "1.25"])
+        records = stream.getvalue().encode()
+        regions = b"region_id,country\n1,AAA\n"
+        rows.append(check("c", "c-parallel-resize-and-seams", {"records.csv": records, "regions.csv": regions}, c.run_reference(records, regions)))
+        countries = [chr(65 + i // 676) + chr(65 + i // 26 % 26) + chr(65 + i % 26) for i in range(300)]
+        regions = ("region_id,country\n" + "".join("%d,%s\n" % (i + 1, name) for i, name in enumerate(countries))).encode()
+        stream = io.StringIO(newline="")
+        writer = csv.writer(stream, lineterminator="\n")
+        writer.writerow(["id", "name", "note", "region_id", "amount"])
+        for i in range(600):
+            writer.writerow([i + 1, 'same "name"', "line\none", i % 300 + 1, "0.00"])
+        records = stream.getvalue().encode()
+        rows.append(check("c", "c-wide-country-membership", {"records.csv": records, "regions.csv": regions}, c.run_reference(records, regions)))
     rows.append(check("d", "d-worked", {"graph.txt": d.EXAMPLE_GRAPH, "queries.txt": d.EXAMPLE_QUERIES}, d.EXAMPLE_OUTPUT))
     for seed in range(12):
         rng = random.Random(seed)
@@ -136,6 +162,24 @@ def adversarial():
         expected = "".join(str(-1 if dist[i][j] is None else dist[i][j]) + "\n" for i, j in queries)
         rows.append(check("d", "d-floyd-warshall-%d" % seed, {"graph.txt": graph, "queries.txt": text}, expected))
     rows.append(check("d", "d-empty-queries", {"graph.txt": "1 0\n", "queries.txt": ""}, b""))
+    if "d" in ACTIVE_TRACKS:
+        n = 20000
+        weights = [0 if i % 7 == 0 else 4294967295 if i % 31 == 0 else i % 17 for i in range(n - 1)]
+        prefix = [0]
+        edges = []
+        for i, weight in enumerate(weights):
+            prefix.append(prefix[-1] + weight)
+            edges.append((i, i + 1, weight))
+            if weight < 4294967295:
+                edges.append((i, i + 1, weight + 1))
+        queries = [(0, n - 1), (n - 1, 0)]
+        for i in range(24):
+            source, target = i * 271, n - 1 - i * 251
+            queries.extend([(source, target), (target, source), (source, source)])
+        graph = "%d %d\n" % (n, len(edges)) + "".join("%d %d %d\n" % e for e in edges)
+        text = "".join("%d %d\n" % q for q in queries)
+        expected = "".join(str(prefix[t] - prefix[s] if s <= t else -1) + "\n" for s, t in queries)
+        rows.append(check("d", "d-long-chain-reused-workspaces", {"graph.txt": graph, "queries.txt": text}, expected))
     return [row for row in rows if row is not None]
 
 

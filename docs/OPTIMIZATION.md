@@ -27,3 +27,13 @@ Five alternating local full-data runs after warmup gave these medians:
 The original binary ignores the thread override. These Apple ARM process-launch-inclusive timings select promising candidates only. The first Intel board experiment uses 12 workers; a subsequent board comparison can decide whether six physical-core workers trade better against memory and merge overhead on the scoring CPU.
 
 Next hypotheses: quote-aware parallel CSV parsing and exact concurrent name membership for C; bidirectional search and faster graph loading for D. Neither is claimed as implemented or measured yet.
+
+### Confirmed A board improvement
+
+Run `run-ca62e267fa82`: 0.081951 s, 60,215,296 bytes, S=316, K=19.908239, 64.951642 machine points. All gates passed. This is about 6.58x faster than our original board run and adds 17.70 points. The next board experiment compares six workers against this twelve-worker result.
+
+## C: quote-aware parallel parsing and shared exact membership
+
+The candidate is implemented and passes reference, adversarial, full-public, memory/UB-sanitizer, thread-sanitizer, and Linux container checks. Local five-run medians improved from 1.155291 s to 0.132393 s at twelve requested workers. See `opt-c-parallel-*.json` for actual evidence. Its first board measurement is pending.
+
+D's bidirectional/sparse-distance prototype is local and not yet submitted. Tiny/all-pairs/long-chain and two sample seeds pass; full-data performance and remaining checks must be completed before a board push.
