@@ -64,3 +64,13 @@ Observed K is below the generic-CPU build (20.449888), so generic targeting is r
 Hypothesis: endpoint scanning and scanning latency twice waste parsing work. A bounded `memchr` finds endpoint delimiters; the latency loop now consumes digits once, checks at most ten digits and uint32 range, and requires the final newline. Every full-data output hash remains exact.
 
 Seven alternating local trials after warmup measured six-worker medians of 0.084737 s prior selection version versus 0.078298 s direct parser; at twelve, 0.082032/0.069035 s (about 16% lower). These launch-inclusive Apple ARM results are not board scores. Report: `opt-a-direct-parse-native.json`. Targeted new-seed, full-data, sanitizer, race, and Linux checks precede submission. The next actual board K decides retention.
+
+## Memory experiment: actual board record
+
+`run-c5403082db13` on `28402fefb8136c3db205d3e312c87eef3b87b29f` passed every gate: T=0.079162 s, M=58,077,184 bytes, S=327, K=20.298444, machine points=65.373137. Record: `../docs/board-opt-memory-cd.json`.
+
+## Parser / D-worker comparison: actual board record
+
+`run-bbd53e3cc9e6` on `c21563dbfc44b1504bf8cc5d05f7fceaa8cbf1dd` passed every gate: T=0.069874 s, M=59,830,272 bytes, S=328, K=21.467492, machine points=66.589066. Record: `../docs/board-opt-parser-a-d12.json`.
+
+The direct parser raises observed K from 20.449888 to 21.467492, so it is retained. Against the original board baseline it is about 7.72x faster.

@@ -4,6 +4,7 @@ import argparse
 import datetime
 import json
 import math
+import time
 from pathlib import Path
 import urllib.request
 
@@ -57,9 +58,18 @@ def main():
     if args.input:
         feed = json.loads(args.input.read_text())
     else:
-        request = urllib.request.Request(URL, headers={'Cache-Control': 'no-cache', 'User-Agent': 'speed-demon-team-compare/1.0'})
-        with urllib.request.urlopen(request, timeout=25) as response:
-            feed = json.load(response)
+        for attempt in range(4):
+            try:
+                request = urllib.request.Request(URL + '?v=' + str(time.time_ns()),
+                    headers={'Cache-Control': 'no-cache', 'User-Agent': 'speed-demon-team-compare/1.0'})
+                with urllib.request.urlopen(request, timeout=25) as response:
+                    feed = json.load(response)
+                break
+            except (OSError, ValueError):
+                if attempt == 3:
+                    raise
+                print('Temporary feed download issue; retrying', flush=True)
+                time.sleep(2)
     current, baseline = summarize(feed, args.team), summarize(json.loads(args.baseline.read_text()), args.team)
     report = {'observed_at_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(), 'source': URL,
               'scope': 'Public practice-board best records; computed machine-points mean, not final holdout or judging totals',

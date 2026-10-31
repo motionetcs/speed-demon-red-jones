@@ -55,3 +55,15 @@ Next isolated board experiment changes only Docker compiler targeting to `-march
 Commit `f6b17e3b4d532d0dec3952df9da6d8d4297323de` passed all gates. A K=19.737736 (64.764867 points) trails generic K=20.449888, so A returns to its already-validated generic build. C K=15.787118 (59.915143 points) improves the arena version but still trails the first parallel K=16.035293. D K=10.886019 (51.843455 points) is effectively flat with generic K=10.876457. Single live practice runs contain variation; small deltas are not statistical proof.
 
 The next exact-commit submission uses borrowed mapped name bytes for C and the second-pass graph loader for D. Both have passed new independent samples 47/61, all adversarial cases, full hashes at 1/6/12, address/UB and thread sanitizers, and offline Linux checks. Local C retains most speed gains; D is a deliberate runtime/memory tradeoff. Actual K will decide retention. A is the known best generic configuration.
+
+## Memory refinements confirmed
+
+Commit `28402fefb8136c3db205d3e312c87eef3b87b29f` passed every gate. C borrowed names: 0.100380 s, 14,176,256 bytes, K=18.412702, 63.255877 points (`run-cfa57a041382`), exceeding first-parallel 60.253844 points. D two-pass loading: 0.554190 s, 131,211,264 bytes, K=11.670991, 53.355387 points (`run-f813e2d591b2`), exceeding one-pass native 51.843455 points. Exact records: `board-opt-memory-cd.json`.
+
+Next scored commit pending: `c21563d` uses the fully validated direct parser for A and twelve query workers for D. C retains the new borrowed-name design. D's prior full-data correctness and race tests cover twelve, with a new default-without-override and Linux exact-build check. Actual board K will determine the default. A direct parser reports are `opt-a-direct-parse-*`.
+
+## Parser gain and D worker decision
+
+Commit `c21563dbfc44b1504bf8cc5d05f7fceaa8cbf1dd` passed every gate. A's direct parser scored 0.069874 s, K=21.467492, 66.589066 points (`run-bbd53e3cc9e6`), so it is retained. C source was unchanged and rescored 63.349231 points (`run-2f5d6b5da65d`); this small increase is repeat variation. D twelve workers scored 0.606544 s, K=11.156630, 52.376652 points (`run-4b7dcbc9bc49`), below six-worker K=11.670991. Six is restored and full native/Linux hashes are rechecked.
+
+Retained combination: A12 generic compiler/direct parser/exact selection; C12 native compiler/direct CSV numeric parser/borrowed name bytes and separate exact bitmap; D6 native compiler/two-pass load with at most4 loaders/bidirectional radix/shared query-owned labels/lossless packed edges. The next exact-commit board run confirms this combination. Final holdout and judges remain separate from practice-board results.
