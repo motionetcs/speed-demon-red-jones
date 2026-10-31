@@ -1,6 +1,5 @@
 #pragma once
 #include <cstdint>
-#include <array>
 #include <atomic>
 #include <utility>
 #include <vector>
@@ -53,25 +52,18 @@ struct FastDistances {
     std::vector<uint64_t> labels = std::vector<uint64_t>(4096);
     std::vector<uint32_t> touched;
     Distances wide;
-    std::array<uint64_t, 1024> seen{};
-    static uint32_t filter_bit(uint32_t node) { return (node * 0x9e3779b1U) >> 16; }
-    uint64_t maybe_get(uint32_t node) const {
-        uint32_t bit = filter_bit(node);
-        return (seen[bit / 64] & (uint64_t(1) << (bit % 64))) ? get(node) : UINT64_MAX;
-    }
     size_t slot(uint32_t node) const {
         size_t index = (node * 0x9e3779b1U) & (labels.size() - 1);
         while (labels[index] && uint32_t(labels[index] >> 32) != node + 1) index = (index + 1) & (labels.size() - 1);
         return index;
     }
-    void reset() { for (uint32_t index : touched) labels[index] = 0; touched.clear(); wide.reset(); seen.fill(0); }
+    void reset() { for (uint32_t index : touched) labels[index] = 0; touched.clear(); wide.reset(); }
     uint64_t get(uint32_t node) const {
         if (node == UINT32_MAX || touched.empty()) return wide.get(node);
         uint64_t label = labels[slot(node)];
         return label ? uint32_t(label) : wide.get(node);
     }
     bool improve(uint32_t node, uint64_t distance) {
-        uint32_t bit = filter_bit(node); seen[bit / 64] |= uint64_t(1) << (bit % 64);
         if (node == UINT32_MAX) return wide.improve(node, distance);
         size_t index = slot(node);
         uint64_t previous = labels[index] ? uint32_t(labels[index]) : wide.get(node);

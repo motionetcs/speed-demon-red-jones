@@ -1,0 +1,42 @@
+--- a/track-d/main.cpp
++++ b/track-d/main.cpp
+@@ -112,6 +112,22 @@
+             if (s >= n || t >= n) throw std::runtime_error("query outside graph");
+             queries.emplace_back(s, t);
+         }
++        // Contract only reciprocal degree-two corridors; every query endpoint is pinned.
++        std::vector<uint8_t> corridor(n);
++        auto mark_corridors = [&]<bool Compact>() {
++            parallel(loaders, [&](unsigned worker) {
++                for (size_t v = size_t(n) * worker / loaders; v < size_t(n) * (worker + 1) / loaders; ++v) {
++                    if (offsets[v + 1] - offsets[v] != 2 || reverse_offsets[v + 1] - reverse_offsets[v] != 2) continue;
++                    auto a = edges.template get<Compact>(offsets[v]).first;
++                    auto b = edges.template get<Compact>(offsets[v] + 1).first;
++                    auto c = reverse_edges.template get<Compact>(reverse_offsets[v]).first;
++                    auto e = reverse_edges.template get<Compact>(reverse_offsets[v] + 1).first;
++                    corridor[v] = a != b && a != v && b != v && ((a == c && b == e) || (a == e && b == c));
++                }
++            });
++        };
++        if (edges.compact) mark_corridors.template operator()<true>(); else mark_corridors.template operator()<false>();
++        for (auto [s, t] : queries) corridor[s] = corridor[t] = 0;
+         threads = static_cast<unsigned>(std::min<size_t>(threads, queries.size()));
+         std::vector<int64_t> answers(queries.size(), -1);
+         std::atomic<size_t> next{0};
+@@ -154,6 +170,16 @@
+                             auto [destination, tag] = adjacency.template get<Compact>(i);
+                             uint32_t weight = tag == (Compact ? EdgeStore::small_limit : uint32_t(UINT16_MAX)) ? wide_weights.at(i * 2 + (from_source ? 0 : 1)) : tag;
+                             uint64_t candidate = d + weight;
++                            uint32_t previous = u;
++                            while (corridor[destination]) {
++                                uint32_t slot = starts[destination];
++                                slot += adjacency.template get<Compact>(slot).first == previous;
++                                previous = destination;
++                                auto edge = adjacency.template get<Compact>(slot);
++                                destination = edge.first;
++                                candidate += edge.second == (Compact ? EdgeStore::small_limit : uint32_t(UINT16_MAX))
++                                    ? wide_weights.at(slot * 2 + (from_source ? 0 : 1)) : edge.second;
++                            }
+                             if (own.improve(destination, candidate)) {
+                                 heap.push({candidate, destination});
+                                 uint64_t opposite = other.maybe_get(destination);

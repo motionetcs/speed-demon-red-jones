@@ -49,12 +49,13 @@ int main(int argc, char** argv) {
             }
             boundaries[i] = p;
         }
-        struct Chunk { std::array<std::vector<uint32_t>, 72> lines; };
+        struct Lines { std::vector<uint16_t> steps; std::vector<uint32_t> wide; uint32_t previous = 0; };
+        struct Chunk { std::array<Lines, 72> lines; };
         std::vector<Chunk> chunks(threads);
         parallel(threads, [&](unsigned worker) {
             const char* p = boundaries[worker];
             const char* limit = boundaries[worker + 1];
-            for (auto& lines : chunks[worker].lines) lines.reserve((limit - p) / (72 * 64));
+            for (auto& lines : chunks[worker].lines) lines.steps.reserve((limit - p) / (72 * 64));
             while (p < limit) {
                 if (limit - p < 28) throw std::runtime_error("truncated timestamp");
                 int month = (p[5] - '0') * 10 + p[6] - '0';
@@ -62,7 +63,11 @@ int main(int argc, char** argv) {
                 int hour = (month == 10 ? day - 30 : day + 1) * 24
                          + (p[11] - '0') * 10 + p[12] - '0' - 18;
                 if (hour < 0 || hour >= 72) throw std::runtime_error("hour outside specification");
-                chunks[worker].lines[hour].push_back(static_cast<uint32_t>(p - file.data));
+                auto& lines = chunks[worker].lines[hour];
+                uint32_t position = static_cast<uint32_t>(p - file.data), delta = position - lines.previous;
+                lines.steps.push_back(static_cast<uint16_t>(std::min(delta, uint32_t(UINT16_MAX))));
+                if (delta >= UINT16_MAX) lines.wide.push_back(position);
+                lines.previous = position;
                 const char* newline = static_cast<const char*>(std::memchr(p + 28, '\n', limit - p - 28));
                 if (!newline) throw std::runtime_error("missing latency newline");
                 p = newline + 1;
@@ -78,12 +83,14 @@ int main(int argc, char** argv) {
                 local.records.clear();
                 std::fill(local.groups.begin(), local.groups.end(), Count{});
                 size_t count = 0;
-                for (const auto& chunk : chunks) count += chunk.lines[hour].size();
+                for (const auto& chunk : chunks) count += chunk.lines[hour].steps.size();
                 if (!count) continue;
                 local.records.reserve(count);
                 std::string label;
                 for (auto& chunk : chunks) {
-                    for (uint32_t position : chunk.lines[hour]) {
+                    uint32_t position = 0; size_t wide = 0;
+                    for (uint16_t step : chunk.lines[hour].steps) {
+                        if (step == UINT16_MAX) position = chunk.lines[hour].wide[wide++]; else position += step;
                         const char* p = file.data + position;
                         if (label.empty()) label = std::string(p, 13) + ":00:00Z";
                         p += 28;
@@ -103,7 +110,8 @@ int main(int argc, char** argv) {
                         local.records.push_back(uint64_t(group) << 32 | latency);
                     }
                     // Only this hour's worker reads or releases this vector.
-                    std::vector<uint32_t>().swap(chunk.lines[hour]);
+                    std::vector<uint16_t>().swap(chunk.lines[hour].steps);
+                    std::vector<uint32_t>().swap(chunk.lines[hour].wide);
                 }
                 size_t endpoints = local.paths.size();
                 local.offsets.assign(endpoints + 1, 0);

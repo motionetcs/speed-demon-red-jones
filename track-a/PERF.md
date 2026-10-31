@@ -154,3 +154,9 @@ Next memory hypothesis: replace hour line offsets/packed records with two input 
 ## Small-group selection comparison
 
 An isolated round12 candidate applied the existing progressively restricted exact nth_element sequence to every group, removing the small-group sort branch. Nine alternating full-public native runs per configuration all matched the official SHA. At six workers baseline0.068864 s versus candidate0.069446 s; at twelve0.057893 versus0.058582. Reject before promotion: the candidate is slightly slower at both counts. Raw measurements: `../docs/round12-local-bench.json`. No board run or gain is attributed to this rejected A prototype.
+
+## Lossless line-offset deltas
+
+Retain the hour-owned algorithm but store a uint16 delta from the preceding line position in each worker/hour list. Delta65535 is an escape followed by the full uint32 absolute position in a side vector; larger gaps use the same escape. Decoding begins at zero and reconstructs every position exactly. The existing input-size guard makes all absolute positions representable. First offsets of zero, exact65534/65535/65536 gaps, repeated escapes, larger gaps, worker partitions and both vector lifetimes are covered.
+
+Nine alternating full-public Apple trials measure0.063860 s original versus0.061182 s compressed, with max process RSS290,226,176 versus280,608,768 bytes. Every hash matches. Fresh sample seeds821/823/827, full public1/6/12-worker hashes, strict memory/UB and race sanitizers, exact-gap reference cases and48 restricted Linux replays pass. The replay image ID matches the exact Linux build. Reports: `../docs/round15-a-offsets-*.json`. These are local selection evidence; actual board K decides retention.
