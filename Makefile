@@ -10,6 +10,7 @@ $(BUILD_DIR)/track-%: track-%/main.cpp track-%/io.hpp
 	@mkdir -p $(BUILD_DIR)
 	$(CXX) $(CXXFLAGS) $< -o $@
 
+$(BUILD_DIR)/track-a: track-a/decimal.hpp
 $(BUILD_DIR)/track-d: track-d/radix_heap.hpp track-d/distance_map.hpp track-d/parallel.hpp
 $(BUILD_DIR)/track-a: track-a/parallel.hpp
 $(BUILD_DIR)/track-c: track-c/parallel.hpp track-c/names.hpp

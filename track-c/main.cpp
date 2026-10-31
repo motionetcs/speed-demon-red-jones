@@ -143,7 +143,7 @@ int main(int argc, char** argv) {
         }
         struct Local { std::vector<Group> groups; std::deque<std::string> storage; };
         for (size_t capacity = 131072;; capacity *= 2) {
-            Names names(capacity, groups.size());
+            Names names(capacity, groups.size(), records.data);
             std::vector<Local> locals(threads);
             for (auto& local : locals) local.groups = groups;
             parallel(threads, [&](unsigned worker) {
@@ -155,11 +155,12 @@ int main(int argc, char** argv) {
                         csv.bom();
                         uint64_t id = csv.integer();
                         Field name = csv.field(name_scratch, true); csv.comma();
+                        uint64_t hash = Names::hash_key(name.value); names.prefetch(hash);
                         Field note = csv.field(unused, false); csv.comma();
                         uint64_t region = csv.integer();
                         int64_t amount = csv.amount(); csv.newline();
                         size_t country = region < lookup.size() && lookup[region] != missing ? lookup[region] : unmatched;
-                        auto& entry = names.intern(name.value, name.escaped, local.storage);
+                        auto& entry = names.intern(name.value, name.escaped, local.storage, hash);
                         Group& group = local.groups[country];
                         group.names += names.first(entry, country);
                         ++group.count; group.ids += static_cast<int64_t>(id); group.sum += amount;

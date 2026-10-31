@@ -80,3 +80,9 @@ The direct parser raises observed K from 20.449888 to 21.467492, so it is retain
 `run-c70da1f28b23` on `07f2ac73092f64d98e40825809e88ce7010dca9f` passed every gate at 2026-10-31T04:57:41Z: T=0.069571 s, M=60,276,736 bytes, S=328, K=21.482224, machine points=66.603962. Full record: `../docs/board-opt-retained-acd.json`.
 
 This confirms the retained source rather than a new optimization. A/C algorithms are unchanged from the prior parser comparison; D restores the earlier tested six-worker loader. The spread between unchanged-source practice runs is real, so best observed values and the latest confirmation are reported separately. Final holdout and judging remain separate.
+
+## Second optimization round
+
+Hour-owned workspaces replace whole-input packed records and per-worker72-hour tables. A fresh line-offset prepass preserves every request, then each hour is processed and released independently. Local five-trial median changes from0.085521 s to0.080075 s, while temporary memory is expected to fall; only the board can confirm the cgroup/score benefit. Four-digit parsing is retained here. The exact new-seed, full-hash, memory/UB, race, primitive-model and Linux checks pass. Reports: `round2-layout-*`, `round2-ac-*` and `round2-swar-*`.
+
+Local phase intervals and alternating trials are in `../docs/round2-phase-profile.json` and `round2-layout-native.json`. They are Apple ARM development evidence, not official times.

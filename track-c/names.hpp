@@ -8,21 +8,27 @@ struct Canceled {};
 struct Names {
     struct Entry {
         std::atomic<uint64_t> state{0}; // 0 empty, 1 being published, otherwise the full hash.
-        std::string_view key;
+        uint32_t offset = 0, length = 0;
     };
     size_t capacity, words;
+    const char* input;
+    std::unique_ptr<const char*[]> decoded;
     std::unique_ptr<Entry[]> entries;
     std::unique_ptr<std::atomic<uint64_t>[]> membership;
     std::atomic<size_t> used{0};
     std::atomic<bool> canceled{false}, too_small{false};
-    Names(size_t size, size_t countries) : capacity(size), words((countries + 63) / 64),
+    Names(size_t size, size_t countries, const char* data) : capacity(size), words((countries + 63) / 64),
+        input(data), decoded(new const char*[size]),
         entries(std::make_unique<Entry[]>(size)),
         membership(std::make_unique<std::atomic<uint64_t>[]>(size * words)) {}
 
-    Entry& intern(std::string_view key, bool escaped, std::deque<std::string>& storage) {
-        if (canceled.load(std::memory_order_relaxed)) throw Canceled{};
+    static uint64_t hash_key(std::string_view key) {
         uint64_t hash = std::hash<std::string_view>{}(key);
-        if (hash < 2) hash += 2;
+        return hash < 2 ? hash + 2 : hash;
+    }
+    void prefetch(uint64_t hash) const { __builtin_prefetch(&entries[hash & (capacity - 1)], 0, 1); }
+    Entry& intern(std::string_view key, bool escaped, std::deque<std::string>& storage, uint64_t hash) {
+        if (canceled.load(std::memory_order_relaxed)) throw Canceled{};
         size_t index = hash & (capacity - 1);
         for (;;) {
             Entry& entry = entries[index];
@@ -30,8 +36,12 @@ struct Names {
             if (state == 0) {
                 if (entry.state.compare_exchange_strong(state, 1, std::memory_order_acq_rel)) {
                     try {
-                        if (escaped) { storage.emplace_back(key); entry.key = storage.back(); }
-                        else entry.key = key; // Input-backed views live until after all workers join.
+                        if (key.size() > UINT32_MAX) throw std::runtime_error("name too large");
+                        entry.length = static_cast<uint32_t>(key.size());
+                        if (escaped || uint64_t(key.data() - input) >= UINT32_MAX) {
+                            storage.emplace_back(key); decoded[index] = storage.back().data();
+                            entry.offset = UINT32_MAX;
+                        } else entry.offset = static_cast<uint32_t>(key.data() - input);
                     }
                     catch (...) { canceled.store(true); entry.state.store(0, std::memory_order_release); throw; }
                     entry.state.store(hash, std::memory_order_release);
@@ -45,7 +55,10 @@ struct Names {
                 if (canceled.load(std::memory_order_relaxed)) throw Canceled{};
                 state = entry.state.load(std::memory_order_acquire);
             }
-            if (state == hash && entry.key == key) return entry;
+            if (state == hash) {
+                const char* bytes = entry.offset == UINT32_MAX ? decoded[index] : input + entry.offset;
+                if (std::string_view(bytes, entry.length) == key) return entry;
+            }
             if (canceled.load(std::memory_order_relaxed)) throw Canceled{};
             index = (index + 1) & (capacity - 1);
         }

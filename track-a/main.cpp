@@ -1,16 +1,17 @@
 #include "io.hpp"
+#include "decimal.hpp"
 #include "parallel.hpp"
 #include <atomic>
-#include <unordered_map>
+#include <numeric>
 
 struct Count { uint32_t count = 0, errors = 0; };
-struct Local {
+struct Workspace {
     struct Slot { std::string_view key; uint32_t id = UINT32_MAX; };
     std::vector<Slot> table = std::vector<Slot>(4096);
     std::vector<std::string_view> paths;
     std::vector<Count> groups;
     std::vector<uint64_t> records;
-    std::array<std::string, 72> hours;
+    std::vector<uint32_t> offsets, cursor, latencies, order;
     uint32_t intern(std::string_view key) {
         size_t slot = std::hash<std::string_view>{}(key) & (table.size() - 1);
         while (table[slot].id != UINT32_MAX) {
@@ -18,7 +19,7 @@ struct Local {
             slot = (slot + 1) & (table.size() - 1);
         }
         uint32_t id = static_cast<uint32_t>(paths.size());
-        table[slot] = Slot{key, id}; paths.push_back(key); groups.resize(paths.size() * 72);
+        table[slot] = Slot{key, id}; paths.push_back(key); groups.resize(paths.size());
         if (paths.size() * 2 > table.size()) {
             table.assign(table.size() * 2, Slot{});
             for (uint32_t i = 0; i < paths.size(); ++i) {
@@ -35,101 +36,91 @@ int main(int argc, char** argv) {
     try {
         Paths paths(argc, argv);
         MappedFile file(paths.data / "requests.log");
+        if (file.size > UINT32_MAX) throw std::runtime_error("input exceeds uint32 line-offset capacity");
+        const char* end = file.data + file.size;
         unsigned threads = worker_count();
         std::vector<const char*> boundaries(threads + 1);
-        boundaries.front() = file.data; boundaries.back() = file.data + file.size;
+        boundaries.front() = file.data; boundaries.back() = end;
         for (unsigned i = 1; i < threads; ++i) {
             const char* p = file.data + file.size * i / threads;
             if (p > file.data && p[-1] != '\n') {
-                auto newline = static_cast<const char*>(std::memchr(p, '\n', file.data + file.size - p));
-                p = newline ? newline + 1 : file.data + file.size;
+                const char* newline = static_cast<const char*>(std::memchr(p, '\n', end - p));
+                p = newline ? newline + 1 : end;
             }
             boundaries[i] = p;
         }
-        std::vector<Local> locals(threads);
+        struct Chunk { std::array<std::vector<uint32_t>, 72> lines; };
+        std::vector<Chunk> chunks(threads);
         parallel(threads, [&](unsigned worker) {
-            auto& local = locals[worker];
             const char* p = boundaries[worker];
-            const char* end = boundaries[worker + 1];
-            local.records.reserve(static_cast<size_t>(end - p) / 64);
-            while (p < end) {
-                if (end - p < 28) throw std::runtime_error("truncated timestamp");
+            const char* limit = boundaries[worker + 1];
+            for (auto& lines : chunks[worker].lines) lines.reserve((limit - p) / (72 * 64));
+            while (p < limit) {
+                if (limit - p < 28) throw std::runtime_error("truncated timestamp");
                 int month = (p[5] - '0') * 10 + p[6] - '0';
                 int day = (p[8] - '0') * 10 + p[9] - '0';
                 int hour = (month == 10 ? day - 30 : day + 1) * 24
                          + (p[11] - '0') * 10 + p[12] - '0' - 18;
                 if (hour < 0 || hour >= 72) throw std::runtime_error("hour outside specification");
-                if (local.hours[hour].empty()) local.hours[hour] = std::string(p, 13) + ":00:00Z";
-                p += 28;
-                while (p < end && *p != ' ') ++p;
-                if (p == end) throw std::runtime_error("missing endpoint");
-                const char* start = ++p;
-                p = static_cast<const char*>(std::memchr(start, ' ', end - start));
-                if (!p) throw std::runtime_error("missing endpoint delimiter");
-                std::string_view endpoint(start, p - start);
-                if (end - p < 5) throw std::runtime_error("missing status");
-                bool error = p[1] == '5'; p += 5;
-                start = p;
-                uint64_t latency = 0;
-                while (p < end && *p >= '0' && *p <= '9') latency = latency * 10 + *p++ - '0';
-                if (p == start || p - start > 10 || latency > UINT32_MAX || p == end || *p != '\n')
-                    throw std::runtime_error("invalid latency line");
-                ++p;
-                uint32_t group = local.intern(endpoint) * 72 + hour;
-                ++local.groups[group].count; local.groups[group].errors += error;
-                local.records.push_back(uint64_t(group) << 32 | latency);
+                chunks[worker].lines[hour].push_back(static_cast<uint32_t>(p - file.data));
+                const char* newline = static_cast<const char*>(std::memchr(p + 28, '\n', limit - p - 28));
+                if (!newline) throw std::runtime_error("missing latency newline");
+                p = newline + 1;
             }
         });
-        std::unordered_map<std::string_view, uint32_t> ids;
-        ids.reserve(2048);
-        std::array<std::string, 72> hours;
-        for (const auto& local : locals) {
-            for (auto path : local.paths) ids.try_emplace(path, 0);
-            for (size_t h = 0; h < 72; ++h) if (!local.hours[h].empty()) hours[h] = local.hours[h];
-        }
-        std::vector<std::string_view> endpoints;
-        for (auto [path, id] : ids) endpoints.push_back(path);
-        std::sort(endpoints.begin(), endpoints.end());
-        for (uint32_t i = 0; i < endpoints.size(); ++i) ids[endpoints[i]] = i;
-        size_t endpoint_count = endpoints.size(), group_count = endpoint_count * 72;
-        std::vector<Count> totals(group_count);
-        for (const auto& local : locals) for (size_t e = 0; e < local.paths.size(); ++e) {
-            size_t id = ids.at(local.paths[e]);
-            for (size_t h = 0; h < 72; ++h) {
-                auto count = local.groups[e * 72 + h];
-                totals[h * endpoint_count + id].count += count.count;
-                totals[h * endpoint_count + id].errors += count.errors;
-            }
-        }
-        std::vector<uint32_t> offsets(group_count + 1);
-        for (size_t i = 0; i < group_count; ++i) offsets[i + 1] = offsets[i] + totals[i].count;
-        std::vector<uint32_t> cursor(offsets), latencies(offsets.back());
-        for (auto& local : locals) for (size_t e = 0; e < local.paths.size(); ++e) {
-            size_t id = ids.at(local.paths[e]);
-            for (size_t h = 0; h < 72; ++h) {
-                auto& count = local.groups[e * 72 + h].count;
-                size_t group = h * endpoint_count + id;
-                uint32_t n = count; count = cursor[group]; cursor[group] += n;
-            }
-        }
-        parallel(threads, [&](unsigned worker) {
-            auto& local = locals[worker];
-            for (uint64_t record : local.records)
-                latencies[local.groups[record >> 32].count++] = static_cast<uint32_t>(record);
-        });
-        locals.clear();
         std::array<Output, 72> output;
         std::atomic<unsigned> next_hour{0};
         parallel(threads, [&](unsigned) {
+            Workspace local;
             for (;;) {
-                unsigned h = next_hour.fetch_add(1, std::memory_order_relaxed);
-                if (h >= 72) return;
-                output[h].bytes.reserve(endpoint_count * 100);
-                for (size_t e = 0; e < endpoint_count; ++e) {
-                    size_t group = h * endpoint_count + e;
-                    uint64_t n = totals[group].count, errors = totals[group].errors;
+                unsigned hour = next_hour.fetch_add(1, std::memory_order_relaxed);
+                if (hour >= 72) return;
+                local.records.clear();
+                std::fill(local.groups.begin(), local.groups.end(), Count{});
+                size_t count = 0;
+                for (const auto& chunk : chunks) count += chunk.lines[hour].size();
+                if (!count) continue;
+                local.records.reserve(count);
+                std::string label;
+                for (auto& chunk : chunks) {
+                    for (uint32_t position : chunk.lines[hour]) {
+                        const char* p = file.data + position;
+                        if (label.empty()) label = std::string(p, 13) + ":00:00Z";
+                        p += 28;
+                        while (p < end && *p != ' ') ++p;
+                        if (p == end) throw std::runtime_error("missing endpoint");
+                        const char* start = ++p;
+                        p = static_cast<const char*>(std::memchr(start, ' ', end - start));
+                        if (!p || end - p < 5) throw std::runtime_error("missing endpoint/status");
+                        std::string_view endpoint(start, p - start);
+                        bool error = p[1] == '5'; p += 5;
+                        start = p;
+                        uint64_t latency = decimal_digits(p, end);
+                        if (p == start || p - start > 10 || latency > UINT32_MAX || p == end || *p != '\n')
+                            throw std::runtime_error("invalid latency line");
+                        uint32_t group = local.intern(endpoint);
+                        ++local.groups[group].count; local.groups[group].errors += error;
+                        local.records.push_back(uint64_t(group) << 32 | latency);
+                    }
+                    // Only this hour's worker reads or releases this vector.
+                    std::vector<uint32_t>().swap(chunk.lines[hour]);
+                }
+                size_t endpoints = local.paths.size();
+                local.offsets.assign(endpoints + 1, 0);
+                for (size_t e = 0; e < endpoints; ++e) local.offsets[e + 1] = local.offsets[e] + local.groups[e].count;
+                local.cursor = local.offsets;
+                local.latencies.resize(count);
+                for (uint64_t record : local.records) local.latencies[local.cursor[record >> 32]++] = uint32_t(record);
+                if (local.order.size() != endpoints) {
+                    local.order.resize(endpoints); std::iota(local.order.begin(), local.order.end(), 0);
+                    std::sort(local.order.begin(), local.order.end(), [&](auto a, auto b) { return local.paths[a] < local.paths[b]; });
+                }
+                auto& out = output[hour];
+                out.bytes.reserve(endpoints * 100);
+                for (uint32_t e : local.order) {
+                    uint64_t n = local.groups[e].count, errors = local.groups[e].errors;
                     if (!n) continue;
-                    auto first = latencies.begin() + offsets[group];
+                    auto first = local.latencies.begin() + local.offsets[e];
                     if (n < 64) std::sort(first, first + n);
                     else {
                         size_t unselected = 0;
@@ -141,13 +132,13 @@ int main(int argc, char** argv) {
                             }
                         }
                     }
-                    output[h].text(hours[h]); output[h].text(" "); output[h].text(endpoints[e]);
+                    out.text(label); out.text(" "); out.text(local.paths[e]);
                     for (uint64_t value : {n, uint64_t(first[(50 * n + 99) / 100 - 1]),
                                            uint64_t(first[(95 * n + 99) / 100 - 1]),
                                            uint64_t(first[(99 * n + 99) / 100 - 1]), errors, errors * 1000000 / n}) {
-                        output[h].text(" "); output[h].number(static_cast<int64_t>(value));
+                        out.text(" "); out.number(static_cast<int64_t>(value));
                     }
-                    output[h].text("\n");
+                    out.text("\n");
                 }
             }
         });
