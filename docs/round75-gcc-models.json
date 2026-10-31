@@ -1,0 +1,38 @@
+{
+  "observed_at_utc": "2026-10-31T13:39:16.808199+00:00",
+  "official_score": false,
+  "scope": "Pinned GCC15/Linux strict ASAN/UBSAN independent A cache/canonical-publication/collision/guard/4096-ID models; D exact packed-key reconstruction/collision/growth/fallback/extreme-width/reset/reference models with SSE2 and AVX2 compiler features; current private name models and numeric/queue/distance primitives. Actual D header uses SSE2 on both compiler configurations. Emulated correctness only.",
+  "compiler_image": "gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce",
+  "script": [
+    "set -eu",
+    "export UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1",
+    "g++ -std=c++20 -O1 -g -pthread  -fsanitize=address,undefined '-DENDPOINTS_HEADER=\"/repo/.build/round75/source/track-a/endpoint_table.hpp\"' /repo/tools/test_endpoint_cache.cpp -o /tmp/model0",
+    "/tmp/model0",
+    "g++ -std=c++20 -O1 -g -pthread  -fsanitize=address,undefined '-DENDPOINTS_HEADER=\"/repo/.build/round75/source/track-a/endpoint_table.hpp\"' /repo/tools/test_endpoint_table.cpp -o /tmp/model1",
+    "/tmp/model1",
+    "g++ -std=c++20 -O1 -g -pthread -msse2 -DREQUIRE_PACKED_LABELS -fsanitize=address,undefined '-DDISTANCE_MAP_HEADER=\"/repo/.build/round75/source/track-d/distance_map.hpp\"' /repo/tools/test_packed_distances.cpp -o /tmp/model2",
+    "/tmp/model2",
+    "g++ -std=c++20 -O1 -g -pthread -mavx2 -DREQUIRE_PACKED_LABELS -fsanitize=address,undefined '-DDISTANCE_MAP_HEADER=\"/repo/.build/round75/source/track-d/distance_map.hpp\"' /repo/tools/test_packed_distances.cpp -o /tmp/model3",
+    "/tmp/model3",
+    "g++ -std=c++20 -O1 -g -pthread  -fsanitize=address,undefined '-DNAMES_HEADER=\"/repo/.build/round75/source/track-c/names.hpp\"' /repo/tools/test_name_store.cpp -o /tmp/model4",
+    "/tmp/model4",
+    "g++ -std=c++20 -O1 -g -pthread -fsanitize=address,undefined '-DDECIMAL_HEADER=\"/repo/.build/round75/source/track-a/decimal.hpp\"' '-DCOMPACT_QUEUE_HEADER=\"/repo/.build/round75/source/track-d/radix_heap.hpp\"' '-DDISTANCE_MAP_HEADER=\"/repo/.build/round75/source/track-d/distance_map.hpp\"' /repo/tools/test_primitives.cpp -o /tmp/primitives",
+    "/tmp/primitives"
+  ],
+  "output": "PASS exact endpoint cache byte/guard-page/eviction/long-key/4096-ID and concurrent canonical-publication models\nPASS concurrent full-hash collisions, exact bytes, unique IDs, reserved states and 12-bit ID boundary\nPASS exact distance reference, packed-key reconstruction, full-bucket fallback, grow/promotion/reset, boundary words/nodes and64-bit labels\nPASS exact distance reference, packed-key reconstruction, full-bucket fallback, grow/promotion/reset, boundary words/nodes and64-bit labels\nPASS private exact-name std::set/collision/country/growth/stable-block/long-NUL-UTF8-key models\nPASS decimal reference/byte/guard-page checks and compact/wide queue/label model checks\n",
+  "diagnostics": "",
+  "passed": true,
+  "source_sha256": {
+    "tools/test_endpoint_table.cpp": "5aea29474ca50b9849458725e13abc3ddb71ba48fa6c2de2d4b818d2247dc5ae",
+    "tools/test_packed_distances.cpp": "45a0c4e861189c1ccf91e092685630daa068f6216be06852741179aaeea79ed4",
+    ".build/round75/source/track-c/names.hpp": "a2085f7ebcd7639059566ec10272a71269dd4f0ce1131df4bd2001b360f55e6a",
+    "tools/test_endpoint_cache.cpp": "65a9c181f7a54662190ed9cda6787881f6403f507d2b27723b7c50f1344f7ea7",
+    ".build/round75/source/track-d/distance_map.hpp": "07b254af4e7a149bdae50e426c3355446e104333e6a8dcd43cd29181db4a8604",
+    ".build/round75/source/track-a/decimal.hpp": "aee2210ac5894050834ffd37903718b3b7bdc6673240559baa85b350bea9b581",
+    ".build/round75/source/track-d/radix_heap.hpp": "7fb2052bb951ca391c5b1883d8e673f554a43ab3d06286e43597105c2d82b6e3",
+    ".build/round75/source/track-a/endpoint_table.hpp": "913048b747b8f938cf1b438f29648a62d11434b2d71c3fb9a9b5f5aae31df745",
+    "tools/test_name_store.cpp": "683002bf528f64c680123d8cd3a4e3eeafed403d1ba3e65c691dfb478b4cc820",
+    "tools/private_names_model.hpp": "6241a707fcee7a81a8db25bf1f5888e12d6b9f5aa4a0891120baea6fb44a75b2",
+    "tools/test_primitives.cpp": "8ba7999c2b3de11688090a64f7cad35129ac8d3cc5db7aac59ff5efd8880924e"
+  }
+}

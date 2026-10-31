@@ -279,3 +279,12 @@ Final selected combination 0008c8ae9868ebf4746fa228ec813ab2dda8ab6d, run-55821b1
 
 
 Post-canonical pipeline balance retest (same512-event keys/layout), eleven rotating full-public native trials, every hash checked: readers/owners4/8=0.085573 s,6/6=0.072830,8/4=0.069911,9/3=0.074627,10/2=0.097526. Default8/4 wins; all others rejected at screening only, with no broad sanitizer/board claim. Total workers remain12. Raw round72-canonical-pipeline-balance-bench.json and round72-prototype-index.json preserve exact compiler overrides. No runtime change follows this screen.
+
+
+## Batched prefetch inside private canonical-name owners
+
+The old shared-table payload-prefetch rejection does not measure this newer owner-private pipeline. Here consumers process16 events in three stages: prefetch table slots, prefetch a matching key/header/exact country word, then perform the unchanged exact updates in original order. Hints never decide equality or count. Names.first may grow the table later, but no stored prefetched entry reference is reused; key blocks remain stable. Every queue ownership/release/acquire/cancellation rule is unchanged.
+
+Eleven rotating full-public native trials: retained0.060312 s; batch8=0.059265, batch16=0.058061, lookahead8=0.059286, lookahead16=0.059313. Choose16 (3.7% lower), with essentially unchanged native RSS. Source cost still counts and only real total K decides.
+
+Fresh1283/1289 ASAN/UBSAN,1291 TSAN, every country width through17576, every1..12 worker progress/batch/EOF/equality/cancellation case, full/default outputs, exact private-name GCC/native reference models and120 current-image Linux replays pass. Frozen75 inputs are independently tied to these exact images. Real K must exceed22.504622/67.613586.

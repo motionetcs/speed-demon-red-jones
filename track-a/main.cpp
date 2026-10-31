@@ -35,6 +35,7 @@ int main(int argc, char** argv) {
         parallel(threads, [&](unsigned worker) {
             const char* p = boundaries[worker]; const char* limit = boundaries[worker + 1];
             auto& chunk = chunks[worker];
+            LocalEndpoints local_names(endpoints);
             size_t reserve_hint = (limit - p) / (72 * 64);
             while (p < limit) {
                 if (limit - p < 28) throw std::runtime_error("truncated timestamp");
@@ -52,7 +53,7 @@ int main(int argc, char** argv) {
                 uint64_t latency = decimal_digits(p, limit);
                 if (p == start || p - start > 10 || latency > UINT32_MAX || p == limit || *p != '\n') throw std::runtime_error("invalid latency");
                 ++p;
-                uint16_t key = endpoints.intern(endpoint, std::hash<std::string_view>{}(endpoint));
+                uint16_t key = local_names.intern(endpoint);
                 if (chunk.first[hour] == UINT32_MAX) {
                     chunk.first[hour] = static_cast<uint32_t>(line - file.data);
                     chunk.records[hour].reserve(reserve_hint);
@@ -61,11 +62,7 @@ int main(int argc, char** argv) {
                 if (latency >= latency_escape) chunk.wide[hour].push_back(static_cast<uint32_t>(latency));
             }
         });
-        std::vector<std::string_view> paths(endpoints.used.load());
-        for (size_t i = 0; i < Endpoints::capacity; ++i) {
-            auto state = endpoints.entries[i].state.load();
-            if (state > 1) paths[(state & 65535) - 2] = endpoints.entries[i].value;
-        }
+        std::vector<std::string_view> paths(endpoints.canonical.begin(),endpoints.canonical.begin()+endpoints.used.load());
         endpoints.entries.reset(); // Path views borrow the still-mapped input.
         std::vector<uint16_t> order(paths.size()); std::iota(order.begin(), order.end(), 0);
         std::sort(order.begin(), order.end(), [&](uint16_t a, uint16_t b) { return paths[a] < paths[b]; });

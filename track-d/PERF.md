@@ -260,3 +260,14 @@ Round70 7402c7f, run-121a8b2f038c passes all official gates: T0.289287 s/M910008
 
 
 Final selected combination 0008c8ae9868ebf4746fa228ec813ab2dda8ab6d, run-e3b408a1cd25 passes check/build/correctness/timeout/sandbox: T0.22984 s/M90148864/S772/K18.242324/63.054009 points. All27 current inputs match this exact commit and each best track source in ../docs/round71-final-source-match.json. A/C small new best observations are unchanged-source variation; the two real C algorithm improvements are recorded separately. Further updates are evidence/prose only. Report ../docs/board-round71-selected-final.json.
+
+
+## Lossless bucketed32-bit labels with full64-bit fallback
+
+A bucket supplies a node's low bits and the stored tag supplies every remaining bit of a21-bit node ID. This is exact identity reconstruction, not a probabilistic fingerprint. A nonzero low field stores distance+1. Values/node IDs that cannot fit, and full buckets, use the unchanged full-node64-bit distance map. On improvement, a compact label is always no greater than an old fallback value. Table growth reconstructs complete IDs and preserves every exact distance. Zero-distance/node-zero, packed UINT32_MAX words,31-bit shifts, full buckets, promotion, resets, wider IDs and distances all have independent reference coverage.
+
+Eight-entry buckets use bounded128-bit SSE2 or NEON groups; other architectures have a scalar path. SIMD compares either matching exact tags or the first empty slot. Buckets have a dense occupied prefix because individual labels are not deleted within a query; whole-query reset clears all touched slots. Adjacent graph/CSR/queue logic and full-width path arithmetic are unchanged.
+
+Initial four-way screens save about11MB native RSS but are slightly slower. Eleven rotating widened-bucket public trials: retained0.186116 s/190.55MB, four-way0.192328/178.52MB, eight-way bits9=0.193552/178.19MB, eight-way bits10=0.187594/179.06MB. Select eight-way10:0.8% slower locally but about11.5MB less peak RSS. Canonical source/memory/time cost must earn actual total K.
+
+Fresh1283/1289 ASAN/UBSAN,1291 TSAN, full/default/degree/cursor/wide-ID/zero/MAX/64-bit tests,256 independent Floyd graphs/85,871 answers, strict native/GCC full-key reference/reconstruction/growth/fallback/promotion/reset/extreme-width and queue models pass.945 current-image Linux cases and all27 frozen/source/image identities pass. Real K must exceed19.129071/64.084694.

@@ -207,7 +207,12 @@ int main(int argc, char** argv) {
                                 if(finished[reader])continue;auto& queue=queues[size_t(reader)*owners+owner];
                                 if(!queue.ready.load(std::memory_order_acquire))continue;progress=true;
                                 if(queue.rows.empty()){finished[reader]=true;--remaining;}
-                                else for(const auto& e:queue.rows)distinct[owner][e.country]+=names.first(e.value(),e.country,e.hash);
+                                else for(size_t begin=0;begin<queue.rows.size();begin+=16){
+                                    size_t end=std::min(begin+16,queue.rows.size());
+                                    for(size_t i=begin;i<end;++i)names.prefetch_slot(queue.rows[i].hash);
+                                    for(size_t i=begin;i<end;++i)names.prefetch_key(queue.rows[i].hash,queue.rows[i].country);
+                                    for(size_t i=begin;i<end;++i){const auto& e=queue.rows[i];distinct[owner][e.country]+=names.first(e.value(),e.country,e.hash);}
+                                }
                                 queue.rows.clear();queue.ready.store(false,std::memory_order_release);
                             }
                             if(!progress)std::this_thread::yield();

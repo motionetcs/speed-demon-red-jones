@@ -1,0 +1,87 @@
+--- a/track-a/endpoint_table.hpp
++++ b/track-a/endpoint_table.hpp
+@@ -1,5 +1,10 @@
+ #pragma once
+ #include <atomic>
++#include <array>
++#include <bit>
++#include <cstring>
++#include <functional>
++#include <vector>
+ #include <cstdint>
+ #include <memory>
+ #include <stdexcept>
+@@ -10,6 +15,7 @@
+     static constexpr uint64_t hash_mask = 0xffffffffffff0000ULL;
+     struct Entry { std::atomic<uint64_t> state{0}; std::string_view value; };
+     std::unique_ptr<Entry[]> entries = std::make_unique<Entry[]>(capacity);
++    std::array<std::string_view,4096> canonical{};
+     std::atomic<uint32_t> used{0};
+     std::atomic<bool> canceled{false};
+     uint16_t intern(std::string_view value, uint64_t hash) {
+@@ -20,7 +26,7 @@
+             if (!state && entry.state.compare_exchange_strong(state, 1, std::memory_order_acq_rel)) {
+                 auto id = used.fetch_add(1, std::memory_order_relaxed);
+                 if (id >= 4096) { canceled.store(true); entry.state.store(0, std::memory_order_release); throw std::runtime_error("endpoint limit exceeded"); }
+-                entry.value = value; entry.state.store((hash & hash_mask) | (id + 2), std::memory_order_release); return static_cast<uint16_t>(id);
++                canonical[id]=value; entry.value = value; entry.state.store((hash & hash_mask) | (id + 2), std::memory_order_release); return static_cast<uint16_t>(id);
+             }
+             while (state == 1) state = entry.state.load(std::memory_order_acquire);
+             if (state > 1 && (state & hash_mask) == (hash & hash_mask) && entry.value == value) return static_cast<uint16_t>((state & 65535) - 2);
+@@ -29,3 +35,24 @@
+         throw std::runtime_error("endpoint table exceeds capacity");
+     }
+ };
++
++struct LocalEndpoints {
++    struct Slot{const char* data=nullptr;uint32_t hash=0;uint16_t length=0,id=UINT16_MAX;};
++    Endpoints& shared;std::vector<Slot> slots=std::vector<Slot>(8192);size_t used=0;
++    explicit LocalEndpoints(Endpoints& table):shared(table){}
++    static uint32_t hash_key(std::string_view v){
++        if(v.size()<4){uint32_t h=2166136261U;for(unsigned char c:v)h=(h^c)*16777619U;return h;}
++        uint32_t a,b,c;std::memcpy(&a,v.data(),4);std::memcpy(&b,v.data()+(v.size()-4)/2,4);std::memcpy(&c,v.data()+v.size()-4,4);
++        uint32_t h=(a^std::rotl(b,11)^std::rotl(c,23)^uint32_t(v.size()))*0x9e3779b1U;return h^(h>>16);
++    }
++    void grow(){auto previous=std::move(slots);slots.resize(previous.size()*2);for(auto e:previous)if(e.id!=UINT16_MAX){size_t i=e.hash&(slots.size()-1);while(slots[i].id!=UINT16_MAX)i=(i+1)&(slots.size()-1);slots[i]=e;}}
++
++    uint16_t intern(std::string_view value){
++        if(value.size()>UINT16_MAX)return shared.intern(value,std::hash<std::string_view>{}(value));
++        uint32_t hash=hash_key(value);size_t i=hash&(slots.size()-1);
++        while(slots[i].id!=UINT16_MAX){const auto& cached=slots[i];if(cached.hash==hash&&cached.length==value.size()&&(value.empty()||std::memcmp(cached.data,value.data(),value.size())==0))return cached.id;i=(i+1)&(slots.size()-1);}
++        if(used>=slots.size()*7/8){grow();i=hash&(slots.size()-1);while(slots[i].id!=UINT16_MAX)i=(i+1)&(slots.size()-1);}
++        uint16_t id=shared.intern(value,std::hash<std::string_view>{}(value));
++        slots[i]={shared.canonical[id].data(),hash,static_cast<uint16_t>(value.size()),id};++used;return id;
++    }
++};
+--- a/track-a/main.cpp
++++ b/track-a/main.cpp
+@@ -35,6 +35,7 @@
+         parallel(threads, [&](unsigned worker) {
+             const char* p = boundaries[worker]; const char* limit = boundaries[worker + 1];
+             auto& chunk = chunks[worker];
++            LocalEndpoints local_names(endpoints);
+             size_t reserve_hint = (limit - p) / (72 * 64);
+             while (p < limit) {
+                 if (limit - p < 28) throw std::runtime_error("truncated timestamp");
+@@ -52,7 +53,7 @@
+                 uint64_t latency = decimal_digits(p, limit);
+                 if (p == start || p - start > 10 || latency > UINT32_MAX || p == limit || *p != '\n') throw std::runtime_error("invalid latency");
+                 ++p;
+-                uint16_t key = endpoints.intern(endpoint, std::hash<std::string_view>{}(endpoint));
++                uint16_t key = local_names.intern(endpoint);
+                 if (chunk.first[hour] == UINT32_MAX) {
+                     chunk.first[hour] = static_cast<uint32_t>(line - file.data);
+                     chunk.records[hour].reserve(reserve_hint);
+@@ -61,11 +62,7 @@
+                 if (latency >= latency_escape) chunk.wide[hour].push_back(static_cast<uint32_t>(latency));
+             }
+         });
+-        std::vector<std::string_view> paths(endpoints.used.load());
+-        for (size_t i = 0; i < Endpoints::capacity; ++i) {
+-            auto state = endpoints.entries[i].state.load();
+-            if (state > 1) paths[(state & 65535) - 2] = endpoints.entries[i].value;
+-        }
++        std::vector<std::string_view> paths(endpoints.canonical.begin(),endpoints.canonical.begin()+endpoints.used.load());
+         endpoints.entries.reset(); // Path views borrow the still-mapped input.
+         std::vector<uint16_t> order(paths.size()); std::iota(order.begin(), order.end(), 0);
+         std::sort(order.begin(), order.end(), [&](uint16_t a, uint16_t b) { return paths[a] < paths[b]; });

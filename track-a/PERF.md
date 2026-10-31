@@ -269,3 +269,12 @@ Round70 7402c7f, run-67c43ed0dfc4 passes all official gates: T0.066032 s/M344268
 
 
 Final selected combination 0008c8ae9868ebf4746fa228ec813ab2dda8ab6d, run-15bb24b2ed98 passes check/build/correctness/timeout/sandbox: T0.050478 s/M33771520/S378/K27.721673/72.140972 points. All27 current inputs match this exact commit and each best track source in ../docs/round71-final-source-match.json. A/C small new best observations are unchanged-source variation; the two real C algorithm improvements are recorded separately. Further updates are evidence/prose only. Report ../docs/board-round71-selected-final.json.
+
+
+## Exact per-worker cache with globally published stable views
+
+The earlier256-entry front caches did not help. This candidate uses4096 direct-mapped16-byte cache entries per parser and shares the first globally interned view of each endpoint through an ID-indexed canonical array, published before the existing release state. Full byte equality guards every local hit; collisions evict and call the original full-hash/full-equality global interner. Cache identity is never a sampled hash alone. Long keys beyond the local16-bit length use the original full-view fallback; no truncation occurs. Global ID capacity/overflow and full uint32 latency escapes remain exact. After parser joins, output paths copy the dense canonical views instead of scanning hash slots.
+
+Eleven rotating full-public native trials: retained0.042613 s, growable4096=0.041343, growable8192=0.040753, direct4096=0.040901. Choose direct for smaller memory/source versus the tiny extra8192 speed. Its peak native RSS264.65 versus264.27MB is slightly larger. This4.0% local speed hypothesis must earn its actual source/memory cost on Intel.
+
+Fresh1283/1289 ASAN/UBSAN,1291 TSAN, public/default1/6/12, exact method/hour/escape/ID fixtures and69 current-image Linux cases pass. Dedicated byte/guard/eviction/long-key/4096-ID models deliberately collide all sampled bytes while retaining distinct full keys; concurrent canonical publication passes separate native TSAN and native/GCC strict ASAN/UBSAN. Frozen75 source proof matches every built input. Real K must exceed27.721673/72.140972.

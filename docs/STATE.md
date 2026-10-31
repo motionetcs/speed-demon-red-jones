@@ -1,20 +1,12 @@
-# Current selected state
+# Active optimization state — round75
 
-Fresh Red Jones: https://github.com/motionetcs/speed-demon-red-jones ; private, default/required branch speed-demon; entered A/C/D. Source is event-written, no pre-event private implementation imported. No competitor implementation source copied; public README/PERF high-level observations are attributed in STRATEGY.
+Baseline clean pushed4eb6f36, compiled source-identical to scored0008c8a; A72.140972/K27.721673,C67.613586/K22.504622,D64.084694/K19.129071. Official snapshot13:17 UTC mean67.866704, rank32/76, leader81.805732; no number one claim.
 
-## Selected algorithms and source
+Current candidate75 changes all three tracks: A4096-entry exact direct cache plus release-published global canonical views; C16-event slot/key/country-word prefetch inside the current private owner pipeline; D lossless eight-way32-bit labels (full node identity derived from bucket/tag, exact distance+1, full64-bit fallback). Unselected variant patches and full native screens are archived in round73-75-prototype-index.json. A direct cache is4% faster locally, C batch16 about3.7%, D about0.8% slower with11.5MB lower native RSS. No Intel gain claimed before a real run.
 
-All27 runtime/build/metadata inputs match all-gates scored 0008c8ae9868ebf4746fa228ec813ab2dda8ab6d and each current best track source, plus frozen71/native/full/default/Linux validation. A restores57cc23e standard hashing/fused/lazy/cutoff32. C retains67 bounded one-pass canonical-key pipeline:8 readers/4owners at12,512-record SPSC batches, exact full-key/country membership, growable private tables, exact local CSV synchronization and all widths. D retains57cc23e12-loader/16-row-prefetch/cap2 source.
+All27 source/build/metadata inputs match frozen75,1283/1289 ASAN/UBSAN,1291 TSAN and exact Linux images.1134 current-image Linux replays A69/C120/D945, actual defaults, complete country widths, all1..12 queue/cancellation/batch/reference cases,256 independent Floyd graphs/85,871 answers and dedicated native/GCC cache/canonical-publication/guard/collision/ID and packed-label/reconstruction/growth/fallback/reset/extreme-width/primitive models pass. Native cache has separate targeted TSAN. Proof round75-candidate-source-match.json.
 
-Best A72.140972/K27.721673; C67.613586/K22.504622; D64.084694/K19.129071. The small final A/C increases are unchanged-source variation; algorithmic C67 first scores67.592444. C rises66.473216→66.848983→67.592444 in two genuine algorithms and repeats67.583792 on unchanged70 source. No new A/D algorithm gain in this pass. Round70 A CRC loses68.916469 despite every gate/model passing and is removed. All losses/raw reports/patches preserved; no unselected prototype in track directories.
-
-Complete2026-10-31T13:06:55Z snapshot: mean67.866704, rank32/75, leader Cause Of Death81.805732. A42/90,C30/76,D14/79. We are not first. Current overview RESULTS.md and round71-confirmed-comparison.json.
-
-## Completion of this pass
-
-Final selected commit 0008c8ae9868ebf4746fa228ec813ab2dda8ab6d genuinely passes every official A/C/D gate, exact record board-round71-selected-final.json. All27 inputs match it and each current best track source; proof round71-final-source-match.json. Final Make/public/default and1134 per-image Linux replays pass. Later changes are documentation/evidence only. No active runtime candidate or board watcher remains.
-
-The last canonical512-event balance retest4/6/8/9/10 readers keeps8/4: other splits lose native full-public/hash-checked screening and are not promoted. Limits in round72-prototype-index.json. Do not reintroduce rejected CRC/native/allocator/endpoint/hash/reset variants without a new evidence-backed hypothesis. Number one remains unachieved; mean67.866704 versus leader81.805732. Future work must address a substantial measured gap, not relabel repeat variation as a gain.
+Capture exact75 A/C/D official records before another runtime push; retain only real total K>A27.721673,C22.504622,D19.129071. Restore any losing track to4eb6f36 runtime/build/metadata and README, preserving chronological PERF evidence. Baseline0008c8a source/proof and raw best records are retained. Do not import any pre-event private implementation or copy competitor entries. All new work here is event-written.
 
 ## Evidence and operation
 

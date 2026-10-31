@@ -1,0 +1,64 @@
+{
+  "observed_at_utc": "2026-10-31T13:36:16.211749+00:00",
+  "official_score": false,
+  "scope": "Strict native model assertions; endpoint local cache has separate ASAN/UBSAN and TSAN. Exact map reference models are independent of implementation decisions.",
+  "runs": [
+    {
+      "model": "test_endpoint_cache",
+      "mode": "asan",
+      "stdout": "PASS exact endpoint cache byte/guard-page/eviction/long-key/4096-ID and concurrent canonical-publication models\n",
+      "stderr": "",
+      "binary_sha256": "f32d2ae723c1292cdac4ffa8efe4e61d5cbca6dce0170a9dbe01fe2e5427cc8c",
+      "source_sha256": {
+        "tools/test_endpoint_cache.cpp": "65a9c181f7a54662190ed9cda6787881f6403f507d2b27723b7c50f1344f7ea7",
+        ".build/round75/source/track-a/endpoint_table.hpp": "913048b747b8f938cf1b438f29648a62d11434b2d71c3fb9a9b5f5aae31df745"
+      }
+    },
+    {
+      "model": "test_endpoint_cache",
+      "mode": "tsan",
+      "stdout": "PASS exact endpoint cache byte/guard-page/eviction/long-key/4096-ID and concurrent canonical-publication models\n",
+      "stderr": "",
+      "binary_sha256": "740ce492a369fef5be4edfef8a8453b2f88cf1d5480c344ed05ae3be70528551",
+      "source_sha256": {
+        "tools/test_endpoint_cache.cpp": "65a9c181f7a54662190ed9cda6787881f6403f507d2b27723b7c50f1344f7ea7",
+        ".build/round75/source/track-a/endpoint_table.hpp": "913048b747b8f938cf1b438f29648a62d11434b2d71c3fb9a9b5f5aae31df745"
+      }
+    },
+    {
+      "model": "test_endpoint_table",
+      "mode": "asan",
+      "stdout": "PASS concurrent full-hash collisions, exact bytes, unique IDs, reserved states and 12-bit ID boundary\n",
+      "stderr": "",
+      "binary_sha256": "fa8124bbd222ec62738f65b418b79554bf8e97e79582ddef2ced26c15ce900f5",
+      "source_sha256": {
+        "tools/test_endpoint_table.cpp": "5aea29474ca50b9849458725e13abc3ddb71ba48fa6c2de2d4b818d2247dc5ae",
+        ".build/round75/source/track-a/endpoint_table.hpp": "913048b747b8f938cf1b438f29648a62d11434b2d71c3fb9a9b5f5aae31df745"
+      }
+    },
+    {
+      "model": "test_packed_distances",
+      "mode": "asan",
+      "stdout": "PASS exact distance reference, packed-key reconstruction, full-bucket fallback, grow/promotion/reset, boundary words/nodes and64-bit labels\n",
+      "stderr": "",
+      "binary_sha256": "d54eb54f3dc97154745cc91ec48ad9b6f5493fff106983450eca209447e9c137",
+      "source_sha256": {
+        "tools/test_packed_distances.cpp": "45a0c4e861189c1ccf91e092685630daa068f6216be06852741179aaeea79ed4",
+        ".build/round75/source/track-d/distance_map.hpp": "07b254af4e7a149bdae50e426c3355446e104333e6a8dcd43cd29181db4a8604"
+      },
+      "extra_coverage": "explicit uint64 array for cross-platform type portability; valid maximum-width table state exercises31-bit shifts"
+    },
+    {
+      "model": "test_name_store",
+      "mode": "asan",
+      "stdout": "PASS private exact-name std::set/collision/country/growth/stable-block/long-NUL-UTF8-key models\n",
+      "stderr": "",
+      "binary_sha256": "434bbc7cf1cdc93b950e05f43651732731617451411ec39bafcbc10ac5c21eee",
+      "source_sha256": {
+        "tools/test_name_store.cpp": "683002bf528f64c680123d8cd3a4e3eeafed403d1ba3e65c691dfb478b4cc820",
+        ".build/round75/source/track-c/names.hpp": "a2085f7ebcd7639059566ec10272a71269dd4f0ce1131df4bd2001b360f55e6a"
+      }
+    }
+  ],
+  "passed": true
+}

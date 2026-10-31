@@ -33,6 +33,15 @@ struct Names {
     explicit Names(size_t countries):entries(16384),words((countries+63)/64){}
     static uint64_t hash_key(std::string_view key){uint64_t h=std::hash<std::string_view>{}(key);return h<2?h+2:h;}
     std::string_view bytes(const NameKey* key)const{return {reinterpret_cast<const char*>(key)+sizeof(NameKey)+words*sizeof(uint64_t),key->length};}
+    void prefetch_slot(uint64_t hash)const{__builtin_prefetch(&entries[hash&(entries.size()-1)],0,1);}
+    void prefetch_key(uint64_t hash,size_t country)const{
+        const auto& entry=entries[hash&(entries.size()-1)];
+        if(entry.hash==hash&&entry.key){
+            auto* base=reinterpret_cast<const char*>(entry.key);__builtin_prefetch(base,0,1);
+            __builtin_prefetch(base+sizeof(NameKey)+(country/64)*sizeof(uint64_t),1,1);
+            __builtin_prefetch(base+sizeof(NameKey)+words*sizeof(uint64_t),0,1);
+        }
+    }
     void grow(){
         if(entries.size()>SIZE_MAX/2/sizeof(Entry))throw std::runtime_error("name table overflow");
         std::vector<Entry> larger(entries.size()*2);

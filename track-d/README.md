@@ -27,3 +27,5 @@ The Docker build retains profile-guided compilation after a real-board gain. `tr
 The narrow-counter loader passes all official gates and improves observed D to60.023752 points/K15.866278, T0.329751 s, M76,771,328 bytes. Full record: `../docs/board-round7-narrow-d.json`. The immutable graph/search behavior is unchanged.
 
 Both loader passes use bounded16-row scratch batches to overlap degree/cursor/edge accesses. The final image caps process-local glibc arenas at2; no host setting is modified. Current exact run IDs and retention decisions are in PERF.md.
+
+Search labels now use exact bucket-low-bit plus stored-high-bit identity and distance+1 fields when representable; wider keys/distances/full buckets retain full64-bit fallback. No key or distance is approximated. Actual total-score acceptance is recorded in PERF.md.
