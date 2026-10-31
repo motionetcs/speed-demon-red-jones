@@ -46,3 +46,9 @@ The next board comparison changes only A's worker count from twelve to six; all 
 The six-worker board run `run-b768e98565d3` on `835148746ad0da7f69d93a9f72f80cb710f1b52a` passed every gate: T=0.091654 s, M=49,655,808 bytes, S=316, K=19.565079, points=64.574080. Twelve workers had the higher observed K, so twelve is restored. The 1.7% K difference is small and may include run variation; it is not a statistical claim. Record: `../docs/board-opt-c12-a6.json`.
 
 The original serial-layout selection rejection remains valid for that layout. After contiguous parallel scattering, selection was retested on full data with seven alternating, hash-checked trials after warmup. At twelve workers, medians were 0.062149 s sorting versus 0.058430 s selection; at six, 0.062985 versus 0.060846 s. Reports: `opt-a-parallel-selection-native.json`. The candidate passed tiny/adversarial, independent sample seeds 23/41, full public hashes at 1/6/12 workers, address/undefined-behavior and thread sanitizers, and offline Linux full-data validation. Reports: `opt-a-parallel-selection-*.json`. Its board result is pending.
+
+## Refined candidate: actual board record
+
+`run-3e1350a66528` on `072ce9b9046484a76c7e98aebd1e998e0d440d17` passed every gate: T=0.076981 s, M=60,006,400 bytes, S=327, K=20.449888, machine points=65.534547. Record: `../docs/board-opt-refined-acd.json`.
+
+Next experiment: `-march=native` in the Docker build. The official harness explicitly builds native-targeted submissions on the scoring CPU. Offline emulated Linux full-data and tiny hashes pass for all three tracks; reports `opt-native-cpu-containers-{public,tiny}.json`. Emulated timings are not performance evidence for Intel. Source algorithms are unchanged for this compilation experiment.

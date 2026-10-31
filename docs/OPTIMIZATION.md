@@ -43,3 +43,9 @@ D's refined bidirectional/parallel-load/shared-label implementation is ready for
 A returns to twelve workers after six scored K=19.565079 versus twelve K=19.908239; the difference is small enough to include noise. Exact selection is retested after the memory-layout change and improved twelve-worker local median by about 6%. C compact lookup/numeric parsing improved local median by about 28%. D's parallel loader, bidirectional radix search, and query-owned shared atomic labels roughly halved local whole-process time; packed edges trade runtime against memory. No official improvement is claimed for these refinements until their exact commit scores.
 
 Every refined track passes new independent sample seeds 23/41, full public byte/hash comparisons, adversarial cases, memory/UB and race sanitizers, and offline restricted GCC15 Linux validation. See `opt-a-parallel-selection-*`, `opt-c-compact-d-packed-*`, and `opt-d-packed-final-*`. Source fingerprints remain in historical reports; later prose edits naturally change documentation hashes.
+
+## Refined candidate scored
+
+Commit `072ce9b9046484a76c7e98aebd1e998e0d440d17` passed all gates on A/C/D. A: 0.076981 s, K=20.449888, 65.534547 points. D: 0.547406 s, K=10.876457, 51.824372 points. Both improve our previous measured best K. C: 0.106731 s, 37,818,368 bytes, K=14.656236, 58.301122 points; its lower time did not offset higher measured memory, so the refinement loses to C's previous 60.253844 points. Exact records: `board-opt-refined-acd.json`.
+
+Next isolated board experiment changes only Docker compiler targeting to `-march=native` for A/C/D. Official harness documentation says these builds run on the scoring CPU. Offline Linux full and tiny output checks pass; the emulated CPU's performance is not used to predict an Intel gain. A separate uncommitted C membership-read fast path is deliberately excluded from this compilation comparison.
