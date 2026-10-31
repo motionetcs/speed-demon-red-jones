@@ -387,3 +387,13 @@ Fresh1637/1657 strict ASAN/UBSAN,1663 TSAN, full1/6/12 and all wide-ID/weight/de
 
 
 Evidence147/69322d0 run-6aba70749f25 passes all real gates on identical selected145 inputs: T0.204022s/M77721600/S827/K19.740355/64.767748 points. C67.958752/K22.865201 is a slightly higher same-source best; A/D lower repeats remain separate. No new algorithm gain is claimed. Raw ../docs/board-round147-evidence-head.json.
+
+
+151/9e5d342 run-2be7e41af16f passes every real gate: T0.209894s/M76746752/S827/K19.511461/64.514489 points. Unchanged-source lower repeat; historical best remains separate. Raw ../docs/board-round151-spsc-windows.json.
+
+
+## Parser-private packed degree counts
+
+155 changes only degree counting/reduction/lifetime: each parser has2-bit lows and private spill totals, every wrap contributes4, and joined main sums all lows/spills into the original full CSR prefixes. Anonymous mapped count arrays/spills release before existing atomic cursors and edges allocate. The original scatter,16-row prefetch, full weights/IDs, exact labels, band64/batch32 search and PGO stay. The unused legacy DegreeBytes declaration remains charged; its old atomic proof is not substituted for new private counters.
+
+152 screens2/4/8-bit variants; exact15511 alternating full hashes measure retained0.183736791s/RSS180322304 versus private2=0.165434458/179503104, paired0.90031243. This9.97% local time hypothesis and noisy RSS delta are not Intel/cgroup evidence. NEW independent models cover packed neighbors/tails, exact wraps/spills/180000 degree, synthetic UINT32 endpoint, every1..12 private-owner reduction/prefix, direct mapped release/RAII move/cross-thread lifetime under native ASAN/UBSAN/TSAN and GCC strict checks. Fresh1753/1759 ASAN/UBSAN,1777 TSAN, full1/6/12, every wide-ID/weight/degree/block/EOF/error case,256 independent Floyd graphs/85871 answers and36 TSAN graphs/13013 answers pass. New D image has1080 reference replays and actual defaults. All29 candidate inputs/images bind in round155-candidate-source-match.json. Only actual K>20.157695/65.222044 permits retention.4/8-bit main variants have native screen only, though the shared generic primitive model instantiates all widths.

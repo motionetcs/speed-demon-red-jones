@@ -12,7 +12,7 @@ This is the fresh local entry. Check actual external state before treating it as
 | Licence | MIT, official attribution retained |
 | Fresh repository | https://github.com/motionetcs/speed-demon-red-jones — private |
 | Submission branch | speed-demon |
-| Remote source | Candidate151 C16-slot/256-event SPSC ring;28 exact inputs/local images,1461 regular replays plus276 extra valid/24 error C invocations, fresh strict models/defaults pass. A/D selected145; actual151 pending. |
+| Remote source | Candidate155 pooled C publication/private2 D degrees;29 exact inputs/local images,1461 regular replays+276 valid/24 error C extras, fresh independent native/GCC strict models/defaults pass. Real155 pending; A145 unchanged. |
 | Individual registration | Entrant confirmed already registered on 31 October 2026; not duplicated |
 | Team form | Submitted successfully for this fresh repository, A/C/D; Tally displayed “Form submitted” |
 | Board app access | Installed and verified on 31 October 2026; only the fresh repository selected; read-only code and metadata |

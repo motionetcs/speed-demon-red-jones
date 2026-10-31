@@ -1,0 +1,62 @@
+{
+  "observed_at_utc": "2026-10-31T20:39:04.032975+00:00",
+  "official_score": false,
+  "passed": true,
+  "scope": "NEW multi-producer pooled queue model (not151 SPSC): fully primed queues, per-producer exact FIFO/token/key/country, global EOF completion, every2..12 roles and1/11+11/1, internal uint64 wrap, cancellation while full and/or mutex held. NEW private-degree model: every2/4/8-bit packed-neighbor/tail/wrap/spill,180000 degree,synthetic UINT32 endpoint, every1..12 private-owner reduction/prefix, direct mapped release/RAII move/cross-thread lifetime. Native strict ASAN/UBSAN and TSAN plus pinned GCC strict ASAN/UBSAN. Unchanged exact offset storage also runs independent std::set/encoded-index/all-country/oversized-key models. No old atomic/shared-degree or SPSC proof substitutes for changed protocols.",
+  "runs": [
+    {
+      "mode": "native-pooled-asan",
+      "stdout": "PASS pooled multi-producer exact-once key/token/country and per-producer FIFO, all EOFs after all data, fully primed capacity/internal uint64 wrap, every2..12 role split and1/11+11/1, full/locked cancellation\n",
+      "stderr": "",
+      "binary_sha256": "9dab3c27b24cad63929656774f9af8fcc1396bd4b0b7582e819fb7061be3c71e"
+    },
+    {
+      "mode": "native-pooled-tsan",
+      "stdout": "PASS pooled multi-producer exact-once key/token/country and per-producer FIFO, all EOFs after all data, fully primed capacity/internal uint64 wrap, every2..12 role split and1/11+11/1, full/locked cancellation\n",
+      "stderr": "",
+      "binary_sha256": "5478b2cacde4a799121881f9a01afd1f4dfd55d42bcbd11c74b70d24cd5886bf"
+    },
+    {
+      "mode": "native-degrees-asan",
+      "stdout": "PASS private2/4/8 packed neighbors/partial blocks/exact wraps/spills/180000-degree/UINT32 endpoint, every1..12 private-owner reduction/prefix, mapped RAII release/move/cross-thread lifetime\n",
+      "stderr": "",
+      "binary_sha256": "3a9ed662cdc57dd794487db536a3fee08553ddc65fb0de5197f64d53cb4a9432"
+    },
+    {
+      "mode": "native-degrees-tsan",
+      "stdout": "PASS private2/4/8 packed neighbors/partial blocks/exact wraps/spills/180000-degree/UINT32 endpoint, every1..12 private-owner reduction/prefix, mapped RAII release/move/cross-thread lifetime\n",
+      "stderr": "",
+      "binary_sha256": "3fa8278a82a7addf265802389c496b1e001aef2f38869c333f5425b82a7c318c"
+    },
+    {
+      "mode": "native-offsets-asan",
+      "stdout": "PASS offset-name independent std::set, low32 fingerprint collisions including0/1, full-key collisions, all-country words, table/block growth, exact full/partial/oversized blocks, long NUL/UTF8 keys, encoded-index boundaries and overflow guards\n",
+      "stderr": "",
+      "binary_sha256": "6f13dd34e88386e4b49ff8a65f22e4680fb011953e7fdde384960f7dcd819bbd"
+    },
+    {
+      "mode": "GCC15-Linux-pooled-private-offset-asan",
+      "script": [
+        "set -eu",
+        "export ASAN_OPTIONS=halt_on_error=1",
+        "export UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1",
+        "g++ -std=c++20 -O1 -g -pthread -fsanitize=address,undefined -fno-omit-frame-pointer '-DNAMES_HEADER=\"/repo/.build/round155/source/track-c/names.hpp\"' /repo/tools/test_pooled_names.cpp -o /tmp/pooled",
+        "/tmp/pooled",
+        "g++ -std=c++20 -O1 -g -pthread -fsanitize=address,undefined -fno-omit-frame-pointer '-DPRIVATE_DEGREES_HEADER=\"/repo/.build/round155/source/track-d/private_degrees.hpp\"' /repo/tools/test_private_degrees.cpp -o /tmp/degrees",
+        "/tmp/degrees",
+        "g++ -std=c++20 -O1 -g -pthread -fsanitize=address,undefined -fno-omit-frame-pointer '-DNAMES_HEADER=\"/repo/.build/round155/source/track-c/names.hpp\"' /repo/tools/test_name_store.cpp -o /tmp/offsets",
+        "/tmp/offsets"
+      ],
+      "stdout": "PASS pooled multi-producer exact-once key/token/country and per-producer FIFO, all EOFs after all data, fully primed capacity/internal uint64 wrap, every2..12 role split and1/11+11/1, full/locked cancellation\nPASS private2/4/8 packed neighbors/partial blocks/exact wraps/spills/180000-degree/UINT32 endpoint, every1..12 private-owner reduction/prefix, mapped RAII release/move/cross-thread lifetime\nPASS offset-name independent std::set, low32 fingerprint collisions including0/1, full-key collisions, all-country words, table/block growth, exact full/partial/oversized blocks, long NUL/UTF8 keys, encoded-index boundaries and overflow guards\n",
+      "stderr": ""
+    }
+  ],
+  "source_sha256": {
+    "tools/test_pooled_names.cpp": "42fc922102db8b7f78b9e96def0dd78be6ded0a73bab30f9407b96dccac263a9",
+    "tools/test_private_degrees.cpp": "a09f9ae1989171b89a790aadee8a722ae59333f516981ec203de030210efa736",
+    "tools/test_name_store.cpp": "56d328be33772761f2b017c27c9415594ef6367298ff8ae919d5c93f384b0183",
+    "tools/offset_names_model.hpp": "80082d9d37052c2f8ba3612c15c5ad3386f672e2b5ead83d2dd3f64e6794842e",
+    ".build/round155/source/track-c/names.hpp": "bec6b16a96d5b1945fd6997ed052f0e195a8686c0cef057abaf57556ec73ae29",
+    ".build/round155/source/track-d/private_degrees.hpp": "12e67f71803c11df4be10693d5953b135079bbe96efdfecc1e41552c447f432c"
+  }
+}

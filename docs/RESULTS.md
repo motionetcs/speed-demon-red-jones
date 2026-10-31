@@ -1,4 +1,4 @@
-> Active151 fully tested C SPSC16-slot/256-event candidate; actual pending. A/D unchanged. Evidence147 C67.958752 is same-source variation; selected145 remains rollback.
+> Active155 fully tested pooled C/private-degree D candidate; real155 pending. Per-connection151 loses and is removed. A145 unchanged; selected145 remains rollback.
 
 # Results — 31 October 2026
 

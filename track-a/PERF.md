@@ -397,3 +397,6 @@ The initial144 timing-command review rejected historical reuse as not demonstrab
 
 
 Evidence147/69322d0 run-ed5a0130bc00 passes all real gates on identical selected145 inputs: T0.057393s/M25169920/S457/K26.79854/71.405557 points. C67.958752/K22.865201 is a slightly higher same-source best; A/D lower repeats remain separate. No new algorithm gain is claimed. Raw ../docs/board-round147-evidence-head.json.
+
+
+151/9e5d342 run-eab015fc2b17 passes every real gate: T0.049201s/M26775552/S457/K28.587904/72.809116 points. Unchanged-source lower repeat; historical best remains separate. Raw ../docs/board-round151-spsc-windows.json.
