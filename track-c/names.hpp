@@ -10,9 +10,6 @@
 #include <new>
 #include <type_traits>
 #include <vector>
-#if defined(__SSE4_2__)
-#include <nmmintrin.h>
-#endif
 
 struct alignas(8) NameKey { uint32_t length, padding; };
 static_assert(sizeof(NameKey) == 8 && alignof(std::atomic<uint64_t>) <= alignof(NameKey));
@@ -50,18 +47,7 @@ struct Names {
     Names(size_t size, size_t countries) : capacity(size), words((countries + 63) / 64),
         entries(std::make_unique<Entry[]>(size)) {}
     static uint64_t hash_key(std::string_view key) {
-#if defined(__SSE4_2__)
-        uint64_t hash = key.size();
-        const char* p = key.data(); size_t remaining = key.size();
-        while (remaining >= 8) {
-            uint64_t word; std::memcpy(&word, p, 8);
-            hash = _mm_crc32_u64(hash, word); p += 8; remaining -= 8;
-        }
-        if (remaining) { uint64_t tail=0; std::memcpy(&tail,p,remaining); hash=_mm_crc32_u64(hash,tail); }
-#else
-        uint64_t hash = std::hash<std::string_view>{}(key);
-#endif
-        return hash < 2 ? hash + 2 : hash;
+        uint64_t hash = std::hash<std::string_view>{}(key); return hash < 2 ? hash + 2 : hash;
     }
     void prefetch(uint64_t hash) const { __builtin_prefetch(&entries[hash & (capacity - 1)], 0, 1); }
     std::string_view bytes(const NameKey* key) const {

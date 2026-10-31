@@ -1,0 +1,10 @@
+{
+  "observed_at_utc": "2026-10-31T12:07:53.979161+00:00",
+  "scope": "Validation model correction; production allocator code is unchanged.",
+  "original_assumption": "mincore must return an error after munmap on all platforms",
+  "diagnostic": "Darwin native and ASAN: munmap returned0; mincore still returned0, with first-page resident bits changing0x87 to0x80 for4/4092/4096/4097/16384/16385 bytes. Linux ownership/error check remains unchanged.",
+  "original_model_sha256": "cdf26f2116e24ebcbc082548c1266f55bf507ba3b05c39a57dabd4e35e8f2efd",
+  "original_assertion": "assert(resident(data,bytes,pages)!=0);",
+  "correction": "Darwin checks MINCORE_INCORE cleared in every page; Linux still requires mincore failure on the released address. Both first assert resident query succeeds while mapped.",
+  "runtime_allocator_sha256": "060bb6a0622338b9151e767d827cbf30c8e4d940cc7e170ad51757c4a6b0808b"
+}

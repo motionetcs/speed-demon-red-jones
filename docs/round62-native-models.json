@@ -1,0 +1,26 @@
+{
+  "observed_at_utc": "2026-10-31T12:15:28.726770+00:00",
+  "official_score": false,
+  "scope": "Native strict ASAN/UBSAN: mapped vector values/growth/cross-thread release (Darwin physical residency), and exact CSV record-split membership/coverage/guard pages. Linux ownership and SSE2/AVX2 counterparts are separate GCC models.",
+  "runs": [
+    {
+      "binary": "test-mapped",
+      "sha256": "fbc8d7b1b3d362d958285308fce722fa9d8c2d4514123053bd626abdc6d6847c",
+      "output": "PASS mapped vector growth, alignment, overflow, direct OS release and cross-thread destruction\n",
+      "diagnostics": ""
+    },
+    {
+      "binary": "test-splits",
+      "sha256": "8f090b6a8afc48500d4aaf0bd78fdb61c6d373a6cfa20ed6329f0bec18551f4d",
+      "output": "PASS CSV split monotonicity, true-boundary membership and complete record coverage; all offsets/quote runs/BOM/EOF/guard pages at1..12 workers\n",
+      "diagnostics": ""
+    }
+  ],
+  "source_sha256": {
+    "tools/test_mapped_allocator.cpp": "acfbb553d89c0823e5a442430d928df62cd702e42c102c62511da402401fef0c",
+    "tools/test_c_boundaries.cpp": "a809f25fc8c663182bdbec412e06471920a70bca9b64ae0505d583a412ae38f2",
+    ".build/round62/source/track-a/mapped_allocator.hpp": "060bb6a0622338b9151e767d827cbf30c8e4d940cc7e170ad51757c4a6b0808b",
+    ".build/round62/source/track-c/main.cpp": "6de02224ad7125307d43236ce3595f1f46f3f5596a55f59d9e3ffa3bf06a460c"
+  },
+  "passed": true
+}

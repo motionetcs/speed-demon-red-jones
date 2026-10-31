@@ -1,0 +1,70 @@
+--- a/track-a/Dockerfile
++++ b/track-a/Dockerfile
+@@ -1,6 +1,6 @@
+ FROM gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce AS build
+ WORKDIR /src
+-COPY training_generator.py main.cpp endpoint_table.hpp io.hpp decimal.hpp parallel.hpp ./
++COPY mapped_allocator.hpp training_generator.py main.cpp endpoint_table.hpp io.hpp decimal.hpp parallel.hpp ./
+ RUN g++ -std=c++20 -O3 -DNDEBUG -pthread -static -fprofile-generate=/profile -fprofile-update=atomic main.cpp -o /solution
+ RUN python3 training_generator.py --seed 104729 --scale sample --out /training && /solution --data /training --out /training-output && python3 training_generator.py --seed 130363 --scale sample --out /training && /solution --data /training --out /training-output
+ RUN g++ -std=c++20 -O3 -DNDEBUG -pthread -static -fprofile-use=/profile -fprofile-correction -Werror=missing-profile main.cpp -o /solution
+--- a/track-a/main.cpp
++++ b/track-a/main.cpp
+@@ -1,4 +1,5 @@
+ #include "io.hpp"
++#include "mapped_allocator.hpp"
+ #include "decimal.hpp"
+ #include "endpoint_table.hpp"
+ #include "parallel.hpp"
+@@ -8,6 +9,7 @@
+ 
+ static constexpr uint32_t latency_escape = (1U << 19) - 1;
+ struct Count { uint32_t count = 0, errors = 0; };
++using Records=std::vector<uint32_t,MappedAllocator<uint32_t>>;
+ 
+ int main(int argc, char** argv) {
+     try {
+@@ -27,7 +29,8 @@
+         }
+         Endpoints endpoints;
+         struct Chunk {
+-            std::array<std::vector<uint32_t>, 72> records, wide;
++            std::array<Records, 72> records;
++            std::array<std::vector<uint32_t>, 72> wide;
+             std::array<uint32_t, 72> first;
+             Chunk() { first.fill(UINT32_MAX); }
+         };
+@@ -93,7 +96,7 @@
+                         if (latency == latency_escape) latency = chunk.wide[hour][wide++];
+                         latencies[cursor[record & 4095]++] = latency;
+                     }
+-                    std::vector<uint32_t>().swap(chunk.records[hour]); std::vector<uint32_t>().swap(chunk.wide[hour]);
++                    Records().swap(chunk.records[hour]); std::vector<uint32_t>().swap(chunk.wide[hour]);
+                 }
+                 std::string label = std::string(file.data + first_line, 13) + ":00:00Z";
+                 auto& out = output[hour]; out.bytes.reserve(order.size() * 100);
+--- /dev/null
++++ b/track-a/mapped_allocator.hpp
+@@ -0,0 +1,22 @@
++#pragma once
++#include <cstddef>
++#include <cstdint>
++#include <new>
++#include <sys/mman.h>
++
++// Stateless vector storage; completed-hour buffers return directly to the OS.
++template<class T> struct MappedAllocator {
++    static_assert(alignof(T)<=alignof(std::max_align_t));
++    using value_type=T;
++    MappedAllocator()=default;
++    template<class U> MappedAllocator(const MappedAllocator<U>&) noexcept {}
++    T* allocate(size_t n) {
++        if(n>SIZE_MAX/sizeof(T))throw std::bad_array_new_length();
++        if(!n)return nullptr;
++        void* p=mmap(nullptr,n*sizeof(T),PROT_READ|PROT_WRITE,MAP_PRIVATE|MAP_ANONYMOUS,-1,0);
++        if(p==MAP_FAILED)throw std::bad_alloc();
++        return static_cast<T*>(p);
++    }
++    void deallocate(T* p,size_t n) noexcept {if(p)munmap(p,n*sizeof(T));}
++    template<class U> bool operator==(const MappedAllocator<U>&)const noexcept{return true;}
++};

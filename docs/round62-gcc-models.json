@@ -1,0 +1,25 @@
+{
+  "observed_at_utc": "2026-10-31T12:10:40.995448+00:00",
+  "official_score": false,
+  "scope": "GCC15/Linux strict ASAN/UBSAN assertions: direct vector mapping release/ownership and cross-thread destruction, plus SSE2 and AVX2 CSV split true-boundary/coverage/guard-page models. Linux requires mincore error after unmap; Darwin separately checks residency bits. Emulated correctness only.",
+  "compiler_image": "gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce",
+  "script": [
+    "set -eu",
+    "export UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1",
+    "g++ -std=c++20 -O1 -g -pthread  -fsanitize=address,undefined '-DMAPPED_ALLOCATOR_HEADER=\"/repo/.build/round62/source/track-a/mapped_allocator.hpp\"' /repo/tools/test_mapped_allocator.cpp -o /tmp/model0",
+    "/tmp/model0",
+    "g++ -std=c++20 -O1 -g -pthread -msse2 -fsanitize=address,undefined '-DCSV_SOURCE=\"/repo/.build/round62/source/track-c/main.cpp\"' /repo/tools/test_c_boundaries.cpp -o /tmp/model1",
+    "/tmp/model1",
+    "g++ -std=c++20 -O1 -g -pthread -mavx2 -fsanitize=address,undefined '-DCSV_SOURCE=\"/repo/.build/round62/source/track-c/main.cpp\"' /repo/tools/test_c_boundaries.cpp -o /tmp/model2",
+    "/tmp/model2"
+  ],
+  "output": "PASS mapped vector growth, alignment, overflow, direct OS release and cross-thread destruction\nPASS CSV split monotonicity, true-boundary membership and complete record coverage; all offsets/quote runs/BOM/EOF/guard pages at1..12 workers\nPASS CSV split monotonicity, true-boundary membership and complete record coverage; all offsets/quote runs/BOM/EOF/guard pages at1..12 workers\n",
+  "diagnostics": "",
+  "passed": true,
+  "sha256": {
+    "tools/test_mapped_allocator.cpp": "acfbb553d89c0823e5a442430d928df62cd702e42c102c62511da402401fef0c",
+    ".build/round62/source/track-a/mapped_allocator.hpp": "060bb6a0622338b9151e767d827cbf30c8e4d940cc7e170ad51757c4a6b0808b",
+    "tools/test_c_boundaries.cpp": "a809f25fc8c663182bdbec412e06471920a70bca9b64ae0505d583a412ae38f2",
+    ".build/round62/source/track-c/main.cpp": "6de02224ad7125307d43236ce3595f1f46f3f5596a55f59d9e3ffa3bf06a460c"
+  }
+}

@@ -1,0 +1,70 @@
+--- a/track-c/main.cpp
++++ b/track-c/main.cpp
+@@ -75,6 +75,35 @@
+     }
+ };
+ 
++// A singleton quote followed by comma, with a non-separator predecessor,
++// cannot be an opening/escaped quote. It ends a quoted text field.
++// Parse from that known field boundary to the next real record end.
++std::vector<const char*> record_boundaries(const char* start,const char* end,unsigned threads) {
++    std::vector<const char*> boundaries(threads+1);
++    boundaries.front()=start;boundaries.back()=end;
++    parallel(threads,[&](unsigned i){
++        if(!i)return;
++        const char* p=start+(end-start)*i/threads;
++        const char* boundary=end;
++        while(p<end) {
++            const char* quote=find_quote(p,end);if(!quote)break;p=quote+1;
++            if(quote==start||quote+1==end||quote[1]!=',')continue;
++            unsigned char before=static_cast<unsigned char>(quote[-1]);
++            if(before=='"'||before==','||before=='\r'||before=='\n'||before==0xbf)continue;
++            Csv tail{quote+2,end};std::string unused;
++            for(;;){
++                tail.field(unused,false);
++                if(tail.p==end)break;
++                if(*tail.p==','){tail.comma();continue;}
++                tail.newline();break;
++            }
++            boundary=tail.p;break;
++        }
++        boundaries[i]=boundary;
++    });
++    return boundaries;
++}
++
+ void money(Output& out, int64_t value) {
+     if (value < 0) out.text("-");
+     uint64_t n = value < 0 ? uint64_t(-(value + 1)) + 1 : uint64_t(value);
+@@ -129,30 +158,7 @@
+             if (std::string_view(expected) != "amount") header.comma(); else header.newline();
+         }
+         unsigned threads = worker_count();
+-        const char* start = header.p;
+-        const char* end = records.data + records.size;
+-        std::vector<const char*> raw(threads + 1), boundaries(threads + 1);
+-        std::vector<unsigned char> parity(threads);
+-        for (unsigned i = 0; i <= threads; ++i) raw[i] = start + (end - start) * i / threads;
+-        parallel(threads, [&](unsigned i) {
+-            parity[i] = std::accumulate(raw[i], raw[i + 1], static_cast<unsigned char>(0),
+-                [](unsigned char bit, char byte) { return static_cast<unsigned char>(bit ^ (byte == '"')); });
+-        });
+-        boundaries.front() = start; boundaries.back() = end;
+-        bool inside = false;
+-        for (unsigned i = 1; i < threads; ++i) {
+-            inside = inside != bool(parity[i - 1]);
+-            bool quoted = inside;
+-            const char* p = raw[i];
+-            if (!(p == start || (p[-1] == '\n' && !quoted))) {
+-                while (p < end) {
+-                    char byte = *p++;
+-                    if (byte == '"') quoted = !quoted;
+-                    if (byte == '\n' && !quoted) break;
+-                }
+-            }
+-            boundaries[i] = p;
+-        }
++        auto boundaries=record_boundaries(header.p,records.data+records.size,threads);
+         struct Local { std::vector<Group> groups; StringArena storage; };
+         for (size_t capacity = 131072;; capacity *= 2) {
+             Names names(capacity, groups.size());

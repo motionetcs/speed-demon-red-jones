@@ -158,6 +158,28 @@ def adversarial():
         records = stream.getvalue().encode()
         rows.append(check("c", "c-wide-country-membership", {"records.csv": records, "regions.csv": regions}, c.run_reference(records, regions)))
     rows.append(check("d", "d-worked", {"graph.txt": d.EXAMPLE_GRAPH, "queries.txt": d.EXAMPLE_QUERIES}, d.EXAMPLE_OUTPUT))
+    if "d" in ACTIVE_TRACKS:
+        max_weight = 4294967295
+        graphs = [
+            [(0,1,max_weight),(1,2,max_weight)],
+            [(0,1,max_weight),(1,2,0),(2,3,17),(3,4,max_weight)],
+            [(0,1,max_weight),(0,1,0),(1,2,max_weight),(2,3,1)],
+            [(0,1,max_weight),(1,0,max_weight),(2,3,max_weight),(3,2,max_weight)],
+            [(0,0,max_weight),(1,2,max_weight),(3,3,0)],
+            [(0,1,max_weight//2),(1,2,max_weight//2+1),(2,3,0),(3,4,max_weight),(4,5,1)],
+        ]
+        for case, edges in enumerate(graphs):
+            nodes, infinity = 8, 10**40
+            distances = [[0 if u==v else infinity for v in range(nodes)] for u in range(nodes)]
+            for u,v,w in edges: distances[u][v] = min(distances[u][v],w)
+            for k in range(nodes):
+                for u in range(nodes):
+                    for v in range(nodes): distances[u][v] = min(distances[u][v],distances[u][k]+distances[k][v])
+            queries = [(u,v) for u in range(nodes) for v in range(nodes)]
+            inputs = {"graph.txt": f"{nodes} {len(edges)}\n"+"".join(f"{u} {v} {w}\n" for u,v,w in edges),
+                      "queries.txt": "".join(f"{u} {v}\n" for u,v in queries)}
+            expected = "".join(str(-1 if distances[u][v]>=infinity else distances[u][v])+"\n" for u,v in queries)
+            rows.append(check("d", "d-forced-endpoints-"+str(case), inputs, expected))
     for seed in range(12):
         rng = random.Random(seed)
         n = rng.randrange(2, 28)

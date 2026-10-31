@@ -4,13 +4,15 @@ Fresh Red Jones entry: https://github.com/motionetcs/speed-demon-red-jones ; pri
 
 ## Active optimization pass beginning11:18 UTC on31 October2026
 
-Baseline57cc23e is source-identical to selected07c3136. Its D repeat improves the observed best to64.084694/K19.129071 (run-f851ad71c6a0); this is variation, not an algorithm gain. Round56 complete snapshot: best-three67.471954, rank29/71, leader81.018616. A/C bests remain72.105578/K27.676524 and66.473216/K21.353266. Current source is still outside first place.
+Baseline57cc23e is source-identical to selected07c3136. Its D repeat raises observed best to64.084694/K19.129071; this is variation, not a new algorithm. Round56 mean67.471954, rank29/71, leader81.018616. A/C thresholds72.105578/K27.676524 and66.473216/K21.353266.
 
-Round60 is ready for actual board submission: A final-image allocator cap2 only; C bounded unquoted data-field words plus SSE4.2 CRC/full equality; D retained. All27 runtime/build/metadata inputs match exact frozen/Linux contexts in round60-candidate-source-match.json. Fresh C1129/1151 ASAN/UBSAN,1153 TSAN, full/all-country/default cases pass. Active GCC/SSE4.2 strict field/hash/name models pass, and1113 current-image Linux replays pass (A69/C135/D909). A/D C++ is byte-identical to retained sanitizer-tested sources. Apple does not time the Intel hash or glibc setting.
+Round60 a5887ec passes every official gate but A cap2 scores69.716930 and C word/CRC scores66.064518, both below retained bests. Restore their exact57cc23e runtime before the next independent algorithms. D unchanged. Record board-round60-intel-c-allocator-a.json. Rounds57–59 screens and limits are archived.
 
-Capture exact round60 result before another runtime push. Retain only if real K exceeds A27.676524, C21.353266; D unchanged. Restore A/C runtime/build/metadata from57cc23e if lower. Rounds57–59 failed local prefetch/probing/decimal/alignment/staging/wide-map prototypes are archived with screening-only limits. No unselected helper belongs in track folders. Update RESULTS/OWNER/SUBMISSION/this state after final retention.
+Round62 is ready for real submission: A direct mapped record-vector storage (no arena cap), C provable serial local CSV synchronization, D bounded large mandatory endpoint normalization. Exact contexts .build/round62/source. All28 runtime/build/metadata inputs match strict native sanitizer/race contexts and exact Linux images in round62-candidate-source-match.json.1092 current-image Linux replays, full public/defaults, all-country widths, native/GCC models and independent graphs pass. A model's Darwin mincore error-code assumption was corrected; production allocator unchanged, Linux ownership check still strict. Correction is recorded honestly.
 
-An attempt to compare old/new D image configuration could not inspect the old pruned image; no equivalence was claimed. The current D image was replayed909 times. Native model and active SSE4.2 model scope is recorded separately. No pre-event implementation or answer recognition is used.
+Capture exact round62 result before another runtime push. Retain only if real K beats A27.676524, C21.353266, D19.129071. Revert lower candidates to57cc23e (remove A mapped_allocator.hpp too if A loses). No unselected full-chain/parallel-boundary/probing/staging/CRC prototype belongs in a track folder. Update RESULTS/OWNER/SUBMISSION/state after final selection.
+
+Public README/PERF documents only were reviewed unauthenticated; no competitor implementation was viewed/copied. A's related high-level memory-release inspiration is attributed. C's synchronization and D's endpoint transformation were independently derived from official contracts. No private pre-event code, cached answers or input recognition is used.
 
 ## Validation and operating rules
 

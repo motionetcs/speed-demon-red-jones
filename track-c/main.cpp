@@ -46,23 +46,6 @@ struct Csv {
         }
         throw std::runtime_error("unterminated quoted field");
     }
-    // Legal unquoted name/note fields are followed by a comma.
-    Field data_field(std::string& scratch, bool decode) {
-        if (p == end || *p == '"') return field(scratch, decode);
-        const char* start = p;
-        if constexpr (std::endian::native == std::endian::little) {
-            while (end - p >= 8) {
-                uint64_t word; std::memcpy(&word, p, 8);
-                uint64_t x = word ^ 0x2c2c2c2c2c2c2c2cULL;
-                uint64_t mask = (x - 0x0101010101010101ULL) & ~x & 0x8080808080808080ULL;
-                if (mask) { p += std::countr_zero(mask) / 8; return {{start, size_t(p-start)}, size_t(p-start), false}; }
-                p += 8;
-            }
-        }
-        while (p < end && *p != ',') ++p;
-        if (p == end) throw std::runtime_error("missing field comma");
-        return {{start, size_t(p-start)}, size_t(p-start), false};
-    }
     void comma() {
         if (p == end || *p++ != ',') throw std::runtime_error("expected CSV comma");
     }
@@ -91,6 +74,34 @@ struct Csv {
         if (p == end || *p++ != '\n') throw std::runtime_error("expected CSV terminator");
     }
 };
+
+// A singleton quote followed by comma, with a non-separator predecessor,
+// cannot be an opening/escaped quote. It ends a quoted text field.
+// Parse from that known field boundary to the next real record end.
+std::vector<const char*> record_boundaries(const char* start,const char* end,unsigned threads) {
+    std::vector<const char*> boundaries(threads+1);
+    boundaries.front()=start;boundaries.back()=end;
+    for(unsigned i=1;i<threads;++i){
+        const char* p=start+(end-start)*i/threads;
+        const char* boundary=end;
+        while(p<end) {
+            const char* quote=find_quote(p,end);if(!quote)break;p=quote+1;
+            if(quote==start||quote+1==end||quote[1]!=',')continue;
+            unsigned char before=static_cast<unsigned char>(quote[-1]);
+            if(before=='"'||before==','||before=='\r'||before=='\n'||before==0xbf)continue;
+            Csv tail{quote+2,end};std::string unused;
+            for(;;){
+                tail.field(unused,false);
+                if(tail.p==end)break;
+                if(*tail.p==','){tail.comma();continue;}
+                tail.newline();break;
+            }
+            boundary=tail.p;break;
+        }
+        boundaries[i]=boundary;
+    }
+    return boundaries;
+}
 
 void money(Output& out, int64_t value) {
     if (value < 0) out.text("-");
@@ -146,30 +157,7 @@ int main(int argc, char** argv) {
             if (std::string_view(expected) != "amount") header.comma(); else header.newline();
         }
         unsigned threads = worker_count();
-        const char* start = header.p;
-        const char* end = records.data + records.size;
-        std::vector<const char*> raw(threads + 1), boundaries(threads + 1);
-        std::vector<unsigned char> parity(threads);
-        for (unsigned i = 0; i <= threads; ++i) raw[i] = start + (end - start) * i / threads;
-        parallel(threads, [&](unsigned i) {
-            parity[i] = std::accumulate(raw[i], raw[i + 1], static_cast<unsigned char>(0),
-                [](unsigned char bit, char byte) { return static_cast<unsigned char>(bit ^ (byte == '"')); });
-        });
-        boundaries.front() = start; boundaries.back() = end;
-        bool inside = false;
-        for (unsigned i = 1; i < threads; ++i) {
-            inside = inside != bool(parity[i - 1]);
-            bool quoted = inside;
-            const char* p = raw[i];
-            if (!(p == start || (p[-1] == '\n' && !quoted))) {
-                while (p < end) {
-                    char byte = *p++;
-                    if (byte == '"') quoted = !quoted;
-                    if (byte == '\n' && !quoted) break;
-                }
-            }
-            boundaries[i] = p;
-        }
+        auto boundaries=record_boundaries(header.p,records.data+records.size,threads);
         struct Local { std::vector<Group> groups; StringArena storage; };
         for (size_t capacity = 131072;; capacity *= 2) {
             Names names(capacity, groups.size());
@@ -185,9 +173,9 @@ int main(int argc, char** argv) {
                     while (csv.p < csv.end) {
                         csv.bom();
                         uint64_t id = csv.integer();
-                        Field name = csv.data_field(name_scratch, true); csv.comma();
+                        Field name = csv.field(name_scratch, true); csv.comma();
                         uint64_t hash = Names::hash_key(name.value); names.prefetch(hash);
-                        Field note = csv.data_field(unused, false); csv.comma();
+                        Field note = csv.field(unused, false); csv.comma();
                         uint64_t region = csv.integer();
                         int64_t amount = csv.amount(); csv.newline();
                         size_t country = region < region_lookup.size() && region_lookup[region] != no_region ? region_lookup[region] : unmatched;

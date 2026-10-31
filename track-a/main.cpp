@@ -1,4 +1,5 @@
 #include "io.hpp"
+#include "mapped_allocator.hpp"
 #include "decimal.hpp"
 #include "endpoint_table.hpp"
 #include "parallel.hpp"
@@ -8,6 +9,7 @@
 
 static constexpr uint32_t latency_escape = (1U << 19) - 1;
 struct Count { uint32_t count = 0, errors = 0; };
+using Records=std::vector<uint32_t,MappedAllocator<uint32_t>>;
 
 int main(int argc, char** argv) {
     try {
@@ -27,7 +29,8 @@ int main(int argc, char** argv) {
         }
         Endpoints endpoints;
         struct Chunk {
-            std::array<std::vector<uint32_t>, 72> records, wide;
+            std::array<Records, 72> records;
+            std::array<std::vector<uint32_t>, 72> wide;
             std::array<uint32_t, 72> first;
             Chunk() { first.fill(UINT32_MAX); }
         };
@@ -93,7 +96,7 @@ int main(int argc, char** argv) {
                         if (latency == latency_escape) latency = chunk.wide[hour][wide++];
                         latencies[cursor[record & 4095]++] = latency;
                     }
-                    std::vector<uint32_t>().swap(chunk.records[hour]); std::vector<uint32_t>().swap(chunk.wide[hour]);
+                    Records().swap(chunk.records[hour]); std::vector<uint32_t>().swap(chunk.wide[hour]);
                 }
                 std::string label = std::string(file.data + first_line, 13) + ":00:00Z";
                 auto& out = output[hour]; out.bytes.reserve(order.size() * 100);

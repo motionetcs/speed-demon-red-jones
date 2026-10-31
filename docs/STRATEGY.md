@@ -43,3 +43,7 @@ The authoritative source is the [frozen specifications and harness](https://gith
 Freeze: **2 November 2026, 15:00 UTC / 8:30 PM IST**. The public-source window ends one hour later, at **9:30 PM IST**. No scheduled publication has been created.
 
 The implementation files here were written fresh during the event using the official specifications. No prior private implementation is included. Actual creation time and the official source revision are recorded in `provenance.json`.
+
+## Public-document review during the31 October11:39–11:48 UTC pass
+
+Read only unauthenticated public README/PERF documents for Gigatron and Flash; no competitor implementation source was viewed or copied. GitHub web fetches failed, so public raw document URLs were read without authentication. The public [Gigatron A log](https://raw.githubusercontent.com/coreyjlord-dev/speed-demon/speed-demon/track-a/PERF.md) discusses per-hour storage and releasing completed memory. This inspired a related experiment: an independently written POSIX mapped allocator for our existing compact record vectors. Its implementation, exact source and validation are our event-written code. Their local measurements are not ours and do not prove a gain on our code. The CSV synchronization and bounded endpoint transforms were derived independently from the supplied CSV/graph contracts. Public logs are not authority for organizer rules; frozen official specs/harness remain authoritative. No private competitor source was requested, no hidden dataset was accessed, and no cached answers are used.
