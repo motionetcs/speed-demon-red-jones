@@ -357,3 +357,10 @@ Round104/252d750 C24-byte events passes all5 official gates, run-8960a9aefdfa: T
 
 
 Round107 exact restored71 source passes all5 gates, run-2dd8d90f2a40: T0.062657 s/M13557760/S660/K22.389299/67.502025. This lower repeat is unchanged-source variation; best67.750087/K22.646534 remains. Rejected24-byte events are absent. Raw ../docs/board-round107-owned-loader.json.
+
+
+## Process-local glibc arena cap on private-owner pipeline
+
+The current71 pipeline allocates private owner tables/name blocks and bounded reader vectors. Test only final runtime-image ENV MALLOC_ARENA_MAX=2. No host setting, allocator library, parser/table/queue logic, compiler flag or PGO input changes. GNU's primary manual defines this as a per-process allocator-arena limit independent of core count (https://sourceware.org/glibc/manual/latest/html_node/Malloc-Tunable-Parameters.html). Reduced retained allocator memory versus lock contention is a hypothesis; native Apple allocator timing does not measure it. Earlier A cap losses and D cap wins do not establish the result on this newer C private-owner layout.
+
+Image configuration explicitly contains MALLOC_ARENA_MAX=2; exact current-image full-public,147 independent grammar/country/worker/EOF/reference fixtures and actual defaults pass. Every C++/header/metadata/generator and training/compiler line is byte-identical to selected109, so original71 strict proof remains. Only new image/configuration behavior is freshly tested. All27 inputs/explicit image IDs are in round111-candidate-source-match.json. Keep only if actual K exceeds22.646534/67.750087, otherwise restore exact6e5950c C Dockerfile.

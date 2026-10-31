@@ -1,6 +1,6 @@
-# Selected109 audit context
+# Active111 audit context
 
-All27 current inputs match selected A75/C71 and the actual104 D32 source, with explicit current image IDs,1323 Linux replays, fresh combined Make/public/default checks and90 observable audit passes. Proof: round109-selected-source-match.json. The107 owned loader and104 C24 losing code are removed. Exact109 real-board confirmation follows; the older audit below is historical. Hourly optimization is active, but publication remains excluded pending the specific approval required by automatic review.
+Every solution C++/header/metadata/generator byte matches selected109, which passes all official gates. A changes only both GCC passes to-native CPU targeting with original sample PGO; C adds only final-image MALLOC_ARENA_MAX=2; D is retained32-entry atomic loading. All27 source/configuration inputs and explicit new image IDs,1323 Linux replays and actual defaults match round111-candidate-source-match.json. Existing identical-source strict proof is reused explicitly; actual111 acceptance remains pending. Publication remains excluded pending the specific approval required by automatic review.
 
 # Entry audit — 31 October 2026
 

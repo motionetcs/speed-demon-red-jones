@@ -12,7 +12,7 @@ This is the fresh local entry. Check actual external state before treating it as
 | Licence | MIT, official attribution retained |
 | Fresh repository | https://github.com/motionetcs/speed-demon-red-jones — private |
 | Submission branch | speed-demon |
-| Remote source | Selected109 restores A75/C71 and keeps actual104 D32 (65.222044/K20.157695). Every27 source/image input matches round109-selected-source-match.json; exact109 all-track confirmation is next. C24/owned-loader losers are removed. |
+| Remote source | Candidate111 tests only native A compilation and C final-image arena cap2 on exact selected109 algorithms; D32 stays unchanged. All27 new image/configuration inputs are proved in round111-candidate-source-match.json; restored109 all gates pass and111 actual scores follow. |
 | Individual registration | Entrant confirmed already registered on 31 October 2026; not duplicated |
 | Team form | Submitted successfully for this fresh repository, A/C/D; Tally displayed “Form submitted” |
 | Board app access | Installed and verified on 31 October 2026; only the fresh repository selected; read-only code and metadata |

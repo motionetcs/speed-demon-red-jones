@@ -321,3 +321,10 @@ Rounds101/102 native full-public screens reject a dedicated12-total-thread order
 
 
 Round107 unchanged75 source passes all5 gates, run-1e5dd8fec7f1: T0.051471 s/M34615296/S424/K26.851256/71.448230. This lower repeat is variation, not a new algorithm regression; best72.924546/K28.740275 source remains byte-identical. Raw ../docs/board-round107-owned-loader.json.
+
+
+## Native CPU targeting isolated on current exact endpoint cache
+
+Earlier f6b17e3 native targeting used the old parallel layout;64 combined a scalar parser, mapped allocation and native compiler. Neither isolates native targeting on the accepted75 exact4096 cache/canonical-view algorithm. This candidate changes only both GCC profile-generation/use passes to-march=native. Original sample104729/130363 training, generic source algorithm, full-key fallback,32-bit escapes, grouping/quantiles and metadata are byte-identical to selected109. The official harness explicitly routes native builds to the scoring CPU. No Mac timing is offered for an Intel compiler experiment, and no public seed1 training or runtime answer/profile file is introduced.
+
+The new pinned offline Linux image passes full-public,96 independently solved method/hour/escape/ID/reference cases and actual defaults. Exact75 runtime source retains its strict sanitizer/race/native-GCC model proof; no changed-source sanitizer pass is fabricated. All27 candidate111 source/image/config inputs match in round111-candidate-source-match.json. Keep only if actual K exceeds28.740275/72.924546; otherwise restore exact6e5950c A Dockerfile.

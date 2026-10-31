@@ -1,4 +1,4 @@
-> Selected restoration109 keeps the real104 D32 gain (65.222044/K20.157695) and restores A75/C71. C24 and the107 owned loader lost actual K and are removed. All27 inputs/current images and1323 Linux replays/defaults match in round109-selected-source-match.json; exact109 board confirmation is next. The saved104 live mean is68.558188, rank34/80; older results below are historical.
+> Active candidate111 changes only A CPU targeting and C final-image arena cap on the exact selected algorithms. Restored109 passes every real gate: A72.786488/C67.402878/D64.547044. Historical bests remain72.924546/67.750087/65.222044; the lower repeats are visible, not hidden. New111 images pass1323 reference cases/defaults in round111-candidate-source-match.json; actual111 scores are pending.
 
 # Historical selected results before candidate89
 
