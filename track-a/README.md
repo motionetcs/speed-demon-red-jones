@@ -19,3 +19,5 @@ Validation covers untrained samples, full published hashes at1/6/12 workers, str
 With another24 hours: obtain legitimate Intel profiles, measure parse/selection/output phases, and test changes against independent seeds before board promotion.
 
 Specification: https://github.com/hackathon-raptors/speed-demon-2026/blob/main/specs/a-ingest.md
+
+Current candidate caps glibc allocation arenas at2 inside its own runtime process. Real board K decides retention; the compiler training and exact algorithm are unchanged.

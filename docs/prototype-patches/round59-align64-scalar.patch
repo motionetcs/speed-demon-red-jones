@@ -1,0 +1,27 @@
+--- a/track-c/names.hpp
++++ b/track-c/names.hpp
+@@ -18,17 +18,20 @@
+ // One stable allocation holds header, actual country words, then exact name bytes.
+ // Each arena has one owner; table publication makes completed keys visible.
+ struct StringArena {
+-    std::vector<std::unique_ptr<char[]>> blocks;
++    static constexpr size_t alignment = 64;
++    struct Release { void operator()(char* p) const { ::operator delete[](p, std::align_val_t{alignment}); } };
++    std::vector<std::unique_ptr<char[], Release>> blocks;
+     char* next = nullptr;
+     size_t remaining = 0;
+     NameKey* make(std::string_view value, size_t words) {
+-        if (value.size() > UINT32_MAX || words > (SIZE_MAX - sizeof(NameKey) - value.size() - 7) / sizeof(std::atomic<uint64_t>))
++        if (value.size() > UINT32_MAX || words > (SIZE_MAX - sizeof(NameKey) - value.size() - (alignment - 1)) / sizeof(std::atomic<uint64_t>))
+             throw std::runtime_error("name storage size overflow");
+         size_t bytes = sizeof(NameKey) + words * sizeof(std::atomic<uint64_t>) + value.size();
+-        bytes = (bytes + 7) & ~size_t(7);
++        bytes = (bytes + alignment - 1) & ~(alignment - 1);
+         if (bytes > remaining) {
+             size_t capacity = std::max<size_t>(65536, bytes);
+-            blocks.emplace_back(new char[capacity]); next = blocks.back().get(); remaining = capacity;
++            auto block = std::unique_ptr<char[], Release>(static_cast<char*>(::operator new[](capacity, std::align_val_t{alignment})));
++            blocks.push_back(std::move(block)); next = blocks.back().get(); remaining = capacity;
+         }
+         auto* result = ::new (static_cast<void*>(next)) NameKey{static_cast<uint32_t>(value.size()), 0};
+         ::new (static_cast<void*>(next + sizeof(NameKey))) std::atomic<uint64_t>[words]{};

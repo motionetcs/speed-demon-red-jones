@@ -1,0 +1,65 @@
+--- a/track-c/main.cpp
++++ b/track-c/main.cpp
+@@ -45,6 +45,23 @@
+             }
+         }
+         throw std::runtime_error("unterminated quoted field");
++    }
++    // Legal unquoted name/note fields are followed by a comma.
++    Field data_field(std::string& scratch, bool decode) {
++        if (p == end || *p == '"') return field(scratch, decode);
++        const char* start = p;
++        if constexpr (std::endian::native == std::endian::little) {
++            while (end - p >= 8) {
++                uint64_t word; std::memcpy(&word, p, 8);
++                uint64_t x = word ^ 0x2c2c2c2c2c2c2c2cULL;
++                uint64_t mask = (x - 0x0101010101010101ULL) & ~x & 0x8080808080808080ULL;
++                if (mask) { p += std::countr_zero(mask) / 8; return {{start, size_t(p-start)}, size_t(p-start), false}; }
++                p += 8;
++            }
++        }
++        while (p < end && *p != ',') ++p;
++        if (p == end) throw std::runtime_error("missing field comma");
++        return {{start, size_t(p-start)}, size_t(p-start), false};
+     }
+     void comma() {
+         if (p == end || *p++ != ',') throw std::runtime_error("expected CSV comma");
+@@ -168,9 +185,9 @@
+                     while (csv.p < csv.end) {
+                         csv.bom();
+                         uint64_t id = csv.integer();
+-                        Field name = csv.field(name_scratch, true); csv.comma();
++                        Field name = csv.data_field(name_scratch, true); csv.comma();
+                         uint64_t hash = Names::hash_key(name.value); names.prefetch(hash);
+-                        Field note = csv.field(unused, false); csv.comma();
++                        Field note = csv.data_field(unused, false); csv.comma();
+                         uint64_t region = csv.integer();
+                         int64_t amount = csv.amount(); csv.newline();
+                         size_t country = region < region_lookup.size() && region_lookup[region] != no_region ? region_lookup[region] : unmatched;
+--- a/track-c/names.hpp
++++ b/track-c/names.hpp
+@@ -18,17 +18,20 @@
+ // One stable allocation holds header, actual country words, then exact name bytes.
+ // Each arena has one owner; table publication makes completed keys visible.
+ struct StringArena {
+-    std::vector<std::unique_ptr<char[]>> blocks;
++    static constexpr size_t alignment = 64;
++    struct Release { void operator()(char* p) const { ::operator delete[](p, std::align_val_t{alignment}); } };
++    std::vector<std::unique_ptr<char[], Release>> blocks;
+     char* next = nullptr;
+     size_t remaining = 0;
+     NameKey* make(std::string_view value, size_t words) {
+-        if (value.size() > UINT32_MAX || words > (SIZE_MAX - sizeof(NameKey) - value.size() - 7) / sizeof(std::atomic<uint64_t>))
++        if (value.size() > UINT32_MAX || words > (SIZE_MAX - sizeof(NameKey) - value.size() - (alignment - 1)) / sizeof(std::atomic<uint64_t>))
+             throw std::runtime_error("name storage size overflow");
+         size_t bytes = sizeof(NameKey) + words * sizeof(std::atomic<uint64_t>) + value.size();
+-        bytes = (bytes + 7) & ~size_t(7);
++        bytes = (bytes + alignment - 1) & ~(alignment - 1);
+         if (bytes > remaining) {
+             size_t capacity = std::max<size_t>(65536, bytes);
+-            blocks.emplace_back(new char[capacity]); next = blocks.back().get(); remaining = capacity;
++            auto block = std::unique_ptr<char[], Release>(static_cast<char*>(::operator new[](capacity, std::align_val_t{alignment})));
++            blocks.push_back(std::move(block)); next = blocks.back().get(); remaining = capacity;
+         }
+         auto* result = ::new (static_cast<void*>(next)) NameKey{static_cast<uint32_t>(value.size()), 0};
+         ::new (static_cast<void*>(next + sizeof(NameKey))) std::atomic<uint64_t>[words]{};

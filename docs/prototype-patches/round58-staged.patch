@@ -1,0 +1,107 @@
+--- a/track-d/Dockerfile
++++ b/track-d/Dockerfile
+@@ -1,6 +1,6 @@
+ FROM gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce AS build
+ WORKDIR /src
+-COPY load_cursors.hpp edge_store.hpp training_generator.py main.cpp io.hpp decimal.hpp radix_heap.hpp distance_map.hpp parallel.hpp ./
++COPY staged_edges.hpp load_cursors.hpp edge_store.hpp training_generator.py main.cpp io.hpp decimal.hpp radix_heap.hpp distance_map.hpp parallel.hpp ./
+ RUN g++ -std=c++20 -O3 -march=native -DNDEBUG -pthread -static -fprofile-generate=/profile -fprofile-update=atomic main.cpp -o /solution
+ RUN python3 training_generator.py --seed 1000003 --scale full --out /training && /solution --data /training --out /training-output && python3 training_generator.py --seed 130363 --scale sample --out /training && /solution --data /training --out /training-output
+ RUN g++ -std=c++20 -O3 -march=native -DNDEBUG -pthread -static -fprofile-use=/profile -fprofile-correction -Werror=missing-profile main.cpp -o /solution
+--- a/track-d/main.cpp
++++ b/track-d/main.cpp
+@@ -1,5 +1,6 @@
+ #include "radix_heap.hpp"
+ #include "edge_store.hpp"
++#include "staged_edges.hpp"
+ #include "load_cursors.hpp"
+ #include "io.hpp"
+ #include "decimal.hpp"
+@@ -52,7 +53,7 @@
+             }
+             boundaries[i] = p;
+         }
+-        struct Local { size_t count = 0; DegreeBytes::Spills out_spills, in_spills; std::vector<std::pair<uint32_t, uint32_t>> wide; };
++        struct Local { StagedEdges decoded; size_t count = 0; DegreeBytes::Spills out_spills, in_spills; std::vector<std::pair<uint32_t, uint32_t>> wide; };
+         std::vector<Local> locals(loaders);
+         DegreeBytes degree(n), reverse_degree(n);
+         parallel(loaders, [&](unsigned worker) {
+@@ -62,8 +63,9 @@
+             while (input.more()) {
+                 size_t count = 0;
+                 while (count < batch.size() && input.more()) {
+-                    uint32_t u = input.number(), v = input.number(); input.number();
++                    uint32_t u = input.number(), v = input.number(), value = input.number();
+                     if (u >= n || v >= n) throw std::runtime_error("node outside graph");
++                    if (n <= EdgeStore::node_mask + 1) local.decoded.push(u,v,value);
+                     __builtin_prefetch(&degree.values[u], 1, 1); __builtin_prefetch(&reverse_degree.values[v], 1, 1);
+                     batch[count++] = {u,v};
+                 }
+@@ -91,12 +93,16 @@
+             parallel(loaders, [&](unsigned worker) {
+             auto& local = locals[worker];
+             Scanner input{boundaries[worker], boundaries[worker + 1]};
++            StagedEdges::Reader decoded{local.decoded};
++            auto more = [&] { if constexpr(Compact) return decoded.more(); else return input.more(); };
+             struct Row { uint32_t u, v, value, out, in; };
+             std::array<Row, 16> batch;
+-            while (input.more()) {
++            while (more()) {
+                 size_t count = 0;
+-                while (count < batch.size() && input.more()) {
+-                    auto& row = batch[count++]; row.u=input.number(); row.v=input.number(); row.value=input.number();
++                while (count < batch.size() && more()) {
++                    auto& row = batch[count++];
++                    if constexpr(Compact) decoded.next(row.u,row.v,row.value);
++                    else { row.u=input.number(); row.v=input.number(); row.value=input.number(); }
+                     cursor.template prefetch<WideCursors>(row.u); reverse_cursor.template prefetch<WideCursors>(row.v);
+                 }
+                 for (size_t i=0;i<count;++i) {
+--- /dev/null
++++ b/track-d/staged_edges.hpp
+@@ -0,0 +1,45 @@
++#pragma once
++#include <algorithm>
++#include <cstdint>
++#include <memory>
++#include <new>
++#include <vector>
++#include <sys/mman.h>
++
++// For graphs whose node IDs fit21 bits. Weight escapes retain all32 bits.
++// Blocks are process-owned anonymous mappings and are unmapped before queries.
++struct StagedEdges {
++    static constexpr size_t block_bits=16, block_size=size_t(1)<<block_bits;
++    static constexpr uint32_t node_mask=(1U<<21)-1, escape=(1U<<22)-1;
++    struct Block {
++        uint64_t* data;
++        Block() {
++            void* p=mmap(nullptr,block_size*sizeof(uint64_t),PROT_READ|PROT_WRITE,MAP_PRIVATE|MAP_ANONYMOUS,-1,0);
++            if(p==MAP_FAILED) throw std::bad_alloc();
++            data=static_cast<uint64_t*>(p);
++        }
++        ~Block(){munmap(data,block_size*sizeof(uint64_t));}
++        Block(const Block&)=delete;
++        Block& operator=(const Block&)=delete;
++    };
++    std::vector<std::unique_ptr<Block>> blocks;
++    std::vector<uint32_t> wide;
++    size_t count=0;
++    void push(uint32_t u,uint32_t v,uint32_t weight) {
++        size_t offset=count&(block_size-1);
++        if(!offset)blocks.emplace_back(std::make_unique<Block>());
++        blocks.back()->data[offset]=uint64_t(u)|(uint64_t(v)<<21)|(uint64_t(std::min(weight,escape))<<42);
++        if(weight>=escape)wide.push_back(weight);
++        ++count;
++    }
++    struct Reader {
++        const StagedEdges& rows;
++        size_t position=0, escaped=0;
++        bool more()const{return position<rows.count;}
++        void next(uint32_t& u,uint32_t& v,uint32_t& weight) {
++            uint64_t row=rows.blocks[position>>block_bits]->data[position&(block_size-1)];++position;
++            u=uint32_t(row)&node_mask;v=uint32_t(row>>21)&node_mask;weight=uint32_t(row>>42);
++            if(weight==escape)weight=rows.wide[escaped++];
++        }
++    };
++};

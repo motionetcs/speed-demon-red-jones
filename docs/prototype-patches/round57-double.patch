@@ -1,0 +1,19 @@
+--- a/track-c/names.hpp
++++ b/track-c/names.hpp
+@@ -56,6 +56,7 @@
+     Entry& intern(std::string_view key, StringArena& storage, uint64_t hash) {
+         if (canceled.load(std::memory_order_relaxed)) throw Canceled{};
+         size_t index = hash & (capacity - 1);
++        size_t step = (hash >> 32) | 1;
+         for (;;) {
+             Entry& entry = entries[index]; uint64_t state = entry.state.load(std::memory_order_acquire);
+             if (state == 0) {
+@@ -75,7 +76,7 @@
+             }
+             if (state == hash && bytes(entry.key) == key) return entry;
+             if (canceled.load(std::memory_order_relaxed)) throw Canceled{};
+-            index = (index + 1) & (capacity - 1);
++            index = (index + step) & (capacity - 1);
+         }
+     }
+     bool first(Entry& entry, size_t country) {

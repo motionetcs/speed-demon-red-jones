@@ -23,3 +23,5 @@ With another24 hours: profile the retained layout on Intel, test parsing and loo
 Specification: https://github.com/hackathon-raptors/speed-demon-2026/blob/main/specs/c-join.md
 
 The older unquoted-delimiter SIMD scanner scored lower and was rejected. The later quoted-field scanner/direct country map, narrower region lookup and direct quote parity each have their own all-gates-passing real-board records, including source cost. These scan different field forms; the rejected helper remains outside the scored folder. See PERF.md for exact source identities, run records and decisions.
+
+Current candidate uses bounded word scanning only for unquoted name/note fields, whose next grammar delimiter is a comma. Quoted forms use the exact original parser. On the specified SSE4.2-capable Intel target, CRC32 supplies hash candidates; every match still compares complete decoded name bytes. Other architectures keep the standard hash. Guard-page and strict GCC/SSE4.2 models plus full Linux/reference cases validate this new path; real total K decides retention.

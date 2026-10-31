@@ -1,0 +1,63 @@
+--- a/track-c/Dockerfile
++++ b/track-c/Dockerfile
+@@ -1,6 +1,6 @@
+ FROM gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce AS build
+ WORKDIR /src
+-COPY training_generator.py main.cpp quote_scan.hpp io.hpp parallel.hpp names.hpp ./
++COPY decimal.hpp training_generator.py main.cpp quote_scan.hpp io.hpp parallel.hpp names.hpp ./
+ RUN g++ -std=c++20 -O3 -march=native -DNDEBUG -pthread -static -fprofile-generate=/profile -fprofile-update=atomic main.cpp -o /solution
+ RUN python3 training_generator.py --seed 1000003 --scale full --out /training && /solution --data /training --out /training-output && python3 training_generator.py --seed 130363 --scale sample --out /training && /solution --data /training --out /training-output
+ RUN g++ -std=c++20 -O3 -march=native -DNDEBUG -pthread -static -fprofile-use=/profile -fprofile-correction -Werror=missing-profile main.cpp -o /solution
+--- /dev/null
++++ b/track-c/decimal.hpp
+@@ -0,0 +1,22 @@
++#pragma once
++#include <bit>
++#include <cstdint>
++#include <cstring>
++
++// Four ASCII digits in one bounded load. Every byte is validated before batching.
++inline uint64_t decimal_digits(const char*& p, const char* end) {
++    uint64_t value = 0;
++    if constexpr (std::endian::native == std::endian::little) {
++        while (end - p >= 4) {
++            uint32_t bytes;
++            std::memcpy(&bytes, p, 4);
++            uint32_t digits = bytes ^ 0x30303030U;
++            if ((digits & 0xf0f0f0f0U) || ((digits + 0x06060606U) & 0x10101010U)) break;
++            uint32_t pairs = (digits & 0x00ff00ffU) * 10 + ((digits >> 8) & 0x00ff00ffU);
++            value = value * 10000 + (pairs & 0xffffU) * 100 + (pairs >> 16);
++            p += 4;
++        }
++    }
++    while (p < end && *p >= '0' && *p <= '9') value = value * 10 + *p++ - '0';
++    return value;
++}
+--- a/track-c/main.cpp
++++ b/track-c/main.cpp
+@@ -1,4 +1,5 @@
+ #include "io.hpp"
++#include "decimal.hpp"
+ #include "quote_scan.hpp"
+ #include "parallel.hpp"
+ #include "names.hpp"
+@@ -51,8 +52,7 @@
+     }
+     uint64_t integer() {
+         const char* start = p;
+-        uint64_t value = 0;
+-        while (p < end && *p >= '0' && *p <= '9') value = value * 10 + *p++ - '0';
++        uint64_t value = decimal_digits(p, end);
+         if (p == start) throw std::runtime_error("missing CSV integer");
+         comma();
+         return value;
+@@ -61,8 +61,7 @@
+         bool negative = p < end && *p == '-';
+         if (negative) ++p;
+         const char* start = p;
+-        uint64_t value = 0;
+-        while (p < end && *p >= '0' && *p <= '9') value = value * 10 + *p++ - '0';
++        uint64_t value = decimal_digits(p, end);
+         if (p == start || p == end || *p++ != '.' || end - p < 2 || p[0] < '0' || p[0] > '9' || p[1] < '0' || p[1] > '9')
+             throw std::runtime_error("invalid money");
+         value = value * 100 + (p[0] - '0') * 10 + p[1] - '0'; p += 2;

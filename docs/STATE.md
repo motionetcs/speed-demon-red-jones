@@ -2,15 +2,15 @@
 
 Fresh Red Jones entry: https://github.com/motionetcs/speed-demon-red-jones ; private, required branch speed-demon, tracks A/C/D. All own solution code is event-written. Preserve unrelated folders. No private pre-event implementation is imported.
 
-## Final selected and scored source
+## Active optimization pass beginning11:18 UTC on31 October2026
 
-Exact source 07c31360af938e391c3e09e3d21f969a1709b092 passes all five official gates for A/C/D (board-round55-selected-final.json). All27 current runtime/build/metadata inputs match that exact commit, each current best record, native strict isolated sanitizer/race contexts and selected Linux builds in round55-final-source-match.json.1056 current-image replays/defaults pass. Later documentation/evidence changes no compiled input. There are no active source candidates or board watchers.
+Baseline57cc23e is source-identical to selected07c3136. Its D repeat improves the observed best to64.084694/K19.129071 (run-f851ad71c6a0); this is variation, not an algorithm gain. Round56 complete snapshot: best-three67.471954, rank29/71, leader81.018616. A/C bests remain72.105578/K27.676524 and66.473216/K21.353266. Current source is still outside first place.
 
-A/C restore exactbf75194 after all new candidates fail to beat retained bests72.105578/K27.676524 and66.473216/K21.353266. D retains16-row prefetch loading, glibc cap2 and up to12 loaders; best62.267555/K17.593454 atc4f966f, up from60.242402 this pass. Final exact-source repeat A69.411566/C65.745571/D61.156615 is kept separate from historical bests. Repeat variation is not called an algorithm change.
+Round60 is ready for actual board submission: A final-image allocator cap2 only; C bounded unquoted data-field words plus SSE4.2 CRC/full equality; D retained. All27 runtime/build/metadata inputs match exact frozen/Linux contexts in round60-candidate-source-match.json. Fresh C1129/1151 ASAN/UBSAN,1153 TSAN, full/all-country/default cases pass. Active GCC/SSE4.2 strict field/hash/name models pass, and1113 current-image Linux replays pass (A69/C135/D909). A/D C++ is byte-identical to retained sanitizer-tested sources. Apple does not time the Intel hash or glibc setting.
 
-Complete snapshot 2026-10-31T10:56:56Z: best-three mean66.828101, rank29/70, leader80.786854. Not first. RESULTS.md/OWNER-BRIEFING.md/SUBMISSION.md and every per-track PERF are current. D12 build163.371 s is below600; no rejected prototype remains in a track folder. Local-only/screening validation limits and rejected patches are preserved honestly.
+Capture exact round60 result before another runtime push. Retain only if real K exceeds A27.676524, C21.353266; D unchanged. Restore A/C runtime/build/metadata from57cc23e if lower. Rounds57–59 failed local prefetch/probing/decimal/alignment/staging/wide-map prototypes are archived with screening-only limits. No unselected helper belongs in track folders. Update RESULTS/OWNER/SUBMISSION/this state after final retention.
 
-Selected A/C additionally pass fresh isolated1109/1117 ASAN/UBSAN,1123 TSAN, all adversarial cases and country widths through17576. D exact round50 isolated sanitizer/race/independent-graph source is retained. A/C/Linux restoration and D's new image ID were replayed; no old-image evidence is substituted.
+An attempt to compare old/new D image configuration could not inspect the old pruned image; no equivalence was claimed. The current D image was replayed909 times. Native model and active SSE4.2 model scope is recorded separately. No pre-event implementation or answer recognition is used.
 
 ## Validation and operating rules
 
