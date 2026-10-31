@@ -1,6 +1,6 @@
-# Active candidate107 audit context
+# Selected109 audit context
 
-A/C restore exact selected75/71 source. D combines confirmed10432-entry batches with a new split-direction block-owned loader. All28 runtime/build/metadata inputs, actual image IDs and96/147/1080 Linux replays/defaults are tied in round107-candidate-source-match.json. Fresh107 strict source, spread-ID independent graphs, every-worker full-queue/cancellation and exact106-header owned native/GCC/TSAN models pass. Official107 acceptance remains pending. The older selected audit below is historical. Publication remains excluded from the active hourly optimization after automatic review rejected that unapproved visibility scope.
+All27 current inputs match selected A75/C71 and the actual104 D32 source, with explicit current image IDs,1323 Linux replays, fresh combined Make/public/default checks and90 observable audit passes. Proof: round109-selected-source-match.json. The107 owned loader and104 C24 losing code are removed. Exact109 real-board confirmation follows; the older audit below is historical. Hourly optimization is active, but publication remains excluded pending the specific approval required by automatic review.
 
 # Entry audit — 31 October 2026
 

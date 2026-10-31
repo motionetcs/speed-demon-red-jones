@@ -1,4 +1,4 @@
-> Active candidate107 tests the split-direction block-owned D loader with the confirmed32-entry search batches. Actual104 raised D64.570088→65.222044 and the live mean68.328988→68.558188, rank34/80 at the saved snapshot. C24 narrowly lost and is restored. Current107 is fully validated but awaits its own real-board result; the older figures below are historical.
+> Selected restoration109 keeps the real104 D32 gain (65.222044/K20.157695) and restores A75/C71. C24 and the107 owned loader lost actual K and are removed. All27 inputs/current images and1323 Linux replays/defaults match in round109-selected-source-match.json; exact109 board confirmation is next. The saved104 live mean is68.558188, rank34/80; older results below are historical.
 
 # Historical selected results before candidate89
 

@@ -354,3 +354,6 @@ Other97/99 screens lose: numeric SWAR int/money/combined0.047465/0.047505/0.0480
 
 
 Round104/252d750 C24-byte events passes all5 official gates, run-8960a9aefdfa: T0.062161 s/M13029376/S666/K22.627138/67.731481. It narrowly loses the stronger22.646534/67.750087 observation. Restore exactcfd094c C runtime/build/metadata and README; no17% speedup is claimed from the invalid native median comparison. Raw ../docs/board-round104-event24-batch32.json.
+
+
+Round107 exact restored71 source passes all5 gates, run-2dd8d90f2a40: T0.062657 s/M13557760/S660/K22.389299/67.502025. This lower repeat is unchanged-source variation; best67.750087/K22.646534 remains. Rejected24-byte events are absent. Raw ../docs/board-round107-owned-loader.json.

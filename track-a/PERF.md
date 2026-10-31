@@ -318,3 +318,6 @@ Round95/13e3224 full-size PGO passes gates, run-c26dc17888a8: T0.045529 s/M34897
 
 
 Rounds101/102 native full-public screens reject a dedicated12-total-thread ordered writer and alternate small-group nearest-rank selection. Writer0.040871 versus0.041513 s saves only0.41MB native RSS for added synchronization/source, so no promotion. Median-plus-exact-largest-tail selection below20/32/64 measures0.041232/0.041256/0.041646 versus0.040912; all output hashes pass but no gain. Neither received broad sanitizer/race/Linux or official proof. A restores exact selected75 runtime/build/metadata and original sample104729/130363 PGO after95 full-profile training loses actual K. Restored exact image passes current reference/default checks.
+
+
+Round107 unchanged75 source passes all5 gates, run-1e5dd8fec7f1: T0.051471 s/M34615296/S424/K26.851256/71.448230. This lower repeat is variation, not a new algorithm regression; best72.924546/K28.740275 source remains byte-identical. Raw ../docs/board-round107-owned-loader.json.

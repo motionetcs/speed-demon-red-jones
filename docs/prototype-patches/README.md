@@ -69,3 +69,5 @@ Round88 canonical-shared screens apply tocfd094c. Only the131 family proceeds89,
 Rounds90–95 parents, source hashes and exact screening-versus-validation limits are in round90-95-prototype-index.json. Only91 A independent full-PGO and93 spin128 are submitted95; all other variants remain rejected screens.
 
 Rounds97–103 exact parents and screening limits are in round97-103-prototype-index.json. Only103-event24 C and101-batch32 D proceed to frozen104 broad proof and an eventual real-board test; C103 median drift is explicitly documented.
+
+The rejected107 owned-counter/cursor model is archived as round107-test_owned_cursors.cpp. Its exact original hash/native-GCC-TSAN proof is in round106-owned-models.json and committed8182e42. It requires the rejected owned-method header, so it is no longer a default production-model source.
