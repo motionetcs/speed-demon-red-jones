@@ -151,3 +151,9 @@ Next scanner hypothesis: SIMD equality masks locate comma/CR/LF for unquoted fie
 ## Final retained-source confirmation
 
 `run-a3119404362b` on `d28fe2590101b6b9a362e71b7bd8ee8f379f0741` passed all gates at 2026-10-31T07:14:40Z: T=0.096142 s, M=12,259,328 bytes, S=524, K=19.091712, points=64.042244. Exact record: `../docs/board-retained-final.json`. Runtime/build inputs match 61e345f byte for byte. This confirms the selected combination; historical best observations remain separate, and no repeat delta is called an algorithm gain. Subsequent documentation updates change no runtime/build/metadata input.
+
+## Dense-store membership read experiment
+
+The earlier membership read experiment used the older storage layout and had no convincing gain. This isolated retest uses the retained dense key/country allocation. Load the atomic country word first; a set bit immediately returns false. Otherwise fetch_or still arbitrates concurrent first sightings, so exactly one worker increments the distinct count. Country bits only transition from zero to one and never reset while workers run.
+
+Nine alternating full-public Apple trials: at six workers baseline0.102924 s versus candidate0.099660 s; at twelve baseline0.086994 s versus candidate0.087103 s. This does not establish an Intel improvement. Fresh tiny/sample seeds, adversarial quote/BOM/EOF/growth/country cases, ASAN/UBSAN, TSAN, the concurrent std::set model and restricted Linux full/public plus39 fresh/adversarial runs pass. Reports: `../docs/round12-*.json`. Actual board K decides retention; no gain is claimed before that run.

@@ -1,4 +1,7 @@
-#include "../track-c/names.hpp"
+#ifndef NAMES_HEADER
+#define NAMES_HEADER "../track-c/names.hpp"
+#endif
+#include NAMES_HEADER
 #include <array>
 #include <cassert>
 #include <iostream>
