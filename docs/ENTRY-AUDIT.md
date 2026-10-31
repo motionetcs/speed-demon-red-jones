@@ -1,4 +1,4 @@
-> Active121 has28 runtime/build/metadata inputs with fresh C scanner/model/sanitizer/race/Linux/default evidence in round121-candidate-source-match.json. All actual119 restoration gates pass;121 real score is pending. No official performance gain is claimed for121 yet.
+> Active124 has27 exact runtime/build/metadata inputs in round124-candidate-source-match.json, original A/C and separately strict-proved D AVX2. Actual121 passes gates but loses score; scanner code is removed.124 score pending.
 
 # Entry audit — 31 October 2026
 

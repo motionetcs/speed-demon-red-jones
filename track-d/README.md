@@ -31,3 +31,5 @@ The narrow-counter loader passes all official gates and improves observed D to60
 Both loader passes use bounded16-row scratch batches to overlap degree/cursor/edge accesses. The final image caps process-local glibc arenas at2; no host setting is modified. Current exact run IDs and retention decisions are in PERF.md.
 
 Search extracts at most32 full-distance entries from one conservative64-distance band per batch; this changes scheduling and scratch only.
+
+AVX2 checks a complete eight-word packed-label bucket in one bounded32-byte load; SSE2/NEON/scalar retain their original first-match behavior. Full-key reconstruction and full64-bit fallback remain exact.

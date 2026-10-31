@@ -348,3 +348,9 @@ Round118/ea8bfe3 calendar-only arithmetic passes all five real gates, run-a27c57
 
 
 Selected restoration119/f69d4db, run-60e972fc1217, passes all five real gates: T0.04751 s/M34570240/S424/K27.955452/72.323326. All27 selected inputs exactly match6e5950c. This is a lower same-source confirmation, not an algorithm improvement; historical bests remain separate. C's unusually slow identical-source repeat is retained honestly, with no code regression asserted from one observation. Raw ../docs/board-round119-selected-confirmation.json.
+
+
+Round122 direct per-endpoint full32-bit latency buckets are rejected at native screening only. Stable per-parser slabs link15- or31-latency nodes, store exact counts/errors in per-hour/key buckets and gather each endpoint directly for unchanged nearest-rank selection. This removes packed-record count/scatter passes and escapes but adds metadata, small-node allocation and random writes. Eleven rotating full-public hashes all pass: retained0.041205083 s/264454144 RSS;15-value0.043750834/275824640;31-value0.044085916/283475968. Paired median ratios1.05204/1.08271. Neither earns broader pool/sanitizer/race/GCC or actual-board validation. Source patches/parents and scope are in round122-prototype-index.json. No new A gain is claimed.
+
+
+Round121/e3eb08d unchanged selected source passes all five actual gates, run-98fa1c2391cc: T0.047312 s/M34545664/S424/K28.017872/72.371758. This lower repeat remains separate from the best; no additional algorithm regression is asserted from unchanged-source variation. Raw ../docs/board-round121-structural-c.json.

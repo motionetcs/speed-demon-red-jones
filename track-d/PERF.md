@@ -339,3 +339,13 @@ Round118/ea8bfe3 unchanged selected D passes every gate, run-91280e5eebb6: T0.20
 
 
 Selected restoration119/f69d4db, run-5a5fb39e3961, passes all five real gates: T0.205177 s/M77094912/S827/K19.716613/64.741616. All27 selected inputs exactly match6e5950c. This is a lower same-source confirmation, not an algorithm improvement; historical bests remain separate. C's unusually slow identical-source repeat is retained honestly, with no code regression asserted from one observation. Raw ../docs/board-round119-selected-confirmation.json.
+
+
+Round121/e3eb08d unchanged selected source passes all five actual gates, run-14b7d1443699: T0.249066 s/M78090240/S827/K17.849466/62.581261. This lower repeat remains separate from the best; no additional algorithm regression is asserted from unchanged-source variation. Raw ../docs/board-round121-structural-c.json.
+
+
+## One AVX2 comparison for an eight-label bucket
+
+Candidate123/combined124 changes only FastDistances.slot on AVX2: load the bucket's exactly8 allocated uint32 words in one32-byte unaligned load, shift each full tag logically, compare exact tag or empty and select the first set lane. This returns the same first matching/empty slot as the two4-lane SSE2 loop. Dense occupied prefixes, complete node reconstruction,31-bit shifts, low distance bits, overflow/full-bucket/full64 fallbacks, growth, touched reset, band64,32-entry search and loader are unchanged. Other architectures retain the original implementation. Standard intrinsic semantics were checked in primary LLVM docs: https://clang.llvm.org/doxygen/avx2intrin_8h.html . Native Apple executes unchanged NEON, so no native speedup is claimed. Only actual Intel total K can justify this conditional8-line source increase.
+
+Fresh1583/1597 strict ASAN/UBSAN,1601 TSAN, full1/6/12 public outputs, all wide-node/MAX-weight/degree/cursor/64-bit fixtures,256 independent spread-ID Floyd graphs/85871 answers and36 TSAN graphs/13013 answers pass. Strict native/GCC SSE2 and explicitly compiled/executed AVX2 exact packed-label/reference/last-bucket/full-bucket/growth/promotion/reset/31-bit/boundary-word models pass. GCC AVX2 numeric/queue models extract actual32-entry batches. The exact new native-GCC Linux image passes1080 independently checked graph replays and actual defaults. Restored original C has147 rebuilt-image cases; original A retains96 explicit-image cases. Every27 combined runtime/build/metadata input/image is proved in round124-candidate-source-match.json. Retain only if actual D K>20.157695/65.222044; otherwise restore distance_map.hpp exactly to f69d4db and preserve all losing evidence.

@@ -13,7 +13,7 @@ $(BUILD_DIR)/track-%: track-%/main.cpp track-%/io.hpp
 $(BUILD_DIR)/track-a: track-a/decimal.hpp track-a/endpoint_table.hpp
 $(BUILD_DIR)/track-d: track-d/decimal.hpp track-d/radix_heap.hpp track-d/distance_map.hpp track-d/parallel.hpp track-d/edge_store.hpp track-d/load_cursors.hpp
 $(BUILD_DIR)/track-a: track-a/parallel.hpp
-$(BUILD_DIR)/track-c: track-c/parallel.hpp track-c/names.hpp track-c/quote_scan.hpp track-c/record_scan.hpp
+$(BUILD_DIR)/track-c: track-c/parallel.hpp track-c/names.hpp track-c/quote_scan.hpp
 
 test: all
 	python3 tools/verify.py --binary-dir $(BUILD_DIR) --scale tiny --seeds 1 7 31 --report docs/validation-tiny.json

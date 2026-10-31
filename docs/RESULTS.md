@@ -1,4 +1,4 @@
-> Active candidate121 replaces only C payload scanning with independently tested64-byte structural masks/AVX2-PCLMUL. Every28 source/image input and1323 replays/defaults match; actual performance is pending. Selected restoration119 passed all gates, including the preserved C62.708517 unchanged-source outlier.
+> Active124 changes only D AVX2 packed lookup, restoring original C after actual121 loses. Every27 source/image input and1323 reference replays/defaults match. C12160.906292/D unchanged62.581261 repeats are preserved. Actual124 performance is pending.
 
 # Results — 31 October 2026
 

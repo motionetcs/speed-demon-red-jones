@@ -1,0 +1,37 @@
+{
+  "observed_at_utc": "2026-10-31T17:24:55.880268+00:00",
+  "official_score": false,
+  "scope": "Strict native/GCC15 ASAN/UBSAN full exact distance reference, dense-prefix/first-match/full-bucket fallback, packed-key reconstruction, growth/reset/promotion, boundary words,31-bit shifts/high node IDs and64-bit labels. New AVX2 path is compiled/executed explicitly; SSE2 remains separately executed. AVX2 queue/numeric/compact-label primitives extract actual32-entry batches. No target speed claim.",
+  "source_sha256": {
+    "tools/test_packed_distances.cpp": "45a0c4e861189c1ccf91e092685630daa068f6216be06852741179aaeea79ed4",
+    "tools/test_primitives.cpp": "9330f2416551459d8cdf459216d713e6e342fe553875cdd50fba2ed0f4806bcc",
+    ".build/round123/source/track-d/distance_map.hpp": "f860e209bcc77397171c1c4307febff2223fd2bdbd4e7a4cecc1271ab6a81eef",
+    ".build/round123/source/track-d/radix_heap.hpp": "7fb2052bb951ca391c5b1883d8e673f554a43ab3d06286e43597105c2d82b6e3",
+    ".build/round123/source/track-d/decimal.hpp": "aee2210ac5894050834ffd37903718b3b7bdc6673240559baa85b350bea9b581"
+  },
+  "runs": [
+    {
+      "mode": "native-NEON",
+      "stdout": "PASS exact distance reference, packed-key reconstruction, full-bucket fallback, grow/promotion/reset, boundary words/nodes and64-bit labels\n",
+      "stderr": "",
+      "binary_sha256": "c1e5caa4762a5af6a5f22973ac558a601807f67e5e9c841401088401b9623c0f"
+    },
+    {
+      "mode": "GCC15-Linux-SSE2-and-executed-AVX2",
+      "script": [
+        "set -eu",
+        "export ASAN_OPTIONS=halt_on_error=1",
+        "export UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1",
+        "g++ -std=c++20 -O1 -g -pthread -fsanitize=address,undefined -msse2 -mno-avx2 -DREQUIRE_PACKED_LABELS=1 '-DDISTANCE_MAP_HEADER=\"/repo/.build/round123/source/track-d/distance_map.hpp\"' /repo/tools/test_packed_distances.cpp -o /tmp/packed-sse2",
+        "/tmp/packed-sse2",
+        "g++ -std=c++20 -O1 -g -pthread -fsanitize=address,undefined -mavx2 -DREQUIRE_PACKED_LABELS=1 '-DDISTANCE_MAP_HEADER=\"/repo/.build/round123/source/track-d/distance_map.hpp\"' /repo/tools/test_packed_distances.cpp -o /tmp/packed-avx2",
+        "/tmp/packed-avx2",
+        "g++ -std=c++20 -O1 -g -pthread -mavx2 -fsanitize=address,undefined -DTEST_QUEUE_BATCH=32 '-DDECIMAL_HEADER=\"/repo/.build/round123/source/track-d/decimal.hpp\"' '-DCOMPACT_QUEUE_HEADER=\"/repo/.build/round123/source/track-d/radix_heap.hpp\"' '-DDISTANCE_MAP_HEADER=\"/repo/.build/round123/source/track-d/distance_map.hpp\"' /repo/tools/test_primitives.cpp -o /tmp/primitives",
+        "/tmp/primitives"
+      ],
+      "stdout": "PASS exact distance reference, packed-key reconstruction, full-bucket fallback, grow/promotion/reset, boundary words/nodes and64-bit labels\nPASS exact distance reference, packed-key reconstruction, full-bucket fallback, grow/promotion/reset, boundary words/nodes and64-bit labels\nPASS decimal reference/byte/guard-page checks and compact/wide queue/label model checks\n",
+      "stderr": ""
+    }
+  ],
+  "passed": true
+}

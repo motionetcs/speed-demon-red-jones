@@ -1,0 +1,130 @@
+--- a/track-a/main.cpp
++++ b/track-a/main.cpp
+@@ -6,8 +6,23 @@
+ #include <memory>
+ #include <numeric>
+ 
+-static constexpr uint32_t latency_escape = (1U << 19) - 1;
+-struct Count { uint32_t count = 0, errors = 0; };
++struct Bucket { uint32_t head=UINT32_MAX,tail=UINT32_MAX,count=0,errors=0; };
++struct LatencyPool {
++    static constexpr uint32_t width=15;
++    struct Node { uint32_t next;uint32_t values[width];Node(){} };
++    std::vector<std::unique_ptr<Node[]>> blocks;uint32_t used=0;
++    Node& node(uint32_t index){return blocks[index/8192][index%8192];}
++    void append(Bucket& bucket,uint32_t latency,bool error){
++        uint32_t pos=bucket.count%width;
++        if(!pos){
++            uint32_t index=used++;if(index%8192==0)blocks.emplace_back(new Node[8192]);
++            node(index).next=UINT32_MAX;
++            if(bucket.tail==UINT32_MAX)bucket.head=index;else node(bucket.tail).next=index;
++            bucket.tail=index;
++        }
++        node(bucket.tail).values[pos]=latency;++bucket.count;bucket.errors+=error;
++    }
++};
+ 
+ int main(int argc, char** argv) {
+     try {
+@@ -27,7 +42,7 @@
+         }
+         Endpoints endpoints;
+         struct Chunk {
+-            std::array<std::vector<uint32_t>, 72> records, wide;
++            std::array<std::vector<Bucket>,72> buckets;LatencyPool pool;
+             std::array<uint32_t, 72> first;
+             Chunk() { first.fill(UINT32_MAX); }
+         };
+@@ -36,7 +51,6 @@
+             const char* p = boundaries[worker]; const char* limit = boundaries[worker + 1];
+             auto& chunk = chunks[worker];
+             LocalEndpoints local_names(endpoints);
+-            size_t reserve_hint = (limit - p) / (72 * 64);
+             while (p < limit) {
+                 if (limit - p < 28) throw std::runtime_error("truncated timestamp");
+                 const char* line = p;
+@@ -56,10 +70,9 @@
+                 uint16_t key = local_names.intern(endpoint);
+                 if (chunk.first[hour] == UINT32_MAX) {
+                     chunk.first[hour] = static_cast<uint32_t>(line - file.data);
+-                    chunk.records[hour].reserve(reserve_hint);
++                    chunk.buckets[hour].resize(4096);
+                 }
+-                chunk.records[hour].push_back(std::min(uint32_t(latency), latency_escape) << 13 | uint32_t(error) << 12 | key);
+-                if (latency >= latency_escape) chunk.wide[hour].push_back(static_cast<uint32_t>(latency));
++                chunk.pool.append(chunk.buckets[hour][key],static_cast<uint32_t>(latency),error);
+             }
+         });
+         std::vector<std::string_view> paths(endpoints.canonical.begin(),endpoints.canonical.begin()+endpoints.used.load());
+@@ -69,46 +82,36 @@
+         std::array<Output, 72> output;
+         std::atomic<unsigned> next_hour{0};
+         parallel(threads, [&](unsigned) {
+-            std::vector<Count> groups(paths.size());
+-            std::vector<uint32_t> offsets(paths.size()), cursor(paths.size()), latencies;
++            std::vector<uint32_t> latencies;
+             for (;;) {
+-                unsigned hour = next_hour.fetch_add(1, std::memory_order_relaxed); if (hour >= 72) return;
+-                std::fill(groups.begin(), groups.end(), Count{});
+-                size_t count = 0; uint32_t first_line = UINT32_MAX;
+-                for (const auto& chunk : chunks) {
+-                    count += chunk.records[hour].size(); first_line = std::min(first_line, chunk.first[hour]);
+-                    for (uint32_t record : chunk.records[hour]) { auto& group = groups[record & 4095]; ++group.count; group.errors += (record >> 12) & 1; }
+-                }
+-                if (!count) continue;
+-                uint32_t offset = 0;
+-                for (uint16_t key : order) { cursor[key] = offsets[key] = offset; offset += groups[key].count; }
+-                latencies.resize(count);
+-                for (auto& chunk : chunks) {
+-                    size_t wide = 0;
+-                    for (uint32_t record : chunk.records[hour]) {
+-                        uint32_t latency = record >> 13;
+-                        if (latency == latency_escape) latency = chunk.wide[hour][wide++];
+-                        latencies[cursor[record & 4095]++] = latency;
+-                    }
+-                    std::vector<uint32_t>().swap(chunk.records[hour]); std::vector<uint32_t>().swap(chunk.wide[hour]);
+-                }
+-                std::string label = std::string(file.data + first_line, 13) + ":00:00Z";
+-                auto& out = output[hour]; out.bytes.reserve(order.size() * 100);
+-                for (uint16_t key : order) {
+-                    uint64_t n = groups[key].count, errors = groups[key].errors; if (!n) continue;
+-                    auto first = latencies.begin() + offsets[key];
+-                    if (n < 32) std::sort(first, first + n);
+-                    else {
+-                        size_t unselected = 0;
+-                        for (uint64_t percentile : {50, 95, 99}) {
+-                            size_t rank = (percentile * n + 99) / 100 - 1;
+-                            if (rank >= unselected) { std::nth_element(first + unselected, first + rank, first + n); unselected = rank + 1; }
++                unsigned hour=next_hour.fetch_add(1,std::memory_order_relaxed);if(hour>=72)return;
++                uint32_t first_line=UINT32_MAX;
++                for(const auto& chunk:chunks)first_line=std::min(first_line,chunk.first[hour]);
++                if(first_line==UINT32_MAX)continue;
++                std::string label=std::string(file.data+first_line,13)+":00:00Z";
++                auto& out=output[hour];out.bytes.reserve(order.size()*100);
++                for(uint16_t key:order){
++                    uint64_t n=0,errors=0;
++                    for(const auto& chunk:chunks)if(!chunk.buckets[hour].empty()){const auto& b=chunk.buckets[hour][key];n+=b.count;errors+=b.errors;}
++                    if(!n)continue;latencies.resize(n);size_t written=0;
++                    for(auto& chunk:chunks)if(!chunk.buckets[hour].empty()){
++                        const auto& b=chunk.buckets[hour][key];uint32_t left=b.count,index=b.head;
++                        while(left){
++                            const auto& node=chunk.pool.node(index);uint32_t count=std::min(left,LatencyPool::width);
++                            std::copy_n(node.values,count,latencies.begin()+written);written+=count;left-=count;index=node.next;
+                         }
+                     }
+-                    out.text(label); out.text(" "); out.text(paths[key]);
+-                    for (uint64_t value : {n, uint64_t(first[(50 * n + 99) / 100 - 1]), uint64_t(first[(95 * n + 99) / 100 - 1]), uint64_t(first[(99 * n + 99) / 100 - 1]), errors, errors * 1000000 / n}) { out.text(" "); out.number(static_cast<int64_t>(value)); }
++                    auto first=latencies.begin();
++                    if(n<32)std::sort(first,first+n);
++                    else{
++                        size_t unselected=0;
++                        for(uint64_t percentile:{50,95,99}){size_t rank=(percentile*n+99)/100-1;if(rank>=unselected){std::nth_element(first+unselected,first+rank,first+n);unselected=rank+1;}}
++                    }
++                    out.text(label);out.text(" ");out.text(paths[key]);
++                    for(uint64_t value:{n,uint64_t(first[(50*n+99)/100-1]),uint64_t(first[(95*n+99)/100-1]),uint64_t(first[(99*n+99)/100-1]),errors,errors*1000000/n}){out.text(" ");out.number(static_cast<int64_t>(value));}
+                     out.text("\n");
+                 }
++                for(auto& chunk:chunks)std::vector<Bucket>().swap(chunk.buckets[hour]);
+             }
+         });
+         std::ofstream stream(run_paths.out / "summary.txt", std::ios::binary);
