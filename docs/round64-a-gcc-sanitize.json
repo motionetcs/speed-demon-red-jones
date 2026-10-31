@@ -1,0 +1,511 @@
+{
+  "observed_at_utc": "2026-10-31T12:33:06.847183+00:00",
+  "official_score": false,
+  "scope": "GCC15/Linux strict ASAN/UBSAN integration with -march=native; exact selected scalar latency parser; emulated correctness only",
+  "image": "gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce",
+  "script": [
+    "set -eu",
+    "export UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1",
+    "cat > /tmp/linux-mapping.hpp <<'HEADER'\n#ifndef __SSE2__\n#error Expected amd64 SSE2\n#endif\nHEADER",
+    "g++ -std=c++20 -O1 -g -pthread -march=native -fsanitize=address,undefined -include /tmp/linux-mapping.hpp /repo/.build/round64/source/track-a/main.cpp -o /tmp/solution",
+    "SPEED_DEMON_THREADS=1 /tmp/solution --data /repo/.data/a/sample-seed1193 --out /out/sample-seed1193-t1",
+    "SPEED_DEMON_THREADS=6 /tmp/solution --data /repo/.data/a/sample-seed1193 --out /out/sample-seed1193-t6",
+    "SPEED_DEMON_THREADS=12 /tmp/solution --data /repo/.data/a/sample-seed1193 --out /out/sample-seed1193-t12",
+    "SPEED_DEMON_THREADS=1 /tmp/solution --data /repo/.data/a/sample-seed1201 --out /out/sample-seed1201-t1",
+    "SPEED_DEMON_THREADS=6 /tmp/solution --data /repo/.data/a/sample-seed1201 --out /out/sample-seed1201-t6",
+    "SPEED_DEMON_THREADS=12 /tmp/solution --data /repo/.data/a/sample-seed1201 --out /out/sample-seed1201-t12",
+    "SPEED_DEMON_THREADS=1 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-sanitize-a-worked --out /out/round64-a-scalar-mapped-sanitize-a-worked-t1",
+    "SPEED_DEMON_THREADS=6 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-sanitize-a-worked --out /out/round64-a-scalar-mapped-sanitize-a-worked-t6",
+    "SPEED_DEMON_THREADS=12 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-sanitize-a-worked --out /out/round64-a-scalar-mapped-sanitize-a-worked-t12",
+    "SPEED_DEMON_THREADS=1 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-sanitize-a-official-edge-cases --out /out/round64-a-scalar-mapped-sanitize-a-official-edge-cases-t1",
+    "SPEED_DEMON_THREADS=6 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-sanitize-a-official-edge-cases --out /out/round64-a-scalar-mapped-sanitize-a-official-edge-cases-t6",
+    "SPEED_DEMON_THREADS=12 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-sanitize-a-official-edge-cases --out /out/round64-a-scalar-mapped-sanitize-a-official-edge-cases-t12",
+    "SPEED_DEMON_THREADS=1 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-sanitize-a-empty --out /out/round64-a-scalar-mapped-sanitize-a-empty-t1",
+    "SPEED_DEMON_THREADS=6 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-sanitize-a-empty --out /out/round64-a-scalar-mapped-sanitize-a-empty-t6",
+    "SPEED_DEMON_THREADS=12 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-sanitize-a-empty --out /out/round64-a-scalar-mapped-sanitize-a-empty-t12",
+    "SPEED_DEMON_THREADS=1 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-sanitize-a-count-error-wrap-65535 --out /out/round64-a-scalar-mapped-sanitize-a-count-error-wrap-65535-t1",
+    "SPEED_DEMON_THREADS=6 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-sanitize-a-count-error-wrap-65535 --out /out/round64-a-scalar-mapped-sanitize-a-count-error-wrap-65535-t6",
+    "SPEED_DEMON_THREADS=12 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-sanitize-a-count-error-wrap-65535 --out /out/round64-a-scalar-mapped-sanitize-a-count-error-wrap-65535-t12",
+    "SPEED_DEMON_THREADS=1 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-sanitize-a-count-error-wrap-65536 --out /out/round64-a-scalar-mapped-sanitize-a-count-error-wrap-65536-t1",
+    "SPEED_DEMON_THREADS=6 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-sanitize-a-count-error-wrap-65536 --out /out/round64-a-scalar-mapped-sanitize-a-count-error-wrap-65536-t6",
+    "SPEED_DEMON_THREADS=12 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-sanitize-a-count-error-wrap-65536 --out /out/round64-a-scalar-mapped-sanitize-a-count-error-wrap-65536-t12",
+    "SPEED_DEMON_THREADS=1 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-sanitize-a-count-error-wrap-140000 --out /out/round64-a-scalar-mapped-sanitize-a-count-error-wrap-140000-t1",
+    "SPEED_DEMON_THREADS=6 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-sanitize-a-count-error-wrap-140000 --out /out/round64-a-scalar-mapped-sanitize-a-count-error-wrap-140000-t6",
+    "SPEED_DEMON_THREADS=12 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-sanitize-a-count-error-wrap-140000 --out /out/round64-a-scalar-mapped-sanitize-a-count-error-wrap-140000-t12",
+    "SPEED_DEMON_THREADS=1 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-sanitize-a-nearest-rank-101 --out /out/round64-a-scalar-mapped-sanitize-a-nearest-rank-101-t1",
+    "SPEED_DEMON_THREADS=6 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-sanitize-a-nearest-rank-101 --out /out/round64-a-scalar-mapped-sanitize-a-nearest-rank-101-t6",
+    "SPEED_DEMON_THREADS=12 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-sanitize-a-nearest-rank-101 --out /out/round64-a-scalar-mapped-sanitize-a-nearest-rank-101-t12",
+    "SPEED_DEMON_THREADS=1 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-sanitize-a-many-endpoints-partitions --out /out/round64-a-scalar-mapped-sanitize-a-many-endpoints-partitions-t1",
+    "SPEED_DEMON_THREADS=6 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-sanitize-a-many-endpoints-partitions --out /out/round64-a-scalar-mapped-sanitize-a-many-endpoints-partitions-t6",
+    "SPEED_DEMON_THREADS=12 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-sanitize-a-many-endpoints-partitions --out /out/round64-a-scalar-mapped-sanitize-a-many-endpoints-partitions-t12",
+    "SPEED_DEMON_THREADS=1 /tmp/solution --data /repo/.data/a/sample-seed1213 --out /out/sample-seed1213-t1",
+    "SPEED_DEMON_THREADS=6 /tmp/solution --data /repo/.data/a/sample-seed1213 --out /out/sample-seed1213-t6",
+    "SPEED_DEMON_THREADS=12 /tmp/solution --data /repo/.data/a/sample-seed1213 --out /out/sample-seed1213-t12",
+    "SPEED_DEMON_THREADS=1 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-tsan-a-worked --out /out/round64-a-scalar-mapped-tsan-a-worked-t1",
+    "SPEED_DEMON_THREADS=6 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-tsan-a-worked --out /out/round64-a-scalar-mapped-tsan-a-worked-t6",
+    "SPEED_DEMON_THREADS=12 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-tsan-a-worked --out /out/round64-a-scalar-mapped-tsan-a-worked-t12",
+    "SPEED_DEMON_THREADS=1 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-tsan-a-official-edge-cases --out /out/round64-a-scalar-mapped-tsan-a-official-edge-cases-t1",
+    "SPEED_DEMON_THREADS=6 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-tsan-a-official-edge-cases --out /out/round64-a-scalar-mapped-tsan-a-official-edge-cases-t6",
+    "SPEED_DEMON_THREADS=12 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-tsan-a-official-edge-cases --out /out/round64-a-scalar-mapped-tsan-a-official-edge-cases-t12",
+    "SPEED_DEMON_THREADS=1 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-tsan-a-empty --out /out/round64-a-scalar-mapped-tsan-a-empty-t1",
+    "SPEED_DEMON_THREADS=6 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-tsan-a-empty --out /out/round64-a-scalar-mapped-tsan-a-empty-t6",
+    "SPEED_DEMON_THREADS=12 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-tsan-a-empty --out /out/round64-a-scalar-mapped-tsan-a-empty-t12",
+    "SPEED_DEMON_THREADS=1 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-tsan-a-count-error-wrap-65535 --out /out/round64-a-scalar-mapped-tsan-a-count-error-wrap-65535-t1",
+    "SPEED_DEMON_THREADS=6 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-tsan-a-count-error-wrap-65535 --out /out/round64-a-scalar-mapped-tsan-a-count-error-wrap-65535-t6",
+    "SPEED_DEMON_THREADS=12 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-tsan-a-count-error-wrap-65535 --out /out/round64-a-scalar-mapped-tsan-a-count-error-wrap-65535-t12",
+    "SPEED_DEMON_THREADS=1 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-tsan-a-count-error-wrap-65536 --out /out/round64-a-scalar-mapped-tsan-a-count-error-wrap-65536-t1",
+    "SPEED_DEMON_THREADS=6 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-tsan-a-count-error-wrap-65536 --out /out/round64-a-scalar-mapped-tsan-a-count-error-wrap-65536-t6",
+    "SPEED_DEMON_THREADS=12 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-tsan-a-count-error-wrap-65536 --out /out/round64-a-scalar-mapped-tsan-a-count-error-wrap-65536-t12",
+    "SPEED_DEMON_THREADS=1 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-tsan-a-count-error-wrap-140000 --out /out/round64-a-scalar-mapped-tsan-a-count-error-wrap-140000-t1",
+    "SPEED_DEMON_THREADS=6 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-tsan-a-count-error-wrap-140000 --out /out/round64-a-scalar-mapped-tsan-a-count-error-wrap-140000-t6",
+    "SPEED_DEMON_THREADS=12 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-tsan-a-count-error-wrap-140000 --out /out/round64-a-scalar-mapped-tsan-a-count-error-wrap-140000-t12",
+    "SPEED_DEMON_THREADS=1 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-tsan-a-nearest-rank-101 --out /out/round64-a-scalar-mapped-tsan-a-nearest-rank-101-t1",
+    "SPEED_DEMON_THREADS=6 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-tsan-a-nearest-rank-101 --out /out/round64-a-scalar-mapped-tsan-a-nearest-rank-101-t6",
+    "SPEED_DEMON_THREADS=12 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-tsan-a-nearest-rank-101 --out /out/round64-a-scalar-mapped-tsan-a-nearest-rank-101-t12",
+    "SPEED_DEMON_THREADS=1 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-tsan-a-many-endpoints-partitions --out /out/round64-a-scalar-mapped-tsan-a-many-endpoints-partitions-t1",
+    "SPEED_DEMON_THREADS=6 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-tsan-a-many-endpoints-partitions --out /out/round64-a-scalar-mapped-tsan-a-many-endpoints-partitions-t6",
+    "SPEED_DEMON_THREADS=12 /tmp/solution --data /repo/.data/cases/round64-a-scalar-mapped-tsan-a-many-endpoints-partitions --out /out/round64-a-scalar-mapped-tsan-a-many-endpoints-partitions-t12",
+    "SPEED_DEMON_THREADS=1 /tmp/solution --data /repo/.data/cases/a-latency-escape-partitions --out /out/a-latency-escape-partitions-t1",
+    "SPEED_DEMON_THREADS=6 /tmp/solution --data /repo/.data/cases/a-latency-escape-partitions --out /out/a-latency-escape-partitions-t6",
+    "SPEED_DEMON_THREADS=12 /tmp/solution --data /repo/.data/cases/a-latency-escape-partitions --out /out/a-latency-escape-partitions-t12",
+    "SPEED_DEMON_THREADS=1 /tmp/solution --data /repo/.data/cases/a-endpoint-id-4095 --out /out/a-endpoint-id-4095-t1",
+    "SPEED_DEMON_THREADS=6 /tmp/solution --data /repo/.data/cases/a-endpoint-id-4095 --out /out/a-endpoint-id-4095-t6",
+    "SPEED_DEMON_THREADS=12 /tmp/solution --data /repo/.data/cases/a-endpoint-id-4095 --out /out/a-endpoint-id-4095-t12",
+    "SPEED_DEMON_THREADS=1 /tmp/solution --data /repo/.data/cases/a-method-hours-ordered --out /out/a-method-hours-ordered-t1",
+    "SPEED_DEMON_THREADS=6 /tmp/solution --data /repo/.data/cases/a-method-hours-ordered --out /out/a-method-hours-ordered-t6",
+    "SPEED_DEMON_THREADS=12 /tmp/solution --data /repo/.data/cases/a-method-hours-ordered --out /out/a-method-hours-ordered-t12",
+    "SPEED_DEMON_THREADS=1 /tmp/solution --data /repo/.data/cases/a-method-hours-shuffled --out /out/a-method-hours-shuffled-t1",
+    "SPEED_DEMON_THREADS=6 /tmp/solution --data /repo/.data/cases/a-method-hours-shuffled --out /out/a-method-hours-shuffled-t6",
+    "SPEED_DEMON_THREADS=12 /tmp/solution --data /repo/.data/cases/a-method-hours-shuffled --out /out/a-method-hours-shuffled-t12"
+  ],
+  "checks": [
+    {
+      "track": "a",
+      "case": "sample-seed1193",
+      "threads": 1,
+      "sha256": "6baea88dd34a091c0938b4eded2772e92739069a002db7781b1ee0540b21c8b5"
+    },
+    {
+      "track": "a",
+      "case": "sample-seed1193",
+      "threads": 6,
+      "sha256": "6baea88dd34a091c0938b4eded2772e92739069a002db7781b1ee0540b21c8b5"
+    },
+    {
+      "track": "a",
+      "case": "sample-seed1193",
+      "threads": 12,
+      "sha256": "6baea88dd34a091c0938b4eded2772e92739069a002db7781b1ee0540b21c8b5"
+    },
+    {
+      "track": "a",
+      "case": "sample-seed1201",
+      "threads": 1,
+      "sha256": "83613c82202e5c5820812600479cfb1fae58b26baf0ed1cf6d76e975d0a7c69a"
+    },
+    {
+      "track": "a",
+      "case": "sample-seed1201",
+      "threads": 6,
+      "sha256": "83613c82202e5c5820812600479cfb1fae58b26baf0ed1cf6d76e975d0a7c69a"
+    },
+    {
+      "track": "a",
+      "case": "sample-seed1201",
+      "threads": 12,
+      "sha256": "83613c82202e5c5820812600479cfb1fae58b26baf0ed1cf6d76e975d0a7c69a"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-sanitize-a-worked",
+      "threads": 1,
+      "sha256": "0782f9b9a885bdbcdfadf330f6bea55accdc06018c0108f69ea43372d2fac692"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-sanitize-a-worked",
+      "threads": 6,
+      "sha256": "0782f9b9a885bdbcdfadf330f6bea55accdc06018c0108f69ea43372d2fac692"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-sanitize-a-worked",
+      "threads": 12,
+      "sha256": "0782f9b9a885bdbcdfadf330f6bea55accdc06018c0108f69ea43372d2fac692"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-sanitize-a-official-edge-cases",
+      "threads": 1,
+      "sha256": "1f43d4bbd4b84dc66319a414138225ff5c2ab9f30aeb2398ec0e54b339011459"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-sanitize-a-official-edge-cases",
+      "threads": 6,
+      "sha256": "1f43d4bbd4b84dc66319a414138225ff5c2ab9f30aeb2398ec0e54b339011459"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-sanitize-a-official-edge-cases",
+      "threads": 12,
+      "sha256": "1f43d4bbd4b84dc66319a414138225ff5c2ab9f30aeb2398ec0e54b339011459"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-sanitize-a-empty",
+      "threads": 1,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-sanitize-a-empty",
+      "threads": 6,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-sanitize-a-empty",
+      "threads": 12,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-sanitize-a-count-error-wrap-65535",
+      "threads": 1,
+      "sha256": "21eea75d26c42f8dfc4776a5e5548591318d7147bb199ff54937921c60be6486"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-sanitize-a-count-error-wrap-65535",
+      "threads": 6,
+      "sha256": "21eea75d26c42f8dfc4776a5e5548591318d7147bb199ff54937921c60be6486"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-sanitize-a-count-error-wrap-65535",
+      "threads": 12,
+      "sha256": "21eea75d26c42f8dfc4776a5e5548591318d7147bb199ff54937921c60be6486"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-sanitize-a-count-error-wrap-65536",
+      "threads": 1,
+      "sha256": "a99938d5c305bb3528d55eb96b41d7b5cfa320a279e98ef358c67b7cceca5be0"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-sanitize-a-count-error-wrap-65536",
+      "threads": 6,
+      "sha256": "a99938d5c305bb3528d55eb96b41d7b5cfa320a279e98ef358c67b7cceca5be0"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-sanitize-a-count-error-wrap-65536",
+      "threads": 12,
+      "sha256": "a99938d5c305bb3528d55eb96b41d7b5cfa320a279e98ef358c67b7cceca5be0"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-sanitize-a-count-error-wrap-140000",
+      "threads": 1,
+      "sha256": "b84dc22963d5bb0b3a0982bd9d4b963060f00ae4503ed1c2bbda28254c9bb148"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-sanitize-a-count-error-wrap-140000",
+      "threads": 6,
+      "sha256": "b84dc22963d5bb0b3a0982bd9d4b963060f00ae4503ed1c2bbda28254c9bb148"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-sanitize-a-count-error-wrap-140000",
+      "threads": 12,
+      "sha256": "b84dc22963d5bb0b3a0982bd9d4b963060f00ae4503ed1c2bbda28254c9bb148"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-sanitize-a-nearest-rank-101",
+      "threads": 1,
+      "sha256": "d80768de7a334cbd5b8f82e085498a5c060db88cf066ae57311b1f9ef6730777"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-sanitize-a-nearest-rank-101",
+      "threads": 6,
+      "sha256": "d80768de7a334cbd5b8f82e085498a5c060db88cf066ae57311b1f9ef6730777"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-sanitize-a-nearest-rank-101",
+      "threads": 12,
+      "sha256": "d80768de7a334cbd5b8f82e085498a5c060db88cf066ae57311b1f9ef6730777"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-sanitize-a-many-endpoints-partitions",
+      "threads": 1,
+      "sha256": "64f490464ec9b7b08cbd15abf7772043d2221767e8c9a84a16d2f6692ff129dd"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-sanitize-a-many-endpoints-partitions",
+      "threads": 6,
+      "sha256": "64f490464ec9b7b08cbd15abf7772043d2221767e8c9a84a16d2f6692ff129dd"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-sanitize-a-many-endpoints-partitions",
+      "threads": 12,
+      "sha256": "64f490464ec9b7b08cbd15abf7772043d2221767e8c9a84a16d2f6692ff129dd"
+    },
+    {
+      "track": "a",
+      "case": "sample-seed1213",
+      "threads": 1,
+      "sha256": "4a445ab15f85039543b79b11cbd2cbe96c61adc35c68089d6b0a771ec2ee33e5"
+    },
+    {
+      "track": "a",
+      "case": "sample-seed1213",
+      "threads": 6,
+      "sha256": "4a445ab15f85039543b79b11cbd2cbe96c61adc35c68089d6b0a771ec2ee33e5"
+    },
+    {
+      "track": "a",
+      "case": "sample-seed1213",
+      "threads": 12,
+      "sha256": "4a445ab15f85039543b79b11cbd2cbe96c61adc35c68089d6b0a771ec2ee33e5"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-tsan-a-worked",
+      "threads": 1,
+      "sha256": "0782f9b9a885bdbcdfadf330f6bea55accdc06018c0108f69ea43372d2fac692"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-tsan-a-worked",
+      "threads": 6,
+      "sha256": "0782f9b9a885bdbcdfadf330f6bea55accdc06018c0108f69ea43372d2fac692"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-tsan-a-worked",
+      "threads": 12,
+      "sha256": "0782f9b9a885bdbcdfadf330f6bea55accdc06018c0108f69ea43372d2fac692"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-tsan-a-official-edge-cases",
+      "threads": 1,
+      "sha256": "1f43d4bbd4b84dc66319a414138225ff5c2ab9f30aeb2398ec0e54b339011459"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-tsan-a-official-edge-cases",
+      "threads": 6,
+      "sha256": "1f43d4bbd4b84dc66319a414138225ff5c2ab9f30aeb2398ec0e54b339011459"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-tsan-a-official-edge-cases",
+      "threads": 12,
+      "sha256": "1f43d4bbd4b84dc66319a414138225ff5c2ab9f30aeb2398ec0e54b339011459"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-tsan-a-empty",
+      "threads": 1,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-tsan-a-empty",
+      "threads": 6,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-tsan-a-empty",
+      "threads": 12,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-tsan-a-count-error-wrap-65535",
+      "threads": 1,
+      "sha256": "21eea75d26c42f8dfc4776a5e5548591318d7147bb199ff54937921c60be6486"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-tsan-a-count-error-wrap-65535",
+      "threads": 6,
+      "sha256": "21eea75d26c42f8dfc4776a5e5548591318d7147bb199ff54937921c60be6486"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-tsan-a-count-error-wrap-65535",
+      "threads": 12,
+      "sha256": "21eea75d26c42f8dfc4776a5e5548591318d7147bb199ff54937921c60be6486"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-tsan-a-count-error-wrap-65536",
+      "threads": 1,
+      "sha256": "a99938d5c305bb3528d55eb96b41d7b5cfa320a279e98ef358c67b7cceca5be0"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-tsan-a-count-error-wrap-65536",
+      "threads": 6,
+      "sha256": "a99938d5c305bb3528d55eb96b41d7b5cfa320a279e98ef358c67b7cceca5be0"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-tsan-a-count-error-wrap-65536",
+      "threads": 12,
+      "sha256": "a99938d5c305bb3528d55eb96b41d7b5cfa320a279e98ef358c67b7cceca5be0"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-tsan-a-count-error-wrap-140000",
+      "threads": 1,
+      "sha256": "b84dc22963d5bb0b3a0982bd9d4b963060f00ae4503ed1c2bbda28254c9bb148"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-tsan-a-count-error-wrap-140000",
+      "threads": 6,
+      "sha256": "b84dc22963d5bb0b3a0982bd9d4b963060f00ae4503ed1c2bbda28254c9bb148"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-tsan-a-count-error-wrap-140000",
+      "threads": 12,
+      "sha256": "b84dc22963d5bb0b3a0982bd9d4b963060f00ae4503ed1c2bbda28254c9bb148"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-tsan-a-nearest-rank-101",
+      "threads": 1,
+      "sha256": "d80768de7a334cbd5b8f82e085498a5c060db88cf066ae57311b1f9ef6730777"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-tsan-a-nearest-rank-101",
+      "threads": 6,
+      "sha256": "d80768de7a334cbd5b8f82e085498a5c060db88cf066ae57311b1f9ef6730777"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-tsan-a-nearest-rank-101",
+      "threads": 12,
+      "sha256": "d80768de7a334cbd5b8f82e085498a5c060db88cf066ae57311b1f9ef6730777"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-tsan-a-many-endpoints-partitions",
+      "threads": 1,
+      "sha256": "64f490464ec9b7b08cbd15abf7772043d2221767e8c9a84a16d2f6692ff129dd"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-tsan-a-many-endpoints-partitions",
+      "threads": 6,
+      "sha256": "64f490464ec9b7b08cbd15abf7772043d2221767e8c9a84a16d2f6692ff129dd"
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-tsan-a-many-endpoints-partitions",
+      "threads": 12,
+      "sha256": "64f490464ec9b7b08cbd15abf7772043d2221767e8c9a84a16d2f6692ff129dd"
+    },
+    {
+      "track": "a",
+      "case": "a-latency-escape-partitions",
+      "threads": 1,
+      "sha256": "99be0d0cbbf65462541c1729e0b682c118bce9c3efd1d1936b6fc8f41f8f041d"
+    },
+    {
+      "track": "a",
+      "case": "a-latency-escape-partitions",
+      "threads": 6,
+      "sha256": "99be0d0cbbf65462541c1729e0b682c118bce9c3efd1d1936b6fc8f41f8f041d"
+    },
+    {
+      "track": "a",
+      "case": "a-latency-escape-partitions",
+      "threads": 12,
+      "sha256": "99be0d0cbbf65462541c1729e0b682c118bce9c3efd1d1936b6fc8f41f8f041d"
+    },
+    {
+      "track": "a",
+      "case": "a-endpoint-id-4095",
+      "threads": 1,
+      "sha256": "87f786a27e82eb2a5063f2645bb79d1ba686aeb5e0616a206e1f97bc9d0266df"
+    },
+    {
+      "track": "a",
+      "case": "a-endpoint-id-4095",
+      "threads": 6,
+      "sha256": "87f786a27e82eb2a5063f2645bb79d1ba686aeb5e0616a206e1f97bc9d0266df"
+    },
+    {
+      "track": "a",
+      "case": "a-endpoint-id-4095",
+      "threads": 12,
+      "sha256": "87f786a27e82eb2a5063f2645bb79d1ba686aeb5e0616a206e1f97bc9d0266df"
+    },
+    {
+      "track": "a",
+      "case": "a-method-hours-ordered",
+      "threads": 1,
+      "sha256": "5e148f39ded086406d96d85240d30d6dccf32c9f854fb915943a036d517f7fb4"
+    },
+    {
+      "track": "a",
+      "case": "a-method-hours-ordered",
+      "threads": 6,
+      "sha256": "5e148f39ded086406d96d85240d30d6dccf32c9f854fb915943a036d517f7fb4"
+    },
+    {
+      "track": "a",
+      "case": "a-method-hours-ordered",
+      "threads": 12,
+      "sha256": "5e148f39ded086406d96d85240d30d6dccf32c9f854fb915943a036d517f7fb4"
+    },
+    {
+      "track": "a",
+      "case": "a-method-hours-shuffled",
+      "threads": 1,
+      "sha256": "5e148f39ded086406d96d85240d30d6dccf32c9f854fb915943a036d517f7fb4"
+    },
+    {
+      "track": "a",
+      "case": "a-method-hours-shuffled",
+      "threads": 6,
+      "sha256": "5e148f39ded086406d96d85240d30d6dccf32c9f854fb915943a036d517f7fb4"
+    },
+    {
+      "track": "a",
+      "case": "a-method-hours-shuffled",
+      "threads": 12,
+      "sha256": "5e148f39ded086406d96d85240d30d6dccf32c9f854fb915943a036d517f7fb4"
+    }
+  ],
+  "diagnostics": "",
+  "passed": true,
+  "source_sha256": {
+    ".build/round64/source/track-a/training_generator.py": "d82b43b8f617016808f85cbe9be86af1fee8466296a0848ab8e6908ee3c4b0b4",
+    ".build/round64/source/track-a/Dockerfile": "790ced6d797678674a1eca8f1fb5cc43f699a43d4e183ce29c0ba67b08203b4c",
+    ".build/round64/source/track-a/io.hpp": "1904d57a52c9280d1fa1863fea3b3705a7d5668bc9deead36a81f0ffe93500cf",
+    ".build/round64/source/track-a/README.md": "702e711b76031734fe24efdb96765215b0c80ccc60b77fa719a29afad1de9b81",
+    ".build/round64/source/track-a/endpoint_table.hpp": "dea6e9d327e397e23588edf6cf32821efe79c6056d657080c320ae535416f931",
+    ".build/round64/source/track-a/PERF.md": "5945492e4163f70672a4f298e9573c63ea26b6c260d71d6f3ad9016c1c98ada9",
+    ".build/round64/source/track-a/mapped_allocator.hpp": "060bb6a0622338b9151e767d827cbf30c8e4d940cc7e170ad51757c4a6b0808b",
+    ".build/round64/source/track-a/.speed-demon.toml": "c9ae973186c14661797640f427009129e2a80d1aecefd5d4fa413ee7f3da44d8",
+    ".build/round64/source/track-a/main.cpp": "bb8a202c1fb390b20f3f1818436c74af67de9ad0c61ab5b5142cc1ab44cc1a8e",
+    ".build/round64/source/track-a/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420"
+  }
+}

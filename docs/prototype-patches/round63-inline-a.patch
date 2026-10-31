@@ -1,0 +1,11 @@
+--- a/track-a/endpoint_table.hpp
++++ b/track-a/endpoint_table.hpp
+@@ -12,7 +12,7 @@
+     std::unique_ptr<Entry[]> entries = std::make_unique<Entry[]>(capacity);
+     std::atomic<uint32_t> used{0};
+     std::atomic<bool> canceled{false};
+-    uint16_t intern(std::string_view value, uint64_t hash) {
++    __attribute__((always_inline)) inline uint16_t intern(std::string_view value, uint64_t hash) {
+         if (canceled.load(std::memory_order_relaxed)) throw std::runtime_error("endpoint limit exceeded");
+         size_t slot = hash & (capacity - 1);
+         for (size_t probes = 0; probes < capacity; ++probes) {

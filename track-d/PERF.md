@@ -239,3 +239,10 @@ If the current source has exactly one outgoing edge, every source-to-target path
 Full forced-chain/large-chain variants with constant-space cycle detection are slower locally and are not promoted. Eleven rotating public-hash-checked native trials: retained0.273129 s, full chains0.277319, large chains0.277737, bounded one-large0.266474; max RSS189.51/189.96/193.20/190.78MB. Select the modest bounded hypothesis for actual total K, including source/memory cost.
 
 Fresh1163/1171 strict ASAN/UBSAN,1181 TSAN,256 independent Floyd graphs/85,871 answers, new all-pairs direct-meeting/prefix+suffix/duplicates/cycles/self-loop/half/MAX-weight fixtures, wide IDs/cursors/64-bit chains, full-public/defaults and945 exact-image Linux replays pass.28 combined source identities are proved in round62-candidate-source-match.json. Real K must exceed retained19.129071/64.084694.
+
+
+## Round62 real result and restoration
+
+Commit9933500b9335ab4866a21ac96990dac5fa2f8cb5, run-fe5461d995e1 passes every gate: T0.223902 s/M91,029,504/S798/K18.355312/63.188089 points. This does not beat retained64.084694/K19.129071, so remove the bounded mandatory-edge query transform and restore exact57cc23e runtime/build/metadata. That retained source's57cc D best is a repeat of the same earlier algorithm, not a new gain. Preserve both records.
+
+A separate private-degree-only prototype removes shared degree atomics but keeps shared scatter cursors. Eleven rotating full-public exact hashes: retained0.282809 s/190.66MB, endpoint candidate0.291394/191.59MB, private degrees0.286491/211.14MB. It fails the local total tradeoff and is rejected before broad sanitizer/board validation. Full patch and limits: round63-64-prototype-index.json. No new D algorithm is submitted in round64. Exact restored D is rebuilt and replayed rather than relying on a no-longer-available historical image.

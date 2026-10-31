@@ -1,6 +1,5 @@
 #include "io.hpp"
 #include "mapped_allocator.hpp"
-#include "decimal.hpp"
 #include "endpoint_table.hpp"
 #include "parallel.hpp"
 #include <atomic>
@@ -52,7 +51,8 @@ int main(int argc, char** argv) {
                 if (!p || limit - p < 5) throw std::runtime_error("missing endpoint/status");
                 std::string_view endpoint(start, p - start);
                 bool error = p[1] == '5'; p += 5; start = p;
-                uint64_t latency = decimal_digits(p, limit);
+                uint64_t latency = 0;
+                while (p < limit && *p >= '0' && *p <= '9') latency = latency * 10 + *p++ - '0';
                 if (p == start || p - start > 10 || latency > UINT32_MAX || p == limit || *p != '\n') throw std::runtime_error("invalid latency");
                 ++p;
                 uint16_t key = endpoints.intern(endpoint, std::hash<std::string_view>{}(endpoint));

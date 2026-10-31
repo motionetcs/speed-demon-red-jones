@@ -1,7 +1,7 @@
 #ifdef DECIMAL_HEADER
 #include DECIMAL_HEADER
 #else
-#include "../track-a/decimal.hpp"
+#include "../track-d/decimal.hpp"
 #endif
 #ifdef COMPACT_QUEUE_HEADER
 #include COMPACT_QUEUE_HEADER

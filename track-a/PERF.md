@@ -240,3 +240,12 @@ Related high-level inspiration: the public [Gigatron A performance log](https://
 Eleven paired full-public native trials: retained0.048677 s/264.31MB process RSS, mapped0.049202/259.00MB. Slightly slower locally, about5.3MB less peak RSS; only actual Intel/cgroup K can decide. The extra allocator source is charged. Models cover values/growth/alignment/overflow, cross-thread destruction, Darwin physical residency and Linux unmapped-address verification. Initial model incorrectly assumed Darwin mincore returns an error after unmap; diagnostics show successful munmap with residency cleared. The observer was corrected without changing production code, preserved in round62-allocator-model-correction.json. Both native and GCC/Linux strict models pass.
 
 Fresh1163/1171 ASAN/UBSAN,1181 TSAN, all A adversarial/full-public/default checks, exact escapes/ID4095/method-hour Linux cases, and69 current-image Linux replays pass. All28 combined build inputs match round62-candidate-source-match.json. Real K must beat27.676524/72.105578.
+
+
+## Round62 real result and smaller/native compilation follow-up
+
+Commit9933500b9335ab4866a21ac96990dac5fa2f8cb5, run-b063bfc456d2 passes all five gates: T0.055207 s/M26,333,184/S411/K27.512520/71.976519 points. The mapped vectors lower charged memory22.63% versus the historical34,037,760-byte best, but source/time cost leaves total K0.59% below27.676524. No A gain is claimed. Record ../docs/board-round62-mapped-splits-endpoints.json.
+
+Next isolated combined candidate preserves that directly mapped layout, uses a bounded scalar latency digit loop with the same10-digit/full-uint32/newline validation, removes the unused four-digit helper and unused Output::save utility, and compiles/trains with -march=native. The remaining decimal primitive model includes D's identical still-used helper. This is ordinary removal of unused code; no formatter suppression, answer storage or protocol change is used. The official harness routes native CPU builds to the scoring host.
+
+Thirteen rotating full-public native trials, all hashes checked: retained0.049346 s, mapped0.051628, scalar-retained0.049942, scalar-mapped0.051011. No native Intel-feature gain is claimed. Both scalar allocator combinations pass fresh1193/1201 strict ASAN/UBSAN,1213 TSAN, full1/6/12 and adversarial suites. Only mapped/scalar/native proceeds to exact Linux/default/replay/GCC integration validation. Unselected inline/prefetch/degree prototypes and limits are preserved in round63-64-prototype-index.json. Real K must beat27.676524.

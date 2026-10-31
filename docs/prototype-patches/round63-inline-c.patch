@@ -1,0 +1,11 @@
+--- a/track-c/names.hpp
++++ b/track-c/names.hpp
+@@ -53,7 +53,7 @@
+     std::string_view bytes(const NameKey* key) const {
+         return {reinterpret_cast<const char*>(key) + sizeof(NameKey) + words * sizeof(std::atomic<uint64_t>), key->length};
+     }
+-    Entry& intern(std::string_view key, StringArena& storage, uint64_t hash) {
++    __attribute__((always_inline)) inline Entry& intern(std::string_view key, StringArena& storage, uint64_t hash) {
+         if (canceled.load(std::memory_order_relaxed)) throw Canceled{};
+         size_t index = hash & (capacity - 1);
+         for (;;) {

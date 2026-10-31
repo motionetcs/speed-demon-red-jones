@@ -21,3 +21,5 @@ With another24 hours: obtain legitimate Intel profiles, measure parse/selection/
 Specification: https://github.com/hackathon-raptors/speed-demon-2026/blob/main/specs/a-ingest.md
 
 Current candidate backs compact request-record vectors with a stateless mapped allocator. A completed hour returns its record pages directly to the OS after all values have been scattered. Standard-vector ownership, exact large-latency escapes and the input mapping lifetime are preserved. Unit/reference/sanitizer/Linux proofs are in PERF.md; real total K decides retention.
+
+Latency parsing now uses a bounded scalar loop with exact full-width validation. Unused digit/Output::save helpers are removed; sample PGO and final compilation use the scoring CPU native target. The mapped allocator hypothesis and all real outcomes are recorded in PERF.md.

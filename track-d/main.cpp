@@ -138,19 +138,6 @@ int main(int argc, char** argv) {
                 if (query >= queries.size()) return;
                 auto [source, target] = queries[query];
                 if (source == target) { answers[query] = 0; continue; }
-                uint64_t fixed=0;bool finished=false;
-                for(bool from_source:{true,false}){
-                    auto& node=from_source?source:target;
-                    const auto& starts=from_source?offsets:reverse_offsets;
-                    const auto& adjacency=from_source?edges:reverse_edges;
-                    if(starts[node+1]-starts[node]!=1)continue;
-                    uint32_t i=starts[node];auto [destination,tag]=adjacency.template get<Compact>(i);
-                    uint32_t weight=tag==(Compact?EdgeStore::small_limit:uint32_t(UINT16_MAX))?wide_weights.at(i*2+(from_source?0:1)):tag;
-                    if(weight<=UINT32_MAX/2)continue;
-                    fixed+=weight;node=destination;
-                    if(source==target){answers[query]=static_cast<int64_t>(fixed);finished=true;break;}
-                }
-                if(finished)continue;
                 if (offsets[source] == offsets[source + 1] || reverse_offsets[target] == reverse_offsets[target + 1]) continue;
                 forward.reset(); backward.reset(); forward_heap.clear(); backward_heap.clear();
                 forward.improve(source, 0); backward.improve(target, 0);
@@ -189,7 +176,7 @@ int main(int argc, char** argv) {
                         }
                     }
                 }
-                if (best != infinity) answers[query] = static_cast<int64_t>(best+fixed);
+                if (best != infinity) answers[query] = static_cast<int64_t>(best);
             }
         };
         if (threads) {

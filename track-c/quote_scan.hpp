@@ -10,14 +10,7 @@
 
 // Only complete in-range vectors are loaded; the scalar tail uses memchr.
 inline const char* find_quote(const char* p, const char* end) {
-#if defined(__AVX2__)
-    while (end - p >= 32) {
-        auto bytes = _mm256_loadu_si256(reinterpret_cast<const __m256i*>(p));
-        uint32_t mask = static_cast<uint32_t>(_mm256_movemask_epi8(_mm256_cmpeq_epi8(bytes, _mm256_set1_epi8('"'))));
-        if (mask) return p + std::countr_zero(mask);
-        p += 32;
-    }
-#elif defined(__SSE2__)
+#if defined(__SSE2__)
     while (end - p >= 16) {
         auto bytes = _mm_loadu_si128(reinterpret_cast<const __m128i*>(p));
         uint32_t mask = static_cast<uint32_t>(_mm_movemask_epi8(_mm_cmpeq_epi8(bytes, _mm_set1_epi8('"'))));

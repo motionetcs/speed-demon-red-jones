@@ -1,0 +1,271 @@
+{
+  "created_at_utc": "2026-10-31T12:30:15.370949+00:00",
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "python": "3.9.6 (default, Aug 25 2026, 21:26:21) \n[Clang 21.0.0 (clang-2100.3.34.2)]",
+  "memory_scope": "process RSS, not official cgroup memory.peak",
+  "official_score": false,
+  "binary_sha256": {
+    "a": "2dcc2ac9204afc856e827ae7a53c528107a1cb7802b8d1b6ab3f7e3cff4d47b5"
+  },
+  "official_revision": "ad1f06063a76bf94066f169e133ec0c2e1485b65",
+  "run_id": "round64-a-scalar-mapped-sanitize",
+  "source_root": "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round64/scalar-mapped",
+  "source_sha256_scope": "Context snapshot at verification time; binary fingerprint recorded separately. Submitted build inputs are matched to independent Linux build reports.",
+  "source_sha256": {
+    "track-a/.speed-demon.toml": "c9ae973186c14661797640f427009129e2a80d1aecefd5d4fa413ee7f3da44d8",
+    "track-a/Dockerfile": "790ced6d797678674a1eca8f1fb5cc43f699a43d4e183ce29c0ba67b08203b4c",
+    "track-a/PERF.md": "5945492e4163f70672a4f298e9573c63ea26b6c260d71d6f3ad9016c1c98ada9",
+    "track-a/README.md": "702e711b76031734fe24efdb96765215b0c80ccc60b77fa719a29afad1de9b81",
+    "track-a/endpoint_table.hpp": "dea6e9d327e397e23588edf6cf32821efe79c6056d657080c320ae535416f931",
+    "track-a/io.hpp": "1904d57a52c9280d1fa1863fea3b3705a7d5668bc9deead36a81f0ffe93500cf",
+    "track-a/main.cpp": "bb8a202c1fb390b20f3f1818436c74af67de9ad0c61ab5b5142cc1ab44cc1a8e",
+    "track-a/mapped_allocator.hpp": "060bb6a0622338b9151e767d827cbf30c8e4d940cc7e170ad51757c4a6b0808b",
+    "track-a/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420",
+    "track-a/training_generator.py": "d82b43b8f617016808f85cbe9be86af1fee8466296a0848ab8e6908ee3c4b0b4"
+  },
+  "checks": [
+    {
+      "track": "a",
+      "case": "sample-seed1193",
+      "reference_sha256": "6baea88dd34a091c0938b4eded2772e92739069a002db7781b1ee0540b21c8b5",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.47875783299999997,
+          "peak_process_rss_bytes": 54804480,
+          "requested_threads": 1,
+          "sha256": "6baea88dd34a091c0938b4eded2772e92739069a002db7781b1ee0540b21c8b5"
+        },
+        {
+          "wall_seconds_including_launch": 0.041666082999999965,
+          "peak_process_rss_bytes": 57081856,
+          "requested_threads": 6,
+          "sha256": "6baea88dd34a091c0938b4eded2772e92739069a002db7781b1ee0540b21c8b5"
+        },
+        {
+          "wall_seconds_including_launch": 0.03795820800000005,
+          "peak_process_rss_bytes": 59277312,
+          "requested_threads": 12,
+          "sha256": "6baea88dd34a091c0938b4eded2772e92739069a002db7781b1ee0540b21c8b5"
+        }
+      ]
+    },
+    {
+      "track": "a",
+      "case": "sample-seed1201",
+      "reference_sha256": "83613c82202e5c5820812600479cfb1fae58b26baf0ed1cf6d76e975d0a7c69a",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.07709129100000034,
+          "peak_process_rss_bytes": 54165504,
+          "requested_threads": 1,
+          "sha256": "83613c82202e5c5820812600479cfb1fae58b26baf0ed1cf6d76e975d0a7c69a"
+        },
+        {
+          "wall_seconds_including_launch": 0.04084045799999991,
+          "peak_process_rss_bytes": 56508416,
+          "requested_threads": 6,
+          "sha256": "83613c82202e5c5820812600479cfb1fae58b26baf0ed1cf6d76e975d0a7c69a"
+        },
+        {
+          "wall_seconds_including_launch": 0.038677167000000345,
+          "peak_process_rss_bytes": 58638336,
+          "requested_threads": 12,
+          "sha256": "83613c82202e5c5820812600479cfb1fae58b26baf0ed1cf6d76e975d0a7c69a"
+        }
+      ]
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-sanitize-a-worked",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.01620304199999989,
+          "peak_process_rss_bytes": 18006016,
+          "requested_threads": 1,
+          "sha256": "0782f9b9a885bdbcdfadf330f6bea55accdc06018c0108f69ea43372d2fac692"
+        },
+        {
+          "wall_seconds_including_launch": 0.016102791999999866,
+          "peak_process_rss_bytes": 19005440,
+          "requested_threads": 6,
+          "sha256": "0782f9b9a885bdbcdfadf330f6bea55accdc06018c0108f69ea43372d2fac692"
+        },
+        {
+          "wall_seconds_including_launch": 0.01615058299999994,
+          "peak_process_rss_bytes": 19660800,
+          "requested_threads": 12,
+          "sha256": "0782f9b9a885bdbcdfadf330f6bea55accdc06018c0108f69ea43372d2fac692"
+        }
+      ]
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-sanitize-a-official-edge-cases",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.020825917000000693,
+          "peak_process_rss_bytes": 18120704,
+          "requested_threads": 1,
+          "sha256": "1f43d4bbd4b84dc66319a414138225ff5c2ab9f30aeb2398ec0e54b339011459"
+        },
+        {
+          "wall_seconds_including_launch": 0.017214125000000635,
+          "peak_process_rss_bytes": 19480576,
+          "requested_threads": 6,
+          "sha256": "1f43d4bbd4b84dc66319a414138225ff5c2ab9f30aeb2398ec0e54b339011459"
+        },
+        {
+          "wall_seconds_including_launch": 0.016934082999999767,
+          "peak_process_rss_bytes": 20332544,
+          "requested_threads": 12,
+          "sha256": "1f43d4bbd4b84dc66319a414138225ff5c2ab9f30aeb2398ec0e54b339011459"
+        }
+      ]
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-sanitize-a-empty",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.01599666600000038,
+          "peak_process_rss_bytes": 17629184,
+          "requested_threads": 1,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "wall_seconds_including_launch": 0.01632387500000032,
+          "peak_process_rss_bytes": 18284544,
+          "requested_threads": 6,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "wall_seconds_including_launch": 0.016849833000000203,
+          "peak_process_rss_bytes": 18857984,
+          "requested_threads": 12,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-sanitize-a-count-error-wrap-65535",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.022013417000000146,
+          "peak_process_rss_bytes": 23330816,
+          "requested_threads": 1,
+          "sha256": "21eea75d26c42f8dfc4776a5e5548591318d7147bb199ff54937921c60be6486"
+        },
+        {
+          "wall_seconds_including_launch": 0.01951670800000027,
+          "peak_process_rss_bytes": 25411584,
+          "requested_threads": 6,
+          "sha256": "21eea75d26c42f8dfc4776a5e5548591318d7147bb199ff54937921c60be6486"
+        },
+        {
+          "wall_seconds_including_launch": 0.018782999999999994,
+          "peak_process_rss_bytes": 27394048,
+          "requested_threads": 12,
+          "sha256": "21eea75d26c42f8dfc4776a5e5548591318d7147bb199ff54937921c60be6486"
+        }
+      ]
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-sanitize-a-count-error-wrap-65536",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.022323832999999738,
+          "peak_process_rss_bytes": 23248896,
+          "requested_threads": 1,
+          "sha256": "a99938d5c305bb3528d55eb96b41d7b5cfa320a279e98ef358c67b7cceca5be0"
+        },
+        {
+          "wall_seconds_including_launch": 0.019049041999999794,
+          "peak_process_rss_bytes": 25346048,
+          "requested_threads": 6,
+          "sha256": "a99938d5c305bb3528d55eb96b41d7b5cfa320a279e98ef358c67b7cceca5be0"
+        },
+        {
+          "wall_seconds_including_launch": 0.019330041000000797,
+          "peak_process_rss_bytes": 27082752,
+          "requested_threads": 12,
+          "sha256": "a99938d5c305bb3528d55eb96b41d7b5cfa320a279e98ef358c67b7cceca5be0"
+        }
+      ]
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-sanitize-a-count-error-wrap-140000",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.028246166999999822,
+          "peak_process_rss_bytes": 29818880,
+          "requested_threads": 1,
+          "sha256": "b84dc22963d5bb0b3a0982bd9d4b963060f00ae4503ed1c2bbda28254c9bb148"
+        },
+        {
+          "wall_seconds_including_launch": 0.02100237500000013,
+          "peak_process_rss_bytes": 31604736,
+          "requested_threads": 6,
+          "sha256": "b84dc22963d5bb0b3a0982bd9d4b963060f00ae4503ed1c2bbda28254c9bb148"
+        },
+        {
+          "wall_seconds_including_launch": 0.020970750000000038,
+          "peak_process_rss_bytes": 33161216,
+          "requested_threads": 12,
+          "sha256": "b84dc22963d5bb0b3a0982bd9d4b963060f00ae4503ed1c2bbda28254c9bb148"
+        }
+      ]
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-sanitize-a-nearest-rank-101",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.0154471660000004,
+          "peak_process_rss_bytes": 17940480,
+          "requested_threads": 1,
+          "sha256": "d80768de7a334cbd5b8f82e085498a5c060db88cf066ae57311b1f9ef6730777"
+        },
+        {
+          "wall_seconds_including_launch": 0.016330207999999402,
+          "peak_process_rss_bytes": 18743296,
+          "requested_threads": 6,
+          "sha256": "d80768de7a334cbd5b8f82e085498a5c060db88cf066ae57311b1f9ef6730777"
+        },
+        {
+          "wall_seconds_including_launch": 0.016363499999999753,
+          "peak_process_rss_bytes": 19234816,
+          "requested_threads": 12,
+          "sha256": "d80768de7a334cbd5b8f82e085498a5c060db88cf066ae57311b1f9ef6730777"
+        }
+      ]
+    },
+    {
+      "track": "a",
+      "case": "round64-a-scalar-mapped-sanitize-a-many-endpoints-partitions",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.017311583000000574,
+          "peak_process_rss_bytes": 18694144,
+          "requested_threads": 1,
+          "sha256": "64f490464ec9b7b08cbd15abf7772043d2221767e8c9a84a16d2f6692ff129dd"
+        },
+        {
+          "wall_seconds_including_launch": 0.019155957999999806,
+          "peak_process_rss_bytes": 19693568,
+          "requested_threads": 6,
+          "sha256": "64f490464ec9b7b08cbd15abf7772043d2221767e8c9a84a16d2f6692ff129dd"
+        },
+        {
+          "wall_seconds_including_launch": 0.018786125000000098,
+          "peak_process_rss_bytes": 20709376,
+          "requested_threads": 12,
+          "sha256": "64f490464ec9b7b08cbd15abf7772043d2221767e8c9a84a16d2f6692ff129dd"
+        }
+      ]
+    }
+  ],
+  "passed": true
+}

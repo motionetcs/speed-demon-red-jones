@@ -1,0 +1,48 @@
+--- a/track-d/main.cpp
++++ b/track-d/main.cpp
+@@ -52,11 +52,11 @@
+             }
+             boundaries[i] = p;
+         }
+-        struct Local { size_t count = 0; DegreeBytes::Spills out_spills, in_spills; std::vector<std::pair<uint32_t, uint32_t>> wide; };
++        struct Local { size_t count = 0; DegreeBytes::Spills out_spills, in_spills; std::vector<uint8_t> out_values,in_values; std::vector<std::pair<uint32_t, uint32_t>> wide; };
+         std::vector<Local> locals(loaders);
+-        DegreeBytes degree(n), reverse_degree(n);
+         parallel(loaders, [&](unsigned worker) {
+             auto& local = locals[worker];
++            local.out_values.resize(n); local.in_values.resize(n);
+             Scanner input{boundaries[worker], boundaries[worker + 1]};
+             std::array<std::pair<uint32_t,uint32_t>, 16> batch;
+             while (input.more()) {
+@@ -64,11 +64,11 @@
+                 while (count < batch.size() && input.more()) {
+                     uint32_t u = input.number(), v = input.number(); input.number();
+                     if (u >= n || v >= n) throw std::runtime_error("node outside graph");
+-                    __builtin_prefetch(&degree.values[u], 1, 1); __builtin_prefetch(&reverse_degree.values[v], 1, 1);
++                    __builtin_prefetch(&local.out_values[u], 1, 1); __builtin_prefetch(&local.in_values[v], 1, 1);
+                     batch[count++] = {u,v};
+                 }
+                 local.count += count;
+-                for (size_t i=0;i<count;++i) { auto [u,v]=batch[i]; degree.add(u, local.out_spills); reverse_degree.add(v, local.in_spills); }
++                for (size_t i=0;i<count;++i) { auto [u,v]=batch[i]; if(local.out_values[u]++==UINT8_MAX)local.out_spills[u]+=256; if(local.in_values[v]++==UINT8_MAX)local.in_spills[v]+=256; }
+             }
+         });
+         size_t edge_count = 0;
+@@ -78,12 +78,13 @@
+         for (const auto& local : locals) {
+             for (auto [node, count] : local.out_spills) offsets[size_t(node) + 1] += count;
+             for (auto [node, count] : local.in_spills) reverse_offsets[size_t(node) + 1] += count;
++            for(size_t i=0;i<n;++i){offsets[i+1]+=local.out_values[i];reverse_offsets[i+1]+=local.in_values[i];}
+         }
+         for (size_t i = 1; i <= n; ++i) {
+-            offsets[i] += offsets[i - 1] + degree.values[i - 1];
+-            reverse_offsets[i] += reverse_offsets[i - 1] + reverse_degree.values[i - 1];
+-        }
+-        degree.release(); reverse_degree.release();
++            offsets[i] += offsets[i - 1];
++            reverse_offsets[i] += reverse_offsets[i - 1];
++        }
++        for(auto& local:locals){std::vector<uint8_t>().swap(local.out_values);std::vector<uint8_t>().swap(local.in_values); }
+         SharedCursor cursor(offsets), reverse_cursor(reverse_offsets);
+         bool wide_cursors = cursor.wide_blocks || reverse_cursor.wide_blocks;
+         EdgeStore edges(m, n), reverse_edges(m, n);

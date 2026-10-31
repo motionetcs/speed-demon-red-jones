@@ -1,0 +1,106 @@
+--- a/track-a/Dockerfile
++++ b/track-a/Dockerfile
+@@ -1,9 +1,9 @@
+ FROM gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce AS build
+ WORKDIR /src
+-COPY mapped_allocator.hpp training_generator.py main.cpp endpoint_table.hpp io.hpp decimal.hpp parallel.hpp ./
+-RUN g++ -std=c++20 -O3 -DNDEBUG -pthread -static -fprofile-generate=/profile -fprofile-update=atomic main.cpp -o /solution
++COPY training_generator.py main.cpp endpoint_table.hpp io.hpp parallel.hpp ./
++RUN g++ -std=c++20 -O3 -march=native -DNDEBUG -pthread -static -fprofile-generate=/profile -fprofile-update=atomic main.cpp -o /solution
+ RUN python3 training_generator.py --seed 104729 --scale sample --out /training && /solution --data /training --out /training-output && python3 training_generator.py --seed 130363 --scale sample --out /training && /solution --data /training --out /training-output
+-RUN g++ -std=c++20 -O3 -DNDEBUG -pthread -static -fprofile-use=/profile -fprofile-correction -Werror=missing-profile main.cpp -o /solution
++RUN g++ -std=c++20 -O3 -march=native -DNDEBUG -pthread -static -fprofile-use=/profile -fprofile-correction -Werror=missing-profile main.cpp -o /solution
+ 
+ FROM debian:13-slim@sha256:62bd423aeee912639ca8ee681c2b762cb3e25137e0a92b20be455898a9f034ad
+ COPY --from=build /solution /app/solution
+--- a/track-a/decimal.hpp
++++ /dev/null
+@@ -1,22 +0,0 @@
+-#pragma once
+-#include <bit>
+-#include <cstdint>
+-#include <cstring>
+-
+-// Four ASCII digits in one bounded load. Every byte is validated before batching.
+-inline uint64_t decimal_digits(const char*& p, const char* end) {
+-    uint64_t value = 0;
+-    if constexpr (std::endian::native == std::endian::little) {
+-        while (end - p >= 4) {
+-            uint32_t bytes;
+-            std::memcpy(&bytes, p, 4);
+-            uint32_t digits = bytes ^ 0x30303030U;
+-            if ((digits & 0xf0f0f0f0U) || ((digits + 0x06060606U) & 0x10101010U)) break;
+-            uint32_t pairs = (digits & 0x00ff00ffU) * 10 + ((digits >> 8) & 0x00ff00ffU);
+-            value = value * 10000 + (pairs & 0xffffU) * 100 + (pairs >> 16);
+-            p += 4;
+-        }
+-    }
+-    while (p < end && *p >= '0' && *p <= '9') value = value * 10 + *p++ - '0';
+-    return value;
+-}
+--- a/track-a/io.hpp
++++ b/track-a/io.hpp
+@@ -68,10 +68,4 @@
+         auto r = std::to_chars(b, b + sizeof b, n);
+         bytes.append(b, r.ptr);
+     }
+-    void save(const std::filesystem::path& file) {
+-        std::ofstream stream(file, std::ios::binary);
+-        stream.write(bytes.data(), static_cast<std::streamsize>(bytes.size()));
+-        stream.close();
+-        if (!stream) throw std::runtime_error("cannot write " + file.string());
+-    }
+ };
+--- a/track-a/main.cpp
++++ b/track-a/main.cpp
+@@ -1,6 +1,4 @@
+ #include "io.hpp"
+-#include "mapped_allocator.hpp"
+-#include "decimal.hpp"
+ #include "endpoint_table.hpp"
+ #include "parallel.hpp"
+ #include <atomic>
+@@ -9,7 +7,7 @@
+ 
+ static constexpr uint32_t latency_escape = (1U << 19) - 1;
+ struct Count { uint32_t count = 0, errors = 0; };
+-using Records=std::vector<uint32_t,MappedAllocator<uint32_t>>;
++using Records=std::vector<uint32_t>;
+ 
+ int main(int argc, char** argv) {
+     try {
+@@ -52,7 +50,8 @@
+                 if (!p || limit - p < 5) throw std::runtime_error("missing endpoint/status");
+                 std::string_view endpoint(start, p - start);
+                 bool error = p[1] == '5'; p += 5; start = p;
+-                uint64_t latency = decimal_digits(p, limit);
++                uint64_t latency = 0;
++                while (p < limit && *p >= '0' && *p <= '9') latency = latency * 10 + *p++ - '0';
+                 if (p == start || p - start > 10 || latency > UINT32_MAX || p == limit || *p != '\n') throw std::runtime_error("invalid latency");
+                 ++p;
+                 uint16_t key = endpoints.intern(endpoint, std::hash<std::string_view>{}(endpoint));
+--- a/track-a/mapped_allocator.hpp
++++ /dev/null
+@@ -1,22 +0,0 @@
+-#pragma once
+-#include <cstddef>
+-#include <cstdint>
+-#include <new>
+-#include <sys/mman.h>
+-
+-// Stateless vector storage; completed-hour buffers return directly to the OS.
+-template<class T> struct MappedAllocator {
+-    static_assert(alignof(T)<=alignof(std::max_align_t));
+-    using value_type=T;
+-    MappedAllocator()=default;
+-    template<class U> MappedAllocator(const MappedAllocator<U>&) noexcept {}
+-    T* allocate(size_t n) {
+-        if(n>SIZE_MAX/sizeof(T))throw std::bad_array_new_length();
+-        if(!n)return nullptr;
+-        void* p=mmap(nullptr,n*sizeof(T),PROT_READ|PROT_WRITE,MAP_PRIVATE|MAP_ANONYMOUS,-1,0);
+-        if(p==MAP_FAILED)throw std::bad_alloc();
+-        return static_cast<T*>(p);
+-    }
+-    void deallocate(T* p,size_t n) noexcept {if(p)munmap(p,n*sizeof(T));}
+-    template<class U> bool operator==(const MappedAllocator<U>&)const noexcept{return true;}
+-};

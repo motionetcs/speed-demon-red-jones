@@ -1,0 +1,27 @@
+{
+  "observed_at_utc": "2026-10-31T12:29:57.461657+00:00",
+  "official_score": false,
+  "scope": "GCC15/Linux strict ASAN/UBSAN assertions; first-quote reference/random/byte/guard-page models and exact record-boundary/coverage models. Compiler SSE2 and AVX2 features are enabled in separate builds; both execute the new header's explicit 128-bit SSE2 branch, regardless of compiler-feature label in the quote test stdout. NEON native parsing tested separately. Emulated correctness only.",
+  "compiler_image": "gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce",
+  "script": [
+    "set -eu",
+    "export UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1",
+    "g++ -std=c++20 -O1 -g -pthread -msse2 -fsanitize=address,undefined '-DQUOTE_SCAN_HEADER=\"/repo/.build/round64/source/track-c/quote_scan.hpp\"' /repo/tools/test_quote_scan.cpp -o /tmp/model0",
+    "/tmp/model0",
+    "g++ -std=c++20 -O1 -g -pthread -mavx2 -fsanitize=address,undefined '-DQUOTE_SCAN_HEADER=\"/repo/.build/round64/source/track-c/quote_scan.hpp\"' /repo/tools/test_quote_scan.cpp -o /tmp/model1",
+    "/tmp/model1",
+    "g++ -std=c++20 -O1 -g -pthread -msse2 -fsanitize=address,undefined '-DCSV_SOURCE=\"/repo/.build/round64/source/track-c/main.cpp\"' /repo/tools/test_c_boundaries.cpp -o /tmp/model2",
+    "/tmp/model2",
+    "g++ -std=c++20 -O1 -g -pthread -mavx2 -fsanitize=address,undefined '-DCSV_SOURCE=\"/repo/.build/round64/source/track-c/main.cpp\"' /repo/tools/test_c_boundaries.cpp -o /tmp/model3",
+    "/tmp/model3"
+  ],
+  "output": "PASS first-quote scalar reference, every byte/offset, random buffers and protected-page tails; SSE2\nPASS first-quote scalar reference, every byte/offset, random buffers and protected-page tails; AVX2\nPASS CSV split monotonicity, true-boundary membership and complete record coverage; all offsets/quote runs/BOM/EOF/guard pages at1..12 workers\nPASS CSV split monotonicity, true-boundary membership and complete record coverage; all offsets/quote runs/BOM/EOF/guard pages at1..12 workers\n",
+  "diagnostics": "",
+  "passed": true,
+  "sha256": {
+    "tools/test_quote_scan.cpp": "ea8920fac8db085b72b1fc44edab99aabd5f5b513305a2ebedd9d8243ea07e78",
+    ".build/round64/source/track-c/quote_scan.hpp": "0b170a766254dee1bc14f9e9180cc1900da01d41f5d09053d5579e01a7fb9cfa",
+    "tools/test_c_boundaries.cpp": "a809f25fc8c663182bdbec412e06471920a70bca9b64ae0505d583a412ae38f2",
+    ".build/round64/source/track-c/main.cpp": "6de02224ad7125307d43236ce3595f1f46f3f5596a55f59d9e3ffa3bf06a460c"
+  }
+}
