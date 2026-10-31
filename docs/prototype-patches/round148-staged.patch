@@ -1,0 +1,68 @@
+--- a/track-c/Dockerfile
++++ b/track-c/Dockerfile
+@@ -1,6 +1,6 @@
+ FROM gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce AS build
+ WORKDIR /src
+-COPY training_generator.py main.cpp quote_scan.hpp io.hpp parallel.hpp names.hpp ./
++COPY training_generator.py main.cpp quote_scan.hpp io.hpp parallel.hpp names.hpp name_hash.hpp ./
+ RUN g++ -std=c++20 -O3 -march=native -DNDEBUG -pthread -static -fprofile-generate=/profile -fprofile-update=atomic main.cpp -o /solution
+ RUN python3 training_generator.py --seed 1000003 --scale full --out /training && /solution --data /training --out /training-output && python3 training_generator.py --seed 130363 --scale sample --out /training && /solution --data /training --out /training-output
+ RUN g++ -std=c++20 -O3 -march=native -DNDEBUG -pthread -static -fprofile-use=/profile -fprofile-correction -Werror=missing-profile main.cpp -o /solution
+--- /dev/null
++++ b/track-c/name_hash.hpp
+@@ -0,0 +1,36 @@
++#pragma once
++#include <cstdint>
++#include <cstring>
++#include <functional>
++#include <string_view>
++#if __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__ && defined(__x86_64__) && defined(__SSE4_2__)
++#include <immintrin.h>
++#define NAME_HASH_CRC 1
++inline uint32_t name_crc64(uint32_t state,uint64_t word){return static_cast<uint32_t>(_mm_crc32_u64(state,word));}
++inline uint32_t name_crc32(uint32_t state,uint32_t word){return _mm_crc32_u32(state,word);}
++inline uint32_t name_crc16(uint32_t state,uint16_t word){return _mm_crc32_u16(state,word);}
++inline uint32_t name_crc8(uint32_t state,uint8_t word){return _mm_crc32_u8(state,word);}
++#elif __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__ && defined(__aarch64__) && defined(__ARM_FEATURE_CRC32)
++#include <arm_acle.h>
++#define NAME_HASH_CRC 1
++inline uint32_t name_crc64(uint32_t state,uint64_t word){return __crc32cd(state,word);}
++inline uint32_t name_crc32(uint32_t state,uint32_t word){return __crc32cw(state,word);}
++inline uint32_t name_crc16(uint32_t state,uint16_t word){return __crc32ch(state,word);}
++inline uint32_t name_crc8(uint32_t state,uint8_t word){return __crc32cb(state,word);}
++#else
++#define NAME_HASH_CRC 0
++#endif
++inline uint64_t whole_name_hash(std::string_view key){
++#if NAME_HASH_CRC
++    uint32_t state=static_cast<uint32_t>(key.size())^0x9e3779b9U;
++    const char* p=key.data();size_t n=key.size();
++    while(n>=8){uint64_t word;std::memcpy(&word,p,8);state=name_crc64(state,word);p+=8;n-=8;}
++    if(n>=4){uint32_t word;std::memcpy(&word,p,4);state=name_crc32(state,word);p+=4;n-=4;}
++    if(n>=2){uint16_t word;std::memcpy(&word,p,2);state=name_crc16(state,word);p+=2;n-=2;}
++    if(n)state=name_crc8(state,static_cast<uint8_t>(*p));
++    uint64_t hash=uint64_t(state)*0x9e3779b97f4a7c15ULL;
++#else
++    uint64_t hash=std::hash<std::string_view>{}(key);
++#endif
++    return hash<2?hash+2:hash;
++}
+--- a/track-c/names.hpp
++++ b/track-c/names.hpp
+@@ -1,6 +1,7 @@
+ #pragma once
+ #define SPEED_DEMON_OFFSET_NAMES 1
+ #include <algorithm>
++#include "name_hash.hpp"
+ #include <atomic>
+ #include <thread>
+ #include <cstdint>
+@@ -18,7 +19,7 @@
+     struct Entry {uint32_t hash=0,index=0;};
+     std::vector<Entry> entries;std::vector<std::unique_ptr<uint64_t[]>> storage;size_t words,used=0,next=0,remaining=0;
+     explicit Names(size_t countries):entries(16384),words((countries+63)/64){}
+-    static uint64_t hash_key(std::string_view key){uint64_t h=std::hash<std::string_view>{}(key);return h<2?h+2:h;}
++    static uint64_t hash_key(std::string_view key){return whole_name_hash(key);}
+     static uint32_t encode_index(size_t block,size_t word){
+         if(block>=(size_t(1)<<19)||word>=8192)throw std::runtime_error("name block/word index capacity");
+         uint32_t encoded=(static_cast<uint32_t>(block)<<13)|static_cast<uint32_t>(word);

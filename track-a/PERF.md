@@ -394,3 +394,6 @@ The initial144 timing-command review rejected historical reuse as not demonstrab
 
 
 145/348257e run-1fc76115f2d9 passes every real gate: T0.046329s/M27340800/S457/K29.337848/73.371413 points. Keep mapped/cache A: K28.740275→29.337848, points72.924546→73.371413. Charged memory35,426,304→27,340,800B falls22.82%; time0.044513→0.046329s is4.08% slower and source424→457 grows. This is a measured total-score tradeoff, not a runtime-speed claim or precise causal estimate from one run. All28 inputs match round145-final-source-match.json. Raw ../docs/board-round145-mapped-cache.json.
+
+
+Evidence147/69322d0 run-ed5a0130bc00 passes all real gates on identical selected145 inputs: T0.057393s/M25169920/S457/K26.79854/71.405557 points. C67.958752/K22.865201 is a slightly higher same-source best; A/D lower repeats remain separate. No new algorithm gain is claimed. Raw ../docs/board-round147-evidence-head.json.

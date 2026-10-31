@@ -1,0 +1,50 @@
+{
+  "observed_at_utc": "2026-10-31T20:15:13.877977+00:00",
+  "official_score": false,
+  "passed": true,
+  "scope": "Independent fully primed SPSC16-slot exact-token/key/country/order model across every2..12 default role topology plus1/11 and11/1; varied/partial batches, FIFO EOF, cancellation with empty/full internal queue and internal uint64 sequence wrap. Native ASAN/UBSAN and TSAN plus pinned GCC ASAN/UBSAN; separate exact offset-store reference/collision/growth/all-country/oversized/encoded-index models execute the same header. No cooperative-queue proof is substituted. Header lifetime/release-acquire argument remains reasoned evidence, not a formal certificate.",
+  "primary_sources": [
+    "https://timsong-cpp.github.io/cppwp/n4861/atomics.order",
+    "https://timsong-cpp.github.io/cppwp/n4861/thread.thread.member"
+  ],
+  "runs": [
+    {
+      "mode": "native-ring-asan",
+      "stdout": "PASS SPSC ring capacity=16: fully primed channels, every2..12-worker role topology,1/11 and11/1, exact ordered tokens/key bytes/countries, varied/partial batches, FIFO EOF, empty/full cancellation and internal uint64 sequence wrap\n",
+      "stderr": "",
+      "binary_sha256": "bf4ceb3a61acd71a139e9f42f8d273652799fff6accce1d48f8ddb2bd051a2a3"
+    },
+    {
+      "mode": "native-ring-tsan",
+      "stdout": "PASS SPSC ring capacity=16: fully primed channels, every2..12-worker role topology,1/11 and11/1, exact ordered tokens/key bytes/countries, varied/partial batches, FIFO EOF, empty/full cancellation and internal uint64 sequence wrap\n",
+      "stderr": "",
+      "binary_sha256": "8ebdea2160d70c39e0e788d4fe641ce823385caa362cab8c30198e5cdef0b0aa"
+    },
+    {
+      "mode": "native-offset-asan",
+      "stdout": "PASS offset-name independent std::set, low32 fingerprint collisions including0/1, full-key collisions, all-country words, table/block growth, exact full/partial/oversized blocks, long NUL/UTF8 keys, encoded-index boundaries and overflow guards\n",
+      "stderr": "",
+      "binary_sha256": "d2de0e2f23807efa2590f4f9d036c6b48ab434447e5a8eb5c18efcd5549c3704"
+    },
+    {
+      "mode": "GCC15-Linux-ring-offset-asan",
+      "script": [
+        "set -eu",
+        "export ASAN_OPTIONS=halt_on_error=1",
+        "export UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1",
+        "g++ -std=c++20 -O1 -g -pthread -fsanitize=address,undefined -fno-omit-frame-pointer '-DNAMES_HEADER=\"/repo/.build/round151/source/track-c/names.hpp\"' /repo/tools/test_name_ring.cpp -o /tmp/test_name_ring.cpp",
+        "/tmp/test_name_ring.cpp",
+        "g++ -std=c++20 -O1 -g -pthread -fsanitize=address,undefined -fno-omit-frame-pointer '-DNAMES_HEADER=\"/repo/.build/round151/source/track-c/names.hpp\"' /repo/tools/test_name_store.cpp -o /tmp/test_name_store.cpp",
+        "/tmp/test_name_store.cpp"
+      ],
+      "stdout": "PASS SPSC ring capacity=16: fully primed channels, every2..12-worker role topology,1/11 and11/1, exact ordered tokens/key bytes/countries, varied/partial batches, FIFO EOF, empty/full cancellation and internal uint64 sequence wrap\nPASS offset-name independent std::set, low32 fingerprint collisions including0/1, full-key collisions, all-country words, table/block growth, exact full/partial/oversized blocks, long NUL/UTF8 keys, encoded-index boundaries and overflow guards\n",
+      "stderr": ""
+    }
+  ],
+  "source_sha256": {
+    ".build/round151/source/track-c/names.hpp": "63cf305f22192329911ae962071a1c0a38e0eb7ff65a28d1e8f04422c5c754e7",
+    "tools/test_name_ring.cpp": "f39d0a46fb5412f751889ed41110b04dbf92f8791bc63651089e270aeda151ee",
+    "tools/test_name_store.cpp": "56d328be33772761f2b017c27c9415594ef6367298ff8ae919d5c93f384b0183",
+    "tools/offset_names_model.hpp": "80082d9d37052c2f8ba3612c15c5ad3386f672e2b5ead83d2dd3f64e6794842e"
+  }
+}

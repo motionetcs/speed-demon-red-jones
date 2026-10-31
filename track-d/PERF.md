@@ -384,3 +384,6 @@ Fresh1637/1657 strict ASAN/UBSAN,1663 TSAN, full1/6/12 and all wide-ID/weight/de
 
 
 145/348257e run-3adeecd27501 passes every real gate: T0.20462s/M77193216/S827/K19.738399/64.765597 points. Unchanged selected source: preserve this lower repeat separately from historical best; no new algorithm gain. All28 inputs match round145-final-source-match.json. Raw ../docs/board-round145-mapped-cache.json.
+
+
+Evidence147/69322d0 run-6aba70749f25 passes all real gates on identical selected145 inputs: T0.204022s/M77721600/S827/K19.740355/64.767748 points. C67.958752/K22.865201 is a slightly higher same-source best; A/D lower repeats remain separate. No new algorithm gain is claimed. Raw ../docs/board-round147-evidence-head.json.

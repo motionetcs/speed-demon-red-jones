@@ -1,3 +1,5 @@
+> Active151 fully tested C SPSC16-slot/256-event candidate; actual pending. A/D unchanged. Evidence147 C67.958752 is same-source variation; selected145 remains rollback.
+
 # Results — 31 October 2026
 
 Complete public feed: **2026-10-31 19:25:13 UTC**. Red Jones is **39th of85** teams with three scored tracks. The best-three machine mean is **68.754000**, up from68.600513 at the prior complete snapshot. Overall leader Cause Of Death has81.805732. We are not number one. Team counts changed, and practice-board best records are separate from final holdout scoring and judging.

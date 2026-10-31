@@ -1,3 +1,5 @@
+> Active151 fully tested C SPSC16-slot/256-event candidate; actual pending. A/D unchanged. Evidence147 C67.958752 is same-source variation; selected145 remains rollback.
+
 # Entry audit — 31 October 2026
 
 Every28 current runtime/build/metadata input and complete file set matches actual all-gates145/348257e and each best-track source in round145-final-source-match.json. Selected A combines exact75 cache/canonical views and our event-written62 mapped allocator with fresh145 strict native/GCC/race/reference proof. Actual A improves72.924546→73.371413/K28.740275→29.337848 through lower charged memory despite slower time/more source. Dedicated offset C and D32 stay original. Failed139 method/reserve, cooperative133 and other prototypes are absent.

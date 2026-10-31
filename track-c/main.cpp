@@ -162,7 +162,7 @@ int main(int argc, char** argv) {
 #define PIPELINE_READERS 8
 #endif
 #ifndef NAME_BATCH
-#define NAME_BATCH 512
+#define NAME_BATCH 256
 #endif
         unsigned readers=threads==1?1:std::clamp(threads*PIPELINE_READERS/12,1U,threads-1);
         unsigned owners=threads-readers;
@@ -205,10 +205,10 @@ int main(int argc, char** argv) {
                             bool progress=false;
                             for(unsigned reader=0;reader<readers;++reader){
                                 if(finished[reader])continue;auto& queue=queues[size_t(reader)*owners+owner];
-                                if(!queue.ready.load(std::memory_order_acquire))continue;progress=true;
-                                if(queue.rows.empty()){finished[reader]=true;--remaining;}
-                                else for(const auto& e:queue.rows)distinct[owner][e.country]+=names.first(e.value(),e.country,e.hash);
-                                queue.rows.clear();queue.ready.store(false,std::memory_order_release);
+                                auto* rows=queue.receive();if(!rows)continue;progress=true;
+                                if(rows->empty()){finished[reader]=true;--remaining;}
+                                else for(const auto& e:*rows)distinct[owner][e.country]+=names.first(e.value(),e.country,e.hash);
+                                queue.release();
                             }
                             if(!progress)std::this_thread::yield();
                         }

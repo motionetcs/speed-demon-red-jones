@@ -1,0 +1,47 @@
+{
+  "observed_at_utc": "2026-10-31T20:03:28.436378+00:00",
+  "official_score": false,
+  "passed": true,
+  "scope": "Independent bit-polynomial CRC32C oracle, exact length seed/multiplier and staged versus zero-padded tails; all256 byte values at0..257 lengths,20000 random binary keys,1MiB key, protected-page short/long/alignment/tail boundaries. Native ARM CRC and GCC15 x86 SSE4.2 execute hardware; GCC generic fallback explicitly executes original std::hash. No pipeline correctness or official speed is claimed by this primitive proof.",
+  "primary_sources": [
+    "https://clang.llvm.org/doxygen/crc32intrin_8h_source.html",
+    "https://arm-software.github.io/acle/main/acle.html"
+  ],
+  "runs": [
+    {
+      "mode": "native-crc",
+      "variant": "staged",
+      "stdout": "PASS whole-key hash scalar bit-polynomial/fallback oracle; all bytes, tails, random/1MiB and both protected-page boundaries; hardware=1 padded=0\n",
+      "stderr": "",
+      "binary_sha256": "d9a8c0c226ee603d2a2394edb5dd494fe978c7c789573329af712ba1f97f1464"
+    },
+    {
+      "mode": "native-crc",
+      "variant": "padded",
+      "stdout": "PASS whole-key hash scalar bit-polynomial/fallback oracle; all bytes, tails, random/1MiB and both protected-page boundaries; hardware=1 padded=1\n",
+      "stderr": "",
+      "binary_sha256": "9447cd04bed22434a79becfcb7bb78b5879ab37b7111db605e77efb78cad16fd"
+    },
+    {
+      "mode": "GCC15-Linux-crc-and-fallback",
+      "script": [
+        "set -eu",
+        "export ASAN_OPTIONS=halt_on_error=1",
+        "export UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1",
+        "g++ -std=c++20 -O1 -g -pthread -msse4.2 -fsanitize=address,undefined -fno-omit-frame-pointer '-DNAME_HASH_HEADER=\"/repo/.build/round148/staged/track-c/name_hash.hpp\"' -DEXPECT_NAME_CRC=1 -DPADDED_NAME_REFERENCE=0 /repo/tools/test_whole_name_hash.cpp -o /tmp/staged1",
+        "/tmp/staged1",
+        "g++ -std=c++20 -O1 -g -pthread -msse4.2 -fsanitize=address,undefined -fno-omit-frame-pointer '-DNAME_HASH_HEADER=\"/repo/.build/round148/padded/track-c/name_hash.hpp\"' -DEXPECT_NAME_CRC=1 -DPADDED_NAME_REFERENCE=1 /repo/tools/test_whole_name_hash.cpp -o /tmp/padded1",
+        "/tmp/padded1",
+        "g++ -std=c++20 -O1 -g -pthread -msse2 -mno-sse4.2 -fsanitize=address,undefined -fno-omit-frame-pointer '-DNAME_HASH_HEADER=\"/repo/.build/round148/staged/track-c/name_hash.hpp\"' -DEXPECT_NAME_CRC=0 -DPADDED_NAME_REFERENCE=0 /repo/tools/test_whole_name_hash.cpp -o /tmp/staged0",
+        "/tmp/staged0"
+      ],
+      "stdout": "PASS whole-key hash scalar bit-polynomial/fallback oracle; all bytes, tails, random/1MiB and both protected-page boundaries; hardware=1 padded=0\nPASS whole-key hash scalar bit-polynomial/fallback oracle; all bytes, tails, random/1MiB and both protected-page boundaries; hardware=1 padded=1\nPASS whole-key hash scalar bit-polynomial/fallback oracle; all bytes, tails, random/1MiB and both protected-page boundaries; hardware=0 padded=0\n",
+      "stderr": ""
+    }
+  ],
+  "source_sha256": {
+    "tools/test_whole_name_hash.cpp": "4b078aa72595037eca48fa3ad231511aa7f4d59e60e86e0cda90c36dfc0693c0",
+    ".build/round148/staged/track-c/name_hash.hpp": "fadbc030825434e8fb0c1d6cc4c067a936af6b961baf9d30a9d931155d6f7f60",
+    ".build/round148/padded/track-c/name_hash.hpp": "37a75c1be05ef63ab1124acfce945737a936a435434780eee6a67a1be89c4f99"
+  }
+}

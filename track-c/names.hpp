@@ -1,6 +1,7 @@
 #pragma once
 #define SPEED_DEMON_OFFSET_NAMES 1
 #include <algorithm>
+#include <array>
 #include <atomic>
 #include <thread>
 #include <cstdint>
@@ -74,13 +75,28 @@ struct NameEvent {
 // One producer and one consumer transfer a vector through release/acquire.
 // Every key borrows immutable input; the consumer copies each unique key.
 struct NameQueue {
-    alignas(64) std::atomic<bool> ready{false};std::vector<NameEvent> rows;
+    static constexpr size_t capacity=16;
+    alignas(64) std::atomic<uint64_t> published{0};
+    alignas(64) std::atomic<uint64_t> consumed{0};
+    std::array<std::vector<NameEvent>,capacity> slots;
     void send(std::vector<NameEvent>& batch,const std::atomic<bool>& canceled){
-        while(ready.load(std::memory_order_acquire)){
+        uint64_t position=published.load(std::memory_order_relaxed);
+        while(position-consumed.load(std::memory_order_acquire)==capacity){
             if(canceled.load(std::memory_order_relaxed))throw std::runtime_error("name pipeline canceled");
             std::this_thread::yield();
         }
         if(canceled.load(std::memory_order_relaxed))throw std::runtime_error("name pipeline canceled");
-        rows.swap(batch);ready.store(true,std::memory_order_release);
+        slots[position&(capacity-1)].swap(batch);
+        published.store(position+1,std::memory_order_release);
+    }
+    std::vector<NameEvent>* receive(){
+        uint64_t position=consumed.load(std::memory_order_relaxed);
+        if(position==published.load(std::memory_order_acquire))return nullptr;
+        return &slots[position&(capacity-1)];
+    }
+    void release(){
+        uint64_t position=consumed.load(std::memory_order_relaxed);
+        slots[position&(capacity-1)].clear();
+        consumed.store(position+1,std::memory_order_release);
     }
 };
