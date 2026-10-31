@@ -1,0 +1,35 @@
+--- a/track-a/main.cpp
++++ b/track-a/main.cpp
+@@ -1,4 +1,5 @@
+ #include "io.hpp"
++#include "space_scan.hpp"
+ #include "decimal.hpp"
+ #include "endpoint_table.hpp"
+ #include "parallel.hpp"
+@@ -46,7 +47,7 @@
+                 p += 28; while (p < limit && *p != ' ') ++p;
+                 if (p == limit) throw std::runtime_error("missing endpoint");
+                 const char* start = ++p;
+-                p = static_cast<const char*>(std::memchr(start, ' ', limit - start));
++                p = find_space(start,limit);
+                 if (!p || limit - p < 5) throw std::runtime_error("missing endpoint/status");
+                 std::string_view endpoint(start, p - start);
+                 bool error = p[1] == '5'; p += 5; start = p;
+--- /dev/null
++++ b/track-a/space_scan.hpp
+@@ -0,0 +1,15 @@
++#pragma once
++#include <bit>
++#include <cstdint>
++#include <cstring>
++inline const char* find_space(const char* p,const char* end){
++    if constexpr(std::endian::native==std::endian::little){
++        while(end-p>=8){
++            uint64_t bytes;std::memcpy(&bytes,p,8);bytes^=0x2020202020202020ULL;
++            uint64_t mask=(bytes-0x0101010101010101ULL)&~bytes&0x8080808080808080ULL;
++            if(mask)return p+std::countr_zero(mask)/8;
++            p+=8;
++        }
++    }
++    return static_cast<const char*>(std::memchr(p,' ',end-p));
++}

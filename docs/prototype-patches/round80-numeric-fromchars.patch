@@ -1,0 +1,17 @@
+--- a/track-c/main.cpp
++++ b/track-c/main.cpp
+@@ -51,10 +51,10 @@
+         if (p == end || *p++ != ',') throw std::runtime_error("expected CSV comma");
+     }
+     uint64_t integer() {
+-        const char* start = p;
+-        uint64_t value = 0;
+-        while (p < end && *p >= '0' && *p <= '9') value = value * 10 + *p++ - '0';
+-        if (p == start) throw std::runtime_error("missing CSV integer");
++        uint64_t value=0;
++        auto parsed=std::from_chars(p,end,value);
++        if(parsed.ec!=std::errc{})throw std::runtime_error("invalid CSV integer");
++        p=parsed.ptr;
+         comma();
+         return value;
+     }

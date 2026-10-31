@@ -1,0 +1,24 @@
+{
+  "observed_at_utc": "2026-10-31T14:05:25.115450+00:00",
+  "official_score": false,
+  "scope": "Native and GCC strict ASAN/UBSAN first-space scalar-reference checks for every byte/offset,100000 random buffers and protected end pages, including no-match/empty/tails. The production header uses bounded64-bit SWAR on little endian and library fallback elsewhere, no SSE4.2/AVX instruction path.",
+  "runs": [
+    {
+      "mode": "native",
+      "stdout": "PASS bounded word-space scan: scalar reference, every byte/offset, random buffers and protected-page tails\n",
+      "stderr": "",
+      "binary_sha256": "c19df95466871dc3decd302fb5f8bbae0a6e509e5d0272624950a89d46d61bd6"
+    },
+    {
+      "mode": "GCC15-Linux-amd64",
+      "stdout": "PASS bounded word-space scan: scalar reference, every byte/offset, random buffers and protected-page tails\n",
+      "stderr": "",
+      "script": "g++ -std=c++20 -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer '-DSPACE_SCAN_HEADER=\"/repo/.build/round81/source/track-a/space_scan.hpp\"' /repo/tools/test_space_scan.cpp -o /tmp/space-model && UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1 /tmp/space-model"
+    }
+  ],
+  "source_sha256": {
+    ".build/round81/source/track-a/space_scan.hpp": "d683b579a374e7d9a087fb4d8ceb63a4fe2a95887af75f36cc02cf9958c50a0f",
+    "tools/test_space_scan.cpp": "378848d623994053dbc1f910a577ba3062c322b3e927738ee0b8d12202af7ff8"
+  },
+  "passed": true
+}

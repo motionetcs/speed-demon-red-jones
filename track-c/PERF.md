@@ -303,3 +303,6 @@ Fresh1301/1303 strict ASAN/UBSAN,1307 TSAN, full1/6/12, countries0/1/254/255/256
 
 
 Round77/1a9deb5, run-1d87df780cae passes all official gates: T0.062544 s/M13774848/S661/K22.333360/67.447703. Although independently indexing owner hashes is logically sound and faster locally, total K does not beat22.504622/67.613586. Reject it and restore exact4eb6f36 C runtime/build/metadata and README. Current restored Linux source/image matches that score-confirmed source; no new C algorithm gain is claimed. Raw ../docs/board-round77-owner-index.json.
+
+
+Round79 restored71 source passes every gate, run-491cee46b5aa: T0.062217 s/M13688832/S660/K22.425136/67.536754. Same-source variation does not beat best67.613586.147 independent fixtures replay successfully in the newly rebuilt restored-source Linux image; its ID is distinct from the older71 image and is recorded explicitly. Source bytes match the selected71 proof. No new C algorithm is kept.

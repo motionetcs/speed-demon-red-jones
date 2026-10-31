@@ -1,37 +1,54 @@
 {
-  "observed_at_utc": "2026-10-31T14:01:42.528763+00:00",
+  "observed_at_utc": "2026-10-31T14:13:32.220822+00:00",
   "scope": "Observable repository/history/build-policy checks, not an organizer eligibility certificate",
-  "source_commit": "1a9deb5188854147dd5871a7be08b4ef6bc16d2c",
+  "source_commit": "27dd74a931d54d5c53e93501a0900553ee932707",
   "dirty_paths": [
-    "M docs/STATE.md",
+    "M Makefile",
+    " M docs/STATE.md",
     " M docs/prototype-patches/README.md",
+    " M track-a/Dockerfile",
     " M track-a/PERF.md",
+    " M track-a/README.md",
+    " M track-a/main.cpp",
     " M track-c/PERF.md",
-    " M track-c/README.md",
-    " M track-c/names.hpp",
     " M track-d/PERF.md",
+    " M track-d/README.md",
     " M track-d/distance_map.hpp",
-    "?? docs/board-round77-owner-index.json",
-    "?? docs/prototype-patches/round78-cache2048.patch",
-    "?? docs/prototype-patches/round78-cache8192.patch",
-    "?? docs/prototype-patches/round78-lazy-wide.patch",
-    "?? docs/prototype-patches/round78-parallel-write.patch",
-    "?? docs/prototype-patches/round78-stdlib-wide.patch",
-    "?? docs/round78-cache-output-wide-bench.json",
-    "?? docs/round78-prototype-index.json",
-    "?? docs/round79-c-restored-linux.json",
-    "?? docs/round79-candidate-source-match.json",
-    "?? docs/round79-candidate.json",
-    "?? docs/round79-d-independent.json",
-    "?? docs/round79-defaults.json",
-    "?? docs/round79-final-defaults.json",
-    "?? docs/round79-linux-cases.json",
-    "?? docs/round79-linux.json",
-    "?? docs/round79-make-public.json",
-    "?? docs/round79-models.json",
-    "?? docs/round79-sanitize.json",
-    "?? docs/round79-selected-linux.json",
-    "?? docs/round79-tsan.json"
+    "?? docs/board-round79-small-wide-fallback.json",
+    "?? docs/prototype-patches/round80-numeric-four.patch",
+    "?? docs/prototype-patches/round80-numeric-fromchars.patch",
+    "?? docs/prototype-patches/round80-space-vector.patch",
+    "?? docs/prototype-patches/round80-space-word.patch",
+    "?? docs/prototype-patches/round82-capacity-profile.patch",
+    "?? docs/prototype-patches/round83-reset-base.patch",
+    "?? docs/prototype-patches/round83-reset-cap11.patch",
+    "?? docs/prototype-patches/round83-reset-quarter.patch",
+    "?? docs/prototype-patches/round83-reset-step.patch",
+    "?? docs/prototype-patches/round85-inplace-word.patch",
+    "?? docs/prototype-patches/round85-inplace.patch",
+    "?? docs/round79-c-restored-linux-cases.json",
+    "?? docs/round80-85-prototype-index.json",
+    "?? docs/round80-parser-bench.json",
+    "?? docs/round81-a-compact.json",
+    "?? docs/round81-a-method-hours.json",
+    "?? docs/round81-candidate-source-match.json",
+    "?? docs/round81-candidate.json",
+    "?? docs/round81-d-restored-linux-cases.json",
+    "?? docs/round81-d-restored-linux.json",
+    "?? docs/round81-defaults.json",
+    "?? docs/round81-final-defaults.json",
+    "?? docs/round81-linux-cases.json",
+    "?? docs/round81-linux.json",
+    "?? docs/round81-make-public.json",
+    "?? docs/round81-sanitize.json",
+    "?? docs/round81-selected-linux.json",
+    "?? docs/round81-space-models.json",
+    "?? docs/round81-tsan.json",
+    "?? docs/round82-d-capacity-profile.json",
+    "?? docs/round83-packed-reset-bench.json",
+    "?? docs/round85-inplace-bench.json",
+    "?? tools/test_space_scan.cpp",
+    "?? track-a/space_scan.hpp"
   ],
   "repository": {
     "defaultBranchRef": {
@@ -470,6 +487,14 @@
       ]
     },
     {
+      "requirement": "Observed commit timestamps inside event: 27dd74a",
+      "passed": true,
+      "evidence": [
+        "2026-10-31T19:32:13+05:30",
+        "2026-10-31T19:32:13+05:30"
+      ]
+    },
+    {
       "requirement": "A required file Dockerfile",
       "passed": true,
       "evidence": "track-a/Dockerfile"
@@ -527,7 +552,8 @@
         ".speed-demon.toml",
         "main.cpp",
         "decimal.hpp",
-        "parallel.hpp"
+        "parallel.hpp",
+        "space_scan.hpp"
       ]
     },
     {
@@ -917,6 +943,11 @@
       "commit": "1a9deb5188854147dd5871a7be08b4ef6bc16d2c",
       "author_time": "2026-10-31T19:27:13+05:30",
       "committer_time": "2026-10-31T19:27:13+05:30"
+    },
+    {
+      "commit": "27dd74a931d54d5c53e93501a0900553ee932707",
+      "author_time": "2026-10-31T19:32:13+05:30",
+      "committer_time": "2026-10-31T19:32:13+05:30"
     }
   ],
   "future_requirements": [

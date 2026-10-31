@@ -1,10 +1,10 @@
-# Active optimization state — round79
+# Active optimization state — round81
 
-Official77/1a9deb5 passes every gate. A unchanged75 cache source improves observed best to72.747672/K28.507127 (repeat variation). C owner index loses67.447703/K22.333360, now restored to exact4eb6f36 C inputs with best67.613586/K22.504622. Retained D75 best64.454305/K19.457458;77 same-source repeat63.956879 is variation. No number one claim.
+Official79/27dd74a passes all5 gates. A unchanged75 source improves best observed to72.879783/K28.681090 (variation), C restored71 stays67.613586/K22.504622 best, D standard fallback loses63.207536/K18.371758 and is now restored to exact342c0aa with best64.454305/K19.457458.
 
-Candidate79 changes only D's full-width fallback from an eager custom4096-label epoch table to an exact standard unordered_map<uint32_t,uint64_t>. All packed identity/distance reconstruction, queues, search, CSR and numeric logic remain. Source shrinks; no extra dependency. Native full-public screen similar0.7% faster and1.6MB lower RSS; Mac evidence only. Fresh1319/1321 strict sanitizer,1327 TSAN, independent256 graphs/85,871 answers, native/GCC packed/fallback/boundary/reference/primitive models, matching-image Linux cases and actual defaults pass. C restoration has a freshly rebuilt image. All27 frozen source identities and validation reuse limits are explicit in round79-candidate-source-match.json.
+Candidate81 changes only A endpoint delimiter search to bounded8-byte SWAR with checked loads/library tails, generic compiler flags and unchanged exact endpoint/record/quantile algorithms. Native screens around4.7–5.5% faster, but only real total K decides. Fresh1333/1337 strict sanitizer,1361 TSAN, all method/hour/escape/ID cases, native/GCC protected-page/reference models and96 exact-image Linux cases pass. C/D are exact71/75 source restorations with147/1032 current-image cases. All28 source/build/metadata inputs and explicit image reuse limits are tied in round81-candidate-source-match.json.
 
-Capture all79 official records before another runtime push. Keep new D only if real K exceeds19.457458; otherwise restore exact342c0aa D runtime/build/metadata and README. A stays75 and C stays4eb6f36. Preserve all chronological PERF/prototype/raw evidence; do not import pre-event private or competitor implementation.
+Capture all81 exact official records. Keep A only if real K exceeds28.681090; otherwise restore every342c0aa A runtime/build/metadata input/README, remove space_scan.hpp and its Make dependency, preserve chronological PERF, then confirm the final restored combination on the board. C must stay4eb6f36 and D342c0aa. Round80 numeric/vector,83 query-reset,85 in-place buffer experiments are rejected screens only;82 is non-timed capacity evidence. No pre-event private or competitor code is imported.
 
 ## Evidence and operation
 

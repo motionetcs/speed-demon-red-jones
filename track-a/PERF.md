@@ -284,3 +284,16 @@ Round75 commit342c0aa, run-74e8fa2d125f, passes all five official gates: T=0.047
 
 
 Round77 unchanged75 A source passes every gate again: run-defe2eced259, T0.045519 s/M34893824/S424/K28.507127/72.747672 points. The better observation is repeat variation, not another algorithm change. Round78 screens reject cache2048 (0.042615 versus0.040629 s), cache8192 (0.040539, larger RSS for0.2%) and parallel pwrite output (0.040315, only0.8% and more source/RSS). Every trial matches the full public hash. No broad sanitizer/Linux/board claim applies to these unselected prototypes. Raw ../docs/round78-cache-output-wide-bench.json.
+
+
+Round79 unchanged75 cache/canonical-view source passes every gate, run-5414758103a4: T0.045287 s/M34283520/S424/K28.681090/72.879783. This new best observation is same-source variation, not an additional algorithm. Raw ../docs/board-round79-small-wide-fallback.json.
+
+## Bounded word endpoint delimiter scan
+
+Only endpoint-space search changes from library memchr to bounded8-byte loads on little endian. XOR with spaces, then the zero-byte expression locates the first matching byte. Borrowed higher mask bits cannot precede the first real zero; only the least set byte is returned. Complete loads are range-checked and a library tail handles remaining bytes; other endian layouts retain library search. Full endpoint cache/global equality, every field/parser/record/escape/quantile/output rule and generic GCC flags are unchanged. This contains no endpoint catalogue.
+
+Eleven rotating sequential native full-public trials: retained0.041698 s, word0.039742 (4.7% faster),128-bit vector0.040039. Word81 additionally wins in a later paired context0.039136 versus retained0.041404. Both are local screens, never an Intel score. C from_chars loses0.068693 versus0.059145; four-digit C adds source for only1% improvement and is not promoted.
+
+A larger in-place raw-record permutation prototype reuses the largest parsed hour buffer, collects exact full32-bit escape values per endpoint and interprets raw-tag percentile ranks against independently sorted full-width escapes. Full-public output hashes match, but it loses locally: original0.041404 s/264.37MB, word0.039136/264.55MB, in-place0.042392/263.88MB, combined0.040769/263.95MB. The roughly0.5MB RSS change does not justify slower code/more source. Both in-place variants are rejected before broader sanitizer/Linux/board claims.
+
+The selected word scan passes fresh1333/1337 strict ASAN/UBSAN,1361 TSAN, full1/6/12 outputs, all methods/hours/escapes/4096-ID cases,96 exact-current-image Linux replays and actual defaults. New native and GCC15 strict protected-page/scalar-reference models cover every byte/offset,100000 random buffers, empty/no-match/short tails. Existing unchanged cache/canonical-publication/decimal models remain tied to exact75 header bytes; no altered model is substituted. All28 selected inputs match frozen81 and current images; C restores71 and D restores75 with147/1032 current-image independent fixture replays. Real total K must exceed28.681090/72.879783.

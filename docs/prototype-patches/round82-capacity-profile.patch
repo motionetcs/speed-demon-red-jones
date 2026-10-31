@@ -1,0 +1,22 @@
+--- a/track-d/distance_map.hpp
++++ b/track-d/distance_map.hpp
+@@ -1,6 +1,8 @@
+ #pragma once
+ #include <cstdint>
+ #include <bit>
++#include <array>
++#include <cstdio>
+ #include <stdexcept>
+ #if defined(__SSE2__)
+ #include <immintrin.h>
+@@ -70,7 +72,9 @@
+             index=static_cast<uint32_t>(next);labels[next]=((node>>bits)<<(11+bits))|(value&old_mask);
+         }
+     }
+-    void reset(){for(uint32_t index:touched)labels[index]=0;touched.clear();wide.reset();}
++    std::array<size_t,21> resets{},labels_total{};
++    ~FastDistances(){for(unsigned b=0;b<21;++b)if(resets[b])std::fprintf(stderr,"PACKED bits=%u resets=%zu touched_total=%zu final_size=%zu\n",b,resets[b],labels_total[b],labels.size());}
++    void reset(){++resets[bits];labels_total[bits]+=touched.size();for(uint32_t index:touched)labels[index]=0;touched.clear();wide.reset();}
+     uint64_t get(uint32_t node)const{
+         if(node>=node_limit||touched.empty())return wide.get(node);
+         size_t index=slot(node);uint32_t value=index<labels.size()?labels[index]:0;

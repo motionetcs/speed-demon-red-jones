@@ -1,4 +1,5 @@
 #include "io.hpp"
+#include "space_scan.hpp"
 #include "decimal.hpp"
 #include "endpoint_table.hpp"
 #include "parallel.hpp"
@@ -46,7 +47,7 @@ int main(int argc, char** argv) {
                 p += 28; while (p < limit && *p != ' ') ++p;
                 if (p == limit) throw std::runtime_error("missing endpoint");
                 const char* start = ++p;
-                p = static_cast<const char*>(std::memchr(start, ' ', limit - start));
+                p = find_space(start,limit);
                 if (!p || limit - p < 5) throw std::runtime_error("missing endpoint/status");
                 std::string_view endpoint(start, p - start);
                 bool error = p[1] == '5'; p += 5; start = p;

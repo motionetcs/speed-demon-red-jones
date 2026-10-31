@@ -1,0 +1,118 @@
+--- a/track-a/Dockerfile
++++ b/track-a/Dockerfile
+@@ -1,6 +1,6 @@
+ FROM gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce AS build
+ WORKDIR /src
+-COPY training_generator.py main.cpp endpoint_table.hpp io.hpp decimal.hpp parallel.hpp ./
++COPY training_generator.py main.cpp space_scan.hpp endpoint_table.hpp io.hpp decimal.hpp parallel.hpp ./
+ RUN g++ -std=c++20 -O3 -DNDEBUG -pthread -static -fprofile-generate=/profile -fprofile-update=atomic main.cpp -o /solution
+ RUN python3 training_generator.py --seed 104729 --scale sample --out /training && /solution --data /training --out /training-output && python3 training_generator.py --seed 130363 --scale sample --out /training && /solution --data /training --out /training-output
+ RUN g++ -std=c++20 -O3 -DNDEBUG -pthread -static -fprofile-use=/profile -fprofile-correction -Werror=missing-profile main.cpp -o /solution
+--- a/track-a/main.cpp
++++ b/track-a/main.cpp
+@@ -1,4 +1,5 @@
+ #include "io.hpp"
++#include "space_scan.hpp"
+ #include "decimal.hpp"
+ #include "endpoint_table.hpp"
+ #include "parallel.hpp"
+@@ -46,7 +47,7 @@
+                 p += 28; while (p < limit && *p != ' ') ++p;
+                 if (p == limit) throw std::runtime_error("missing endpoint");
+                 const char* start = ++p;
+-                p = static_cast<const char*>(std::memchr(start, ' ', limit - start));
++                p = find_space(start,limit);
+                 if (!p || limit - p < 5) throw std::runtime_error("missing endpoint/status");
+                 std::string_view endpoint(start, p - start);
+                 bool error = p[1] == '5'; p += 5; start = p;
+@@ -70,27 +71,41 @@
+         std::atomic<unsigned> next_hour{0};
+         parallel(threads, [&](unsigned) {
+             std::vector<Count> groups(paths.size());
+-            std::vector<uint32_t> offsets(paths.size()), cursor(paths.size()), latencies;
++            std::vector<uint32_t> offsets(paths.size()), cursor(paths.size());
++            std::vector<std::vector<uint32_t>> escaped(paths.size());
+             for (;;) {
+                 unsigned hour = next_hour.fetch_add(1, std::memory_order_relaxed); if (hour >= 72) return;
+                 std::fill(groups.begin(), groups.end(), Count{});
+-                size_t count = 0; uint32_t first_line = UINT32_MAX;
+-                for (const auto& chunk : chunks) {
+-                    count += chunk.records[hour].size(); first_line = std::min(first_line, chunk.first[hour]);
+-                    for (uint32_t record : chunk.records[hour]) { auto& group = groups[record & 4095]; ++group.count; group.errors += (record >> 12) & 1; }
++                for(auto& values:escaped)values.clear();
++                size_t count=0,largest=0;uint32_t first_line=UINT32_MAX;
++                for(size_t i=0;i<chunks.size();++i){
++                    const auto& chunk=chunks[i];
++                    count+=chunk.records[hour].size();first_line=std::min(first_line,chunk.first[hour]);
++                    if(chunk.records[hour].size()>chunks[largest].records[hour].size())largest=i;
++                    size_t wide=0;
++                    for(uint32_t record:chunk.records[hour]){
++                        uint16_t key=record&4095;auto& group=groups[key];++group.count;group.errors+=(record>>12)&1;
++                        if((record>>13)==latency_escape)escaped[key].push_back(chunk.wide[hour][wide++]);
++                    }
+                 }
+-                if (!count) continue;
+-                uint32_t offset = 0;
+-                for (uint16_t key : order) { cursor[key] = offsets[key] = offset; offset += groups[key].count; }
+-                latencies.resize(count);
+-                for (auto& chunk : chunks) {
+-                    size_t wide = 0;
+-                    for (uint32_t record : chunk.records[hour]) {
+-                        uint32_t latency = record >> 13;
+-                        if (latency == latency_escape) latency = chunk.wide[hour][wide++];
+-                        latencies[cursor[record & 4095]++] = latency;
++                if(!count)continue;
++                uint32_t offset=0;
++                for(uint16_t key:order){cursor[key]=offsets[key]=offset;offset+=groups[key].count;}
++                auto latencies=std::move(chunks[largest].records[hour]);latencies.reserve(count);
++                for(size_t i=0;i<chunks.size();++i){
++                    auto& chunk=chunks[i];
++                    if(i!=largest)latencies.insert(latencies.end(),chunk.records[hour].begin(),chunk.records[hour].end());
++                    std::vector<uint32_t>().swap(chunk.records[hour]);std::vector<uint32_t>().swap(chunk.wide[hour]);
++                }
++                // Every destination cursor advances within its exact bucket.
++                // A completed bucket can never receive another displaced record.
++                for(uint16_t key:order){
++                    uint32_t end=offsets[key]+groups[key].count;
++                    while(cursor[key]<end){
++                        uint32_t at=cursor[key];uint16_t destination=latencies[at]&4095;
++                        if(destination==key)++cursor[key];
++                        else std::swap(latencies[at],latencies[cursor[destination]++]);
+                     }
+-                    std::vector<uint32_t>().swap(chunk.records[hour]); std::vector<uint32_t>().swap(chunk.wide[hour]);
+                 }
+                 std::string label = std::string(file.data + first_line, 13) + ":00:00Z";
+                 auto& out = output[hour]; out.bytes.reserve(order.size() * 100);
+@@ -105,8 +120,13 @@
+                             if (rank >= unselected) { std::nth_element(first + unselected, first + rank, first + n); unselected = rank + 1; }
+                         }
+                     }
++                    auto& wide=escaped[key];std::sort(wide.begin(),wide.end());
++                    auto quantile=[&](uint64_t percentile){
++                        size_t rank=(percentile*n+99)/100-1;uint32_t value=first[rank]>>13;
++                        return value==latency_escape?wide[rank-(n-wide.size())]:value;
++                    };
+                     out.text(label); out.text(" "); out.text(paths[key]);
+-                    for (uint64_t value : {n, uint64_t(first[(50 * n + 99) / 100 - 1]), uint64_t(first[(95 * n + 99) / 100 - 1]), uint64_t(first[(99 * n + 99) / 100 - 1]), errors, errors * 1000000 / n}) { out.text(" "); out.number(static_cast<int64_t>(value)); }
++                    for (uint64_t value : {n, uint64_t(quantile(50)), uint64_t(quantile(95)), uint64_t(quantile(99)), errors, errors * 1000000 / n}) { out.text(" "); out.number(static_cast<int64_t>(value)); }
+                     out.text("\n");
+                 }
+             }
+--- /dev/null
++++ b/track-a/space_scan.hpp
+@@ -0,0 +1,15 @@
++#pragma once
++#include <bit>
++#include <cstdint>
++#include <cstring>
++inline const char* find_space(const char* p,const char* end){
++    if constexpr(std::endian::native==std::endian::little){
++        while(end-p>=8){
++            uint64_t bytes;std::memcpy(&bytes,p,8);bytes^=0x2020202020202020ULL;
++            uint64_t mask=(bytes-0x0101010101010101ULL)&~bytes&0x8080808080808080ULL;
++            if(mask)return p+std::countr_zero(mask)/8;
++            p+=8;
++        }
++    }
++    return static_cast<const char*>(std::memchr(p,' ',end-p));
++}

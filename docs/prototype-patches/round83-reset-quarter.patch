@@ -1,0 +1,15 @@
+--- a/track-d/distance_map.hpp
++++ b/track-d/distance_map.hpp
+@@ -97,7 +97,11 @@
+             index=static_cast<uint32_t>(next);labels[next]=((node>>bits)<<(11+bits))|(value&old_mask);
+         }
+     }
+-    void reset(){for(uint32_t index:touched)labels[index]=0;touched.clear();wide.reset();}
++    void reset(){
++        if(bits>PACKED_BITS&&touched.size()*8<labels.size()){bits=PACKED_BITS;std::vector<uint32_t>(size_t(8)<<bits).swap(labels);}
++        else for(uint32_t index:touched)labels[index]=0;
++        touched.clear();wide.reset();
++    }
+     uint64_t get(uint32_t node)const{
+         if(node>=node_limit||touched.empty())return wide.get(node);
+         size_t index=slot(node);uint32_t value=index<labels.size()?labels[index]:0;

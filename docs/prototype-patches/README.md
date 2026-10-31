@@ -61,3 +61,5 @@ Rounds73–75 patches apply to4eb6f366b309c968eb72dabc83d46e073c33bfa5. Only sel
 Round76 index variants and parent commits are in round76-prototype-index.json. Only selected plain-shift2 has broad current-source validation before official77.
 
 Round78 cache/output/fallback variants apply to342c0aa; full identities and screening-versus-broad-validation limits are in round78-prototype-index.json. Only stdlib-wide is promoted79.
+
+Rounds80–85 parents/source identities and exact screening/validation limits are in round80-85-prototype-index.json. Only80-space-word is selected81;82 is diagnostic only. Unified patch blank lines with a space are required context markers.
