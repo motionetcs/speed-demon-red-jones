@@ -409,3 +409,6 @@ Evidence147/69322d0 run-6aba70749f25 passes all real gates on identical selected
 
 
 160's new single-word prefix decoder is flat on current D: paired0.996491 versus retained, despite passing strict primitive models; no broader D integration/image/actual promotion.161's distinct disjoint-range parallel packed-low reduction measures original0.181292542, losing155 serial-private2=0.164014083 (paired0.905690), parallel-private2=0.163056750 (0.902018), parallel-private8=0.165848667 (0.914875). The tiny extra gain over already-losing serial155 does not justify added source/memory/new protocol proof. Both remain full-public native screens only, with exact patches archived; no private-degree code enters163. Original12 atomic loaders/band64/D32 stay byte-identical to selected104 best source.
+
+
+163/d0bf708 run-d86cb628f914 passes all five real gates: T0.194716s/M76922880/S827/K20.248361/65.319494 points. Unchanged-source slightly higher best65.319494/K20.248361 versus65.222044/K20.157695 is repeat variation, not a new algorithm change. Raw ../docs/board-round163-ordered-high.json.

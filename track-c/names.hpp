@@ -53,7 +53,7 @@ struct Names {
         entries.swap(larger);
     }
     bool first(std::string_view key,size_t country,uint64_t hash){
-        uint32_t fingerprint=static_cast<uint32_t>(hash>>32);size_t i=fingerprint&(entries.size()-1);
+        uint32_t fingerprint=static_cast<uint32_t>(hash);size_t i=fingerprint&(entries.size()-1);
         for(;;){
             auto& e=entries[i];
             if(!e.index){

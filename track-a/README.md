@@ -24,4 +24,4 @@ Per-worker exact direct caches point at globally published immutable views. Samp
 
 Compact record vectors use a stateless mapped allocator; after an hour has been fully scattered, its record storage returns directly to the operating system. The unchanged cache retains borrowed input views. Wide latency escapes and all quantiles remain exact.
 
-Candidate163 keeps all twelve aggregation workers. Finished hour output is published under one mutex; each publisher flushes only consecutive completed hours, then releases directly mapped output bytes. Empty hours also publish. No extra writer thread or assumption about input order is used. The bounded leading eight-digit decoder validates bytes and retains exact full-uint32/scalar tails.
+The retained163 design keeps all twelve aggregation workers. Finished hour output is published under one mutex; each publisher flushes only consecutive completed hours, then releases directly mapped output bytes. Empty hours also publish. No extra writer thread or assumption about input order is used. The bounded leading eight-digit decoder validates bytes and retains exact full-uint32/scalar tails.

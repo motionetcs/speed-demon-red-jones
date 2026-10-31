@@ -1,4 +1,4 @@
-> Candidate163 A/C passes fresh strict/race/native-GCC/reference/image/default/source checks; real all-track K is pending. Root now contains these candidates and unchanged selected D. The selected145 history below remains separate until actual results.
+> Confirmed163 A improves73.371413→74.448567/K29.337848→30.829845. Losing C upper32 is fully restored; fresh16529-input/public/default/control-image proof passes. Real165 selected-combination confirmation pending; lower/best repeats remain separate.
 
 # Entry audit — 31 October 2026
 
