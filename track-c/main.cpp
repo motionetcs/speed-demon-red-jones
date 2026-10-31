@@ -158,61 +158,61 @@ int main(int argc, char** argv) {
             if (std::string_view(expected) != "amount") header.comma(); else header.newline();
         }
         unsigned threads = worker_count();
-#ifndef PIPELINE_READERS
-#define PIPELINE_READERS 8
-#endif
 #ifndef NAME_BATCH
-#define NAME_BATCH 512
+#define NAME_BATCH 64
 #endif
-        unsigned readers=threads==1?1:std::clamp(threads*PIPELINE_READERS/12,1U,threads-1);
-        unsigned owners=threads-readers;
-        auto boundaries=record_boundaries(header.p,records.data+records.size,readers);
+#ifndef PUMP_INTERVAL
+#define PUMP_INTERVAL 64
+#endif
+        auto boundaries=record_boundaries(header.p,records.data+records.size,threads);
         struct Local{std::vector<Group> groups;};
-        std::vector<Local> locals(readers);for(auto& local:locals)local.groups=groups;
-        std::vector<std::vector<uint64_t>> distinct(owners,std::vector<uint64_t>(groups.size()));
-        auto queues=std::make_unique<NameQueue[]>(size_t(readers)*owners);
+        std::vector<Local> locals(threads);for(auto& local:locals)local.groups=groups;
+        std::vector<std::vector<uint64_t>> distinct(threads,std::vector<uint64_t>(groups.size()));
+        auto queues=std::make_unique<NameQueue[]>(size_t(threads)*threads);
         std::atomic<bool> canceled{false};
         auto consume=[&]<typename Code>(const std::vector<Code>& region_lookup){
             constexpr Code no_region=std::numeric_limits<Code>::max();
             parallel(threads,[&](unsigned worker){
                 try{
-                    if(worker<readers){
-                        auto& local=locals[worker];std::unique_ptr<Names> serial;
-                        if(!owners)serial=std::make_unique<Names>(groups.size());
-                        std::vector<std::vector<NameEvent>> batches(owners);
-                        for(auto& batch:batches)batch.reserve(NAME_BATCH);
-                        Csv csv{boundaries[worker],boundaries[worker+1]};std::string name_scratch,unused;
-                        while(csv.p<csv.end){
-                            if(canceled.load(std::memory_order_relaxed))throw std::runtime_error("name pipeline canceled");
-                            csv.bom();uint64_t id=csv.integer();Field name=csv.field(name_scratch,false);csv.comma();
-                            uint64_t hash=Names::hash_key(name.value);
-                            Field note=csv.field(unused,false);csv.comma();uint64_t region=csv.integer();int64_t amount=csv.amount();csv.newline();
-                            size_t country=region<region_lookup.size()&&region_lookup[region]!=no_region?region_lookup[region]:unmatched;
-                            Group& group=local.groups[country];++group.count;group.ids+=static_cast<int64_t>(id);group.sum+=amount;
-                            group.minimum=std::min(group.minimum,amount);group.maximum=std::max(group.maximum,amount);
-                            group.name_bytes+=name.bytes;group.note_bytes+=note.bytes;
-                            if(!owners){group.names+=serial->first(name.value,country,hash);continue;}
-                            unsigned owner=hash%owners;NameEvent event{name.value,hash,static_cast<uint16_t>(country)};
-                            auto& batch=batches[owner];batch.push_back(std::move(event));
-                            if(batch.size()==NAME_BATCH)queues[size_t(worker)*owners+owner].send(batch,canceled);
+                    auto& local=locals[worker];Names names(groups.size());
+                    std::array<bool,12> finished{};finished[worker]=true;unsigned remaining=threads-1;
+                    // Consuming never sends. A blocked producer pumps its own
+                    // incoming queues, freeing space in any cyclic wait chain.
+                    auto pump=[&](){
+                        if(canceled.load(std::memory_order_relaxed))throw std::runtime_error("name pipeline canceled");
+                        bool progress=false;
+                        for(unsigned reader=0;reader<threads;++reader){
+                            if(finished[reader])continue;auto& queue=queues[size_t(reader)*threads+worker];
+                            if(!queue.ready.load(std::memory_order_acquire))continue;progress=true;
+                            if(queue.rows.empty()){finished[reader]=true;--remaining;}
+                            else for(const auto& event:queue.rows)distinct[worker][event.country]+=names.first(event.value(),event.country,event.hash);
+                            queue.rows.clear();queue.ready.store(false,std::memory_order_release);
                         }
-                        // An empty published batch is the ordered end-of-stream marker.
-                        for(unsigned owner=0;owner<owners;++owner){auto& batch=batches[owner];auto& queue=queues[size_t(worker)*owners+owner];if(!batch.empty())queue.send(batch,canceled);queue.send(batch,canceled);}
-                    }else{
-                        unsigned owner=worker-readers;Names names(groups.size());std::array<bool,12> finished{};unsigned remaining=readers;
-                        while(remaining){
-                            if(canceled.load(std::memory_order_relaxed))throw std::runtime_error("name pipeline canceled");
-                            bool progress=false;
-                            for(unsigned reader=0;reader<readers;++reader){
-                                if(finished[reader])continue;auto& queue=queues[size_t(reader)*owners+owner];
-                                if(!queue.ready.load(std::memory_order_acquire))continue;progress=true;
-                                if(queue.rows.empty()){finished[reader]=true;--remaining;}
-                                else for(const auto& e:queue.rows)distinct[owner][e.country]+=names.first(e.value(),e.country,e.hash);
-                                queue.rows.clear();queue.ready.store(false,std::memory_order_release);
-                            }
-                            if(!progress)std::this_thread::yield();
+                        return progress;
+                    };
+                    std::vector<std::vector<NameEvent>> batches(threads);
+                    for(unsigned owner=0;owner<threads;++owner)if(owner!=worker)batches[owner].reserve(NAME_BATCH);
+                    Csv csv{boundaries[worker],boundaries[worker+1]};std::string name_scratch,unused;unsigned parsed=0;
+                    while(csv.p<csv.end){
+                        if(canceled.load(std::memory_order_relaxed))throw std::runtime_error("name pipeline canceled");
+                        csv.bom();uint64_t id=csv.integer();Field name=csv.field(name_scratch,false);csv.comma();uint64_t hash=Names::hash_key(name.value);
+                        Field note=csv.field(unused,false);csv.comma();uint64_t region=csv.integer();int64_t amount=csv.amount();csv.newline();
+                        size_t country=region<region_lookup.size()&&region_lookup[region]!=no_region?region_lookup[region]:unmatched;
+                        auto& group=local.groups[country];++group.count;group.ids+=static_cast<int64_t>(id);group.sum+=amount;
+                        group.minimum=std::min(group.minimum,amount);group.maximum=std::max(group.maximum,amount);group.name_bytes+=name.bytes;group.note_bytes+=note.bytes;
+                        unsigned owner=hash%threads;
+                        if(owner==worker)distinct[worker][country]+=names.first(name.value,country,hash);
+                        else{
+                            auto& batch=batches[owner];batch.push_back(NameEvent{name.value,hash,static_cast<uint16_t>(country)});
+                            if(batch.size()==NAME_BATCH)queues[size_t(worker)*threads+owner].send(batch,canceled,pump);
                         }
+                        if constexpr(PUMP_INTERVAL!=0)if(++parsed==PUMP_INTERVAL){pump();parsed=0;}
                     }
+                    for(unsigned owner=0;owner<threads;++owner)if(owner!=worker){
+                        auto& batch=batches[owner];auto& queue=queues[size_t(worker)*threads+owner];
+                        if(!batch.empty())queue.send(batch,canceled,pump);queue.send(batch,canceled,pump);
+                    }
+                    while(remaining)if(!pump())std::this_thread::yield();
                 }catch(...){canceled.store(true,std::memory_order_relaxed);throw;}
             });
         };

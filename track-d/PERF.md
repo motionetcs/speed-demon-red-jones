@@ -355,3 +355,6 @@ Round124/b3d0cef AVX2 complete-bucket lookup passes every actual gate, run-4861b
 
 
 Selected128/93fc9c9 unchanged selected source passes all five real gates, run-62e275dfaa18: T0.204523 s/M78336000/S827/K19.685137/64.706922. This lower same-source repeat stays separate from historical best and is not a new algorithm change. Raw ../docs/board-round128-offset-c.json.
+
+
+Documentation-only head130/83a5f9c, run-5323d85905cc, passes every real gate with identical selected128 runtime inputs: T0.23099 s/M77987840/S827/K18.539577/63.404992. Lower same-source repeat, not a new algorithm regression; best records remain separate. Raw ../docs/board-round130-evidence-head.json.

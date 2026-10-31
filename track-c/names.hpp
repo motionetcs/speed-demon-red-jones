@@ -75,10 +75,10 @@ struct NameEvent {
 // Every key borrows immutable input; the consumer copies each unique key.
 struct NameQueue {
     alignas(64) std::atomic<bool> ready{false};std::vector<NameEvent> rows;
-    void send(std::vector<NameEvent>& batch,const std::atomic<bool>& canceled){
+    template<class Pump> void send(std::vector<NameEvent>& batch,const std::atomic<bool>& canceled,Pump&& pump){
         while(ready.load(std::memory_order_acquire)){
             if(canceled.load(std::memory_order_relaxed))throw std::runtime_error("name pipeline canceled");
-            std::this_thread::yield();
+            if(!pump())std::this_thread::yield();
         }
         if(canceled.load(std::memory_order_relaxed))throw std::runtime_error("name pipeline canceled");
         rows.swap(batch);ready.store(true,std::memory_order_release);

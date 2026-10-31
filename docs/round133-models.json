@@ -1,0 +1,60 @@
+{
+  "observed_at_utc": "2026-10-31T18:03:15.092033+00:00",
+  "official_score": false,
+  "scope": "Actual cooperative NameQueue send transport with independent exact-once token/identity/EOF reference, all1..12 workers and fully primed cyclic queues at1/64/128 batch sizes plus partial tails; cancellation before/after space and callback exceptions. Native ASAN/UBSAN and TSAN transport; native/GCC strict offset-name full-key/country/encoded-index/growth/oversized blocks and full-width event models. Compiler image is pinned/offline; no target speed claim.",
+  "runs": [
+    {
+      "mode": "native-asan",
+      "model": "cooperative-queue",
+      "stdout": "PASS cooperative transport independent token identity/exact-once/EOF reference, every1..12 topology, fully primed cyclic queues,1/64/128 batches and partial seams, callback exceptions/cancel before and after space becomes free\n",
+      "stderr": "",
+      "binary_sha256": "716fa6a7481460a15ada89612fe4303c3228a54b05ddf3b8630f3cb0d0f14a35"
+    },
+    {
+      "mode": "native-tsan",
+      "model": "cooperative-queue",
+      "stdout": "PASS cooperative transport independent token identity/exact-once/EOF reference, every1..12 topology, fully primed cyclic queues,1/64/128 batches and partial seams, callback exceptions/cancel before and after space becomes free\n",
+      "stderr": "",
+      "binary_sha256": "45dfcefa84659928f0b6e40438a6b1783aebf4a6dac66f454040d2d8cac02913"
+    },
+    {
+      "mode": "native-asan",
+      "model": "offset-names",
+      "stdout": "PASS offset-name independent std::set, low32 fingerprint collisions including0/1, full-key collisions, all-country words, table/block growth, exact full/partial/oversized blocks, long NUL/UTF8 keys, encoded-index boundaries and overflow guards\n",
+      "stderr": "",
+      "binary_sha256": "b31ab8dee340630b6390d32bd48fe04a2e1d0a59cb221c05aa9da97c166dfaae"
+    },
+    {
+      "mode": "native-asan",
+      "model": "events",
+      "stdout": "PASS32-byte name event: every16-bit country, random full64-bit hashes, stable binary keys through1MiB, length/copy/growth boundaries\n",
+      "stderr": "",
+      "binary_sha256": "2ec1722d1ea49b97f9cd5d78057738c8c9cce288a60ff96ba28d2be8be0f8544"
+    },
+    {
+      "mode": "GCC15-Linux-ASAN-UBSAN",
+      "script": [
+        "set -eu",
+        "export ASAN_OPTIONS=halt_on_error=1",
+        "export UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1",
+        "g++ -std=c++20 -O1 -g -pthread -fno-omit-frame-pointer -fsanitize=address,undefined '-DNAMES_HEADER=\"/repo/.build/round133/source/track-c/names.hpp\"' /repo/.build/round133/test_cooperative_queue.cpp -o /tmp/cooperative-queue",
+        "/tmp/cooperative-queue",
+        "g++ -std=c++20 -O1 -g -pthread -fno-omit-frame-pointer -fsanitize=address,undefined '-DNAMES_HEADER=\"/repo/.build/round133/source/track-c/names.hpp\"' /repo/tools/test_name_store.cpp -o /tmp/offset-names",
+        "/tmp/offset-names",
+        "g++ -std=c++20 -O1 -g -pthread -fno-omit-frame-pointer -fsanitize=address,undefined '-DNAMES_HEADER=\"/repo/.build/round133/source/track-c/names.hpp\"' /repo/tools/test_name_event.cpp -o /tmp/events",
+        "/tmp/events"
+      ],
+      "stdout": "PASS cooperative transport independent token identity/exact-once/EOF reference, every1..12 topology, fully primed cyclic queues,1/64/128 batches and partial seams, callback exceptions/cancel before and after space becomes free\nPASS offset-name independent std::set, low32 fingerprint collisions including0/1, full-key collisions, all-country words, table/block growth, exact full/partial/oversized blocks, long NUL/UTF8 keys, encoded-index boundaries and overflow guards\nPASS32-byte name event: every16-bit country, random full64-bit hashes, stable binary keys through1MiB, length/copy/growth boundaries\n",
+      "stderr": ""
+    }
+  ],
+  "source_sha256": {
+    ".build/round133/source/track-c/names.hpp": "0e7c8b784cdd56b82b2f5bb8e8dff30c903fc3eecefba38f2f8a992ed678f179",
+    ".build/round133/test_cooperative_queue.cpp": "66a2097be16499de8958924d7063b3464a15dae7dfd34efb54331c4db1a2531e",
+    "tools/test_name_store.cpp": "56d328be33772761f2b017c27c9415594ef6367298ff8ae919d5c93f384b0183",
+    "tools/offset_names_model.hpp": "80082d9d37052c2f8ba3612c15c5ad3386f672e2b5ead83d2dd3f64e6794842e",
+    "tools/private_names_model.hpp": "d7c8f6f89d220b2531a4e8148b47c82bb424ce26b82c66dd3f8271bed7166f83",
+    "tools/test_name_event.cpp": "52511d5a6e3fc050b0f0f5e839af59c7a0c6a151b1fb1f671a4257a26e739f65"
+  },
+  "passed": true
+}

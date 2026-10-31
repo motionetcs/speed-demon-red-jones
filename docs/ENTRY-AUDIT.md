@@ -1,3 +1,5 @@
+> Active133 C changes worker roles and NameQueue.send only; exact27 input/image proof is in round133-candidate-source-match.json. Fresh strict all-topology/cyclic-queue/race/GCC/production/default checks pass; actual133 pending. Selected128 is preserved as rollback.
+
 # Entry audit — 31 October 2026
 
 Every27 current runtime/build/metadata input and complete file set exactly matches all-gates scored93fc9c9 in round128-final-source-match.json. The selection is original A, new exact compact offset-block C and winning104 D32. A96/C147/D1080 explicit-image reference replays, fresh combined Make/public1/6/12 and actual native/Linux defaults pass. C's new source has fresh sanitizer/race and independent offset-specific native/GCC proof; changed rejected prototypes do not lend their proofs to selected code. RESULTS separates best records, latest lower repeats and rejected experiments.

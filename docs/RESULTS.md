@@ -1,3 +1,5 @@
+> Active133 tests cooperative C reader/name-owner roles with64-event/64-row pumping. All27 inputs/images and strict progress/reference/default proofs pass; actual133 pending. A/D stay selected128. Evidence-head130 lower repeats pass gates and remain distinct from bests.
+
 # Results — 31 October 2026
 
 Complete public feed: **2026-10-31 17:43:29 UTC**. Red Jones is **40th of83** teams with three scored tracks. The best-three machine mean improves **68.328988 →68.600513** in this pass. Overall leader Cause Of Death has81.805732. We are not number one. Practice-board best records are separate from final holdout scoring and judging.
