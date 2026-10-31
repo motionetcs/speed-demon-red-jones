@@ -12,7 +12,7 @@ This is the fresh local entry. Check actual external state before treating it as
 | Licence | MIT, official attribution retained |
 | Fresh repository | https://github.com/motionetcs/speed-demon-red-jones — private |
 | Submission branch | speed-demon |
-| Remote source | All-gates confirmed selected source `b80c1ab98657ab4f5d4d6ce3ffe83b9012c2dcda`; every current runtime/build/metadata input and each best track source matches it. Later evidence/prose changes preserve these inputs. See RESULTS.md, board-round87-selected-final.json and round87-final-source-match.json |
+| Remote source | Candidate89 changes C and awaits actual board K; prior selected compiled sourceb80c1ab and historical results remain preserved. Exact candidate proof: round89-candidate-source-match.json. |
 | Individual registration | Entrant confirmed already registered on 31 October 2026; not duplicated |
 | Team form | Submitted successfully for this fresh repository, A/C/D; Tally displayed “Form submitted” |
 | Board app access | Installed and verified on 31 October 2026; only the fresh repository selected; read-only code and metadata |
@@ -27,7 +27,7 @@ This is the fresh local entry. Check actual external state before treating it as
 4. Push the intended passing commit to `speed-demon`; inspect a real scored result for every track. Update `PERF.md` with the actual run IDs and measurements.
 5. Keep the final passing commit on the required branch by **2 November 2026, 8:30 PM IST**. Make that source public under the required licence by **9:30 PM IST**.
 
-No automatic future publication or message has been scheduled by this project.
+Hourly optimization continuation is active in the local chat. It does not authorize or schedule publication: automatic approval review rejected the future-publication clause. Explicit publication approval is still required.
 
 The official GitHub app `Speed Demon Board` requests only `contents: read` and `metadata: read`. Installation `177100099` was verified in the signed-in owner's Brave Work profile. Its saved settings show **Selected 1 repository: motionetcs/speed-demon-red-jones**. The entrant authorized that exact scope.
 

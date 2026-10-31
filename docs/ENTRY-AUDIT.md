@@ -1,3 +1,7 @@
+# Active candidate audit context
+
+C89 awaits actual scoring; round89-candidate-source-match.json ties its27 inputs to fresh native/GCC/sanitizer/race/current-image proof. The prior selected-source audit below is historical until acceptance/restoration. Hourly optimization continuation is active, but publication is explicitly excluded after automatic review rejected that unapproved scope. No visibility change is scheduled.
+
 # Entry audit — 31 October 2026
 
 The observable checks in ENTRY-AUDIT.json pass. All 27 selected runtime/build/metadata inputs match all-gates scored b80c1ab98657ab4f5d4d6ce3ffe83b9012c2dcda and each current best track source. Evidence/prose changes preserve compiled inputs. Exact source sets, hashes and scored commit identities are in round87-final-source-match.json. Current images have A96/C147/D1032=1275 independent fixture replays; full/default checks pass. RESULTS.md separates actual algorithm gains, rejected candidates and unchanged-source variation. This is repository/build evidence, not an organizer eligibility certificate.

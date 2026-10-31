@@ -1,4 +1,6 @@
-# Scored optimization results
+> Current experiment: C89 canonical shared table is awaiting a real board result. See STATE.md and round89-candidate-source-match.json. The figures below preserve the previous selected confirmation and are not a claim that the new candidate has scored.
+
+# Historical selected results before candidate89
 
 Complete public-board snapshot: **2026-10-31T14:21:20Z**. Practice machine points are separate from final holdout scoring and judging.
 
@@ -22,7 +24,7 @@ D keeps lossless eight-way four-byte distance labels with full-node/full64-bit f
 
 ## Exact final confirmation
 
-All **27** current runtime/build/metadata inputs and each current best source match **b80c1ab98657ab4f5d4d6ce3ffe83b9012c2dcda**, which passes all five official gates for A/C/D. Proof: [final source identity](round87-final-source-match.json).
+Before candidate89, all **27** selected runtime/build/metadata inputs and each current best source match **b80c1ab98657ab4f5d4d6ce3ffe83b9012c2dcda**, which passes all five official gates for A/C/D. Proof: [final source identity](round87-final-source-match.json).
 
 | Track | Real run | Time | Charged memory | S | K | Points |
 | --- | --- | ---: | ---: | ---: | ---: | ---: |
