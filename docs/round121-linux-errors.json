@@ -1,0 +1,49 @@
+{
+  "observed_at_utc": "2026-10-31T17:19:51.011815+00:00",
+  "scope": "Exact production image normal error/cancellation behavior for independent bad-id and midstream-money fixtures at2/6/12 workers. AVX2/PCLMUL native GCC build macros verified separately.",
+  "runs": [
+    {
+      "case": "bad-first-id",
+      "threads": 2,
+      "returncode": 1,
+      "stderr": "track-c: missing CSV integer\n",
+      "image_id": "sha256:e7e033486f1607e2a53a44d91d68c98add420095556e637f557e8f33500c53d0"
+    },
+    {
+      "case": "bad-first-id",
+      "threads": 6,
+      "returncode": 1,
+      "stderr": "track-c: missing CSV integer\n",
+      "image_id": "sha256:e7e033486f1607e2a53a44d91d68c98add420095556e637f557e8f33500c53d0"
+    },
+    {
+      "case": "bad-first-id",
+      "threads": 12,
+      "returncode": 1,
+      "stderr": "track-c: missing CSV integer\n",
+      "image_id": "sha256:e7e033486f1607e2a53a44d91d68c98add420095556e637f557e8f33500c53d0"
+    },
+    {
+      "case": "bad-mid-money",
+      "threads": 2,
+      "returncode": 1,
+      "stderr": "track-c: invalid money\n",
+      "image_id": "sha256:e7e033486f1607e2a53a44d91d68c98add420095556e637f557e8f33500c53d0"
+    },
+    {
+      "case": "bad-mid-money",
+      "threads": 6,
+      "returncode": 1,
+      "stderr": "track-c: invalid money\n",
+      "image_id": "sha256:e7e033486f1607e2a53a44d91d68c98add420095556e637f557e8f33500c53d0"
+    },
+    {
+      "case": "bad-mid-money",
+      "threads": 12,
+      "returncode": 1,
+      "stderr": "track-c: invalid money\n",
+      "image_id": "sha256:e7e033486f1607e2a53a44d91d68c98add420095556e637f557e8f33500c53d0"
+    }
+  ],
+  "passed": true
+}

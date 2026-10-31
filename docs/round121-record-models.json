@@ -1,0 +1,70 @@
+{
+  "observed_at_utc": "2026-10-31T17:17:56.923639+00:00",
+  "official_score": false,
+  "scope": "Strict native NEON/scalar and pinned GCC15 SSE2/AVX2+PCLMUL/scalar ASAN/UBSAN independent encoded-spans/quote-counts/prefix-parity models. Each selected implementation executes the same exhaustive/random/guard tests; compile macros and output identify paths. No timing claim.",
+  "header_sha256": "eaf7269ecd96535e176d59af08aa659cb93c91729760d6635d8afc6c65c34443",
+  "test_sha256": "160c41ca1ade62f0e23466340f3247cf697a8647d829587e38b901595c287a3c",
+  "runs": [
+    {
+      "path": "native-neon",
+      "binary_sha256": "2b0cb22253453bb8b83d8306dde9f43da251fa908e1351d33aa7a4f3aec59e0a",
+      "stdout": "PASS independent encoded field spans/counts, all bytes/offsets, quote runs,50000 random record sets,1MiB fields, protected tails and malformed quote/field counts; NEON executed",
+      "flags": [
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-fsanitize=address,undefined",
+        "-fno-omit-frame-pointer",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-pthread",
+        "-DRECORD_SCAN_HEADER=\"/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round121/source/track-c/record_scan.hpp\""
+      ]
+    },
+    {
+      "path": "native-scalar",
+      "binary_sha256": "082cb8a73c2141e7349ad26b03334a4a39233e5301c51de54ca5e3606d3a25cb",
+      "stdout": "PASS independent encoded field spans/counts, all bytes/offsets, quote runs,50000 random record sets,1MiB fields, protected tails and malformed quote/field counts; forced scalar",
+      "flags": [
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-fsanitize=address,undefined",
+        "-fno-omit-frame-pointer",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-pthread",
+        "-DRECORD_SCAN_HEADER=\"/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round121/source/track-c/record_scan.hpp\"",
+        "-DRECORD_SCAN_SCALAR=1"
+      ]
+    },
+    {
+      "path": "gcc-sse2",
+      "binary_sha256": "ac5d2e7c9bd5b54dafb3e4bc7c6d2ca8873d91d81a33e5c1b9af89976e2eb885"
+    },
+    {
+      "path": "gcc-avx2-pclmul",
+      "binary_sha256": "b0f731d2a8a111d861fa1cb47fa95013591497fc9b4b9119f01fc94ce7cb7da4"
+    },
+    {
+      "path": "gcc-scalar",
+      "binary_sha256": "a8bf5c25442b3bd6d313fc3fee066e08bb53132f6e0e34b99c0467aac298fd9e"
+    }
+  ],
+  "gcc_script": [
+    "set -eu",
+    "export ASAN_OPTIONS=halt_on_error=1",
+    "export UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1",
+    "g++ -std=c++20 -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer -Wall -Wextra -Wpedantic -pthread -msse2 -mno-avx2 -mno-pclmul -DRECORD_SCAN_HEADER='\"/work/.build/round121/source/track-c/record_scan.hpp\"' /work/.build/round121/test_record_scan.cpp -o /models/gcc-sse2",
+    "/models/gcc-sse2",
+    "g++ -std=c++20 -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer -Wall -Wextra -Wpedantic -pthread -mavx2 -mpclmul -mpopcnt -DRECORD_SCAN_HEADER='\"/work/.build/round121/source/track-c/record_scan.hpp\"' /work/.build/round121/test_record_scan.cpp -o /models/gcc-avx2-pclmul",
+    "/models/gcc-avx2-pclmul",
+    "g++ -std=c++20 -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer -Wall -Wextra -Wpedantic -pthread -DRECORD_SCAN_SCALAR=1 -mno-avx2 -mno-pclmul -DRECORD_SCAN_HEADER='\"/work/.build/round121/source/track-c/record_scan.hpp\"' /work/.build/round121/test_record_scan.cpp -o /models/gcc-scalar",
+    "/models/gcc-scalar"
+  ],
+  "gcc_stdout": "PASS independent encoded field spans/counts, all bytes/offsets, quote runs,50000 random record sets,1MiB fields, protected tails and malformed quote/field counts; SSE2 executed\nPASS independent encoded field spans/counts, all bytes/offsets, quote runs,50000 random record sets,1MiB fields, protected tails and malformed quote/field counts; AVX2+PCLMUL executed\nPASS independent encoded field spans/counts, all bytes/offsets, quote runs,50000 random record sets,1MiB fields, protected tails and malformed quote/field counts; forced scalar\n",
+  "gcc_stderr": "",
+  "passed": true
+}

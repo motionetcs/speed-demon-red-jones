@@ -1,3 +1,5 @@
+> Active candidate121 replaces only C payload scanning with independently tested64-byte structural masks/AVX2-PCLMUL. Every28 source/image input and1323 replays/defaults match; actual performance is pending. Selected restoration119 passed all gates, including the preserved C62.708517 unchanged-source outlier.
+
 # Results — 31 October 2026
 
 The complete public feed at **17:00 UTC** records Red Jones at **39th of 82** teams with three scored tracks. Best-three machine mean is **68.558188**, up from68.328988 at this pass's start. Overall leader Cause Of Death has81.805732. We are not number one. Public practice scores are separate from final holdout scoring and judging.
@@ -12,7 +14,7 @@ D's retained change raises query processing batches from8 to32 entries within th
 
 A retains the previously scored exact4096-entry endpoint cache, canonical input views, lossless four-byte records and original generic GCC/sample104729/130363 PGO. C retains the earlier eight-reader/four-owner,512-event canonical-name pipeline and original build. D retains32-entry search batches, original atomic compact loader and lossless packed labels/full-width fallback. The owner briefing explains these mechanisms.
 
-All27 restored runtime/build/metadata inputs match the all-gates selected combination6e5950c in [source/image proof](round119-selected-source-match.json). Candidate118's correct calendar identity loses actual total K and is removed. No record-buffer, quote-mask, native-A, C-arena or owned-D prototype remains in a track folder. The restored119 source is locally validated and awaiting its own real confirmation. Documentation heads are not claimed scored merely because an ancestor was scored.
+All27 restored runtime/build/metadata inputs match the all-gates selected combination6e5950c in [source/image proof](round119-selected-source-match.json). Candidate118's correct calendar identity loses actual total K and is removed. No record-buffer, quote-mask, native-A, C-arena or owned-D prototype remains in a track folder. Restored119/f69d4db passes all five actual gates for A/C/D in board-round119-selected-confirmation.json. Latest points72.323326/62.708517/64.741616 are lower same-source repeats, including an unusually slow C result. They remain distinct from bests. Candidate121 changes C only and still needs its own actual score. Documentation heads are not claimed scored merely because an ancestor was scored.
 
 | Real batch / commit | A points | C points | D points | Decision |
 | --- | ---: | ---: | ---: | --- |

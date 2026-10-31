@@ -345,3 +345,6 @@ Bounded-array114/116 prototypes remain unselected. Uninitialized capacity is der
 
 
 Round118/ea8bfe3 calendar-only arithmetic passes all five real gates, run-a27c5733986a: T0.047234 s/M34418688/S422/K28.081565/72.421065. It does not beat K28.740275/72.924546. Restore every A runtime/build/metadata input and README to all-gates selected6e5950c; preserve this losing record. The date identity is correct but no score gain is confirmed. Raw ../docs/board-round118-calendar-a.json.
+
+
+Selected restoration119/f69d4db, run-60e972fc1217, passes all five real gates: T0.04751 s/M34570240/S424/K27.955452/72.323326. All27 selected inputs exactly match6e5950c. This is a lower same-source confirmation, not an algorithm improvement; historical bests remain separate. C's unusually slow identical-source repeat is retained honestly, with no code regression asserted from one observation. Raw ../docs/board-round119-selected-confirmation.json.

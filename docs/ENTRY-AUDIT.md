@@ -1,6 +1,8 @@
+> Active121 has28 runtime/build/metadata inputs with fresh C scanner/model/sanitizer/race/Linux/default evidence in round121-candidate-source-match.json. All actual119 restoration gates pass;121 real score is pending. No official performance gain is claimed for121 yet.
+
 # Entry audit — 31 October 2026
 
-All27 selected runtime/build/metadata inputs are restored exactly to all-gates scored6e5950c, including original A/C builds and winning104 D32. Source/image proof is in round119-selected-source-match.json. A96/C147/D1080 explicit-image reference replays, fresh combined Make/public1/6/12 and actual native/Linux defaults pass. Candidate118 calendar A loses actual K and is removed. Candidate119's own actual confirmation is pending. RESULTS distinguishes best observations, repeats and rejected changes.
+All27 selected runtime/build/metadata inputs are restored exactly to all-gates scored6e5950c, including original A/C builds and winning104 D32. Source/image proof is in round119-selected-source-match.json. A96/C147/D1080 explicit-image reference replays, fresh combined Make/public1/6/12 and actual native/Linux defaults pass. Candidate118 calendar A loses actual K and is removed. Candidate119 passes all actual gates; latest lower scores are preserved. RESULTS distinguishes best observations, repeats and rejected changes.
 
 The observable repository/history/build checks in ENTRY-AUDIT.json pass. This is not an organizer eligibility certificate. Registration is entrant-confirmed; the team form was accepted for Red Jones,A/C/D and the Board app is limited to this repository's code/metadata read access. MIT attribution and AI disclosure remain. Runtime contexts contain source only, builds use pinned allowlisted images offline, and observed commits are inside the event. No cached answer, seed recognition, private pre-event solution, task-solving library or harness modification is used.
 

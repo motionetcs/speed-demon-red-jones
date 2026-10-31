@@ -1,0 +1,115 @@
+--- a/track-c/main.cpp
++++ b/track-c/main.cpp
+@@ -1,5 +1,6 @@
+ #include "io.hpp"
+ #include "quote_scan.hpp"
++#include "record_scan.hpp"
+ #include "parallel.hpp"
+ #include <atomic>
+ #include "names.hpp"
+@@ -181,12 +182,27 @@
+                         if(!owners)serial=std::make_unique<Names>(groups.size());
+                         std::vector<std::vector<NameEvent>> batches(owners);
+                         for(auto& batch:batches)batch.reserve(NAME_BATCH);
+-                        Csv csv{boundaries[worker],boundaries[worker+1]};std::string name_scratch,unused;
+-                        while(csv.p<csv.end){
++                        RecordScanner scanner{boundaries[worker],boundaries[worker+1]};std::array<RawCsvField,5> fields;
++                        while(scanner.record(fields)){
+                             if(canceled.load(std::memory_order_relaxed))throw std::runtime_error("name pipeline canceled");
+-                            csv.bom();uint64_t id=csv.integer();Field name=csv.field(name_scratch,false);csv.comma();
+-                            uint64_t hash=Names::hash_key(name.value);
+-                            Field note=csv.field(unused,false);csv.comma();uint64_t region=csv.integer();int64_t amount=csv.amount();csv.newline();
++                            auto text=[](RawCsvField f){
++                                size_t n=size_t(f.last-f.first);
++                                if(n&&f.first[0]=='"'){
++                                    if(n<2||f.last[-1]!='"'||f.quotes<2||(f.quotes&1))throw std::runtime_error("invalid quoted CSV field");
++                                    return Field{{f.first+1,n-2},n-2-(f.quotes-2)/2,f.quotes>2};
++                                }
++                                if(f.quotes)throw std::runtime_error("quote in unquoted field");
++                                return Field{{f.first,n},n,false};
++                            };
++                            Csv ids{fields[0].first,fields[0].last+1};ids.bom();uint64_t id=ids.integer();
++                            if(ids.p!=ids.end)throw std::runtime_error("invalid id");
++                            Field name=text(fields[1]),note=text(fields[2]);uint64_t hash=Names::hash_key(name.value);
++                            Csv regions{fields[3].first,fields[3].last+1};uint64_t region=regions.integer();
++                            if(regions.p!=regions.end)throw std::runtime_error("invalid region");
++                            const char* amount_end=fields[4].last;
++                            if(scanner.terminated&&amount_end>fields[4].first&&amount_end[-1]=='\r')--amount_end;
++                            Csv money_csv{fields[4].first,amount_end};int64_t amount=money_csv.amount();
++                            if(money_csv.p!=money_csv.end)throw std::runtime_error("invalid amount suffix");
+                             size_t country=region<region_lookup.size()&&region_lookup[region]!=no_region?region_lookup[region]:unmatched;
+                             Group& group=local.groups[country];++group.count;group.ids+=static_cast<int64_t>(id);group.sum+=amount;
+                             group.minimum=std::min(group.minimum,amount);group.maximum=std::max(group.maximum,amount);
+--- /dev/null
++++ b/track-c/record_scan.hpp
+@@ -0,0 +1,70 @@
++
++#pragma once
++#include "quote_scan.hpp"
++#include <array>
++#include <stdexcept>
++struct RawCsvField { const char* first; const char* last; size_t quotes; };
++// Concept: structural masks with carried quote parity. CSV doubles quotes;
++// there is no JSON backslash rule. No out-of-range SIMD load is permitted.
++struct RecordScanner {
++    const char* cursor; const char* end; const char* block; const char* next;
++    uint32_t quotes=0,separators=0; bool inside=false, terminated=false;
++    RecordScanner(const char* p,const char* e):cursor(p),end(e),block(p),next(p){}
++#if defined(__aarch64__) && defined(__ARM_NEON)
++    static uint32_t bits(uint8x16_t equal){
++        const uint8x8_t weights={1,2,4,8,16,32,64,128};
++        auto v=vandq_u8(equal,vcombine_u8(weights,weights));
++        return uint32_t(vaddv_u8(vget_low_u8(v)))|(uint32_t(vaddv_u8(vget_high_u8(v)))<<8);
++    }
++#endif
++    bool load(){
++        if(next==end)return false;
++        block=next; unsigned width=16; uint32_t comma=0,line=0; quotes=0;
++#if defined(__AVX2__)
++        if(end-next>=32){
++            width=32;auto v=_mm256_loadu_si256(reinterpret_cast<const __m256i*>(next));
++            quotes=uint32_t(_mm256_movemask_epi8(_mm256_cmpeq_epi8(v,_mm256_set1_epi8('"'))));
++            comma=uint32_t(_mm256_movemask_epi8(_mm256_cmpeq_epi8(v,_mm256_set1_epi8(','))));
++            line=uint32_t(_mm256_movemask_epi8(_mm256_cmpeq_epi8(v,_mm256_set1_epi8('\n'))));
++        }else
++#endif
++        if(end-next>=16){
++#if defined(__SSE2__)
++            auto v=_mm_loadu_si128(reinterpret_cast<const __m128i*>(next));
++            quotes=uint32_t(_mm_movemask_epi8(_mm_cmpeq_epi8(v,_mm_set1_epi8('"'))));
++            comma=uint32_t(_mm_movemask_epi8(_mm_cmpeq_epi8(v,_mm_set1_epi8(','))));
++            line=uint32_t(_mm_movemask_epi8(_mm_cmpeq_epi8(v,_mm_set1_epi8('\n'))));
++#elif defined(__aarch64__) && defined(__ARM_NEON)
++            auto v=vld1q_u8(reinterpret_cast<const uint8_t*>(next));
++            quotes=bits(vceqq_u8(v,vdupq_n_u8('"')));comma=bits(vceqq_u8(v,vdupq_n_u8(',')));line=bits(vceqq_u8(v,vdupq_n_u8('\n')));
++#else
++            for(unsigned i=0;i<16;++i){quotes|=uint32_t(next[i]=='"')<<i;comma|=uint32_t(next[i]==',')<<i;line|=uint32_t(next[i]=='\n')<<i;}
++#endif
++        }else{
++            width=unsigned(end-next);
++            for(unsigned i=0;i<width;++i){quotes|=uint32_t(next[i]=='"')<<i;comma|=uint32_t(next[i]==',')<<i;line|=uint32_t(next[i]=='\n')<<i;}
++        }
++        uint32_t prefix=quotes;prefix^=prefix<<1;prefix^=prefix<<2;prefix^=prefix<<4;prefix^=prefix<<8;prefix^=prefix<<16;
++        prefix^=uint32_t(0)-uint32_t(inside);inside^=(std::popcount(quotes)&1)!=0;
++        separators=(comma|line)&~prefix;next+=width;return true;
++    }
++    const char* separator(size_t& count){
++        for(;;){
++            if(separators){
++                unsigned i=std::countr_zero(separators);uint32_t through=i==31?UINT32_MAX:(uint32_t(1)<<(i+1))-1;
++                count+=std::popcount(quotes&through);quotes&=~through;separators&=separators-1;return block+i;
++            }
++            count+=std::popcount(quotes);quotes=0;
++            if(!load()){if(inside)throw std::runtime_error("unterminated CSV quotes");return end;}
++        }
++    }
++    bool record(std::array<RawCsvField,5>& fields){
++        if(cursor==end)return false;
++        for(unsigned f=0;f<5;++f){
++            size_t count=0;const char* stop=separator(count);fields[f]={cursor,stop,count};
++            if(f<4){if(stop==end||*stop!=',')throw std::runtime_error("missing CSV field");cursor=stop+1;}
++            else{if(stop!=end&&*stop!='\n')throw std::runtime_error("extra CSV field");terminated=stop!=end;cursor=stop==end?end:stop+1;}
++        }
++        return true;
++    }
++};

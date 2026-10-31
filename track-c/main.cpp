@@ -1,5 +1,6 @@
 #include "io.hpp"
 #include "quote_scan.hpp"
+#include "record_scan.hpp"
 #include "parallel.hpp"
 #include <atomic>
 #include "names.hpp"
@@ -181,12 +182,27 @@ int main(int argc, char** argv) {
                         if(!owners)serial=std::make_unique<Names>(groups.size());
                         std::vector<std::vector<NameEvent>> batches(owners);
                         for(auto& batch:batches)batch.reserve(NAME_BATCH);
-                        Csv csv{boundaries[worker],boundaries[worker+1]};std::string name_scratch,unused;
-                        while(csv.p<csv.end){
+                        RecordScanner scanner{boundaries[worker],boundaries[worker+1]};std::array<RawCsvField,5> fields;
+                        while(scanner.record(fields)){
                             if(canceled.load(std::memory_order_relaxed))throw std::runtime_error("name pipeline canceled");
-                            csv.bom();uint64_t id=csv.integer();Field name=csv.field(name_scratch,false);csv.comma();
-                            uint64_t hash=Names::hash_key(name.value);
-                            Field note=csv.field(unused,false);csv.comma();uint64_t region=csv.integer();int64_t amount=csv.amount();csv.newline();
+                            auto text=[](RawCsvField f){
+                                size_t n=size_t(f.last-f.first);
+                                if(n&&f.first[0]=='"'){
+                                    if(n<2||f.last[-1]!='"'||f.quotes<2||(f.quotes&1))throw std::runtime_error("invalid quoted CSV field");
+                                    return Field{{f.first+1,n-2},n-2-(f.quotes-2)/2,f.quotes>2};
+                                }
+                                if(f.quotes||std::memchr(f.first,'\r',n))throw std::runtime_error("invalid unquoted field");
+                                return Field{{f.first,n},n,false};
+                            };
+                            Csv ids{fields[0].first,fields[0].last+1};ids.bom();uint64_t id=ids.integer();
+                            if(ids.p!=ids.end)throw std::runtime_error("invalid id");
+                            Field name=text(fields[1]),note=text(fields[2]);uint64_t hash=Names::hash_key(name.value);
+                            Csv regions{fields[3].first,fields[3].last+1};uint64_t region=regions.integer();
+                            if(regions.p!=regions.end)throw std::runtime_error("invalid region");
+                            const char* amount_end=fields[4].last;
+                            if(scanner.terminated&&amount_end>fields[4].first&&amount_end[-1]=='\r')--amount_end;
+                            Csv money_csv{fields[4].first,amount_end};int64_t amount=money_csv.amount();
+                            if(money_csv.p!=money_csv.end)throw std::runtime_error("invalid amount suffix");
                             size_t country=region<region_lookup.size()&&region_lookup[region]!=no_region?region_lookup[region]:unmatched;
                             Group& group=local.groups[country];++group.count;group.ids+=static_cast<int64_t>(id);group.sum+=amount;
                             group.minimum=std::min(group.minimum,amount);group.maximum=std::max(group.maximum,amount);

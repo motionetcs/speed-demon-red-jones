@@ -336,3 +336,6 @@ Round111 unchanged selected D32 passes every official gate, run-13f7fa4b0adb: T0
 
 
 Round118/ea8bfe3 unchanged selected D passes every gate, run-91280e5eebb6: T0.203297 s/M77336576/S827/K19.795174/64.827966. Same-source repeat, not a new algorithm gain; historical best remains separate. Raw ../docs/board-round118-calendar-a.json.
+
+
+Selected restoration119/f69d4db, run-5a5fb39e3961, passes all five real gates: T0.205177 s/M77094912/S827/K19.716613/64.741616. All27 selected inputs exactly match6e5950c. This is a lower same-source confirmation, not an algorithm improvement; historical bests remain separate. C's unusually slow identical-source repeat is retained honestly, with no code regression asserted from one observation. Raw ../docs/board-round119-selected-confirmation.json.
