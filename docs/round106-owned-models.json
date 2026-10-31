@@ -1,0 +1,35 @@
+{
+  "observed_at_utc": "2026-10-31T15:47:25.269837+00:00",
+  "official_score": false,
+  "scope": "Independent exact counted-degree/prefix/slot model. Non-atomic methods run with exclusive4096-node block ownership for1..11 owners; every emitted slot compared with scalar reference. Native ASAN/UBSAN and TSAN; pinned GCC15 ASAN/UBSAN. Includes byte wraps255/256/257, cursor65535/65536/wide180000, partial/empty blocks, narrow/wide specializations. End-to-end channel routing has separately spread-ID Floyd/race proof.",
+  "runs": [
+    {
+      "mode": "native-asan",
+      "stdout": "PASS exclusive4096-node-block degree/cursor model: owners1..11, byte wraps,65535/65536 and full-width blocks, exact unique slots, partial final block\n",
+      "stderr": "",
+      "binary_sha256": "2e310c8d6ed86c16f8694600649f4e3b1379a425cfe151eea740510aced67a7f"
+    },
+    {
+      "mode": "native-tsan",
+      "stdout": "PASS exclusive4096-node-block degree/cursor model: owners1..11, byte wraps,65535/65536 and full-width blocks, exact unique slots, partial final block\n",
+      "stderr": "",
+      "binary_sha256": "dc7d012d7ea3495e01323fd0bcc6b1153e43bca1ebea87f5d5516b6c37b8cacc"
+    },
+    {
+      "mode": "GCC15-Linux-amd64-asan",
+      "script": [
+        "set -eu",
+        "export UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1",
+        "g++ -std=c++20 -O1 -g -pthread -fsanitize=address,undefined -fno-omit-frame-pointer '-DLOAD_CURSORS_HEADER=\"/repo/.build/round106/source/track-d/load_cursors.hpp\"' /repo/tools/test_owned_cursors.cpp -o /tmp/model",
+        "/tmp/model"
+      ],
+      "stdout": "PASS exclusive4096-node-block degree/cursor model: owners1..11, byte wraps,65535/65536 and full-width blocks, exact unique slots, partial final block\n",
+      "stderr": ""
+    }
+  ],
+  "source_sha256": {
+    "tools/test_owned_cursors.cpp": "bd97fbccbe8d5747b859d318436a8ed6aac08d7a6e3f1cf4ad8d12c811170318",
+    ".build/round106/source/track-d/load_cursors.hpp": "64e3570f8c5ab6f33caab55728623a7b69a29f64fb9cf4f0a92a1d227ac32a20"
+  },
+  "passed": true
+}

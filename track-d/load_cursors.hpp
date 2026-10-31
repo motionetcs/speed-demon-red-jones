@@ -17,6 +17,10 @@ struct DegreeBytes {
         // Every wrap has exactly one observer; its private spill restores256.
         if (std::atomic_ref(values[node]).fetch_add(1,std::memory_order_relaxed)==UINT8_MAX) spills[node]+=256;
     }
+    // Only the exclusive owner of node's 4096-node block may call this.
+    void add_owned(uint32_t node, Spills& spills) {
+        if (values[node]++ == UINT8_MAX) spills[node] += 256;
+    }
     void release() { std::vector<uint8_t>().swap(values); }
 };
 struct SharedCursor {
@@ -46,6 +50,15 @@ struct SharedCursor {
             if(index!=UINT32_MAX)return std::atomic_ref(wide[std::size_t(index)*block_size+(node&(block_size-1))]).fetch_add(1,std::memory_order_relaxed);
         }
         return base[block]+std::atomic_ref(small[node]).fetch_add(1,std::memory_order_relaxed);
+    }
+    // All writes to this node are serialized by block ownership.
+    template<bool HasWide> uint32_t take_owned(uint32_t node) {
+        std::size_t block=node>>shift;
+        if constexpr(HasWide) {
+            uint32_t index=wide_index[block];
+            if(index!=UINT32_MAX)return wide[std::size_t(index)*block_size+(node&(block_size-1))]++;
+        }
+        return base[block]+small[node]++;
     }
     template<bool HasWide> void prefetch(uint32_t node) const {
         if constexpr (HasWide) {

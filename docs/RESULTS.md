@@ -1,4 +1,4 @@
-> Active candidate104 tests C24-byte events and D32-entry same-band batches after fresh strict proof. A restores75 sample-PGO source. Actual89/95 lost and are removed. The selected historical results below precede this pending real-board comparison; see STATE.md.
+> Active candidate107 tests the split-direction block-owned D loader with the confirmed32-entry search batches. Actual104 raised D64.570088→65.222044 and the live mean68.328988→68.558188, rank34/80 at the saved snapshot. C24 narrowly lost and is restored. Current107 is fully validated but awaits its own real-board result; the older figures below are historical.
 
 # Historical selected results before candidate89
 

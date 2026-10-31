@@ -12,7 +12,7 @@ This is the fresh local entry. Check actual external state before treating it as
 | Licence | MIT, official attribution retained |
 | Fresh repository | https://github.com/motionetcs/speed-demon-red-jones — private |
 | Submission branch | speed-demon |
-| Remote source | Rejected95 is being replaced by frozen104 C24/D32 candidate after full proof; A restores selected75 generic/sample PGO. Capture exact104 real records before accepting either change. See STATE.md and round104-candidate-source-match.json. |
+| Remote source | Validated107 is replacing104: A/C restore selected75/71; D keeps the actual10432-entry gain and tests the new split-direction owned loader. All28 source/image inputs are proved in round107-candidate-source-match.json. Capture all exact107 real records before acceptance. |
 | Individual registration | Entrant confirmed already registered on 31 October 2026; not duplicated |
 | Team form | Submitted successfully for this fresh repository, A/C/D; Tally displayed “Form submitted” |
 | Board app access | Installed and verified on 31 October 2026; only the fresh repository selected; read-only code and metadata |

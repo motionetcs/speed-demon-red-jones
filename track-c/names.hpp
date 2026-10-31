@@ -54,15 +54,10 @@ struct Names {
         uint64_t bit=uint64_t(1)<<(country%64);bool fresh=!(bits[country/64]&bit);bits[country/64]|=bit;return fresh;
     }
 };
-// Direct immutable key pointer; guarded length/country packing saves padding.
 struct NameEvent {
-    const char* data;uint64_t hash;uint64_t length:48,country:16;
-    NameEvent(std::string_view key,uint64_t h,uint16_t c):data(key.data()),hash(h),length(key.size()),country(c){
-        if(key.size()>(UINT64_MAX>>16))throw std::runtime_error("name event length overflow");
-    }
-    std::string_view value()const{return {data,static_cast<size_t>(length)};}
+    std::string_view key;uint64_t hash;uint16_t country;
+    std::string_view value()const{return key;}
 };
-static_assert(sizeof(NameEvent)==24);
 // One producer and one consumer transfer a vector through release/acquire.
 // Every key borrows immutable input; the consumer copies each unique key.
 struct NameQueue {

@@ -1,0 +1,23 @@
+{
+  "observed_at_utc": "2026-10-31T15:54:34.416482+00:00",
+  "official_score": false,
+  "scope": "The reusable name-event reference model works with the restored32-byte default and with frozen rejected24-byte events. Strict24-byte static assertion is required explicitly for the packed model; no skipped test is counted as a pass. Native ASAN/UBSAN only in this compatibility check.",
+  "model_sha256": "52511d5a6e3fc050b0f0f5e839af59c7a0c6a151b1fb1f671a4257a26e739f65",
+  "runs": [
+    {
+      "layout": "restored32",
+      "header_sha256": "437245b108bf64fec292ff038086f1ff8be5e536534466428d640412b295a499",
+      "binary_sha256": "7b9cf62cddf1fe6935b778ee72c7f1b18cf64bb0e78a340a1a51b91649d373dd",
+      "stdout": "PASS32-byte name event: every16-bit country, random full64-bit hashes, stable binary keys through1MiB, length/copy/growth boundaries\n",
+      "stderr": ""
+    },
+    {
+      "layout": "rejected24",
+      "header_sha256": "61ef180478d6b9aa81db11064e828777e46a35b893bb08f9ef446afd6c79dc11",
+      "binary_sha256": "eaaa101e81b1812e0d26858fb14a413fbf2ab707f5613b532c0c14e6c8a2e835",
+      "stdout": "PASS24-byte name event: every16-bit country, random full64-bit hashes, stable binary keys through1MiB, length/copy/growth boundaries\n",
+      "stderr": ""
+    }
+  ],
+  "passed": true
+}

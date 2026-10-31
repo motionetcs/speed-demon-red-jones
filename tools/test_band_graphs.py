@@ -12,7 +12,7 @@ ROOT=Path(__file__).resolve().parents[1]
 
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--binary',type=Path,required=True);p.add_argument('--report',type=Path,required=True);p.add_argument('--count',type=int,default=256);a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('--binary',type=Path,required=True);p.add_argument('--report',type=Path,required=True);p.add_argument('--count',type=int,default=256);p.add_argument('--spread-ids',action='store_true');a=p.parse_args()
     binary=a.binary.resolve();cases=[]
     weights=[0,1,2,31,32,63,64,65,127,128,129,255,256,257,65535,4294967295]
     for seed in range(a.count):
@@ -27,18 +27,20 @@ def main():
         for k in range(n):
             for u in range(n):
                 for v in range(n):distance[u][v]=min(distance[u][v],distance[u][k]+distance[k][v])
-        data=ROOT/'.data/cases'/('d-band-independent-'+str(seed));data.mkdir(parents=True,exist_ok=True)
-        out=ROOT/'.out/band-independent'/str(seed);out.mkdir(parents=True,exist_ok=True)
-        (data/'graph.txt').write_text(str(n)+' '+str(len(edges))+'\n'+''.join(f'{u} {v} {w}\n' for u,v,w in edges))
+        label=('d-band-spread-independent-' if a.spread_ids else 'd-band-independent-')+str(seed)
+        data=ROOT/'.data/cases'/label;data.mkdir(parents=True,exist_ok=True)
+        out=ROOT/'.out/band-independent'/label;out.mkdir(parents=True,exist_ok=True)
+        ids=rng.sample(range(65537),n) if a.spread_ids else list(range(n));nodes=65537 if a.spread_ids else n
+        (data/'graph.txt').write_text(str(nodes)+' '+str(len(edges))+'\n'+''.join(f'{ids[u]} {ids[v]} {w}\n' for u,v,w in edges))
         queries=[(u,v) for u in range(n) for v in range(n)];queries+=queries[:10]
-        (data/'queries.txt').write_text(''.join(f'{u} {v}\n' for u,v in queries))
+        (data/'queries.txt').write_text(''.join(f'{ids[u]} {ids[v]}\n' for u,v in queries))
         expected=''.join(str(-1 if distance[u][v]>=inf else distance[u][v])+'\n' for u,v in queries).encode()
-        threads=[1,6,12][seed%3]
+        threads=seed%12+1 if a.spread_ids else [1,6,12][seed%3]
         subprocess.run([str(binary),'--data',str(data),'--out',str(out)],env=dict(os.environ,SPEED_DEMON_THREADS=str(threads),UBSAN_OPTIONS="halt_on_error=1:print_stacktrace=1"),check=True,timeout=30)
         actual=(out/'distances.txt').read_bytes();assert actual==expected,(seed,n,threads)
-        cases.append({'seed':seed,'nodes':n,'edges':len(edges),'queries':len(queries),'threads':threads,'sha256':hashlib.sha256(actual).hexdigest()})
+        cases.append({'seed':seed,'nodes':nodes,'logical_nodes':n,'case':label,'edges':len(edges),'queries':len(queries),'threads':threads,'sha256':hashlib.sha256(actual).hexdigest()})
     a.report.parent.mkdir(parents=True,exist_ok=True)
-    a.report.write_text(json.dumps({'official_score':False,'method':'independent Floyd-Warshall, boundary-weight and delayed-improvement graphs, complete output-byte comparisons','binary_sha256':hashlib.sha256(binary.read_bytes()).hexdigest(),'cases':cases,'passed':True},indent=2)+'\n')
+    a.report.write_text(json.dumps({'official_score':False,'method':'independent Floyd-Warshall, boundary-weight and delayed-improvement graphs, complete output-byte comparisons','spread_ids':a.spread_ids,'binary_sha256':hashlib.sha256(binary.read_bytes()).hexdigest(),'cases':cases,'passed':True},indent=2)+'\n')
     print('PASS',len(cases),'independent graphs and',sum(c['queries'] for c in cases),'query outputs',flush=True)
 
 

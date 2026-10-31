@@ -1,6 +1,6 @@
-# Active candidate104 audit context
+# Active candidate107 audit context
 
-C24-byte events and D32-entry same-band batches have fresh strict reference/sanitizer/race/native-GCC proof. Exact images/defaults/source match must be checked in round104-candidate-source-match.json before push. A restores selected75 sample-PGO source; actual89/95 losing code is removed. Historical selected audit below is not an unscored candidate's official confirmation. Hourly optimization is active; publication remains excluded pending explicit approval after automatic review rejected that scope.
+A/C restore exact selected75/71 source. D combines confirmed10432-entry batches with a new split-direction block-owned loader. All28 runtime/build/metadata inputs, actual image IDs and96/147/1080 Linux replays/defaults are tied in round107-candidate-source-match.json. Fresh107 strict source, spread-ID independent graphs, every-worker full-queue/cancellation and exact106-header owned native/GCC/TSAN models pass. Official107 acceptance remains pending. The older selected audit below is historical. Publication remains excluded from the active hourly optimization after automatic review rejected that unapproved visibility scope.
 
 # Entry audit — 31 October 2026
 

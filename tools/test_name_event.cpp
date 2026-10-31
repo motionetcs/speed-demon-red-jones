@@ -10,7 +10,9 @@
 #include <vector>
 
 int main() {
+#ifdef REQUIRE_PACKED_EVENT
     static_assert(sizeof(NameEvent) == 24);
+#endif
     std::mt19937_64 random(0x9f760c1);
     std::string input(1048577, '\0');
     for (char& byte : input) byte = static_cast<char>(random());
@@ -38,5 +40,5 @@ int main() {
         assert(copied[i].value().data() == input.data());
         assert(copied[i].value().size() == events[i].value().size());
     }
-    std::cout << "PASS24-byte direct-pointer event: every16-bit country, random full64-bit hashes, stable binary keys through1MiB, length/copy/growth boundaries\n";
+    std::cout << "PASS" << sizeof(NameEvent) << "-byte name event: every16-bit country, random full64-bit hashes, stable binary keys through1MiB, length/copy/growth boundaries\n";
 }

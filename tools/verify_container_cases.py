@@ -26,7 +26,7 @@ def main():
     if args.independent_report:
         independent=json.loads(args.independent_report.read_text());assert independent['passed']
         for row in independent['cases']:
-            label='d-band-independent-'+str(row['seed']);folder=Path('cases')/label;assert (ROOT/'.data'/folder).is_dir()
+            label=row.get('case','d-band-independent-'+str(row['seed']));assert re.fullmatch('[a-z0-9-]+',label);folder=Path('cases')/label;assert (ROOT/'.data'/folder).is_dir()
             cases['d',label]=(folder,row['sha256'])
     report={'created_at_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'official_score':False,
       'scope':'Emulated Linux output comparisons on independently checked untrained samples/adversarial fixtures; explicit development paths, restricted containers. Official default output contract is separately tested.','runs':[]}
@@ -41,7 +41,7 @@ def main():
                 ident=label+'-t'+str(threads)
                 script.append('SPEED_DEMON_THREADS='+str(threads)+' /app/solution --data '+shlex.quote('/cases/'+str(folder))+' --out '+shlex.quote('/out/'+ident))
                 jobs.append((label,threads,ident,expected))
-        subprocess.run(['docker','run','--rm','--platform','linux/amd64','--network=none','--read-only','--memory=8g','--memory-swap=8g','--cap-drop=ALL','--security-opt=no-new-privileges','--user','65534:65534','--entrypoint','/bin/sh','-v',str(ROOT/'.data')+':/cases:ro','-v',str(out)+':/out:rw',tag,'-c','\n'.join(script)],check=True,timeout=600)
+        subprocess.run(['docker','run','-i','--rm','--platform','linux/amd64','--network=none','--read-only','--memory=8g','--memory-swap=8g','--cap-drop=ALL','--security-opt=no-new-privileges','--user','65534:65534','--entrypoint','/bin/sh','-v',str(ROOT/'.data')+':/cases:ro','-v',str(out)+':/out:rw',tag,'-s'],input='\n'.join(script)+'\n',text=True,check=True,timeout=600)
         output={'a':'summary.txt','c':'aggregates.txt','d':'distances.txt'}[tr]
         for label,threads,ident,expected in jobs:
             files=list((out/ident).iterdir()); assert [p.name for p in files]==[output]
