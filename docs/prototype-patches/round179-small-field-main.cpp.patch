@@ -1,0 +1,29 @@
+--- a/track-c/main.cpp
++++ b/track-c/main.cpp
+@@ -7,7 +7,7 @@
+ #include <numeric>
+ #include <vector>
+ 
+-struct Field { std::string_view value; size_t bytes; bool escaped; };
++struct Field { std::string_view value; size_t bytes; };
+ struct Csv {
+     const char* p;
+     const char* end;
+@@ -18,7 +18,7 @@
+         const char* start = p;
+         if (p == end || *p != '"') {
+             while (p < end && *p != ',' && *p != '\r' && *p != '\n') ++p;
+-            return {{start, static_cast<size_t>(p - start)}, static_cast<size_t>(p - start), false};
++            return {{start, static_cast<size_t>(p - start)}, static_cast<size_t>(p - start)};
+         }
+         const char* segment = ++p;
+         start = segment;
+@@ -42,7 +42,7 @@
+                 if (decode && escaped) scratch.append(segment, quote - segment);
+                 std::string_view value = escaped && decode ? std::string_view(scratch)
+                     : std::string_view(start, static_cast<size_t>(quote - start));
+-                return {value, bytes, escaped};
++                return {value, bytes};
+             }
+         }
+         throw std::runtime_error("unterminated quoted field");

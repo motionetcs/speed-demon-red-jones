@@ -1,0 +1,31 @@
+{
+  "observed_at_utc": "2026-10-31T23:46:54.490303+00:00",
+  "base": "42c50ce4848e8f0ce6af5cf7e99cd628822b9a40",
+  "scope": "Native screen only for exact parser dispatch/return-aggregate layout. Always-inline field, removal of unused returned escaped flag, combined, and template<bool decode>. Local escaped tracking/full raw canonical value and decoded byte length remain exact; pipeline/hash/owner/key/country/PGO unchanged. Native nm confirms retained Csv::field is out-of-line; GCC PGO may already optimize it, so native hypothesis alone cannot retain. No broad byte/guard/parser/cancellation/sanitizer/race/GCC/image/default/actual proof until promoted.",
+  "patches": [
+    {
+      "patch": "round179-inline-field-main.cpp.patch",
+      "path": "track-c/main.cpp",
+      "base_sha256": "8f1703c20ec7e17bb708abff7d7a88945e0dcd8b83acc00b137607a7ceee1b0d",
+      "candidate_sha256": "ddcb91731409063ee0ae1eff3f72e5441ff2406096615c6d4fe24c1d4be370c7"
+    },
+    {
+      "patch": "round179-small-field-main.cpp.patch",
+      "path": "track-c/main.cpp",
+      "base_sha256": "8f1703c20ec7e17bb708abff7d7a88945e0dcd8b83acc00b137607a7ceee1b0d",
+      "candidate_sha256": "162f80d9faf26e62d705f0ddd05311e106e6ba2b9f2db68c0f1e96a0d781519d"
+    },
+    {
+      "patch": "round179-inline-small-main.cpp.patch",
+      "path": "track-c/main.cpp",
+      "base_sha256": "8f1703c20ec7e17bb708abff7d7a88945e0dcd8b83acc00b137607a7ceee1b0d",
+      "candidate_sha256": "5b311630d2833da73b45c5286ba48b478429504554fed1543299b503d8c022ca"
+    },
+    {
+      "patch": "round179-template-field-main.cpp.patch",
+      "path": "track-c/main.cpp",
+      "base_sha256": "8f1703c20ec7e17bb708abff7d7a88945e0dcd8b83acc00b137607a7ceee1b0d",
+      "candidate_sha256": "3a16f41aa301ac70108c09bfcf6b60c8acc6019abd0b55b2df6046f6c9226825"
+    }
+  ]
+}

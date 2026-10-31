@@ -1,0 +1,13 @@
+{
+  "observed_at_utc": "2026-10-31T23:47:31.433096+00:00",
+  "base": "42c50ce4848e8f0ce6af5cf7e99cd628822b9a40",
+  "scope": "Native screen only. Reuse already validated first two decimal bytes from existing bounded four-byte word when the invalid mask lies exclusively in upper16 bits. No extra read/ctz/source assumptions, same generic uint64 wrap/scalar remainder/range checks. Original loaders/graph/storage/queues/weights/PGO unchanged. Needs full scalar/from_chars/all-byte/guard/native-GCC strict model and broad runtime/reference/image/default/actual proof before promotion.",
+  "patches": [
+    {
+      "patch": "round180-tail2-decimal.hpp.patch",
+      "path": "track-d/decimal.hpp",
+      "base_sha256": "aee2210ac5894050834ffd37903718b3b7bdc6673240559baa85b350bea9b581",
+      "candidate_sha256": "43971ca769f82c3062ed68825dd0d45a1b88df58a27fa413a6054aab1a6bc727"
+    }
+  ]
+}

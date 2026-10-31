@@ -1,0 +1,11 @@
+--- a/track-c/main.cpp
++++ b/track-c/main.cpp
+@@ -14,7 +14,7 @@
+     void bom() {
+         if (end - p >= 3 && std::memcmp(p, "\xef\xbb\xbf", 3) == 0) p += 3;
+     }
+-    Field field(std::string& scratch, bool decode) {
++    [[gnu::always_inline]] Field field(std::string& scratch, bool decode) {
+         const char* start = p;
+         if (p == end || *p != '"') {
+             while (p < end && *p != ',' && *p != '\r' && *p != '\n') ++p;

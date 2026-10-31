@@ -503,3 +503,15 @@ Exact current C image passes285 regular replays plus228 every-topology valid/24 
 
 
 177/5bf3ee3 run-b41d413b7699 passes all five real gates, unchanged selected175 runtime: T0.063100s/M12566528/S672/K22.590786/67.696567 points. Lower same-source variation; best retained separately. Raw ../docs/board-round177-evidence-head.json.
+
+
+178/42c50ce run-6fe931245d87 all real gates pass: T0.062372s/M12713984/S672/K22.669290/67.771896 points. Unchanged source lower variation; best kept separately. Raw ../docs/board-round178-full-pgo.json.
+
+
+## Inline the existing complete CSV field function
+
+181 adds only [[gnu::always_inline]] to Csv::field. After removing that attribute, main.cpp exactly equals selected175. Every body statement/header/key byte/decoded count/error/numeric path,8-reader/4-owner512-event pipeline/low32 offset names/full1000003+sample130363 PGO stays. No assumptions or input-specialized results are introduced. The existing in-class definition is already inline for linkage; the attribute controls compiler inlining restrictions. Primary GCC attribute documentation is recorded in round178-181-research.json.
+
+179's11 rotating full-public hashes measure retained0.058046750s/RSS217399296, field-inline0.055526542/217415680, paired0.960862 (3.91% native hypothesis, no RSS gain). Trimmed unused returned-flag1.005353, combinedinline+trim0.963010 and compile-time template0.993777 remain native-only screens, without broad byte/guard/strict/GCC/image proof. Only field-inline is promoted. D180's two-digit tail also loses1.015139 and is not promoted or generally proved.
+
+Fresh2003/2011 strict ASAN/UBSAN, untrained full2027,2029 TSAN, public1/6/12, every country width, every1..12 worker topology/EOF/1MiB quoted field/skew/distinct names/one-owner262161 pressure and normal cancellation pass. New pinned GCC strict production144 valid/30 normal errors and exact new PGO image405 valid/30 normal errors pass; identical input+thread cases are deduplicated. Original exact header/protocol models remain source-bound; no unexecuted new protocol is claimed. Fresh combined Make/full public/defaults and all29 source/context/image/file sets are in round181-candidate-source-match.json. Keep only if actual C K>23.033578/68.118071, otherwise restore Cmain/README exactly42c50ce and original image263099fc.... A178 remains provisional and D original. No target improvement claimed until actual all-track record.

@@ -438,3 +438,6 @@ Fresh sample1801/1811 strict ASAN/UBSAN,1819 TSAN, public1/6/12, all high-degree
 
 
 177/5bf3ee3 run-0a7449aaa200 passes all five real gates, unchanged selected175 runtime: T0.221787s/M77283328/S827/K18.954686/63.885830 points. Lower same-source variation; best retained separately. Raw ../docs/board-round177-evidence-head.json.
+
+
+178/42c50ce run-cd96b6b98434 all real gates pass: T0.199137s/M76599296/S827/K20.039222/65.094043 points. Unchanged source lower variation; best kept separately. Raw ../docs/board-round178-full-pgo.json.

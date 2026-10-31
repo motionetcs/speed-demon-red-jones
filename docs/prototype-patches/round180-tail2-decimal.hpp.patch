@@ -1,0 +1,18 @@
+--- a/track-d/decimal.hpp
++++ b/track-d/decimal.hpp
+@@ -11,7 +11,14 @@
+             uint32_t bytes;
+             std::memcpy(&bytes, p, 4);
+             uint32_t digits = bytes ^ 0x30303030U;
+-            if ((digits & 0xf0f0f0f0U) || ((digits + 0x06060606U) & 0x10101010U)) break;
++            uint32_t invalid = (digits & 0xf0f0f0f0U) | ((digits + 0x06060606U) & 0x10101010U);
++            if (invalid) {
++                if (!(invalid & 0xffffU)) {
++                    value = value * 100 + (digits & 0xffU) * 10 + ((digits >> 8) & 0xffU);
++                    p += 2;
++                }
++                break;
++            }
+             uint32_t pairs = (digits & 0x00ff00ffU) * 10 + ((digits >> 8) & 0x00ff00ffU);
+             value = value * 10000 + (pairs & 0xffffU) * 100 + (pairs >> 16);
+             p += 4;

@@ -1,0 +1,33 @@
+--- a/track-c/main.cpp
++++ b/track-c/main.cpp
+@@ -7,18 +7,18 @@
+ #include <numeric>
+ #include <vector>
+ 
+-struct Field { std::string_view value; size_t bytes; bool escaped; };
++struct Field { std::string_view value; size_t bytes; };
+ struct Csv {
+     const char* p;
+     const char* end;
+     void bom() {
+         if (end - p >= 3 && std::memcmp(p, "\xef\xbb\xbf", 3) == 0) p += 3;
+     }
+-    Field field(std::string& scratch, bool decode) {
++    [[gnu::always_inline]] Field field(std::string& scratch, bool decode) {
+         const char* start = p;
+         if (p == end || *p != '"') {
+             while (p < end && *p != ',' && *p != '\r' && *p != '\n') ++p;
+-            return {{start, static_cast<size_t>(p - start)}, static_cast<size_t>(p - start), false};
++            return {{start, static_cast<size_t>(p - start)}, static_cast<size_t>(p - start)};
+         }
+         const char* segment = ++p;
+         start = segment;
+@@ -42,7 +42,7 @@
+                 if (decode && escaped) scratch.append(segment, quote - segment);
+                 std::string_view value = escaped && decode ? std::string_view(scratch)
+                     : std::string_view(start, static_cast<size_t>(quote - start));
+-                return {value, bytes, escaped};
++                return {value, bytes};
+             }
+         }
+         throw std::runtime_error("unterminated quoted field");
