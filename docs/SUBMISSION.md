@@ -12,7 +12,7 @@ This is the fresh local entry. Check actual external state before treating it as
 | Licence | MIT, official attribution retained |
 | Fresh repository | https://github.com/motionetcs/speed-demon-red-jones — private |
 | Submission branch | speed-demon |
-| Remote source | Restored175/e8a5109 passes all real A/C/D gates after D173 page-advice K loss. All29 inputs/file sets match exact passing165 and current best-track sources; fresh public/default/original-D996 references pass. No new algorithm gain this cycle. |
+| Remote source | Candidate178 verified A full-scale independent-generator PGO build prepared for authorized push; all C++/C/D unchanged passing175. Real all-track result pending; original175 source/bests stay separate. |
 | Individual registration | Entrant confirmed already registered on 31 October 2026; not duplicated |
 | Team form | Submitted successfully for this fresh repository, A/C/D; Tally displayed “Form submitted” |
 | Board app access | Installed and verified on 31 October 2026; only the fresh repository selected; read-only code and metadata |

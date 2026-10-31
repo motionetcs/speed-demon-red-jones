@@ -1,0 +1,29 @@
+{
+  "observed_at_utc": "2026-10-31T23:42:46.073170+00:00",
+  "scope": "Only independent generator training distribution changes for current ordered-output/prefix8 A. C++/strict-model source, C/D and generic flags unchanged. Native screen not meaningful because native compiler/source are identical. Offline emulated Linux checks are correctness, not target performance; actual K required.",
+  "base_commit": "5bf3ee36e5dc88e0724607a657e5d241d705859b",
+  "changed": [
+    "track-a/Dockerfile",
+    "track-a/README.md"
+  ],
+  "first_training": {
+    "seed": 1000003,
+    "scale": "full"
+  },
+  "second_training": {
+    "seed": 130363,
+    "scale": "sample"
+  },
+  "cpp_source_unchanged": true,
+  "public_seed1_used_for_training": false,
+  "research": [
+    {
+      "url": "https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html",
+      "scope": "Representative workload profiles and matching compile/generate/use options; profile-update atomic retained."
+    },
+    {
+      "url": "https://speeddemon.dev/",
+      "scope": "Published build-time generator PGO permitted; only final executable copied, public1 never trained."
+    }
+  ]
+}

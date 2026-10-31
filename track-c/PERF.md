@@ -500,3 +500,6 @@ Exact current C image passes285 regular replays plus228 every-topology valid/24 
 
 
 175/e8a5109 run-5faf38e26ef1 passes all five real restoration gates: T0.062531s/M11665408/S672/K23.033578/68.118071 points. Higher unchanged selected165 source best68.118071/K23.033578 is variation. Every29 input/file set matches current selected and best-track sources; fresh Make/public/defaults and original D996 new-reference cases pass. Raw ../docs/board-round175-selected-confirmation.json and round175-final-source-match.json.
+
+
+177/5bf3ee3 run-b41d413b7699 passes all five real gates, unchanged selected175 runtime: T0.063100s/M12566528/S672/K22.590786/67.696567 points. Lower same-source variation; best retained separately. Raw ../docs/board-round177-evidence-head.json.

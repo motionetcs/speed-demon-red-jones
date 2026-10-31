@@ -435,3 +435,6 @@ Fresh sample1801/1811 strict ASAN/UBSAN,1819 TSAN, public1/6/12, all high-degree
 
 
 175/e8a5109 run-7585eaad5db7 passes all five real restoration gates: T0.227310s/M77152256/S827/K18.729354/63.626140 points. Original storage restored byte-for-byte. Lower same-source repeat;163 best65.319494/K20.248361 stays separate. Every29 input/file set matches current selected and best-track sources; fresh Make/public/defaults and original D996 new-reference cases pass. Raw ../docs/board-round175-selected-confirmation.json and round175-final-source-match.json.
+
+
+177/5bf3ee3 run-0a7449aaa200 passes all five real gates, unchanged selected175 runtime: T0.221787s/M77283328/S827/K18.954686/63.885830 points. Lower same-source variation; best retained separately. Raw ../docs/board-round177-evidence-head.json.
