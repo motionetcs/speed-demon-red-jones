@@ -412,3 +412,6 @@ Evidence147/69322d0 run-6aba70749f25 passes all real gates on identical selected
 
 
 163/d0bf708 run-d86cb628f914 passes all five real gates: T0.194716s/M76922880/S827/K20.248361/65.319494 points. Unchanged-source slightly higher best65.319494/K20.248361 versus65.222044/K20.157695 is repeat variation, not a new algorithm change. Raw ../docs/board-round163-ordered-high.json.
+
+
+165/72b040a run-f74e3afdb0c8 passes all five real selected-combination gates: T0.199941s/M77795328/S827/K19.937016/64.983008 points. Lower unchanged-source repeat; preserve163 best65.319494/K20.248361 separately. Every29 inputs/file set and local image matches selected/best sources in round165-final-source-match.json. Fresh Make/public/defaults and restored-C141 new-reference replays pass. Raw ../docs/board-round165-selected-confirmation.json.

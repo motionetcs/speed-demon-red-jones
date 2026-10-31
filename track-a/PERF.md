@@ -423,3 +423,6 @@ Frozen16311 paired full-public hash trials: retained0.041741292s/RSS259522560, c
 
 
 163/d0bf708 run-271fd6ddf3b9 passes all five real gates: T0.045650s/M20787200/S497/K30.829845/74.448567 points. KEEP combined ordered mapped-output/prefix8 A: points73.371413→74.448567, K29.337848→30.829845. Charged memory27,340,800→20,787,200B drops23.97%, time0.046329→0.045650s is1.47% lower, and S457→497 grows8.75%. This measures the combined design, not individual component effects or a precise causal timing estimate. Raw ../docs/board-round163-ordered-high.json.
+
+
+165/72b040a run-62e2cd1dd82a passes all five real selected-combination gates: T0.044266s/M20955136/S497/K31.257749/74.747885 points. Higher repeat of exactly the winning163 A source: extra74.448567→74.747885 is variation, not another algorithm. First changed-source gain remains73.371413→74.448567. Every29 inputs/file set and local image matches selected/best sources in round165-final-source-match.json. Fresh Make/public/defaults and restored-C141 new-reference replays pass. Raw ../docs/board-round165-selected-confirmation.json.

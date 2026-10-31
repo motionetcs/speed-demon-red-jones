@@ -485,3 +485,6 @@ Exact current C image passes285 regular replays plus228 every-topology valid/24 
 
 
 163/d0bf708 run-da3afff606d0 passes all five real gates: T0.062251s/M12476416/S672/K22.777075/67.874898 points. REJECT upper32 fingerprint C: K22.777075/67.874898 points fails22.865201/67.958752. Time0.062251 is slightly lower than0.062299, memory12,476,416 exceeds12,214,272B, S672 unchanged. Native paired hypothesis did not establish a target gain. Restore names.hpp/README exactly0882828. Raw ../docs/board-round163-ordered-high.json.
+
+
+165/72b040a run-6843e7f296dc passes all five real selected-combination gates: T0.062469s/M11997184/S672/K22.916113/68.007047 points. Restored original low32 source has a slightly higher same-source best68.007047/K22.916113; variation, not an upper32 gain. Every29 inputs/file set and local image matches selected/best sources in round165-final-source-match.json. Fresh Make/public/defaults and restored-C141 new-reference replays pass. Raw ../docs/board-round165-selected-confirmation.json.

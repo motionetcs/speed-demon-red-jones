@@ -16,7 +16,9 @@ Input need not be sorted. Hour vectors allocate only when they receive records a
 
 Each parser also keeps a4096-entry endpoint cache. A small sampled hash chooses a cache slot, but a hit must still match the full length and every byte. A miss uses the original exact shared dictionary. The shared entry publishes the first immutable input view for its assigned ID before making that entry visible. This avoids repeated global lookups without treating a hash collision as equality.
 
-Record vectors now obtain pages directly from the operating system. After an hour is completely processed, its owner returns those pages immediately. This avoids retaining freed record buffers inside another thread's allocator. It changes storage ownership, not any answer. The latest real run uses about22.8% less charged memory; slightly slower execution and more source still give a higher total score.
+Record vectors and output strings obtain their pages directly from the operating system. After an hour is processed, its record pages return immediately. Once its output is complete, the same worker takes a mutex, writes any consecutive completed hours in order, and releases their output pages. An empty hour also announces completion. All twelve workers still aggregate; there is no extra writer thread or wait for a missing hour. The file closes after every worker has joined. A write failure returns a normal error after workers finish.
+
+A bounded eight-byte decoder converts the leading decimal digits together, then handles any remaining digits normally. It never loads beyond its input boundary, keeps complete32-bit latencies, and still verifies the newline and range. The combined ordered-output/decoder change has a real board result:73.371413→74.448567 points, with about24% less charged memory,1.47% lower measured time and more source. Individual component effects were not measured separately; best and latest runs remain distinct in RESULTS.
 
 ## C: CSV records
 
