@@ -403,3 +403,6 @@ Evidence147/69322d0 run-ed5a0130bc00 passes all real gates on identical selected
 
 
 155/4191767 run-0afa6a51692a passes all five real gates: T0.051638s/M26624000/S457/K27.93686/72.30888 points. Unchanged mapped/cache A lower repeat; best73.371413 remains separate. Raw ../docs/board-round155-pooled-private.json.
+
+
+157/34293c2 run-9f25c3c6faac passes all five real gates after exact selected145 restoration: T0.057580s/M25456640/S457/K26.694446/71.321046 points. Lower unchanged-source repeat; historical best 73.371413 stays separate. All28 inputs and complete file sets match current best-track sources; fresh157 combined public/defaults and original C48 pressure replays pass. Rejected151/155 code is absent. Raw ../docs/board-round157-selected-confirmation.json and round157-final-source-match.json.

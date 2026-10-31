@@ -400,3 +400,6 @@ Evidence147/69322d0 run-6aba70749f25 passes all real gates on identical selected
 
 
 155/4191767 run-87d31cc24612 passes all five real gates: T0.21688s/M77340672/S888/K18.961572/63.893717 points. Reject private2 D: K18.961572/63.893717 fails20.157695/65.222044; time0.216880 versus0.195926s and S888 versus827 grow, memory77,340,672 versus77,459,456 roughly flat. Restore main.cpp/Dockerfile/README/Makefile exactly69322d0 and remove private_degrees.hpp. Native9.97% gain did not transfer; no target phase explanation is measured. Raw ../docs/board-round155-pooled-private.json.
+
+
+157/34293c2 run-e91a4732b13e passes all five real gates after exact selected145 restoration: T0.253388s/M76582912/S827/K17.765703/62.479120 points. Lower unchanged-source repeat; historical best 65.222044 stays separate. All28 inputs and complete file sets match current best-track sources; fresh157 combined public/defaults and original C48 pressure replays pass. Rejected151/155 code is absent. Raw ../docs/board-round157-selected-confirmation.json and round157-final-source-match.json.

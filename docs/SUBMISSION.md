@@ -12,7 +12,7 @@ This is the fresh local entry. Check actual external state before treating it as
 | Licence | MIT, official attribution retained |
 | Fresh repository | https://github.com/motionetcs/speed-demon-red-jones — private |
 | Submission branch | speed-demon |
-| Remote source | Restored exact selected145 A/C/D after151/155 lose;28 input/local-image proof, fresh157 combined public/defaults and original C48 pressure invocations pass. Real157 confirmation pending. |
+| Remote source | Restoration157/34293c2 passes all five real gates in A/C/D after151/155 lose. All28 inputs/file sets match selected145 and current best-track sources. Fresh157 combined public/defaults and original C48 pressure replays pass; best/latest remain separate. |
 | Individual registration | Entrant confirmed already registered on 31 October 2026; not duplicated |
 | Team form | Submitted successfully for this fresh repository, A/C/D; Tally displayed “Form submitted” |
 | Board app access | Installed and verified on 31 October 2026; only the fresh repository selected; read-only code and metadata |

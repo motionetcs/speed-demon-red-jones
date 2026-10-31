@@ -469,3 +469,6 @@ Exact current C image passes285 regular replays plus228 every-topology valid/24 
 
 
 155/4191767 run-2382e05d8744 passes all five real gates: T0.062952s/M12304384/S687/K22.6378/67.741711 points. Reject pooled C: K22.637800/67.741711 fails22.865201/67.958752; time0.062952 versus0.062299s, memory12,304,384 versus12,214,272 and S687 versus672 all grow. Restore main.cpp/names.hpp/README exactly69322d0. Native10.55% gain did not transfer. Raw ../docs/board-round155-pooled-private.json.
+
+
+157/34293c2 run-280abcfaed3b passes all five real gates after exact selected145 restoration: T0.062285s/M12685312/S672/K22.695362/67.796856 points. Lower unchanged-source repeat; historical best 67.958752 stays separate. All28 inputs and complete file sets match current best-track sources; fresh157 combined public/defaults and original C48 pressure replays pass. Rejected151/155 code is absent. Raw ../docs/board-round157-selected-confirmation.json and round157-final-source-match.json.
