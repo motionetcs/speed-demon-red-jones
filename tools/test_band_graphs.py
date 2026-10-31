@@ -34,7 +34,7 @@ def main():
         (data/'queries.txt').write_text(''.join(f'{u} {v}\n' for u,v in queries))
         expected=''.join(str(-1 if distance[u][v]>=inf else distance[u][v])+'\n' for u,v in queries).encode()
         threads=[1,6,12][seed%3]
-        subprocess.run([str(binary),'--data',str(data),'--out',str(out)],env=dict(os.environ,SPEED_DEMON_THREADS=str(threads)),check=True,timeout=30)
+        subprocess.run([str(binary),'--data',str(data),'--out',str(out)],env=dict(os.environ,SPEED_DEMON_THREADS=str(threads),UBSAN_OPTIONS="halt_on_error=1:print_stacktrace=1"),check=True,timeout=30)
         actual=(out/'distances.txt').read_bytes();assert actual==expected,(seed,n,threads)
         cases.append({'seed':seed,'nodes':n,'edges':len(edges),'queries':len(queries),'threads':threads,'sha256':hashlib.sha256(actual).hexdigest()})
     a.report.parent.mkdir(parents=True,exist_ok=True)

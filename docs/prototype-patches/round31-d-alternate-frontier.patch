@@ -1,0 +1,15 @@
+--- a/track-d/main.cpp
++++ b/track-d/main.cpp
+@@ -129,10 +129,11 @@
+                 forward.improve(source, 0); backward.improve(target, 0);
+                 forward_heap.push({0, source}); backward_heap.push({0, target});
+                 uint64_t best = infinity;
++                bool from_source = false;
+                 while (!forward_heap.empty() && !backward_heap.empty()) {
+                     if (best != infinity && forward_heap.minimum() + backward_heap.minimum() >= best) break;
+                     // Balance frontier work rather than absolute distances: no-in sources have huge initial weights.
+-                    bool from_source = forward_heap.count <= backward_heap.count;
++                    from_source = !from_source;
+                     auto& heap = from_source ? forward_heap : backward_heap;
+                     auto& own = from_source ? forward : backward;
+                     auto& other = from_source ? backward : forward;
