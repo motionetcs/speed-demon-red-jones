@@ -6,31 +6,42 @@
 #include <unordered_map>
 #include <vector>
 
-struct Field { std::string_view value; size_t bytes; };
+struct Field { std::string_view value; size_t bytes; bool escaped; };
 struct Csv {
     const char* p;
     const char* end;
     void bom() {
         if (end - p >= 3 && std::memcmp(p, "\xef\xbb\xbf", 3) == 0) p += 3;
     }
-    Field field() {
+    Field field(std::string& scratch, bool decode) {
         const char* start = p;
         if (p == end || *p != '"') {
             while (p < end && *p != ',' && *p != '\r' && *p != '\n') ++p;
-            return {{start, static_cast<size_t>(p - start)}, static_cast<size_t>(p - start)};
+            return {{start, static_cast<size_t>(p - start)}, static_cast<size_t>(p - start), false};
         }
-        start = ++p;
-        const char* segment = p;
+        const char* segment = ++p;
+        start = segment;
         size_t bytes = 0;
+        bool escaped = false;
         while (p < end) {
             const char* quote = static_cast<const char*>(std::memchr(p, '"', end - p));
             if (!quote) throw std::runtime_error("unterminated quoted field");
             bytes += static_cast<size_t>(quote - segment);
             if (quote + 1 < end && quote[1] == '"') {
-                ++bytes; segment = p = quote + 2;
+                if (decode) {
+                    if (!escaped) scratch.assign(start, quote - start);
+                    else scratch.append(segment, quote - segment);
+                    scratch.push_back('"');
+                }
+                ++bytes;
+                escaped = true;
+                segment = p = quote + 2;
             } else {
                 p = quote + 1;
-                return {{start, static_cast<size_t>(quote - start)}, bytes};
+                if (decode && escaped) scratch.append(segment, quote - segment);
+                std::string_view value = escaped && decode ? std::string_view(scratch)
+                    : std::string_view(start, static_cast<size_t>(quote - start));
+                return {value, bytes, escaped};
             }
         }
         throw std::runtime_error("unterminated quoted field");
@@ -82,8 +93,9 @@ int main(int argc, char** argv) {
         Paths paths(argc, argv);
         MappedFile region_file(paths.data / "regions.csv"), records(paths.data / "records.csv");
         Csv region_csv{region_file.data, region_file.data + region_file.size};
-        auto h1 = region_csv.field(); region_csv.comma();
-        auto h2 = region_csv.field(); region_csv.newline();
+        std::string scratch;
+        auto h1 = region_csv.field(scratch, false); region_csv.comma();
+        auto h2 = region_csv.field(scratch, false); region_csv.newline();
         if (h1.value != "region_id" || h2.value != "country") throw std::runtime_error("bad regions header");
         std::unordered_map<std::string_view, uint16_t> countries;
         std::vector<Group> groups;
@@ -91,7 +103,7 @@ int main(int argc, char** argv) {
         std::vector<uint16_t> lookup(1000000, missing);
         while (region_csv.p < region_csv.end) {
             uint64_t id = region_csv.integer();
-            auto country = region_csv.field().value; region_csv.newline();
+            auto country = region_csv.field(scratch, false).value; region_csv.newline();
             auto [it, added] = countries.try_emplace(country, static_cast<uint16_t>(groups.size()));
             if (added) groups.push_back(Group{country});
             if (id >= lookup.size()) lookup.resize(id + 1, missing);
@@ -102,7 +114,7 @@ int main(int argc, char** argv) {
         Csv header{records.data, records.data + records.size};
         header.bom();
         for (auto expected : {"id", "name", "note", "region_id", "amount"}) {
-            if (header.field().value != expected) throw std::runtime_error("bad records header");
+            if (header.field(scratch, true).value != expected) throw std::runtime_error("bad records header");
             if (std::string_view(expected) != "amount") header.comma(); else header.newline();
         }
         unsigned threads = worker_count();
@@ -129,7 +141,7 @@ int main(int argc, char** argv) {
             }
             boundaries[i] = p;
         }
-        struct Local { std::vector<Group> groups; };
+        struct Local { std::vector<Group> groups; std::deque<std::string> storage; };
         for (size_t capacity = 131072;; capacity *= 2) {
             Names names(capacity, groups.size(), records.data);
             std::vector<Local> locals(threads);
@@ -138,16 +150,17 @@ int main(int argc, char** argv) {
                 try {
                     auto& local = locals[worker];
                     Csv csv{boundaries[worker], boundaries[worker + 1]};
+                    std::string name_scratch, unused;
                     while (csv.p < csv.end) {
                         csv.bom();
                         uint64_t id = csv.integer();
-                        Field name = csv.field(); csv.comma();
+                        Field name = csv.field(name_scratch, true); csv.comma();
                         uint64_t hash = Names::hash_key(name.value); names.prefetch(hash);
-                        Field note = csv.field(); csv.comma();
+                        Field note = csv.field(unused, false); csv.comma();
                         uint64_t region = csv.integer();
                         int64_t amount = csv.amount(); csv.newline();
                         size_t country = region < lookup.size() && lookup[region] != missing ? lookup[region] : unmatched;
-                        auto& entry = names.intern(name.value, hash);
+                        auto& entry = names.intern(name.value, name.escaped, local.storage, hash);
                         Group& group = local.groups[country];
                         group.names += names.first(entry, country);
                         ++group.count; group.ids += static_cast<int64_t>(id); group.sum += amount;

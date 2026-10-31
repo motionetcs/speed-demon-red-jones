@@ -1,0 +1,187 @@
+diff --git a/track-c/Dockerfile b/track-c/Dockerfile
+--- a/track-c/Dockerfile
++++ b/track-c/Dockerfile
+@@ -1,6 +1,6 @@
+ FROM gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce AS build
+ WORKDIR /src
+-COPY main.cpp io.hpp parallel.hpp names.hpp ./
++COPY main.cpp io.hpp parallel.hpp names.hpp membership.hpp ./
+ RUN g++ -std=c++20 -O3 -march=native -DNDEBUG -pthread -static main.cpp -o /solution
+ 
+ FROM debian:13-slim@sha256:62bd423aeee912639ca8ee681c2b762cb3e25137e0a92b20be455898a9f034ad
+diff --git a/track-c/main.cpp b/track-c/main.cpp
+--- a/track-c/main.cpp
++++ b/track-c/main.cpp
+@@ -1,6 +1,8 @@
+ #include "io.hpp"
+ #include "parallel.hpp"
+ #include "names.hpp"
++#include "membership.hpp"
++#include <bit>
+ #include <array>
+ #include <numeric>
+ #include <unordered_map>
+@@ -129,11 +131,11 @@
+             }
+             boundaries[i] = p;
+         }
+-        struct Local { std::vector<Group> groups; };
++        struct Local { std::vector<Group> groups; Membership names; unsigned budget = 0; };
+         for (size_t capacity = 131072;; capacity *= 2) {
+             Names names(capacity, groups.size(), records.data);
+             std::vector<Local> locals(threads);
+-            for (auto& local : locals) local.groups = groups;
++            for (auto& local : locals) { local.groups = groups; if (names.private_membership) local.names.slots.resize(capacity); }
+             parallel(threads, [&](unsigned worker) {
+                 try {
+                     auto& local = locals[worker];
+@@ -147,9 +149,10 @@
+                         uint64_t region = csv.integer();
+                         int64_t amount = csv.amount(); csv.newline();
+                         size_t country = region < lookup.size() && lookup[region] != missing ? lookup[region] : unmatched;
+-                        auto& entry = names.intern(name.value, hash);
++                        auto& entry = names.intern(name.value, hash, local.budget);
+                         Group& group = local.groups[country];
+-                        group.names += names.first(entry, country);
++                        if (names.private_membership) local.names.add(size_t(&entry - names.entries.get()), country);
++                        else group.names += names.first(entry, country);
+                         ++group.count; group.ids += static_cast<int64_t>(id); group.sum += amount;
+                         group.minimum = std::min(group.minimum, amount); group.maximum = std::max(group.maximum, amount);
+                         group.name_bytes += name.bytes; group.note_bytes += note.bytes;
+@@ -162,6 +165,17 @@
+                 }
+             });
+             if (names.too_small.load()) continue; // Reparse with a larger exact table, never an approximate count.
++            if (names.private_membership) parallel(threads, [&](unsigned worker) {
++                for (size_t slot = worker; slot < capacity; slot += threads) {
++                    if (names.entries[slot].state.load(std::memory_order_relaxed) < 2) continue;
++                    std::array<uint64_t,4> bits{};
++                    for (const auto& local : locals) local.names.merge(slot, bits);
++                    for (size_t word = 0; word < bits.size(); ++word) while (bits[word]) {
++                        size_t country = word * 64 + std::countr_zero(bits[word]);
++                        ++locals[worker].groups[country].names; bits[word] &= bits[word] - 1;
++                    }
++                }
++            });
+             for (const auto& local : locals) for (size_t i = 0; i < groups.size(); ++i) {
+                 auto& group = groups[i]; const auto& value = local.groups[i];
+                 group.count += value.count; group.ids += value.ids; group.sum += value.sum;
+diff --git a/track-c/membership.hpp b/track-c/membership.hpp
+--- /dev/null
++++ b/track-c/membership.hpp
+@@ -0,0 +1,29 @@
++#pragma once
++#include <array>
++#include <cstdint>
++#include <vector>
++
++// Seven country IDs inline; larger exact sets use a private 256-bit bitmap.
++struct Membership {
++    std::vector<uint64_t> slots;
++    std::vector<std::array<uint64_t,4>> overflow;
++    static constexpr uint64_t low = 0x00ffffffffffffffULL, ones = 0x0001010101010101ULL, high = 0x0080808080808080ULL;
++    void add(size_t slot, size_t country) {
++        uint64_t value = slots[slot], count = value >> 56;
++        if (count == 255) { overflow[uint32_t(value)][country / 64] |= uint64_t(1) << (country % 64); return; }
++        uint64_t encoded = country + 1, different = (value ^ (ones * encoded)) & low;
++        if ((different - ones) & ~different & high) return;
++        if (count < 7) slots[slot] = (value & low) | (encoded << (count * 8)) | ((count + 1) << 56);
++        else {
++            std::array<uint64_t,4> bits{};
++            for (unsigned i = 0; i < 7; ++i) { size_t id = uint8_t(value >> (i * 8)) - 1; bits[id / 64] |= uint64_t(1) << (id % 64); }
++            bits[country / 64] |= uint64_t(1) << (country % 64);
++            slots[slot] = (uint64_t(255) << 56) | overflow.size(); overflow.push_back(bits);
++        }
++    }
++    void merge(size_t slot, std::array<uint64_t,4>& bits) const {
++        uint64_t value = slots[slot];
++        if ((value >> 56) == 255) { const auto& other = overflow[uint32_t(value)]; for (unsigned i = 0; i < 4; ++i) bits[i] |= other[i]; }
++        else for (value &= low; value; value >>= 8) { size_t id = uint8_t(value) - 1; bits[id / 64] |= uint64_t(1) << (id % 64); }
++    }
++};
+diff --git a/track-c/names.hpp b/track-c/names.hpp
+--- a/track-c/names.hpp
++++ b/track-c/names.hpp
+@@ -10,22 +10,23 @@
+         uint32_t offset = 0, length = 0;
+     };
+     size_t capacity, words;
++    bool private_membership;
+     const char* input;
+     std::unique_ptr<Entry[]> entries;
+     std::unique_ptr<std::atomic<uint64_t>[]> membership;
+-    std::atomic<size_t> used{0};
++    std::atomic<size_t> reserved{0};
+     std::atomic<bool> canceled{false}, too_small{false};
+-    Names(size_t size, size_t countries, const char* data) : capacity(size), words((countries + 63) / 64),
++    Names(size_t size, size_t countries, const char* data) : capacity(size), words((countries + 63) / 64), private_membership(countries <= 255),
+         input(data),
+         entries(std::make_unique<Entry[]>(size)),
+-        membership(std::make_unique<std::atomic<uint64_t>[]>(size * words)) {}
++        membership(std::make_unique<std::atomic<uint64_t>[]>((private_membership ? 0 : size * words))) {}
+ 
+     static uint64_t hash_key(std::string_view key) {
+         uint64_t hash = std::hash<std::string_view>{}(key);
+         return hash < 2 ? hash + 2 : hash;
+     }
+     void prefetch(uint64_t hash) const { __builtin_prefetch(&entries[hash & (capacity - 1)], 0, 1); }
+-    Entry& intern(std::string_view key, uint64_t hash) {
++    Entry& intern(std::string_view key, uint64_t hash, unsigned& budget) {
+         if (canceled.load(std::memory_order_relaxed)) throw Canceled{};
+         size_t index = hash & (capacity - 1);
+         for (;;) {
+@@ -33,6 +34,13 @@
+             uint64_t state = entry.state.load(std::memory_order_acquire);
+             if (state == 0) {
+                 if (entry.state.compare_exchange_strong(state, 1, std::memory_order_acq_rel)) {
++                    if (!budget) {
++                        if (reserved.fetch_add(32, std::memory_order_relaxed) >= capacity * 7 / 8) {
++                            too_small.store(true); canceled.store(true); entry.state.store(0, std::memory_order_release); throw Canceled{};
++                        }
++                        budget = 32;
++                    }
++                    --budget;
+                     if (key.size() > UINT32_MAX || uint64_t(key.data() - input) >= UINT32_MAX) {
+                         canceled.store(true); entry.state.store(0, std::memory_order_release);
+                         throw std::runtime_error("CSV name offset exceeds uint32 capacity");
+@@ -40,9 +48,6 @@
+                     entry.length = static_cast<uint32_t>(key.size());
+                     entry.offset = static_cast<uint32_t>(key.data() - input);
+                     entry.state.store(hash, std::memory_order_release);
+-                    if (used.fetch_add(1, std::memory_order_relaxed) >= capacity * 7 / 8) {
+-                        too_small.store(true); canceled.store(true); throw Canceled{};
+-                    }
+                     return entry;
+                 }
+             }
+diff --git a/track-c/test.cpp b/track-c/test.cpp
+--- /dev/null
++++ b/track-c/test.cpp
+@@ -0,0 +1,27 @@
++#include "membership.hpp"
++#include <cassert>
++#include <random>
++#include <set>
++#include <iostream>
++int main() {
++    std::mt19937 random(765891);
++    std::array<Membership,6> workers;
++    std::array<std::array<std::set<unsigned>,64>,6> reference;
++    for(auto& worker:workers) worker.slots.resize(64);
++    for(unsigned i=0;i<100000;++i) {
++        unsigned worker=random()%6,slot=random()%64,country=random()%255;
++        workers[worker].add(slot,country); reference[worker][slot].insert(country);
++    }
++    for(unsigned slot=0;slot<64;++slot) {
++        std::array<uint64_t,4> bits{};std::set<unsigned> all;
++        for(unsigned w=0;w<6;++w) {workers[w].merge(slot,bits); all.insert(reference[w][slot].begin(),reference[w][slot].end());}
++        for(unsigned country=0;country<255;++country) assert(bool(bits[country/64]&(uint64_t(1)<<(country%64)))==bool(all.count(country)));
++    }
++    for(unsigned country=0;country<255;++country) {
++        Membership exact;exact.slots.resize(1);std::array<uint64_t,4> bits{};
++        for(unsigned i=0;i<7;++i) exact.add(0,(country+i)%255);
++        exact.add(0,country);exact.merge(0,bits);
++        for(unsigned i=0;i<255;++i) assert(bool(bits[i/64]&(uint64_t(1)<<(i%64)))==bool((i+255-country)%255<7));
++    }
++    std::cout<<"PASS compact country-set model, boundary bytes, overflow and unions\n";
++}

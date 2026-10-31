@@ -16,4 +16,4 @@ With another24 hours: profile the retained layout on Intel, compare bounded load
 
 Specification: https://github.com/hackathon-raptors/speed-demon-2026/blob/main/specs/a-ingest.md
 
-The current allocator experiment sets the process-local glibc mmap threshold to4096 bytes, so completed hour buffers can be returned to the kernel. It uses the generic GCC build again; the arena-cap and A PGO variants did not beat the earlier best board K. Only the next real board result decides whether this threshold is retained.
+Current experiment isolates profile-guided compilation on the stronger d2 algorithm. The byte-identical official generator trains two independent sample seeds104729/130363 inside an offline builder. Only the executable is copied into the final image; all answers are recomputed at runtime. Prior PGO comparisons also carried rejected allocator/delimiter changes, so they do not establish the effect on this restored algorithm. Real board K decides retention.

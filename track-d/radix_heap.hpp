@@ -1,5 +1,5 @@
 #pragma once
-#define RADIX_BATCH_BUCKET_BITS 6
+#define RADIX_BATCH_BUCKET_BITS 7
 #include <array>
 #include <bit>
 #include <cstdint>

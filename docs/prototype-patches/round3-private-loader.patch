@@ -1,0 +1,158 @@
+diff --git a/track-d/Dockerfile b/track-d/Dockerfile
+--- a/track-d/Dockerfile
++++ b/track-d/Dockerfile
+@@ -1,6 +1,6 @@
+ FROM gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce AS build
+ WORKDIR /src
+-COPY training_generator.py main.cpp io.hpp decimal.hpp radix_heap.hpp distance_map.hpp parallel.hpp ./
++COPY load_cursors.hpp training_generator.py main.cpp io.hpp decimal.hpp radix_heap.hpp distance_map.hpp parallel.hpp ./
+ RUN g++ -std=c++20 -O3 -march=native -DNDEBUG -pthread -static -fprofile-generate=/profile -fprofile-update=atomic main.cpp -o /solution
+ RUN python3 training_generator.py --seed 104729 --scale sample --out /training && /solution --data /training --out /training-output && python3 training_generator.py --seed 130363 --scale sample --out /training && /solution --data /training --out /training-output
+ RUN g++ -std=c++20 -O3 -march=native -DNDEBUG -pthread -static -fprofile-use=/profile -fprofile-correction -Werror=missing-profile main.cpp -o /solution
+diff --git a/track-d/load_cursors.hpp b/track-d/load_cursors.hpp
+--- /dev/null
++++ b/track-d/load_cursors.hpp
+@@ -0,0 +1,55 @@
++#pragma once
++#include <cstdint>
++#include <vector>
++#include <unordered_map>
++
++// Small degrees are common, but overflow never truncates a graph degree.
++struct Degrees {
++    std::vector<uint8_t> small;
++    std::unordered_map<uint32_t, uint32_t> extra;
++    explicit Degrees(size_t nodes) : small(nodes) {}
++    void add(uint32_t node) { if (small[node] != UINT8_MAX) ++small[node]; else ++extra[node]; }
++    uint32_t get(uint32_t node) const {
++        if (small[node] != UINT8_MAX) return small[node];
++        auto i = extra.find(node); return UINT8_MAX + (i == extra.end() ? 0 : i->second);
++    }
++    void release() { std::vector<uint8_t>().swap(small); std::unordered_map<uint32_t,uint32_t>().swap(extra); }
++};
++
++// Relative offsets fit in16 bits only in blocks with at most65535 total edges.
++// Wider blocks retain complete32-bit absolute cursors.
++struct CursorLayout {
++    static constexpr uint32_t shift = 12, block_size = 1U << shift;
++    std::vector<uint32_t> base, wide_index;
++    size_t wide_blocks = 0;
++    explicit CursorLayout(const std::vector<uint32_t>& starts) {
++        size_t nodes = starts.size() - 1, blocks = (nodes + block_size - 1) / block_size;
++        base.resize(blocks); wide_index.resize(blocks, UINT32_MAX);
++        for (size_t block = 0; block < blocks; ++block) {
++            size_t begin = block * block_size, end = std::min(nodes, begin + block_size);
++            base[block] = starts[begin];
++            if (starts[end] - starts[begin] > UINT16_MAX) wide_index[block] = static_cast<uint32_t>(wide_blocks++);
++        }
++    }
++};
++struct WriteCursor {
++    const CursorLayout* layout;
++    std::vector<uint16_t> small;
++    std::vector<uint32_t> wide;
++    WriteCursor(const CursorLayout& l, std::vector<uint32_t>& starts, const Degrees& counts) : layout(&l),
++        small(starts.size() - 1), wide(l.wide_blocks * CursorLayout::block_size) {
++        for (size_t node = 0; node < small.size(); ++node) {
++            size_t block = node >> CursorLayout::shift;
++            uint32_t index = l.wide_index[block];
++            if (index == UINT32_MAX) small[node] = static_cast<uint16_t>(starts[node] - l.base[block]);
++            else wide[size_t(index) * CursorLayout::block_size + (node & (CursorLayout::block_size - 1))] = starts[node];
++            starts[node] += counts.get(static_cast<uint32_t>(node));
++        }
++    }
++    uint32_t take(uint32_t node) {
++        size_t block = node >> CursorLayout::shift;
++        uint32_t index = layout->wide_index[block];
++        if (index == UINT32_MAX) return layout->base[block] + small[node]++;
++        return wide[size_t(index) * CursorLayout::block_size + (node & (CursorLayout::block_size - 1))]++;
++    }
++};
+diff --git a/track-d/main.cpp b/track-d/main.cpp
+--- a/track-d/main.cpp
++++ b/track-d/main.cpp
+@@ -1,4 +1,5 @@
+ #include "radix_heap.hpp"
++#include "load_cursors.hpp"
+ #include "io.hpp"
+ #include "decimal.hpp"
+ #include "distance_map.hpp"
+@@ -42,6 +43,9 @@
+         const char* edge_start = scan.p;
+         while (edge_start < graph.data + graph.size && *edge_start <= ' ') ++edge_start;
+         unsigned loaders = std::min(threads, 4U);
++#ifdef LOADER_COUNT
++        loaders = std::min(loaders, unsigned(LOADER_COUNT));
++#endif
+         std::vector<const char*> boundaries(loaders + 1);
+         boundaries.front() = edge_start; boundaries.back() = graph.data + graph.size;
+         for (unsigned i = 1; i < loaders; ++i) {
+@@ -52,8 +56,15 @@
+             }
+             boundaries[i] = p;
+         }
+-        struct Local { size_t count = 0; std::vector<std::pair<uint32_t, uint32_t>> wide; };
+-        std::vector<Local> locals(loaders);
++        struct Local {
++            size_t count = 0;
++            Degrees outgoing, incoming;
++            std::unique_ptr<WriteCursor> out, in;
++            std::vector<std::pair<uint32_t, uint32_t>> wide;
++            explicit Local(size_t nodes) : outgoing(nodes), incoming(nodes) {}
++        };
++        std::vector<Local> locals; locals.reserve(loaders);
++        for (unsigned i = 0; i < loaders; ++i) locals.emplace_back(n);
+         std::vector<uint32_t> offsets(size_t(n) + 1), reverse_offsets(size_t(n) + 1);
+         parallel(loaders, [&](unsigned worker) {
+             auto& local = locals[worker];
+@@ -62,25 +73,34 @@
+                 uint32_t u = input.number(), v = input.number(); input.number();
+                 if (u >= n || v >= n) throw std::runtime_error("node outside graph");
+                 ++local.count;
+-                std::atomic_ref(offsets[size_t(u) + 1]).fetch_add(1, std::memory_order_relaxed);
+-                std::atomic_ref(reverse_offsets[size_t(v) + 1]).fetch_add(1, std::memory_order_relaxed);
++                local.outgoing.add(u); local.incoming.add(v);
+             }
+         });
+         size_t edge_count = 0;
+         for (const auto& local : locals) edge_count += local.count;
+         if (edge_count != m) throw std::runtime_error("edge count does not match header");
+-        for (size_t i = 1; i <= n; ++i) {
+-            offsets[i] += offsets[i - 1]; reverse_offsets[i] += reverse_offsets[i - 1];
++        for (size_t node = 0; node < n; ++node) {
++            uint64_t out = offsets[node], in = reverse_offsets[node];
++            for (const auto& local : locals) { out += local.outgoing.get(node); in += local.incoming.get(node); }
++            if (out > m || in > m) throw std::runtime_error("degree count exceeds edge header");
++            offsets[node + 1] = static_cast<uint32_t>(out); reverse_offsets[node + 1] = static_cast<uint32_t>(in);
+         }
+-        std::vector<uint32_t> cursor(offsets), reverse_cursor(reverse_offsets);
++        CursorLayout layout(offsets), reverse_layout(reverse_offsets);
++        for (auto& local : locals) {
++            local.out = std::make_unique<WriteCursor>(layout, offsets, local.outgoing);
++            local.in = std::make_unique<WriteCursor>(reverse_layout, reverse_offsets, local.incoming);
++            local.outgoing.release(); local.incoming.release();
++        }
++        for (size_t node = n; node; --node) { offsets[node] = offsets[node - 1]; reverse_offsets[node] = reverse_offsets[node - 1]; }
++        offsets[0] = 0; reverse_offsets[0] = 0;
+         std::vector<Edge> edges(m), reverse_edges(m);
+         parallel(loaders, [&](unsigned worker) {
+             auto& local = locals[worker];
+             Scanner input{boundaries[worker], boundaries[worker + 1]};
+             while (input.more()) {
+                 uint32_t u = input.number(), v = input.number(), value = input.number();
+-                uint32_t out = std::atomic_ref(cursor[u]).fetch_add(1, std::memory_order_relaxed);
+-                uint32_t in = std::atomic_ref(reverse_cursor[v]).fetch_add(1, std::memory_order_relaxed);
++                uint32_t out = local.out->take(u);
++                uint32_t in = local.in->take(v);
+                 uint16_t weight = static_cast<uint16_t>(std::min(value, uint32_t(UINT16_MAX)));
+                 edges[out] = Edge{v, weight}; reverse_edges[in] = Edge{u, weight};
+                 if (value >= UINT16_MAX) {
+@@ -90,7 +110,7 @@
+         });
+         std::unordered_map<uint32_t, uint32_t> wide_weights;
+         for (const auto& local : locals) for (auto [index, weight] : local.wide) wide_weights.emplace(index, weight);
+-        locals.clear(); std::vector<uint32_t>().swap(cursor); std::vector<uint32_t>().swap(reverse_cursor);
++        locals.clear();
+         Scanner qscan{queries_file.data, queries_file.data + queries_file.size};
+         std::vector<std::pair<uint32_t, uint32_t>> queries;
+         while (qscan.more()) {

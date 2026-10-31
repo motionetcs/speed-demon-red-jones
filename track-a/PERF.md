@@ -110,3 +110,7 @@ Offline Linux full-public/tiny outputs and129 untrained sample/adversarial runs 
 `run-2ae41917013b` on `18896fe59b2dfd93036b023388f29dd0a4108449` passed every gate: T=0.063857 s, M=39,718,912 bytes, S=345, K=24.189551, points=69.18139. Record: `../docs/board-round2-pgo.json`. This is below the preceding best, so PGO and the weaker arena/delimiter experiment are removed from this track.
 
 Next isolated hypothesis: keep hour-owned workspaces and generic GCC, replacing the rejected arena cap with process-local mmap threshold4096. Offline Linux/full/default checks pass; the actual board K remains pending.
+
+## Canonical CSV / banded queue: real board result
+
+`run-73368f11a068` on `a5394d33e9058b843422529374362b00adbc0ecb` passed all gates: T=0.077115 s, M=28,233,728 bytes, S=343, K=23.587787, points=68.63436. Exact record: `../docs/board-round2-canonical-band.json`. The4096-byte mmap threshold lowers memory but scores below the prior best, so it is rejected. Next: isolate PGO on the original hour-owned algorithm with the original allocator environment.

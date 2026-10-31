@@ -200,6 +200,7 @@ def main():
     global BIN_DIR, ACTIVE_TRACKS, THREADS
     parser = argparse.ArgumentParser()
     parser.add_argument("--binary-dir", type=Path, default=ROOT / ".build")
+    parser.add_argument("--source-root", type=Path, default=ROOT, help="context containing track folders for the tested binaries")
     parser.add_argument("--scale", choices=["tiny", "sample", "full"], default="tiny")
     parser.add_argument("--seeds", nargs="+", type=int, default=[1, 7, 31])
     parser.add_argument("--tracks", default="acd")
@@ -215,8 +216,9 @@ def main():
               "memory_scope": "process RSS, not official cgroup memory.peak", "official_score": False,
               "binary_sha256": {tr: digest(BIN_DIR / ("track-" + tr)) for tr in args.tracks},
               "official_revision": (ROOT / "tools/official-revision.txt").read_text().strip(),
-              "source_sha256": {str(p.relative_to(ROOT)): digest(p) for tr in args.tracks
-                                for p in sorted((ROOT / ("track-" + tr)).glob("*")) if p.is_file()}, "checks": []}
+              "source_root": str(args.source_root.resolve()),
+              "source_sha256": {str(p.relative_to(args.source_root.resolve())): digest(p) for tr in args.tracks
+                                for p in sorted((args.source_root.resolve() / ("track-" + tr)).glob("*")) if p.is_file()}, "checks": []}
     if args.public:
         manifest = json.loads((ROOT / "docs/public-sha256.json").read_text())
     for track in args.tracks:

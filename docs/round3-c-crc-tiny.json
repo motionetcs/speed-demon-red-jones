@@ -1,0 +1,267 @@
+{
+  "created_at_utc": "2026-10-31T05:58:49.063087+00:00",
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "python": "3.9.6 (default, Aug 25 2026, 21:26:21) \n[Clang 21.0.0 (clang-2100.3.34.2)]",
+  "memory_scope": "process RSS, not official cgroup memory.peak",
+  "official_score": false,
+  "binary_sha256": {
+    "c": "81a4474878e1f725f4956d3ea1d1e0ef6077bb3bed3f83a6c1e6a9b2f3fbb955"
+  },
+  "official_revision": "ad1f06063a76bf94066f169e133ec0c2e1485b65",
+  "source_root": "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round3-c-crc",
+  "source_sha256": {
+    "track-c/.speed-demon.toml": "3371600b8033a377bc373378e703191dfec36c1ae991b617650dfa480edc00b4",
+    "track-c/Dockerfile": "64e4fed23b43fd6edae9e1a0495759d7f0f33ddcfbf159600bbfe947bf51871a",
+    "track-c/PERF.md": "0f1ba3ff8cfca563a63fe38510dfca10e819c8967b7777cbcdfb2f0be4051896",
+    "track-c/README.md": "ada744a5cb51815879b80f8a4d778c97bbb049d6984f78f1ed8773a83dbd061a",
+    "track-c/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+    "track-c/main.cpp": "9ee0db11a58d4c233bfd03cb56562d1fdd0be173dfd8029dd48332ee2f440f15",
+    "track-c/names.hpp": "ca24b99983e9421e795ded86f201ca8ed798a5ce77dbcd9d5a58bb35d2ea2911",
+    "track-c/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420"
+  },
+  "checks": [
+    {
+      "track": "c",
+      "case": "tiny-seed347",
+      "reference_sha256": "c960808da803fba72673fa7b19ceca6684313d10e83413c0866d7e807e0f4b16",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.40667479199999995,
+          "peak_process_rss_bytes": 7389184,
+          "requested_threads": 1,
+          "sha256": "c960808da803fba72673fa7b19ceca6684313d10e83413c0866d7e807e0f4b16"
+        },
+        {
+          "wall_seconds_including_launch": 0.01239695900000004,
+          "peak_process_rss_bytes": 7585792,
+          "requested_threads": 6,
+          "sha256": "c960808da803fba72673fa7b19ceca6684313d10e83413c0866d7e807e0f4b16"
+        },
+        {
+          "wall_seconds_including_launch": 0.006208416999999966,
+          "peak_process_rss_bytes": 7798784,
+          "requested_threads": 12,
+          "sha256": "c960808da803fba72673fa7b19ceca6684313d10e83413c0866d7e807e0f4b16"
+        }
+      ]
+    },
+    {
+      "track": "c",
+      "case": "tiny-seed349",
+      "reference_sha256": "efe33987c378db85180bb9bde43cc735c9d5b5074d3d3543871ed7f06bb83de4",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.006356625000000005,
+          "peak_process_rss_bytes": 7520256,
+          "requested_threads": 1,
+          "sha256": "efe33987c378db85180bb9bde43cc735c9d5b5074d3d3543871ed7f06bb83de4"
+        },
+        {
+          "wall_seconds_including_launch": 0.006533500000000081,
+          "peak_process_rss_bytes": 7716864,
+          "requested_threads": 6,
+          "sha256": "efe33987c378db85180bb9bde43cc735c9d5b5074d3d3543871ed7f06bb83de4"
+        },
+        {
+          "wall_seconds_including_launch": 0.006209582999999963,
+          "peak_process_rss_bytes": 7815168,
+          "requested_threads": 12,
+          "sha256": "efe33987c378db85180bb9bde43cc735c9d5b5074d3d3543871ed7f06bb83de4"
+        }
+      ]
+    },
+    {
+      "track": "c",
+      "case": "c-worked",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.006462791999999995,
+          "peak_process_rss_bytes": 6963200,
+          "requested_threads": 1,
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "wall_seconds_including_launch": 0.006510791999999932,
+          "peak_process_rss_bytes": 7045120,
+          "requested_threads": 6,
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "wall_seconds_including_launch": 0.00562345799999997,
+          "peak_process_rss_bytes": 7192576,
+          "requested_threads": 12,
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "track": "c",
+      "case": "c-grammar-eof",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.006054459000000012,
+          "peak_process_rss_bytes": 6930432,
+          "requested_threads": 1,
+          "sha256": "0c084eef633858f79b023d1d767c8c474e73ad5c37f3f587c1145c3aa36e52ec"
+        },
+        {
+          "wall_seconds_including_launch": 0.006499374999999974,
+          "peak_process_rss_bytes": 7028736,
+          "requested_threads": 6,
+          "sha256": "0c084eef633858f79b023d1d767c8c474e73ad5c37f3f587c1145c3aa36e52ec"
+        },
+        {
+          "wall_seconds_including_launch": 0.00630254100000005,
+          "peak_process_rss_bytes": 7159808,
+          "requested_threads": 12,
+          "sha256": "0c084eef633858f79b023d1d767c8c474e73ad5c37f3f587c1145c3aa36e52ec"
+        }
+      ]
+    },
+    {
+      "track": "c",
+      "case": "c-grammar-bom-eof",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.005769833000000002,
+          "peak_process_rss_bytes": 6930432,
+          "requested_threads": 1,
+          "sha256": "0c084eef633858f79b023d1d767c8c474e73ad5c37f3f587c1145c3aa36e52ec"
+        },
+        {
+          "wall_seconds_including_launch": 0.005893666999999936,
+          "peak_process_rss_bytes": 7028736,
+          "requested_threads": 6,
+          "sha256": "0c084eef633858f79b023d1d767c8c474e73ad5c37f3f587c1145c3aa36e52ec"
+        },
+        {
+          "wall_seconds_including_launch": 0.006128040999999973,
+          "peak_process_rss_bytes": 7159808,
+          "requested_threads": 12,
+          "sha256": "0c084eef633858f79b023d1d767c8c474e73ad5c37f3f587c1145c3aa36e52ec"
+        }
+      ]
+    },
+    {
+      "track": "c",
+      "case": "c-grammar-lf",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.006213833000000002,
+          "peak_process_rss_bytes": 6930432,
+          "requested_threads": 1,
+          "sha256": "0c084eef633858f79b023d1d767c8c474e73ad5c37f3f587c1145c3aa36e52ec"
+        },
+        {
+          "wall_seconds_including_launch": 0.005788042000000049,
+          "peak_process_rss_bytes": 7028736,
+          "requested_threads": 6,
+          "sha256": "0c084eef633858f79b023d1d767c8c474e73ad5c37f3f587c1145c3aa36e52ec"
+        },
+        {
+          "wall_seconds_including_launch": 0.006668999999999925,
+          "peak_process_rss_bytes": 7159808,
+          "requested_threads": 12,
+          "sha256": "0c084eef633858f79b023d1d767c8c474e73ad5c37f3f587c1145c3aa36e52ec"
+        }
+      ]
+    },
+    {
+      "track": "c",
+      "case": "c-grammar-crlf",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.006067040999999995,
+          "peak_process_rss_bytes": 6930432,
+          "requested_threads": 1,
+          "sha256": "0c084eef633858f79b023d1d767c8c474e73ad5c37f3f587c1145c3aa36e52ec"
+        },
+        {
+          "wall_seconds_including_launch": 0.0064429999999999765,
+          "peak_process_rss_bytes": 7045120,
+          "requested_threads": 6,
+          "sha256": "0c084eef633858f79b023d1d767c8c474e73ad5c37f3f587c1145c3aa36e52ec"
+        },
+        {
+          "wall_seconds_including_launch": 0.014706874999999897,
+          "peak_process_rss_bytes": 7176192,
+          "requested_threads": 12,
+          "sha256": "0c084eef633858f79b023d1d767c8c474e73ad5c37f3f587c1145c3aa36e52ec"
+        }
+      ]
+    },
+    {
+      "track": "c",
+      "case": "c-canonical-quote-forms",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.007557999999999954,
+          "peak_process_rss_bytes": 7028736,
+          "requested_threads": 1,
+          "sha256": "6b1388dccaf03ba5abc1f292215da2872b752d1916bb02425ecd327477c5b64e"
+        },
+        {
+          "wall_seconds_including_launch": 0.006367041999999934,
+          "peak_process_rss_bytes": 7127040,
+          "requested_threads": 6,
+          "sha256": "6b1388dccaf03ba5abc1f292215da2872b752d1916bb02425ecd327477c5b64e"
+        },
+        {
+          "wall_seconds_including_launch": 0.0061051250000000445,
+          "peak_process_rss_bytes": 7241728,
+          "requested_threads": 12,
+          "sha256": "6b1388dccaf03ba5abc1f292215da2872b752d1916bb02425ecd327477c5b64e"
+        }
+      ]
+    },
+    {
+      "track": "c",
+      "case": "c-parallel-resize-and-seams",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.01938662499999988,
+          "peak_process_rss_bytes": 16875520,
+          "requested_threads": 1,
+          "sha256": "b403a09bcd43861b5a65577a172f9f0d8980a634342103890d5fe1d1fe9150c9"
+        },
+        {
+          "wall_seconds_including_launch": 0.023823833000000016,
+          "peak_process_rss_bytes": 14876672,
+          "requested_threads": 6,
+          "sha256": "b403a09bcd43861b5a65577a172f9f0d8980a634342103890d5fe1d1fe9150c9"
+        },
+        {
+          "wall_seconds_including_launch": 0.023145874999999982,
+          "peak_process_rss_bytes": 15040512,
+          "requested_threads": 12,
+          "sha256": "b403a09bcd43861b5a65577a172f9f0d8980a634342103890d5fe1d1fe9150c9"
+        }
+      ]
+    },
+    {
+      "track": "c",
+      "case": "c-wide-country-membership",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.006141333999999832,
+          "peak_process_rss_bytes": 11354112,
+          "requested_threads": 1,
+          "sha256": "9fce39382de5447ca24757e4e1391551a2f077160f2fa46b288d6806e0e88e04"
+        },
+        {
+          "wall_seconds_including_launch": 0.006476833000000015,
+          "peak_process_rss_bytes": 11583488,
+          "requested_threads": 6,
+          "sha256": "9fce39382de5447ca24757e4e1391551a2f077160f2fa46b288d6806e0e88e04"
+        },
+        {
+          "wall_seconds_including_launch": 0.006333000000000144,
+          "peak_process_rss_bytes": 11812864,
+          "requested_threads": 12,
+          "sha256": "9fce39382de5447ca24757e4e1391551a2f077160f2fa46b288d6806e0e88e04"
+        }
+      ]
+    }
+  ],
+  "passed": true
+}

@@ -14,7 +14,7 @@ The log is not sorted. We keep all the hour buckets until the input is finished,
 
 ## C: CSV records
 
-A line break inside quotes belongs to a field, so splitting the file on line breaks would be wrong. Our parser follows quoting rules, counts each doubled quote as one decoded byte, preserves trailing spaces, and skips a BOM only at a record boundary. For name equality it keeps the canonical quoted interior: doubling every quote is reversible, so exact encoded equality is equivalent to exact decoded equality. Quoted and unquoted plain names have the same interior. It joins region IDs to country codes; unknown regions are grouped as `_UNMATCHED`.
+A line break inside quotes belongs to a field, so splitting the file on line breaks would be wrong. Our parser follows quoting rules, decodes each doubled quote to one literal quote, preserves trailing spaces, and skips a BOM only at a record boundary. It joins region IDs to country codes; unknown regions are grouped as `_UNMATCHED`.
 
 Money is integer cents: `-0.05` is the integer -5. This makes sums and formatting exact. Every distinct name gets an ID and a set of country membership bits. A bit is either present or absent, so distinct counts are exact without storing millions of separate country/name objects. Full names are compared before sharing an ID; hash collisions cannot merge different names.
 
