@@ -1,0 +1,103 @@
+--- a/track-d/load_cursors.hpp
++++ b/track-d/load_cursors.hpp
+@@ -5,6 +5,7 @@
+ #include <cstddef>
+ #include <unordered_map>
+ #include <vector>
++#include <utility>
+ 
+ static_assert(std::atomic_ref<uint8_t>::required_alignment <= alignof(uint8_t));
+ static_assert(std::atomic_ref<uint16_t>::required_alignment <= alignof(uint16_t));
+@@ -47,13 +48,21 @@
+         }
+         return base[block]+std::atomic_ref(small[node]).fetch_add(1,std::memory_order_relaxed);
+     }
+-    template<bool HasWide> void prefetch(uint32_t node) const {
++    template<bool HasWide,bool Write=true> void prefetch(uint32_t node) const {
+         if constexpr (HasWide) {
+             uint32_t index = wide_index[node >> shift];
+-            if (index != UINT32_MAX) { __builtin_prefetch(&wide[size_t(index) * block_size + (node & (block_size - 1))], 1, 1); return; }
++            if (index != UINT32_MAX) { __builtin_prefetch(&wide[size_t(index) * block_size + (node & (block_size - 1))], Write ? 1 : 0, 1); return; }
+         }
+-        __builtin_prefetch(&small[node], 1, 1);
++        __builtin_prefetch(&small[node], Write ? 1 : 0, 1);
+     }
++    // Only after all scatter workers join: the final cursor is each
++    // node's exact exclusive end. No atomic_ref remains alive in this phase.
++    template<bool HasWide> uint32_t end(uint32_t node)const{
++        size_t block=node>>shift;
++        if constexpr(HasWide){uint32_t index=wide_index[block];if(index!=UINT32_MAX)return wide[size_t(index)*block_size+(node&(block_size-1))];}
++        return base[block]+small[node];
++    }
++    template<bool HasWide> std::pair<uint32_t,uint32_t> range(uint32_t node)const{return {node?end<HasWide>(node-1):0,end<HasWide>(node)};}
+     uint32_t take(uint32_t node) {return wide_blocks ? take<true>(node):take<false>(node);}
+     void release(){std::vector<uint16_t>().swap(small);std::vector<uint32_t>().swap(wide);}
+ };
+--- a/track-d/main.cpp
++++ b/track-d/main.cpp
+@@ -116,9 +116,10 @@
+         } else {
+             if (wide_cursors) scatter.template operator()<false,true>(); else scatter.template operator()<false,false>();
+         }
++        std::vector<uint32_t>().swap(offsets);std::vector<uint32_t>().swap(reverse_offsets);
+         std::unordered_map<uint32_t, uint32_t> wide_weights;
+         for (const auto& local : locals) for (auto [index, weight] : local.wide) wide_weights.emplace(index, weight);
+-        locals.clear(); cursor.release(); reverse_cursor.release();
++        locals.clear();
+         Scanner qscan{queries_file.data, queries_file.data + queries_file.size};
+         std::vector<std::pair<uint32_t, uint32_t>> queries;
+         while (qscan.more()) {
+@@ -129,7 +130,7 @@
+         threads = static_cast<unsigned>(std::min<size_t>(threads, queries.size()));
+         std::vector<int64_t> answers(queries.size(), -1);
+         std::atomic<size_t> next{0};
+-        auto worker = [&]<bool Compact>() {
++        auto worker = [&]<bool Compact,bool HasWide>() {
+             constexpr uint64_t infinity = UINT64_MAX;
+             FastDistances forward, backward;
+             RadixHeap forward_heap, backward_heap;
+@@ -138,7 +139,8 @@
+                 if (query >= queries.size()) return;
+                 auto [source, target] = queries[query];
+                 if (source == target) { answers[query] = 0; continue; }
+-                if (offsets[source] == offsets[source + 1] || reverse_offsets[target] == reverse_offsets[target + 1]) continue;
++                auto source_range=cursor.template range<HasWide>(source),target_range=reverse_cursor.template range<HasWide>(target);
++                if(source_range.first==source_range.second||target_range.first==target_range.second)continue;
+                 forward.reset(); backward.reset(); forward_heap.clear(); backward_heap.clear();
+                 forward.improve(source, 0); backward.improve(target, 0);
+                 forward_heap.push({0, source}); backward_heap.push({0, target});
+@@ -150,15 +152,15 @@
+                     auto& heap = from_source ? forward_heap : backward_heap;
+                     auto& own = from_source ? forward : backward;
+                     auto& other = from_source ? backward : forward;
+-                    const auto& starts = from_source ? offsets : reverse_offsets;
++                    const auto& starts = from_source ? cursor : reverse_cursor;
+                     const auto& adjacency = from_source ? edges : reverse_edges;
+                     std::array<Item, 32> work;
+                     std::array<std::pair<uint32_t, uint32_t>, 32> ranges;
+                     size_t count = heap.pop_batch(work.data(), work.size());
+-                    for (size_t k = 0; k < count; ++k) __builtin_prefetch(&starts[work[k].second], 0, 1);
++                    for (size_t k = 0; k < count; ++k) starts.template prefetch<HasWide,false>(work[k].second?work[k].second-1:0);
+                     for (size_t k = 0; k < count; ++k) {
+                         uint32_t node = work[k].second;
+-                        ranges[k] = {starts[node], starts[node + 1]};
++                        ranges[k] = starts.template range<HasWide>(node);
+                         if (ranges[k].first < ranges[k].second) adjacency.template prefetch<Compact>(ranges[k].first);
+                     }
+                     for (size_t k = 0; k < count; ++k) {
+@@ -179,9 +181,12 @@
+                 if (best != infinity) answers[query] = static_cast<int64_t>(best);
+             }
+         };
+-        if (threads) {
+-            if (edges.compact) parallel(threads, [&](unsigned) { worker.template operator()<true>(); });
+-            else parallel(threads, [&](unsigned) { worker.template operator()<false>(); });
++        if(threads){
++            auto run_queries=[&]<bool Compact>(){
++                if(wide_cursors)parallel(threads,[&](unsigned){worker.template operator()<Compact,true>();});
++                else parallel(threads,[&](unsigned){worker.template operator()<Compact,false>();});
++            };
++            if(edges.compact)run_queries.template operator()<true>();else run_queries.template operator()<false>();
+         }
+         Output output;
+         for (int64_t answer : answers) { output.number(answer); output.text("\n"); }

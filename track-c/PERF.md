@@ -427,3 +427,6 @@ An independent transport model primes every directed edge before a barrier, forc
 
 
 Round133/16bedd2 cooperative64/64 worker pipeline passes all five real gates, run-de8f86b1e04b: T0.067282 s/M12169216/S676/K21.998877/67.120025. It loses K21.998877/67.120025 versus selected22.777856/67.875642. Despite lower memory12169216 vs12378112, time0.067282 vs0.062444 and S676 vs672 reduce total K. Restore main.cpp/names.hpp/README exactly83a5f9c; preserve all failed evidence, not a runtime speed claim. Raw ../docs/board-round133-cooperative-c.json.
+
+
+Restored selected135/2b3834d, run-c71ee4a7dbf1, passes every real gate with exact selected128 runtime bytes: T0.095021 s/M12017664/S672/K18.574421/63.445764. Lower same-source confirmation, not another algorithm change. Current regular-image1323 cases, additional selected-C228 every-worker/24 normal errors, fresh combined public/defaults and all27 inputs match round135-final-source-match.json. Raw ../docs/board-round135-selected-confirmation.json.

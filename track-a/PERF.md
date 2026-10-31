@@ -366,3 +366,6 @@ Documentation-only head130/83a5f9c, run-a0d9f4fa93c6, passes every real gate wit
 
 
 Round133/16bedd2 unchanged selected source passes all five real gates, run-c1f07fdd811b: T0.048175 s/M35315712/S424/K27.643629/72.079753. Same-source repeat; do not label the delta a new algorithm improvement. Raw ../docs/board-round133-cooperative-c.json.
+
+
+Restored selected135/2b3834d, run-b611fb45a28d, passes every real gate with exact selected128 runtime bytes: T0.045414 s/M35229696/S424/K28.485435/72.731143. Lower same-source confirmation, not another algorithm change. Current regular-image1323 cases, additional selected-C228 every-worker/24 normal errors, fresh combined public/defaults and all27 inputs match round135-final-source-match.json. Raw ../docs/board-round135-selected-confirmation.json.
