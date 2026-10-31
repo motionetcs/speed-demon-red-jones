@@ -4,11 +4,11 @@ Fresh Red Jones entry: https://github.com/motionetcs/speed-demon-red-jones ; pri
 
 ## Active pass starting09:33 UTC on31 October2026
 
-Round38 source f378b2e51c3a9e3236a37bd0424317b633befa42 is fully scored with every gate passed (board-round38-parser-groups-loader.json). D improves to60.654874/K16.334185 and is retained. A71.577084 and C66.002666 do not beat the previous bests72.105578/66.473216. The next candidate is being submitted after all native/reference/sanitizer/race/GCC/Linux/default checks passed: A lean inline method-word scan with original hour calculation; C aligned eight-pointer groups, motivated by a demonstrated GNU allocator alignment difference; D unchanged from the real improvement. Exact source: .build/round43/source and round43-candidate-source-match.json,27 inputs,147 AC Linux replays.
+Round38 f378b2e improves D to60.654874/K16.334185. Round43 273c709 passes every gate but A71.663813 and C62.229676 fail to beat historical bests72.105578/66.473216; restore exactbf75194 A/C. D byte-identical repeat58.465751 is recorded as variation. Next isolated candidate: same D C++/PGO plus final-image MALLOC_ARENA_MAX=2. Full Linux/default and906 exact-image cases pass. round44-candidate-source-match.json proves all27 inputs, with only that one ENV difference in D. Capture its real result before any other runtime push; retain only if K>16.334185.
 
-Native validator now has --run-id to isolate fixtures and output directories. Round38 originally shared some adversarial paths; it was rerun in isolated suites and1047 exact-image Linux replays pass. Original sample paths were separate. Round43 uses isolated paths from the start; all rare cases,4095 IDs/method-hours/country widths17576 pass. Name models use API-neutral adapters and pass old/grouped/aligned/tagged prototypes; tagged/split/cache/ordered-batch/local-memory losers are outside scored folders. No copied pre-event implementation is used.
+A ordered output writer and C separate full-hash state arrays are development prototypes only. They are not in scored folders and need screening/full validation before promotion. Native fixtures now use --run-id; original round38 shared adversarial paths were rerun in isolated suites and1047 exact-image Linux replays. All isolated and round43 suites pass. Original evidence is retained honestly with its limitation.
 
-Do not push another runtime until the exact round43 board result is captured. Compare A with72.105578/K27.676524, C with66.473216/K21.353266, D with60.654874/K16.334185. If aligned C also loses, restore exactbf75194 C runtime/build inputs and keep the rejected source in history/patches. Docs below are the previous-pass baseline and must be refreshed after final retention.
+The old baseline section below must be refreshed at final retention. No pre-event private implementation, cached answers or input recognition is used.
 
 ## Retained runtime and real confirmation
 

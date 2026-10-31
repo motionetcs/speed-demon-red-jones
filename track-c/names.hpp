@@ -1,6 +1,5 @@
 #pragma once
 #include <algorithm>
-#include <bit>
 #include <atomic>
 #include <cstdint>
 #include <cstring>
@@ -40,68 +39,44 @@ struct StringArena {
 };
 struct Canceled {};
 struct Names {
-    struct Entry { NameKey* key = nullptr; };
-    struct alignas(64) Group { Entry entries[8]; };
-    static_assert(sizeof(Group)==64);
-    static constexpr uint64_t ones = 0x0101010101010101ULL, highs = 0x8080808080808080ULL;
+    struct Entry { std::atomic<uint64_t> state{0}; NameKey* key = nullptr; };
     size_t capacity, words;
-    std::unique_ptr<Group[]> groups;
-    std::unique_ptr<std::atomic<uint64_t>[]> controls;
+    std::unique_ptr<Entry[]> entries;
     std::atomic<size_t> used{0};
     std::atomic<bool> canceled{false}, too_small{false};
     Names(size_t size, size_t countries) : capacity(size), words((countries + 63) / 64),
-        groups(std::make_unique<Group[]>(size/8)), controls(new std::atomic<uint64_t>[size / 8]{}) {
-        if (size < 8 || (size & (size - 1))) throw std::runtime_error("invalid name capacity");
-    }
-    static uint64_t matches(uint64_t word, uint8_t tag) {
-        uint64_t x = word ^ (uint64_t(tag) * ones);
-        return (x - ones) & ~x & highs;
-    }
+        entries(std::make_unique<Entry[]>(size)) {}
     static uint64_t hash_key(std::string_view key) {
         uint64_t hash = std::hash<std::string_view>{}(key); return hash < 2 ? hash + 2 : hash;
     }
-    void prefetch(uint64_t hash) const {
-        size_t group = (hash & (capacity - 1)) / 8;
-        __builtin_prefetch(&controls[group], 0, 1); __builtin_prefetch(&groups[group], 0, 1);
-    }
+    void prefetch(uint64_t hash) const { __builtin_prefetch(&entries[hash & (capacity - 1)], 0, 1); }
     std::string_view bytes(const NameKey* key) const {
         return {reinterpret_cast<const char*>(key) + sizeof(NameKey) + words * sizeof(std::atomic<uint64_t>), key->length};
     }
     Entry& intern(std::string_view key, StringArena& storage, uint64_t hash) {
-        size_t group = (hash & (capacity - 1)) / 8;
-        uint8_t tag = static_cast<uint8_t>(hash >> 56) | 2; // 0 empty, 1 writing; every other byte is published.
-        for (size_t probes = 0; probes < capacity / 8; ++probes) {
-            for (;;) {
-                if (canceled.load(std::memory_order_relaxed)) throw Canceled{};
-                uint64_t word = controls[group].load(std::memory_order_acquire);
-                while (matches(word, 1)) {
-                    if (canceled.load(std::memory_order_relaxed)) throw Canceled{};
-                    word = controls[group].load(std::memory_order_acquire);
+        if (canceled.load(std::memory_order_relaxed)) throw Canceled{};
+        size_t index = hash & (capacity - 1);
+        for (;;) {
+            Entry& entry = entries[index]; uint64_t state = entry.state.load(std::memory_order_acquire);
+            if (state == 0) {
+                if (entry.state.compare_exchange_strong(state, 1, std::memory_order_acq_rel)) {
+                    try { entry.key = storage.make(key, words); }
+                    catch (...) { canceled.store(true); entry.state.store(0, std::memory_order_release); throw; }
+                    entry.state.store(hash, std::memory_order_release);
+                    if (used.fetch_add(1, std::memory_order_relaxed) >= capacity * 7 / 8) {
+                        too_small.store(true); canceled.store(true); throw Canceled{};
+                    }
+                    return entry;
                 }
-                uint64_t candidates = matches(word, tag);
-                while (candidates) {
-                    Entry& entry = groups[group].entries[std::countr_zero(candidates) / 8];
-                    if (bytes(entry.key) == key) return entry;
-                    candidates &= candidates - 1;
-                }
-                uint64_t empty = matches(word, 0);
-                if (!empty) break;
-                unsigned shift = std::countr_zero(empty) / 8 * 8;
-                uint64_t expected = word;
-                if (!controls[group].compare_exchange_strong(expected, word | (uint64_t(1) << shift), std::memory_order_acq_rel)) continue;
-                Entry& entry = groups[group].entries[shift / 8];
-                try { entry.key = storage.make(key, words); }
-                catch (...) { canceled.store(true); controls[group].store(word, std::memory_order_release); throw; }
-                // A group has at most one writer; every other writer waits for byte1 to clear.
-                controls[group].store(word | (uint64_t(tag) << shift), std::memory_order_release);
-                if (used.fetch_add(1, std::memory_order_relaxed) >= capacity * 7 / 8) {
-                    too_small.store(true); canceled.store(true); throw Canceled{};
-                }
-                return entry;
             }
-            group = (group + 1) & (capacity / 8 - 1);
+            while (state == 1) {
+                if (canceled.load(std::memory_order_relaxed)) throw Canceled{};
+                state = entry.state.load(std::memory_order_acquire);
+            }
+            if (state == hash && bytes(entry.key) == key) return entry;
+            if (canceled.load(std::memory_order_relaxed)) throw Canceled{};
+            index = (index + 1) & (capacity - 1);
         }
-        too_small.store(true); canceled.store(true); throw Canceled{};
     }
     bool first(Entry& entry, size_t country) {
         auto* bits = reinterpret_cast<std::atomic<uint64_t>*>(reinterpret_cast<char*>(entry.key) + sizeof(NameKey));

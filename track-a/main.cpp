@@ -3,11 +3,9 @@
 #include "endpoint_table.hpp"
 #include "parallel.hpp"
 #include <atomic>
-#include <bit>
 #include <memory>
 #include <numeric>
 
-static_assert(std::endian::native == std::endian::little); // The specified target is linux/amd64.
 static constexpr uint32_t latency_escape = (1U << 19) - 1;
 struct Count { uint32_t count = 0, errors = 0; };
 
@@ -39,19 +37,14 @@ int main(int argc, char** argv) {
             auto& chunk = chunks[worker];
             size_t reserve_hint = (limit - p) / (72 * 64);
             while (p < limit) {
-                if (limit - p < 40) throw std::runtime_error("truncated timestamp");
+                if (limit - p < 28) throw std::runtime_error("truncated timestamp");
                 const char* line = p;
                 int month = (p[5] - '0') * 10 + p[6] - '0', day = (p[8] - '0') * 10 + p[9] - '0';
                 int hour = (month == 10 ? day - 30 : day + 1) * 24 + (p[11] - '0') * 10 + p[12] - '0' - 18;
                 if (hour < 0 || hour >= 72) throw std::runtime_error("hour outside specification");
-                p += 28;
-                // The grammar's longest method plus separator fits in eight bytes.
-                uint64_t method_word; std::memcpy(&method_word, p, 8);
-                uint64_t x = method_word ^ 0x2020202020202020ULL;
-                uint64_t spaces = (x - 0x0101010101010101ULL) & ~x & 0x8080808080808080ULL;
-                if (!spaces) throw std::runtime_error("missing method separator");
-                p += std::countr_zero(spaces) / 8 + 1;
-                const char* start = p;
+                p += 28; while (p < limit && *p != ' ') ++p;
+                if (p == limit) throw std::runtime_error("missing endpoint");
+                const char* start = ++p;
                 p = static_cast<const char*>(std::memchr(start, ' ', limit - start));
                 if (!p || limit - p < 5) throw std::runtime_error("missing endpoint/status");
                 std::string_view endpoint(start, p - start);
