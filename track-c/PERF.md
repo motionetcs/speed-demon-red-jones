@@ -137,3 +137,9 @@ Five alternating hash-checked local trials measured0.094802 s borrowed keys,0.08
 ## Narrow graph-loader board result
 
 `run-4bcf23d06742` on `61e345f753f6011b6ecd66c6cbba86030d72fa28` passed every gate: T=0.08826 s, M=12,447,744 bytes, S=524, K=19.86528, points=64.904735. Record: `../docs/board-round7-narrow-d.json`. Runtime/build inputs are unchanged; the observation is repeat variation.
+
+## Flat/streaming A: exact board result
+
+`run-3853c18e5195` on `2917982a9d0d26a813aacd1f2065331f6866016c` passed all gates: T=0.091169 s, M=12,324,864 bytes, S=524, K=19.584603, points=64.595738. Record: `../docs/board-round8-flat-a12.json`. Runtime/build source is unchanged; differences are repeat variation.
+
+Next scanner hypothesis: SIMD equality masks locate comma/CR/LF for unquoted fields, with bounded complete vector loads and scalar tails. Quoted-field semantics are unchanged. Five alternating full native trials measure0.096884 s scalar versus0.092903 s NEON; no Intel gain is claimed. AVX2/SSE2/NEON scalar-reference and protected-page models, all-byte/offset/random tests, fresh sample/full hashes, sanitizers and Linux cases pass. Actual board K decides retention.

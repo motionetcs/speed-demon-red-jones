@@ -1,0 +1,31 @@
+{
+  "created_at_utc": "2026-10-31T07:03:06.685524+00:00",
+  "official_score": false,
+  "method": "scalar-reference comparisons for all delimiter offsets through128 bytes, every byte value at64 offsets,100000 random buffers; all reads end at a protected page; fail-fast ASAN/UBSAN across Apple NEON and explicit GCC15/Linux ISA variants",
+  "source_sha256": {
+    "track-c/csv_scan.hpp": "903f7979b388c6cf984353c08a19d694c63d8c72970a9b1e3fa76efd6c6ce917",
+    "tools/test_csv_scan.cpp": "193bc5ace8df97a2348947d66c6365e8de77f3b62d61402cad480c3aa7669347"
+  },
+  "runs": {
+    "native": {
+      "stdout": "PASS scalar-reference, all-byte, all-offset and protected-page CSV delimiter model; AVX2",
+      "flags": "-march=native",
+      "passed": true
+    },
+    "sse2": {
+      "stdout": "PASS scalar-reference, all-byte, all-offset and protected-page CSV delimiter model; SSE2",
+      "flags": "-march=native -mno-avx -mno-avx2",
+      "passed": true
+    },
+    "avx2": {
+      "stdout": "PASS scalar-reference, all-byte, all-offset and protected-page CSV delimiter model; AVX2",
+      "flags": "-mavx2",
+      "passed": true
+    },
+    "apple_neon": {
+      "stdout": "PASS scalar-reference, all-byte, all-offset and protected-page CSV delimiter model; NEON",
+      "passed": true
+    }
+  },
+  "passed": true
+}

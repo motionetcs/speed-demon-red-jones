@@ -137,3 +137,9 @@ Next loader hypothesis: shared byte degree counts plus exact256-wrap spills, the
 ## Narrow graph-loader board result
 
 `run-3898322cf5d1` on `61e345f753f6011b6ecd66c6cbba86030d72fa28` passed every gate: T=0.329751 s, M=76,771,328 bytes, S=728, K=15.866278, points=60.023752. Record: `../docs/board-round7-narrow-d.json`. The narrow byte degrees/relative cursors improve beyond58.157255 to60.023752, runtime0.329751 s; retained.
+
+## Flat/streaming A: exact board result
+
+`run-f53c4e4a6ec9` on `2917982a9d0d26a813aacd1f2065331f6866016c` passed all gates: T=0.328593 s, M=76,972,032 bytes, S=728, K=15.885913, points=60.050609. Record: `../docs/board-round8-flat-a12.json`. Runtime/build source is unchanged; differences are repeat variation.
+
+A bounded eight-byte numeric-prefix parser passes std::from_chars/all-byte/guard-page, tiny and full-hash checks. Five alternating trials give0.315130 s old versus0.311449 s eight-byte, about1.2% local improvement. This is too small to establish a worthwhile total-score gain against added code/variation, so it is not promoted or board-submitted. Reports: round9-d-eight-*.json.

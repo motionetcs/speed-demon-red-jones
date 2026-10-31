@@ -1,4 +1,8 @@
+#ifdef DECIMAL_HEADER
+#include DECIMAL_HEADER
+#else
 #include "../track-a/decimal.hpp"
+#endif
 #ifdef COMPACT_QUEUE_HEADER
 #include COMPACT_QUEUE_HEADER
 #else
@@ -31,8 +35,8 @@ int main() {
     std::mt19937_64 random(0x167ced90);
     for (unsigned n = 0; n < 10000; ++n) number_case(std::to_string(n) + ",");
     for (unsigned i = 0; i < 100000; ++i) number_case(std::to_string(random()) + "\n");
-    for (unsigned position = 0; position < 4; ++position) for (unsigned byte = 0; byte < 256; ++byte) {
-        std::string s = "9081"; s[position] = char(byte); s.push_back(';'); number_case(s);
+    for (unsigned position = 0; position < 8; ++position) for (unsigned byte = 0; byte < 256; ++byte) {
+        std::string s = "90817263"; s[position] = char(byte); s.push_back(';'); number_case(s);
     }
     size_t page = static_cast<size_t>(sysconf(_SC_PAGESIZE));
     char* guard = static_cast<char*>(mmap(nullptr, page * 2, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANON, -1, 0));

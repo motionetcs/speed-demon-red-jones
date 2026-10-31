@@ -1,4 +1,8 @@
-#include "../track-a/aggregate.hpp"
+#ifdef LOG_AGGREGATE_HEADER
+#include LOG_AGGREGATE_HEADER
+#else
+#include "../docs/prototype-patches/rejected_log_aggregate.hpp"
+#endif
 #include <cassert>
 #include <iostream>
 #include <map>

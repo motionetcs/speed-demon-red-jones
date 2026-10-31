@@ -6,17 +6,17 @@ Fresh Red Jones entry: https://github.com/motionetcs/speed-demon-red-jones ; pri
 
 - A: source algorithm from `d2fd0b5`, generic GCC with sample-seed PGO from `46504cb`; twelve workers/hour-owned workspaces, exact selection, original allocator environment. Best69.704972 points/K24.779894, `run-1f9a7602cf67` (same-source repeat).
 - C: exact d2 parser/compact mapped-and-decoded keys and atomic membership, twelve workers, native-targeted GCC with full seed1000003 and sample130363 training. Best64.904735/K19.865280 with dense keys and full-scale training, `run-4bcf23d06742` (same-source repeat). Sample PGO, canonical interiors and delimiter-only variants scored lower; hardware hashing was rejected locally before submission.
-- D: `eb16c07` specialized four-byte CSR edges with exact six-byte fallback, private compact exact labels,64-distance bands with8-entry batches, six workers/up tofour loaders, full-scale PGO. Best60.023752/K15.866278 with narrow degree/cursor loader, `run-3898322cf5d1`.
+- D: `eb16c07` specialized four-byte CSR edges with exact six-byte fallback, private compact exact labels,64-distance bands with8-entry batches, six workers/up tofour loaders, full-scale PGO. Best60.050609/K15.885913 with narrow degree/cursor loader, `run-f53c4e4a6ec9` (same-source repeat).
 
 `bba4fe0` is pushed and passed all gates, but its variable-width packed D edges score55.706308:77.61 MB helps memory, while0.513509 s hurts total K. It is a rejected candidate, not the strongest D source.
 
 ## Current unscored candidate
 
-`61e345f` passed all official gates. D narrow counters/cursors improve to60.023752 points,0.329751 s,76.77MB. C unchanged source records64.904735; A's best remains69.704972 on its earlier same-source run. All source/runtime configurations remain legitimate stdlib/OS implementations with D=1.
+`2917982` passed all official gates, but flat/streaming A scored66.822927, below69.704972. Working tree restores exact strong A main/Docker source from61e345f and removes its rejected helper from the scored folder. Rejected source/models remain in history/artifacts. D/C otherwise retain their latest confirmed algorithms.
 
-Working tree tests A two-pass count/scatter and bounded ordered output, from `.build/round8-a-flat`. Exact endpoint table grows;16-bit counts recover all wraps; cells become32-bit cursors only after merging; every latency is scattered once. Ordered atomic tokens serialize writes and cancellation cannot be overwritten. Full/new-seed,65535/65536/140000 count/error cases, growth, strict ASAN/UBSAN/TSAN, a concurrent std::map/slot model and restricted Linux checks pass. GCC/native models and Linux output-failure cancellation also pass. Native time is slower but RSS falls25–30MB, so it is an explicit memory/runtime/source-size tradeoff. Assert exact build inputs before push, capture real K, and restore the earlier A source from `61e345f` if this loses. D/C are unchanged.
+Current C candidate adds bounded SIMD comma/CR/LF scanning only for unquoted fields, preserving quoting/EOF/BOM/byte semantics. NEON local median improves about4%; S and actual Intel time still decide K. Fresh sample/full, strict ASAN/UBSAN/TSAN, all-byte/offset/random scalar models, protected-page tests, explicit GCC SSE2/AVX2/native and Apple NEON models, and Linux cases pass. Assert exact build-input hashes, push, then capture exact A/C/D scores before another source push.
 
-No prototype is a confirmed gain until real board K exceeds the retained configuration. Keep benchmarks sequential with no competing compilers/tests/training.
+D eight-byte numeric parser is rejected before submission for a marginal1.2% local gain. An unsubmitted neighbor-label prefetch prototype is prepared under `.build/round11-d-prefetch`; it has not been compiled/tested. Never promote a prototype on local timing alone. Benchmark sequentially with no competing compilers/tests/training.
 
 ## Iteration commands and evidence
 
