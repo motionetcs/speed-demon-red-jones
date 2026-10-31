@@ -25,7 +25,7 @@ def main():
     snapshot.parent.mkdir(parents=True, exist_ok=True)
     while time.monotonic() < deadline:
         try:
-            request = urllib.request.Request(URL, headers={"User-Agent": "speed-demon-team-watch/1.0", "Cache-Control": "no-cache"})
+            request = urllib.request.Request(URL + "?v=" + str(time.time_ns()), headers={"User-Agent": "speed-demon-team-watch/1.0", "Cache-Control": "no-cache"})
             with urllib.request.urlopen(request, timeout=25) as response:
                 feed = json.load(response)
             team = next((t for t in feed["teams"] if t["team"].strip().casefold() == "red jones"), None)

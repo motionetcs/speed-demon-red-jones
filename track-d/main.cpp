@@ -1,4 +1,5 @@
 #include "radix_heap.hpp"
+#include "edge_store.hpp"
 #include "io.hpp"
 #include "decimal.hpp"
 #include "distance_map.hpp"
@@ -23,8 +24,6 @@ struct Scanner {
         return static_cast<uint32_t>(value);
     }
 };
-struct __attribute__((packed)) Edge { uint32_t to; uint16_t weight; };
-static_assert(sizeof(Edge) == 6);
 using Item = std::pair<uint64_t, uint32_t>;
 
 int main(int argc, char** argv) {
@@ -73,7 +72,7 @@ int main(int argc, char** argv) {
             offsets[i] += offsets[i - 1]; reverse_offsets[i] += reverse_offsets[i - 1];
         }
         std::vector<uint32_t> cursor(offsets), reverse_cursor(reverse_offsets);
-        std::vector<Edge> edges(m), reverse_edges(m);
+        EdgeStore edges(m, n), reverse_edges(m, n);
         parallel(loaders, [&](unsigned worker) {
             auto& local = locals[worker];
             Scanner input{boundaries[worker], boundaries[worker + 1]};
@@ -81,9 +80,9 @@ int main(int argc, char** argv) {
                 uint32_t u = input.number(), v = input.number(), value = input.number();
                 uint32_t out = std::atomic_ref(cursor[u]).fetch_add(1, std::memory_order_relaxed);
                 uint32_t in = std::atomic_ref(reverse_cursor[v]).fetch_add(1, std::memory_order_relaxed);
-                uint16_t weight = static_cast<uint16_t>(std::min(value, uint32_t(UINT16_MAX)));
-                edges[out] = Edge{v, weight}; reverse_edges[in] = Edge{u, weight};
-                if (value >= UINT16_MAX) {
+                uint32_t weight = std::min(value, edges.weight_limit);
+                edges.set(out, v, weight); reverse_edges.set(in, u, weight);
+                if (value >= edges.weight_limit) {
                     local.wide.emplace_back(out * 2, value); local.wide.emplace_back(in * 2 + 1, value);
                 }
             }
@@ -131,14 +130,14 @@ int main(int argc, char** argv) {
                     for (size_t k = 0; k < count; ++k) {
                         uint32_t node = work[k].second;
                         ranges[k] = {starts[node], starts[node + 1]};
-                        if (ranges[k].first < ranges[k].second) __builtin_prefetch(&adjacency[ranges[k].first], 0, 1);
+                        if (ranges[k].first < ranges[k].second) adjacency.prefetch(ranges[k].first);
                     }
                     for (size_t k = 0; k < count; ++k) {
                         auto [d, u] = work[k];
                         if (d != own.get(u)) continue; // Earlier items may improve this label within the band.
                         for (uint32_t i = ranges[k].first; i < ranges[k].second; ++i) {
-                            Edge edge = adjacency[i]; uint32_t destination = edge.to;
-                            uint32_t weight = edge.weight == UINT16_MAX ? wide_weights.at(i * 2 + (from_source ? 0 : 1)) : edge.weight;
+                            auto [destination, tag] = adjacency.get(i);
+                            uint32_t weight = tag == adjacency.weight_limit ? wide_weights.at(i * 2 + (from_source ? 0 : 1)) : tag;
                             uint64_t candidate = d + weight;
                             if (own.improve(destination, candidate)) {
                                 heap.push({candidate, destination});

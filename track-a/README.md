@@ -16,4 +16,4 @@ With another24 hours: profile the retained layout on Intel, compare bounded load
 
 Specification: https://github.com/hackathon-raptors/speed-demon-2026/blob/main/specs/a-ingest.md
 
-Current experiment isolates profile-guided compilation on the stronger d2 algorithm. The byte-identical official generator trains two independent sample seeds104729/130363 inside an offline builder. Only the executable is copied into the final image; all answers are recomputed at runtime. Prior PGO comparisons also carried rejected allocator/delimiter changes, so they do not establish the effect on this restored algorithm. Real board K decides retention.
+Profile-guided compilation on the stronger hour-owned algorithm is retained after a real-board gain. The byte-identical official generator trains two independent sample seeds104729/130363 inside an offline builder. Only the executable is copied into the final image; all answers are recomputed at runtime. Prior PGO comparisons also carried rejected allocator/delimiter changes, so they do not establish the effect on this restored algorithm. The exact board result is recorded in PERF.md.

@@ -1,0 +1,438 @@
+{
+  "created_at_utc": "2026-10-31T06:04:05.543486+00:00",
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "python": "3.9.6 (default, Aug 25 2026, 21:26:21) \n[Clang 21.0.0 (clang-2100.3.34.2)]",
+  "memory_scope": "process RSS, not official cgroup memory.peak",
+  "official_score": false,
+  "binary_sha256": {
+    "d": "0048ebbe47e9c1c4718ad89846ff0b930b7b2f1fcb3907f04b1f0b8cb4abfeb0"
+  },
+  "official_revision": "ad1f06063a76bf94066f169e133ec0c2e1485b65",
+  "source_root": "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round4-edgepack",
+  "source_sha256": {
+    "track-d/Dockerfile": "e80e7bd67c384bd44708bd049eee34622c539c4a7165b4ee09d8cc68977b9754",
+    "track-d/PERF.md": "62558c2e6397a16ddd1fd6fd7cf64b093dc68762294f7acc679561d613c2c6aa",
+    "track-d/README.md": "85371e387e5e2c063b6573f1e549f5a7e06fc0a50c7e82c5b2c477c28dde4f5f",
+    "track-d/decimal.hpp": "aee2210ac5894050834ffd37903718b3b7bdc6673240559baa85b350bea9b581",
+    "track-d/distance_map.hpp": "1c804ce6c3f66d24ef0708f5667ae99333a017db4ac57974feda67c5025ab042",
+    "track-d/edge_store.hpp": "f624f462594270f51f8b551510bc485501a67255ed62faaa48148268bf88fe99",
+    "track-d/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+    "track-d/main.cpp": "767e1900d8b950238d4f192db6bb994b8413dd294fea4c8ed529d11ec372d81d",
+    "track-d/parallel.hpp": "614e48333aabbd7a9d7b008119d41acc7f908e467769772d01e10d84c282bdab",
+    "track-d/radix_heap.hpp": "b0c548a70881d541aff6023e9770d0d08991a0eb9cf57a7ceb37fad48357963a",
+    "track-d/training_generator.py": "bbf37741159004149c5896265a98ae00b90e90a05ad48c2912ecf8bdce126d65"
+  },
+  "checks": [
+    {
+      "track": "d",
+      "case": "tiny-seed389",
+      "reference_sha256": "188ae99b79edf7ed1b90e197919d2a69309120a07e3d4c00e65542263732aa52",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.45117779199999997,
+          "peak_process_rss_bytes": 1998848,
+          "requested_threads": 1,
+          "sha256": "188ae99b79edf7ed1b90e197919d2a69309120a07e3d4c00e65542263732aa52"
+        },
+        {
+          "wall_seconds_including_launch": 0.008665374999999975,
+          "peak_process_rss_bytes": 2932736,
+          "requested_threads": 6,
+          "sha256": "188ae99b79edf7ed1b90e197919d2a69309120a07e3d4c00e65542263732aa52"
+        },
+        {
+          "wall_seconds_including_launch": 0.006950000000000012,
+          "peak_process_rss_bytes": 3162112,
+          "requested_threads": 12,
+          "sha256": "188ae99b79edf7ed1b90e197919d2a69309120a07e3d4c00e65542263732aa52"
+        }
+      ]
+    },
+    {
+      "track": "d",
+      "case": "tiny-seed397",
+      "reference_sha256": "b49093123a0e4f2f29f971ad85c2a064b16023b726178d663a6a8a29368844d6",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.0073190829999999485,
+          "peak_process_rss_bytes": 2031616,
+          "requested_threads": 1,
+          "sha256": "b49093123a0e4f2f29f971ad85c2a064b16023b726178d663a6a8a29368844d6"
+        },
+        {
+          "wall_seconds_including_launch": 0.006379292000000092,
+          "peak_process_rss_bytes": 3227648,
+          "requested_threads": 6,
+          "sha256": "b49093123a0e4f2f29f971ad85c2a064b16023b726178d663a6a8a29368844d6"
+        },
+        {
+          "wall_seconds_including_launch": 0.005827375000000079,
+          "peak_process_rss_bytes": 3751936,
+          "requested_threads": 12,
+          "sha256": "b49093123a0e4f2f29f971ad85c2a064b16023b726178d663a6a8a29368844d6"
+        }
+      ]
+    },
+    {
+      "track": "d",
+      "case": "d-worked",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.00605325000000001,
+          "peak_process_rss_bytes": 1966080,
+          "requested_threads": 1,
+          "sha256": "2e9871bba1d5013144ceff48d806a28da0e3f203b29118a89d98d8f654c3f6a0"
+        },
+        {
+          "wall_seconds_including_launch": 0.005613082999999963,
+          "peak_process_rss_bytes": 2703360,
+          "requested_threads": 6,
+          "sha256": "2e9871bba1d5013144ceff48d806a28da0e3f203b29118a89d98d8f654c3f6a0"
+        },
+        {
+          "wall_seconds_including_launch": 0.005484625000000021,
+          "peak_process_rss_bytes": 2621440,
+          "requested_threads": 12,
+          "sha256": "2e9871bba1d5013144ceff48d806a28da0e3f203b29118a89d98d8f654c3f6a0"
+        }
+      ]
+    },
+    {
+      "track": "d",
+      "case": "d-floyd-warshall-0",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.006197916999999942,
+          "peak_process_rss_bytes": 1982464,
+          "requested_threads": 1,
+          "sha256": "767d5d04c03445ba23703e9fbee3b4986f287afd2b0820ca9f71e637da0c7207"
+        },
+        {
+          "wall_seconds_including_launch": 0.006169290999999966,
+          "peak_process_rss_bytes": 3145728,
+          "requested_threads": 6,
+          "sha256": "767d5d04c03445ba23703e9fbee3b4986f287afd2b0820ca9f71e637da0c7207"
+        },
+        {
+          "wall_seconds_including_launch": 0.005543583000000019,
+          "peak_process_rss_bytes": 3915776,
+          "requested_threads": 12,
+          "sha256": "767d5d04c03445ba23703e9fbee3b4986f287afd2b0820ca9f71e637da0c7207"
+        }
+      ]
+    },
+    {
+      "track": "d",
+      "case": "d-floyd-warshall-1",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.006196415999999982,
+          "peak_process_rss_bytes": 1966080,
+          "requested_threads": 1,
+          "sha256": "d59313c8f21ad0154093a741e4b184a35461ea57ea8ab2c55417255a67a6e79f"
+        },
+        {
+          "wall_seconds_including_launch": 0.005169416999999954,
+          "peak_process_rss_bytes": 2375680,
+          "requested_threads": 6,
+          "sha256": "d59313c8f21ad0154093a741e4b184a35461ea57ea8ab2c55417255a67a6e79f"
+        },
+        {
+          "wall_seconds_including_launch": 0.0045520000000000005,
+          "peak_process_rss_bytes": 3309568,
+          "requested_threads": 12,
+          "sha256": "d59313c8f21ad0154093a741e4b184a35461ea57ea8ab2c55417255a67a6e79f"
+        }
+      ]
+    },
+    {
+      "track": "d",
+      "case": "d-floyd-warshall-2",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.005280207999999953,
+          "peak_process_rss_bytes": 1966080,
+          "requested_threads": 1,
+          "sha256": "d835113a71500d71680e1b67c1dca1d5f1c7a30fe9ef61a9b3a97344d75377c8"
+        },
+        {
+          "wall_seconds_including_launch": 0.004838500000000079,
+          "peak_process_rss_bytes": 2850816,
+          "requested_threads": 6,
+          "sha256": "d835113a71500d71680e1b67c1dca1d5f1c7a30fe9ef61a9b3a97344d75377c8"
+        },
+        {
+          "wall_seconds_including_launch": 0.006360166,
+          "peak_process_rss_bytes": 3538944,
+          "requested_threads": 12,
+          "sha256": "d835113a71500d71680e1b67c1dca1d5f1c7a30fe9ef61a9b3a97344d75377c8"
+        }
+      ]
+    },
+    {
+      "track": "d",
+      "case": "d-floyd-warshall-3",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.005626042000000053,
+          "peak_process_rss_bytes": 1966080,
+          "requested_threads": 1,
+          "sha256": "c5761f5fb13ef54cd3b508cff92f3f781373e44ce0fe92527f4f28dc2809b59f"
+        },
+        {
+          "wall_seconds_including_launch": 0.00560979099999992,
+          "peak_process_rss_bytes": 3080192,
+          "requested_threads": 6,
+          "sha256": "c5761f5fb13ef54cd3b508cff92f3f781373e44ce0fe92527f4f28dc2809b59f"
+        },
+        {
+          "wall_seconds_including_launch": 0.0063946670000000205,
+          "peak_process_rss_bytes": 3555328,
+          "requested_threads": 12,
+          "sha256": "c5761f5fb13ef54cd3b508cff92f3f781373e44ce0fe92527f4f28dc2809b59f"
+        }
+      ]
+    },
+    {
+      "track": "d",
+      "case": "d-floyd-warshall-4",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.005761541000000037,
+          "peak_process_rss_bytes": 1982464,
+          "requested_threads": 1,
+          "sha256": "7649a5cfe7fe7176d9254ef6d507088b57137d9aa4291751dd80f847606d6f78"
+        },
+        {
+          "wall_seconds_including_launch": 0.00668991699999999,
+          "peak_process_rss_bytes": 2818048,
+          "requested_threads": 6,
+          "sha256": "7649a5cfe7fe7176d9254ef6d507088b57137d9aa4291751dd80f847606d6f78"
+        },
+        {
+          "wall_seconds_including_launch": 0.005946625000000094,
+          "peak_process_rss_bytes": 3342336,
+          "requested_threads": 12,
+          "sha256": "7649a5cfe7fe7176d9254ef6d507088b57137d9aa4291751dd80f847606d6f78"
+        }
+      ]
+    },
+    {
+      "track": "d",
+      "case": "d-floyd-warshall-5",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.008823332999999933,
+          "peak_process_rss_bytes": 1966080,
+          "requested_threads": 1,
+          "sha256": "2fb210f68817468ae4457ef53b7314aad21e9bd3be08e455446c9dddb66ada0e"
+        },
+        {
+          "wall_seconds_including_launch": 0.006359333999999994,
+          "peak_process_rss_bytes": 3145728,
+          "requested_threads": 6,
+          "sha256": "2fb210f68817468ae4457ef53b7314aad21e9bd3be08e455446c9dddb66ada0e"
+        },
+        {
+          "wall_seconds_including_launch": 0.006001582999999977,
+          "peak_process_rss_bytes": 3145728,
+          "requested_threads": 12,
+          "sha256": "2fb210f68817468ae4457ef53b7314aad21e9bd3be08e455446c9dddb66ada0e"
+        }
+      ]
+    },
+    {
+      "track": "d",
+      "case": "d-floyd-warshall-6",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.005957250000000025,
+          "peak_process_rss_bytes": 1998848,
+          "requested_threads": 1,
+          "sha256": "12de5f795f25734cf0a7149812bf7e59819b5c8f52c34b4d786a55a838771c0b"
+        },
+        {
+          "wall_seconds_including_launch": 0.006118665999999995,
+          "peak_process_rss_bytes": 3063808,
+          "requested_threads": 6,
+          "sha256": "12de5f795f25734cf0a7149812bf7e59819b5c8f52c34b4d786a55a838771c0b"
+        },
+        {
+          "wall_seconds_including_launch": 0.005804249999999955,
+          "peak_process_rss_bytes": 3637248,
+          "requested_threads": 12,
+          "sha256": "12de5f795f25734cf0a7149812bf7e59819b5c8f52c34b4d786a55a838771c0b"
+        }
+      ]
+    },
+    {
+      "track": "d",
+      "case": "d-floyd-warshall-7",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.005540125000000007,
+          "peak_process_rss_bytes": 1966080,
+          "requested_threads": 1,
+          "sha256": "15112342cb3d441092d0fda50fb884006f30c7930b3cf20fb8f7af8360ce73af"
+        },
+        {
+          "wall_seconds_including_launch": 0.005320957999999987,
+          "peak_process_rss_bytes": 2588672,
+          "requested_threads": 6,
+          "sha256": "15112342cb3d441092d0fda50fb884006f30c7930b3cf20fb8f7af8360ce73af"
+        },
+        {
+          "wall_seconds_including_launch": 0.006180249999999998,
+          "peak_process_rss_bytes": 2654208,
+          "requested_threads": 12,
+          "sha256": "15112342cb3d441092d0fda50fb884006f30c7930b3cf20fb8f7af8360ce73af"
+        }
+      ]
+    },
+    {
+      "track": "d",
+      "case": "d-floyd-warshall-8",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.004667917000000021,
+          "peak_process_rss_bytes": 1966080,
+          "requested_threads": 1,
+          "sha256": "d0e7deb35240a8f3fd17face43edab8f8b1703edcd759dfa8277932e057cfa4e"
+        },
+        {
+          "wall_seconds_including_launch": 0.004502165999999974,
+          "peak_process_rss_bytes": 2949120,
+          "requested_threads": 6,
+          "sha256": "d0e7deb35240a8f3fd17face43edab8f8b1703edcd759dfa8277932e057cfa4e"
+        },
+        {
+          "wall_seconds_including_launch": 0.005667874999999989,
+          "peak_process_rss_bytes": 3096576,
+          "requested_threads": 12,
+          "sha256": "d0e7deb35240a8f3fd17face43edab8f8b1703edcd759dfa8277932e057cfa4e"
+        }
+      ]
+    },
+    {
+      "track": "d",
+      "case": "d-floyd-warshall-9",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.005665790999999976,
+          "peak_process_rss_bytes": 1982464,
+          "requested_threads": 1,
+          "sha256": "5a3dc697fe5d7259ba9d738cac6c38f6339f8e871831aa8464180f471523c33e"
+        },
+        {
+          "wall_seconds_including_launch": 0.005244000000000026,
+          "peak_process_rss_bytes": 3211264,
+          "requested_threads": 6,
+          "sha256": "5a3dc697fe5d7259ba9d738cac6c38f6339f8e871831aa8464180f471523c33e"
+        },
+        {
+          "wall_seconds_including_launch": 0.006508124999999976,
+          "peak_process_rss_bytes": 3801088,
+          "requested_threads": 12,
+          "sha256": "5a3dc697fe5d7259ba9d738cac6c38f6339f8e871831aa8464180f471523c33e"
+        }
+      ]
+    },
+    {
+      "track": "d",
+      "case": "d-floyd-warshall-10",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.005501874999999989,
+          "peak_process_rss_bytes": 1982464,
+          "requested_threads": 1,
+          "sha256": "dc4db463476eb00591063ca3bb3934f2673a61d2933dd0b9b65757efd947f81a"
+        },
+        {
+          "wall_seconds_including_launch": 0.006120917000000059,
+          "peak_process_rss_bytes": 2850816,
+          "requested_threads": 6,
+          "sha256": "dc4db463476eb00591063ca3bb3934f2673a61d2933dd0b9b65757efd947f81a"
+        },
+        {
+          "wall_seconds_including_launch": 0.006109625000000007,
+          "peak_process_rss_bytes": 2818048,
+          "requested_threads": 12,
+          "sha256": "dc4db463476eb00591063ca3bb3934f2673a61d2933dd0b9b65757efd947f81a"
+        }
+      ]
+    },
+    {
+      "track": "d",
+      "case": "d-floyd-warshall-11",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.005724708000000023,
+          "peak_process_rss_bytes": 1982464,
+          "requested_threads": 1,
+          "sha256": "d5b987591e5d70e13c40f021b607f45093c65001110152e537c0cd2e06fa2c2b"
+        },
+        {
+          "wall_seconds_including_launch": 0.007508500000000029,
+          "peak_process_rss_bytes": 3211264,
+          "requested_threads": 6,
+          "sha256": "d5b987591e5d70e13c40f021b607f45093c65001110152e537c0cd2e06fa2c2b"
+        },
+        {
+          "wall_seconds_including_launch": 0.0064996660000000706,
+          "peak_process_rss_bytes": 3833856,
+          "requested_threads": 12,
+          "sha256": "d5b987591e5d70e13c40f021b607f45093c65001110152e537c0cd2e06fa2c2b"
+        }
+      ]
+    },
+    {
+      "track": "d",
+      "case": "d-empty-queries",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.005674209000000041,
+          "peak_process_rss_bytes": 1703936,
+          "requested_threads": 1,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "wall_seconds_including_launch": 0.005710041999999915,
+          "peak_process_rss_bytes": 1802240,
+          "requested_threads": 6,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "wall_seconds_including_launch": 0.005014082999999947,
+          "peak_process_rss_bytes": 1802240,
+          "requested_threads": 12,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "track": "d",
+      "case": "d-long-chain-reused-workspaces",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.018802125000000114,
+          "peak_process_rss_bytes": 5095424,
+          "requested_threads": 1,
+          "sha256": "e86fea15c978e604cf270e62e885e295318732a1f62534b5d4711ff52f22ba75"
+        },
+        {
+          "wall_seconds_including_launch": 0.01128091699999989,
+          "peak_process_rss_bytes": 11042816,
+          "requested_threads": 6,
+          "sha256": "e86fea15c978e604cf270e62e885e295318732a1f62534b5d4711ff52f22ba75"
+        },
+        {
+          "wall_seconds_including_launch": 0.010671083000000081,
+          "peak_process_rss_bytes": 15777792,
+          "requested_threads": 12,
+          "sha256": "e86fea15c978e604cf270e62e885e295318732a1f62534b5d4711ff52f22ba75"
+        }
+      ]
+    }
+  ],
+  "passed": true
+}

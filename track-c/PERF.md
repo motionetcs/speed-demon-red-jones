@@ -113,3 +113,7 @@ Next hypothesis: use canonical CSV name interiors as exact equality keys, count 
 ## Canonical CSV / banded queue: real board result
 
 `run-49603ba2b7b4` on `a5394d33e9058b843422529374362b00adbc0ecb` passed all gates: T=0.121885 s, M=12,218,368 bytes, S=460, K=17.302268, points=61.905152. Exact record: `../docs/board-round2-canonical-band.json`. Canonical name keys lower memory and S but run slower on Intel; observed total K is lower, so the earlier decoded-key algorithm is restored. A CRC hardware-hash prototype passes tiny/full checks but is also slower locally (0.142813 versus0.124712 s) and is rejected. Next: isolate PGO on the stronger d2 algorithm without the rejected delimiter-only change.
+
+## Isolated compiler /128-band board result
+
+`run-af1070009a13` on `46504cbb5cda9e3df890ffe202dab4e3f7587393` passed all gates: T=0.106622 s, M=14,123,008 bytes, S=495, K=17.774396, points=62.489742. Record: `../docs/board-round3-pgo-band.json`. The PGO result remains below the ordinary d2 build63.747340; restore that exact Docker build and remove its training generator.

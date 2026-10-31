@@ -53,7 +53,7 @@ def execute(track, data, out, threads=6):
             if not file.is_file():
                 raise RuntimeError("unexpected directory in test output")
             file.unlink()
-    env = dict(os.environ, SPEED_DEMON_THREADS=str(threads))
+    env = dict(os.environ, SPEED_DEMON_THREADS=str(threads), UBSAN_OPTIONS="halt_on_error=1:print_stacktrace=1")
     args = [BIN_DIR / ("track-" + track), "--data", data, "--out", out]
     timer = ["/usr/bin/time", "-l" if sys.platform == "darwin" else "-v"]
     started = time.perf_counter()
@@ -174,6 +174,30 @@ def adversarial():
         text = "".join("%d %d\n" % q for q in queries)
         expected = "".join(str(-1 if dist[i][j] is None else dist[i][j]) + "\n" for i, j in queries)
         rows.append(check("d", "d-floyd-warshall-%d" % seed, {"graph.txt": graph, "queries.txt": text}, expected))
+    if "d" in ACTIVE_TRACKS:
+        # Large ID space with few arcs forces21-bit nodes and the2047 weight sentinel.
+        import heapq
+        nodes = (1 << 20) + 1
+        active = [0, 1, 2, 65536, 524288, nodes - 1]
+        arcs = [(active[i], active[i + 1], w) for i, w in enumerate([2046, 2047, 2048, 65535, 4294967295])]
+        arcs += [(active[0], active[2], 10000), (active[2], active[1], 0), (active[-1], active[-2], 4294967295)]
+        adjacency = {u: [] for u in active}
+        for u, v, w in arcs: adjacency[u].append((v, w))
+        pairs = [(u, v) for u in active for v in active]
+        answers = []
+        for source, target in pairs:
+            distances = {source: 0}; queue = [(0, source)]
+            while queue:
+                distance, u = heapq.heappop(queue)
+                if distance != distances[u]: continue
+                for v, w in adjacency[u]:
+                    candidate = distance + w
+                    if candidate < distances.get(v, 1 << 63):
+                        distances[v] = candidate; heapq.heappush(queue, (candidate, v))
+            answers.append(distances.get(target, -1))
+        rows.append(check("d", "d-sparse-large-id-weight-boundaries", {
+            "graph.txt": f"{nodes} {len(arcs)}\n" + "".join(f"{u} {v} {w}\n" for u, v, w in arcs),
+            "queries.txt": "".join(f"{u} {v}\n" for u, v in pairs)}, "".join(f"{answer}\n" for answer in answers)))
     rows.append(check("d", "d-empty-queries", {"graph.txt": "1 0\n", "queries.txt": ""}, b""))
     if "d" in ACTIVE_TRACKS:
         n = 20000

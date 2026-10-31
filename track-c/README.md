@@ -16,4 +16,4 @@ Specification: https://github.com/hackathon-raptors/speed-demon-2026/blob/main/s
 
 A read-only prefetch of the hashed lookup slot overlaps note/numeric parsing with the upcoming lookup. Key publication still uses acquire/release synchronization. With another24 hours: profile parsing versus lookup misses on Intel and compare further exact layouts on independent seeds; retain only measured total-score gains.
 
-Current experiment isolates profile-guided compilation on the stronger d2 algorithm. The byte-identical official generator trains two independent sample seeds104729/130363 inside an offline builder. Only the executable is copied into the final image; all answers are recomputed at runtime. Prior PGO comparisons also carried rejected allocator/delimiter changes, so they do not establish the effect on this restored algorithm. Real board K decides retention.
+The regular native-targeted GCC build is retained: both tested C PGO variants scored below its best board K. Escaped names are decoded into stable worker-owned strings; canonical-interior and hardware-hash prototypes were rejected after measurement.

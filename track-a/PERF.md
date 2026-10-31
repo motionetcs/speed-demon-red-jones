@@ -114,3 +114,7 @@ Next isolated hypothesis: keep hour-owned workspaces and generic GCC, replacing 
 ## Canonical CSV / banded queue: real board result
 
 `run-73368f11a068` on `a5394d33e9058b843422529374362b00adbc0ecb` passed all gates: T=0.077115 s, M=28,233,728 bytes, S=343, K=23.587787, points=68.63436. Exact record: `../docs/board-round2-canonical-band.json`. The4096-byte mmap threshold lowers memory but scores below the prior best, so it is rejected. Next: isolate PGO on the original hour-owned algorithm with the original allocator environment.
+
+## Isolated compiler /128-band board result
+
+`run-7b5e46ea09f2` on `46504cbb5cda9e3df890ffe202dab4e3f7587393` passed all gates: T=0.061706 s, M=39,182,336 bytes, S=344, K=24.685326, points=69.621943. Record: `../docs/board-round3-pgo-band.json`. Isolated PGO improves the preceding best69.286469 to69.621943; retained.
