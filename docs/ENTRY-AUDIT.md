@@ -11,3 +11,5 @@ Individual registration is entrant-confirmed; team registration is evidenced by 
 Still required: preserve a final passing `speed-demon` commit at November2,2026,15:00 UTC /20:30 IST, and make that recorded source public under MIT by16:00 UTC /21:30 IST. The repository is correctly private now. No future publication or monitoring automation has been scheduled.
 
 Sources: https://speeddemon.dev/#rules ; https://speeddemon.dev/#submission ; https://speeddemon.dev/board/ ; https://github.com/hackathon-raptors/speed-demon-2026 . Reproduce observable checks with `python3 tools/audit_entry.py`.
+
+Profile-guided training is explicitly permitted in the official rules and harness. Current training generators are byte-identical official copies. Only generated execution counts guide compilation; training inputs/outputs/profiles remain in builder stages. No precomputed answer recognition is introduced. Independent Linux cases at1/6/12 workers and the full public hashes pass after training. The audit tool admits this source-copy exception only when its bytes match the pinned official generator.

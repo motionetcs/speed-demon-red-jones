@@ -17,3 +17,5 @@ Verification includes independent all-pairs Floyd–Warshall graphs, weight boun
 With another24 hours: use real Intel phase profiles to compare cache layouts and compiler-guided training on independent synthetic seeds. Keep only observed total-score gains, with exact fallback behavior tested.
 
 Specification: https://github.com/hackathon-raptors/speed-demon-2026/blob/main/specs/d-traverse.md
+
+The Docker build currently tests profile-guided compilation. `training_generator.py` is byte-identical to the official generator; it creates two independent sample seeds inside the offline build. GCC collects execution profiles, then recompiles without runtime instrumentation. The final stage copies only the executable. The published rules explicitly permit this training and exclude unchanged official generator copies from S. All untrained/full-output checks still apply; PERF.md distinguishes experiments from confirmed gains.

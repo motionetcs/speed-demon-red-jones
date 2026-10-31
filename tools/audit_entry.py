@@ -45,7 +45,12 @@ def main():
         errors=policy.check((folder/'Dockerfile').read_text(),images)
         check(track.upper()+' allowlisted offline Docker policy',not errors,errors or 'Pinned allowlisted images; approved COPY/build policy')
         files=[p.name for p in folder.iterdir() if p.is_file()]
-        check(track.upper()+' no dataset/binary in build context',all(n=='Dockerfile' or Path(n).suffix in ['.cpp','.hpp','.md','.toml'] for n in files),files)
+        module={'a':'a_ingest','c':'c_join','d':'d_traverse'}[track]
+        official_generator=ROOT/'tools/official/generators'/(module+'.py')
+        def source_file(name):
+            if name=='Dockerfile' or Path(name).suffix in ['.cpp','.hpp','.md','.toml']: return True
+            return name=='training_generator.py' and (folder/name).read_bytes()==official_generator.read_bytes()
+        check(track.upper()+' no dataset/binary in build context',all(source_file(n) for n in files),files)
     check('Source public by publication deadline',not repo['isPrivate'] or now<PUBLIC_DUE,
         'Private is allowed now; public MIT source still required by '+PUBLIC_DUE.isoformat())
     report={'observed_at_utc':now.isoformat(),'scope':'Observable repository/history/build-policy checks, not an organizer eligibility certificate',

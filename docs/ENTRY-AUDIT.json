@@ -1,28 +1,20 @@
 {
-  "observed_at_utc": "2026-10-31T05:17:02.849796+00:00",
+  "observed_at_utc": "2026-10-31T05:30:49.891903+00:00",
   "scope": "Observable repository/history/build-policy checks, not an organizer eligibility certificate",
-  "source_commit": "729eecd2b1494fad249d5a972a31fb3d55c13087",
+  "source_commit": "b5df2af979bda869c0827b4dd59fda40f5a1ebe8",
   "dirty_paths": [
-    "M Makefile",
-    " M docs/optimization-comparison.json",
-    " M docs/optimization-current-board.json",
+    "M tools/audit_entry.py",
     " M track-a/Dockerfile",
-    " M track-a/main.cpp",
-    " M track-c/main.cpp",
-    " M track-c/names.hpp",
-    "?? docs/round2-ac-sample.json",
-    "?? docs/round2-ac-sanitizers.json",
-    "?? docs/round2-ac-thread-sanitizer.json",
-    "?? docs/round2-layout-native.json",
-    "?? docs/round2-layout-public.json",
-    "?? docs/round2-layout-tiny.json",
-    "?? docs/round2-phase-profile.json",
-    "?? docs/round2-swar-native.json",
-    "?? docs/round2-swar-public.json",
-    "?? docs/round2-swar-tiny.json",
-    "?? tools/audit_entry.py",
-    "?? tools/test_primitives.cpp",
-    "?? track-a/decimal.hpp"
+    " M track-c/Dockerfile",
+    " M track-d/Dockerfile",
+    "?? docs/board-round2-private-d.json",
+    "?? docs/round2-pgo-containers-public.json",
+    "?? docs/round2-pgo-containers-tiny.json",
+    "?? docs/round2-pgo-untrained-containers.json",
+    "?? tools/verify_container_cases.py",
+    "?? track-a/training_generator.py",
+    "?? track-c/training_generator.py",
+    "?? track-d/training_generator.py"
   ],
   "repository": {
     "defaultBranchRef": {
@@ -149,6 +141,22 @@
       ]
     },
     {
+      "requirement": "Observed commit timestamps inside event: d2fd0b5",
+      "passed": true,
+      "evidence": [
+        "2026-10-31T10:48:12+05:30",
+        "2026-10-31T10:48:12+05:30"
+      ]
+    },
+    {
+      "requirement": "Observed commit timestamps inside event: b5df2af",
+      "passed": true,
+      "evidence": [
+        "2026-10-31T10:55:31+05:30",
+        "2026-10-31T10:55:31+05:30"
+      ]
+    },
+    {
       "requirement": "A required file Dockerfile",
       "passed": true,
       "evidence": "track-a/Dockerfile"
@@ -197,6 +205,7 @@
       "requirement": "A no dataset/binary in build context",
       "passed": true,
       "evidence": [
+        "training_generator.py",
         "Dockerfile",
         "io.hpp",
         "README.md",
@@ -256,6 +265,7 @@
       "requirement": "C no dataset/binary in build context",
       "passed": true,
       "evidence": [
+        "training_generator.py",
         "Dockerfile",
         "names.hpp",
         "io.hpp",
@@ -315,6 +325,7 @@
       "requirement": "D no dataset/binary in build context",
       "passed": true,
       "evidence": [
+        "training_generator.py",
         "Dockerfile",
         "io.hpp",
         "README.md",
@@ -323,6 +334,7 @@
         ".speed-demon.toml",
         "distance_map.hpp",
         "main.cpp",
+        "decimal.hpp",
         "parallel.hpp"
       ]
     },
@@ -393,6 +405,16 @@
       "commit": "729eecd2b1494fad249d5a972a31fb3d55c13087",
       "author_time": "2026-10-31T10:29:17+05:30",
       "committer_time": "2026-10-31T10:29:17+05:30"
+    },
+    {
+      "commit": "d2fd0b53b6cf42a8786845b5d40c21e30865a8ce",
+      "author_time": "2026-10-31T10:48:12+05:30",
+      "committer_time": "2026-10-31T10:48:12+05:30"
+    },
+    {
+      "commit": "b5df2af979bda869c0827b4dd59fda40f5a1ebe8",
+      "author_time": "2026-10-31T10:55:31+05:30",
+      "committer_time": "2026-10-31T10:55:31+05:30"
     }
   ],
   "future_requirements": [

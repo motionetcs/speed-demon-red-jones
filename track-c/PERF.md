@@ -91,3 +91,15 @@ Local phase intervals and alternating trials are in `../docs/round2-phase-profil
 `run-60c3460244d4` on `d2fd0b53b6cf42a8786845b5d40c21e30865a8ce` passed all gates: T=0.097042 s, M=13,418,496 bytes, S=493, K=18.834184, machine points=63.74734. Exact record: `../docs/board-round2-ac.json`.
 
 The compact/prefetch lookup improves observed K to18.834184. Next candidate adds a bounded comma search only for valid unquoted name/note fields; quoting and record-boundary logic are unchanged. Local medians0.125642/0.123132 s are close, so no statistically proven gain is claimed before the board run.
+
+## Allocator / delimiter / private-D board result
+
+`run-512dd8f4d6b5` on `b5df2af979bda869c0827b4dd59fda40f5a1ebe8` passed all gates: T=0.102277 s, M=13,639,680 bytes, S=501, K=18.241855, points=63.05345. Record: `../docs/board-round2-private-d.json`.
+
+The delimiter candidate did not beat the preceding compact/prefetch K18.834184. It is not accepted as a standalone score gain.
+
+## Offline profile-guided compiler experiment
+
+Next experiment changes only the build: GCC profile generation with atomic counters, two sample datasets generated at seeds104729/130363, then profile-use recompilation with missing-profile errors enabled. The training generator is a byte-identical official copy, explicitly exempt from source size by the published harness; only `/solution` enters the final runtime stage. No public seed1 input, training dataset, cached result, or profile file enters that runtime image. The current algorithms/worker counts are unchanged from the preceding board comparison.
+
+Offline Linux full-public/tiny outputs and129 untrained sample/adversarial runs across1/6/12 workers pass collectively. Reports: `round2-pgo-containers-{public,tiny}.json`, `round2-pgo-untrained-containers.json`. Untrained cases include name-table growth, quoted seams/EOF, percentile boundaries, and full-width graph distances. Actual board K decides retention; no compiler speedup is claimed in advance.

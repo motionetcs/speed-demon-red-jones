@@ -92,3 +92,15 @@ Local phase intervals and alternating trials are in `../docs/round2-phase-profil
 `run-f246379b9c4d` on `d2fd0b53b6cf42a8786845b5d40c21e30865a8ce` passed all gates: T=0.061805 s, M=42,344,448 bytes, S=342, K=24.306889, machine points=69.286469. Exact record: `../docs/board-round2-ac.json`.
 
 The hour-owned layout improves the previous best score to69.286469 and reduces measured memory to42.34 MB. Next isolated runtime hypothesis: limit glibc allocation arenas to2; only the Linux process environment changes and full restricted-container output passes. Actual K will decide retention.
+
+## Allocator / delimiter / private-D board result
+
+`run-430c039bf3c7` on `b5df2af979bda869c0827b4dd59fda40f5a1ebe8` passed all gates: T=0.068332 s, M=35,889,152 bytes, S=343, K=23.883918, points=68.905279. Record: `../docs/board-round2-private-d.json`.
+
+The arena cap lowers measured memory but did not beat the preceding no-cap K24.306889. It is not accepted as a standalone score gain.
+
+## Offline profile-guided compiler experiment
+
+Next experiment changes only the build: GCC profile generation with atomic counters, two sample datasets generated at seeds104729/130363, then profile-use recompilation with missing-profile errors enabled. The training generator is a byte-identical official copy, explicitly exempt from source size by the published harness; only `/solution` enters the final runtime stage. No public seed1 input, training dataset, cached result, or profile file enters that runtime image. The current algorithms/worker counts are unchanged from the preceding board comparison.
+
+Offline Linux full-public/tiny outputs and129 untrained sample/adversarial runs across1/6/12 workers pass collectively. Reports: `round2-pgo-containers-{public,tiny}.json`, `round2-pgo-untrained-containers.json`. Untrained cases include name-table growth, quoted seams/EOF, percentile boundaries, and full-width graph distances. Actual board K decides retention; no compiler speedup is claimed in advance.
