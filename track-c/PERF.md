@@ -306,3 +306,6 @@ Round77/1a9deb5, run-1d87df780cae passes all official gates: T0.062544 s/M137748
 
 
 Round79 restored71 source passes every gate, run-491cee46b5aa: T0.062217 s/M13688832/S660/K22.425136/67.536754. Same-source variation does not beat best67.613586.147 independent fixtures replay successfully in the newly rebuilt restored-source Linux image; its ID is distinct from the older71 image and is recorded explicitly. Source bytes match the selected71 proof. No new C algorithm is kept.
+
+
+Round81 unchanged restored71 source passes all gates again, run-fa6fa707f785: T0.062192 s/M13045760/S660/K22.646534/67.750087. This exceeds the older67.613586 observation with identical runtime/build/metadata. It is timing/memory variation, not a new C algorithm. Raw ../docs/board-round81-bounded-space.json.

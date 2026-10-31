@@ -21,5 +21,3 @@ With another24 hours: obtain legitimate Intel profiles, measure parse/selection/
 Specification: https://github.com/hackathon-raptors/speed-demon-2026/blob/main/specs/a-ingest.md
 
 Per-worker exact direct caches point at globally published immutable views. Sampling only indexes the cache; full names still decide equality, and misses use the original global interner. Actual total-score acceptance is recorded in PERF.md.
-
-Endpoint delimiters use bounded8-byte word scans with full range checks and a library tail. This changes delimiter-search mechanics only; every endpoint still requires exact full-byte equality.

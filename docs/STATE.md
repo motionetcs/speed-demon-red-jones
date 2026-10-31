@@ -1,10 +1,8 @@
-# Active optimization state — round81
+# Final restoration — round87
 
-Official79/27dd74a passes all5 gates. A unchanged75 source improves best observed to72.879783/K28.681090 (variation), C restored71 stays67.613586/K22.504622 best, D standard fallback loses63.207536/K18.371758 and is now restored to exact342c0aa with best64.454305/K19.457458.
+Official81/576feb0 passes all5 gates. A bounded word scan loses72.512561/K28.200137 versus best72.879783/K28.681090 and is removed. Exact342c0aa A runtime/build/metadata and README are restored, including removal of space_scan.hpp and its Make dependency. C stays exact4eb6f36/0008c8a, with new unchanged-source best67.750087/K22.646534 (variation). D stays exact342c0aa with best64.454305/K19.457458.
 
-Candidate81 changes only A endpoint delimiter search to bounded8-byte SWAR with checked loads/library tails, generic compiler flags and unchanged exact endpoint/record/quantile algorithms. Native screens around4.7–5.5% faster, but only real total K decides. Fresh1333/1337 strict sanitizer,1361 TSAN, all method/hour/escape/ID cases, native/GCC protected-page/reference models and96 exact-image Linux cases pass. C/D are exact71/75 source restorations with147/1032 current-image cases. All28 source/build/metadata inputs and explicit image reuse limits are tied in round81-candidate-source-match.json.
-
-Capture all81 exact official records. Keep A only if real K exceeds28.681090; otherwise restore every342c0aa A runtime/build/metadata input/README, remove space_scan.hpp and its Make dependency, preserve chronological PERF, then confirm the final restored combination on the board. C must stay4eb6f36 and D342c0aa. Round80 numeric/vector,83 query-reset,85 in-place buffer experiments are rejected screens only;82 is non-timed capacity evidence. No pre-event private or competitor code is imported.
+Final compiled source has27 inputs: A75 exact local cache/canonical views, C71 bounded canonical pipeline, D75 lossless packed labels plus original full-width fallback. New87 Linux A restoration, matching-image replays, fresh combined Make/public1/6/12, real defaults and audit must pass before pushing. Capture an actual87 all-track board confirmation; do not stop with only the restoration commit or infer gates from earlier source identity. No unscored runtime prototype should remain.
 
 ## Evidence and operation
 
