@@ -1,0 +1,29 @@
+diff --git a/track-d/main.cpp b/track-d/main.cpp
+--- a/track-d/main.cpp
++++ b/track-d/main.cpp
+@@ -150,6 +150,11 @@
+                     for (size_t k = 0; k < count; ++k) {
+                         auto [d, u] = work[k];
+                         if (d != own.get(u)) continue; // Earlier items may improve this label within the band.
++                        // Prefetch neighbors' private label slots before exact relaxation.
++                        for (uint32_t i = ranges[k].first; i < ranges[k].second; ++i) {
++                            uint32_t node = adjacency.template get<Compact>(i).first;
++                            own.prefetch(node); other.prefetch(node);
++                        }
+                         for (uint32_t i = ranges[k].first; i < ranges[k].second; ++i) {
+                             auto [destination, tag] = adjacency.template get<Compact>(i);
+                             uint32_t weight = tag == (Compact ? EdgeStore::small_limit : uint32_t(UINT16_MAX)) ? wide_weights.at(i * 2 + (from_source ? 0 : 1)) : tag;
+diff --git a/track-d/distance_map.hpp b/track-d/distance_map.hpp
+--- a/track-d/distance_map.hpp
++++ b/track-d/distance_map.hpp
+@@ -57,6 +57,10 @@
+         while (labels[index] && uint32_t(labels[index] >> 32) != node + 1) index = (index + 1) & (labels.size() - 1);
+         return index;
+     }
++    void prefetch(uint32_t node) const {
++        size_t index = (node * 0x9e3779b1U) & (labels.size() - 1);
++        __builtin_prefetch(&labels[index], 0, 1);
++    }
+     void reset() { for (uint32_t index : touched) labels[index] = 0; touched.clear(); wide.reset(); }
+     uint64_t get(uint32_t node) const {
+         if (node == UINT32_MAX || touched.empty()) return wide.get(node);

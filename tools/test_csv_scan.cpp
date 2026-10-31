@@ -1,4 +1,8 @@
-#include "../track-c/csv_scan.hpp"
+#ifdef CSV_SCAN_HEADER
+#include CSV_SCAN_HEADER
+#else
+#include "../docs/prototype-patches/rejected_csv_scan.hpp"
+#endif
 #include <cassert>
 #include <cstring>
 #include <iostream>

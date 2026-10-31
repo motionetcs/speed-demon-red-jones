@@ -2,8 +2,6 @@
 
 Read `/data/records.csv` and `/data/regions.csv`; write only `/out/aggregates.txt`. Development `--data`/`--out` options are supported. C++20/OS facilities only, no extra runtime libraries. `SPEED_DEMON_THREADS=1` through `12`; default12.
 
-Unquoted text uses bounded vector equality masks to locate its first comma/CR/LF: AVX2 on supported native x86, SSE2 fallback, NEON on little-endian AArch64, scalar elsewhere/tails. It reads a vector only when the complete vector is within the field reader bounds. Quoted fields retain the original parser.
-
 The parser respects commas, escaped quotes and CR/LF within quoted fields, both record terminators, optional final terminators, trailing spaces, empty names and BOMs at record boundaries. Name escapes are decoded exactly into reusable scratch storage. Note lengths are counted without materializing notes. A parallel quote-parity scan finds valid record boundaries. Numeric fields consume delimiters directly. Money is signed integer cents throughout, including negative values below one unit.
 
 Region IDs map to compact country IDs; unknown regions use `_UNMATCHED`. Local sums, extrema, byte totals and counts are reduced after workers join. Output keys are byte-sorted. A country without records produces no line.
@@ -24,4 +22,4 @@ With another24 hours: profile the retained layout on Intel, test parsing and loo
 
 Specification: https://github.com/hackathon-raptors/speed-demon-2026/blob/main/specs/c-join.md
 
-The SIMD experiment has separate scalar-reference, all-byte/offset/random, and protected-page models for NEON, SSE2 and AVX2. All three passed strict sanitizer checks; the exact real board score decides whether this scanner is retained.
+The retained dense dictionary has best observed64.904735 points/K19.865280. A bounded SIMD field scanner passed all gates and ISA models but scored64.315949 after source cost, so its helper is removed from this scored folder. See PERF.md for exact records and rejected source history.

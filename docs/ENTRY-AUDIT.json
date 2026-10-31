@@ -1,41 +1,33 @@
 {
-  "observed_at_utc": "2026-10-31T07:05:01.507105+00:00",
+  "observed_at_utc": "2026-10-31T07:13:51.947467+00:00",
   "scope": "Observable repository/history/build-policy checks, not an organizer eligibility certificate",
-  "source_commit": "2917982a9d0d26a813aacd1f2065331f6866016c",
+  "source_commit": "1b21266eeee60232176372208d6c4120465ad988",
   "dirty_paths": [
     "M Makefile",
-    " M docs/OWNER-BRIEFING.md",
     " M docs/STATE.md",
+    " M docs/optimization-comparison.json",
+    " M docs/optimization-current-board.json",
     " M docs/prototype-patches/README.md",
-    " M tools/test_log_aggregate.cpp",
-    " M tools/test_primitives.cpp",
-    " M track-a/Dockerfile",
+    " M tools/test_csv_scan.cpp",
     " M track-a/PERF.md",
-    " M track-a/README.md",
-    " D track-a/aggregate.hpp",
-    " M track-a/main.cpp",
     " M track-c/Dockerfile",
     " M track-c/PERF.md",
     " M track-c/README.md",
+    " D track-c/csv_scan.hpp",
     " M track-c/main.cpp",
     " M track-d/PERF.md",
-    "?? docs/board-round8-flat-a12.json",
-    "?? docs/prototype-patches/rejected_log_aggregate.hpp",
-    "?? docs/round10-c-simd-native.json",
-    "?? docs/round10-c-simd-public.json",
-    "?? docs/round10-c-simd-tiny.json",
-    "?? docs/round10-csv-scan-model.json",
-    "?? docs/round10-final-container.json",
-    "?? docs/round10-final-linux-cases.json",
-    "?? docs/round10-final-public.json",
-    "?? docs/round10-final-sample.json",
-    "?? docs/round10-final-sanitizers.json",
-    "?? docs/round10-final-thread-sanitizer.json",
-    "?? docs/round9-d-eight-native.json",
-    "?? docs/round9-d-eight-public.json",
-    "?? docs/round9-d-eight-tiny.json",
-    "?? tools/test_csv_scan.cpp",
-    "?? track-c/csv_scan.hpp"
+    "?? docs/board-round10-simd-c.json",
+    "?? docs/final-retained-container.json",
+    "?? docs/final-retained-native.json",
+    "?? docs/final-retained-public.json",
+    "?? docs/final-retained-source-match.json",
+    "?? docs/prototype-patches/rejected_csv_scan.hpp",
+    "?? docs/prototype-patches/round11-prefetch-l1.patch",
+    "?? docs/prototype-patches/round11-prefetch-l3.patch",
+    "?? docs/prototype-patches/round9-eight-digit.patch",
+    "?? docs/round11-d-prefetch-native.json",
+    "?? docs/round11-d-prefetch-public.json",
+    "?? docs/round11-d-prefetch-tiny.json"
   ],
   "repository": {
     "defaultBranchRef": {
@@ -242,6 +234,14 @@
       ]
     },
     {
+      "requirement": "Observed commit timestamps inside event: 1b21266",
+      "passed": true,
+      "evidence": [
+        "2026-10-31T12:35:02+05:30",
+        "2026-10-31T12:35:02+05:30"
+      ]
+    },
+    {
       "requirement": "A required file Dockerfile",
       "passed": true,
       "evidence": "track-a/Dockerfile"
@@ -351,7 +351,6 @@
       "passed": true,
       "evidence": [
         "training_generator.py",
-        "csv_scan.hpp",
         "Dockerfile",
         "names.hpp",
         "io.hpp",
@@ -543,6 +542,11 @@
       "commit": "2917982a9d0d26a813aacd1f2065331f6866016c",
       "author_time": "2026-10-31T12:21:59+05:30",
       "committer_time": "2026-10-31T12:21:59+05:30"
+    },
+    {
+      "commit": "1b21266eeee60232176372208d6c4120465ad988",
+      "author_time": "2026-10-31T12:35:02+05:30",
+      "committer_time": "2026-10-31T12:35:02+05:30"
     }
   ],
   "future_requirements": [

@@ -1,7 +1,6 @@
 #include "io.hpp"
 #include "parallel.hpp"
 #include "names.hpp"
-#include "csv_scan.hpp"
 #include <array>
 #include <numeric>
 #include <unordered_map>
@@ -17,7 +16,7 @@ struct Csv {
     Field field(std::string& scratch, bool decode) {
         const char* start = p;
         if (p == end || *p != '"') {
-            p = csv_text_end(p, end);
+            while (p < end && *p != ',' && *p != '\r' && *p != '\n') ++p;
             return {{start, static_cast<size_t>(p - start)}, static_cast<size_t>(p - start), false};
         }
         const char* segment = ++p;

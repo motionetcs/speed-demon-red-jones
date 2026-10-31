@@ -1,33 +1,27 @@
 # Current working state
 
-Fresh Red Jones entry: https://github.com/motionetcs/speed-demon-red-jones ; private repository, required branch `speed-demon`, selected tracks A/C/D. Preserve unrelated workspace folders. Use only this fresh event implementation and pinned official material.
+Fresh Red Jones entry: https://github.com/motionetcs/speed-demon-red-jones ; private, required branch `speed-demon`, tracks A/C/D. Preserve unrelated workspace folders. All own code is fresh event code; pinned official reference material is under tools/official.
 
-## Best confirmed configurations
+## Retained runtime
 
-- A: source algorithm from `d2fd0b5`, generic GCC with sample-seed PGO from `46504cb`; twelve workers/hour-owned workspaces, exact selection, original allocator environment. Best69.704972 points/K24.779894, `run-1f9a7602cf67` (same-source repeat).
-- C: exact d2 parser/compact mapped-and-decoded keys and atomic membership, twelve workers, native-targeted GCC with full seed1000003 and sample130363 training. Best64.904735/K19.865280 with dense keys and full-scale training, `run-4bcf23d06742` (same-source repeat). Sample PGO, canonical interiors and delimiter-only variants scored lower; hardware hashing was rejected locally before submission.
-- D: `eb16c07` specialized four-byte CSR edges with exact six-byte fallback, private compact exact labels,64-distance bands with8-entry batches, six workers/up tofour loaders, full-scale PGO. Best60.050609/K15.885913 with narrow degree/cursor loader, `run-f53c4e4a6ec9` (same-source repeat).
+Every runtime/build/track-metadata input is byte-identical to official all-gates-passed commit61e345f753f6011b6ecd66c6cbba86030d72fa28, proven in final-retained-source-match.json. All final native fresh-seed/adversarial/public outputs and restricted GCC15/Linux full hashes pass again. The next push confirms the restored combined source; capture docs/board-retained-final.json before any later source push.
 
-`bba4fe0` is pushed and passed all gates, but its variable-width packed D edges score55.706308:77.61 MB helps memory, while0.513509 s hurts total K. It is a rejected candidate, not the strongest D source.
+- A: twelve workers; generic GCC, sample104729/130363 PGO; hour-owned workspaces, exact ranks, original allocator environment. Best69.704972 points/K24.779894, run-1f9a7602cf67.
+- C: twelve workers; native GCC, full1000003/sample130363 PGO; scalar quote-aware fields, dense immutable decoded names plus actual atomic country words, exact equality/growing table. Best64.904735/K19.865280, run-4bcf23d06742.
+- D: six query workers/up tofour loaders; native GCC/full+sample PGO; exact byte degree wraps and narrow/wide shared cursors, specialized21-bit/11-bit edges with exact larger-node/weight fallback, private labels and64-distance bands/batch8. Best60.051455/K15.886532, run-9f77334ae44a. Same-source repeated records are variation, not new algorithm gains.
 
-## Current unscored candidate
+Flat/streaming A, SIMD C, wider D bands, variable edge decoding, private loader copies, hardware hashing, private membership, eight-digit parsing and extra label prefetch were rejected based on documented total-score/local evidence. Never reintroduce them from Apple timing alone. Source and truthful raw reports remain in history and docs/prototype-patches. No unscored runtime prototype is retained.
 
-`2917982` passed all official gates, but flat/streaming A scored66.822927, below69.704972. Working tree restores exact strong A main/Docker source from61e345f and removes its rejected helper from the scored folder. Rejected source/models remain in history/artifacts. D/C otherwise retain their latest confirmed algorithms.
+## Iteration rules
 
-Current C candidate adds bounded SIMD comma/CR/LF scanning only for unquoted fields, preserving quoting/EOF/BOM/byte semantics. NEON local median improves about4%; S and actual Intel time still decide K. Fresh sample/full, strict ASAN/UBSAN/TSAN, all-byte/offset/random scalar models, protected-page tests, explicit GCC SSE2/AVX2/native and Apple NEON models, and Linux cases pass. Assert exact build-input hashes, push, then capture exact A/C/D scores before another source push.
+Benchmark one process at a time, with no simultaneous compilers/tests/training; warm once, alternate and hash every output. Native Apple RSS/timing and emulated Linux times are not official Intel/cgroup score evidence. Include canonical S and dependencies in K decisions. Do not overwrite historical reports.
 
-D eight-byte numeric parser is rejected before submission for a marginal1.2% local gain. An unsubmitted neighbor-label prefetch prototype is prepared under `.build/round11-d-prefetch`; it has not been compiled/tested. Never promote a prototype on local timing alone. Benchmark sequentially with no competing compilers/tests/training.
+Use tools/verify.py with unique reports/new seeds/source roots, tools/test_band_graphs.py for independent all-pairs graphs, the primitive/name/loader models for changed invariants, and tools/container_verify.py plus verify_container_cases.py for exact offline restricted Linux outputs. UBSAN halts on the first diagnostic. Models explicitly cover full-hash collisions, Unicode/NUL/empty values, country boundaries,65535/65536 degrees/cursors, wide node IDs, MAX weights and 64-bit paths. All final algorithms passed strict memory/UB and race checks.
 
-## Iteration commands and evidence
-
-`make` builds native C++20. Benchmark one process at a time, with no simultaneous compilers/tests/training; warm once, alternate configurations, hash every output. Native Apple ARM timings/RSS and emulated Linux times are not Intel/cgroup score evidence.
-
-`tools/verify.py` compares official references and adversarial outputs, accepts `--tracks`, `--source-root`, `--binary-dir`, fresh seeds, worker counts and unique report names. UBSAN halts on the first diagnostic. `tools/test_band_graphs.py` supplies256 independent all-pairs graphs. `tools/test_primitives.cpp` models queues/labels and guard-page parsing. `tools/test_edge_store.cpp` covers exact storage and sentinels. `tools/container_verify.py` checks offline allowlisted GCC15/Linux builds and default output contract. `tools/verify_container_cases.py` replays independently checked cases at1/6/12 workers.
-
-`python3 tools/watch_board.py --commit <sha> --report docs/<unique-name>.json` waits for every exact A/C/D scored result. Official team dispatches are at least five minutes apart; do not flood the queue. `python3 tools/compare_board.py` refreshes complete official snapshots and computes best-three machine-point ranks. Human judging/holdout are separate. Keep historical reports truthful and immutable. Per-track PERF.md records accepted and rejected experiments; reproducible rejected patches are under `docs/prototype-patches`.
+`tools/watch_board.py --commit <sha> --report docs/<unique>.json` waits for exact A/C/D real scores. Save the preceding commit before another source push; dispatches are at least five minutes apart. `tools/compare_board.py` refreshes best records/ranks and best-three machine-point geometric mean. Human judging/holdout are separate. RESULTS.md is updated after final confirmation.
 
 ## Entry requirements
 
-Registration is entrant-confirmed; team form/app installation and real scored tracks are verified. The board app has read access to this repository only. Current entry audit passes all observable checks; this is not an organizer-issued eligibility certificate. The browser shows Red Jones, with B blank because it is not entered. “MY TEAM” and visual reactions are browser/presentation features.
+Registration is entrant-confirmed; team form/app access and real scored A/C/D are verified. Board app read access is limited to this repository. MIT attribution is preserved. The audit checks observable evidence, not organizer-issued eligibility. Red Jones is visible; B is blank because it is not entered. MY TEAM and visual effects are browser/presentation features.
 
-Freeze is2 November2026,15:00 UTC/20:30 IST. Keep the passing commit on `speed-demon`, and publish that MIT-licensed source by16:00 UTC/21:30 IST. It may remain private before then. No publication or monitoring automation is scheduled. The owner must remain reachable and may need to explain the approach; `docs/OWNER-BRIEFING.md` is an honest explanation, not a claim of personal understanding.
+Freeze:2 November2026,15:00 UTC/20:30 IST. Preserve the passing branch commit and publish that MIT source by16:00 UTC/21:30 IST. Private is allowed before then. No publication or monitoring automation is scheduled. The owner must remain reachable and may need to explain the approach; OWNER-BRIEFING.md is an honest guide, not a claim that the owner has reviewed it.

@@ -1,0 +1,43 @@
+diff --git a/track-d/decimal.hpp b/track-d/decimal.hpp
+--- a/track-d/decimal.hpp
++++ b/track-d/decimal.hpp
+@@ -3,20 +3,26 @@
+ #include <cstdint>
+ #include <cstring>
+ 
+-// Four ASCII digits in one bounded load. Every byte is validated before batching.
+-inline uint64_t decimal_digits(const char*& p, const char* end) {
+-    uint64_t value = 0;
+-    if constexpr (std::endian::native == std::endian::little) {
+-        while (end - p >= 4) {
+-            uint32_t bytes;
+-            std::memcpy(&bytes, p, 4);
+-            uint32_t digits = bytes ^ 0x30303030U;
+-            if ((digits & 0xf0f0f0f0U) || ((digits + 0x06060606U) & 0x10101010U)) break;
+-            uint32_t pairs = (digits & 0x00ff00ffU) * 10 + ((digits >> 8) & 0x00ff00ffU);
+-            value = value * 10000 + (pairs & 0xffffU) * 100 + (pairs >> 16);
+-            p += 4;
++// Locate the first non-digit in a bounded word, then parse exactly that prefix.
++// Lower valid bytes cannot carry/borrow into an earlier byte's validation bit.
++inline uint64_t decimal_digits(const char*& p,const char* end) {
++    uint64_t value=0;
++    if constexpr(std::endian::native==std::endian::little) {
++        static constexpr uint64_t powers[]={1,10,100,1000,10000,100000,1000000,10000000,100000000};
++        while(end-p>=8) {
++            uint64_t bytes;std::memcpy(&bytes,p,8);
++            uint64_t digits=bytes-0x3030303030303030ULL;
++            uint64_t invalid=(digits|(bytes+0x4646464646464646ULL))&0x8080808080808080ULL;
++            unsigned count=std::countr_zero(invalid)/8;
++            if(!count)return value;
++            digits<<=(8-count)*8;
++            digits=(digits*10+(digits>>8))&0x00ff00ff00ff00ffULL;
++            digits=(digits*100+(digits>>16))&0x0000ffff0000ffffULL;
++            digits=(digits*10000+(digits>>32))&0xffffffffULL;
++            value=value*powers[count]+digits;p+=count;
++            if(count<8)return value;
+         }
+     }
+-    while (p < end && *p >= '0' && *p <= '9') value = value * 10 + *p++ - '0';
++    while(p<end && *p>='0' && *p<='9')value=value*10+*p++-'0';
+     return value;
+ }
