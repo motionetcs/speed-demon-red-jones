@@ -1,45 +1,47 @@
 # Scored optimization results
 
-Official complete snapshot: 2026-10-31T09:28:41Z. These are public practice-board machine points; final holdout and human judging remain separate.
+Complete official snapshot: 2026-10-31T10:56:56Z. These are public practice-board machine points; final holdout and human judging are separate.
 
-Best-three machine-point mean: **64.902963 → 66.095609** during this pass. Current rank **32/68**. Overall leader Cause Of Death: **80.505463**. We are not in first place; the gap remains material.
+During this pass the best-three machine-point mean rises **66.095609 → 66.828101**. Rank moves from **32/68** to **29/70**. Current overall leader Cause Of Death: **80.786854**. We are not first; the gap remains substantial.
 
-| Track | Starting best | Current best | Rank | Track leader |
+| Track | Starting best | Current best | Rank | Current track leader |
 | --- | ---: | ---: | ---: | --- |
-| A | 70.144504 | 72.105578 | 32/84 | Cause Of Death 86.226860 |
-| C | 64.904735 | 66.473216 | 29/71 | NickTrapp 81.521123 |
-| D | 60.051455 | 60.242402 | 22/73 | Cause Of Death 72.994274 |
+| A | 72.105578 | 72.105578 | 36/85 | Kirk Mates 86.472268 |
+| C | 66.473216 | 66.473216 | 29/72 | NickTrapp 82.553467 |
+| D | 60.242402 | 62.267555 | 21/75 | Cause Of Death 72.994274 |
 
-## Retained changes and actual decisions
+## What is retained
 
-A parses each request once into exact four-byte records, with a full uint32 escape for large latencies. It uses a shared full-equality endpoint dictionary, allocates only touched hour buckets, releases dictionary metadata after retaining input views, and uses sort cutoff32. Best K rises25.286579 →27.676524. The exact escape, ID and lifetime boundaries are tested; no value is rounded.
+D's retained changes are the bounded 16-row degree/cursor/edge prefetch loader, process-local glibc arena cap of 2, and up to 12 loading workers. The exact query algorithm, full-width fallbacks and output order remain. Observed best points progress 60.242402 →60.654874 →60.664986 →62.267555, K=16.026845 →17.593454, including charged source and memory. The twelve-loader test is run-9f2217b19cd8 at c4f966f: T=0.248728 s, M=88,686,592, S=772. Its 163.371-second build is within 600 seconds. The final byte-identical repeat 61.156615 also exceeds the preceding cap2 best 60.664986.
 
-C retains exact quoted-field SIMD scanning, a direct uppercase-country map, one-byte region IDs only when at most255 countries fit (otherwise the full two-byte format), and direct XOR quote parity for record splitting. Best K rises19.865280 →21.353266. The higher observations66.040306 and66.473216 are repeats of the same retained code after the parity change; they are not extra algorithm changes.
+A and C restore their exact previously scored bf75194 runtime/build/metadata. A retains fused exact four-byte request records/full uint32 escapes, lazy hour storage, full-equality endpoint IDs, 8,192 slots and sort cutoff 32. C retains exact quote-aware parsing, full-hash/name equality, inline atomic country membership, narrow region lookup with full fallback, direct country map and XOR quote parity. No A/C algorithm gain is claimed in this pass.
 
-D retains twelve query workers, sparse exact labels, band64/batch8 queues and the compact loader/edge layout. Best K rises15.886532 →16.026845 in the twelve-worker comparison. Six workers/band32 score lower and are reverted. The later balanced-minimum policy passes all correctness gates but scores59.245827/K15.307933, below retained60.242402/K16.026845; reverted. Direct-array labels, owner-routed/compact-pointer C and other local losers remain outside scored folders. Patches, raw reports and validation limits are preserved honestly.
+The hour/method caches, word scanner, grouped/aligned name lookup, aligned aggregate counters and A input prefaulting passed full validation but failed to beat retained real K. They are reverted. Block/deque/reservation/cache/split/tagged/layout/output/delimiter/ordered-query screening losers remain in prototype patches with their actual validation limits. The small numeric-suffix gain is only local screening and is not promoted. Mac timings did not consistently transfer to Intel; every submitted candidate was decided by a real board run.
 
-All decisions use total real K, including charged memory and canonical source. Paired Apple trials screen candidates; background host/browser activity was not fully isolated. Same-source board time and memory also vary. Historical best observations and the latest confirmation are kept separate.
+## Exact selected combination
 
-## Exact final combination
+Commit `07c31360af938e391c3e09e3d21f969a1709b092` passes all five board gates for A/C/D. Every one of 27 current runtime/build/track-metadata inputs matches that exact scored commit and each current best-record source in round55-final-source-match.json. Further evidence/documentation updates change no compiled input. No active source candidate or board watcher remains.
 
-Commit `71a023706495a99867f32a3e1856317f0d9e73bb` passes **check, build, correctness, timeout and sandbox** for all A/C/D. All27 current runtime/build/track metadata inputs match that exact scored commit in round32-final-source-match.json. Further changes are documentation/evidence only. No unscored runtime experiment remains.
-
-| Track | Confirmation run | Time | Charged memory | K | Points |
+| Track | Final confirmation run | Time | Charged memory | K | Points |
 | --- | --- | ---: | ---: | ---: | ---: |
-| A | `run-aea59f5857c9` | 0.051652 s | 34,152,448 B | 27.343411 | 71.842634 |
-| C | `run-e562a54a2e3f` | 0.077215 s | 11,071,488 B | 21.353266 | 66.473216 |
-| D | `run-4dba3dfffd2a` | 0.303599 s | 94,232,576 B | 15.871484 | 60.030877 |
+| A | `run-7263989cd59b` | 0.064861 s | 33,828,864 B | 24.447324 | 69.411566 |
+| C | `run-5f54924be806` | 0.080746 s | 11,706,368 B | 20.649589 | 65.745571 |
+| D | `run-ec2238f1c6b2` | 0.272721 s | 90,984,448 B | 16.715998 | 61.156615 |
 
-## Verification and entry requirements
+Historical best observations and latest confirmations are separate. Same-source practice results vary; lower repeats are preserved honestly and are not described as algorithm regressions or gains.
 
-A retained source passes fresh929/937 ASAN/UBSAN,941 TSAN, latency escape/ID4095 references, full-public1/6/12-worker hashes,39 exact-image Linux replays and actual default entrypoints. C passes fresh947/953 ASAN/UBSAN,967 TSAN, country widths0/1/254/255/256/257/17576, quoted seams/BOM/EOF/growth cases, full-public hashes,54 exact-image Linux replays and actual defaults. D restores the exact previously sanitized/reference-tested twelve-worker/band64 source, including its independent graph, loader, wide-distance and full-public checks; the final real run confirms every gate. The rejected frontier policy separately passed256 independent graphs/85,871 answers and843 Linux replays before its lower score caused rejection.
+## Validation and entry
 
-The observable entry audit passes; it does not certify organizer eligibility. Registration is entrant-confirmed, the accepted team/app scope is repository-only, MIT attribution is retained, AI assistance is disclosed, and no personal-understanding attestation is invented.
+Selected A/C source passes fresh isolated 1109/1117 strict ASAN/UBSAN, 1123 TSAN, every adversarial/reference case, and country widths 0/1/254/255/256/257/17576. D retains exact isolated 1079/1087 strict ASAN/UBSAN, 1091 TSAN and 256 independent Floyd–Warshall graphs/85,871 answers. Public outputs at 1/6/12 workers match. All selected Linux images pass full public/default contracts and 1,056 current-image fixture replays; D's new image identity was replayed rather than inheriting another image's result. Exact source/input/image hashes are preserved.
 
-**Still required:** preserve the final passing branch at2 November2026,15:00 UTC /20:30 IST, and make that MIT source public by16:00 UTC /21:30 IST. The repository remains private. Publication and future monitoring are not scheduled.
+The native validator now isolates fixture/output paths with --run-id. Original round38 adversarial suites could share paths; isolated reruns and 1,047 exact-image Linux replays corrected that attribution. Original reports state the limitation. Final selected-source suites use isolated paths. No diagnostic or failed tradeoff is hidden.
+
+Observable entry checks pass: fresh event-written source, required branch/files, pinned allowlisted offline builds, MIT attribution, accepted team/app scope and disclosed AI assistance. Registration is entrant-confirmed; no organizer eligibility certificate or human-understanding attestation is fabricated.
+
+**Still required:** preserve the final passing branch at 2 November 2026 15:00 UTC / 20:30 IST and make that MIT source public by 16:00 UTC / 21:30 IST. The repository remains private, which is allowed now. Publication/future monitoring are not scheduled.
 
 ## Separate emoji target
 
-The user clarified the target is overall #1, rather than the separate clicker leader. The verified row shows respect5,848 /devils13,290 /pumpkins38 /cans37, total19,213; all four exceed observed overall leader Cause Of Death369/75/28/8. The target is met. Reactions do not change machine points; demon level remains18. Intended visible controls were used, and public counts can also grow from other visitors. No finite maximum or overall victory is claimed. Details and proof are in emoji-status.json and emoji-result.jpg.
+The clarified target was overall #1's counters. The saved visible row respect 5,848 / devils 13,290 / pumpkins 38 / cans 37 exceeds observed Cause Of Death 369/75/28/8 in all four. No reactions were added in this pass. Counts can change through visitors; reactions do not change K, rank or demon level. Proof: emoji-status.json and emoji-result.jpg.
 
-[Final real run](board-round32-retained-final.json) · [All27 source identities](round32-final-source-match.json) · [Complete leader comparison](round32-final-comparison.json) · [Entry audit](ENTRY-AUDIT.md) · [Official team board](https://speeddemon.dev/board/#red-jones-00c4a7)
+[Real final confirmation](board-round55-selected-final.json) · [All27 source identities](round55-final-source-match.json) · [Leader comparison](round55-final-comparison.json) · [Entry audit](ENTRY-AUDIT.md) · [Official board](https://speeddemon.dev/board/#red-jones-00c4a7)

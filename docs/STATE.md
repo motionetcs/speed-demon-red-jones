@@ -2,15 +2,15 @@
 
 Fresh Red Jones entry: https://github.com/motionetcs/speed-demon-red-jones ; private, required branch speed-demon, tracks A/C/D. All own solution code is event-written. Preserve unrelated folders. No private pre-event implementation is imported.
 
-## Selected source awaiting combined confirmation
+## Final selected and scored source
 
-A/C restored exactly tobf75194 runtime/build/metadata after rounds38/43/51 fail to beat historical bests. D retains the real improvements:16-row bounded prefetch loader, process-local glibc arena cap2, and up to12 loaders. Round51 c4f966f D run-9f2217b19cd8 passes every gate: T0.248728 s/M88,686,592/S772/K17.593454/62.267555 points. The twelve-loader build takes163.371 s, within600. A prefaulting and C aligned-statistics score lower and are removed.
+Exact source 07c31360af938e391c3e09e3d21f969a1709b092 passes all five official gates for A/C/D (board-round55-selected-final.json). All27 current runtime/build/metadata inputs match that exact commit, each current best record, native strict isolated sanitizer/race contexts and selected Linux builds in round55-final-source-match.json.1056 current-image replays/defaults pass. Later documentation/evidence changes no compiled input. There are no active source candidates or board watchers.
 
-Current best machine points: A72.105578/K27.676524, C66.473216/K21.353266, D62.267555/K17.593454; best-three mean66.828101. Not first place; obtain a fresh complete comparison after final confirmation. D began this pass at60.242402, so the combined retained D gain is2.025153 points. Source variants with unchanged code are reported as repeats, not algorithm gains.
+A/C restore exactbf75194 after all new candidates fail to beat retained bests72.105578/K27.676524 and66.473216/K21.353266. D retains16-row prefetch loading, glibc cap2 and up to12 loaders; best62.267555/K17.593454 atc4f966f, up from60.242402 this pass. Final exact-source repeat A69.411566/C65.745571/D61.156615 is kept separate from historical bests. Repeat variation is not called an algorithm change.
 
-Exact selected contexts .build/round55/source; all27 compiled/build/metadata inputs match scored bases and strict native sanitizer/race source contexts in round55-selected-source-match.json. Current-image Linux public/default checks and1056 fixture replays pass. D's new image ID was replayed again rather than reusing old-image evidence. Push this combination and capture its exact board result before another runtime change. No new unscored prototype belongs in track folders.
+Complete snapshot 2026-10-31T10:56:56Z: best-three mean66.828101, rank29/70, leader80.786854. Not first. RESULTS.md/OWNER-BRIEFING.md/SUBMISSION.md and every per-track PERF are current. D12 build163.371 s is below600; no rejected prototype remains in a track folder. Local-only/screening validation limits and rejected patches are preserved honestly.
 
-Rejected block/deque/reservation/cache/grouped/tagged/split/counter-layout/output/delimiter/ordered-query variants are in per-track PERF, raw reports and docs/prototype-patches. Screening-only checks are explicitly limited; no false sanitizer or official result is claimed. The last marginal numeric suffix is outside runtime and has only full-hash screening.
+Selected A/C additionally pass fresh isolated1109/1117 ASAN/UBSAN,1123 TSAN, all adversarial cases and country widths through17576. D exact round50 isolated sanitizer/race/independent-graph source is retained. A/C/Linux restoration and D's new image ID were replayed; no old-image evidence is substituted.
 
 ## Validation and operating rules
 
