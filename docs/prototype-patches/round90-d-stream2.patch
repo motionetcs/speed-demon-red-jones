@@ -1,0 +1,94 @@
+--- a/track-d/main.cpp
++++ b/track-d/main.cpp
+@@ -25,6 +25,28 @@
+         return static_cast<uint32_t>(value);
+     }
+ };
++#ifndef GRAPH_STREAMS
++#define GRAPH_STREAMS 2
++#endif
++struct RawEdge {uint32_t u,v,value;};
++struct EdgeReader {
++    std::array<Scanner,GRAPH_STREAMS> inputs{};
++    EdgeReader(const std::vector<const char*>& bounds,unsigned worker){
++        for(unsigned lane=0;lane<GRAPH_STREAMS;++lane){unsigned part=worker*GRAPH_STREAMS+lane;inputs[lane]={bounds[part],bounds[part+1]};}
++    }
++    template<class Row,class Hint> size_t read(std::array<Row,16>& rows,Hint hint){
++        size_t count=0;
++        for(unsigned step=0;step<16;step+=GRAPH_STREAMS){
++            std::array<unsigned,GRAPH_STREAMS> active;unsigned live=0;
++            for(unsigned lane=0;lane<GRAPH_STREAMS;++lane)if(inputs[lane].more()){active[live]=lane;rows[count+live].u=inputs[lane].number();++live;}
++            if(!live)break;
++            for(unsigned i=0;i<live;++i)rows[count+i].v=inputs[active[i]].number();
++            for(unsigned i=0;i<live;++i){auto& row=rows[count+i];row.value=inputs[active[i]].number();hint(row);}
++            count+=live;
++        }
++        return count;
++    }
++};
+ using Item = std::pair<uint64_t, uint32_t>;
+ 
+ int main(int argc, char** argv) {
+@@ -42,10 +64,11 @@
+         const char* edge_start = scan.p;
+         while (edge_start < graph.data + graph.size && *edge_start <= ' ') ++edge_start;
+         unsigned loaders = std::min(threads, 12U);
+-        std::vector<const char*> boundaries(loaders + 1);
++        unsigned parts=loaders*GRAPH_STREAMS;
++        std::vector<const char*> boundaries(parts + 1);
+         boundaries.front() = edge_start; boundaries.back() = graph.data + graph.size;
+-        for (unsigned i = 1; i < loaders; ++i) {
+-            const char* p = edge_start + (graph.data + graph.size - edge_start) * i / loaders;
++        for (unsigned i = 1; i < parts; ++i) {
++            const char* p = edge_start + (graph.data + graph.size - edge_start) * i / parts;
+             if (p > edge_start && p[-1] != '\n') {
+                 const char* newline = static_cast<const char*>(std::memchr(p, '\n', graph.data + graph.size - p));
+                 p = newline ? newline + 1 : graph.data + graph.size;
+@@ -57,18 +80,15 @@
+         DegreeBytes degree(n), reverse_degree(n);
+         parallel(loaders, [&](unsigned worker) {
+             auto& local = locals[worker];
+-            Scanner input{boundaries[worker], boundaries[worker + 1]};
+-            std::array<std::pair<uint32_t,uint32_t>, 16> batch;
+-            while (input.more()) {
+-                size_t count = 0;
+-                while (count < batch.size() && input.more()) {
+-                    uint32_t u = input.number(), v = input.number(); input.number();
+-                    if (u >= n || v >= n) throw std::runtime_error("node outside graph");
+-                    __builtin_prefetch(&degree.values[u], 1, 1); __builtin_prefetch(&reverse_degree.values[v], 1, 1);
+-                    batch[count++] = {u,v};
+-                }
+-                local.count += count;
+-                for (size_t i=0;i<count;++i) { auto [u,v]=batch[i]; degree.add(u, local.out_spills); reverse_degree.add(v, local.in_spills); }
++            EdgeReader input(boundaries,worker);
++            std::array<RawEdge,16> batch;
++            for(;;){
++                size_t count=input.read(batch,[&](const auto& row){
++                    if(row.u>=n||row.v>=n)throw std::runtime_error("node outside graph");
++                    __builtin_prefetch(&degree.values[row.u],1,1);__builtin_prefetch(&reverse_degree.values[row.v],1,1);
++                });
++                if(!count)break;local.count+=count;
++                for(size_t i=0;i<count;++i){degree.add(batch[i].u,local.out_spills);reverse_degree.add(batch[i].v,local.in_spills);}
+             }
+         });
+         size_t edge_count = 0;
+@@ -90,15 +110,12 @@
+         auto scatter = [&]<bool Compact, bool WideCursors>() {
+             parallel(loaders, [&](unsigned worker) {
+             auto& local = locals[worker];
+-            Scanner input{boundaries[worker], boundaries[worker + 1]};
++            EdgeReader input(boundaries,worker);
+             struct Row { uint32_t u, v, value, out, in; };
+             std::array<Row, 16> batch;
+-            while (input.more()) {
+-                size_t count = 0;
+-                while (count < batch.size() && input.more()) {
+-                    auto& row = batch[count++]; row.u=input.number(); row.v=input.number(); row.value=input.number();
+-                    cursor.template prefetch<WideCursors>(row.u); reverse_cursor.template prefetch<WideCursors>(row.v);
+-                }
++            for(;;){
++                size_t count=input.read(batch,[&](const auto& row){cursor.template prefetch<WideCursors>(row.u);reverse_cursor.template prefetch<WideCursors>(row.v);});
++                if(!count)break;
+                 for (size_t i=0;i<count;++i) {
+                     auto& row=batch[i]; row.out=cursor.template take<WideCursors>(row.u); row.in=reverse_cursor.template take<WideCursors>(row.v);
+                     edges.template prefetch<Compact,true>(row.out); reverse_edges.template prefetch<Compact,true>(row.in);

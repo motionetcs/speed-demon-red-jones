@@ -1,0 +1,81 @@
+--- a/track-c/main.cpp
++++ b/track-c/main.cpp
+@@ -162,7 +162,7 @@
+ #define PIPELINE_READERS 8
+ #endif
+ #ifndef NAME_BATCH
+-#define NAME_BATCH 512
++#define NAME_BATCH 1024
+ #endif
+         unsigned readers=threads==1?1:std::clamp(threads*PIPELINE_READERS/12,1U,threads-1);
+         unsigned owners=threads-readers;
+@@ -179,7 +179,7 @@
+                     if(worker<readers){
+                         auto& local=locals[worker];std::unique_ptr<Names> serial;
+                         if(!owners)serial=std::make_unique<Names>(groups.size());
+-                        std::vector<std::vector<NameEvent>> batches(owners);
++                        std::vector<NameBatch> batches(owners);
+                         for(auto& batch:batches)batch.reserve(NAME_BATCH);
+                         Csv csv{boundaries[worker],boundaries[worker+1]};std::string name_scratch,unused;
+                         while(csv.p<csv.end){
+@@ -192,8 +192,8 @@
+                             group.minimum=std::min(group.minimum,amount);group.maximum=std::max(group.maximum,amount);
+                             group.name_bytes+=name.bytes;group.note_bytes+=note.bytes;
+                             if(!owners){group.names+=serial->first(name.value,country,hash);continue;}
+-                            unsigned owner=hash%owners;NameEvent event{name.value,hash,static_cast<uint16_t>(country)};
+-                            auto& batch=batches[owner];batch.push_back(std::move(event));
++                            unsigned owner=hash%owners;
++                            auto& batch=batches[owner];batch.append(name.value,hash,static_cast<uint16_t>(country),records.data);
+                             if(batch.size()==NAME_BATCH)queues[size_t(worker)*owners+owner].send(batch,canceled);
+                         }
+                         // An empty published batch is the ordered end-of-stream marker.
+@@ -207,7 +207,7 @@
+                                 if(finished[reader])continue;auto& queue=queues[size_t(reader)*owners+owner];
+                                 if(!queue.ready.load(std::memory_order_acquire))continue;progress=true;
+                                 if(queue.rows.empty()){finished[reader]=true;--remaining;}
+-                                else for(const auto& e:queue.rows)distinct[owner][e.country]+=names.first(e.value(),e.country,e.hash);
++                                else for(const auto& e:queue.rows)distinct[owner][e.country]+=names.first(e.value(records.data,queue.rows.wide),e.country,e.hash);
+                                 queue.rows.clear();queue.ready.store(false,std::memory_order_release);
+                             }
+                             if(!progress)std::this_thread::yield();
+--- a/track-c/names.hpp
++++ b/track-c/names.hpp
+@@ -55,14 +55,34 @@
+     }
+ };
+ struct NameEvent {
+-    std::string_view key;uint64_t hash;uint16_t country;
+-    std::string_view value()const{return key;}
++    uint64_t hash;uint32_t where;uint16_t length,country;
++    std::string_view value(const char* base,const std::vector<std::string_view>& wide)const{
++        return length==UINT16_MAX?wide[where]:std::string_view(base+where,length);
++    }
++};
++static_assert(sizeof(NameEvent)==16);
++struct NameBatch {
++    std::vector<NameEvent> rows;std::vector<std::string_view> wide;
++    auto begin()const{return rows.begin();}auto end()const{return rows.end();}
++    bool empty()const{return rows.empty();}size_t size()const{return rows.size();}
++    void reserve(size_t n){rows.reserve(n);}
++    void clear(){rows.clear();wide.clear();}
++    void swap(NameBatch& other){rows.swap(other.rows);wide.swap(other.wide);}
++    void append(std::string_view key,uint64_t hash,uint16_t country,const char* base){
++        bool compact=key.size()<UINT16_MAX;std::ptrdiff_t offset=0;
++        if(compact&&!key.empty()){offset=key.data()-base;compact=offset>=0&&uint64_t(offset)<=UINT32_MAX;}
++        if(compact)rows.push_back({hash,static_cast<uint32_t>(offset),static_cast<uint16_t>(key.size()),country});
++        else{
++            if(wide.size()>UINT32_MAX)throw std::runtime_error("name event overflow");
++            uint32_t index=static_cast<uint32_t>(wide.size());wide.push_back(key);rows.push_back({hash,index,UINT16_MAX,country});
++        }
++    }
+ };
+ // One producer and one consumer transfer a vector through release/acquire.
+ // Every key borrows immutable input; the consumer copies each unique key.
+ struct NameQueue {
+-    alignas(64) std::atomic<bool> ready{false};std::vector<NameEvent> rows;
+-    void send(std::vector<NameEvent>& batch,const std::atomic<bool>& canceled){
++    alignas(64) std::atomic<bool> ready{false};NameBatch rows;
++    void send(NameBatch& batch,const std::atomic<bool>& canceled){
+         while(ready.load(std::memory_order_acquire)){
+             if(canceled.load(std::memory_order_relaxed))throw std::runtime_error("name pipeline canceled");
+             std::this_thread::yield();

@@ -1,0 +1,95 @@
+--- a/track-a/main.cpp
++++ b/track-a/main.cpp
+@@ -9,6 +9,29 @@
+ static constexpr uint32_t latency_escape = (1U << 19) - 1;
+ struct Count { uint32_t count = 0, errors = 0; };
+ 
++#ifndef PARSE_STREAMS
++#define PARSE_STREAMS 4
++#endif
++struct Request {std::string_view endpoint;uint32_t latency,line;unsigned hour;bool error;};
++inline Request read_request(const char*& p,const char* limit,const char* base){
++    if (limit - p < 28) throw std::runtime_error("truncated timestamp");
++    const char* line = p;
++    int month = (p[5] - '0') * 10 + p[6] - '0', day = (p[8] - '0') * 10 + p[9] - '0';
++    int hour = (month == 10 ? day - 30 : day + 1) * 24 + (p[11] - '0') * 10 + p[12] - '0' - 18;
++    if (hour < 0 || hour >= 72) throw std::runtime_error("hour outside specification");
++    p += 28; while (p < limit && *p != ' ') ++p;
++    if (p == limit) throw std::runtime_error("missing endpoint");
++    const char* start = ++p;
++    p = static_cast<const char*>(std::memchr(start, ' ', limit - start));
++    if (!p || limit - p < 5) throw std::runtime_error("missing endpoint/status");
++    std::string_view endpoint(start, p - start);
++    bool error = p[1] == '5'; p += 5; start = p;
++    uint64_t latency = decimal_digits(p, limit);
++    if (p == start || p - start > 10 || latency > UINT32_MAX || p == limit || *p != '\n') throw std::runtime_error("invalid latency");
++    ++p;
++    return {endpoint,static_cast<uint32_t>(latency),static_cast<uint32_t>(line-base),static_cast<unsigned>(hour),error};
++}
++
+ int main(int argc, char** argv) {
+     try {
+         Paths run_paths(argc, argv);
+@@ -16,10 +39,11 @@
+         if (file.size > UINT32_MAX) throw std::runtime_error("input exceeds uint32 capacity");
+         const char* end = file.data + file.size;
+         unsigned threads = worker_count();
+-        std::vector<const char*> boundaries(threads + 1);
++        unsigned parts=threads*PARSE_STREAMS;
++        std::vector<const char*> boundaries(parts + 1);
+         boundaries.front() = file.data; boundaries.back() = end;
+-        for (unsigned i = 1; i < threads; ++i) {
+-            const char* p = file.data + file.size * i / threads;
++        for (unsigned i = 1; i < parts; ++i) {
++            const char* p = file.data + file.size * i / parts;
+             if (p > file.data && p[-1] != '\n') {
+                 const char* newline = static_cast<const char*>(std::memchr(p, '\n', end - p)); p = newline ? newline + 1 : end;
+             }
+@@ -33,33 +57,21 @@
+         };
+         std::vector<Chunk> chunks(threads);
+         parallel(threads, [&](unsigned worker) {
+-            const char* p = boundaries[worker]; const char* limit = boundaries[worker + 1];
+-            auto& chunk = chunks[worker];
+-            LocalEndpoints local_names(endpoints);
+-            size_t reserve_hint = (limit - p) / (72 * 64);
+-            while (p < limit) {
+-                if (limit - p < 28) throw std::runtime_error("truncated timestamp");
+-                const char* line = p;
+-                int month = (p[5] - '0') * 10 + p[6] - '0', day = (p[8] - '0') * 10 + p[9] - '0';
+-                int hour = (month == 10 ? day - 30 : day + 1) * 24 + (p[11] - '0') * 10 + p[12] - '0' - 18;
+-                if (hour < 0 || hour >= 72) throw std::runtime_error("hour outside specification");
+-                p += 28; while (p < limit && *p != ' ') ++p;
+-                if (p == limit) throw std::runtime_error("missing endpoint");
+-                const char* start = ++p;
+-                p = static_cast<const char*>(std::memchr(start, ' ', limit - start));
+-                if (!p || limit - p < 5) throw std::runtime_error("missing endpoint/status");
+-                std::string_view endpoint(start, p - start);
+-                bool error = p[1] == '5'; p += 5; start = p;
+-                uint64_t latency = decimal_digits(p, limit);
+-                if (p == start || p - start > 10 || latency > UINT32_MAX || p == limit || *p != '\n') throw std::runtime_error("invalid latency");
+-                ++p;
+-                uint16_t key = local_names.intern(endpoint);
+-                if (chunk.first[hour] == UINT32_MAX) {
+-                    chunk.first[hour] = static_cast<uint32_t>(line - file.data);
+-                    chunk.records[hour].reserve(reserve_hint);
++            std::array<const char*,PARSE_STREAMS> positions,limits;
++            size_t span=0;
++            for(unsigned lane=0;lane<PARSE_STREAMS;++lane){unsigned part=worker*PARSE_STREAMS+lane;positions[lane]=boundaries[part];limits[lane]=boundaries[part+1];span+=limits[lane]-positions[lane];}
++            auto& chunk=chunks[worker];LocalEndpoints local_names(endpoints);
++            size_t reserve_hint=span/(72*64);std::array<Request,PARSE_STREAMS> rows;
++            for(;;){
++                unsigned count=0;
++                for(unsigned lane=0;lane<PARSE_STREAMS;++lane)if(positions[lane]<limits[lane])rows[count++]=read_request(positions[lane],limits[lane],file.data);
++                if(!count)break;
++                for(unsigned i=0;i<count;++i){
++                    const auto& row=rows[i];uint16_t key=local_names.intern(row.endpoint);unsigned hour=row.hour;
++                    if(chunk.first[hour]==UINT32_MAX){chunk.first[hour]=row.line;chunk.records[hour].reserve(reserve_hint);}
++                    chunk.records[hour].push_back(std::min(row.latency,latency_escape)<<13|uint32_t(row.error)<<12|key);
++                    if(row.latency>=latency_escape)chunk.wide[hour].push_back(row.latency);
+                 }
+-                chunk.records[hour].push_back(std::min(uint32_t(latency), latency_escape) << 13 | uint32_t(error) << 12 | key);
+-                if (latency >= latency_escape) chunk.wide[hour].push_back(static_cast<uint32_t>(latency));
+             }
+         });
+         std::vector<std::string_view> paths(endpoints.canonical.begin(),endpoints.canonical.begin()+endpoints.used.load());

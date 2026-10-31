@@ -1,0 +1,56 @@
+--- a/track-d/radix_heap.hpp
++++ b/track-d/radix_heap.hpp
+@@ -1,6 +1,9 @@
+ #pragma once
+ #define RADIX_BATCH_BUCKET_BITS 6
++#define RADIX_EXACT_MIN 1
+ #include <array>
++#include <algorithm>
++#include <functional>
+ #include <bit>
+ #include <cstdint>
+ #include <type_traits>
+@@ -20,7 +23,11 @@
+     }
+     bool empty() const { return count == 0; }
+     void clear() { for (auto& bucket : buckets) bucket.clear(); last = 0; count = 0; }
+-    void push(Item item) { buckets[std::bit_width(key(item) ^ last)].push_back(item); ++count; }
++    void push(Item item) {
++        size_t index=std::bit_width(key(item)^last);auto& bucket=buckets[index];bucket.push_back(item);
++        if(index==0)std::push_heap(bucket.begin(),bucket.end(),std::greater<Item>{});
++        ++count;
++    }
+     void prepare() {
+         if (buckets[0].empty()) {
+             size_t index = 1;
+@@ -29,10 +36,11 @@
+             for (Item item : buckets[index]) if (key(item) < last) last = key(item);
+             for (Item item : buckets[index]) buckets[std::bit_width(key(item) ^ last)].push_back(item);
+             buckets[index].clear();
++            std::make_heap(buckets[0].begin(),buckets[0].end(),std::greater<Item>{});
+         }
+     }
+-    uint64_t minimum() { prepare(); return last << RADIX_BATCH_BUCKET_BITS; }
+-    Item pop() { prepare(); Item item = buckets[0].back(); buckets[0].pop_back(); --count; return item; }
++    uint64_t minimum() { prepare();if constexpr(packed)return buckets[0].front()>>32;else return buckets[0].front().first; }
++    Item pop() { prepare();auto& bucket=buckets[0];std::pop_heap(bucket.begin(),bucket.end(),std::greater<Item>{});Item item=bucket.back();bucket.pop_back();--count;return item; }
+ };
+ 
+ struct RadixHeap {
+@@ -53,13 +61,13 @@
+         if (!small.empty()) {
+             small.prepare();
+             while (size < limit && !small.buckets[0].empty()) {
+-                uint64_t item = small.buckets[0].back(); small.buckets[0].pop_back(); --small.count;
+-                output[size++] = {item >> 32, uint32_t(item)};
++                uint64_t item=small.pop();
++                output[size++]={item>>32,uint32_t(item)};
+             }
+         } else {
+             wide.prepare();
+             while (size < limit && !wide.buckets[0].empty()) {
+-                output[size++] = wide.buckets[0].back(); wide.buckets[0].pop_back(); --wide.count;
++                output[size++]=wide.pop();
+             }
+         }
+         count -= size; return size;

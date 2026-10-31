@@ -1,13 +1,11 @@
-# Track C: exact canonical CSV join
+# Track C — exact CSV join
 
-C++20 and standard-library/OS facilities only. Build offline with the pinned Dockerfile. Defaults read `/data/regions.csv` and `/data/records.csv` and write exactly `/out/aggregates.txt`; development `--data`/`--out` options remain. `SPEED_DEMON_THREADS=1..12`, default12.
+C++20, no additional runtime dependencies. Build with the pinned offline Dockerfile. Run with no arguments for `/data` and `/out`, or use `--data`/`--out` for development. The only output is `aggregates.txt`.
 
-The byte parser preserves quoting, doubled quotes, embedded newlines, BOM placement, CRLF/LF/EOF, trailing spaces, exact decoded byte lengths and signed integer cents. True record-boundary synchronization partitions the immutable input. All requested workers parse records and update private country aggregates. Region storage narrows only when every country and unmatched sentinel fits; complete wider-country support remains.
+The parser follows the full byte-oriented CSV contract: quoting/doubled quotes, embedded newlines, BOMs only at record boundaries, mixed line endings, empty values and final EOF. Money uses exact integer cents. Region lookup has a narrow fast representation only when every country/sentinel fits, with the complete country-width fallback retained.
 
-Names use canonical raw CSV interiors. Doubling literal quotes is injective, and legal unquoted fields have no quote, so quoted/unquoted empty and plain values compare correctly. Every hash collision still requires complete key-byte equality. No input seed or saved answer is recognized.
+An exact local synchronization proof selects true record boundaries. Reader workers parse rows once and compute ordinary aggregates privately. Bounded512-event SPSC queues transfer name/country events to private hash-shard owners; full key equality and exact country bitmaps count distinct names. Canonical interior CSV bytes form an injective key encoding; decoded byte lengths remain exact. Events borrow the still-mapped immutable input. Ordered empty batches finish each stream, and exceptions cancel the pipeline. The default is8 readers plus4 owners,12 total workers; `SPEED_DEMON_THREADS=1..12` preserves that requested total, with a direct private-table path for one worker.
 
-A shared exact name table removes event queues. A successful slot CAS owns initialization; the writer creates a stable key and actual atomic country words in its worker-owned arena, then release-publishes the full hash. Readers acquire publication before touching the key. An atomic country-bit OR returns true to exactly one worker for each name/country pair. All arenas remain alive until workers join.
+No input seed or answer is recognized. All output is computed in the timed run. See `PERF.md` for actual experiments, source/memory costs, independent tests and real board outcomes.
 
-The initial131072-slot table is a sizing choice, not a key-count bound. On capacity pressure, workers cancel promptly, join, discard that attempt's private aggregates, double safely and reparse. Actual parser/allocation errors propagate normally and are not mistaken for capacity retries. No partial attempt is reduced into final totals.
-
-The earlier bounded owner pipeline and all rejected changes remain in PERF.md. Fresh untrained/reference, sanitizer/race, full country-width, deliberate collision/publication,120k-key retry, malformed cancellation, current-image Linux and actual-default evidence are tied in round89-candidate-source-match.json. Local Apple measurements are hypotheses; only actual board K decides retention.
+The current wait candidate inserts bounded CPU spin hints before an OS yield. Cancellation checks and every release/acquire ownership transition remain; this changes waiting policy only. See PERF.md for the target-specific hypothesis and actual-score decision.

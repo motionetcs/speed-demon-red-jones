@@ -1,0 +1,72 @@
+{
+  "scope": "A91 new full-PGO image, C95 new bounded-wait image, D unchanged75/81 image. Strict prior proof is reused only for unchanged runtime source, never inferred from same-source image IDs.",
+  "runs": [
+    {
+      "track": "a",
+      "case": "public-full-seed1",
+      "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3",
+      "image_id": "sha256:17aa8d4637a14e7e9fe377e2634456f33bdb0b16d3b699e3a9b60385224e22c9",
+      "image_bytes": 30957570,
+      "build_seconds": 11.50378625,
+      "container_wall_seconds_including_startup": 0.360258709,
+      "source_sha256": {
+        "training_generator.py": "d82b43b8f617016808f85cbe9be86af1fee8466296a0848ab8e6908ee3c4b0b4",
+        "Dockerfile": "e07a33b7d4f42745d511576096fbccd6646d6e58d4fde9971709c3c755926d06",
+        "io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+        "README.md": "4fe1a47bfc61c41e7e8b6f64458d846231df20854a69117904b3c94b71bf0613",
+        "endpoint_table.hpp": "913048b747b8f938cf1b438f29648a62d11434b2d71c3fb9a9b5f5aae31df745",
+        "PERF.md": "ab4c07d407789c827d7d1a356709ae9cbba3630638e4e260cdcf9c5831a59bda",
+        ".speed-demon.toml": "c9ae973186c14661797640f427009129e2a80d1aecefd5d4fa413ee7f3da44d8",
+        "main.cpp": "7c6376cc1ed883ca5d7305236b19f16d9c88e9ab21d06a6cbfd2fdab4de1b77c",
+        "decimal.hpp": "aee2210ac5894050834ffd37903718b3b7bdc6673240559baa85b350bea9b581",
+        "parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420"
+      }
+    },
+    {
+      "track": "c",
+      "case": "public-full-seed1",
+      "sha256": "d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536",
+      "image_id": "sha256:780538fecad3e6453b2467e27693fb7bf9c2d5027ac77ada7c75158e4eac8ad5",
+      "image_bytes": 30962535,
+      "build_seconds": 28.000522084,
+      "container_wall_seconds_including_startup": 0.2890610410000001,
+      "source_sha256": {
+        "training_generator.py": "9e61672eb814fa4e1bc2e3cf30c8e7ca9629804191ce5ae60a66c8b61ba704f2",
+        "Dockerfile": "637e81c6fca4507f4c4e7368efde7b6904d07879ae9ec992c5e25175d50e1fae",
+        "names.hpp": "e02e1e6bfd85e3e55f5b5a385ed47527db60a8a18b97dec7b5b6e4c28c6fa34d",
+        "io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+        "quote_scan.hpp": "0b170a766254dee1bc14f9e9180cc1900da01d41f5d09053d5579e01a7fb9cfa",
+        "README.md": "c64e17ed5aca2c38487fb63ac77839a19b6d0d8b4f988a75221ef94ae9948a55",
+        "PERF.md": "e77d280c16e4ef659be7f5ae8a4332c850f7707c34c2ab5fc220dec880222394",
+        ".speed-demon.toml": "3371600b8033a377bc373378e703191dfec36c1ae991b617650dfa480edc00b4",
+        "main.cpp": "e486e2e25a24a3695b89f7e73a571ff68c9eeb93049493e46fbfbd178d71d142",
+        "parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420"
+      }
+    },
+    {
+      "track": "d",
+      "case": "public-full-seed1",
+      "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e",
+      "image_id": "sha256:fd572f2c0035bff924b7a48802e06bbfa9e0f1de022ef4943c859d238b6c561d",
+      "image_bytes": 30971676,
+      "build_seconds": 2.385472042,
+      "container_wall_seconds_including_startup": 0.4807743330000003,
+      "source_sha256": {
+        "training_generator.py": "bbf37741159004149c5896265a98ae00b90e90a05ad48c2912ecf8bdce126d65",
+        "Dockerfile": "b894df9b62f1f82561cbcd594d8baa97fdbe91d03d8aea816d2355f8fcd90cbb",
+        "io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+        "edge_store.hpp": "31db14bd58fb3bb45a90c963cf57397a50d5195782d01dc366b2a380d3b74ed6",
+        "README.md": "98a3262e683c0d2d4f131272ef4bee4b6789e56142e58722a3e59bd9ad1d3ac6",
+        "PERF.md": "b83b7033844c7092d07f90f51792889b7115af9bcb5b55cd5a5aa61109b54c35",
+        "load_cursors.hpp": "69bb855e76fdb729ce64856723a7e759f1844bcb34ffaaca2ad7776bdcafdf01",
+        "radix_heap.hpp": "7fb2052bb951ca391c5b1883d8e673f554a43ab3d06286e43597105c2d82b6e3",
+        ".speed-demon.toml": "6d6100843803548ba58c1c1eaf2d1dbaecb9a431fd5c9a8408d214580466465c",
+        "distance_map.hpp": "07b254af4e7a149bdae50e426c3355446e104333e6a8dcd43cd29181db4a8604",
+        "main.cpp": "7846f2bccc1c08df40cfbd4f8f8b8b73d6dedb61a53bba16b97f912d7c0693e7",
+        "decimal.hpp": "aee2210ac5894050834ffd37903718b3b7bdc6673240559baa85b350bea9b581",
+        "parallel.hpp": "614e48333aabbd7a9d7b008119d41acc7f908e467769772d01e10d84c282bdab"
+      }
+    }
+  ],
+  "passed": true
+}

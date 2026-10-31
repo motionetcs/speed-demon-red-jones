@@ -21,3 +21,5 @@ With another24 hours: obtain legitimate Intel profiles, measure parse/selection/
 Specification: https://github.com/hackathon-raptors/speed-demon-2026/blob/main/specs/a-ingest.md
 
 Per-worker exact direct caches point at globally published immutable views. Sampling only indexes the cache; full names still decide equality, and misses use the original global interner. Actual total-score acceptance is recorded in PERF.md.
+
+Current PGO candidate trains independent full1000003 plus sample130363. The algorithm and generic GCC target flags are unchanged; real total-score retention is recorded in PERF.md.

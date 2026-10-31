@@ -1,0 +1,24 @@
+{
+  "observed_at_utc": "2026-10-31T15:15:34.422583+00:00",
+  "official_score": false,
+  "scope": "Native and pinned GCC15/Linux strict ASAN/UBSAN exact-name models, including every low-two-bit routed owner, growth, forced full-hash collisions, all country widths and long/empty/NUL/UTF8 stable keys.",
+  "runs": [
+    {
+      "mode": "native",
+      "stdout": "PASS private exact-name std::set/collision/country/growth/stable-block/long-NUL-UTF8-key models\n",
+      "stderr": "",
+      "binary_sha256": "e711be8e5fd0ebedac80a31c8d76e023123279e3887cff6158038d21e5ae989d"
+    },
+    {
+      "mode": "GCC15-linux-amd64",
+      "stdout": "PASS private exact-name std::set/collision/country/growth/stable-block/long-NUL-UTF8-key models\n",
+      "stderr": ""
+    }
+  ],
+  "source_sha256": {
+    "tools/test_name_store.cpp": "683002bf528f64c680123d8cd3a4e3eeafed403d1ba3e65c691dfb478b4cc820",
+    "tools/private_names_model.hpp": "d7c8f6f89d220b2531a4e8148b47c82bb424ce26b82c66dd3f8271bed7166f83",
+    ".build/round95/source/track-c/names.hpp": "e02e1e6bfd85e3e55f5b5a385ed47527db60a8a18b97dec7b5b6e4c28c6fa34d"
+  },
+  "passed": true
+}

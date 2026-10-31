@@ -65,3 +65,5 @@ Round78 cache/output/fallback variants apply to342c0aa; full identities and scre
 Rounds80–85 parents/source identities and exact screening/validation limits are in round80-85-prototype-index.json. Only80-space-word is selected81;82 is diagnostic only. Unified patch blank lines with a space are required context markers.
 
 Round88 canonical-shared screens apply tocfd094c. Only the131 family proceeds89, with explicit cancellation handling fixed before exact broad validation. Scope and own event-written header provenance are in round88-prototype-index.json.
+
+Rounds90–95 parents, source hashes and exact screening-versus-validation limits are in round90-95-prototype-index.json. Only91 A independent full-PGO and93 spin128 are submitted95; all other variants remain rejected screens.

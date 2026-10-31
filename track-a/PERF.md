@@ -303,3 +303,12 @@ Round81/576feb0 bounded space scan passes every official gate, run-59d6c4c4deb0:
 
 
 Final selected combination b80c1ab98657ab4f5d4d6ce3ffe83b9012c2dcda, run-bcec1deb5817, passes check/build/correctness/timeout/sandbox: T0.046913 s/M34394112/S424/K28.16152/72.482805 points. All27 current runtime/build/metadata inputs and each current best source match the selected commit in ../docs/round87-final-source-match.json. Historical best and this latest same-source confirmation remain separate; a lower repeat is not hidden or labelled a new algorithm regression. Current A96/C147/D1032=1275 matching-image fixture replays, fresh combined Make/public1/6/12 and actual native/Linux defaults pass. Later updates are evidence/prose only. Raw ../docs/board-round87-selected-final.json.
+
+
+## Full-size independent profile training on the retained cache algorithm
+
+A still trains on two310k-row samples while the full task has3.1M rows, so group-size/quantile/allocation branch frequencies can differ. Change only the first training invocation to independent seed1000003/full, keeping sample130363, generic GCC flags, exact algorithm and all fallback paths. This follows the official permitted synthetic PGO rule; public seed1 is not used for training and no input/output/profile enters the final image. No Mac timing is claimed for a GCC build-only change.
+
+A's complete runtime C++/headers/metadata/generator are byte-identical to selected75; only Docker training changes. The newly compiled pinned offline Linux image passes full-public,96 independent boundary/method/hour/escape/ID cases and actual defaults. The unchanged algorithm's75 strict native/GCC/sanitizer/race proof remains, explicitly distinguished from the new image checks. Actual K must beat the current observed A best in88 start feed.
+
+Independent2/4-stream parser prototypes90 are slower in eleven rotating hash-checked native trials: retained12=0.040942 s;2streams at6/12=0.047337/0.041113;4streams at6/12=0.047888/0.041907. RSS also does not earn a useful tradeoff. Reject before broad sanitizer/Linux/board claims. Raw ../docs/round90-independent-stream-bench.json.
