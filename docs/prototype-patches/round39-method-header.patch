@@ -1,0 +1,58 @@
+--- a/track-a/main.cpp
++++ b/track-a/main.cpp
+@@ -1,5 +1,6 @@
+ #include "io.hpp"
+ #include "decimal.hpp"
++#include "method.hpp"
+ #include "endpoint_table.hpp"
+ #include "parallel.hpp"
+ #include <atomic>
+@@ -54,14 +55,7 @@
+                     current_records = &chunk.records[current_hour]; current_wide = &chunk.wide[current_hour];
+                 }
+                 p += 28;
+-                switch (*p) {
+-                    case 'G': p += 4; break;
+-                    case 'H': p += 5; break;
+-                    case 'D': p += 7; break;
+-                    case 'O': p += 8; break;
+-                    case 'P': p += p[1] == 'U' ? 4 : p[1] == 'O' ? 5 : 6; break;
+-                    default: throw std::runtime_error("unknown method");
+-                }
++                p = after_method(p, limit);
+                 const char* start = p;
+                 p = static_cast<const char*>(std::memchr(start, ' ', limit - start));
+                 if (!p || limit - p < 5) throw std::runtime_error("missing endpoint/status");
+--- /dev/null
++++ b/track-a/method.hpp
+@@ -0,0 +1,20 @@
++#pragma once
++#include <bit>
++#include <cstdint>
++#include <cstring>
++#include <stdexcept>
++
++// The legal method and its separator fit in eight bytes. No partial word is loaded.
++inline const char* after_method(const char* p, const char* end) {
++#if defined(__BYTE_ORDER__) && __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__ && !defined(METHOD_FORCE_SCALAR)
++    if (end - p >= 8) {
++        uint64_t word; std::memcpy(&word, p, 8);
++        uint64_t x = word ^ 0x2020202020202020ULL;
++        uint64_t mask = (x - 0x0101010101010101ULL) & ~x & 0x8080808080808080ULL;
++        if (mask) return p + std::countr_zero(mask) / 8 + 1;
++    }
++#endif
++    const char* space = static_cast<const char*>(std::memchr(p, ' ', end - p));
++    if (!space) throw std::runtime_error("missing method separator");
++    return space + 1;
++}
+--- a/track-a/Dockerfile
++++ b/track-a/Dockerfile
+@@ -1,6 +1,6 @@
+ FROM gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce AS build
+ WORKDIR /src
+-COPY training_generator.py main.cpp endpoint_table.hpp io.hpp decimal.hpp parallel.hpp ./
++COPY method.hpp training_generator.py main.cpp endpoint_table.hpp io.hpp decimal.hpp parallel.hpp ./
+ RUN g++ -std=c++20 -O3 -DNDEBUG -pthread -static -fprofile-generate=/profile -fprofile-update=atomic main.cpp -o /solution
+ RUN python3 training_generator.py --seed 104729 --scale sample --out /training && /solution --data /training --out /training-output && python3 training_generator.py --seed 130363 --scale sample --out /training && /solution --data /training --out /training-output
+ RUN g++ -std=c++20 -O3 -DNDEBUG -pthread -static -fprofile-use=/profile -fprofile-correction -Werror=missing-profile main.cpp -o /solution

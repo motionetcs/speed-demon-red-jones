@@ -205,3 +205,7 @@ Native phase diagnostics show substantial degree/scatter cost. Keeping decoded e
 Eleven rotating public-hash-checked native trials: baseline0.339602 s/192.45MB, loader8=0.343298/191.59MB, loader16=0.324033/192.72MB, loader32=0.332808/191.59MB. Select16 as a modest total-score hypothesis with essentially unchanged memory; Apple time is not Intel K.
 
 Fresh1009/1013 strict ASAN/UBSAN,1019 TSAN, complete public1/6/12 outputs, partial batches and all high-degree/wide-ID/MAX-weight/64-bit adversarial cases,256 independent Floyd–Warshall graphs/85,871 answers, strict GCC loader/edge models,843 exact-image Linux replays and actual defaults pass. Reports ../docs/round38-*.json. Retain only if real K improves.
+
+Round38 f378b2e51c3a9e3236a37bd0424317b633befa42 passes every official gate, run-11357e4c51be: T=0.282954 s/M=93,233,152/S=771/K=16.334185/60.654874 points. This beats60.242402/K16.026845 including source cost; retain the16-row prefetch loader. D source is unchanged in round43. Record: ../docs/board-round38-parser-groups-loader.json.
+
+Validation harness note: the original round38 native sanitizer/race jobs could share adversarial output folders. Generated sample seeds were separate. The suites were rerun with unique run IDs, all passed, and1047 image-matched Linux replays passed. These isolated reports are authoritative for per-binary adversarial attribution. Original reports are preserved with that limitation; no runtime fix was required. Round43 uses isolated names/output paths from the start.

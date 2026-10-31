@@ -1,0 +1,35 @@
+--- a/track-a/main.cpp
++++ b/track-a/main.cpp
+@@ -3,9 +3,11 @@
+ #include "endpoint_table.hpp"
+ #include "parallel.hpp"
+ #include <atomic>
++#include <bit>
+ #include <memory>
+ #include <numeric>
+ 
++static_assert(std::endian::native == std::endian::little); // The specified target is linux/amd64.
+ static constexpr uint32_t latency_escape = (1U << 19) - 1;
+ struct Count { uint32_t count = 0, errors = 0; };
+ 
+@@ -54,14 +56,12 @@
+                     current_records = &chunk.records[current_hour]; current_wide = &chunk.wide[current_hour];
+                 }
+                 p += 28;
+-                switch (*p) {
+-                    case 'G': p += 4; break;
+-                    case 'H': p += 5; break;
+-                    case 'D': p += 7; break;
+-                    case 'O': p += 8; break;
+-                    case 'P': p += p[1] == 'U' ? 4 : p[1] == 'O' ? 5 : 6; break;
+-                    default: throw std::runtime_error("unknown method");
+-                }
++                // The grammar's longest method plus separator fits in eight bytes.
++                uint64_t method_word; std::memcpy(&method_word, p, 8);
++                uint64_t x = method_word ^ 0x2020202020202020ULL;
++                uint64_t spaces = (x - 0x0101010101010101ULL) & ~x & 0x8080808080808080ULL;
++                if (!spaces) throw std::runtime_error("missing method separator");
++                p += std::countr_zero(spaces) / 8 + 1;
+                 const char* start = p;
+                 p = static_cast<const char*>(std::memchr(start, ' ', limit - start));
+                 if (!p || limit - p < 5) throw std::runtime_error("missing endpoint/status");

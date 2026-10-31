@@ -21,6 +21,7 @@ MODULES = {"a": "a_ingest", "c": "c_join", "d": "d_traverse"}
 OUTPUTS = {"a": "summary.txt", "c": "aggregates.txt", "d": "distances.txt"}
 ACTIVE_TRACKS = set(MODULES)
 THREADS = [1, 6, 12]
+RUN_ID = ""
 
 
 def digest(path):
@@ -75,6 +76,7 @@ def execute(track, data, out, threads=6):
 def check(track, label, inputs, expected, repeat=None):
     if track not in ACTIVE_TRACKS:
         return None
+    if RUN_ID: label = RUN_ID + "-" + label
     data = ROOT / ".data" / "cases" / label
     data.mkdir(parents=True, exist_ok=True)
     for name, content in inputs.items():
@@ -241,8 +243,9 @@ def adversarial():
 
 
 def main():
-    global BIN_DIR, ACTIVE_TRACKS, THREADS
+    global BIN_DIR, ACTIVE_TRACKS, THREADS, RUN_ID
     parser = argparse.ArgumentParser()
+    parser.add_argument("--run-id", default="", help="Isolate fixture names and output paths for concurrent validation jobs")
     parser.add_argument("--binary-dir", type=Path, default=ROOT / ".build")
     parser.add_argument("--source-root", type=Path, default=ROOT, help="context containing track folders for the tested binaries")
     parser.add_argument("--scale", choices=["tiny", "sample", "full"], default="tiny")
@@ -255,12 +258,14 @@ def main():
     args = parser.parse_args()
     BIN_DIR = args.binary_dir.resolve()
     ACTIVE_TRACKS, THREADS = set(args.tracks), args.threads
+    RUN_ID = args.run_id
+    if RUN_ID and not re.fullmatch(r"[a-z0-9][a-z0-9-]*", RUN_ID): raise ValueError("invalid run id")
     report = {"created_at_utc": datetime.datetime.now(datetime.timezone.utc).isoformat(),
               "platform": platform.platform(), "python": sys.version,
               "memory_scope": "process RSS, not official cgroup memory.peak", "official_score": False,
               "binary_sha256": {tr: digest(BIN_DIR / ("track-" + tr)) for tr in args.tracks},
               "official_revision": (ROOT / "tools/official-revision.txt").read_text().strip(),
-              "source_root": str(args.source_root.resolve()),
+              "run_id": RUN_ID, "source_root": str(args.source_root.resolve()),
               "source_sha256_scope": "Context snapshot at verification time; binary fingerprint recorded separately. Submitted build inputs are matched to independent Linux build reports.",
               "source_sha256": {str(p.relative_to(args.source_root.resolve())): digest(p) for tr in args.tracks
                                 for p in sorted((args.source_root.resolve() / ("track-" + tr)).glob("*")) if p.is_file()}, "checks": []}
@@ -290,7 +295,7 @@ def main():
                 assert ref_hash in spec["expected_output_sha256"], "reference/public hash disagreement"
             runs = []
             for run, threads in enumerate(THREADS):
-                out = ROOT / ".out" / track / label / ("native-" + str(run))
+                out = ROOT / ".out" / RUN_ID / track / label / ("native-" + str(run))
                 measurement = execute(track, data, out, threads)
                 assert (out / OUTPUTS[track]).read_bytes() == expected, track + " " + label
                 runs.append(measurement)

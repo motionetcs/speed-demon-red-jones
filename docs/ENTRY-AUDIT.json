@@ -1,11 +1,14 @@
 {
-  "observed_at_utc": "2026-10-31T10:02:02.519614+00:00",
+  "observed_at_utc": "2026-10-31T10:31:21.966361+00:00",
   "scope": "Observable repository/history/build-policy checks, not an organizer eligibility certificate",
-  "source_commit": "bf751943ca55904498ae762c28dd74c2f3fd8861",
+  "source_commit": "f378b2e51c3a9e3236a37bd0424317b633befa42",
   "dirty_paths": [
     "M docs/STATE.md",
     " M docs/prototype-patches/README.md",
+    " M docs/round38-sanitize.json",
+    " M docs/round38-tsan.json",
     " M tools/test_name_store.cpp",
+    " M tools/verify.py",
     " M track-a/PERF.md",
     " M track-a/README.md",
     " M track-a/main.cpp",
@@ -13,50 +16,29 @@
     " M track-c/README.md",
     " M track-c/names.hpp",
     " M track-d/PERF.md",
-    " M track-d/README.md",
-    " M track-d/edge_store.hpp",
-    " M track-d/load_cursors.hpp",
-    " M track-d/main.cpp",
-    "?? docs/prototype-patches/round34-a-blocks.patch",
-    "?? docs/prototype-patches/round34-a-deque.patch",
-    "?? docs/prototype-patches/round34-d-decoded-staging.patch",
-    "?? docs/prototype-patches/round35-a-reserve1024.patch",
-    "?? docs/prototype-patches/round35-a-reserve40.patch",
-    "?? docs/prototype-patches/round35-a-reserve512.patch",
-    "?? docs/prototype-patches/round35-a-reserve64.patch",
-    "?? docs/prototype-patches/round35-d-ordered32.patch",
-    "?? docs/prototype-patches/round35-d-ordered8.patch",
-    "?? docs/prototype-patches/round35-phase-a.patch",
-    "?? docs/prototype-patches/round35-phase-c.patch",
-    "?? docs/prototype-patches/round35-phase-d.patch",
-    "?? docs/prototype-patches/round36-a-front_sample.patch",
-    "?? docs/prototype-patches/round36-a-front_std.patch",
-    "?? docs/prototype-patches/round36-c-group-split.patch",
-    "?? docs/prototype-patches/round36-c-split-arena.patch",
-    "?? docs/prototype-patches/round37-a-hour.patch",
-    "?? docs/prototype-patches/round37-a-method.patch",
-    "?? docs/round33-start-board.json",
-    "?? docs/round33-start-comparison.json",
-    "?? docs/round34-layout-bench.json",
-    "?? docs/round35-reserve-order-profile.json",
-    "?? docs/round36-cache-arena-bench.json",
-    "?? docs/round36-name-models.json",
-    "?? docs/round37-parser-loader-bench.json",
-    "?? docs/round38-a-boundaries.json",
-    "?? docs/round38-a-method-hours.json",
-    "?? docs/round38-candidate-source-match.json",
-    "?? docs/round38-country-codes.json",
-    "?? docs/round38-d-independent.json",
-    "?? docs/round38-defaults.json",
-    "?? docs/round38-gcc-models.json",
-    "?? docs/round38-linux-cases.json",
-    "?? docs/round38-linux.json",
-    "?? docs/round38-name-model-tsan.json",
-    "?? docs/round38-public.json",
-    "?? docs/round38-sanitize.json",
-    "?? docs/round38-tsan.json",
-    "?? tools/test_method_hours.py",
-    "?? tools/test_name_controls.cpp"
+    "?? docs/board-round38-parser-groups-loader.json",
+    "?? docs/prototype-patches/round39-linux-alignment.cpp",
+    "?? docs/prototype-patches/round39-method-header.patch",
+    "?? docs/prototype-patches/round41-cached-word.patch",
+    "?? docs/prototype-patches/round42-tagged-pointers.patch",
+    "?? docs/round38-isolated-linux-cases.json",
+    "?? docs/round38-isolated-sanitize.json",
+    "?? docs/round38-isolated-tsan.json",
+    "?? docs/round39-linux-alignment.json",
+    "?? docs/round39-word-alignment-bench.json",
+    "?? docs/round41-inline-word-bench.json",
+    "?? docs/round42-tagged-name-bench.json",
+    "?? docs/round43-a-boundaries.json",
+    "?? docs/round43-a-method-hours.json",
+    "?? docs/round43-candidate-source-match.json",
+    "?? docs/round43-country-codes.json",
+    "?? docs/round43-defaults.json",
+    "?? docs/round43-gcc-models.json",
+    "?? docs/round43-linux-cases.json",
+    "?? docs/round43-linux.json",
+    "?? docs/round43-public.json",
+    "?? docs/round43-sanitize.json",
+    "?? docs/round43-tsan.json"
   ],
   "repository": {
     "defaultBranchRef": {
@@ -372,6 +354,14 @@
       "evidence": [
         "2026-10-31T15:01:06+05:30",
         "2026-10-31T15:01:06+05:30"
+      ]
+    },
+    {
+      "requirement": "Observed commit timestamps inside event: f378b2e",
+      "passed": true,
+      "evidence": [
+        "2026-10-31T15:34:27+05:30",
+        "2026-10-31T15:34:27+05:30"
       ]
     },
     {
@@ -747,6 +737,11 @@
       "commit": "bf751943ca55904498ae762c28dd74c2f3fd8861",
       "author_time": "2026-10-31T15:01:06+05:30",
       "committer_time": "2026-10-31T15:01:06+05:30"
+    },
+    {
+      "commit": "f378b2e51c3a9e3236a37bd0424317b633befa42",
+      "author_time": "2026-10-31T15:34:27+05:30",
+      "committer_time": "2026-10-31T15:34:27+05:30"
     }
   ],
   "future_requirements": [

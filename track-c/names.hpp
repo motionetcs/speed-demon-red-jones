@@ -41,14 +41,16 @@ struct StringArena {
 struct Canceled {};
 struct Names {
     struct Entry { NameKey* key = nullptr; };
+    struct alignas(64) Group { Entry entries[8]; };
+    static_assert(sizeof(Group)==64);
     static constexpr uint64_t ones = 0x0101010101010101ULL, highs = 0x8080808080808080ULL;
     size_t capacity, words;
-    std::unique_ptr<Entry[]> entries;
+    std::unique_ptr<Group[]> groups;
     std::unique_ptr<std::atomic<uint64_t>[]> controls;
     std::atomic<size_t> used{0};
     std::atomic<bool> canceled{false}, too_small{false};
     Names(size_t size, size_t countries) : capacity(size), words((countries + 63) / 64),
-        entries(std::make_unique<Entry[]>(size)), controls(new std::atomic<uint64_t>[size / 8]{}) {
+        groups(std::make_unique<Group[]>(size/8)), controls(new std::atomic<uint64_t>[size / 8]{}) {
         if (size < 8 || (size & (size - 1))) throw std::runtime_error("invalid name capacity");
     }
     static uint64_t matches(uint64_t word, uint8_t tag) {
@@ -60,7 +62,7 @@ struct Names {
     }
     void prefetch(uint64_t hash) const {
         size_t group = (hash & (capacity - 1)) / 8;
-        __builtin_prefetch(&controls[group], 0, 1); __builtin_prefetch(&entries[group * 8], 0, 1);
+        __builtin_prefetch(&controls[group], 0, 1); __builtin_prefetch(&groups[group], 0, 1);
     }
     std::string_view bytes(const NameKey* key) const {
         return {reinterpret_cast<const char*>(key) + sizeof(NameKey) + words * sizeof(std::atomic<uint64_t>), key->length};
@@ -78,8 +80,8 @@ struct Names {
                 }
                 uint64_t candidates = matches(word, tag);
                 while (candidates) {
-                    size_t index = group * 8 + std::countr_zero(candidates) / 8;
-                    if (bytes(entries[index].key) == key) return entries[index];
+                    Entry& entry = groups[group].entries[std::countr_zero(candidates) / 8];
+                    if (bytes(entry.key) == key) return entry;
                     candidates &= candidates - 1;
                 }
                 uint64_t empty = matches(word, 0);
@@ -87,7 +89,7 @@ struct Names {
                 unsigned shift = std::countr_zero(empty) / 8 * 8;
                 uint64_t expected = word;
                 if (!controls[group].compare_exchange_strong(expected, word | (uint64_t(1) << shift), std::memory_order_acq_rel)) continue;
-                Entry& entry = entries[group * 8 + shift / 8];
+                Entry& entry = groups[group].entries[shift / 8];
                 try { entry.key = storage.make(key, words); }
                 catch (...) { canceled.store(true); controls[group].store(word, std::memory_order_release); throw; }
                 // A group has at most one writer; every other writer waits for byte1 to clear.

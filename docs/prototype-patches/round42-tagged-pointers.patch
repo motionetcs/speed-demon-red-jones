@@ -1,0 +1,68 @@
+--- a/track-c/main.cpp
++++ b/track-c/main.cpp
+@@ -174,7 +174,7 @@
+                         uint64_t region = csv.integer();
+                         int64_t amount = csv.amount(); csv.newline();
+                         size_t country = region < region_lookup.size() && region_lookup[region] != no_region ? region_lookup[region] : unmatched;
+-                        auto& entry = names.intern(name.value, local.storage, hash);
++                        auto* entry = names.intern(name.value, local.storage, hash);
+                         Group& group = local.groups[country];
+                         group.names += names.first(entry, country);
+                         ++group.count; group.ids += static_cast<int64_t>(id); group.sum += amount;
+--- a/track-c/names.hpp
++++ b/track-c/names.hpp
+@@ -39,7 +39,8 @@
+ };
+ struct Canceled {};
+ struct Names {
+-    struct Entry { std::atomic<uint64_t> state{0}; NameKey* key = nullptr; };
++    struct Entry { std::atomic<uint64_t> state{0}; };
++    static_assert(sizeof(uintptr_t)==sizeof(uint64_t) && alignof(NameKey)>=8);
+     size_t capacity, words;
+     std::unique_ptr<Entry[]> entries;
+     std::atomic<size_t> used{0};
+@@ -53,33 +54,37 @@
+     std::string_view bytes(const NameKey* key) const {
+         return {reinterpret_cast<const char*>(key) + sizeof(NameKey) + words * sizeof(std::atomic<uint64_t>), key->length};
+     }
+-    Entry& intern(std::string_view key, StringArena& storage, uint64_t hash) {
++    NameKey* intern(std::string_view key, StringArena& storage, uint64_t hash) {
+         if (canceled.load(std::memory_order_relaxed)) throw Canceled{};
+         size_t index = hash & (capacity - 1);
+         for (;;) {
+             Entry& entry = entries[index]; uint64_t state = entry.state.load(std::memory_order_acquire);
+             if (state == 0) {
+                 if (entry.state.compare_exchange_strong(state, 1, std::memory_order_acq_rel)) {
+-                    try { entry.key = storage.make(key, words); }
++                    NameKey* stored;
++                    try { stored = storage.make(key, words); }
+                     catch (...) { canceled.store(true); entry.state.store(0, std::memory_order_release); throw; }
+-                    entry.state.store(hash, std::memory_order_release);
++                    entry.state.store(reinterpret_cast<uintptr_t>(stored) | (hash >> 61), std::memory_order_release);
+                     if (used.fetch_add(1, std::memory_order_relaxed) >= capacity * 7 / 8) {
+                         too_small.store(true); canceled.store(true); throw Canceled{};
+                     }
+-                    return entry;
++                    return stored;
+                 }
+             }
+             while (state == 1) {
+                 if (canceled.load(std::memory_order_relaxed)) throw Canceled{};
+                 state = entry.state.load(std::memory_order_acquire);
+             }
+-            if (state == hash && bytes(entry.key) == key) return entry;
++            if (state > 1 && (state & 7) == (hash >> 61)) {
++                auto* stored = reinterpret_cast<NameKey*>(state & ~uint64_t(7));
++                if (bytes(stored) == key) return stored;
++            }
+             if (canceled.load(std::memory_order_relaxed)) throw Canceled{};
+             index = (index + 1) & (capacity - 1);
+         }
+     }
+-    bool first(Entry& entry, size_t country) {
+-        auto* bits = reinterpret_cast<std::atomic<uint64_t>*>(reinterpret_cast<char*>(entry.key) + sizeof(NameKey));
++    bool first(NameKey* key, size_t country) {
++        auto* bits = reinterpret_cast<std::atomic<uint64_t>*>(reinterpret_cast<char*>(key) + sizeof(NameKey));
+         uint64_t bit = uint64_t(1) << (country % 64);
+         return (bits[country / 64].fetch_or(bit, std::memory_order_relaxed) & bit) == 0;
+     }

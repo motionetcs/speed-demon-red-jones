@@ -3,9 +3,11 @@
 #include "endpoint_table.hpp"
 #include "parallel.hpp"
 #include <atomic>
+#include <bit>
 #include <memory>
 #include <numeric>
 
+static_assert(std::endian::native == std::endian::little); // The specified target is linux/amd64.
 static constexpr uint32_t latency_escape = (1U << 19) - 1;
 struct Count { uint32_t count = 0, errors = 0; };
 
@@ -35,33 +37,20 @@ int main(int argc, char** argv) {
         parallel(threads, [&](unsigned worker) {
             const char* p = boundaries[worker]; const char* limit = boundaries[worker + 1];
             auto& chunk = chunks[worker];
-            uint64_t previous_hour = UINT64_MAX; int current_hour = -1;
-            std::vector<uint32_t>* current_records = nullptr; std::vector<uint32_t>* current_wide = nullptr;
             size_t reserve_hint = (limit - p) / (72 * 64);
             while (p < limit) {
                 if (limit - p < 40) throw std::runtime_error("truncated timestamp");
                 const char* line = p;
-                uint64_t hour_code; std::memcpy(&hour_code, p + 5, 8);
-                if (hour_code != previous_hour || current_hour < 0) {
-                    int month = (p[5] - '0') * 10 + p[6] - '0', day = (p[8] - '0') * 10 + p[9] - '0';
-                    current_hour = (month == 10 ? day - 30 : day + 1) * 24 + (p[11] - '0') * 10 + p[12] - '0' - 18;
-                    if (current_hour < 0 || current_hour >= 72) throw std::runtime_error("hour outside specification");
-                    previous_hour = hour_code;
-                    if (chunk.first[current_hour] == UINT32_MAX) {
-                        chunk.first[current_hour] = static_cast<uint32_t>(line - file.data);
-                        chunk.records[current_hour].reserve(reserve_hint);
-                    }
-                    current_records = &chunk.records[current_hour]; current_wide = &chunk.wide[current_hour];
-                }
+                int month = (p[5] - '0') * 10 + p[6] - '0', day = (p[8] - '0') * 10 + p[9] - '0';
+                int hour = (month == 10 ? day - 30 : day + 1) * 24 + (p[11] - '0') * 10 + p[12] - '0' - 18;
+                if (hour < 0 || hour >= 72) throw std::runtime_error("hour outside specification");
                 p += 28;
-                switch (*p) {
-                    case 'G': p += 4; break;
-                    case 'H': p += 5; break;
-                    case 'D': p += 7; break;
-                    case 'O': p += 8; break;
-                    case 'P': p += p[1] == 'U' ? 4 : p[1] == 'O' ? 5 : 6; break;
-                    default: throw std::runtime_error("unknown method");
-                }
+                // The grammar's longest method plus separator fits in eight bytes.
+                uint64_t method_word; std::memcpy(&method_word, p, 8);
+                uint64_t x = method_word ^ 0x2020202020202020ULL;
+                uint64_t spaces = (x - 0x0101010101010101ULL) & ~x & 0x8080808080808080ULL;
+                if (!spaces) throw std::runtime_error("missing method separator");
+                p += std::countr_zero(spaces) / 8 + 1;
                 const char* start = p;
                 p = static_cast<const char*>(std::memchr(start, ' ', limit - start));
                 if (!p || limit - p < 5) throw std::runtime_error("missing endpoint/status");
@@ -71,8 +60,12 @@ int main(int argc, char** argv) {
                 if (p == start || p - start > 10 || latency > UINT32_MAX || p == limit || *p != '\n') throw std::runtime_error("invalid latency");
                 ++p;
                 uint16_t key = endpoints.intern(endpoint, std::hash<std::string_view>{}(endpoint));
-                current_records->push_back(std::min(uint32_t(latency), latency_escape) << 13 | uint32_t(error) << 12 | key);
-                if (latency >= latency_escape) current_wide->push_back(static_cast<uint32_t>(latency));
+                if (chunk.first[hour] == UINT32_MAX) {
+                    chunk.first[hour] = static_cast<uint32_t>(line - file.data);
+                    chunk.records[hour].reserve(reserve_hint);
+                }
+                chunk.records[hour].push_back(std::min(uint32_t(latency), latency_escape) << 13 | uint32_t(error) << 12 | key);
+                if (latency >= latency_escape) chunk.wide[hour].push_back(static_cast<uint32_t>(latency));
             }
         });
         std::vector<std::string_view> paths(endpoints.used.load());
