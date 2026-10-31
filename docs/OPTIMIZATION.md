@@ -49,3 +49,9 @@ Every refined track passes new independent sample seeds 23/41, full public byte/
 Commit `072ce9b9046484a76c7e98aebd1e998e0d440d17` passed all gates on A/C/D. A: 0.076981 s, K=20.449888, 65.534547 points. D: 0.547406 s, K=10.876457, 51.824372 points. Both improve our previous measured best K. C: 0.106731 s, 37,818,368 bytes, K=14.656236, 58.301122 points; its lower time did not offset higher measured memory, so the refinement loses to C's previous 60.253844 points. Exact records: `board-opt-refined-acd.json`.
 
 Next isolated board experiment changes only Docker compiler targeting to `-march=native` for A/C/D. Official harness documentation says these builds run on the scoring CPU. Offline Linux full and tiny output checks pass; the emulated CPU's performance is not used to predict an Intel gain. A separate uncommitted C membership-read fast path is deliberately excluded from this compilation comparison.
+
+## Native compiler comparison and next memory experiment
+
+Commit `f6b17e3b4d532d0dec3952df9da6d8d4297323de` passed all gates. A K=19.737736 (64.764867 points) trails generic K=20.449888, so A returns to its already-validated generic build. C K=15.787118 (59.915143 points) improves the arena version but still trails the first parallel K=16.035293. D K=10.886019 (51.843455 points) is effectively flat with generic K=10.876457. Single live practice runs contain variation; small deltas are not statistical proof.
+
+The next exact-commit submission uses borrowed mapped name bytes for C and the second-pass graph loader for D. Both have passed new independent samples 47/61, all adversarial cases, full hashes at 1/6/12, address/UB and thread sanitizers, and offline Linux checks. Local C retains most speed gains; D is a deliberate runtime/memory tradeoff. Actual K will decide retention. A is the known best generic configuration.

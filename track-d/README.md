@@ -2,7 +2,7 @@
 
 Read `/data/graph.txt` and `/data/queries.txt`; write only `/out/distances.txt`. Local `--data` and `--out` options are supported. No extra runtime dependencies. `SPEED_DEMON_THREADS=1` through `12` selects query workers; the default is six.
 
-Up to four workers parse newline-aligned graph chunks once into temporary edge tuples and local degree counts. Prefix offsets assign disjoint scatter ranges for forward and reverse compressed adjacency arrays. Temporary loading buffers are released before query processing. All directed edges are preserved, including duplicates, zero weights, and self-loops. Sources with no outgoing edges and targets with no incoming edges permit exact early rejection.
+Up to four workers parse newline-aligned graph chunks into local degree counts. Prefix offsets assign disjoint scatter ranges for forward and reverse compressed adjacency arrays. A second parallel parse fills those ranges directly, avoiding a retained edge-tuple array. Degree/cursor buffers are released before query processing. All directed edges are preserved, including duplicates, zero weights, and self-loops. Sources with no outgoing edges and targets with no incoming edges permit exact early rejection.
 
 Each packed adjacency entry has a uint32 destination and uint16 weight. The sentinel 65535 redirects to an exact uint32 weight table keyed by edge index and direction. This is lossless for every valid weight; it does not assume that all weights are small. Path sums remain uint64.
 

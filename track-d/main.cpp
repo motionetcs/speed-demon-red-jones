@@ -52,9 +52,8 @@ int main(int argc, char** argv) {
             }
             boundaries[i] = p;
         }
-        struct Triple { uint32_t from, to, weight; };
         struct Local {
-            std::vector<Triple> edges;
+            size_t count = 0;
             std::vector<uint32_t> out, in;
             std::vector<std::pair<uint32_t, uint32_t>> wide;
         };
@@ -62,17 +61,16 @@ int main(int argc, char** argv) {
         parallel(loaders, [&](unsigned worker) {
             auto& local = locals[worker]; local.out.resize(n); local.in.resize(n);
             Scanner input{boundaries[worker], boundaries[worker + 1]};
-            local.edges.reserve(static_cast<size_t>(input.end - input.p) / 18);
             while (input.more()) {
-                uint32_t u = input.number(), v = input.number(), weight = input.number();
+                uint32_t u = input.number(), v = input.number(); input.number();
                 if (u >= n || v >= n) throw std::runtime_error("node outside graph");
-                local.edges.push_back(Triple{u, v, weight}); ++local.out[u]; ++local.in[v];
+                ++local.count; ++local.out[u]; ++local.in[v];
             }
         });
         std::vector<uint32_t> offsets(size_t(n) + 1), reverse_offsets(size_t(n) + 1);
         size_t edge_count = 0;
         for (const auto& local : locals) {
-            edge_count += local.edges.size();
+            edge_count += local.count;
             for (size_t i = 0; i < n; ++i) {
                 offsets[i + 1] += local.out[i]; reverse_offsets[i + 1] += local.in[i];
             }
@@ -93,13 +91,15 @@ int main(int argc, char** argv) {
         std::vector<Edge> edges(m), reverse_edges(m);
         parallel(loaders, [&](unsigned worker) {
             auto& local = locals[worker];
-            for (const auto& edge : local.edges) {
-                uint32_t out = local.out[edge.from]++, in = local.in[edge.to]++;
-                uint16_t weight = static_cast<uint16_t>(std::min(edge.weight, uint32_t(UINT16_MAX)));
-                edges[out] = Edge{edge.to, weight}; reverse_edges[in] = Edge{edge.from, weight};
-                if (edge.weight >= UINT16_MAX) {
-                    local.wide.emplace_back(out * 2, edge.weight);
-                    local.wide.emplace_back(in * 2 + 1, edge.weight);
+            Scanner input{boundaries[worker], boundaries[worker + 1]};
+            while (input.more()) {
+                uint32_t u = input.number(), v = input.number(), value = input.number();
+                uint32_t out = local.out[u]++, in = local.in[v]++;
+                uint16_t weight = static_cast<uint16_t>(std::min(value, uint32_t(UINT16_MAX)));
+                edges[out] = Edge{v, weight}; reverse_edges[in] = Edge{u, weight};
+                if (value >= UINT16_MAX) {
+                    local.wide.emplace_back(out * 2, value);
+                    local.wide.emplace_back(in * 2 + 1, value);
                 }
             }
         });

@@ -52,3 +52,9 @@ The original serial-layout selection rejection remains valid for that layout. Af
 `run-3e1350a66528` on `072ce9b9046484a76c7e98aebd1e998e0d440d17` passed every gate: T=0.076981 s, M=60,006,400 bytes, S=327, K=20.449888, machine points=65.534547. Record: `../docs/board-opt-refined-acd.json`.
 
 Next experiment: `-march=native` in the Docker build. The official harness explicitly builds native-targeted submissions on the scoring CPU. Offline emulated Linux full-data and tiny hashes pass for all three tracks; reports `opt-native-cpu-containers-{public,tiny}.json`. Emulated timings are not performance evidence for Intel. Source algorithms are unchanged for this compilation experiment.
+
+## Native compilation: actual board record
+
+`run-720ad9c54841` on `f6b17e3b4d532d0dec3952df9da6d8d4297323de` passed every gate: T=0.083108 s, M=59,158,528 bytes, S=327, K=19.737736, machine points=64.764867. Record: `../docs/board-opt-native-cpu.json`.
+
+Observed K is below the generic-CPU build (20.449888), so generic targeting is restored. One practice run does not establish statistical significance. The restored Docker/source inputs match the already-passed generic Linux validation.
