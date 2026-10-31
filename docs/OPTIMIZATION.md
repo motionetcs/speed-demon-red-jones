@@ -67,3 +67,9 @@ Next scored commit pending: `c21563d` uses the fully validated direct parser for
 Commit `c21563dbfc44b1504bf8cc5d05f7fceaa8cbf1dd` passed every gate. A's direct parser scored 0.069874 s, K=21.467492, 66.589066 points (`run-bbd53e3cc9e6`), so it is retained. C source was unchanged and rescored 63.349231 points (`run-2f5d6b5da65d`); this small increase is repeat variation. D twelve workers scored 0.606544 s, K=11.156630, 52.376652 points (`run-4b7dcbc9bc49`), below six-worker K=11.670991. Six is restored and full native/Linux hashes are rechecked.
 
 Retained combination: A12 generic compiler/direct parser/exact selection; C12 native compiler/direct CSV numeric parser/borrowed name bytes and separate exact bitmap; D6 native compiler/two-pass load with at most4 loaders/bidirectional radix/shared query-owned labels/lossless packed edges. The next exact-commit board run confirms this combination. Final holdout and judges remain separate from practice-board results.
+
+## Retained combination confirmed
+
+`07f2ac73092f64d98e40825809e88ce7010dca9f` passed all check/build/correctness/timeout/sandbox gates on the real board. A `run-c70da1f28b23`: 0.069571 s, K21.482224,66.603962 points. C `run-9522fdbe2be1`: 0.100337 s, K18.382779,63.220559 points. D `run-9da2b9e55b4a`: 0.590860 s, K11.297109,52.648366 points. These are the latest combined-source confirmation; best historical C/D records remain higher on identical retained algorithms. They are not conflated with this run.
+
+Retained source is A12/C12/D6. Seven optimization source revisions were actually scored after the baseline, including rejected configurations. All reports remain in this repository. `RESULTS.md` gives the final current leader comparison and distinguishes best observed records from the combined confirmation. The final documentation update changes no runtime build inputs.

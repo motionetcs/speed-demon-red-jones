@@ -74,3 +74,9 @@ Seven alternating local trials after warmup measured six-worker medians of 0.084
 `run-bbd53e3cc9e6` on `c21563dbfc44b1504bf8cc5d05f7fceaa8cbf1dd` passed every gate: T=0.069874 s, M=59,830,272 bytes, S=328, K=21.467492, machine points=66.589066. Record: `../docs/board-opt-parser-a-d12.json`.
 
 The direct parser raises observed K from 20.449888 to 21.467492, so it is retained. Against the original board baseline it is about 7.72x faster.
+
+## Retained source confirmation
+
+`run-c70da1f28b23` on `07f2ac73092f64d98e40825809e88ce7010dca9f` passed every gate at 2026-10-31T04:57:41Z: T=0.069571 s, M=60,276,736 bytes, S=328, K=21.482224, machine points=66.603962. Full record: `../docs/board-opt-retained-acd.json`.
+
+This confirms the retained source rather than a new optimization. A/C algorithms are unchanged from the prior parser comparison; D restores the earlier tested six-worker loader. The spread between unchanged-source practice runs is real, so best observed values and the latest confirmation are reported separately. Final holdout and judging remain separate.
