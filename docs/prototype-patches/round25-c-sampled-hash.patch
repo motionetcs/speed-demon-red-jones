@@ -1,0 +1,27 @@
+--- a/track-c/names.hpp
++++ b/track-c/names.hpp
+@@ -1,5 +1,6 @@
+ #pragma once
+ #include <algorithm>
++#include <bit>
+ #include <atomic>
+ #include <cstdint>
+ #include <cstring>
+@@ -47,7 +48,16 @@
+     Names(size_t size, size_t countries) : capacity(size), words((countries + 63) / 64),
+         entries(std::make_unique<Entry[]>(size)) {}
+     static uint64_t hash_key(std::string_view key) {
+-        uint64_t hash = std::hash<std::string_view>{}(key); return hash < 2 ? hash + 2 : hash;
++        uint64_t hash;
++        if (key.size() < 8) hash = std::hash<std::string_view>{}(key);
++        else {
++            uint64_t a, b, c;
++            std::memcpy(&a, key.data(), 8); std::memcpy(&b, key.data() + key.size() - 8, 8);
++            std::memcpy(&c, key.data() + (key.size() - 8) / 2, 8);
++            hash = a * 0x9e3779b97f4a7c15ULL ^ std::rotr(b, 23) ^ c * 0xc2b2ae3d27d4eb4fULL ^ key.size();
++            hash ^= hash >> 32;
++        }
++        return hash < 2 ? hash + 2 : hash;
+     }
+     void prefetch(uint64_t hash) const { __builtin_prefetch(&entries[hash & (capacity - 1)], 0, 1); }
+     std::string_view bytes(const NameKey* key) const {

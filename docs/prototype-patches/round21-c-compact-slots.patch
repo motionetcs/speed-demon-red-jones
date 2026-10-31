@@ -1,0 +1,109 @@
+--- a/track-c/main.cpp
++++ b/track-c/main.cpp
+@@ -165,7 +165,7 @@
+                         uint64_t region = csv.integer();
+                         int64_t amount = csv.amount(); csv.newline();
+                         size_t country = region < lookup.size() && lookup[region] != missing ? lookup[region] : unmatched;
+-                        auto& entry = names.intern(name.value, local.storage, hash);
++                        auto* entry = names.intern(name.value, local.storage, hash);
+                         Group& group = local.groups[country];
+                         group.names += names.first(entry, country);
+                         ++group.count; group.ids += static_cast<int64_t>(id); group.sum += amount;
+--- a/track-c/names.hpp
++++ b/track-c/names.hpp
+@@ -21,15 +21,26 @@
+     std::vector<std::unique_ptr<char[]>> blocks;
+     char* next = nullptr;
+     size_t remaining = 0;
+-    NameKey* make(std::string_view value, size_t words) {
++    char* block_start = nullptr;
++    uint32_t block_id = 0, token = 0;
++    uint64_t generation = 0;
++    NameKey* make(std::string_view value, size_t words, char** book = nullptr,
++                  std::atomic<uint32_t>* next_block = nullptr, uint64_t session = 0) {
++        if (generation != session) { remaining = 0; generation = session; }
+         if (value.size() > UINT32_MAX || words > (SIZE_MAX - sizeof(NameKey) - value.size() - 7) / sizeof(std::atomic<uint64_t>))
+             throw std::runtime_error("name storage size overflow");
+         size_t bytes = sizeof(NameKey) + words * sizeof(std::atomic<uint64_t>) + value.size();
+         bytes = (bytes + 7) & ~size_t(7);
+         if (bytes > remaining) {
+             size_t capacity = std::max<size_t>(65536, bytes);
+-            blocks.emplace_back(new char[capacity]); next = blocks.back().get(); remaining = capacity;
++            blocks.emplace_back(new char[capacity]); next = block_start = blocks.back().get(); remaining = capacity;
++            if (book) {
++                block_id = next_block->fetch_add(1, std::memory_order_relaxed);
++                if (block_id >= 65536) throw std::runtime_error("name block directory exhausted");
++                book[block_id] = block_start;
++            }
+         }
++        token = block_id << 16 | static_cast<uint32_t>(next - block_start);
+         auto* result = ::new (static_cast<void*>(next)) NameKey{static_cast<uint32_t>(value.size()), 0};
+         ::new (static_cast<void*>(next + sizeof(NameKey))) std::atomic<uint64_t>[words]{};
+         char* data = next + sizeof(NameKey) + words * sizeof(std::atomic<uint64_t>);
+@@ -39,7 +50,13 @@
+ };
+ struct Canceled {};
+ struct Names {
+-    struct Entry { std::atomic<uint64_t> state{0}; NameKey* key = nullptr; };
++    struct Entry { std::atomic<uint64_t> state{0}; };
++    static_assert(sizeof(Entry) == 8);
++    static inline std::atomic<uint64_t> sessions{1};
++    uint64_t session = sessions.fetch_add(1, std::memory_order_relaxed);
++    std::unique_ptr<char*[]> book{new char*[65536]};
++    std::atomic<uint32_t> next_block{0};
++    NameKey* resolve(uint32_t token) const { return reinterpret_cast<NameKey*>(book[token >> 16] + (token & 65535)); }
+     size_t capacity, words;
+     std::unique_ptr<Entry[]> entries;
+     std::atomic<size_t> used{0};
+@@ -50,40 +67,40 @@
+         uint64_t hash = std::hash<std::string_view>{}(key); return hash < 2 ? hash + 2 : hash;
+     }
+     void prefetch(uint64_t hash) const { __builtin_prefetch(&entries[hash & (capacity - 1)], 0, 1); }
+-    void prefetch_key(uint64_t hash) const {
+-        const auto& entry = entries[hash & (capacity - 1)];
+-        if (entry.state.load(std::memory_order_acquire) > 1) __builtin_prefetch(entry.key, 0, 1);
+-    }
+     std::string_view bytes(const NameKey* key) const {
+         return {reinterpret_cast<const char*>(key) + sizeof(NameKey) + words * sizeof(std::atomic<uint64_t>), key->length};
+     }
+-    Entry& intern(std::string_view key, StringArena& storage, uint64_t hash) {
++    NameKey* intern(std::string_view key, StringArena& storage, uint64_t hash) {
+         if (canceled.load(std::memory_order_relaxed)) throw Canceled{};
+         size_t index = hash & (capacity - 1);
+         for (;;) {
+             Entry& entry = entries[index]; uint64_t state = entry.state.load(std::memory_order_acquire);
+             if (state == 0) {
+                 if (entry.state.compare_exchange_strong(state, 1, std::memory_order_acq_rel)) {
+-                    try { entry.key = storage.make(key, words); }
++                    NameKey* value;
++                    try { value = storage.make(key, words, book.get(), &next_block, session); }
+                     catch (...) { canceled.store(true); entry.state.store(0, std::memory_order_release); throw; }
+-                    entry.state.store(hash, std::memory_order_release);
++                    entry.state.store((hash & 0xffffffff00000000ULL) | (uint64_t(storage.token) + 2), std::memory_order_release);
+                     if (used.fetch_add(1, std::memory_order_relaxed) >= capacity * 7 / 8) {
+                         too_small.store(true); canceled.store(true); throw Canceled{};
+                     }
+-                    return entry;
++                    return value;
+                 }
+             }
+             while (state == 1) {
+                 if (canceled.load(std::memory_order_relaxed)) throw Canceled{};
+                 state = entry.state.load(std::memory_order_acquire);
+             }
+-            if (state == hash && bytes(entry.key) == key) return entry;
++            if (state > 1 && (state & 0xffffffff00000000ULL) == (hash & 0xffffffff00000000ULL)) {
++                auto* value = resolve(uint32_t(state) - 2);
++                if (bytes(value) == key) return value;
++            }
+             if (canceled.load(std::memory_order_relaxed)) throw Canceled{};
+             index = (index + 1) & (capacity - 1);
+         }
+     }
+-    bool first(Entry& entry, size_t country) {
+-        auto* bits = reinterpret_cast<std::atomic<uint64_t>*>(reinterpret_cast<char*>(entry.key) + sizeof(NameKey));
++    bool first(NameKey* key, size_t country) {
++        auto* bits = reinterpret_cast<std::atomic<uint64_t>*>(reinterpret_cast<char*>(key) + sizeof(NameKey));
+         uint64_t bit = uint64_t(1) << (country % 64);
+         return (bits[country / 64].fetch_or(bit, std::memory_order_relaxed) & bit) == 0;
+     }

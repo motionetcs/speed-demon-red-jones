@@ -1,0 +1,40 @@
+--- a/track-c/main.cpp
++++ b/track-c/main.cpp
+@@ -3,7 +3,6 @@
+ #include "names.hpp"
+ #include <array>
+ #include <numeric>
+-#include <unordered_map>
+ #include <vector>
+ 
+ struct Field { std::string_view value; size_t bytes; bool escaped; };
+@@ -97,17 +96,23 @@
+         auto h1 = region_csv.field(scratch, false); region_csv.comma();
+         auto h2 = region_csv.field(scratch, false); region_csv.newline();
+         if (h1.value != "region_id" || h2.value != "country") throw std::runtime_error("bad regions header");
+-        std::unordered_map<std::string_view, uint16_t> countries;
++        constexpr uint16_t missing = UINT16_MAX;
++        std::vector<uint16_t> country_index(26 * 26 * 26, missing);
+         std::vector<Group> groups;
+-        constexpr uint16_t missing = UINT16_MAX;
+         std::vector<uint16_t> lookup(1000000, missing);
+         while (region_csv.p < region_csv.end) {
+             uint64_t id = region_csv.integer();
+-            auto country = region_csv.field(scratch, false).value; region_csv.newline();
+-            auto [it, added] = countries.try_emplace(country, static_cast<uint16_t>(groups.size()));
+-            if (added) groups.push_back(Group{country});
++            if (region_csv.end - region_csv.p < 3) throw std::runtime_error("short country code");
++            std::string_view country(region_csv.p, 3); region_csv.p += 3; region_csv.newline();
++            uint32_t code = 0;
++            for (unsigned char byte : country) {
++                if (byte < 'A' || byte > 'Z') throw std::runtime_error("invalid country code");
++                code = code * 26 + byte - 'A';
++            }
++            auto& dense = country_index[code];
++            if (dense == missing) { dense = static_cast<uint16_t>(groups.size()); groups.push_back(Group{country}); }
+             if (id >= lookup.size()) lookup.resize(id + 1, missing);
+-            lookup[id] = it->second;
++            lookup[id] = dense;
+         }
+         size_t unmatched = groups.size();
+         groups.push_back(Group{"_UNMATCHED"});

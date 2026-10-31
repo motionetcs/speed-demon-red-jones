@@ -1,0 +1,28 @@
+--- a/track-a/main.cpp
++++ b/track-a/main.cpp
+@@ -5,7 +5,16 @@
+ #include <atomic>
+ #include <memory>
+ #include <numeric>
++#include <bit>
+ 
++static uint64_t endpoint_hash(std::string_view key) {
++    if (key.size() < 8) return std::hash<std::string_view>{}(key);
++    uint64_t a, b, c;
++    std::memcpy(&a, key.data(), 8); std::memcpy(&b, key.data() + key.size() - 8, 8);
++    std::memcpy(&c, key.data() + (key.size() - 8) / 2, 8);
++    uint64_t h = a * 0x9e3779b97f4a7c15ULL ^ std::rotr(b, 23) ^ c * 0xc2b2ae3d27d4eb4fULL ^ key.size();
++    return h ^ (h >> 32);
++}
+ static constexpr uint32_t latency_escape = (1U << 19) - 1;
+ struct Count { uint32_t count = 0, errors = 0; };
+ 
+@@ -52,7 +61,7 @@
+                 uint64_t latency = decimal_digits(p, limit);
+                 if (p == start || p - start > 10 || latency > UINT32_MAX || p == limit || *p != '\n') throw std::runtime_error("invalid latency");
+                 ++p;
+-                uint16_t key = endpoints.intern(endpoint, std::hash<std::string_view>{}(endpoint));
++                uint16_t key = endpoints.intern(endpoint, endpoint_hash(endpoint));
+                 if (chunk.first[hour] == UINT32_MAX) chunk.first[hour] = static_cast<uint32_t>(line - file.data);
+                 chunk.records[hour].push_back(std::min(uint32_t(latency), latency_escape) << 13 | uint32_t(error) << 12 | key);
+                 if (latency >= latency_escape) chunk.wide[hour].push_back(static_cast<uint32_t>(latency));

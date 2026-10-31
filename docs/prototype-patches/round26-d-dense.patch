@@ -1,0 +1,64 @@
+--- a/track-d/main.cpp
++++ b/track-d/main.cpp
+@@ -117,7 +117,7 @@
+         std::atomic<size_t> next{0};
+         auto worker = [&]<bool Compact>() {
+             constexpr uint64_t infinity = UINT64_MAX;
+-            FastDistances forward, backward;
++            FastDistances forward(n), backward(n);
+             RadixHeap forward_heap, backward_heap;
+             for (;;) {
+                 size_t query = next.fetch_add(1, std::memory_order_relaxed);
+--- a/track-d/distance_map.hpp
++++ b/track-d/distance_map.hpp
+@@ -46,40 +46,21 @@
+     }
+ };
+ 
+-// Private compact labels keep ordinary searches in cache. Large distances and
+-// the UINT32_MAX node key have an exact 64-bit fallback.
++// Node-indexed exact 32-bit labels, with UINT32_MAX and larger paths in the wide map.
+ struct FastDistances {
+-    std::vector<uint64_t> labels = std::vector<uint64_t>(4096);
+-    std::vector<uint32_t> touched;
++    std::vector<uint32_t> labels, touched;
+     Distances wide;
+-    size_t slot(uint32_t node) const {
+-        size_t index = (node * 0x9e3779b1U) & (labels.size() - 1);
+-        while (labels[index] && uint32_t(labels[index] >> 32) != node + 1) index = (index + 1) & (labels.size() - 1);
+-        return index;
+-    }
+-    void reset() { for (uint32_t index : touched) labels[index] = 0; touched.clear(); wide.reset(); }
++    explicit FastDistances(size_t nodes) : labels(nodes, UINT32_MAX) {}
++    void reset() { for (uint32_t node : touched) labels[node] = UINT32_MAX; touched.clear(); wide.reset(); }
+     uint64_t get(uint32_t node) const {
+-        if (node == UINT32_MAX || touched.empty()) return wide.get(node);
+-        uint64_t label = labels[slot(node)];
+-        return label ? uint32_t(label) : wide.get(node);
++        uint32_t value = labels[node];
++        return value != UINT32_MAX ? value : wide.get(node);
+     }
+     bool improve(uint32_t node, uint64_t distance) {
+-        if (node == UINT32_MAX) return wide.improve(node, distance);
+-        size_t index = slot(node);
+-        uint64_t previous = labels[index] ? uint32_t(labels[index]) : wide.get(node);
+-        if (distance >= previous) return false;
+-        if (distance > UINT32_MAX) return wide.improve(node, distance);
+-        if (!labels[index]) {
+-            if (touched.size() * 2 >= labels.size()) {
+-                auto old = std::move(labels); labels.assign(old.size() * 2, 0);
+-                for (auto& used : touched) {
+-                    uint64_t item = old[used]; used = static_cast<uint32_t>(slot(uint32_t(item >> 32) - 1)); labels[used] = item;
+-                }
+-                index = slot(node);
+-            }
+-            touched.push_back(static_cast<uint32_t>(index));
+-        }
+-        labels[index] = uint64_t(node + 1) << 32 | distance;
++        if (distance >= get(node)) return false;
++        if (distance >= UINT32_MAX) return wide.improve(node, distance);
++        if (labels[node] == UINT32_MAX) touched.push_back(node);
++        labels[node] = static_cast<uint32_t>(distance);
+         return true;
+     }
+ };

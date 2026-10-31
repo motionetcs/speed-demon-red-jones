@@ -117,6 +117,11 @@ int main(int argc, char** argv) {
         }
         size_t unmatched = groups.size();
         groups.push_back(Group{"_UNMATCHED"});
+        std::vector<uint8_t> narrow_lookup;
+        if (unmatched <= UINT8_MAX) {
+            narrow_lookup.assign(lookup.begin(), lookup.end());
+            std::vector<uint16_t>().swap(lookup);
+        }
         Csv header{records.data, records.data + records.size};
         header.bom();
         for (auto expected : {"id", "name", "note", "region_id", "amount"}) {
@@ -152,7 +157,9 @@ int main(int argc, char** argv) {
             Names names(capacity, groups.size());
             std::vector<Local> locals(threads);
             for (auto& local : locals) local.groups = groups;
-            parallel(threads, [&](unsigned worker) {
+            auto consume = [&]<typename Code>(const std::vector<Code>& region_lookup) {
+                constexpr Code no_region = std::numeric_limits<Code>::max();
+                parallel(threads, [&](unsigned worker) {
                 try {
                     auto& local = locals[worker];
                     Csv csv{boundaries[worker], boundaries[worker + 1]};
@@ -165,7 +172,7 @@ int main(int argc, char** argv) {
                         Field note = csv.field(unused, false); csv.comma();
                         uint64_t region = csv.integer();
                         int64_t amount = csv.amount(); csv.newline();
-                        size_t country = region < lookup.size() && lookup[region] != missing ? lookup[region] : unmatched;
+                        size_t country = region < region_lookup.size() && region_lookup[region] != no_region ? region_lookup[region] : unmatched;
                         auto& entry = names.intern(name.value, local.storage, hash);
                         Group& group = local.groups[country];
                         group.names += names.first(entry, country);
@@ -180,6 +187,8 @@ int main(int argc, char** argv) {
                     throw;
                 }
             });
+            };
+            if (narrow_lookup.empty()) consume(lookup); else consume(narrow_lookup);
             if (names.too_small.load()) continue; // Reparse with a larger exact table, never an approximate count.
             for (const auto& local : locals) for (size_t i = 0; i < groups.size(); ++i) {
                 auto& group = groups[i]; const auto& value = local.groups[i];

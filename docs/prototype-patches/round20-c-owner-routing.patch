@@ -1,0 +1,85 @@
+--- a/track-c/main.cpp
++++ b/track-c/main.cpp
+@@ -146,47 +146,48 @@
+             }
+             boundaries[i] = p;
+         }
+-        struct Local { std::vector<Group> groups; StringArena storage; };
+-        for (size_t capacity = 131072;; capacity *= 2) {
+-            Names names(capacity, groups.size());
+-            std::vector<Local> locals(threads);
+-            for (auto& local : locals) local.groups = groups;
+-            parallel(threads, [&](unsigned worker) {
++        if (records.size > UINT32_MAX) throw std::runtime_error("CSV exceeds offset capacity");
++        std::vector<std::array<std::vector<uint32_t>, 12>> routes(threads);
++        parallel(threads, [&](unsigned reader) {
++            Csv csv{boundaries[reader], boundaries[reader + 1]}; std::string scratch;
++            for (unsigned owner = 0; owner < threads; ++owner) routes[reader][owner].reserve((csv.end - csv.p) / (threads * 56));
++            while (csv.p < csv.end) {
++                csv.bom(); const char* row = csv.p;
++                csv.integer(); Field name = csv.field(scratch, false); csv.comma();
++                uint64_t hash = Names::hash_key(name.value);
++                csv.field(scratch, false); csv.comma(); csv.integer(); csv.amount(); csv.newline();
++                routes[reader][hash % threads].push_back(static_cast<uint32_t>(row - records.data));
++            }
++        });
++        struct Local { std::vector<Group> groups; };
++        std::vector<Local> locals(threads); for (auto& local : locals) local.groups = groups;
++        parallel(threads, [&](unsigned owner) {
++            size_t rows = 0; for (const auto& chunk : routes) rows += chunk[owner].size(); if (!rows) return;
++            for (size_t capacity = 16384;; capacity *= 2) {
++                Names names(capacity, groups.size()); StringArena storage; auto& local = locals[owner]; local.groups = groups;
+                 try {
+-                    auto& local = locals[worker];
+-                    Csv csv{boundaries[worker], boundaries[worker + 1]};
+-                    std::string name_scratch, unused;
+-                    while (csv.p < csv.end) {
+-                        csv.bom();
+-                        uint64_t id = csv.integer();
+-                        Field name = csv.field(name_scratch, true); csv.comma();
++                    for (const auto& chunk : routes) for (uint32_t offset : chunk[owner]) {
++                        Csv csv{records.data + offset, end}; std::string unused;
++                        uint64_t id = csv.integer(); Field name = csv.field(unused, false); csv.comma();
+                         uint64_t hash = Names::hash_key(name.value); names.prefetch(hash);
+-                        Field note = csv.field(unused, false); csv.comma();
+-                        uint64_t region = csv.integer();
++                        Field note = csv.field(unused, false); csv.comma(); uint64_t region = csv.integer();
+                         int64_t amount = csv.amount(); csv.newline();
+                         size_t country = region < lookup.size() && lookup[region] != missing ? lookup[region] : unmatched;
+-                        auto& entry = names.intern(name.value, local.storage, hash);
+-                        Group& group = local.groups[country];
+-                        group.names += names.first(entry, country);
+-                        ++group.count; group.ids += static_cast<int64_t>(id); group.sum += amount;
++                        auto& entry = names.intern(name.value, storage, hash); Group& group = local.groups[country];
++                        group.names += names.first(entry, country); ++group.count; group.ids += static_cast<int64_t>(id); group.sum += amount;
+                         group.minimum = std::min(group.minimum, amount); group.maximum = std::max(group.maximum, amount);
+                         group.name_bytes += name.bytes; group.note_bytes += note.bytes;
+                     }
+-                } catch (const Canceled&) {
+-                    return;
+-                } catch (...) {
+-                    names.canceled.store(true);
+-                    throw;
+-                }
+-            });
+-            if (names.too_small.load()) continue; // Reparse with a larger exact table, never an approximate count.
+-            for (const auto& local : locals) for (size_t i = 0; i < groups.size(); ++i) {
+-                auto& group = groups[i]; const auto& value = local.groups[i];
+-                group.count += value.count; group.ids += value.ids; group.sum += value.sum;
+-                group.minimum = std::min(group.minimum, value.minimum); group.maximum = std::max(group.maximum, value.maximum);
+-                group.names += value.names; group.name_bytes += value.name_bytes; group.note_bytes += value.note_bytes;
+-            }
+-            break;
++                } catch (const Canceled&) { continue; }
++                break;
++            }
++            for (auto& chunk : routes) std::vector<uint32_t>().swap(chunk[owner]);
++        });
++        for (const auto& local : locals) for (size_t i = 0; i < groups.size(); ++i) {
++            auto& group = groups[i]; const auto& value = local.groups[i];
++            group.count += value.count; group.ids += value.ids; group.sum += value.sum;
++            group.minimum = std::min(group.minimum, value.minimum); group.maximum = std::max(group.maximum, value.maximum);
++            group.names += value.names; group.name_bytes += value.name_bytes; group.note_bytes += value.note_bytes;
+         }
+         std::sort(groups.begin(), groups.end(), [](const Group& a, const Group& b) { return a.country < b.country; });
+         Output output;
