@@ -1,40 +1,43 @@
 {
-  "observed_at_utc": "2026-10-31T17:28:22.392765+00:00",
+  "observed_at_utc": "2026-10-31T17:39:55.982183+00:00",
   "scope": "Observable repository/history/build-policy checks, not an organizer eligibility certificate",
-  "source_commit": "e3eb08da0290fda612e09f3f2c3d86f9de5a4584",
+  "source_commit": "b3d0cef12b30b0b12ab8d00dc546f13850dbd6ae",
   "dirty_paths": [
-    "M Makefile",
-    " M docs/ENTRY-AUDIT.md",
+    "M docs/ENTRY-AUDIT.md",
     " M docs/RESULTS.md",
     " M docs/STATE.md",
     " M docs/SUBMISSION.md",
+    " M tools/test_name_store.cpp",
     " M track-a/PERF.md",
-    " M track-c/Dockerfile",
     " M track-c/PERF.md",
     " M track-c/README.md",
-    " M track-c/main.cpp",
-    " D track-c/record_scan.hpp",
+    " M track-c/names.hpp",
     " M track-d/PERF.md",
     " M track-d/README.md",
     " M track-d/distance_map.hpp",
-    "?? docs/board-round121-structural-c.json",
-    "?? docs/prototype-patches/round122-bucket15.patch",
-    "?? docs/prototype-patches/round122-bucket31.patch",
-    "?? docs/round122-a-bucket-layout-bench.json",
-    "?? docs/round122-prototype-index.json",
-    "?? docs/round123-candidate.json",
-    "?? docs/round123-d-linux.json",
-    "?? docs/round123-d-spread-sanitize.json",
-    "?? docs/round123-d-spread-tsan.json",
-    "?? docs/round123-models.json",
-    "?? docs/round123-sanitize.json",
-    "?? docs/round123-tsan.json",
-    "?? docs/round124-c-linux-cases.json",
-    "?? docs/round124-c-restored-linux.json",
-    "?? docs/round124-candidate-source-match.json",
-    "?? docs/round124-d-linux-cases.json",
-    "?? docs/round124-defaults.json",
-    "?? docs/round124-selected-linux.json"
+    "?? docs/board-round124-avx2-d.json",
+    "?? docs/prototype-patches/round125-offset-flat.patch",
+    "?? docs/prototype-patches/round126-offset-blocks.patch",
+    "?? docs/round125-127-prototype-index.json",
+    "?? docs/round125-c-offset-table-bench.json",
+    "?? docs/round126-c-offset-blocks-bench.json",
+    "?? docs/round127-c-guarded-offset-bench.json",
+    "?? docs/round127-c-linux-cases.json",
+    "?? docs/round127-c-linux.json",
+    "?? docs/round127-candidate.json",
+    "?? docs/round127-country-codes.json",
+    "?? docs/round127-linux-errors.json",
+    "?? docs/round127-name-models.json",
+    "?? docs/round127-pipeline-asan.json",
+    "?? docs/round127-pipeline-tsan.json",
+    "?? docs/round127-sanitize.json",
+    "?? docs/round127-start-board.json",
+    "?? docs/round127-start-comparison.json",
+    "?? docs/round127-tsan.json",
+    "?? docs/round128-candidate-source-match.json",
+    "?? docs/round128-defaults.json",
+    "?? docs/round128-selected-linux.json",
+    "?? tools/offset_names_model.hpp"
   ],
   "repository": {
     "defaultBranchRef": {
@@ -577,6 +580,14 @@
       ]
     },
     {
+      "requirement": "Observed commit timestamps inside event: b3d0cef",
+      "passed": true,
+      "evidence": [
+        "2026-10-31T22:58:35+05:30",
+        "2026-10-31T22:58:35+05:30"
+      ]
+    },
+    {
       "requirement": "A required file Dockerfile",
       "passed": true,
       "evidence": "track-a/Dockerfile"
@@ -1089,6 +1100,11 @@
       "commit": "e3eb08da0290fda612e09f3f2c3d86f9de5a4584",
       "author_time": "2026-10-31T22:50:52+05:30",
       "committer_time": "2026-10-31T22:50:52+05:30"
+    },
+    {
+      "commit": "b3d0cef12b30b0b12ab8d00dc546f13850dbd6ae",
+      "author_time": "2026-10-31T22:58:35+05:30",
+      "committer_time": "2026-10-31T22:58:35+05:30"
     }
   ],
   "future_requirements": [

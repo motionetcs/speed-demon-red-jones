@@ -11,6 +11,10 @@
 #include <tuple>
 #include <type_traits>
 
+#if defined(SPEED_DEMON_OFFSET_NAMES)
+#include "offset_names_model.hpp"
+int main(){run_offset_name_model<Names>();}
+#else
 template<class Table> NameKey* intern_key(Table& table, std::string_view key, StringArena& arena, uint64_t hash) {
     auto&& result=table.intern(key,arena,hash);
     if constexpr(std::is_pointer_v<std::remove_reference_t<decltype(result)>>)return result;
@@ -64,3 +68,5 @@ template<class Table> void run_name_model(){
     else run_private_name_model<Table>();
 }
 int main(){run_name_model<Names>();}
+
+#endif

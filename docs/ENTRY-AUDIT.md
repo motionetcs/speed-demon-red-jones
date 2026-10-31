@@ -1,4 +1,4 @@
-> Active124 has27 exact runtime/build/metadata inputs in round124-candidate-source-match.json, original A/C and separately strict-proved D AVX2. Actual121 passes gates but loses score; scanner code is removed.124 score pending.
+> Active128 has27 exact runtime/build/metadata inputs and explicit images in round128-candidate-source-match.json. C has fresh offset-specific models/sanitizer/race/147-case/default proof; A/D are original selected source. All124 gates pass but AVX2 loses and is removed. Actual128 pending.
 
 # Entry audit — 31 October 2026
 

@@ -1,4 +1,4 @@
-> Active124 changes only D AVX2 packed lookup, restoring original C after actual121 loses. Every27 source/image input and1323 reference replays/defaults match. C12160.906292/D unchanged62.581261 repeats are preserved. Actual124 performance is pending.
+> Active128 changes only C to a fully checked compact offset-block name table. Original A/D32 are selected after124 AVX2 loses65.060530 vs65.222044 best. All27 source/image inputs and1323 fixture replays/defaults pass; actual128 pending.
 
 # Results — 31 October 2026
 

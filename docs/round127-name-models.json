@@ -1,0 +1,43 @@
+{
+  "observed_at_utc": "2026-10-31T17:33:07.745810+00:00",
+  "official_score": false,
+  "scope": "Independent offset-block membership/reference/collision/growth/full-partial-oversized-block/encoded-index/overflow model; every low32 special fingerprint0/1/2/42/deadbeef/MAX and distinct full64 hashes, every country word through17577, stable encoded views after block growth, long binary/UTF8 names. Native/GCC strict ASAN/UBSAN execute new model plus the unchanged selected-original private model through explicit API dispatch. Old stable-pointer model is not substituted as proof of the new representation.",
+  "runs": [
+    {
+      "mode": "native",
+      "implementation": "offset-blocks",
+      "stdout": "PASS offset-name independent std::set, low32 fingerprint collisions including0/1, full-key collisions, all-country words, table/block growth, exact full/partial/oversized blocks, long NUL/UTF8 keys, encoded-index boundaries and overflow guards\n",
+      "stderr": "",
+      "binary_sha256": "bb9255bb515b8d56e22803e7e4e9759c6bef0fbba071c7fdb5ca3ce6d54f7ec2"
+    },
+    {
+      "mode": "native",
+      "implementation": "selected-original",
+      "stdout": "PASS private exact-name std::set/collision/country/growth/stable-block/long-NUL-UTF8-key models\n",
+      "stderr": "",
+      "binary_sha256": "9617ff7c1873965b2d5b17da50b4295daf5b06bb99d924db20e459a06c89f4be"
+    },
+    {
+      "mode": "GCC15-Linux",
+      "script": [
+        "set -eu",
+        "export ASAN_OPTIONS=halt_on_error=1",
+        "export UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1",
+        "g++ -std=c++20 -O1 -g -pthread -fsanitize=address,undefined -fno-omit-frame-pointer '-DNAMES_HEADER=\"/repo/.build/round127/source/track-c/names.hpp\"' /repo/tools/test_name_store.cpp -o /tmp/offset-blocks",
+        "/tmp/offset-blocks",
+        "g++ -std=c++20 -O1 -g -pthread -fsanitize=address,undefined -fno-omit-frame-pointer '-DNAMES_HEADER=\"/repo/track-c/names.hpp\"' /repo/tools/test_name_store.cpp -o /tmp/selected-original",
+        "/tmp/selected-original"
+      ],
+      "stdout": "PASS offset-name independent std::set, low32 fingerprint collisions including0/1, full-key collisions, all-country words, table/block growth, exact full/partial/oversized blocks, long NUL/UTF8 keys, encoded-index boundaries and overflow guards\nPASS private exact-name std::set/collision/country/growth/stable-block/long-NUL-UTF8-key models\n",
+      "stderr": ""
+    }
+  ],
+  "source_sha256": {
+    "tools/test_name_store.cpp": "56d328be33772761f2b017c27c9415594ef6367298ff8ae919d5c93f384b0183",
+    "tools/private_names_model.hpp": "d7c8f6f89d220b2531a4e8148b47c82bb424ce26b82c66dd3f8271bed7166f83",
+    "tools/offset_names_model.hpp": "80082d9d37052c2f8ba3612c15c5ad3386f672e2b5ead83d2dd3f64e6794842e",
+    ".build/round127/source/track-c/names.hpp": "f62a25fdb9f229575c42fc013220f7f38dd5a68ea5ac83aa1702d0589c15501b",
+    "track-c/names.hpp": "437245b108bf64fec292ff038086f1ff8be5e536534466428d640412b295a499"
+  },
+  "passed": true
+}

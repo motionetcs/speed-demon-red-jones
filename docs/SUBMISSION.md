@@ -12,7 +12,7 @@ This is the fresh local entry. Check actual external state before treating it as
 | Licence | MIT, official attribution retained |
 | Fresh repository | https://github.com/motionetcs/speed-demon-red-jones — private |
 | Submission branch | speed-demon |
-| Remote source | Candidate124 changes only D AVX2 packed lookup;27 exact source/image inputs and1323 Linux fixtures/defaults pass. Original A/C restored; actual124 score pending. All121 gates pass but C scanner loses and is removed. |
+| Remote source | Candidate128 changes only C to checked compact offset-block names;27 exact source/image inputs and1323 Linux fixtures/defaults pass. A/D32 selected; losing124 AVX2 removed. Actual128 pending. |
 | Individual registration | Entrant confirmed already registered on 31 October 2026; not duplicated |
 | Team form | Submitted successfully for this fresh repository, A/C/D; Tally displayed “Form submitted” |
 | Board app access | Installed and verified on 31 October 2026; only the fresh repository selected; read-only code and metadata |

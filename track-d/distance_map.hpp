@@ -70,14 +70,6 @@ struct FastDistances {
     size_t slot(uint32_t node)const{
         size_t start=size_t(node&((1U<<bits)-1))*8;
         unsigned shift=11+bits;uint32_t key=node>>bits;
-#if defined(__AVX2__)
-        // One bounded bucket load; lane order chooses the same first hit/empty.
-        auto values=_mm256_loadu_si256(reinterpret_cast<const __m256i*>(&labels[start]));
-        auto tags=_mm256_srl_epi32(values,_mm_cvtsi32_si128(shift));
-        auto matches=_mm256_or_si256(_mm256_cmpeq_epi32(tags,_mm256_set1_epi32(key)),_mm256_cmpeq_epi32(values,_mm256_setzero_si256()));
-        unsigned mask=static_cast<unsigned>(_mm256_movemask_ps(_mm256_castsi256_ps(matches)));
-        if(mask)return start+std::countr_zero(mask);
-#else
         for(unsigned block=0;block<8;block+=4){
 #if defined(__SSE2__)
             auto values=_mm_loadu_si128(reinterpret_cast<const __m128i*>(&labels[start+block]));
@@ -94,7 +86,6 @@ struct FastDistances {
             for(unsigned i=0;i<4;++i){auto v=labels[start+block+i];if(!v||(v>>shift)==key)return start+block+i;}
 #endif
         }
-#endif
         return labels.size();
     }
     void grow(){

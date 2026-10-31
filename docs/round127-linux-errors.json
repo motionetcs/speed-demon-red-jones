@@ -1,0 +1,49 @@
+{
+  "observed_at_utc": "2026-10-31T17:36:28.222947+00:00",
+  "scope": "Exact compact-table production image normal error/cancellation behavior for independent bad-id and midstream-money fixtures at2/6/12 workers. Table representation is ISA independent.",
+  "runs": [
+    {
+      "case": "bad-first-id",
+      "threads": 2,
+      "returncode": 1,
+      "stderr": "track-c: missing CSV integer\n",
+      "image_id": "sha256:263099fcbeecd9be03c762fc791651c246e2ec2ca2223f5940e186c13645dd63"
+    },
+    {
+      "case": "bad-first-id",
+      "threads": 6,
+      "returncode": 1,
+      "stderr": "track-c: missing CSV integer\n",
+      "image_id": "sha256:263099fcbeecd9be03c762fc791651c246e2ec2ca2223f5940e186c13645dd63"
+    },
+    {
+      "case": "bad-first-id",
+      "threads": 12,
+      "returncode": 1,
+      "stderr": "track-c: missing CSV integer\n",
+      "image_id": "sha256:263099fcbeecd9be03c762fc791651c246e2ec2ca2223f5940e186c13645dd63"
+    },
+    {
+      "case": "bad-mid-money",
+      "threads": 2,
+      "returncode": 1,
+      "stderr": "track-c: invalid money\n",
+      "image_id": "sha256:263099fcbeecd9be03c762fc791651c246e2ec2ca2223f5940e186c13645dd63"
+    },
+    {
+      "case": "bad-mid-money",
+      "threads": 6,
+      "returncode": 1,
+      "stderr": "track-c: invalid money\n",
+      "image_id": "sha256:263099fcbeecd9be03c762fc791651c246e2ec2ca2223f5940e186c13645dd63"
+    },
+    {
+      "case": "bad-mid-money",
+      "threads": 12,
+      "returncode": 1,
+      "stderr": "track-c: name pipeline canceled\n",
+      "image_id": "sha256:263099fcbeecd9be03c762fc791651c246e2ec2ca2223f5940e186c13645dd63"
+    }
+  ],
+  "passed": true
+}

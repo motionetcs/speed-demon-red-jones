@@ -354,3 +354,6 @@ Round122 direct per-endpoint full32-bit latency buckets are rejected at native s
 
 
 Round121/e3eb08d unchanged selected source passes all five actual gates, run-98fa1c2391cc: T0.047312 s/M34545664/S424/K28.017872/72.371758. This lower repeat remains separate from the best; no additional algorithm regression is asserted from unchanged-source variation. Raw ../docs/board-round121-structural-c.json.
+
+
+Round124/b3d0cef unchanged selected source passes every actual gate, run-30aa1bd91a8c: T0.048031 s/M35139584/S424/K27.712734/72.133969. Same-source repeat only; preserve historical best separately. Raw ../docs/board-round124-avx2-d.json.
