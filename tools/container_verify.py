@@ -25,6 +25,7 @@ def run(args, timeout=600):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--public", action="store_true")
+    parser.add_argument("--context-root", type=Path, default=ROOT)
     parser.add_argument("--skip-build", action="store_true")
     parser.add_argument("--tracks", default="acd")
     parser.add_argument("--threads", type=int, default=12)
@@ -39,7 +40,7 @@ def main():
               "official_score": False, "target_platform": "linux/amd64", "runs": [],
               "scope": "offline build, image size, restricted container, exact output; host is Apple ARM, x86-64 is emulated"}
     for tr in args.tracks:
-        folder = ROOT / ("track-" + tr)
+        folder = args.context_root.resolve() / ("track-" + tr)
         problems = policy.check((folder / "Dockerfile").read_text(), allowlist)
         if problems:
             raise RuntimeError("Dockerfile policy: " + repr(problems))

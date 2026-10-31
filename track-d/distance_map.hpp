@@ -46,37 +46,40 @@ struct Distances {
     }
 };
 
-// A query owns its primary cells until release. Overlap and 64-bit distances use
-// the private exact table; no worker can replace another active query's label.
-struct SharedDistances {
-    std::atomic<uint64_t>* primary;
-    uint64_t token = 0;
-    Distances fallback;
-    std::vector<uint32_t> claimed;
-    explicit SharedDistances(std::atomic<uint64_t>* cells) : primary(cells) {}
-    ~SharedDistances() { release(); }
-    void release() {
-        for (uint32_t node : claimed) primary[node].store(0, std::memory_order_release);
-        claimed.clear();
+// Private compact labels keep ordinary searches in cache. Large distances and
+// the UINT32_MAX node key have an exact 64-bit fallback.
+struct FastDistances {
+    std::vector<uint64_t> labels = std::vector<uint64_t>(4096);
+    std::vector<uint32_t> touched;
+    Distances wide;
+    size_t slot(uint32_t node) const {
+        size_t index = (node * 0x9e3779b1U) & (labels.size() - 1);
+        while (labels[index] && uint32_t(labels[index] >> 32) != node + 1) index = (index + 1) & (labels.size() - 1);
+        return index;
     }
-    void reset(size_t query) { release(); fallback.reset(); token = uint64_t(query + 1) << 32; }
+    void reset() { for (uint32_t index : touched) labels[index] = 0; touched.clear(); wide.reset(); }
     uint64_t get(uint32_t node) const {
-        uint64_t cell = primary[node].load(std::memory_order_relaxed);
-        return (cell & 0xffffffff00000000ULL) == token ? uint32_t(cell) : fallback.get(node);
+        if (node == UINT32_MAX || touched.empty()) return wide.get(node);
+        uint64_t label = labels[slot(node)];
+        return label ? uint32_t(label) : wide.get(node);
     }
     bool improve(uint32_t node, uint64_t distance) {
-        uint64_t cell = primary[node].load(std::memory_order_relaxed);
-        bool owned = (cell & 0xffffffff00000000ULL) == token;
-        uint64_t previous = owned ? uint32_t(cell) : fallback.get(node);
+        if (node == UINT32_MAX) return wide.improve(node, distance);
+        size_t index = slot(node);
+        uint64_t previous = labels[index] ? uint32_t(labels[index]) : wide.get(node);
         if (distance >= previous) return false;
-        if (distance < UINT32_MAX) {
-            if (owned) { primary[node].store(token | distance, std::memory_order_relaxed); return true; }
-            if (cell == 0) {
-                claimed.push_back(node);
-                if (primary[node].compare_exchange_strong(cell, token | distance, std::memory_order_relaxed)) return true;
-                claimed.pop_back();
+        if (distance > UINT32_MAX) return wide.improve(node, distance);
+        if (!labels[index]) {
+            if (touched.size() * 2 >= labels.size()) {
+                auto old = std::move(labels); labels.assign(old.size() * 2, 0);
+                for (auto& used : touched) {
+                    uint64_t item = old[used]; used = static_cast<uint32_t>(slot(uint32_t(item >> 32) - 1)); labels[used] = item;
+                }
+                index = slot(node);
             }
+            touched.push_back(static_cast<uint32_t>(index));
         }
-        return fallback.improve(node, distance);
+        labels[index] = uint64_t(node + 1) << 32 | distance;
+        return true;
     }
 };

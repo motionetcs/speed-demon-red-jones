@@ -10,6 +10,8 @@
 #include <iostream>
 #include <random>
 #include <set>
+#include <unordered_map>
+#include "../track-d/distance_map.hpp"
 #include <string>
 #include <sys/mman.h>
 #include <unistd.h>
@@ -56,5 +58,24 @@ int main() {
         while (!expected.empty()) { auto item = queue.pop(); assert(item.first == expected.begin()->first); expected.erase(expected.find(item)); }
         queue.clear(); queue.push({UINT64_MAX, UINT32_MAX}); assert(queue.pop() == RadixHeap::Item(UINT64_MAX, UINT32_MAX));
     }
-    std::cout << "PASS decimal reference/byte/guard-page checks and compact/wide queue model checks\n";
+    FastDistances labels;
+    for (unsigned trial = 0; trial < 6; ++trial) {
+        labels.reset(); std::unordered_map<uint32_t, uint64_t> reference;
+        for (unsigned i = 0; i < 150000; ++i) {
+            uint32_t node = random() % 45000;
+            if (i % 997 == 0) node = UINT32_MAX;
+            uint64_t distance = random() % (uint64_t(UINT32_MAX) + 100000);
+            auto found = reference.find(node);
+            bool expected = found == reference.end() || distance < found->second;
+            assert(labels.improve(node, distance) == expected);
+            if (expected) reference[node] = distance;
+            assert(labels.get(node) == reference.at(node));
+        }
+        for (const auto& [node, distance] : reference) assert(labels.get(node) == distance);
+        labels.reset(); assert(labels.get(123) == UINT64_MAX);
+        assert(labels.improve(123, uint64_t(UINT32_MAX) + 5));
+        assert(labels.improve(123, 7)); assert(labels.get(123) == 7);
+        assert(!labels.improve(123, uint64_t(UINT32_MAX) + 2));
+    }
+    std::cout << "PASS decimal reference/byte/guard-page checks and compact/wide queue/label model checks\n";
 }

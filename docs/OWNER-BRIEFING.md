@@ -22,7 +22,7 @@ Money is integer cents: `-0.05` is the integer -5. This makes sums and formattin
 
 The retained version builds compact outgoing and incoming edge lists and searches from both ends. Dijkstra's algorithm explores the cheapest reachable distance first. A lower bound from the two frontiers tells us when their best meeting path is optimal. This is correct because every edge weight is non-negative, including zero. Edge direction matters, duplicate edges are retained, and distances use 64-bit integers because a path can exceed the largest 32-bit weight.
 
-Workers answer separate queries and write to separate answer slots. The final output keeps the original query order. Reusable workspaces avoid allocating a large map for every query. Query tokens own shared primary cells; overlapping queries and large distances use private exact fallback, so workers cannot overwrite one another's results.
+Workers answer separate queries and write to separate answer slots. The final output keeps the original query order. Reusable workspaces avoid allocating a large map for every query. Each worker now owns compact exact distance maps. Ordinary distances fit in32 bits; larger distances keep a full64-bit fallback. No query writes another worker's labels. The loader uses atomic counters to assign unique CSR slots.
 
 ## What proof matters
 

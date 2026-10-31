@@ -13,10 +13,14 @@ struct Csv {
     void bom() {
         if (end - p >= 3 && std::memcmp(p, "\xef\xbb\xbf", 3) == 0) p += 3;
     }
-    Field field(std::string& scratch, bool decode) {
+    Field field(std::string& scratch, bool decode, bool comma_terminated = false) {
         const char* start = p;
         if (p == end || *p != '"') {
-            while (p < end && *p != ',' && *p != '\r' && *p != '\n') ++p;
+            if (comma_terminated) {
+                const char* comma = static_cast<const char*>(std::memchr(p, ',', end - p));
+                if (!comma) throw std::runtime_error("missing CSV field delimiter");
+                p = comma; // Valid unquoted name/note fields cannot contain CR/LF.
+            } else while (p < end && *p != ',' && *p != '\r' && *p != '\n') ++p;
             return {{start, static_cast<size_t>(p - start)}, static_cast<size_t>(p - start), false};
         }
         const char* segment = ++p;
@@ -154,9 +158,9 @@ int main(int argc, char** argv) {
                     while (csv.p < csv.end) {
                         csv.bom();
                         uint64_t id = csv.integer();
-                        Field name = csv.field(name_scratch, true); csv.comma();
+                        Field name = csv.field(name_scratch, true, true); csv.comma();
                         uint64_t hash = Names::hash_key(name.value); names.prefetch(hash);
-                        Field note = csv.field(unused, false); csv.comma();
+                        Field note = csv.field(unused, false, true); csv.comma();
                         uint64_t region = csv.integer();
                         int64_t amount = csv.amount(); csv.newline();
                         size_t country = region < lookup.size() && lookup[region] != missing ? lookup[region] : unmatched;

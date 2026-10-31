@@ -86,3 +86,9 @@ This confirms the retained source rather than a new optimization. A/C algorithms
 Hour-owned workspaces replace whole-input packed records and per-worker72-hour tables. A fresh line-offset prepass preserves every request, then each hour is processed and released independently. Local five-trial median changes from0.085521 s to0.080075 s, while temporary memory is expected to fall; only the board can confirm the cgroup/score benefit. Four-digit parsing is retained here. The exact new-seed, full-hash, memory/UB, race, primitive-model and Linux checks pass. Reports: `round2-layout-*`, `round2-ac-*` and `round2-swar-*`.
 
 Local phase intervals and alternating trials are in `../docs/round2-phase-profile.json` and `round2-layout-native.json`. They are Apple ARM development evidence, not official times.
+
+## Hour-layout / compact-lookup board result
+
+`run-f246379b9c4d` on `d2fd0b53b6cf42a8786845b5d40c21e30865a8ce` passed all gates: T=0.061805 s, M=42,344,448 bytes, S=342, K=24.306889, machine points=69.286469. Exact record: `../docs/board-round2-ac.json`.
+
+The hour-owned layout improves the previous best score to69.286469 and reduces measured memory to42.34 MB. Next isolated runtime hypothesis: limit glibc allocation arenas to2; only the Linux process environment changes and full restricted-container output passes. Actual K will decide retention.

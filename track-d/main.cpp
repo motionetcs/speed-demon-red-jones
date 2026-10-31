@@ -1,5 +1,6 @@
 #include "radix_heap.hpp"
 #include "io.hpp"
+#include "decimal.hpp"
 #include "distance_map.hpp"
 #include "parallel.hpp"
 #include <memory>
@@ -17,8 +18,7 @@ struct Scanner {
     bool more() { while (p < end && *p <= ' ') ++p; return p < end; }
     uint32_t number() {
         if (!more() || *p < '0' || *p > '9') throw std::runtime_error("missing graph number");
-        uint64_t value = 0;
-        while (p < end && *p >= '0' && *p <= '9') value = value * 10 + *p++ - '0';
+        uint64_t value = decimal_digits(p, end);
         if (value > UINT32_MAX) throw std::runtime_error("graph integer out of range");
         return static_cast<uint32_t>(value);
     }
@@ -52,60 +52,45 @@ int main(int argc, char** argv) {
             }
             boundaries[i] = p;
         }
-        struct Local {
-            size_t count = 0;
-            std::vector<uint32_t> out, in;
-            std::vector<std::pair<uint32_t, uint32_t>> wide;
-        };
+        struct Local { size_t count = 0; std::vector<std::pair<uint32_t, uint32_t>> wide; };
         std::vector<Local> locals(loaders);
+        std::vector<uint32_t> offsets(size_t(n) + 1), reverse_offsets(size_t(n) + 1);
         parallel(loaders, [&](unsigned worker) {
-            auto& local = locals[worker]; local.out.resize(n); local.in.resize(n);
+            auto& local = locals[worker];
             Scanner input{boundaries[worker], boundaries[worker + 1]};
             while (input.more()) {
                 uint32_t u = input.number(), v = input.number(); input.number();
                 if (u >= n || v >= n) throw std::runtime_error("node outside graph");
-                ++local.count; ++local.out[u]; ++local.in[v];
+                ++local.count;
+                std::atomic_ref(offsets[size_t(u) + 1]).fetch_add(1, std::memory_order_relaxed);
+                std::atomic_ref(reverse_offsets[size_t(v) + 1]).fetch_add(1, std::memory_order_relaxed);
             }
         });
-        std::vector<uint32_t> offsets(size_t(n) + 1), reverse_offsets(size_t(n) + 1);
         size_t edge_count = 0;
-        for (const auto& local : locals) {
-            edge_count += local.count;
-            for (size_t i = 0; i < n; ++i) {
-                offsets[i + 1] += local.out[i]; reverse_offsets[i + 1] += local.in[i];
-            }
-        }
+        for (const auto& local : locals) edge_count += local.count;
         if (edge_count != m) throw std::runtime_error("edge count does not match header");
         for (size_t i = 1; i <= n; ++i) {
             offsets[i] += offsets[i - 1]; reverse_offsets[i] += reverse_offsets[i - 1];
         }
-        // Local degree arrays become disjoint scatter cursors; shift the advanced
-        // global ends back into starts after assigning each worker its range.
-        for (auto& local : locals) for (size_t i = 0; i < n; ++i) {
-            uint32_t out = local.out[i], in = local.in[i];
-            local.out[i] = offsets[i]; local.in[i] = reverse_offsets[i];
-            offsets[i] += out; reverse_offsets[i] += in;
-        }
-        for (size_t i = n; i > 0; --i) { offsets[i] = offsets[i - 1]; reverse_offsets[i] = reverse_offsets[i - 1]; }
-        offsets[0] = reverse_offsets[0] = 0;
+        std::vector<uint32_t> cursor(offsets), reverse_cursor(reverse_offsets);
         std::vector<Edge> edges(m), reverse_edges(m);
         parallel(loaders, [&](unsigned worker) {
             auto& local = locals[worker];
             Scanner input{boundaries[worker], boundaries[worker + 1]};
             while (input.more()) {
                 uint32_t u = input.number(), v = input.number(), value = input.number();
-                uint32_t out = local.out[u]++, in = local.in[v]++;
+                uint32_t out = std::atomic_ref(cursor[u]).fetch_add(1, std::memory_order_relaxed);
+                uint32_t in = std::atomic_ref(reverse_cursor[v]).fetch_add(1, std::memory_order_relaxed);
                 uint16_t weight = static_cast<uint16_t>(std::min(value, uint32_t(UINT16_MAX)));
                 edges[out] = Edge{v, weight}; reverse_edges[in] = Edge{u, weight};
                 if (value >= UINT16_MAX) {
-                    local.wide.emplace_back(out * 2, value);
-                    local.wide.emplace_back(in * 2 + 1, value);
+                    local.wide.emplace_back(out * 2, value); local.wide.emplace_back(in * 2 + 1, value);
                 }
             }
         });
         std::unordered_map<uint32_t, uint32_t> wide_weights;
         for (const auto& local : locals) for (auto [index, weight] : local.wide) wide_weights.emplace(index, weight);
-        locals.clear();
+        locals.clear(); std::vector<uint32_t>().swap(cursor); std::vector<uint32_t>().swap(reverse_cursor);
         Scanner qscan{queries_file.data, queries_file.data + queries_file.size};
         std::vector<std::pair<uint32_t, uint32_t>> queries;
         while (qscan.more()) {
@@ -115,12 +100,10 @@ int main(int argc, char** argv) {
         }
         threads = static_cast<unsigned>(std::min<size_t>(threads, queries.size()));
         std::vector<int64_t> answers(queries.size(), -1);
-        auto primary_forward = std::make_unique<std::atomic<uint64_t>[]>(n);
-        auto primary_backward = std::make_unique<std::atomic<uint64_t>[]>(n);
         std::atomic<size_t> next{0};
         auto worker = [&] {
             constexpr uint64_t infinity = UINT64_MAX;
-            SharedDistances forward(primary_forward.get()), backward(primary_backward.get());
+            FastDistances forward, backward;
             RadixHeap forward_heap, backward_heap;
             for (;;) {
                 size_t query = next.fetch_add(1, std::memory_order_relaxed);
@@ -128,7 +111,7 @@ int main(int argc, char** argv) {
                 auto [source, target] = queries[query];
                 if (source == target) { answers[query] = 0; continue; }
                 if (offsets[source] == offsets[source + 1] || reverse_offsets[target] == reverse_offsets[target + 1]) continue;
-                forward.reset(query); backward.reset(query); forward_heap.clear(); backward_heap.clear();
+                forward.reset(); backward.reset(); forward_heap.clear(); backward_heap.clear();
                 forward.improve(source, 0); backward.improve(target, 0);
                 forward_heap.push({0, source}); backward_heap.push({0, target});
                 uint64_t best = infinity;

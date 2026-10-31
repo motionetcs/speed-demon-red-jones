@@ -15,3 +15,5 @@ Build: `clang++ -std=c++20 -O3 -pthread main.cpp -o solution`. The Dockerfile bu
 Specification: https://github.com/hackathon-raptors/speed-demon-2026/blob/main/specs/c-join.md
 
 A read-only prefetch of the hashed lookup slot overlaps note/numeric parsing with the upcoming lookup. Key publication still uses acquire/release synchronization. With another24 hours: profile parsing versus lookup misses on Intel and compare further exact layouts on independent seeds; retain only measured total-score gains.
+
+For non-final unquoted name/note fields only, the frozen grammar guarantees a terminating comma and excludes raw CR/LF. A bounded `memchr` finds that delimiter; quoted fields keep the full escaped-quote/newline parser. Header and final-field parsing retain their original terminator handling.
