@@ -51,3 +51,5 @@ Rounds57–59 apply to57cc23e. Eleven rotating full-public native trials check e
 Round61 patches apply to57cc23e. Mapped-records A, serial-boundaries C and one-large D are selected for full round62 validation. Parallel local-boundaries C and full/large-chain D variants are slower locally and have screening hashes only. No broader sanitizer/official pass is attributed to unselected variants. Source index round61-prototype-index.json; measured reports round61-mapping-splits-forced-bench.json and round61-d-selective-forced-bench.json.
 
 Rounds63–64 patches apply to9933500b9335ab4866a21ac96990dac5fa2f8cb5. See round63-64-prototype-index.json for precise screening versus full-validation limits. The round64 selected combination restores D from57cc23e; only mapped/scalar/native A and128-bit C proceed to a new real benchmark.
+
+Rounds65–67 ownership patches apply to44d8c636a8a5a225ce6496d82966b2049e6ce2f4. Compiler macro variants and precise screening/full-validation limits are recorded in round65-67-prototype-index.json. Only the selected67 pipeline receives broad validation and a new official benchmark.

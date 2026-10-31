@@ -1,0 +1,25 @@
+{
+  "observed_at_utc": "2026-10-31T12:42:24.109655+00:00",
+  "official_score": false,
+  "scope": "GCC15/Linux strict ASAN/UBSAN private-name exact std::set/collision/growth/country/long-key/arena models and CSV true-boundary coverage models with SSE2 and AVX2 compiler features; emulated correctness only. The quote_scan.hpp byte-identical round64 header retains explicit SSE2 and its protected-page/byte/random GCC model evidence.",
+  "compiler_image": "gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce",
+  "script": [
+    "set -eu",
+    "export UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1",
+    "g++ -std=c++20 -O1 -g -pthread -mavx2 -fsanitize=address,undefined '-DNAMES_HEADER=\"/repo/.build/round67/source/track-c/names.hpp\"' /repo/tools/test_private_names.cpp -o /tmp/model0",
+    "/tmp/model0",
+    "g++ -std=c++20 -O1 -g -pthread -msse2 -fsanitize=address,undefined '-DCSV_SOURCE=\"/repo/.build/round67/source/track-c/main.cpp\"' /repo/tools/test_c_boundaries.cpp -o /tmp/model1",
+    "/tmp/model1",
+    "g++ -std=c++20 -O1 -g -pthread -mavx2 -fsanitize=address,undefined '-DCSV_SOURCE=\"/repo/.build/round67/source/track-c/main.cpp\"' /repo/tools/test_c_boundaries.cpp -o /tmp/model2",
+    "/tmp/model2"
+  ],
+  "output": "PASS private exact-name std::set/collision/country/growth/stable-block/long-NUL-UTF8-key models\nPASS CSV split monotonicity, true-boundary membership and complete record coverage; all offsets/quote runs/BOM/EOF/guard pages at1..12 workers\nPASS CSV split monotonicity, true-boundary membership and complete record coverage; all offsets/quote runs/BOM/EOF/guard pages at1..12 workers\n",
+  "diagnostics": "",
+  "passed": true,
+  "sha256": {
+    "tools/test_private_names.cpp": "374ca9c75f8c99c680ce31188ed796d36239d9b54e9a029d7128fcee7ea3d8a7",
+    ".build/round67/source/track-c/names.hpp": "437245b108bf64fec292ff038086f1ff8be5e536534466428d640412b295a499",
+    "tools/test_c_boundaries.cpp": "a809f25fc8c663182bdbec412e06471920a70bca9b64ae0505d583a412ae38f2",
+    ".build/round67/source/track-c/main.cpp": "8f1703c20ec7e17bb708abff7d7a88945e0dcd8b83acc00b137607a7ceee1b0d"
+  }
+}

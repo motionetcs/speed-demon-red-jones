@@ -1,5 +1,5 @@
 #include "io.hpp"
-#include "mapped_allocator.hpp"
+#include "decimal.hpp"
 #include "endpoint_table.hpp"
 #include "parallel.hpp"
 #include <atomic>
@@ -8,7 +8,6 @@
 
 static constexpr uint32_t latency_escape = (1U << 19) - 1;
 struct Count { uint32_t count = 0, errors = 0; };
-using Records=std::vector<uint32_t,MappedAllocator<uint32_t>>;
 
 int main(int argc, char** argv) {
     try {
@@ -28,8 +27,7 @@ int main(int argc, char** argv) {
         }
         Endpoints endpoints;
         struct Chunk {
-            std::array<Records, 72> records;
-            std::array<std::vector<uint32_t>, 72> wide;
+            std::array<std::vector<uint32_t>, 72> records, wide;
             std::array<uint32_t, 72> first;
             Chunk() { first.fill(UINT32_MAX); }
         };
@@ -51,8 +49,7 @@ int main(int argc, char** argv) {
                 if (!p || limit - p < 5) throw std::runtime_error("missing endpoint/status");
                 std::string_view endpoint(start, p - start);
                 bool error = p[1] == '5'; p += 5; start = p;
-                uint64_t latency = 0;
-                while (p < limit && *p >= '0' && *p <= '9') latency = latency * 10 + *p++ - '0';
+                uint64_t latency = decimal_digits(p, limit);
                 if (p == start || p - start > 10 || latency > UINT32_MAX || p == limit || *p != '\n') throw std::runtime_error("invalid latency");
                 ++p;
                 uint16_t key = endpoints.intern(endpoint, std::hash<std::string_view>{}(endpoint));
@@ -96,7 +93,7 @@ int main(int argc, char** argv) {
                         if (latency == latency_escape) latency = chunk.wide[hour][wide++];
                         latencies[cursor[record & 4095]++] = latency;
                     }
-                    Records().swap(chunk.records[hour]); std::vector<uint32_t>().swap(chunk.wide[hour]);
+                    std::vector<uint32_t>().swap(chunk.records[hour]); std::vector<uint32_t>().swap(chunk.wide[hour]);
                 }
                 std::string label = std::string(file.data + first_line, 13) + ":00:00Z";
                 auto& out = output[hour]; out.bytes.reserve(order.size() * 100);

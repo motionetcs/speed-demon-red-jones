@@ -246,3 +246,6 @@ Fresh1163/1171 strict ASAN/UBSAN,1181 TSAN,256 independent Floyd graphs/85,871 a
 Commit9933500b9335ab4866a21ac96990dac5fa2f8cb5, run-fe5461d995e1 passes every gate: T0.223902 s/M91,029,504/S798/K18.355312/63.188089 points. This does not beat retained64.084694/K19.129071, so remove the bounded mandatory-edge query transform and restore exact57cc23e runtime/build/metadata. That retained source's57cc D best is a repeat of the same earlier algorithm, not a new gain. Preserve both records.
 
 A separate private-degree-only prototype removes shared degree atomics but keeps shared scatter cursors. Eleven rotating full-public exact hashes: retained0.282809 s/190.66MB, endpoint candidate0.291394/191.59MB, private degrees0.286491/211.14MB. It fails the local total tradeoff and is rejected before broad sanitizer/board validation. Full patch and limits: round63-64-prototype-index.json. No new D algorithm is submitted in round64. Exact restored D is rebuilt and replayed rather than relying on a no-longer-available historical image.
+
+
+Round64 exact restored D repeat run-deaaea0d7ecd passes all gates: T0.221016 s/M88,694,784/S772/K18.663520/63.549678 points. Same selected57cc23e code; below historical64.084694 repeat. No new algorithmic gain or regression claimed.

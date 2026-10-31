@@ -1,0 +1,63 @@
+{
+  "variants": [
+    {
+      "patch": "round65-decoded-owner.patch",
+      "base": "44d8c636a8a5a225ce6496d82966b2049e6ce2f4",
+      "compiler_variants": [
+        "-DPIPELINE_READERS=4",
+        "-DPIPELINE_READERS=6",
+        "-DPIPELINE_READERS=8"
+      ],
+      "validation": "full-public rotating hash screening only",
+      "source_sha256": {
+        "training_generator.py": "9e61672eb814fa4e1bc2e3cf30c8e7ca9629804191ce5ae60a66c8b61ba704f2",
+        "Dockerfile": "637e81c6fca4507f4c4e7368efde7b6904d07879ae9ec992c5e25175d50e1fae",
+        "names.hpp": "a43e01e305795767c5ea2c604a92bccfbb72b6de114100d08618f4fab7a661ff",
+        "io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+        "quote_scan.hpp": "0b170a766254dee1bc14f9e9180cc1900da01d41f5d09053d5579e01a7fb9cfa",
+        ".speed-demon.toml": "3371600b8033a377bc373378e703191dfec36c1ae991b617650dfa480edc00b4",
+        "main.cpp": "1a934454f1dce93e416edfdd2554691c4f6cea096539bff5055a49ae2dcd126c",
+        "parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420"
+      }
+    },
+    {
+      "patch": "round66-canonical-owner.patch",
+      "base": "44d8c636a8a5a225ce6496d82966b2049e6ce2f4",
+      "compiler_variants": [
+        "-DNAME_BATCH=128",
+        "-DNAME_BATCH=256",
+        "-DNAME_BATCH=512"
+      ],
+      "validation": "full-public rotating hash screening only",
+      "source_sha256": {
+        "training_generator.py": "9e61672eb814fa4e1bc2e3cf30c8e7ca9629804191ce5ae60a66c8b61ba704f2",
+        "Dockerfile": "637e81c6fca4507f4c4e7368efde7b6904d07879ae9ec992c5e25175d50e1fae",
+        "names.hpp": "437245b108bf64fec292ff038086f1ff8be5e536534466428d640412b295a499",
+        "io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+        "quote_scan.hpp": "0b170a766254dee1bc14f9e9180cc1900da01d41f5d09053d5579e01a7fb9cfa",
+        ".speed-demon.toml": "3371600b8033a377bc373378e703191dfec36c1ae991b617650dfa480edc00b4",
+        "main.cpp": "b349f1ff26f8c5593f7737b867acaae2558a2642cc81500be2b1992c0d28056c",
+        "parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420"
+      }
+    },
+    {
+      "patch": "round67-canonical-owner-512.patch",
+      "base": "44d8c636a8a5a225ce6496d82966b2049e6ce2f4",
+      "compiler_variants": [
+        "Defaults8 readers/4owners at12workers and512-record batches"
+      ],
+      "validation": "Full round67 native/GCC/reference/sanitizer/race/default/restricted Linux validation; awaits real K",
+      "source_sha256": {
+        "training_generator.py": "9e61672eb814fa4e1bc2e3cf30c8e7ca9629804191ce5ae60a66c8b61ba704f2",
+        "Dockerfile": "637e81c6fca4507f4c4e7368efde7b6904d07879ae9ec992c5e25175d50e1fae",
+        "names.hpp": "437245b108bf64fec292ff038086f1ff8be5e536534466428d640412b295a499",
+        "io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+        "quote_scan.hpp": "0b170a766254dee1bc14f9e9180cc1900da01d41f5d09053d5579e01a7fb9cfa",
+        ".speed-demon.toml": "3371600b8033a377bc373378e703191dfec36c1ae991b617650dfa480edc00b4",
+        "main.cpp": "8f1703c20ec7e17bb708abff7d7a88945e0dcd8b83acc00b137607a7ceee1b0d",
+        "parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420"
+      }
+    }
+  ],
+  "scope": "Bounded one-pass ownership differs from the older rejected two-pass offset routing, which parsed the CSV twice. No historical shared-name/probing result is transferred as a pipeline gain."
+}
