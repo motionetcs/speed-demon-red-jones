@@ -381,3 +381,6 @@ Fresh1637/1657 strict ASAN/UBSAN,1663 TSAN, full1/6/12 and all wide-ID/weight/de
 
 
 139/184778c run-ba85567b5bf6 passes all five gates: T0.239163s/M77258752/S831/K18.241096/63.052547 points. Exact reserve fails best20.157695/65.222044; restore main.cpp/README to715dcc6. Raw ../docs/board-round139-method-reserve.json.
+
+
+145/348257e run-3adeecd27501 passes every real gate: T0.20462s/M77193216/S827/K19.738399/64.765597 points. Unchanged selected source: preserve this lower repeat separately from historical best; no new algorithm gain. All28 inputs match round145-final-source-match.json. Raw ../docs/board-round145-mapped-cache.json.

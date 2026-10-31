@@ -12,7 +12,7 @@ This is the fresh local entry. Check actual external state before treating it as
 | Licence | MIT, official attribution retained |
 | Fresh repository | https://github.com/motionetcs/speed-demon-red-jones — private |
 | Submission branch | speed-demon |
-| Remote source | Candidate145 uses mapped record storage with accepted4096-cache A;28 exact inputs/images, fresh strict models,1323 regular production replays and actual defaults pass. C/D exact selected128; real145 pending. |
+| Remote source | Selected145/348257e is all-gates confirmed. A mapped/cache raises best73.371413; C67.916082/D65.222044 remain exact selected sources.28 input/local-image proof,1323 production replays, fresh strict/GCC models and actual defaults pass. |
 | Individual registration | Entrant confirmed already registered on 31 October 2026; not duplicated |
 | Team form | Submitted successfully for this fresh repository, A/C/D; Tally displayed “Form submitted” |
 | Board app access | Installed and verified on 31 October 2026; only the fresh repository selected; read-only code and metadata |

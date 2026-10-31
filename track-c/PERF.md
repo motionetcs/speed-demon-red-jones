@@ -439,3 +439,6 @@ Evidence-head137/715dcc6, run-9ebddf7e8d11, passes all five real gates on identi
 
 
 140 new8-byte-entry geometry screen loses lower loads: retained0.058578s/RSS217415680; load75 paired1.01755/RSS219463680, load50 paired1.00878/218497024. Shift2 paired0.98349/217366528 and initial64k shifted0.98769/218447872 are modest, while their older16-byte counterpart lost actual77. No new candidate promoted.142 independently written aligned4/8/16-entry fingerprint/empty masks retain exact full keys and aim for grouped probing, conceptually motivated by Abseil primary design notes https://abseil.io/about/design/swisstables . No library/source imported. The group4 global median0.047363 versus retained0.056922 is misleading under a fast→slow native host transition; paired1.01047 loses. Group8/16 paired1.03636/1.03955 lose. No independent dense-prefix/first-empty/collision/growth/wrap/sanitizer/GCC/image/actual proof for these native-only variants. Reproducible source/parents are in round140/142-prototype-index.json; do not promote global medians.
+
+
+145/348257e run-32bb1ce1e233 passes every real gate: T0.062142s/M12443648/S672/K22.809036/67.905347 points. Unchanged selected source: preserve this lower repeat separately from historical best; no new algorithm gain. All28 inputs match round145-final-source-match.json. Raw ../docs/board-round145-mapped-cache.json.
