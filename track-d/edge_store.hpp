@@ -1,5 +1,4 @@
 #pragma once
-#include "edge_pages.hpp"
 #include <cstddef>
 #include <cstdint>
 #include <utility>
@@ -15,8 +14,8 @@ struct EdgeStore {
     static constexpr uint32_t small_limit = (1U << (32 - node_bits)) - 1;
     bool compact;
     uint32_t weight_limit;
-    std::vector<uint32_t,EdgePages<uint32_t>> small;
-    std::vector<WideEdge,EdgePages<WideEdge>> wide;
+    std::vector<uint32_t> small;
+    std::vector<WideEdge> wide;
     EdgeStore(std::size_t count, uint32_t nodes) : compact(nodes <= node_mask + 1),
         weight_limit(compact ? small_limit : UINT16_MAX) {
         if (compact) small.resize(count); else wide.resize(count);

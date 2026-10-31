@@ -432,3 +432,6 @@ Frozen16311 paired full-public hash trials: retained0.041741292s/RSS259522560, c
 
 
 168 new compact canonical ownership keeps all retained163 output/prefix/cache logic but copies specified<=125-byte keys before release publication into fixed125-byte/ID slots or a packed atomic byte arena; longer model-only keys borrow as before. Eleven rotating public hashes all match. Fixed/packed paired0.987245/0.989759 versus retained0.038641208s, with flat RSS. The tiny local difference does not pay for added source/memory/new ownership proof. Reject before broader collision/lifetime/sanitizer/GCC/image/actual promotion. Exact patches/limits in round168-prototype-index.json. No such ownership code enters173; selected165 A stays byte-identical.
+
+
+173/7e77576 run-c2db1706a5b4 passes all five real gates: T0.043747s/M21037056/S497/K31.418092/74.858990 points. Unchanged selected165 A higher best74.858990/K31.418092 is repeat variation, not a new algorithm. Raw ../docs/board-round173-adjacency-pages.json.

@@ -11,7 +11,7 @@ $(BUILD_DIR)/track-%: track-%/main.cpp track-%/io.hpp
 	$(CXX) $(CXXFLAGS) $< -o $@
 
 $(BUILD_DIR)/track-a: track-a/decimal.hpp track-a/endpoint_table.hpp track-a/mapped_allocator.hpp track-a/ordered_output.hpp
-$(BUILD_DIR)/track-d: track-d/decimal.hpp track-d/radix_heap.hpp track-d/distance_map.hpp track-d/parallel.hpp track-d/edge_store.hpp track-d/load_cursors.hpp track-d/edge_pages.hpp
+$(BUILD_DIR)/track-d: track-d/decimal.hpp track-d/radix_heap.hpp track-d/distance_map.hpp track-d/parallel.hpp track-d/edge_store.hpp track-d/load_cursors.hpp
 $(BUILD_DIR)/track-a: track-a/parallel.hpp
 $(BUILD_DIR)/track-c: track-c/parallel.hpp track-c/names.hpp track-c/quote_scan.hpp
 

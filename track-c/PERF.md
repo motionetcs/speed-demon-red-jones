@@ -494,3 +494,6 @@ Exact current C image passes285 regular replays plus228 every-topology valid/24 
 
 
 169 independently written complete bounded small-key comparisons cover BOTH first/last16 bytes for16..32-byte keys, optionally BOTH first/last8 for8..15, with full length/fallback equality. Public hashes pass, but paired block16=0.986655 and8+16=1.008735 do not justify added source/new guard/collision proof; global medians cross a host regime and are not a causal gain.170 retests owner prefetch on materially newer128 eight-byte offset entries, unlike losing75 direct-pointer entries:1/4 fingerprint probes with16/32-row blocks and fresh actual first() lookups. Every public hash matches, paired one16=1.021615,probe4-16=1.081742,probe4-32=1.086374 all lose despite misleading global medians. Reject every169/170 variant before broad sanitizer/race/guard/lifetime/GCC/image/official promotion. Source patches and proof limits remain in their prototype indices.173 C is original selected165, with no helper/prefetch change.
+
+
+173/7e77576 run-35e53b7b8fe0 passes all five real gates: T0.062480s/M12267520/S672/K22.812203/67.908361 points. Unchanged selected165 C lower repeat;167 best68.028087/K22.938327 remains separate. Raw ../docs/board-round173-adjacency-pages.json.

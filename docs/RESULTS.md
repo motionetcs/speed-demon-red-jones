@@ -1,4 +1,4 @@
-> Candidate173 changes only D adjacency storage/optional own-page Linux advice. All fresh strict/race/GCC/independent/full-untrained/image/default/source checks pass; real all-track K pending. A/C stay selected165. No new algorithm gain claimed.
+> D173 passes gates but loses K20.042317 versus20.248361; all original165 runtime inputs are restored exactly. Fresh17529-input/public/default/old-image996-reference proof passes; real175 confirmation pending. No new algorithm gain this heartbeat; A173/C167 higher bests are variation.
 
 # Results — 31 October 2026
 

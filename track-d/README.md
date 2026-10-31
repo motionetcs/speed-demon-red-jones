@@ -31,5 +31,3 @@ The narrow-counter loader passes all official gates and improves observed D to60
 Both loader passes use bounded16-row scratch batches to overlap degree/cursor/edge accesses. The final image caps process-local glibc arenas at2; no host setting is modified. Current exact run IDs and retention decisions are in PERF.md.
 
 Search extracts at most32 full-distance entries from one conservative64-distance band per batch; this changes scheduling and scratch only.
-
-Candidate173 gives each compact/wide adjacency vector its own anonymous mapping. On Linux with MADV_HUGEPAGE available, allocations of at least2MiB receive an optional hint before initialization; failures preserve ordinary mapping semantics. The program changes no global policy, host/harness setting or resource limit, reserves no privileged huge pages and does not force collapse. Physical huge pages or a timing improvement are not guaranteed. Every stored node/weight and lifetime stays exact.
