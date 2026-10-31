@@ -1,0 +1,27 @@
+--- a/track-c/names.hpp
++++ b/track-c/names.hpp
+@@ -1,6 +1,7 @@
+ #pragma once
+ #define SPEED_DEMON_OFFSET_NAMES 1
+ #include <algorithm>
++#include <bit>
+ #include <atomic>
+ #include <thread>
+ #include <cstdint>
+@@ -18,7 +19,15 @@
+     struct Entry {uint32_t hash=0,index=0;};
+     std::vector<Entry> entries;std::vector<std::unique_ptr<uint64_t[]>> storage;size_t words,used=0,next=0,remaining=0;
+     explicit Names(size_t countries):entries(16384),words((countries+63)/64){}
+-    static uint64_t hash_key(std::string_view key){uint64_t h=std::hash<std::string_view>{}(key);return h<2?h+2:h;}
++    static uint64_t hash_key(std::string_view key){
++        uint64_t h=0x9e3779b97f4a7c15ULL^uint64_t(key.size());
++        if(key.size()>=8){
++            uint64_t a,b,c;std::memcpy(&a,key.data(),8);std::memcpy(&b,key.data()+(key.size()-8)/2,8);std::memcpy(&c,key.data()+key.size()-8,8);
++            h^=a^std::rotl(b,21)^std::rotl(c,43);
++        }else for(unsigned char byte:key)h=(h^byte)*0x100000001b3ULL;
++        h^=h>>29;h*=0x9e3779b185ebca87ULL;h^=h>>32;
++        return h<2?h+2:h;
++    }
+     static uint32_t encode_index(size_t block,size_t word){
+         if(block>=(size_t(1)<<19)||word>=8192)throw std::runtime_error("name block/word index capacity");
+         uint32_t encoded=(static_cast<uint32_t>(block)<<13)|static_cast<uint32_t>(word);

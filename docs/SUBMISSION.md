@@ -12,7 +12,7 @@ This is the fresh local entry. Check actual external state before treating it as
 | Licence | MIT, official attribution retained |
 | Fresh repository | https://github.com/motionetcs/speed-demon-red-jones — private |
 | Submission branch | speed-demon |
-| Remote source | Candidate128 changes only C to checked compact offset-block names;27 exact source/image inputs and1323 Linux fixtures/defaults pass. A/D32 selected; losing124 AVX2 removed. Actual128 pending. |
+| Remote source | Selected93fc9c9: original A, real-winning compact offset-block C and D32. Every27 compiled input matches;1323 Linux cases, combined public/default checks and all five actual gates pass. Best machine points72.924546/67.875642/65.222044; later documentation heads preserve compiled inputs. |
 | Individual registration | Entrant confirmed already registered on 31 October 2026; not duplicated |
 | Team form | Submitted successfully for this fresh repository, A/C/D; Tally displayed “Form submitted” |
 | Board app access | Installed and verified on 31 October 2026; only the fresh repository selected; read-only code and metadata |

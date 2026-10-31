@@ -352,3 +352,6 @@ Fresh1583/1597 strict ASAN/UBSAN,1601 TSAN, full1/6/12 public outputs, all wide-
 
 
 Round124/b3d0cef AVX2 complete-bucket lookup passes every actual gate, run-4861bf277cca: T0.197888 s/M77504512/S840/K20.008319/65.06053. It fails K20.157695/65.222044; restore every original D distance-map/README byte to f69d4db, preserving the losing result and32-entry search. Raw ../docs/board-round124-avx2-d.json.
+
+
+Selected128/93fc9c9 unchanged selected source passes all five real gates, run-62e275dfaa18: T0.204523 s/M78336000/S827/K19.685137/64.706922. This lower same-source repeat stays separate from historical best and is not a new algorithm change. Raw ../docs/board-round128-offset-c.json.

@@ -357,3 +357,6 @@ Round121/e3eb08d unchanged selected source passes all five actual gates, run-98f
 
 
 Round124/b3d0cef unchanged selected source passes every actual gate, run-30aa1bd91a8c: T0.048031 s/M35139584/S424/K27.712734/72.133969. Same-source repeat only; preserve historical best separately. Raw ../docs/board-round124-avx2-d.json.
+
+
+Selected128/93fc9c9 unchanged selected source passes all five real gates, run-5e48e479beb7: T0.045148 s/M35340288/S424/K28.551323/72.781312. This lower same-source repeat stays separate from historical best and is not a new algorithm change. Raw ../docs/board-round128-offset-c.json.
