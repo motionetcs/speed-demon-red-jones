@@ -26,6 +26,8 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--public", action="store_true")
     parser.add_argument("--skip-build", action="store_true")
+    parser.add_argument("--tracks", default="acd")
+    parser.add_argument("--threads", type=int, default=12)
     parser.add_argument("--report", type=Path, default=Path("docs/validation-containers.json"))
     args = parser.parse_args()
     spec = importlib.util.spec_from_file_location("official_dockerfile_check", ROOT / "tools/official/harness/dockerfile_check.py")
@@ -36,7 +38,7 @@ def main():
     report = {"created_at_utc": datetime.datetime.now(datetime.timezone.utc).isoformat(),
               "official_score": False, "target_platform": "linux/amd64", "runs": [],
               "scope": "offline build, image size, restricted container, exact output; host is Apple ARM, x86-64 is emulated"}
-    for tr in "acd":
+    for tr in args.tracks:
         folder = ROOT / ("track-" + tr)
         problems = policy.check((folder / "Dockerfile").read_text(), allowlist)
         if problems:
@@ -66,7 +68,7 @@ def main():
             run(["docker", "run", "--rm", "--platform", "linux/amd64", "--network=none", "--read-only",
                  "--tmpfs", "/tmp:rw,size=1g,exec", "--memory=8g", "--memory-swap=8g", "--pids-limit=512",
                  "--cap-drop=ALL", "--security-opt=no-new-privileges", "--user", "65534:65534",
-                 "--ulimit", "nofile=8192:8192", "-e", "TRACK=" + tr, "-e", "SPEED_DEMON_THREADS=6",
+                 "--ulimit", "nofile=8192:8192", "-e", "TRACK=" + tr, "-e", "SPEED_DEMON_THREADS=" + str(args.threads),
                  "-v", str(data) + ":/data:ro", "-v", str(out) + ":/out:rw", tag])
             wall = time.perf_counter() - started
             assert sorted(p.name for p in out.iterdir()) == [OUTPUT[tr]], "output file contract"

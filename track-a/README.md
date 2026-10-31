@@ -2,11 +2,11 @@
 
 Read `/data/requests.log`; write only `/out/summary.txt`. Local `--data` and `--out` options are supported. No extra runtime dependencies.
 
-The parser uses a read-only memory map, ignores the HTTP method, interns exact endpoint bytes, and places each latency in its full UTC-hour bucket. All 72 buckets remain available because requests arrive out of order. The fixed date span and ASCII field format are specified by the organizers, not inferred from seed 1.
+Workers parse disjoint newline-aligned input chunks and intern exact endpoint bytes in local flat hash tables. Counts and errors are reduced by full UTC hour and endpoint. Prefix offsets give every worker a disjoint slice of a contiguous latency array, so scattering needs no shared increments or locks. All 72 buckets remain available because requests arrive out of order. The fixed date span and ASCII field format are specified by the organizers, not inferred from seed 1.
 
-Each nonempty group's uint32 latencies are sorted. Nearest-rank percentiles use `(p*n+99)/100-1` as a zero-based index. Error counts include 500 through 599 and use 64-bit integer multiplication for parts per million. Duplicated lines count twice. Output iterates hours and byte-sorted endpoints.
+Workers sort disjoint groups and format separate hourly output buffers. Nearest-rank percentiles use `(p*n+99)/100-1` as a zero-based index. Error counts include 500 through 599 and use 64-bit integer multiplication for parts per million. Duplicated lines count twice. The main thread writes hourly buffers in order, with byte-sorted endpoints. `SPEED_DEMON_THREADS=1` through `12` controls parallelism; the initial board experiment uses 12.
 
-Storage is O(requests + endpoints*72); comparisons across latency groups total at most O(requests*log(requests)). Endpoint string views remain valid while the mapping exists. Invalid/truncated fields produce a nonzero exit on stderr.
+Storage is O(requests + workers*endpoints*72); comparisons across latency groups total at most O(requests*log(requests)). Temporary packed records and local tables are released before formatting. Endpoint string views remain valid while the mapping exists. Worker exceptions are joined and propagated to the main thread; invalid/truncated fields produce a nonzero exit on stderr.
 
 Build: `clang++ -std=c++20 -O3 -pthread main.cpp -o solution`. The Dockerfile independently compiles a static Linux executable offline from the official allowlist.
 

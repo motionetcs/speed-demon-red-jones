@@ -19,6 +19,8 @@ BIN_DIR = ROOT / ".build"
 OFFICIAL = ROOT / "tools/official"
 MODULES = {"a": "a_ingest", "c": "c_join", "d": "d_traverse"}
 OUTPUTS = {"a": "summary.txt", "c": "aggregates.txt", "d": "distances.txt"}
+ACTIVE_TRACKS = set(MODULES)
+THREADS = [1, 6, 12]
 
 
 def digest(path):
@@ -67,18 +69,19 @@ def execute(track, data, out, threads=6):
     if sorted(p.name for p in out.iterdir()) != [OUTPUTS[track]]:
         raise AssertionError("output contract failed: " + str(out))
     return {"wall_seconds_including_launch": elapsed, "peak_process_rss_bytes": rss,
-            "threads": threads if track == "d" else 1, "sha256": digest(out / OUTPUTS[track])}
+            "requested_threads": threads, "sha256": digest(out / OUTPUTS[track])}
 
 
-def check(track, label, inputs, expected, repeat=2):
+def check(track, label, inputs, expected, repeat=None):
+    if track not in ACTIVE_TRACKS:
+        return None
     data = ROOT / ".data" / "cases" / label
     data.mkdir(parents=True, exist_ok=True)
     for name, content in inputs.items():
         (data / name).write_bytes(content.encode() if isinstance(content, str) else content)
     expected = expected.encode() if isinstance(expected, str) else expected
     measurements = []
-    for run in range(repeat):
-        threads = (1, 6)[run % 2]
+    for run, threads in enumerate(THREADS if repeat is None else THREADS[:repeat]):
         out = ROOT / ".out" / "cases" / label / str(run)
         measurements.append(execute(track, data, out, threads))
         assert (out / OUTPUTS[track]).read_bytes() == expected, label
@@ -96,6 +99,13 @@ def adversarial():
     source = "".join("2026-11-01T00:59:59.999999Z GET /percentile 500 %d\n" % i for i in reversed(latencies))
     rows.append(check("a", "a-nearest-rank-101", {"requests.log": source},
                       "2026-11-01T00:00:00Z /percentile 101 50 95 99 101 1000000\n"))
+    paths = ["/growth/%d/part" % i for i in range(2500)]
+    source = "".join("2026-10-31T23:59:59.000000Z GET %s %d %d\n" % (path, 500 if i % 17 == 0 else 499, i)
+                     for i, path in enumerate(paths))
+    expected = "".join("2026-10-31T23:00:00Z %s 1 %d %d %d %d %d\n" %
+                       (path, i, i, i, int(i % 17 == 0), 1000000 if i % 17 == 0 else 0)
+                       for path, i in sorted((path, i) for i, path in enumerate(paths)))
+    rows.append(check("a", "a-many-endpoints-partitions", {"requests.log": source}, expected))
     rows.append(check("c", "c-worked", {"records.csv": c.WORKED_RECORDS, "regions.csv": c.WORKED_REGIONS}, c.WORKED_OUTPUT))
     for label, records in [("eof", c.RULES_RECORDS), ("bom-eof", c.BOM + c.RULES_RECORDS),
                            ("lf", c.RULES_RECORDS + c.LF), ("crlf", c.RULES_RECORDS + c.CRLF)]:
@@ -126,21 +136,23 @@ def adversarial():
         expected = "".join(str(-1 if dist[i][j] is None else dist[i][j]) + "\n" for i, j in queries)
         rows.append(check("d", "d-floyd-warshall-%d" % seed, {"graph.txt": graph, "queries.txt": text}, expected))
     rows.append(check("d", "d-empty-queries", {"graph.txt": "1 0\n", "queries.txt": ""}, b""))
-    return rows
+    return [row for row in rows if row is not None]
 
 
 def main():
-    global BIN_DIR
+    global BIN_DIR, ACTIVE_TRACKS, THREADS
     parser = argparse.ArgumentParser()
     parser.add_argument("--binary-dir", type=Path, default=ROOT / ".build")
     parser.add_argument("--scale", choices=["tiny", "sample", "full"], default="tiny")
     parser.add_argument("--seeds", nargs="+", type=int, default=[1, 7, 31])
     parser.add_argument("--tracks", default="acd")
+    parser.add_argument("--threads", nargs="+", type=int, default=[1, 6, 12])
     parser.add_argument("--report", type=Path, required=True)
     parser.add_argument("--skip-adversarial", action="store_true")
     parser.add_argument("--public", action="store_true", help="check downloaded public full data against official manifest")
     args = parser.parse_args()
     BIN_DIR = args.binary_dir.resolve()
+    ACTIVE_TRACKS, THREADS = set(args.tracks), args.threads
     report = {"created_at_utc": datetime.datetime.now(datetime.timezone.utc).isoformat(),
               "platform": platform.platform(), "python": sys.version,
               "memory_scope": "process RSS, not official cgroup memory.peak", "official_score": False,
@@ -164,16 +176,18 @@ def main():
                          "--seed", seed, "--scale", args.scale, "--out", data])
             ref_out = ROOT / ".out" / track / label / "reference"
             ref_out.mkdir(parents=True, exist_ok=True)
-            command([sys.executable, OFFICIAL / "reference" / (MODULES[track] + ".py"),
-                     "--data", data, "--out", ref_out])
+            cached_public = args.public and (ref_out / OUTPUTS[track]).exists() and digest(ref_out / OUTPUTS[track]) in spec["expected_output_sha256"]
+            if not cached_public:
+                command([sys.executable, OFFICIAL / "reference" / (MODULES[track] + ".py"),
+                         "--data", data, "--out", ref_out])
             expected = (ref_out / OUTPUTS[track]).read_bytes()
             ref_hash = hashlib.sha256(expected).hexdigest()
             if args.public:
                 assert ref_hash in spec["expected_output_sha256"], "reference/public hash disagreement"
             runs = []
-            for run in range(2):
+            for run, threads in enumerate(THREADS):
                 out = ROOT / ".out" / track / label / ("native-" + str(run))
-                measurement = execute(track, data, out, (1, 6)[run])
+                measurement = execute(track, data, out, threads)
                 assert (out / OUTPUTS[track]).read_bytes() == expected, track + " " + label
                 runs.append(measurement)
             report["checks"].append({"track": track, "case": label, "reference_sha256": ref_hash, "runs": runs})

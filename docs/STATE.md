@@ -16,3 +16,7 @@ This is the fresh Red Jones Speed Demon entry. Read `CODEX_PROMPT.md` for the fu
 - Official provenance: `docs/provenance.json` and `tools/official-revision.txt`.
 - Benchmarks must be sequential. Do not compare Apple ARM timings directly with board timings. Native RSS is not the official cgroup counter.
 - macOS `/usr/bin/time -l` requires an unsandboxed execution in this environment because the filesystem sandbox also blocks its `sysctl` call. Initial sandboxed test invocation failed in the timing wrapper; correctness was then rerun with the required execution access.
+
+## Active optimization round
+
+The user requested comparison with leaders and continued optimization of A/C/D using real board runs. The baseline comparison is `docs/OPTIMIZATION.md` and `optimization-baseline-board.json`. A's parallel aggregation candidate has passed targeted differential, sanitizer, thread-sanitizer, and Linux container checks. Await its exact-commit board report before judging improvement. C and D retain their existing passing source until their own candidates are ready.
