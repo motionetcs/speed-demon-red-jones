@@ -54,29 +54,23 @@ struct Names {
         uint64_t bit=uint64_t(1)<<(country%64);bool fresh=!(bits[country/64]&bit);bits[country/64]|=bit;return fresh;
     }
 };
+// Direct immutable key pointer; guarded length/country packing saves padding.
 struct NameEvent {
-    std::string_view key;uint64_t hash;uint16_t country;
-    std::string_view value()const{return key;}
+    const char* data;uint64_t hash;uint64_t length:48,country:16;
+    NameEvent(std::string_view key,uint64_t h,uint16_t c):data(key.data()),hash(h),length(key.size()),country(c){
+        if(key.size()>(UINT64_MAX>>16))throw std::runtime_error("name event length overflow");
+    }
+    std::string_view value()const{return {data,static_cast<size_t>(length)};}
 };
+static_assert(sizeof(NameEvent)==24);
 // One producer and one consumer transfer a vector through release/acquire.
 // Every key borrows immutable input; the consumer copies each unique key.
-inline void name_pause(unsigned& spins){
-    if(++spins==128){spins=0;std::this_thread::yield();return;}
-#if defined(__x86_64__) || defined(__i386__)
-    __builtin_ia32_pause();
-#elif defined(__aarch64__)
-    __asm__ volatile("yield");
-#else
-    std::atomic_signal_fence(std::memory_order_seq_cst);
-#endif
-}
 struct NameQueue {
     alignas(64) std::atomic<bool> ready{false};std::vector<NameEvent> rows;
     void send(std::vector<NameEvent>& batch,const std::atomic<bool>& canceled){
-        unsigned spins=0;
         while(ready.load(std::memory_order_acquire)){
             if(canceled.load(std::memory_order_relaxed))throw std::runtime_error("name pipeline canceled");
-            name_pause(spins);
+            std::this_thread::yield();
         }
         if(canceled.load(std::memory_order_relaxed))throw std::runtime_error("name pipeline canceled");
         rows.swap(batch);ready.store(true,std::memory_order_release);

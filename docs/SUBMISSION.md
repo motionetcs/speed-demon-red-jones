@@ -12,7 +12,7 @@ This is the fresh local entry. Check actual external state before treating it as
 | Licence | MIT, official attribution retained |
 | Fresh repository | https://github.com/motionetcs/speed-demon-red-jones — private |
 | Submission branch | speed-demon |
-| Remote source | Candidate95 tests A full independent PGO and C bounded waits; D is selected75. Official89 lost and is removed. All27 candidate source/image identities are in round95-candidate-source-match.json; actual95 K is pending. |
+| Remote source | Rejected95 is being replaced by frozen104 C24/D32 candidate after full proof; A restores selected75 generic/sample PGO. Capture exact104 real records before accepting either change. See STATE.md and round104-candidate-source-match.json. |
 | Individual registration | Entrant confirmed already registered on 31 October 2026; not duplicated |
 | Team form | Submitted successfully for this fresh repository, A/C/D; Tally displayed “Form submitted” |
 | Board app access | Installed and verified on 31 October 2026; only the fresh repository selected; read-only code and metadata |

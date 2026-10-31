@@ -1,0 +1,55 @@
+--- a/track-a/main.cpp
++++ b/track-a/main.cpp
+@@ -67,11 +67,28 @@
+         std::vector<uint16_t> order(paths.size()); std::iota(order.begin(), order.end(), 0);
+         std::sort(order.begin(), order.end(), [&](uint16_t a, uint16_t b) { return paths[a] < paths[b]; });
+         std::array<Output, 72> output;
++        std::array<std::atomic<bool>,72> complete{};std::atomic<bool> canceled{false};
++        std::ofstream stream(run_paths.out / "summary.txt",std::ios::binary);
++        if(!stream)throw std::runtime_error("cannot open summary.txt");
+         std::atomic<unsigned> next_hour{0};
+-        parallel(threads, [&](unsigned) {
++        parallel(threads, [&](unsigned worker) {
++          try {
++            if(threads>1&&worker==0){
++                for(unsigned hour=0;hour<72;++hour){
++                    while(!complete[hour].load(std::memory_order_acquire)){
++                        if(canceled.load(std::memory_order_relaxed))return;
++                        std::this_thread::yield();
++                    }
++                    auto& bytes=output[hour].bytes;stream.write(bytes.data(),static_cast<std::streamsize>(bytes.size()));
++                    if(!stream)throw std::runtime_error("cannot write summary.txt");
++                    std::string().swap(bytes);
++                }
++                return;
++            }
+             std::vector<Count> groups(paths.size());
+             std::vector<uint32_t> offsets(paths.size()), cursor(paths.size()), latencies;
+             for (;;) {
++                if(canceled.load(std::memory_order_relaxed))return;
+                 unsigned hour = next_hour.fetch_add(1, std::memory_order_relaxed); if (hour >= 72) return;
+                 std::fill(groups.begin(), groups.end(), Count{});
+                 size_t count = 0; uint32_t first_line = UINT32_MAX;
+@@ -79,7 +96,7 @@
+                     count += chunk.records[hour].size(); first_line = std::min(first_line, chunk.first[hour]);
+                     for (uint32_t record : chunk.records[hour]) { auto& group = groups[record & 4095]; ++group.count; group.errors += (record >> 12) & 1; }
+                 }
+-                if (!count) continue;
++                if(!count){complete[hour].store(true,std::memory_order_release);continue;}
+                 uint32_t offset = 0;
+                 for (uint16_t key : order) { cursor[key] = offsets[key] = offset; offset += groups[key].count; }
+                 latencies.resize(count);
+@@ -109,10 +126,11 @@
+                     for (uint64_t value : {n, uint64_t(first[(50 * n + 99) / 100 - 1]), uint64_t(first[(95 * n + 99) / 100 - 1]), uint64_t(first[(99 * n + 99) / 100 - 1]), errors, errors * 1000000 / n}) { out.text(" "); out.number(static_cast<int64_t>(value)); }
+                     out.text("\n");
+                 }
++                complete[hour].store(true,std::memory_order_release);
+             }
++          }catch(...){canceled.store(true,std::memory_order_relaxed);throw;}
+         });
+-        std::ofstream stream(run_paths.out / "summary.txt", std::ios::binary);
+-        for (const auto& hour : output) stream.write(hour.bytes.data(), static_cast<std::streamsize>(hour.bytes.size()));
++        if(threads==1)for(const auto& hour:output)stream.write(hour.bytes.data(),static_cast<std::streamsize>(hour.bytes.size()));
+         stream.close(); if (!stream) throw std::runtime_error("cannot write summary.txt");
+     } catch (const std::exception& e) { std::fprintf(stderr,"track-a: %s\n",e.what()); return 1; }
+ }

@@ -1,0 +1,54 @@
+--- /dev/null
++++ b/track-c/csv_numbers.hpp
+@@ -0,0 +1,35 @@
++#pragma once
++#include <bit>
++#include <cstdint>
++#include <cstring>
++inline bool csv_digits_valid(uint64_t digits){
++    return !(digits&0xf0f0f0f0f0f0f0f0ULL)&&!((digits+0x0606060606060606ULL)&0x1010101010101010ULL);
++}
++inline uint64_t csv_eight_digits(uint64_t digits){
++    uint64_t pairs=(digits&0x00ff00ff00ff00ffULL)*10+((digits>>8)&0x00ff00ff00ff00ffULL);
++    uint64_t quads=(pairs&0x0000ffff0000ffffULL)*100+((pairs>>16)&0x0000ffff0000ffffULL);
++    return (quads&0xffffffffULL)*10000+(quads>>32);
++}
++inline bool csv_short_integer(const char*& p,const char* end,uint64_t& value){
++    if constexpr(std::endian::native==std::endian::little){
++        if(end-p<8)return false;
++        uint64_t bytes;std::memcpy(&bytes,p,8);uint64_t commas=bytes^0x2c2c2c2c2c2c2c2cULL;
++        uint64_t mask=(commas-0x0101010101010101ULL)&~commas&0x8080808080808080ULL;
++        if(!mask)return false;unsigned length=std::countr_zero(mask)/8;if(!length)return false;
++        uint64_t digits=(bytes^0x3030303030303030ULL)&((uint64_t(1)<<(length*8))-1);
++        if(!csv_digits_valid(digits))return false;
++        value=csv_eight_digits(digits<<(64-length*8));p+=length+1;return true;
++    }
++    return false;
++}
++inline bool csv_common_cents(const char*& p,const char* end,uint64_t& value){
++    if constexpr(std::endian::native==std::endian::little){
++        if(end-p<8)return false;
++        uint64_t bytes;std::memcpy(&bytes,p,8);if(((bytes>>40)&255)!='.')return false;
++        uint64_t digits=(bytes^0x3030303030303030ULL)&~(uint64_t(255)<<40);
++        if(!csv_digits_valid(digits))return false;
++        uint64_t packed=(digits&0x000000ffffffffffULL)|((digits>>8)&0x00ffff0000000000ULL);
++        value=csv_eight_digits(packed<<8);p+=8;return true;
++    }
++    return false;
++}
+--- a/track-c/main.cpp
++++ b/track-c/main.cpp
+@@ -1,4 +1,5 @@
+ #include "io.hpp"
++#include "csv_numbers.hpp"
+ #include "quote_scan.hpp"
+ #include "parallel.hpp"
+ #include <atomic>
+@@ -61,6 +62,7 @@
+     int64_t amount() {
+         bool negative = p < end && *p == '-';
+         if (negative) ++p;
++        uint64_t fast;if(csv_common_cents(p,end,fast))return negative?-static_cast<int64_t>(fast):static_cast<int64_t>(fast);
+         const char* start = p;
+         uint64_t value = 0;
+         while (p < end && *p >= '0' && *p <= '9') value = value * 10 + *p++ - '0';

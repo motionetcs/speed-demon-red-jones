@@ -1,0 +1,85 @@
+--- a/track-c/main.cpp
++++ b/track-c/main.cpp
+@@ -199,16 +199,17 @@
+                         // An empty published batch is the ordered end-of-stream marker.
+                         for(unsigned owner=0;owner<owners;++owner){auto& batch=batches[owner];auto& queue=queues[size_t(worker)*owners+owner];if(!batch.empty())queue.send(batch,canceled);queue.send(batch,canceled);}
+                     }else{
+-                        unsigned owner=worker-readers;Names names(groups.size());std::array<bool,12> finished{};unsigned remaining=readers;
++                        unsigned owner=worker-readers;Names names(groups.size());std::array<bool,12> finished{};unsigned remaining=readers;std::vector<NameEvent> incoming;incoming.reserve(NAME_BATCH);
+                         while(remaining){
+                             if(canceled.load(std::memory_order_relaxed))throw std::runtime_error("name pipeline canceled");
+                             bool progress=false;
+                             for(unsigned reader=0;reader<readers;++reader){
+                                 if(finished[reader])continue;auto& queue=queues[size_t(reader)*owners+owner];
+                                 if(!queue.ready.load(std::memory_order_acquire))continue;progress=true;
+-                                if(queue.rows.empty()){finished[reader]=true;--remaining;}
+-                                else for(const auto& e:queue.rows)distinct[owner][e.country]+=names.first(e.value(),e.country,e.hash);
+-                                queue.rows.clear();queue.ready.store(false,std::memory_order_release);
++                                incoming.swap(queue.rows);queue.ready.store(false,std::memory_order_release);
++                                if(incoming.empty()){finished[reader]=true;--remaining;}
++                                else for(const auto& e:incoming)distinct[owner][e.country]+=names.first(e.value(),e.country,e.hash);
++                                incoming.clear();
+                             }
+                             if(!progress)std::this_thread::yield();
+                         }
+--- a/track-c/names.hpp
++++ b/track-c/names.hpp
+@@ -6,33 +6,15 @@
+ #include <cstring>
+ #include <functional>
+ #include <memory>
+-#include <new>
+ #include <stdexcept>
+-#include <string>
+ #include <string_view>
+ #include <vector>
+-
+-struct alignas(8) NameKey { uint32_t length, padding; };
+-struct StringArena {
+-    std::vector<std::unique_ptr<char[]>> blocks;
+-    char* next=nullptr;size_t remaining=0;
+-    NameKey* make(std::string_view value,size_t words){
+-        if(value.size()>UINT32_MAX||words>(SIZE_MAX-sizeof(NameKey)-value.size()-7)/sizeof(uint64_t))throw std::runtime_error("name storage overflow");
+-        size_t bytes=(sizeof(NameKey)+words*sizeof(uint64_t)+value.size()+7)&~size_t(7);
+-        if(bytes>remaining){size_t capacity=std::max<size_t>(65536,bytes);blocks.emplace_back(new char[capacity]);next=blocks.back().get();remaining=capacity;}
+-        auto* key=::new(static_cast<void*>(next))NameKey{static_cast<uint32_t>(value.size()),0};
+-        ::new(static_cast<void*>(next+sizeof(NameKey)))uint64_t[words]{};
+-        if(!value.empty())std::memcpy(next+sizeof(NameKey)+words*sizeof(uint64_t),value.data(),value.size());
+-        next+=bytes;remaining-=bytes;return key;
+-    }
+-};
+-// One owner mutates this exact table and its per-name membership words.
++// Keys borrow immutable mapped input, which outlives this owner-private table.
+ struct Names {
+-    struct Entry{uint64_t hash=0;NameKey* key=nullptr;};
+-    std::vector<Entry> entries;size_t words,used=0;StringArena storage;
++    struct Entry{uint64_t hash=0;std::string_view key;uint64_t membership=0;};
++    std::vector<Entry> entries;size_t words,used=0;std::vector<uint64_t> memberships;
+     explicit Names(size_t countries):entries(16384),words((countries+63)/64){}
+     static uint64_t hash_key(std::string_view key){uint64_t h=std::hash<std::string_view>{}(key);return h<2?h+2:h;}
+-    std::string_view bytes(const NameKey* key)const{return {reinterpret_cast<const char*>(key)+sizeof(NameKey)+words*sizeof(uint64_t),key->length};}
+     void grow(){
+         if(entries.size()>SIZE_MAX/2/sizeof(Entry))throw std::runtime_error("name table overflow");
+         std::vector<Entry> larger(entries.size()*2);
+@@ -45,13 +27,17 @@
+             auto& e=entries[i];
+             if(!e.hash){
+                 if(used>=entries.size()*7/8){grow();i=hash&(entries.size()-1);continue;}
+-                auto* stored=storage.make(key,words);e.key=stored;e.hash=hash;++used;break;
++                if(words>1){
++                    if(words>memberships.max_size()-memberships.size())throw std::runtime_error("name membership overflow");
++                    e.membership=memberships.size();memberships.resize(memberships.size()+words);
++                }
++                e.key=key;e.hash=hash;++used;break;
+             }
+-            if(e.hash==hash&&bytes(e.key)==key)break;
++            if(e.hash==hash&&e.key==key)break;
+             i=(i+1)&(entries.size()-1);
+         }
+-        auto* bits=reinterpret_cast<uint64_t*>(reinterpret_cast<char*>(entries[i].key)+sizeof(NameKey));
+-        uint64_t bit=uint64_t(1)<<(country%64);bool fresh=!(bits[country/64]&bit);bits[country/64]|=bit;return fresh;
++        auto& entry=entries[i];uint64_t& bits=words<=1?entry.membership:memberships[entry.membership+country/64];
++        uint64_t bit=uint64_t(1)<<(country%64);bool fresh=!(bits&bit);bits|=bit;return fresh;
+     }
+ };
+ struct NameEvent {

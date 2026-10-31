@@ -337,3 +337,17 @@ Intel's own optimization manual recommends short PAUSE spin loops to reduce shar
 Eleven rotating full-public native screens: retained0.058402 s; compact16-byte512=0.059458, compact1024=0.058743, spin128=0.058973, combined compact1024/spin=0.059093. All hashes pass. Compact payloads do not justify their source/escape complexity here and remain unvalidated beyond screening; no general wide-offset/long-key proof is claimed for them. Select only the conservative spin128 for a real Intel test, explicitly despite1% slower Mac timing, with source cost charged.
 
 Fresh1429/1433 strict ASAN/UBSAN,1439 TSAN, every country width through17576, all1..12 worker/reference/EOF/cancellation cases, native/GCC independent exact private-name models and147 exact-current-image Linux cases pass. The new image exercises the actual x86 PAUSE path; native uses ARM yield. Actual native/Linux defaults pass. All27 frozen95 inputs are tied in round95-candidate-source-match.json. Keep only if real K exceeds22.646534/67.750087.
+
+
+Round95/13e3224 bounded CPU hints passes gates, run-17c0e893097f: T0.063298 s/M13656064/S678/K22.153886/67.272496. It loses to22.646534/67.750087; restore exactcfd094c original wait/runtime/build/metadata and README. Intel guidance alone is not evidence of a gain on this pipeline. Raw ../docs/board-round95-full-pgo-pause.json.
+
+
+## Direct-pointer24-byte name events
+
+Keep the selected private-owner pipeline and owned exact key/country storage. Change only queued events from32-byte string_view/hash/country records to24-byte direct pointer/full64 hash/guarded48-bit length/16-bit country records. C++ bitfield access handles the representation; every full byte of the original name is still compared. The length guard throws before use rather than truncating, and the existing unique-key storage already checks32-bit lengths. Every possible country through17577 and long1MiB binary/UTF8 names remain exact; no fixed catalogue or seed recognition occurs. Relative file offsets and per-batch escape lists from rejected93 are absent.
+
+Raw103 native medians0.056967/0.047221 must NOT be read as17% causal gain: both variants change from45–47ms to57–59ms during the series, crossing their median at different trial counts. Treat smaller queue transfers/cache footprint only as an Intel hypothesis. A future real total K decides; baseline22.646534/67.750087.
+
+Fresh1451/1453 strict ASAN/UBSAN,1459 TSAN, full1/6/12 outputs, every country width through17576, all1..12-worker reference/EOF/progress/cancellation fixtures, native/GCC exact private-name models and the new event pointer/length/every16-bit-country/full-hash/copy/vector-growth model pass. A mixed integer initializer in the new test initially failed compilation; the test type was corrected before model acceptance, with no runtime change. Exact current Linux fixture counts/IDs/defaults are in round104-candidate-source-match.json. Source identity must match this frozen proof before submission.
+
+Other97/99 screens lose: numeric SWAR int/money/combined0.047465/0.047505/0.048001 versus0.045957; early buffer release0.045882, borrowed-key inline membership0.057289, combined0.056422 versus0.045475. All public hashes pass. Numeric helpers have native strict scalar/all-byte/random/protected-page unit proof only. Borrowed-key ownership changes have no broad lifetime proof and are discarded. No such unselected code enters a track folder.

@@ -1,4 +1,4 @@
-> Current experiment: C89 canonical shared table is awaiting a real board result. See STATE.md and round89-candidate-source-match.json. The figures below preserve the previous selected confirmation and are not a claim that the new candidate has scored.
+> Active candidate104 tests C24-byte events and D32-entry same-band batches after fresh strict proof. A restores75 sample-PGO source. Actual89/95 lost and are removed. The selected historical results below precede this pending real-board comparison; see STATE.md.
 
 # Historical selected results before candidate89
 

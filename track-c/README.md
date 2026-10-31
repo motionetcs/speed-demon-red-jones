@@ -8,4 +8,4 @@ An exact local synchronization proof selects true record boundaries. Reader work
 
 No input seed or answer is recognized. All output is computed in the timed run. See `PERF.md` for actual experiments, source/memory costs, independent tests and real board outcomes.
 
-The current wait candidate inserts bounded CPU spin hints before an OS yield. Cancellation checks and every release/acquire ownership transition remain; this changes waiting policy only. See PERF.md for the target-specific hypothesis and actual-score decision.
+Queued name events use24 bytes: an immutable input pointer, complete64-bit hash, guarded48-bit length and16-bit country. This changes transfer layout only; owners still compare complete keys and own copied unique-key/country storage.

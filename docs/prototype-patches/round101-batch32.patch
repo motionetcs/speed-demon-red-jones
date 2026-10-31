@@ -1,0 +1,13 @@
+--- a/track-d/main.cpp
++++ b/track-d/main.cpp
+@@ -152,8 +152,8 @@
+                     auto& other = from_source ? backward : forward;
+                     const auto& starts = from_source ? offsets : reverse_offsets;
+                     const auto& adjacency = from_source ? edges : reverse_edges;
+-                    std::array<Item, 8> work;
+-                    std::array<std::pair<uint32_t, uint32_t>, 8> ranges;
++                    std::array<Item, 32> work;
++                    std::array<std::pair<uint32_t, uint32_t>, 32> ranges;
+                     size_t count = heap.pop_batch(work.data(), work.size());
+                     for (size_t k = 0; k < count; ++k) __builtin_prefetch(&starts[work[k].second], 0, 1);
+                     for (size_t k = 0; k < count; ++k) {

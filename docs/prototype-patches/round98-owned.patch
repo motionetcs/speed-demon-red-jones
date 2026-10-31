@@ -1,0 +1,225 @@
+--- a/track-d/Dockerfile
++++ b/track-d/Dockerfile
+@@ -1,6 +1,6 @@
+ FROM gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce AS build
+ WORKDIR /src
+-COPY load_cursors.hpp edge_store.hpp training_generator.py main.cpp io.hpp decimal.hpp radix_heap.hpp distance_map.hpp parallel.hpp ./
++COPY graph_pipeline.hpp load_cursors.hpp edge_store.hpp training_generator.py main.cpp io.hpp decimal.hpp radix_heap.hpp distance_map.hpp parallel.hpp ./
+ RUN g++ -std=c++20 -O3 -march=native -DNDEBUG -pthread -static -fprofile-generate=/profile -fprofile-update=atomic main.cpp -o /solution
+ RUN python3 training_generator.py --seed 1000003 --scale full --out /training && /solution --data /training --out /training-output && python3 training_generator.py --seed 130363 --scale sample --out /training && /solution --data /training --out /training-output
+ RUN g++ -std=c++20 -O3 -march=native -DNDEBUG -pthread -static -fprofile-use=/profile -fprofile-correction -Werror=missing-profile main.cpp -o /solution
+--- /dev/null
++++ b/track-d/graph_pipeline.hpp
+@@ -0,0 +1,85 @@
++#pragma once
++#include <algorithm>
++#include <atomic>
++#include <cstdint>
++#include <cstring>
++#include <memory>
++#include <stdexcept>
++#include <thread>
++#include <vector>
++#include "parallel.hpp"
++struct GraphEvent { uint32_t u,v,weight,flags; };
++static_assert(sizeof(GraphEvent)==16);
++struct GraphCanceled {};
++struct GraphQueue {
++    alignas(64) std::atomic<bool> ready{false};
++    std::vector<GraphEvent> rows;
++    void send(std::vector<GraphEvent>& batch,const std::atomic<bool>& canceled) {
++        while(ready.load(std::memory_order_acquire)) {
++            if(canceled.load(std::memory_order_relaxed))throw GraphCanceled{};
++            std::this_thread::yield();
++        }
++        if(canceled.load(std::memory_order_relaxed))throw GraphCanceled{};
++        rows.swap(batch);ready.store(true,std::memory_order_release);
++    }
++};
++struct GraphPipeline {
++    static constexpr size_t batch_size=512;
++    unsigned threads,readers,owners;uint32_t nodes;
++    std::vector<const char*> boundaries;
++    GraphPipeline(const char* begin,const char* end,unsigned count,uint32_t n):threads(count),nodes(n) {
++        readers=count==1?1:std::clamp(count*8/12,1U,count-1);owners=count==1?1:count-readers;
++        boundaries.resize(readers+1);boundaries.front()=begin;boundaries.back()=end;
++        for(unsigned i=1;i<readers;++i) {
++            const char* p=begin+(end-begin)*i/readers;
++            if(p>begin&&p[-1]!='\n') { const char* q=static_cast<const char*>(std::memchr(p,'\n',end-p));p=q?q+1:end; }
++            boundaries[i]=p;
++        }
++    }
++    unsigned owner(uint32_t node)const {return (node>>12)%owners;}
++    template<class Consume> size_t run(Consume consume)const {
++        std::vector<size_t> counts(readers);
++        if(threads==1) {
++            Scanner input{boundaries[0],boundaries[1]};std::vector<GraphEvent> batch;batch.reserve(batch_size);
++            while(input.more()) {
++                GraphEvent e{input.number(),input.number(),input.number(),3};
++                if(e.u>=nodes||e.v>=nodes)throw std::runtime_error("node outside graph");
++                batch.push_back(e);++counts[0];if(batch.size()==batch_size){consume(0,batch);batch.clear();}
++            }
++            if(!batch.empty())consume(0,batch);return counts[0];
++        }
++        auto queues=std::make_unique<GraphQueue[]>(size_t(readers)*owners);
++        std::atomic<bool> canceled{false};
++        parallel(threads,[&](unsigned worker) {
++            try {
++                if(worker<readers) {
++                    Scanner input{boundaries[worker],boundaries[worker+1]};std::vector<std::vector<GraphEvent>> batches(owners);
++                    for(auto& b:batches)b.reserve(batch_size);
++                    auto send=[&](unsigned who,GraphEvent e) {auto& b=batches[who];b.push_back(e);if(b.size()==batch_size){queues[size_t(worker)*owners+who].send(b,canceled);b.clear();}};
++                    while(input.more()) {
++                        GraphEvent e{input.number(),input.number(),input.number(),3};
++                        if(e.u>=nodes||e.v>=nodes)throw std::runtime_error("node outside graph");
++                        unsigned u=owner(e.u),v=owner(e.v);
++                        if(u==v)send(u,e);else{e.flags=1;send(u,e);e.flags=2;send(v,e);}++counts[worker];
++                    }
++                    for(unsigned who=0;who<owners;++who){auto& b=batches[who];auto& q=queues[size_t(worker)*owners+who];if(!b.empty()){q.send(b,canceled);b.clear();}q.send(b,canceled);}
++                }else {
++                    unsigned who=worker-readers,remaining=readers;std::vector<bool> done(readers);std::vector<GraphEvent> batch;batch.reserve(batch_size);
++                    while(remaining) {
++                        bool progress=false;
++                        for(unsigned reader=0;reader<readers;++reader)if(!done[reader]) {
++                            auto& q=queues[size_t(reader)*owners+who];
++                            if(q.ready.load(std::memory_order_acquire)) {
++                                batch.swap(q.rows);q.ready.store(false,std::memory_order_release);progress=true;
++                                if(batch.empty()){done[reader]=true;--remaining;}else{consume(who,batch);batch.clear();}
++                            }
++                        }
++                        if(canceled.load(std::memory_order_relaxed))throw GraphCanceled{};
++                        if(!progress)std::this_thread::yield();
++                    }
++                }
++            }catch(const GraphCanceled&){}catch(...){canceled.store(true,std::memory_order_relaxed);throw;}
++        });
++        size_t count=0;for(size_t c:counts)count+=c;return count;
++    }
++};
+--- a/track-d/load_cursors.hpp
++++ b/track-d/load_cursors.hpp
+@@ -16,6 +16,10 @@
+     void add(uint32_t node, Spills& spills) {
+         // Every wrap has exactly one observer; its private spill restores256.
+         if (std::atomic_ref(values[node]).fetch_add(1,std::memory_order_relaxed)==UINT8_MAX) spills[node]+=256;
++    }
++    // Only the exclusive owner of node's 4096-node block may call this.
++    void add_owned(uint32_t node, Spills& spills) {
++        if (values[node]++ == UINT8_MAX) spills[node] += 256;
+     }
+     void release() { std::vector<uint8_t>().swap(values); }
+ };
+@@ -47,6 +51,15 @@
+         }
+         return base[block]+std::atomic_ref(small[node]).fetch_add(1,std::memory_order_relaxed);
+     }
++    // All writes to this node are serialized by block ownership.
++    template<bool HasWide> uint32_t take_owned(uint32_t node) {
++        std::size_t block=node>>shift;
++        if constexpr(HasWide) {
++            uint32_t index=wide_index[block];
++            if(index!=UINT32_MAX)return wide[std::size_t(index)*block_size+(node&(block_size-1))]++;
++        }
++        return base[block]+small[node]++;
++    }
+     template<bool HasWide> void prefetch(uint32_t node) const {
+         if constexpr (HasWide) {
+             uint32_t index = wide_index[node >> shift];
+--- a/track-d/main.cpp
++++ b/track-d/main.cpp
+@@ -25,6 +25,7 @@
+         return static_cast<uint32_t>(value);
+     }
+ };
++#include "graph_pipeline.hpp"
+ using Item = std::pair<uint64_t, uint32_t>;
+ 
+ int main(int argc, char** argv) {
+@@ -41,39 +42,18 @@
+         uint32_t n = scan.number(), m = scan.number();
+         const char* edge_start = scan.p;
+         while (edge_start < graph.data + graph.size && *edge_start <= ' ') ++edge_start;
+-        unsigned loaders = std::min(threads, 12U);
+-        std::vector<const char*> boundaries(loaders + 1);
+-        boundaries.front() = edge_start; boundaries.back() = graph.data + graph.size;
+-        for (unsigned i = 1; i < loaders; ++i) {
+-            const char* p = edge_start + (graph.data + graph.size - edge_start) * i / loaders;
+-            if (p > edge_start && p[-1] != '\n') {
+-                const char* newline = static_cast<const char*>(std::memchr(p, '\n', graph.data + graph.size - p));
+-                p = newline ? newline + 1 : graph.data + graph.size;
+-            }
+-            boundaries[i] = p;
+-        }
+-        struct Local { size_t count = 0; DegreeBytes::Spills out_spills, in_spills; std::vector<std::pair<uint32_t, uint32_t>> wide; };
+-        std::vector<Local> locals(loaders);
+-        DegreeBytes degree(n), reverse_degree(n);
+-        parallel(loaders, [&](unsigned worker) {
+-            auto& local = locals[worker];
+-            Scanner input{boundaries[worker], boundaries[worker + 1]};
+-            std::array<std::pair<uint32_t,uint32_t>, 16> batch;
+-            while (input.more()) {
+-                size_t count = 0;
+-                while (count < batch.size() && input.more()) {
+-                    uint32_t u = input.number(), v = input.number(); input.number();
+-                    if (u >= n || v >= n) throw std::runtime_error("node outside graph");
+-                    __builtin_prefetch(&degree.values[u], 1, 1); __builtin_prefetch(&reverse_degree.values[v], 1, 1);
+-                    batch[count++] = {u,v};
+-                }
+-                local.count += count;
+-                for (size_t i=0;i<count;++i) { auto [u,v]=batch[i]; degree.add(u, local.out_spills); reverse_degree.add(v, local.in_spills); }
++        GraphPipeline pipeline(edge_start,graph.data+graph.size,threads,n);
++        struct Local { DegreeBytes::Spills out_spills,in_spills;std::vector<std::pair<uint32_t,uint32_t>> wide; };
++        std::vector<Local> locals(pipeline.owners);DegreeBytes degree(n),reverse_degree(n);
++        size_t edge_count=pipeline.run([&](unsigned owner,const std::vector<GraphEvent>& rows) {
++            auto& local=locals[owner];
++            for(size_t first=0;first<rows.size();first+=16) {
++                size_t end=std::min(rows.size(),first+16);
++                for(size_t i=first;i<end;++i){const auto& e=rows[i];if(e.flags&1)__builtin_prefetch(&degree.values[e.u],1,1);if(e.flags&2)__builtin_prefetch(&reverse_degree.values[e.v],1,1);}
++                for(size_t i=first;i<end;++i){const auto& e=rows[i];if(e.flags&1)degree.add_owned(e.u,local.out_spills);if(e.flags&2)reverse_degree.add_owned(e.v,local.in_spills);}
+             }
+         });
+-        size_t edge_count = 0;
+-        for (const auto& local : locals) edge_count += local.count;
+-        if (edge_count != m) throw std::runtime_error("edge count does not match header");
++        if(edge_count!=m)throw std::runtime_error("edge count does not match header");
+         std::vector<uint32_t> offsets(size_t(n) + 1), reverse_offsets(size_t(n) + 1);
+         for (const auto& local : locals) {
+             for (auto [node, count] : local.out_spills) offsets[size_t(node) + 1] += count;
+@@ -88,28 +68,16 @@
+         bool wide_cursors = cursor.wide_blocks || reverse_cursor.wide_blocks;
+         EdgeStore edges(m, n), reverse_edges(m, n);
+         auto scatter = [&]<bool Compact, bool WideCursors>() {
+-            parallel(loaders, [&](unsigned worker) {
+-            auto& local = locals[worker];
+-            Scanner input{boundaries[worker], boundaries[worker + 1]};
+-            struct Row { uint32_t u, v, value, out, in; };
+-            std::array<Row, 16> batch;
+-            while (input.more()) {
+-                size_t count = 0;
+-                while (count < batch.size() && input.more()) {
+-                    auto& row = batch[count++]; row.u=input.number(); row.v=input.number(); row.value=input.number();
+-                    cursor.template prefetch<WideCursors>(row.u); reverse_cursor.template prefetch<WideCursors>(row.v);
++            size_t scattered=pipeline.run([&](unsigned owner,const std::vector<GraphEvent>& rows) {
++                auto& local=locals[owner];std::array<uint32_t,16> out{},in{};
++                for(size_t first=0;first<rows.size();first+=16) {
++                    size_t end=std::min(rows.size(),first+16);
++                    for(size_t i=first;i<end;++i){const auto& e=rows[i];if(e.flags&1)cursor.template prefetch<WideCursors>(e.u);if(e.flags&2)reverse_cursor.template prefetch<WideCursors>(e.v);}
++                    for(size_t i=first;i<end;++i){const auto& e=rows[i];size_t j=i-first;if(e.flags&1){out[j]=cursor.template take_owned<WideCursors>(e.u);edges.template prefetch<Compact,true>(out[j]);}if(e.flags&2){in[j]=reverse_cursor.template take_owned<WideCursors>(e.v);reverse_edges.template prefetch<Compact,true>(in[j]);}}
++                    for(size_t i=first;i<end;++i){const auto& e=rows[i];size_t j=i-first;uint32_t limit=Compact?EdgeStore::small_limit:uint32_t(UINT16_MAX),weight=std::min(e.weight,limit);if(e.flags&1){edges.set<Compact>(out[j],e.v,weight);if(e.weight>=limit)local.wide.emplace_back(out[j]*2,e.weight);}if(e.flags&2){reverse_edges.set<Compact>(in[j],e.u,weight);if(e.weight>=limit)local.wide.emplace_back(in[j]*2+1,e.weight);}}
+                 }
+-                for (size_t i=0;i<count;++i) {
+-                    auto& row=batch[i]; row.out=cursor.template take<WideCursors>(row.u); row.in=reverse_cursor.template take<WideCursors>(row.v);
+-                    edges.template prefetch<Compact,true>(row.out); reverse_edges.template prefetch<Compact,true>(row.in);
+-                }
+-                for (size_t i=0;i<count;++i) {
+-                    auto& row=batch[i]; uint32_t weight=std::min(row.value, Compact ? EdgeStore::small_limit : uint32_t(UINT16_MAX));
+-                    edges.set<Compact>(row.out,row.v,weight); reverse_edges.set<Compact>(row.in,row.u,weight);
+-                    if(row.value >= (Compact ? EdgeStore::small_limit : uint32_t(UINT16_MAX))) { local.wide.emplace_back(row.out*2,row.value); local.wide.emplace_back(row.in*2+1,row.value); }
+-                }
+-            }
+-        });
++            });
++            if(scattered!=m)throw std::runtime_error("edge count changed during scatter");
+         };
+         if (edges.compact) {
+             if (wide_cursors) scatter.template operator()<true,true>(); else scatter.template operator()<true,false>();

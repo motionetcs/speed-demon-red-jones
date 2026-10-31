@@ -1,0 +1,24 @@
+--- a/track-c/main.cpp
++++ b/track-c/main.cpp
+@@ -199,16 +199,17 @@
+                         // An empty published batch is the ordered end-of-stream marker.
+                         for(unsigned owner=0;owner<owners;++owner){auto& batch=batches[owner];auto& queue=queues[size_t(worker)*owners+owner];if(!batch.empty())queue.send(batch,canceled);queue.send(batch,canceled);}
+                     }else{
+-                        unsigned owner=worker-readers;Names names(groups.size());std::array<bool,12> finished{};unsigned remaining=readers;
++                        unsigned owner=worker-readers;Names names(groups.size());std::array<bool,12> finished{};unsigned remaining=readers;std::vector<NameEvent> incoming;incoming.reserve(NAME_BATCH);
+                         while(remaining){
+                             if(canceled.load(std::memory_order_relaxed))throw std::runtime_error("name pipeline canceled");
+                             bool progress=false;
+                             for(unsigned reader=0;reader<readers;++reader){
+                                 if(finished[reader])continue;auto& queue=queues[size_t(reader)*owners+owner];
+                                 if(!queue.ready.load(std::memory_order_acquire))continue;progress=true;
+-                                if(queue.rows.empty()){finished[reader]=true;--remaining;}
+-                                else for(const auto& e:queue.rows)distinct[owner][e.country]+=names.first(e.value(),e.country,e.hash);
+-                                queue.rows.clear();queue.ready.store(false,std::memory_order_release);
++                                incoming.swap(queue.rows);queue.ready.store(false,std::memory_order_release);
++                                if(incoming.empty()){finished[reader]=true;--remaining;}
++                                else for(const auto& e:incoming)distinct[owner][e.country]+=names.first(e.value(),e.country,e.hash);
++                                incoming.clear();
+                             }
+                             if(!progress)std::this_thread::yield();
+                         }

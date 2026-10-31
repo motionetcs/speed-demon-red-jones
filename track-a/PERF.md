@@ -312,3 +312,9 @@ A still trains on two310k-row samples while the full task has3.1M rows, so group
 A's complete runtime C++/headers/metadata/generator are byte-identical to selected75; only Docker training changes. The newly compiled pinned offline Linux image passes full-public,96 independent boundary/method/hour/escape/ID cases and actual defaults. The unchanged algorithm's75 strict native/GCC/sanitizer/race proof remains, explicitly distinguished from the new image checks. Actual K must beat the current observed A best in88 start feed.
 
 Independent2/4-stream parser prototypes90 are slower in eleven rotating hash-checked native trials: retained12=0.040942 s;2streams at6/12=0.047337/0.041113;4streams at6/12=0.047888/0.041907. RSS also does not earn a useful tradeoff. Reject before broad sanitizer/Linux/board claims. Raw ../docs/round90-independent-stream-bench.json.
+
+
+Round95/13e3224 full-size PGO passes gates, run-c26dc17888a8: T0.045529 s/M34897920/S424/K28.503327/72.744778. It does not beat the88 same-source best; restore exactcfd094c training/runtime/build/metadata and README. No full-training gain is claimed. Raw ../docs/board-round95-full-pgo-pause.json.
+
+
+Rounds101/102 native full-public screens reject a dedicated12-total-thread ordered writer and alternate small-group nearest-rank selection. Writer0.040871 versus0.041513 s saves only0.41MB native RSS for added synchronization/source, so no promotion. Median-plus-exact-largest-tail selection below20/32/64 measures0.041232/0.041256/0.041646 versus0.040912; all output hashes pass but no gain. Neither received broad sanitizer/race/Linux or official proof. A restores exact selected75 runtime/build/metadata and original sample104729/130363 PGO after95 full-profile training loses actual K. Restored exact image passes current reference/default checks.

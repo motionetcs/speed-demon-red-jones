@@ -67,3 +67,5 @@ Rounds80–85 parents/source identities and exact screening/validation limits ar
 Round88 canonical-shared screens apply tocfd094c. Only the131 family proceeds89, with explicit cancellation handling fixed before exact broad validation. Scope and own event-written header provenance are in round88-prototype-index.json.
 
 Rounds90–95 parents, source hashes and exact screening-versus-validation limits are in round90-95-prototype-index.json. Only91 A independent full-PGO and93 spin128 are submitted95; all other variants remain rejected screens.
+
+Rounds97–103 exact parents and screening limits are in round97-103-prototype-index.json. Only103-event24 C and101-batch32 D proceed to frozen104 broad proof and an eventual real-board test; C103 median drift is explicitly documented.

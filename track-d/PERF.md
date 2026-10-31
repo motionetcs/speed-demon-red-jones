@@ -299,3 +299,14 @@ Final selected combination b80c1ab98657ab4f5d4d6ce3ffe83b9012c2dcda, run-d906507
 
 
 Additional research-led screens are rejected. Independent2/4-stream graph parsing retains both exact passes and all CSR/search logic but loses locally: retained12=0.188235 s,2streams at6/12=0.220623/0.191449,4streams at6/12=0.219214/0.190418. A within-band min-heap, with either the original conservative boundary or tighter queued minimum, also loses: retained0.222627 s versus0.254634/0.261620. Every full-public hash passes. No broader sanitizer/independent-graph/Linux/official claim is made for these unselected prototypes. Exact75 D remains. Raw ../docs/round90-independent-stream-bench.json and ../docs/round92-heap-band-bench.json.
+
+
+##32-entry exact same-band search batches
+
+The accepted75 lossless packed-label SIMD layout materially changed lookup cost, so retest queue batching rather than transferring old broad-label timings. Change only work/range scratch and pop_batch limit8→32. Distances, conservative band64 stopping bound, full-width fallbacks, stale-label checks and count-balanced side choice are identical. More entries from one band may be processed before reconsidering the side; no distance or answer is rounded. Source complexity/storage is essentially unchanged apart from bounded per-worker scratch.
+
+Eleven rotating full-public native screens100/101/102 all match hashes.100 retained0.188751 s versus batch16=0.183936, band32=0.185157, band128=0.194784 and packed-neighbor hints0.190731.101 retained0.189530,16=0.184204,32=0.182033,64-band/combined32-distance16-batch=0.185558.102 retained0.189103,32=0.185344,64=0.184149. Choose32 for smaller scratch and the repeated2–4% local hypothesis. These Apple numbers do not establish Intel K improvement; actual target must exceed19.561482/64.570088.
+
+Fresh1451/1453 strict sanitizer,1459 TSAN, public1/6/12 and every wide-ID/weight/degree/cursor/64-bit reference case,256 independent Floyd graphs/85,871 answers, native/GCC exact queue model with actual32-entry extraction and unchanged packed-label/numeric models pass. Current image replay counts/defaults/hashes are in round104-candidate-source-match.json.
+
+Block-owned98 loading is rejected. It gives every4096-node block one non-atomic degree/cursor owner and transfers exact forward/reverse events, but random labels route most edges twice. Native11 rotating medians retained0.186998 versus8-read/4-owner0.213110,6/6=0.202726,4/8=0.195477 and larger16384-node blocks0.203115. All public hashes pass; default8/4 also passes tiny1441/1447 and boundary references. No non-atomic concurrency/sanitizer/Linux proof or official gain is claimed for this discarded architecture.

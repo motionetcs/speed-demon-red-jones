@@ -1,6 +1,6 @@
-# Active candidate audit context
+# Active candidate104 audit context
 
-C89 awaits actual scoring; round89-candidate-source-match.json ties its27 inputs to fresh native/GCC/sanitizer/race/current-image proof. The prior selected-source audit below is historical until acceptance/restoration. Hourly optimization continuation is active, but publication is explicitly excluded after automatic review rejected that unapproved scope. No visibility change is scheduled.
+C24-byte events and D32-entry same-band batches have fresh strict reference/sanitizer/race/native-GCC proof. Exact images/defaults/source match must be checked in round104-candidate-source-match.json before push. A restores selected75 sample-PGO source; actual89/95 losing code is removed. Historical selected audit below is not an unscored candidate's official confirmation. Hourly optimization is active; publication remains excluded pending explicit approval after automatic review rejected that scope.
 
 # Entry audit — 31 October 2026
 

@@ -199,7 +199,7 @@ int main(int argc, char** argv) {
                         // An empty published batch is the ordered end-of-stream marker.
                         for(unsigned owner=0;owner<owners;++owner){auto& batch=batches[owner];auto& queue=queues[size_t(worker)*owners+owner];if(!batch.empty())queue.send(batch,canceled);queue.send(batch,canceled);}
                     }else{
-                        unsigned owner=worker-readers;Names names(groups.size());std::array<bool,12> finished{};unsigned remaining=readers;unsigned spins=0;
+                        unsigned owner=worker-readers;Names names(groups.size());std::array<bool,12> finished{};unsigned remaining=readers;
                         while(remaining){
                             if(canceled.load(std::memory_order_relaxed))throw std::runtime_error("name pipeline canceled");
                             bool progress=false;
@@ -210,7 +210,7 @@ int main(int argc, char** argv) {
                                 else for(const auto& e:queue.rows)distinct[owner][e.country]+=names.first(e.value(),e.country,e.hash);
                                 queue.rows.clear();queue.ready.store(false,std::memory_order_release);
                             }
-                            if(!progress)name_pause(spins);else spins=0;
+                            if(!progress)std::this_thread::yield();
                         }
                     }
                 }catch(...){canceled.store(true,std::memory_order_relaxed);throw;}

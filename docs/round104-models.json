@@ -1,0 +1,54 @@
+{
+  "observed_at_utc": "2026-10-31T15:38:50.514830+00:00",
+  "official_score": false,
+  "scope": "Strict native/GCC15 ASAN/UBSAN private exact-name reference/collision/all-owner/growth/country/long-key models, independent24-byte event pointer/length/all16-bit-country/copy/vector-growth model, and exact compact/wide queue/label/numeric model with actual32-entry extraction. Unchanged packed-label representation retains exact75 deeper reconstruction proof.",
+  "runs": [
+    {
+      "mode": "native",
+      "model": "test_name_store.cpp",
+      "stdout": "PASS private exact-name std::set/collision/country/growth/stable-block/long-NUL-UTF8-key models\n",
+      "stderr": "",
+      "binary_sha256": "c595460e6b04ee2e1aef82f6b87abad239a89017d6c1e90d46ccb880555eba35"
+    },
+    {
+      "mode": "native",
+      "model": "test_name_event.cpp",
+      "stdout": "PASS24-byte direct-pointer event: every16-bit country, random full64-bit hashes, stable binary keys through1MiB, length/copy/growth boundaries\n",
+      "stderr": "",
+      "binary_sha256": "f699251ac250051d4b86bacb306543242bdde0cd0d29d263f81f257f69e91388"
+    },
+    {
+      "mode": "native",
+      "model": "test_primitives.cpp",
+      "stdout": "PASS decimal reference/byte/guard-page checks and compact/wide queue/label model checks\n",
+      "stderr": "",
+      "binary_sha256": "a9e95de840f7c579d1e6aad894528be915b61281ca64f2eefda5fb06d9621f4f"
+    },
+    {
+      "mode": "GCC15-Linux-amd64",
+      "script": [
+        "set -eu",
+        "export UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1",
+        "g++ -std=c++20 -O1 -g -pthread -fsanitize=address,undefined -msse2 '-DNAMES_HEADER=\"/repo/.build/round104/source/track-c/names.hpp\"' /repo/tools/test_name_store.cpp -o /tmp/model",
+        "/tmp/model",
+        "g++ -std=c++20 -O1 -g -pthread -fsanitize=address,undefined -msse2 '-DNAMES_HEADER=\"/repo/.build/round104/source/track-c/names.hpp\"' /repo/tools/test_name_event.cpp -o /tmp/model",
+        "/tmp/model",
+        "g++ -std=c++20 -O1 -g -pthread -fsanitize=address,undefined -msse2 -DTEST_QUEUE_BATCH=32 '-DDECIMAL_HEADER=\"/repo/.build/round104/source/track-d/decimal.hpp\"' '-DCOMPACT_QUEUE_HEADER=\"/repo/.build/round104/source/track-d/radix_heap.hpp\"' '-DDISTANCE_MAP_HEADER=\"/repo/.build/round104/source/track-d/distance_map.hpp\"' /repo/tools/test_primitives.cpp -o /tmp/model",
+        "/tmp/model"
+      ],
+      "stdout": "PASS private exact-name std::set/collision/country/growth/stable-block/long-NUL-UTF8-key models\nPASS24-byte direct-pointer event: every16-bit country, random full64-bit hashes, stable binary keys through1MiB, length/copy/growth boundaries\nPASS decimal reference/byte/guard-page checks and compact/wide queue/label model checks\n",
+      "stderr": ""
+    }
+  ],
+  "source_sha256": {
+    "tools/test_name_store.cpp": "683002bf528f64c680123d8cd3a4e3eeafed403d1ba3e65c691dfb478b4cc820",
+    "tools/private_names_model.hpp": "d7c8f6f89d220b2531a4e8148b47c82bb424ce26b82c66dd3f8271bed7166f83",
+    "tools/test_name_event.cpp": "50de4b585f6db73bfe0615941c5840b867be65d078c26f52c03d24ace651c361",
+    "tools/test_primitives.cpp": "9330f2416551459d8cdf459216d713e6e342fe553875cdd50fba2ed0f4806bcc",
+    ".build/round104/source/track-c/names.hpp": "61ef180478d6b9aa81db11064e828777e46a35b893bb08f9ef446afd6c79dc11",
+    ".build/round104/source/track-d/decimal.hpp": "aee2210ac5894050834ffd37903718b3b7bdc6673240559baa85b350bea9b581",
+    ".build/round104/source/track-d/radix_heap.hpp": "7fb2052bb951ca391c5b1883d8e673f554a43ab3d06286e43597105c2d82b6e3",
+    ".build/round104/source/track-d/distance_map.hpp": "07b254af4e7a149bdae50e426c3355446e104333e6a8dcd43cd29181db4a8604"
+  },
+  "passed": true
+}

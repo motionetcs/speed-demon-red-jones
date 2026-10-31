@@ -1,0 +1,18 @@
+--- a/track-a/main.cpp
++++ b/track-a/main.cpp
+@@ -97,8 +97,13 @@
+                 for (uint16_t key : order) {
+                     uint64_t n = groups[key].count, errors = groups[key].errors; if (!n) continue;
+                     auto first = latencies.begin() + offsets[key];
+-                    if (n < 32) std::sort(first, first + n);
+-                    else {
++                    if(n<32){
++                        size_t median=(50*n+99)/100-1;
++                        std::nth_element(first,first+median,first+n);
++                        for(size_t rank=n-1,needed=(95*n+99)/100-1;rank>=needed&&rank>median;--rank){
++                            auto largest=std::max_element(first+median+1,first+rank+1);std::iter_swap(first+rank,largest);
++                        }
++                    }else {
+                         size_t unselected = 0;
+                         for (uint64_t percentile : {50, 95, 99}) {
+                             size_t rank = (percentile * n + 99) / 100 - 1;

@@ -27,6 +27,9 @@
 #ifndef RADIX_BATCH_BUCKET_BITS
 #define RADIX_BATCH_BUCKET_BITS 0
 #endif
+#ifndef TEST_QUEUE_BATCH
+#define TEST_QUEUE_BATCH 8
+#endif
 uint64_t band(uint64_t distance) { return distance >> RADIX_BATCH_BUCKET_BITS; }
 void number_case(const std::string& text) {
     uint64_t expected = 0;
@@ -63,8 +66,8 @@ int main() {
                 assert(queue.minimum() == (band(expected.begin()->first) << RADIX_BATCH_BUCKET_BITS));
 #if RADIX_BATCH_BUCKET_BITS > 0
                 if (i % 2) {
-                    RadixHeap::Item work[8]; uint64_t first_band = band(expected.begin()->first);
-                    size_t count = queue.pop_batch(work, 8); assert(count && count <= 8);
+                    RadixHeap::Item work[TEST_QUEUE_BATCH]; uint64_t first_band = band(expected.begin()->first);
+                    size_t count = queue.pop_batch(work, TEST_QUEUE_BATCH); assert(count && count <= TEST_QUEUE_BATCH);
                     for (size_t k = 0; k < count; ++k) {
                         assert(band(work[k].first) == first_band);
                         auto found = expected.find(work[k]); assert(found != expected.end()); expected.erase(found);
