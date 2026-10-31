@@ -333,3 +333,6 @@ Selected restoration109/6e5950c passes every official gate, run-c7cff86160b4: T0
 
 
 Round111 unchanged selected D32 passes every official gate, run-13f7fa4b0adb: T0.200718 s/M77692928/S827/K19.903632/64.946617. This third same-source observation lies between104 and109. Best65.222044 remains, without claiming another algorithm change. Raw ../docs/board-round111-native-a-arena-c.json.
+
+
+Round118/ea8bfe3 unchanged selected D passes every gate, run-91280e5eebb6: T0.203297 s/M77336576/S827/K19.795174/64.827966. Same-source repeat, not a new algorithm gain; historical best remains separate. Raw ../docs/board-round118-calendar-a.json.

@@ -12,7 +12,7 @@ This is the fresh local entry. Check actual external state before treating it as
 | Licence | MIT, official attribution retained |
 | Fresh repository | https://github.com/motionetcs/speed-demon-red-jones — private |
 | Submission branch | speed-demon |
-| Remote source | Candidate118 tests only A calendar arithmetic on the frozen four-date range. A build/storage stay original; C original71 and D32 unchanged. Every27 source/image input is proved in round118-candidate-source-match.json; actual118 records follow. |
+| Remote source | Selected restoration119 exactly matches all27 runtime/build/metadata inputs of all-gates6e5950c: original A/C and winning104 D32. A96/C147/D1080 Linux cases, combined public/default checks pass; actual119 confirmation pending. Losing118 calendar code is removed. |
 | Individual registration | Entrant confirmed already registered on 31 October 2026; not duplicated |
 | Team form | Submitted successfully for this fresh repository, A/C/D; Tally displayed “Form submitted” |
 | Board app access | Installed and verified on 31 October 2026; only the fresh repository selected; read-only code and metadata |

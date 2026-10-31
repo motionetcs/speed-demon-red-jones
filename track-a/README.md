@@ -21,5 +21,3 @@ With another24 hours: obtain legitimate Intel profiles, measure parse/selection/
 Specification: https://github.com/hackathon-raptors/speed-demon-2026/blob/main/specs/a-ingest.md
 
 Per-worker exact direct caches point at globally published immutable views. Sampling only indexes the cache; full names still decide equality, and misses use the original global interner. Actual total-score acceptance is recorded in PERF.md.
-
-For the specification's fixed Oct30/31–Nov1/2 range, the last month/day digits sum to the day index0..3; the same hour offset/range check follows. This identity holds for every promised seed/scale, with no time-order assumption.

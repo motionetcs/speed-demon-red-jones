@@ -1,65 +1,41 @@
-> Active118 changes only A's exact calendar identity over the guaranteed72-hour range. All27 inputs/new images pass1323 reference runs/defaults and fresh all-hour/sanitizer/race proof. C original71 and D32 stay selected; losing111 settings are removed. Actual118 scores are pending. Best observations remain72.924546/67.750087/65.222044; material lower repeats are preserved.
+# Results — 31 October 2026
 
-# Historical selected results before candidate89
+The complete public feed at **17:00 UTC** records Red Jones at **39th of 82** teams with three scored tracks. Best-three machine mean is **68.558188**, up from68.328988 at this pass's start. Overall leader Cause Of Death has81.805732. We are not number one. Public practice scores are separate from final holdout scoring and judging.
 
-Complete public-board snapshot: **2026-10-31T14:21:20Z**. Practice machine points are separate from final holdout scoring and judging.
-
-This pass raises the best-three machine mean **67.866704 → 68.274147**. Rank changes **32/76 → 31/77** as the field changes. Overall leader **Cause Of Death 81.805732**. We are not number one.
-
-| Track | Starting best | Current best | Rank | Track leader |
+| Track | Starting best | Best now | Track rank | Track leader |
 | --- | ---: | ---: | ---: | --- |
-| A | 72.140972 | 72.879783 | 42/92 | Kirk Mates 86.886919 |
-| C | 67.613586 | 67.750087 | 32/79 | NickTrapp 83.236668 |
-| D | 64.084694 | 64.454305 | 14/81 | Cause Of Death 73.008704 |
+| A | 72.924546 | 72.924546 | 48/97 | Kirk Mates87.048181 |
+| C | 67.750087 | 67.750087 | 38/83 | NickTrapp83.814878 |
+| D | 64.570088 | **65.222044** | 18/86 | Cause Of Death73.008704 |
 
-## Retained changes
+D's retained change raises query processing batches from8 to32 entries within the same64-distance band. The first actual result is run-deabebbc1efe on252d750, K20.157695,0.195926 seconds,77,459,456 charged bytes,S827. All five gates pass. Later identical-source observations score64.547044,64.946617 and64.827966. This is a new best observation, with material run variation; it is not a precise causal speedup estimate.
 
-A keeps the exact 4096-entry per-parser endpoint cache and globally published canonical views. Every cache hit checks full length and bytes; misses retain the original full-hash/full-equality interner. The first actual cache run improves 72.140972 to 72.331814, K 27.721673 to 27.966381. Subsequent 72.747672/72.879783 observations use unchanged cache source and are timing/memory variation, not additional algorithms.
+A retains the previously scored exact4096-entry endpoint cache, canonical input views, lossless four-byte records and original generic GCC/sample104729/130363 PGO. C retains the earlier eight-reader/four-owner,512-event canonical-name pipeline and original build. D retains32-entry search batches, original atomic compact loader and lossless packed labels/full-width fallback. The owner briefing explains these mechanisms.
 
-The bounded endpoint-space scanner passes every correctness/safety gate but loses actual total K. Its header, Docker copy and Make dependency are removed. The final A source restores the stronger exact cache version.
+All27 restored runtime/build/metadata inputs match the all-gates selected combination6e5950c in [source/image proof](round119-selected-source-match.json). Candidate118's correct calendar identity loses actual total K and is removed. No record-buffer, quote-mask, native-A, C-arena or owned-D prototype remains in a track folder. The restored119 source is locally validated and awaiting its own real confirmation. Documentation heads are not claimed scored merely because an ancestor was scored.
 
-C keeps the previously scored bounded canonical-name pipeline: eight readers/four owners, 512-event SPSC batches, complete key equality and exact private country membership. Both new owner prefetch and independent index-bit variants lose actual total K and are removed. Numeric variants are rejected at native screening only. No new C algorithm gain is claimed.
+| Real batch / commit | A points | C points | D points | Decision |
+| --- | ---: | ---: | ---: | --- |
+| [89 /864fb25](board-round89-canonical-shared.json) | 72.410292 | 65.966555 | 64.284606 | Reject shared canonical C |
+| [95 /13e3224](board-round95-full-pgo-pause.json) | 72.744778 | 67.272496 | 64.000687 | Reject full PGO A and pause C |
+| [104 /252d750](board-round104-event24-batch32.json) | 72.837330 | 67.731481 | **65.222044** | Keep D32; reject packed-event C |
+| [107 /8182e42](board-round107-owned-loader.json) | 71.448230 | 67.502025 | 57.652656 | Reject owned D loader |
+| [109 /6e5950c](board-round109-selected-confirmation.json) | 72.786488 | 67.402878 | 64.547044 | All-gates selected-source confirmation |
+| [111 /cc66c82](board-round111-native-a-arena-c.json) | 72.203363 | 67.448548 | 64.946617 | Reject native A and arena C |
+| [118 /ea8bfe3](board-round118-calendar-a.json) | 72.421065 | 67.371094 | 64.827966 | Reject calendar A |
 
-D keeps lossless eight-way four-byte distance labels with full-node/full64-bit fallback. Bucket low bits plus stored high bits reconstruct the complete node ID; distance+1 reserves zero as empty. Packed overflow and wider values remain exact. Its actual run improves 64.084694 to 64.454305, K 19.129071 to 19.457458. The standard fallback loses actual K and is removed; query-capacity reset variants fail the local combined tradeoff.
+Every row above passes check/build/correctness/timeout/sandbox. Unchanged tracks' results are repeats, not invented algorithm improvements. Full K/time/memory/source/run identities remain in linked JSON and each PERF log.
 
-## Exact final confirmation
+The restored images have **A96/C147/D1080 =1,323** independent Linux replays. Fresh combined Make builds, full-public hashes at1/6/12 workers and actual native/Linux defaults pass. New A image identity is checked directly; unchanged C/D images retain explicit147/1080-case proof. Images run unprivileged and offline with read-only roots. [Combined public checks](round119-make-public.json) and [defaults](round119-defaults.json) are distinct from official performance evidence.
 
-Before candidate89, all **27** selected runtime/build/metadata inputs and each current best source match **b80c1ab98657ab4f5d4d6ce3ffe83b9012c2dcda**, which passes all five official gates for A/C/D. Proof: [final source identity](round87-final-source-match.json).
+Strict sanitizer, race and independent-model evidence stays tied to the exact tested source. A helper/cache/publication/guard/collision/escape models retain exact75 provenance; C retains exact71 CSV/name/queue/country proof. D32 has fresh104 sanitizer/reference and native/GCC32-entry queue models, plus independent Floyd and spread-ID graph checks. Changed rejected loaders or scanners do not lend their proofs to the selected implementation silently. The selected D image passes the expanded1080 reference cases; prototype-only owned-cursor models live in the archive.
 
-| Track | Real run | Time | Charged memory | S | K | Points |
-| --- | --- | ---: | ---: | ---: | ---: | ---: |
-| A | `run-bcec1deb5817` | 0.046913 s | 34,394,112 B | 424 | 28.161520 | 72.482805 |
-| C | `run-92f0b3cc5905` | 0.062514 s | 13,045,760 B | 660 | 22.588135 | 67.694018 |
-| D | `run-d906507c3974` | 0.240533 s | 77,619,200 B | 827 | 18.185307 | 62.986032 |
+Many additional changes failed native screening before broader validation or submission: numeric SWAR, alternate parser streams, borrowed name tables, output scheduling, percentile variants, quote-block payload parsing and raw record arrays. Reproducible patches/parents and exact proof limits are in prototype indexes97–118. Native Apple timing/RSS and local emulated cgroup diagnostics are hypotheses, not official Intel score measurements. No rejected change is labelled a confirmed gain.
 
-Historical bests and final confirmation measurements are separate. An unchanged-source difference is variation; no weaker candidate is retained merely because it passes gates.
+Hourly local optimization continuation is active. It requires this Mac and the app to remain available; it is not cloud execution. It must finish any outstanding run before another runtime push and stop runtime edits at freeze. Public-source publication is excluded from that automation.
 
-## Actual candidate batches
+Freeze is **2 November2026 15:00 UTC/20:30 IST**. Recorded MIT source must be public by **16:00 UTC/21:30 IST**. The repository is private now. Automatic approval review rejected the future private-to-public clause for missing specific approval; an explicit owner question remains pending. No publication is scheduled or performed. The privacy review is heuristic and must be rerun on the final frozen history before any approved publication.
 
-| Batch / commit | A | C | D |
-| --- | ---: | ---: | ---: |
-| [75 / 342c0aa](board-round75-cache-prefetch-labels.json) | 72.331814 | 67.285041 | 64.454305 |
-| [77 / 1a9deb5](board-round77-owner-index.json) | 72.747672 | 67.447703 | 63.956879 |
-| [79 / 27dd74a](board-round79-small-wide-fallback.json) | 72.879783 | 67.536754 | 63.207536 |
-| [81 / 576feb0](board-round81-bounded-space.json) | 72.512561 | 67.750087 | 63.844702 |
-| [87 / b80c1ab](board-round87-selected-final.json) | 72.482805 | 67.694018 | 62.986032 |
+The observable entry audit passes; this is not an organizer eligibility certificate or a claim that the owner personally understands the code. Fresh event-written code, MIT attribution and AI disclosure are preserved. No new emoji actions occurred this pass; the earlier overall-leader counter target remains separate and reactions do not affect machine ranking.
 
-## Validation and limits
-
-The final selected combination has exact current-image fixture coverage: A 96, C 147, D 1,032, total **1,275**. Fresh combined Make builds, public hashes at 1/6/12 workers and actual native/Linux defaults pass. Images run unprivileged, offline, with read-only roots and the required memory/output contract. Current image identities are recorded explicitly; same-source rebuilds are not assumed to share an image ID.
-
-The rejected A scanner received fresh 1333/1337 strict ASAN/UBSAN, 1361 TSAN, method/hour/escape/ID coverage and native/GCC scalar-reference/protected-page models. Those results remain evidence for that rejected candidate only. Selected cache/canonical-publication/guard/collision/long-key/4096-ID models are tied to unchanged 75 source. C reuses exact 71 sanitizer/race/name/CSV-boundary/country/pipeline proof and D exact 75 packed-label/reference/GCC/graph proof, with fresh current-image replays. D's 256 independent Floyd graphs verify 85,871 answers.
-
-The standard D fallback also passes fresh 1319/1321 strict sanitizer, 1327 TSAN, native/GCC exact packed/fallback/queue models and independent graphs. C's rejected index passes fresh 1301/1303 strict sanitizer, 1307 TSAN, every country width through 17576, every 1..12-worker pipeline/reference/cancellation case and native/GCC forced-owner/collision/growth models. Neither is selected because real total K loses.
-
-Native Apple timings/RSS and instrumented capacity counts are diagnostics, not Intel/cgroup scores. Unselected cache, output, numeric, reset and in-place variants have hash-checked native screening only; no broad or official pass is invented. Exact source patches, parents and limits are in round73-75, round76, round78 and round80-85 prototype indexes. Historical shared-fixture and Darwin observer corrections remain in the earlier raw reports/PERF history.
-
-## Entry requirements
-
-The observable audit covers the intended fresh repository/branch, MIT attribution, disclosed AI assistance, event-time commits, source-only contexts and pinned allowlisted offline builds. Registration is entrant-confirmed; team/app scope and actual gates are verified. This does not certify organizer eligibility or attest that the owner has personally understood the code.
-
-**Still required:** preserve the final passing branch at **2 November 2026 15:00 UTC /20:30 IST**, and make that recorded MIT source public by **16:00 UTC /21:30 IST**. The repository remains private, which is currently allowed. Future publication/monitoring are not scheduled. The owner briefing explains the actual retained algorithms.
-
-No emoji actions occurred in this pass. The earlier saved four-counter target and its timestamp remain in emoji-status.json; reactions do not affect K or ranking.
-
-[Full board snapshot](round87-confirmed-board.json) · [Leader comparison](round87-confirmed-comparison.json) · [Entry audit](ENTRY-AUDIT.md) · [Live board](https://speeddemon.dev/board/#red-jones-00c4a7)
+[Complete feed](round118-start-board.json) · [Leader comparison](round118-start-comparison.json) · [Entry audit](ENTRY-AUDIT.md) · [Live board](https://speeddemon.dev/board/#red-jones-00c4a7)
