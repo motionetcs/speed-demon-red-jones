@@ -288,3 +288,15 @@ The old shared-table payload-prefetch rejection does not measure this newer owne
 Eleven rotating full-public native trials: retained0.060312 s; batch8=0.059265, batch16=0.058061, lookahead8=0.059286, lookahead16=0.059313. Choose16 (3.7% lower), with essentially unchanged native RSS. Source cost still counts and only real total K decides.
 
 Fresh1283/1289 ASAN/UBSAN,1291 TSAN, every country width through17576, every1..12 worker progress/batch/EOF/equality/cancellation case, full/default outputs, exact private-name GCC/native reference models and120 current-image Linux replays pass. Frozen75 inputs are independently tied to these exact images. Real K must exceed22.504622/67.613586.
+
+
+Round75 commit342c0aa, run-b9ce72d11d0b, passes all five official gates: T=0.062494 s, M=13950976 B, S=685, K=22.166688, points=67.285041. Reject owner prefetch because it loses to67.613586/K22.504622. Restore the prior simple event loop before independently testing index geometry. Raw result: ../docs/board-round75-cache-prefetch-labels.json. One observation does not remove timing/memory variation.
+
+
+## Separate owner-routing bits from exact table-index bits
+
+Default routing uses hash%4, fixing the low two bits for every name in a given owner. The old table also used those bits for its home slot, restricting home slots to one quarter of the table. The new index uses hash>>2 for lookup, growth and retry; the stored full64-bit hash and full key comparisons are unchanged. This remains an exact map for every worker count and deliberately colliding hash, with no data catalogue. Prefetch75 is removed.
+
+Eleven rotating sequential full-public native trials: retained0.059044 s,75 prefetch0.060912, plain shift2=0.057556, high32=0.057960, fold=0.058247; combined prefetch shift2/high32/fold=0.061420/0.059442/0.059948. All output hashes match and RSS is essentially flat. Choose the smallest2.5% faster plain shift2 hypothesis. These are Mac screens, not Intel gains.
+
+Fresh1301/1303 strict ASAN/UBSAN,1307 TSAN, full1/6/12, countries0/1/254/255/256/257/17576, pipeline progress/reference/cancellation at every1..12 workers, native/GCC strict independent full-key/collision/growth/long-key models plus every fixed-low-two-bit owner,147 exact-image Linux replays and actual defaults pass. All source identities are frozen in round77-candidate-source-match.json. Real K must exceed22.504622/67.613586.

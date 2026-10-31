@@ -8,4 +8,4 @@ An exact local synchronization proof selects true record boundaries. Reader work
 
 No input seed or answer is recognized. All output is computed in the timed run. See `PERF.md` for actual experiments, source/memory costs, independent tests and real board outcomes.
 
-Private owners prefetch16-event table/key/country-word groups before applying the same exact updates. These are hints, never answer shortcuts. Actual total-score acceptance is recorded in PERF.md.
+Owner tables index with hash >>2 while retaining the entire hash and full-key equality. Routing by the original hash modulo the owner count therefore does not restrict home slots to one quarter of the table at four owners. All lookup, growth and retry positions use the same index function.

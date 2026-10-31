@@ -271,3 +271,6 @@ Eight-entry buckets use bounded128-bit SSE2 or NEON groups; other architectures 
 Initial four-way screens save about11MB native RSS but are slightly slower. Eleven rotating widened-bucket public trials: retained0.186116 s/190.55MB, four-way0.192328/178.52MB, eight-way bits9=0.193552/178.19MB, eight-way bits10=0.187594/179.06MB. Select eight-way10:0.8% slower locally but about11.5MB less peak RSS. Canonical source/memory/time cost must earn actual total K.
 
 Fresh1283/1289 ASAN/UBSAN,1291 TSAN, full/default/degree/cursor/wide-ID/zero/MAX/64-bit tests,256 independent Floyd graphs/85,871 answers, strict native/GCC full-key reference/reconstruction/growth/fallback/promotion/reset/extreme-width and queue models pass.945 current-image Linux cases and all27 frozen/source/image identities pass. Real K must exceed19.129071/64.084694.
+
+
+Round75 commit342c0aa, run-22b23e81f4d4, passes all five official gates: T=0.2113 s, M=76529664 B, S=827, K=19.457458, points=64.454305. Retain the lossless packed-label change; it exceeds prior64.084694/K19.129071. Raw result: ../docs/board-round75-cache-prefetch-labels.json. One observation does not remove timing/memory variation.

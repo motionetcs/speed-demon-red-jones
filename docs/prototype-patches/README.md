@@ -57,3 +57,5 @@ Rounds65–67 ownership patches apply to44d8c636a8a5a225ce6496d82966b2049e6ce2f4
 Rounds68–70 patches apply toeb80bc6d279802d8280a0dc15b8d824aa2d96ac1. Phase markers are diagnostics only. D hash/reset variants are screened and rejected; only A endpoint CRC receives broad validation and a new official run. Exact limits: round68-70-prototype-index.json.
 
 Rounds73–75 patches apply to4eb6f366b309c968eb72dabc83d46e073c33bfa5. Only selected75 families have the broader reference/sanitizer/race/GCC/default/image evidence; limits and compiler overrides are in round73-75-prototype-index.json.
+
+Round76 index variants and parent commits are in round76-prototype-index.json. Only selected plain-shift2 has broad current-source validation before official77.

@@ -1,12 +1,10 @@
-# Active optimization state — round75
+# Active optimization state — round77
 
-Baseline clean pushed4eb6f36, compiled source-identical to scored0008c8a; A72.140972/K27.721673,C67.613586/K22.504622,D64.084694/K19.129071. Official snapshot13:17 UTC mean67.866704, rank32/76, leader81.805732; no number one claim.
+Official75/342c0aa passes all5 gates on all3 tracks. Retain new A exact4096 local cache/canonical views72.331814/K27.966381 and new D lossless8-way packed labels64.454305/K19.457458. Reject C16-event owner prefetch67.285041/K22.166688 versus retained67.613586/K22.504622. Full75 snapshot mean68.056836, rank31/77, leader81.805732.
 
-Current candidate75 changes all three tracks: A4096-entry exact direct cache plus release-published global canonical views; C16-event slot/key/country-word prefetch inside the current private owner pipeline; D lossless eight-way32-bit labels (full node identity derived from bucket/tag, exact distance+1, full64-bit fallback). Unselected variant patches and full native screens are archived in round73-75-prototype-index.json. A direct cache is4% faster locally, C batch16 about3.7%, D about0.8% slower with11.5MB lower native RSS. No Intel gain claimed before a real run.
+Candidate77 changes only C to the prior simple event loop plus table index hash>>2, separating lookup geometry from the low bits fixed by hash%4 owner routing. All full hashes/keys remain exact. Fresh1301/1303 strict sanitizer,1307 TSAN, all-country widths, all1..12 pipeline/reference/cancellation, independent routed-owner/collision/growth/stable/long-key native/GCC models,147 matching-image Linux replays and actual defaults pass. All27 frozen inputs/images are tied in round77-candidate-source-match.json; A/D reuse byte-identical75 evidence.
 
-All27 source/build/metadata inputs match frozen75,1283/1289 ASAN/UBSAN,1291 TSAN and exact Linux images.1134 current-image Linux replays A69/C120/D945, actual defaults, complete country widths, all1..12 queue/cancellation/batch/reference cases,256 independent Floyd graphs/85,871 answers and dedicated native/GCC cache/canonical-publication/guard/collision/ID and packed-label/reconstruction/growth/fallback/reset/extreme-width/primitive models pass. Native cache has separate targeted TSAN. Proof round75-candidate-source-match.json.
-
-Capture exact75 A/C/D official records before another runtime push; retain only real total K>A27.721673,C22.504622,D19.129071. Restore any losing track to4eb6f36 runtime/build/metadata and README, preserving chronological PERF evidence. Baseline0008c8a source/proof and raw best records are retained. Do not import any pre-event private implementation or copy competitor entries. All new work here is event-written.
+Capture all77 official records before any further runtime push. Keep C only if real total K exceeds22.504622; otherwise restore exact4eb6f36 C runtime/build/metadata and README, preserving chronological PERF. New A/D must remain75. Baseline source/proof and all raw results remain. No pre-event private or competitor implementation is imported.
 
 ## Evidence and operation
 

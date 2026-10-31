@@ -278,3 +278,6 @@ The earlier256-entry front caches did not help. This candidate uses4096 direct-m
 Eleven rotating full-public native trials: retained0.042613 s, growable4096=0.041343, growable8192=0.040753, direct4096=0.040901. Choose direct for smaller memory/source versus the tiny extra8192 speed. Its peak native RSS264.65 versus264.27MB is slightly larger. This4.0% local speed hypothesis must earn its actual source/memory cost on Intel.
 
 Fresh1283/1289 ASAN/UBSAN,1291 TSAN, public/default1/6/12, exact method/hour/escape/ID fixtures and69 current-image Linux cases pass. Dedicated byte/guard/eviction/long-key/4096-ID models deliberately collide all sampled bytes while retaining distinct full keys; concurrent canonical publication passes separate native TSAN and native/GCC strict ASAN/UBSAN. Frozen75 source proof matches every built input. Real K must exceed27.721673/72.140972.
+
+
+Round75 commit342c0aa, run-74e8fa2d125f, passes all five official gates: T=0.047604 s, M=34332672 B, S=424, K=27.966381, points=72.331814. Retain the exact local-cache/canonical-view change; it exceeds prior72.140972/K27.721673. Raw result: ../docs/board-round75-cache-prefetch-labels.json. One observation does not remove timing/memory variation.
