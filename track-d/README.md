@@ -23,3 +23,5 @@ With another24 hours: use real Intel phase profiles to compare cache layouts and
 Specification: https://github.com/hackathon-raptors/speed-demon-2026/blob/main/specs/d-traverse.md
 
 The Docker build retains profile-guided compilation after a real-board gain. `training_generator.py` is byte-identical to the official generator; it creates an independent full-scale seed and a second sample seed inside the offline build. GCC collects execution profiles, then recompiles without runtime instrumentation. The final stage copies only the executable. The published rules explicitly permit this training and exclude unchanged official generator copies from S. All untrained/full-output checks still apply; PERF.md distinguishes experiments from confirmed gains.
+
+The narrow-counter loader passes all official gates and improves observed D to60.023752 points/K15.866278, T0.329751 s, M76,771,328 bytes. Full record: `../docs/board-round7-narrow-d.json`. The immutable graph/search behavior is unchanged.

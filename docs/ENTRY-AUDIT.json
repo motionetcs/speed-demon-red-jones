@@ -1,37 +1,32 @@
 {
-  "observed_at_utc": "2026-10-31T06:45:19.741363+00:00",
+  "observed_at_utc": "2026-10-31T06:51:58.982486+00:00",
   "scope": "Observable repository/history/build-policy checks, not an organizer eligibility certificate",
-  "source_commit": "cb8cbedcd20a28153ebe790bb58f6b4c9bcc5f26",
+  "source_commit": "61e345f753f6011b6ecd66c6cbba86030d72fa28",
   "dirty_paths": [
     "M Makefile",
     " M docs/OWNER-BRIEFING.md",
     " M docs/STATE.md",
-    " M docs/optimization-comparison.json",
-    " M docs/optimization-current-board.json",
     " M tools/verify.py",
+    " M track-a/Dockerfile",
     " M track-a/PERF.md",
+    " M track-a/README.md",
+    " M track-a/main.cpp",
     " M track-c/PERF.md",
-    " M track-c/README.md",
-    " M track-d/Dockerfile",
     " M track-d/PERF.md",
     " M track-d/README.md",
-    " M track-d/main.cpp",
-    "?? docs/board-round6-dense-c.json",
-    "?? docs/round7-d-counters-native.json",
-    "?? docs/round7-d-counters-overflow.json",
-    "?? docs/round7-d-counters-public.json",
-    "?? docs/round7-d-counters-tiny.json",
-    "?? docs/round7-final-container.json",
-    "?? docs/round7-final-independent.json",
-    "?? docs/round7-final-linux-cases.json",
-    "?? docs/round7-final-linux-six.json",
-    "?? docs/round7-final-public.json",
-    "?? docs/round7-final-sample.json",
-    "?? docs/round7-final-sanitizers.json",
-    "?? docs/round7-final-thread-sanitizer.json",
-    "?? docs/round7-loader-model.json",
-    "?? tools/test_loader_cursors.cpp",
-    "?? track-d/load_cursors.hpp"
+    "?? docs/board-round7-narrow-d.json",
+    "?? docs/round8-a-flat-native.json",
+    "?? docs/round8-a-flat-public.json",
+    "?? docs/round8-a-flat-tiny.json",
+    "?? docs/round8-final-container.json",
+    "?? docs/round8-final-linux-cases.json",
+    "?? docs/round8-final-public.json",
+    "?? docs/round8-final-sample.json",
+    "?? docs/round8-final-sanitizers.json",
+    "?? docs/round8-final-thread-sanitizer.json",
+    "?? docs/round8-log-model.json",
+    "?? tools/test_log_aggregate.cpp",
+    "?? track-a/aggregate.hpp"
   ],
   "repository": {
     "defaultBranchRef": {
@@ -222,6 +217,14 @@
       ]
     },
     {
+      "requirement": "Observed commit timestamps inside event: 61e345f",
+      "passed": true,
+      "evidence": [
+        "2026-10-31T12:15:20+05:30",
+        "2026-10-31T12:15:20+05:30"
+      ]
+    },
+    {
       "requirement": "A required file Dockerfile",
       "passed": true,
       "evidence": "track-a/Dockerfile"
@@ -276,6 +279,7 @@
         "README.md",
         "PERF.md",
         ".speed-demon.toml",
+        "aggregate.hpp",
         "main.cpp",
         "decimal.hpp",
         "parallel.hpp"
@@ -512,6 +516,11 @@
       "commit": "cb8cbedcd20a28153ebe790bb58f6b4c9bcc5f26",
       "author_time": "2026-10-31T11:59:45+05:30",
       "committer_time": "2026-10-31T11:59:45+05:30"
+    },
+    {
+      "commit": "61e345f753f6011b6ecd66c6cbba86030d72fa28",
+      "author_time": "2026-10-31T12:15:20+05:30",
+      "committer_time": "2026-10-31T12:15:20+05:30"
     }
   ],
   "future_requirements": [

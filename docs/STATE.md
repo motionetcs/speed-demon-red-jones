@@ -5,18 +5,18 @@ Fresh Red Jones entry: https://github.com/motionetcs/speed-demon-red-jones ; pri
 ## Best confirmed configurations
 
 - A: source algorithm from `d2fd0b5`, generic GCC with sample-seed PGO from `46504cb`; twelve workers/hour-owned workspaces, exact selection, original allocator environment. Best69.704972 points/K24.779894, `run-1f9a7602cf67` (same-source repeat).
-- C: exact d2 parser/compact mapped-and-decoded keys and atomic membership, twelve workers, native-targeted GCC with full seed1000003 and sample130363 training. Best64.406855/K19.414987 with dense keys and full-scale training, `run-62fc3f0d2df4`. Sample PGO, canonical interiors and delimiter-only variants scored lower; hardware hashing was rejected locally before submission.
-- D: `eb16c07` specialized four-byte CSR edges with exact six-byte fallback, private compact exact labels,64-distance bands with8-entry batches, six workers/up tofour loaders, full-scale PGO. Best58.157255/K14.559454, `run-138c7d1ae27d` (same-source repeat).
+- C: exact d2 parser/compact mapped-and-decoded keys and atomic membership, twelve workers, native-targeted GCC with full seed1000003 and sample130363 training. Best64.904735/K19.865280 with dense keys and full-scale training, `run-4bcf23d06742` (same-source repeat). Sample PGO, canonical interiors and delimiter-only variants scored lower; hardware hashing was rejected locally before submission.
+- D: `eb16c07` specialized four-byte CSR edges with exact six-byte fallback, private compact exact labels,64-distance bands with8-entry batches, six workers/up tofour loaders, full-scale PGO. Best60.023752/K15.866278 with narrow degree/cursor loader, `run-3898322cf5d1`.
 
 `bba4fe0` is pushed and passed all gates, but its variable-width packed D edges score55.706308:77.61 MB helps memory, while0.513509 s hurts total K. It is a rejected candidate, not the strongest D source.
 
 ## Current unscored candidate
 
-`cb8cbed` passed all official gates and retains dense C keys. A/D runtime/build inputs are unchanged from prior accepted configurations, with ordinary repeat variation. Current best-three mean63.914577, rank31/60 at the saved snapshot; leaders are still ahead.
+`61e345f` passed all official gates. D narrow counters/cursors improve to60.023752 points,0.329751 s,76.77MB. C unchanged source records64.904735; A's best remains69.704972 on its earlier same-source run. All source/runtime configurations remain legitimate stdlib/OS implementations with D=1.
 
-Working tree changes D loader only: shared byte degree counters with exact256-wrap spills and shared relative16-bit cursors with exact32-bit block fallback. Native full, fresh samples,256 independent graphs, high-degree/wrap/wide-ID fixtures, strict ASAN/UBSAN/TSAN, exact-slot/degree models and846 restricted Linux cases pass. Finish the GCC model, assert current build hashes against `round7-final-container.json`, then push and capture exact board results before another source push.
+Working tree tests A two-pass count/scatter and bounded ordered output, from `.build/round8-a-flat`. Exact endpoint table grows;16-bit counts recover all wraps; cells become32-bit cursors only after merging; every latency is scattered once. Ordered atomic tokens serialize writes and cancellation cannot be overwritten. Full/new-seed,65535/65536/140000 count/error cases, growth, strict ASAN/UBSAN/TSAN, a concurrent std::map/slot model and restricted Linux checks pass. GCC/native models and Linux output-failure cancellation also pass. Native time is slower but RSS falls25–30MB, so it is an explicit memory/runtime/source-size tradeoff. Assert exact build inputs before push, capture real K, and restore the earlier A source from `61e345f` if this loses. D/C are unchanged.
 
-A larger unsubmitted prototype is prepared under `.build/round8-a-flat`: two passes, shared exact endpoint IDs, per-chunk16-bit counts with exact spills, count storage reused as scatter cursors, one uint32 latency array, per-hour selection and ordered streaming output with cancellation-safe atomic tokens. It has not yet been compiled/tested. No prototype is a confirmed gain until real board K exceeds the retained build. Benchmark with no concurrent compilers/tests/training.
+No prototype is a confirmed gain until real board K exceeds the retained configuration. Keep benchmarks sequential with no competing compilers/tests/training.
 
 ## Iteration commands and evidence
 

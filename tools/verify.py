@@ -95,6 +95,12 @@ def adversarial():
     rows.append(check("a", "a-worked", {"requests.log": a.WORKED_INPUT}, a.WORKED_OUTPUT))
     rows.append(check("a", "a-official-edge-cases", {"requests.log": a.edge_input()}, a.EDGE_OUTPUT))
     rows.append(check("a", "a-empty", {"requests.log": b""}, b""))
+    if "a" in ACTIVE_TRACKS:
+        for count in [65535,65536,140000]:
+            label="a-count-error-wrap-"+str(count)
+            data="2026-11-01T00:00:00.000000Z GET /wrap 599 4294967295\n"*count
+            expected=f"2026-11-01T00:00:00Z /wrap {count} 4294967295 4294967295 4294967295 {count} 1000000\n"
+            rows.append(check("a",label,{"requests.log":data},expected))
     latencies = list(range(101))
     source = "".join("2026-11-01T00:59:59.999999Z GET /percentile 500 %d\n" % i for i in reversed(latencies))
     rows.append(check("a", "a-nearest-rank-101", {"requests.log": source},

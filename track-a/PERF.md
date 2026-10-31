@@ -132,3 +132,9 @@ Next compiler hypothesis: full-scale training at independent seed1000003, plus s
 ## Dense C dictionary: exact board result
 
 `run-1f9a7602cf67` on `cb8cbedcd20a28153ebe790bb58f6b4c9bcc5f26` passed all gates: T=0.060856 s, M=39,796,736 bytes, S=344, K=24.779894, points=69.704972. Record: `../docs/board-round6-dense-c.json`. Runtime/build inputs are unchanged from the retained configuration; this small higher observation is repeat variation, not an algorithm gain.
+
+## Narrow graph-loader board result
+
+`run-3412a3d7b27a` on `61e345f753f6011b6ecd66c6cbba86030d72fa28` passed every gate: T=0.061427 s, M=41,316,352 bytes, S=344, K=24.480291, points=69.440829. Record: `../docs/board-round7-narrow-d.json`. Runtime/build inputs are unchanged; the observation is repeat variation.
+
+Next memory hypothesis: replace hour line offsets/packed records with two input passes, shared exact endpoint IDs and four-byte local count cells reused as scatter cursors. Stream bounded per-hour buffers in token order. Five alternating full-data native medians: old12=0.073678 s /289.08MB RSS, new12=0.089378 s /264.13MB, new6=0.091219 s /259.56MB. This is slower locally and saves about25–30MB; no runtime gain is claimed. New independent samples, exact full outputs, count/error-wrap cases, table growth, strict sanitizers/concurrency models and Linux checks pass. A /dev/full integration test returns nonzero within25 s and does not deadlock. Actual cgroup memory, canonical S and time jointly determine K; board result pending.

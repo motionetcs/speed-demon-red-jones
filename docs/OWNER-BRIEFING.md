@@ -8,9 +8,11 @@ This hackathon supplies three data-processing problems we are entering. Our prog
 
 ## A: request logs
 
-A prepass indexes request lines by UTC hour, then each worker processes one hour in a small reusable workspace. We group each HTTP request by its UTC hour and endpoint. We keep every latency, including duplicate requests, and calculate exact percentiles. For 101 sorted requests, p50 is the 51st value, p95 the 96th, and p99 the 100th. An HTTP 499 is not a server error; 500 through 599 are. Integer arithmetic prevents rounding differences in the reported error rate.
+The current A candidate counts requests by hour and exact endpoint, then reads the input again to place every latency in a known array range. Small local counters have exact spill storage, so wrapping cannot lose a count. Reusing count cells as write cursors saves memory; the program checks the total before assigning32-bit ranges.
 
-The log is not sorted. We keep all the hour buckets until the input is finished, so a late request still reaches the correct group. Output is sorted by hour and then endpoint bytes.
+We keep every latency, including duplicates, and calculate exact nearest-rank percentiles. For101 sorted requests, p50 is the51st value, p95 the96th and p99 the100th. An HTTP499 is not a server error;500 through599 are. Integer arithmetic prevents rounding differences.
+
+The log is not sorted. Both passes compute its full UTC-hour key, so late lines still reach their correct groups. Workers format one hour each, and a token permits each hour to write in order. A failure cancels all waiting writers. This reduces live output buffers while preserving UTC and endpoint ordering. The actual board score decides whether this candidate replaces the earlier hour-owned layout.
 
 ## C: CSV records
 
