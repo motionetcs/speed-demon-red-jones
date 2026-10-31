@@ -12,6 +12,7 @@ This is the fresh local entry. Check actual external state before treating it as
 | Licence | MIT, official attribution retained |
 | Fresh repository | https://github.com/motionetcs/speed-demon-red-jones — private |
 | Submission branch | speed-demon |
+| Remote source | Pushed and verified; initial validated code commit `a79ef7f` |
 | Individual registration | Not verified |
 | Team form | Not verified for this fresh repository |
 | Board app access | Not verified for this fresh repository |
@@ -29,3 +30,5 @@ This is the fresh local entry. Check actual external state before treating it as
 No automatic future publication, form submission, message, or app installation has been scheduled by this project.
 
 The official GitHub app metadata was inspected: `Speed Demon Board` requests only `contents: read` and `metadata: read`. Restrict installation to the fresh repository. Individual registration asks for name, affiliation (optional), country, age, email, Telegram, and discovery source. The team form asks for members, repository, tracks, language, app installation confirmation, originality confirmation, public-source commitment, and confirmation of reading the rules/specs. No successful form submission has been observed.
+
+The in-app browser is signed out of GitHub. The CLI can manage this fresh repository, but its current token cannot list GitHub App installations (HTTP 403). Therefore app access remains unverified; this is not evidence that the app is absent. An authenticated owner must verify installation for the fresh repository. Registration details and the form's declarations must be supplied/reviewed by the entrant.
