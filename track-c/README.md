@@ -22,4 +22,4 @@ With another24 hours: profile the retained layout on Intel, test parsing and loo
 
 Specification: https://github.com/hackathon-raptors/speed-demon-2026/blob/main/specs/c-join.md
 
-The older unquoted-delimiter SIMD scanner scored lower and was rejected. The later quoted-field scanner plus direct country map passed all official gates at65.139069 points/K20.080817, including source cost. These scan different field forms; the rejected helper remains outside the scored folder. See PERF.md for exact source identities, run records and decisions.
+The older unquoted-delimiter SIMD scanner scored lower and was rejected. The later quoted-field scanner/direct country map, narrower region lookup and direct quote parity each have their own all-gates-passing real-board records, including source cost. These scan different field forms; the rejected helper remains outside the scored folder. See PERF.md for exact source identities, run records and decisions.

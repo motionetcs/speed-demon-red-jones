@@ -4,11 +4,9 @@ Fresh Red Jones entry: https://github.com/motionetcs/speed-demon-red-jones ; pri
 
 ## Active verification
 
-The final D balanced-minimum candidate is being submitted after every native/sanitizer/reference/Linux/default check passed. All27 current inputs match the round32 D build context or exact all-gates-passing2c6c51e A/C source; proof in round32-candidate-source-match.json. Capture its real board results before any further source push. Retain D only if K beats16.026845; otherwise restore exact2c6c51e D runtime/build/metadata and keep the rejected policy patch outside track folders.
+The balanced-minimum D experiment passed every gate but lost on real K (15.307933 versus retained16.026845), and every D runtime/build/metadata input is restored to2c6c51e. The next confirmation is of this restored combination. All27 current inputs match the exact all-gates-passing A/C/D source2c6c51e452faf284f013fd6b12d7333c310dcecc, proven in round32-restored-source-match.json. No unscored runtime candidate remains. Capture the final restored-combination board run before a documentation push.
 
-Confirmed A/C at2c6c51e452faf284f013fd6b12d7333c310dcecc, board-round30-cutoff-parity.json: A72.105578/K27.676524; C65.730791/K20.635539. Every gate passes. A uses exact fused four-byte records, lazy hour allocations,8192 endpoint slots and cutoff32. C uses exact quoted-field SIMD, direct country codes,8-bit lookup with16-bit fallback and direct XOR quote parity. D historical best60.242402/K16.026845 is sparse12/band64 atb1388b0. Repeated D at2c6c51e scores59.060365; record it as variation.
-
-The new D policy changes only side selection: lower queue minimum subject to a4:1 queue-size guard. Exact distances, labels, queues and stopping proof remain. Nine rotating native trials improve0.288196 to0.267934 s with similar memory; no Intel gain is claimed before scoring. Fresh971/977 ASAN/UBSAN,983 TSAN, independent256-graph/85,871-answer oracle, full public1/6/12,843 exact-image Linux replays and actual defaults pass. Reports round31-d-frontier-bench.json and round32-d-*.json. Native and emulated times are not official scores.
+Best observations: A72.105578/K27.676524 (2c6c51e), C66.040306/K20.931778 (byte-identical C atce5ad53), D60.242402/K16.026845 (byte-identical D atb1388b0). A is fused exact records/lazy allocation/8192 endpoints/cutoff32. C is exact quoted SIMD/country map/narrow lookup/XOR parity. D is sparse12/band64/count-balanced. Same-source repeats vary and are not additional algorithm gains. The rejected balanced policy is preserved outside scored folders in round32-balanced-minimum.patch with its real losing score and full validation.
 
 ## Engineering rules and evidence
 

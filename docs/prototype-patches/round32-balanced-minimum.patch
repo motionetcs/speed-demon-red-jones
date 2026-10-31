@@ -1,0 +1,16 @@
+--- a/track-d/main.cpp
++++ b/track-d/main.cpp
+@@ -131,8 +131,11 @@
+                 uint64_t best = infinity;
+                 while (!forward_heap.empty() && !backward_heap.empty()) {
+                     if (best != infinity && forward_heap.minimum() + backward_heap.minimum() >= best) break;
+-                    // Balance frontier work rather than absolute distances: no-in sources have huge initial weights.
+-                    bool from_source = forward_heap.count <= backward_heap.count;
++                    // Prefer lower distance while limiting frontier imbalance, including heavy source edges.
++                    bool from_source;
++                    if (forward_heap.count > backward_heap.count * 4) from_source = false;
++                    else if (backward_heap.count > forward_heap.count * 4) from_source = true;
++                    else from_source = forward_heap.minimum() <= backward_heap.minimum();
+                     auto& heap = from_source ? forward_heap : backward_heap;
+                     auto& own = from_source ? forward : backward;
+                     auto& other = from_source ? backward : forward;

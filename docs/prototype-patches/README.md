@@ -26,4 +26,6 @@ Round25 sampled C hashing applies to the round24 narrow-lookup prototype's names
 
 Round26/27 direct-distance patches apply to44a902b's six-worker/band32 D. They replace private sparse labels with node-indexed32-bit or16-bit exact labels and full-width fallback. The checked native full-public trials in round26/27 show an unfavorable time/memory tradeoff; rejected before sanitizer or real-board submission. No general correctness certification or official gain is claimed for these prototypes.
 
-Round31 alternating-frontier.patch applies to2c6c51e's twelve-worker/band64 D. It passes the full-public hashes in nine native rotations but is slower and uses more memory than the selected balanced-minimum prototype. It is not promoted or broadly sanitized. The selected balanced policy has separate round32 validation and subsequent board records.
+Round31 alternating-frontier.patch applies to2c6c51e's twelve-worker/band64 D. It passes the full-public hashes in nine native rotations but is slower and uses more memory than the selected balanced-minimum prototype. It is not promoted or broadly sanitized. The balanced policy has separate round32 validation and an actual losing board result; it is restored to the count-balanced source.
+
+Round32 balanced-minimum.patch applies to2c6c51e D. All independent/reference/sanitizer/Linux/default gates pass, but actual ce5ad53 scores59.245827/K15.307933 below retained60.242402/K16.026845. The policy is rejected and is not in the final scored folder. See board-round32-balanced-frontier.json and D PERF.md.
