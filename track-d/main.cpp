@@ -156,7 +156,7 @@ int main(int argc, char** argv) {
                             uint64_t candidate = d + weight;
                             if (own.improve(destination, candidate)) {
                                 heap.push({candidate, destination});
-                                uint64_t opposite = other.get(destination);
+                                uint64_t opposite = other.maybe_get(destination);
                                 if (opposite != infinity) best = std::min(best, candidate + opposite);
                             }
                         }

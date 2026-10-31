@@ -81,8 +81,6 @@ struct Names {
     bool first(Entry& entry, size_t country) {
         auto* bits = reinterpret_cast<std::atomic<uint64_t>*>(reinterpret_cast<char*>(entry.key) + sizeof(NameKey));
         uint64_t bit = uint64_t(1) << (country % 64);
-        auto& word = bits[country / 64];
-        if (word.load(std::memory_order_relaxed) & bit) return false;
-        return (word.fetch_or(bit, std::memory_order_relaxed) & bit) == 0;
+        return (bits[country / 64].fetch_or(bit, std::memory_order_relaxed) & bit) == 0;
     }
 };

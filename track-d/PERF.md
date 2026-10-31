@@ -153,3 +153,9 @@ Neighbor-label prefetch prototypes pass fresh reference/adversarial and full-pub
 ## Final retained-source confirmation
 
 `run-f169e16c8fde` on `d28fe2590101b6b9a362e71b7bd8ee8f379f0741` passed all gates at 2026-10-31T07:14:42Z: T=0.348996 s, M=78,278,656 bytes, S=728, K=15.362752, points=59.323451. Exact record: `../docs/board-retained-final.json`. Runtime/build inputs match 61e345f byte for byte. This confirms the selected combination; historical best observations remain separate, and no repeat delta is called an algorithm gain. Subsequent documentation updates change no runtime/build/metadata input.
+
+## Exact opposite-frontier negative filter
+
+Each private distance map keeps an8192-byte bit filter keyed by a16-bit multiplicative node hash. Every improve attempt sets its bit, including wide-distance labels; reset clears both map and filter. A missing bit proves the opposite map has no label; a present bit still performs the complete exact lookup, so collisions only cost time. Own-frontier lookups remain unchanged.
+
+Nine alternating full-public Apple runs measured median0.435521 s baseline versus0.417454 s filtered, with every output hash verified. This is local evidence, not an Intel score. Fresh sample/tiny and full-public1/6/12-worker outputs, strict ASAN/UBSAN and TSAN, random map/filter models (missing nodes, resets, growth, wide distances),256 independent Floyd–Warshall graphs/85,871 answers and846 restricted Linux replays pass. The replay image ID matches the exact Linux build report. Reports: `../docs/round13-d-filter-*.json`. Actual board K decides retention; the larger corridor prototype is not in this submission.

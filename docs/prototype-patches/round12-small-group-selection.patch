@@ -1,0 +1,12 @@
+--- a/track-a/main.cpp
++++ b/track-a/main.cpp
+@@ -121,8 +121,7 @@
+                     uint64_t n = local.groups[e].count, errors = local.groups[e].errors;
+                     if (!n) continue;
+                     auto first = local.latencies.begin() + local.offsets[e];
+-                    if (n < 64) std::sort(first, first + n);
+-                    else {
++                    {
+                         size_t unselected = 0;
+                         for (uint64_t percentile : {50, 95, 99}) {
+                             size_t rank = (percentile * n + 99) / 100 - 1;

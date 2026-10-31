@@ -150,3 +150,7 @@ Next memory hypothesis: replace hour line offsets/packed records with two input 
 ## Final retained-source confirmation
 
 `run-4055dcf05865` on `d28fe2590101b6b9a362e71b7bd8ee8f379f0741` passed all gates at 2026-10-31T07:14:38Z: T=0.061166 s, M=40,898,560 bytes, S=344, K=24.582383, points=69.531199. Exact record: `../docs/board-retained-final.json`. Runtime/build inputs match 61e345f byte for byte. This confirms the selected combination; historical best observations remain separate, and no repeat delta is called an algorithm gain. Subsequent documentation updates change no runtime/build/metadata input.
+
+## Small-group selection comparison
+
+An isolated round12 candidate applied the existing progressively restricted exact nth_element sequence to every group, removing the small-group sort branch. Nine alternating full-public native runs per configuration all matched the official SHA. At six workers baseline0.068864 s versus candidate0.069446 s; at twelve0.057893 versus0.058582. Reject before promotion: the candidate is slightly slower at both counts. Raw measurements: `../docs/round12-local-bench.json`. No board run or gain is attributed to this rejected A prototype.

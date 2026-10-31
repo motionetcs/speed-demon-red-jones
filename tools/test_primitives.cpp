@@ -15,7 +15,11 @@
 #include <random>
 #include <set>
 #include <unordered_map>
+#ifdef DISTANCE_MAP_HEADER
+#include DISTANCE_MAP_HEADER
+#else
 #include "../track-d/distance_map.hpp"
+#endif
 #include <string>
 #include <sys/mman.h>
 #include <unistd.h>
@@ -91,9 +95,19 @@ int main() {
             assert(labels.improve(node, distance) == expected);
             if (expected) reference[node] = distance;
             assert(labels.get(node) == reference.at(node));
+#ifdef TEST_DISTANCE_FILTER
+            assert(labels.maybe_get(node) == reference.at(node));
+            uint32_t probe = static_cast<uint32_t>(random());
+            auto existing = reference.find(probe);
+            assert(labels.maybe_get(probe) == (existing == reference.end() ? UINT64_MAX : existing->second));
+#endif
         }
         for (const auto& [node, distance] : reference) assert(labels.get(node) == distance);
         labels.reset(); assert(labels.get(123) == UINT64_MAX);
+#ifdef TEST_DISTANCE_FILTER
+        assert(labels.maybe_get(123) == UINT64_MAX);
+        assert(labels.maybe_get(UINT32_MAX) == UINT64_MAX);
+#endif
         assert(labels.improve(123, uint64_t(UINT32_MAX) + 5));
         assert(labels.improve(123, 7)); assert(labels.get(123) == 7);
         assert(!labels.improve(123, uint64_t(UINT32_MAX) + 2));
