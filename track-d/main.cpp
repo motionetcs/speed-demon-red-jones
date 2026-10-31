@@ -1,7 +1,6 @@
 #include "radix_heap.hpp"
 #include "edge_store.hpp"
 #include "load_cursors.hpp"
-#include "private_degrees.hpp"
 #include "io.hpp"
 #include "decimal.hpp"
 #include "distance_map.hpp"
@@ -53,8 +52,9 @@ int main(int argc, char** argv) {
             }
             boundaries[i] = p;
         }
-        struct Local { size_t count=0;PrivateDegrees<2> out_degree,in_degree;std::vector<std::pair<uint32_t,uint32_t>> wide;explicit Local(uint32_t n):out_degree(n),in_degree(n){} };
-        std::vector<Local> locals;locals.reserve(loaders);for(unsigned i=0;i<loaders;++i)locals.emplace_back(n);
+        struct Local { size_t count = 0; DegreeBytes::Spills out_spills, in_spills; std::vector<std::pair<uint32_t, uint32_t>> wide; };
+        std::vector<Local> locals(loaders);
+        DegreeBytes degree(n), reverse_degree(n);
         parallel(loaders, [&](unsigned worker) {
             auto& local = locals[worker];
             Scanner input{boundaries[worker], boundaries[worker + 1]};
@@ -64,19 +64,26 @@ int main(int argc, char** argv) {
                 while (count < batch.size() && input.more()) {
                     uint32_t u = input.number(), v = input.number(); input.number();
                     if (u >= n || v >= n) throw std::runtime_error("node outside graph");
-                    local.out_degree.prefetch(u);local.in_degree.prefetch(v);
+                    __builtin_prefetch(&degree.values[u], 1, 1); __builtin_prefetch(&reverse_degree.values[v], 1, 1);
                     batch[count++] = {u,v};
                 }
                 local.count += count;
-                for (size_t i=0;i<count;++i) { auto [u,v]=batch[i]; local.out_degree.add(u);local.in_degree.add(v); }
+                for (size_t i=0;i<count;++i) { auto [u,v]=batch[i]; degree.add(u, local.out_spills); reverse_degree.add(v, local.in_spills); }
             }
         });
         size_t edge_count = 0;
         for (const auto& local : locals) edge_count += local.count;
         if (edge_count != m) throw std::runtime_error("edge count does not match header");
         std::vector<uint32_t> offsets(size_t(n) + 1), reverse_offsets(size_t(n) + 1);
-        for(auto& local:locals){local.out_degree.accumulate(offsets);local.in_degree.accumulate(reverse_offsets);local.out_degree.release();local.in_degree.release();}
-        for(size_t i=1;i<=n;++i){offsets[i]+=offsets[i-1];reverse_offsets[i]+=reverse_offsets[i-1];}
+        for (const auto& local : locals) {
+            for (auto [node, count] : local.out_spills) offsets[size_t(node) + 1] += count;
+            for (auto [node, count] : local.in_spills) reverse_offsets[size_t(node) + 1] += count;
+        }
+        for (size_t i = 1; i <= n; ++i) {
+            offsets[i] += offsets[i - 1] + degree.values[i - 1];
+            reverse_offsets[i] += reverse_offsets[i - 1] + reverse_degree.values[i - 1];
+        }
+        degree.release(); reverse_degree.release();
         SharedCursor cursor(offsets), reverse_cursor(reverse_offsets);
         bool wide_cursors = cursor.wide_blocks || reverse_cursor.wide_blocks;
         EdgeStore edges(m, n), reverse_edges(m, n);

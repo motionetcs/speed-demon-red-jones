@@ -1,8 +1,6 @@
 #pragma once
 #define SPEED_DEMON_OFFSET_NAMES 1
 #include <algorithm>
-#include <array>
-#include <mutex>
 #include <atomic>
 #include <thread>
 #include <cstdint>
@@ -76,36 +74,13 @@ struct NameEvent {
 // One producer and one consumer transfer a vector through release/acquire.
 // Every key borrows immutable input; the consumer copies each unique key.
 struct NameQueue {
-    std::mutex producers;
-    static constexpr size_t capacity=16;
-    alignas(64) std::atomic<uint64_t> published{0};
-    alignas(64) std::atomic<uint64_t> consumed{0};
-    std::array<std::vector<NameEvent>,capacity> slots;
+    alignas(64) std::atomic<bool> ready{false};std::vector<NameEvent> rows;
     void send(std::vector<NameEvent>& batch,const std::atomic<bool>& canceled){
-        for(;;){
+        while(ready.load(std::memory_order_acquire)){
             if(canceled.load(std::memory_order_relaxed))throw std::runtime_error("name pipeline canceled");
-            {
-                std::unique_lock guard(producers,std::try_to_lock);
-                if(guard.owns_lock()){
-                    uint64_t position=published.load(std::memory_order_relaxed);
-                    if(position-consumed.load(std::memory_order_acquire)<capacity){
-                        slots[position&(capacity-1)].swap(batch);
-                        published.store(position+1,std::memory_order_release);
-                        return;
-                    }
-                }
-            }
             std::this_thread::yield();
         }
-    }
-    std::vector<NameEvent>* receive(){
-        uint64_t position=consumed.load(std::memory_order_relaxed);
-        if(position==published.load(std::memory_order_acquire))return nullptr;
-        return &slots[position&(capacity-1)];
-    }
-    void release(){
-        uint64_t position=consumed.load(std::memory_order_relaxed);
-        slots[position&(capacity-1)].clear();
-        consumed.store(position+1,std::memory_order_release);
+        if(canceled.load(std::memory_order_relaxed))throw std::runtime_error("name pipeline canceled");
+        rows.swap(batch);ready.store(true,std::memory_order_release);
     }
 };

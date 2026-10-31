@@ -162,7 +162,7 @@ int main(int argc, char** argv) {
 #define PIPELINE_READERS 8
 #endif
 #ifndef NAME_BATCH
-#define NAME_BATCH 256
+#define NAME_BATCH 512
 #endif
         unsigned readers=threads==1?1:std::clamp(threads*PIPELINE_READERS/12,1U,threads-1);
         unsigned owners=threads-readers;
@@ -170,7 +170,7 @@ int main(int argc, char** argv) {
         struct Local{std::vector<Group> groups;};
         std::vector<Local> locals(readers);for(auto& local:locals)local.groups=groups;
         std::vector<std::vector<uint64_t>> distinct(owners,std::vector<uint64_t>(groups.size()));
-        auto queues=std::make_unique<NameQueue[]>(owners);
+        auto queues=std::make_unique<NameQueue[]>(size_t(readers)*owners);
         std::atomic<bool> canceled{false};
         auto consume=[&]<typename Code>(const std::vector<Code>& region_lookup){
             constexpr Code no_region=std::numeric_limits<Code>::max();
@@ -194,20 +194,23 @@ int main(int argc, char** argv) {
                             if(!owners){group.names+=serial->first(name.value,country,hash);continue;}
                             unsigned owner=hash%owners;NameEvent event{name.value,hash,static_cast<uint16_t>(country)};
                             auto& batch=batches[owner];batch.push_back(std::move(event));
-                            if(batch.size()==NAME_BATCH)queues[owner].send(batch,canceled);
+                            if(batch.size()==NAME_BATCH)queues[size_t(worker)*owners+owner].send(batch,canceled);
                         }
                         // An empty published batch is the ordered end-of-stream marker.
-                        for(unsigned owner=0;owner<owners;++owner){auto& batch=batches[owner];auto& queue=queues[owner];if(!batch.empty())queue.send(batch,canceled);queue.send(batch,canceled);}
+                        for(unsigned owner=0;owner<owners;++owner){auto& batch=batches[owner];auto& queue=queues[size_t(worker)*owners+owner];if(!batch.empty())queue.send(batch,canceled);queue.send(batch,canceled);}
                     }else{
-                        unsigned owner=worker-readers;Names names(groups.size());unsigned remaining=readers;
-                        auto& queue=queues[owner];
+                        unsigned owner=worker-readers;Names names(groups.size());std::array<bool,12> finished{};unsigned remaining=readers;
                         while(remaining){
                             if(canceled.load(std::memory_order_relaxed))throw std::runtime_error("name pipeline canceled");
-                            auto* rows=queue.receive();
-                            if(!rows){std::this_thread::yield();continue;}
-                            if(rows->empty())--remaining;
-                            else for(const auto& e:*rows)distinct[owner][e.country]+=names.first(e.value(),e.country,e.hash);
-                            queue.release();
+                            bool progress=false;
+                            for(unsigned reader=0;reader<readers;++reader){
+                                if(finished[reader])continue;auto& queue=queues[size_t(reader)*owners+owner];
+                                if(!queue.ready.load(std::memory_order_acquire))continue;progress=true;
+                                if(queue.rows.empty()){finished[reader]=true;--remaining;}
+                                else for(const auto& e:queue.rows)distinct[owner][e.country]+=names.first(e.value(),e.country,e.hash);
+                                queue.rows.clear();queue.ready.store(false,std::memory_order_release);
+                            }
+                            if(!progress)std::this_thread::yield();
                         }
                     }
                 }catch(...){canceled.store(true,std::memory_order_relaxed);throw;}

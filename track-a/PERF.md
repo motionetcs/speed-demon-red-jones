@@ -400,3 +400,6 @@ Evidence147/69322d0 run-ed5a0130bc00 passes all real gates on identical selected
 
 
 151/9e5d342 run-eab015fc2b17 passes every real gate: T0.049201s/M26775552/S457/K28.587904/72.809116 points. Unchanged-source lower repeat; historical best remains separate. Raw ../docs/board-round151-spsc-windows.json.
+
+
+155/4191767 run-0afa6a51692a passes all five real gates: T0.051638s/M26624000/S457/K27.93686/72.30888 points. Unchanged mapped/cache A lower repeat; best73.371413 remains separate. Raw ../docs/board-round155-pooled-private.json.

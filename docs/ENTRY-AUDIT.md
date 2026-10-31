@@ -1,4 +1,4 @@
-> Active155 fully tested pooled C/private-degree D candidate; real155 pending. Per-connection151 loses and is removed. A145 unchanged; selected145 remains rollback.
+> Selected145/69322d0 runtime restored exactly after151/155 lose. Fresh15728-input/default/public/control-image proof passes; real157 confirmation pending. No new algorithm gain this heartbeat.
 
 # Entry audit — 31 October 2026
 
