@@ -1,0 +1,21 @@
+--- a/track-a/endpoint_table.hpp
++++ b/track-a/endpoint_table.hpp
+@@ -16,6 +16,7 @@
+     struct Entry { std::atomic<uint64_t> state{0}; std::string_view value; };
+     std::unique_ptr<Entry[]> entries = std::make_unique<Entry[]>(capacity);
+     std::array<std::string_view,4096> canonical{};
++    std::unique_ptr<char[]> canonical_bytes{new char[4096*125]};
+     std::atomic<uint32_t> used{0};
+     std::atomic<bool> canceled{false};
+     uint16_t intern(std::string_view value, uint64_t hash) {
+@@ -26,6 +27,10 @@
+             if (!state && entry.state.compare_exchange_strong(state, 1, std::memory_order_acq_rel)) {
+                 auto id = used.fetch_add(1, std::memory_order_relaxed);
+                 if (id >= 4096) { canceled.store(true); entry.state.store(0, std::memory_order_release); throw std::runtime_error("endpoint limit exceeded"); }
++                if(value.size()<=125){
++                    char* owned=canonical_bytes.get()+size_t(id)*125;
++                    if(!value.empty())std::memcpy(owned,value.data(),value.size());value={owned,value.size()};
++                }
+                 canonical[id]=value; entry.value = value; entry.state.store((hash & hash_mask) | (id + 2), std::memory_order_release); return static_cast<uint16_t>(id);
+             }
+             while (state == 1) state = entry.state.load(std::memory_order_acquire);

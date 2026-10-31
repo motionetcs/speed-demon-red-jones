@@ -1,0 +1,2143 @@
+{
+  "observed_at_utc": "2026-10-31T23:05:52.098074+00:00",
+  "official_score": false,
+  "passed": true,
+  "scope": "Exact frozen D production source under pinned GCC15 strict ASAN/UBSAN WITHOUT model wrappers. New untrained samples1801/1811, full1823 (5M edges, allocation above optional hint threshold), adversarial/pipeline at1/6/12 and all requested normal error threads. Source uses only own-page optional hint and standard mapping fallback, no host/global settings. Exact references/input hashes, offline/read-only/unprivileged8GiB/pids512.",
+  "compiler_image": "gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce",
+  "script": [
+    "set -eu",
+    "export ASAN_OPTIONS=halt_on_error=1",
+    "export UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1",
+    "g++ -std=c++20 -O1 -g -pthread -fsanitize=address,undefined -fno-sanitize-recover=all -fno-omit-frame-pointer /repo/.build/round173/source/track-d/main.cpp -o /tmp/d",
+    "SPEED_DEMON_THREADS=1 /tmp/d --data /repo/.data/d/sample-seed1801 --out /out/d-sample-seed1801-1",
+    "SPEED_DEMON_THREADS=6 /tmp/d --data /repo/.data/d/sample-seed1801 --out /out/d-sample-seed1801-6",
+    "SPEED_DEMON_THREADS=12 /tmp/d --data /repo/.data/d/sample-seed1801 --out /out/d-sample-seed1801-12",
+    "SPEED_DEMON_THREADS=1 /tmp/d --data /repo/.data/d/sample-seed1811 --out /out/d-sample-seed1811-1",
+    "SPEED_DEMON_THREADS=6 /tmp/d --data /repo/.data/d/sample-seed1811 --out /out/d-sample-seed1811-6",
+    "SPEED_DEMON_THREADS=12 /tmp/d --data /repo/.data/d/sample-seed1811 --out /out/d-sample-seed1811-12",
+    "SPEED_DEMON_THREADS=1 /tmp/d --data /repo/.data/cases/round173-sanitize-d-worked --out /out/d-round173-sanitize-d-worked-1",
+    "SPEED_DEMON_THREADS=6 /tmp/d --data /repo/.data/cases/round173-sanitize-d-worked --out /out/d-round173-sanitize-d-worked-6",
+    "SPEED_DEMON_THREADS=12 /tmp/d --data /repo/.data/cases/round173-sanitize-d-worked --out /out/d-round173-sanitize-d-worked-12",
+    "SPEED_DEMON_THREADS=1 /tmp/d --data /repo/.data/cases/round173-sanitize-d-forced-endpoints-0 --out /out/d-round173-sanitize-d-forced-endpoints-0-1",
+    "SPEED_DEMON_THREADS=6 /tmp/d --data /repo/.data/cases/round173-sanitize-d-forced-endpoints-0 --out /out/d-round173-sanitize-d-forced-endpoints-0-6",
+    "SPEED_DEMON_THREADS=12 /tmp/d --data /repo/.data/cases/round173-sanitize-d-forced-endpoints-0 --out /out/d-round173-sanitize-d-forced-endpoints-0-12",
+    "SPEED_DEMON_THREADS=1 /tmp/d --data /repo/.data/cases/round173-sanitize-d-forced-endpoints-1 --out /out/d-round173-sanitize-d-forced-endpoints-1-1",
+    "SPEED_DEMON_THREADS=6 /tmp/d --data /repo/.data/cases/round173-sanitize-d-forced-endpoints-1 --out /out/d-round173-sanitize-d-forced-endpoints-1-6",
+    "SPEED_DEMON_THREADS=12 /tmp/d --data /repo/.data/cases/round173-sanitize-d-forced-endpoints-1 --out /out/d-round173-sanitize-d-forced-endpoints-1-12",
+    "SPEED_DEMON_THREADS=1 /tmp/d --data /repo/.data/cases/round173-sanitize-d-forced-endpoints-2 --out /out/d-round173-sanitize-d-forced-endpoints-2-1",
+    "SPEED_DEMON_THREADS=6 /tmp/d --data /repo/.data/cases/round173-sanitize-d-forced-endpoints-2 --out /out/d-round173-sanitize-d-forced-endpoints-2-6",
+    "SPEED_DEMON_THREADS=12 /tmp/d --data /repo/.data/cases/round173-sanitize-d-forced-endpoints-2 --out /out/d-round173-sanitize-d-forced-endpoints-2-12",
+    "SPEED_DEMON_THREADS=1 /tmp/d --data /repo/.data/cases/round173-sanitize-d-forced-endpoints-3 --out /out/d-round173-sanitize-d-forced-endpoints-3-1",
+    "SPEED_DEMON_THREADS=6 /tmp/d --data /repo/.data/cases/round173-sanitize-d-forced-endpoints-3 --out /out/d-round173-sanitize-d-forced-endpoints-3-6",
+    "SPEED_DEMON_THREADS=12 /tmp/d --data /repo/.data/cases/round173-sanitize-d-forced-endpoints-3 --out /out/d-round173-sanitize-d-forced-endpoints-3-12",
+    "SPEED_DEMON_THREADS=1 /tmp/d --data /repo/.data/cases/round173-sanitize-d-forced-endpoints-4 --out /out/d-round173-sanitize-d-forced-endpoints-4-1",
+    "SPEED_DEMON_THREADS=6 /tmp/d --data /repo/.data/cases/round173-sanitize-d-forced-endpoints-4 --out /out/d-round173-sanitize-d-forced-endpoints-4-6",
+    "SPEED_DEMON_THREADS=12 /tmp/d --data /repo/.data/cases/round173-sanitize-d-forced-endpoints-4 --out /out/d-round173-sanitize-d-forced-endpoints-4-12",
+    "SPEED_DEMON_THREADS=1 /tmp/d --data /repo/.data/cases/round173-sanitize-d-forced-endpoints-5 --out /out/d-round173-sanitize-d-forced-endpoints-5-1",
+    "SPEED_DEMON_THREADS=6 /tmp/d --data /repo/.data/cases/round173-sanitize-d-forced-endpoints-5 --out /out/d-round173-sanitize-d-forced-endpoints-5-6",
+    "SPEED_DEMON_THREADS=12 /tmp/d --data /repo/.data/cases/round173-sanitize-d-forced-endpoints-5 --out /out/d-round173-sanitize-d-forced-endpoints-5-12",
+    "SPEED_DEMON_THREADS=1 /tmp/d --data /repo/.data/cases/round173-sanitize-d-floyd-warshall-0 --out /out/d-round173-sanitize-d-floyd-warshall-0-1",
+    "SPEED_DEMON_THREADS=6 /tmp/d --data /repo/.data/cases/round173-sanitize-d-floyd-warshall-0 --out /out/d-round173-sanitize-d-floyd-warshall-0-6",
+    "SPEED_DEMON_THREADS=12 /tmp/d --data /repo/.data/cases/round173-sanitize-d-floyd-warshall-0 --out /out/d-round173-sanitize-d-floyd-warshall-0-12",
+    "SPEED_DEMON_THREADS=1 /tmp/d --data /repo/.data/cases/round173-sanitize-d-floyd-warshall-1 --out /out/d-round173-sanitize-d-floyd-warshall-1-1",
+    "SPEED_DEMON_THREADS=6 /tmp/d --data /repo/.data/cases/round173-sanitize-d-floyd-warshall-1 --out /out/d-round173-sanitize-d-floyd-warshall-1-6",
+    "SPEED_DEMON_THREADS=12 /tmp/d --data /repo/.data/cases/round173-sanitize-d-floyd-warshall-1 --out /out/d-round173-sanitize-d-floyd-warshall-1-12",
+    "SPEED_DEMON_THREADS=1 /tmp/d --data /repo/.data/cases/round173-sanitize-d-floyd-warshall-2 --out /out/d-round173-sanitize-d-floyd-warshall-2-1",
+    "SPEED_DEMON_THREADS=6 /tmp/d --data /repo/.data/cases/round173-sanitize-d-floyd-warshall-2 --out /out/d-round173-sanitize-d-floyd-warshall-2-6",
+    "SPEED_DEMON_THREADS=12 /tmp/d --data /repo/.data/cases/round173-sanitize-d-floyd-warshall-2 --out /out/d-round173-sanitize-d-floyd-warshall-2-12",
+    "SPEED_DEMON_THREADS=1 /tmp/d --data /repo/.data/cases/round173-sanitize-d-floyd-warshall-3 --out /out/d-round173-sanitize-d-floyd-warshall-3-1",
+    "SPEED_DEMON_THREADS=6 /tmp/d --data /repo/.data/cases/round173-sanitize-d-floyd-warshall-3 --out /out/d-round173-sanitize-d-floyd-warshall-3-6",
+    "SPEED_DEMON_THREADS=12 /tmp/d --data /repo/.data/cases/round173-sanitize-d-floyd-warshall-3 --out /out/d-round173-sanitize-d-floyd-warshall-3-12",
+    "SPEED_DEMON_THREADS=1 /tmp/d --data /repo/.data/cases/round173-sanitize-d-floyd-warshall-4 --out /out/d-round173-sanitize-d-floyd-warshall-4-1",
+    "SPEED_DEMON_THREADS=6 /tmp/d --data /repo/.data/cases/round173-sanitize-d-floyd-warshall-4 --out /out/d-round173-sanitize-d-floyd-warshall-4-6",
+    "SPEED_DEMON_THREADS=12 /tmp/d --data /repo/.data/cases/round173-sanitize-d-floyd-warshall-4 --out /out/d-round173-sanitize-d-floyd-warshall-4-12",
+    "SPEED_DEMON_THREADS=1 /tmp/d --data /repo/.data/cases/round173-sanitize-d-floyd-warshall-5 --out /out/d-round173-sanitize-d-floyd-warshall-5-1",
+    "SPEED_DEMON_THREADS=6 /tmp/d --data /repo/.data/cases/round173-sanitize-d-floyd-warshall-5 --out /out/d-round173-sanitize-d-floyd-warshall-5-6",
+    "SPEED_DEMON_THREADS=12 /tmp/d --data /repo/.data/cases/round173-sanitize-d-floyd-warshall-5 --out /out/d-round173-sanitize-d-floyd-warshall-5-12",
+    "SPEED_DEMON_THREADS=1 /tmp/d --data /repo/.data/cases/round173-sanitize-d-floyd-warshall-6 --out /out/d-round173-sanitize-d-floyd-warshall-6-1",
+    "SPEED_DEMON_THREADS=6 /tmp/d --data /repo/.data/cases/round173-sanitize-d-floyd-warshall-6 --out /out/d-round173-sanitize-d-floyd-warshall-6-6",
+    "SPEED_DEMON_THREADS=12 /tmp/d --data /repo/.data/cases/round173-sanitize-d-floyd-warshall-6 --out /out/d-round173-sanitize-d-floyd-warshall-6-12",
+    "SPEED_DEMON_THREADS=1 /tmp/d --data /repo/.data/cases/round173-sanitize-d-floyd-warshall-7 --out /out/d-round173-sanitize-d-floyd-warshall-7-1",
+    "SPEED_DEMON_THREADS=6 /tmp/d --data /repo/.data/cases/round173-sanitize-d-floyd-warshall-7 --out /out/d-round173-sanitize-d-floyd-warshall-7-6",
+    "SPEED_DEMON_THREADS=12 /tmp/d --data /repo/.data/cases/round173-sanitize-d-floyd-warshall-7 --out /out/d-round173-sanitize-d-floyd-warshall-7-12",
+    "SPEED_DEMON_THREADS=1 /tmp/d --data /repo/.data/cases/round173-sanitize-d-floyd-warshall-8 --out /out/d-round173-sanitize-d-floyd-warshall-8-1",
+    "SPEED_DEMON_THREADS=6 /tmp/d --data /repo/.data/cases/round173-sanitize-d-floyd-warshall-8 --out /out/d-round173-sanitize-d-floyd-warshall-8-6",
+    "SPEED_DEMON_THREADS=12 /tmp/d --data /repo/.data/cases/round173-sanitize-d-floyd-warshall-8 --out /out/d-round173-sanitize-d-floyd-warshall-8-12",
+    "SPEED_DEMON_THREADS=1 /tmp/d --data /repo/.data/cases/round173-sanitize-d-floyd-warshall-9 --out /out/d-round173-sanitize-d-floyd-warshall-9-1",
+    "SPEED_DEMON_THREADS=6 /tmp/d --data /repo/.data/cases/round173-sanitize-d-floyd-warshall-9 --out /out/d-round173-sanitize-d-floyd-warshall-9-6",
+    "SPEED_DEMON_THREADS=12 /tmp/d --data /repo/.data/cases/round173-sanitize-d-floyd-warshall-9 --out /out/d-round173-sanitize-d-floyd-warshall-9-12",
+    "SPEED_DEMON_THREADS=1 /tmp/d --data /repo/.data/cases/round173-sanitize-d-floyd-warshall-10 --out /out/d-round173-sanitize-d-floyd-warshall-10-1",
+    "SPEED_DEMON_THREADS=6 /tmp/d --data /repo/.data/cases/round173-sanitize-d-floyd-warshall-10 --out /out/d-round173-sanitize-d-floyd-warshall-10-6",
+    "SPEED_DEMON_THREADS=12 /tmp/d --data /repo/.data/cases/round173-sanitize-d-floyd-warshall-10 --out /out/d-round173-sanitize-d-floyd-warshall-10-12",
+    "SPEED_DEMON_THREADS=1 /tmp/d --data /repo/.data/cases/round173-sanitize-d-floyd-warshall-11 --out /out/d-round173-sanitize-d-floyd-warshall-11-1",
+    "SPEED_DEMON_THREADS=6 /tmp/d --data /repo/.data/cases/round173-sanitize-d-floyd-warshall-11 --out /out/d-round173-sanitize-d-floyd-warshall-11-6",
+    "SPEED_DEMON_THREADS=12 /tmp/d --data /repo/.data/cases/round173-sanitize-d-floyd-warshall-11 --out /out/d-round173-sanitize-d-floyd-warshall-11-12",
+    "SPEED_DEMON_THREADS=1 /tmp/d --data /repo/.data/cases/round173-sanitize-d-sparse-large-id-weight-boundaries --out /out/d-round173-sanitize-d-sparse-large-id-weight-boundaries-1",
+    "SPEED_DEMON_THREADS=6 /tmp/d --data /repo/.data/cases/round173-sanitize-d-sparse-large-id-weight-boundaries --out /out/d-round173-sanitize-d-sparse-large-id-weight-boundaries-6",
+    "SPEED_DEMON_THREADS=12 /tmp/d --data /repo/.data/cases/round173-sanitize-d-sparse-large-id-weight-boundaries --out /out/d-round173-sanitize-d-sparse-large-id-weight-boundaries-12",
+    "SPEED_DEMON_THREADS=1 /tmp/d --data /repo/.data/cases/round173-sanitize-d-wide-id-weight-boundaries --out /out/d-round173-sanitize-d-wide-id-weight-boundaries-1",
+    "SPEED_DEMON_THREADS=6 /tmp/d --data /repo/.data/cases/round173-sanitize-d-wide-id-weight-boundaries --out /out/d-round173-sanitize-d-wide-id-weight-boundaries-6",
+    "SPEED_DEMON_THREADS=12 /tmp/d --data /repo/.data/cases/round173-sanitize-d-wide-id-weight-boundaries --out /out/d-round173-sanitize-d-wide-id-weight-boundaries-12",
+    "SPEED_DEMON_THREADS=1 /tmp/d --data /repo/.data/cases/round173-sanitize-d-degree-cursor-65535 --out /out/d-round173-sanitize-d-degree-cursor-65535-1",
+    "SPEED_DEMON_THREADS=6 /tmp/d --data /repo/.data/cases/round173-sanitize-d-degree-cursor-65535 --out /out/d-round173-sanitize-d-degree-cursor-65535-6",
+    "SPEED_DEMON_THREADS=12 /tmp/d --data /repo/.data/cases/round173-sanitize-d-degree-cursor-65535 --out /out/d-round173-sanitize-d-degree-cursor-65535-12",
+    "SPEED_DEMON_THREADS=1 /tmp/d --data /repo/.data/cases/round173-sanitize-d-degree-cursor-65536 --out /out/d-round173-sanitize-d-degree-cursor-65536-1",
+    "SPEED_DEMON_THREADS=6 /tmp/d --data /repo/.data/cases/round173-sanitize-d-degree-cursor-65536 --out /out/d-round173-sanitize-d-degree-cursor-65536-6",
+    "SPEED_DEMON_THREADS=12 /tmp/d --data /repo/.data/cases/round173-sanitize-d-degree-cursor-65536 --out /out/d-round173-sanitize-d-degree-cursor-65536-12",
+    "SPEED_DEMON_THREADS=1 /tmp/d --data /repo/.data/cases/round173-sanitize-d-wide-id-large-degree --out /out/d-round173-sanitize-d-wide-id-large-degree-1",
+    "SPEED_DEMON_THREADS=6 /tmp/d --data /repo/.data/cases/round173-sanitize-d-wide-id-large-degree --out /out/d-round173-sanitize-d-wide-id-large-degree-6",
+    "SPEED_DEMON_THREADS=12 /tmp/d --data /repo/.data/cases/round173-sanitize-d-wide-id-large-degree --out /out/d-round173-sanitize-d-wide-id-large-degree-12",
+    "SPEED_DEMON_THREADS=1 /tmp/d --data /repo/.data/cases/round173-sanitize-d-degree-spills-wide-out --out /out/d-round173-sanitize-d-degree-spills-wide-out-1",
+    "SPEED_DEMON_THREADS=6 /tmp/d --data /repo/.data/cases/round173-sanitize-d-degree-spills-wide-out --out /out/d-round173-sanitize-d-degree-spills-wide-out-6",
+    "SPEED_DEMON_THREADS=12 /tmp/d --data /repo/.data/cases/round173-sanitize-d-degree-spills-wide-out --out /out/d-round173-sanitize-d-degree-spills-wide-out-12",
+    "SPEED_DEMON_THREADS=1 /tmp/d --data /repo/.data/cases/round173-sanitize-d-degree-spills-wide-in --out /out/d-round173-sanitize-d-degree-spills-wide-in-1",
+    "SPEED_DEMON_THREADS=6 /tmp/d --data /repo/.data/cases/round173-sanitize-d-degree-spills-wide-in --out /out/d-round173-sanitize-d-degree-spills-wide-in-6",
+    "SPEED_DEMON_THREADS=12 /tmp/d --data /repo/.data/cases/round173-sanitize-d-degree-spills-wide-in --out /out/d-round173-sanitize-d-degree-spills-wide-in-12",
+    "SPEED_DEMON_THREADS=1 /tmp/d --data /repo/.data/cases/round173-sanitize-d-empty-queries --out /out/d-round173-sanitize-d-empty-queries-1",
+    "SPEED_DEMON_THREADS=6 /tmp/d --data /repo/.data/cases/round173-sanitize-d-empty-queries --out /out/d-round173-sanitize-d-empty-queries-6",
+    "SPEED_DEMON_THREADS=12 /tmp/d --data /repo/.data/cases/round173-sanitize-d-empty-queries --out /out/d-round173-sanitize-d-empty-queries-12",
+    "SPEED_DEMON_THREADS=1 /tmp/d --data /repo/.data/cases/round173-sanitize-d-long-chain-reused-workspaces --out /out/d-round173-sanitize-d-long-chain-reused-workspaces-1",
+    "SPEED_DEMON_THREADS=6 /tmp/d --data /repo/.data/cases/round173-sanitize-d-long-chain-reused-workspaces --out /out/d-round173-sanitize-d-long-chain-reused-workspaces-6",
+    "SPEED_DEMON_THREADS=12 /tmp/d --data /repo/.data/cases/round173-sanitize-d-long-chain-reused-workspaces --out /out/d-round173-sanitize-d-long-chain-reused-workspaces-12",
+    "SPEED_DEMON_THREADS=1 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-spread-batch-0 --out /out/d-round173-d-pipeline-asan-d-pipeline-spread-batch-0-1",
+    "SPEED_DEMON_THREADS=6 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-spread-batch-0 --out /out/d-round173-d-pipeline-asan-d-pipeline-spread-batch-0-6",
+    "SPEED_DEMON_THREADS=12 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-spread-batch-0 --out /out/d-round173-d-pipeline-asan-d-pipeline-spread-batch-0-12",
+    "SPEED_DEMON_THREADS=1 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-spread-batch-1 --out /out/d-round173-d-pipeline-asan-d-pipeline-spread-batch-1-1",
+    "SPEED_DEMON_THREADS=6 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-spread-batch-1 --out /out/d-round173-d-pipeline-asan-d-pipeline-spread-batch-1-6",
+    "SPEED_DEMON_THREADS=12 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-spread-batch-1 --out /out/d-round173-d-pipeline-asan-d-pipeline-spread-batch-1-12",
+    "SPEED_DEMON_THREADS=1 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-spread-batch-511 --out /out/d-round173-d-pipeline-asan-d-pipeline-spread-batch-511-1",
+    "SPEED_DEMON_THREADS=6 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-spread-batch-511 --out /out/d-round173-d-pipeline-asan-d-pipeline-spread-batch-511-6",
+    "SPEED_DEMON_THREADS=12 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-spread-batch-511 --out /out/d-round173-d-pipeline-asan-d-pipeline-spread-batch-511-12",
+    "SPEED_DEMON_THREADS=1 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-spread-batch-512 --out /out/d-round173-d-pipeline-asan-d-pipeline-spread-batch-512-1",
+    "SPEED_DEMON_THREADS=6 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-spread-batch-512 --out /out/d-round173-d-pipeline-asan-d-pipeline-spread-batch-512-6",
+    "SPEED_DEMON_THREADS=12 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-spread-batch-512 --out /out/d-round173-d-pipeline-asan-d-pipeline-spread-batch-512-12",
+    "SPEED_DEMON_THREADS=1 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-spread-batch-513 --out /out/d-round173-d-pipeline-asan-d-pipeline-spread-batch-513-1",
+    "SPEED_DEMON_THREADS=6 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-spread-batch-513 --out /out/d-round173-d-pipeline-asan-d-pipeline-spread-batch-513-6",
+    "SPEED_DEMON_THREADS=12 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-spread-batch-513 --out /out/d-round173-d-pipeline-asan-d-pipeline-spread-batch-513-12",
+    "SPEED_DEMON_THREADS=1 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-spread-batch-1025 --out /out/d-round173-d-pipeline-asan-d-pipeline-spread-batch-1025-1",
+    "SPEED_DEMON_THREADS=6 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-spread-batch-1025 --out /out/d-round173-d-pipeline-asan-d-pipeline-spread-batch-1025-6",
+    "SPEED_DEMON_THREADS=12 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-spread-batch-1025 --out /out/d-round173-d-pipeline-asan-d-pipeline-spread-batch-1025-12",
+    "SPEED_DEMON_THREADS=1 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-spread-batch-4097 --out /out/d-round173-d-pipeline-asan-d-pipeline-spread-batch-4097-1",
+    "SPEED_DEMON_THREADS=6 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-spread-batch-4097 --out /out/d-round173-d-pipeline-asan-d-pipeline-spread-batch-4097-6",
+    "SPEED_DEMON_THREADS=12 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-spread-batch-4097 --out /out/d-round173-d-pipeline-asan-d-pipeline-spread-batch-4097-12",
+    "SPEED_DEMON_THREADS=1 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-spread-batch-65544 --out /out/d-round173-d-pipeline-asan-d-pipeline-spread-batch-65544-1",
+    "SPEED_DEMON_THREADS=6 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-spread-batch-65544 --out /out/d-round173-d-pipeline-asan-d-pipeline-spread-batch-65544-6",
+    "SPEED_DEMON_THREADS=12 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-spread-batch-65544 --out /out/d-round173-d-pipeline-asan-d-pipeline-spread-batch-65544-12",
+    "SPEED_DEMON_THREADS=1 /tmp/d --data /repo/.data/d/full-seed1823 --out /out/d-full-seed1823-1",
+    "SPEED_DEMON_THREADS=6 /tmp/d --data /repo/.data/d/full-seed1823 --out /out/d-full-seed1823-6",
+    "SPEED_DEMON_THREADS=12 /tmp/d --data /repo/.data/d/full-seed1823 --out /out/d-full-seed1823-12",
+    "set +e",
+    "SPEED_DEMON_THREADS=1 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-number --out /out/error-number-1 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=2 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-number --out /out/error-number-2 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=3 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-number --out /out/error-number-3 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=4 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-number --out /out/error-number-4 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=5 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-number --out /out/error-number-5 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=6 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-number --out /out/error-number-6 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=7 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-number --out /out/error-number-7 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=8 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-number --out /out/error-number-8 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=9 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-number --out /out/error-number-9 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=10 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-number --out /out/error-number-10 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=11 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-number --out /out/error-number-11 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=12 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-number --out /out/error-number-12 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=1 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-node --out /out/error-node-1 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=2 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-node --out /out/error-node-2 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=3 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-node --out /out/error-node-3 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=4 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-node --out /out/error-node-4 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=5 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-node --out /out/error-node-5 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=6 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-node --out /out/error-node-6 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=7 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-node --out /out/error-node-7 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=8 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-node --out /out/error-node-8 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=9 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-node --out /out/error-node-9 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=10 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-node --out /out/error-node-10 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=11 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-node --out /out/error-node-11 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=12 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-node --out /out/error-node-12 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=1 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-truncated --out /out/error-truncated-1 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=2 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-truncated --out /out/error-truncated-2 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=3 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-truncated --out /out/error-truncated-3 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=4 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-truncated --out /out/error-truncated-4 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=5 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-truncated --out /out/error-truncated-5 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=6 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-truncated --out /out/error-truncated-6 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=7 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-truncated --out /out/error-truncated-7 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=8 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-truncated --out /out/error-truncated-8 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=9 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-truncated --out /out/error-truncated-9 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=10 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-truncated --out /out/error-truncated-10 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=11 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-truncated --out /out/error-truncated-11 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=12 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-truncated --out /out/error-truncated-12 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=1 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-count --out /out/error-count-1 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=2 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-count --out /out/error-count-2 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=3 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-count --out /out/error-count-3 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=4 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-count --out /out/error-count-4 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=5 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-count --out /out/error-count-5 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=6 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-count --out /out/error-count-6 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=7 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-count --out /out/error-count-7 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=8 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-count --out /out/error-count-8 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=9 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-count --out /out/error-count-9 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=10 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-count --out /out/error-count-10 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=11 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-count --out /out/error-count-11 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log",
+    "set +e",
+    "SPEED_DEMON_THREADS=12 /tmp/d --data /repo/.data/cases/round173-d-pipeline-asan-d-pipeline-error-count --out /out/error-count-12 > /tmp/err.out 2> /tmp/err.log",
+    "result=$?",
+    "set -e",
+    "test \"$result\" -eq 1",
+    "cat /tmp/err.log"
+  ],
+  "stdout": "track-d: missing graph number\ntrack-d: missing graph number\ntrack-d: missing graph number\ntrack-d: missing graph number\ntrack-d: missing graph number\ntrack-d: missing graph number\ntrack-d: missing graph number\ntrack-d: missing graph number\ntrack-d: missing graph number\ntrack-d: missing graph number\ntrack-d: missing graph number\ntrack-d: missing graph number\ntrack-d: node outside graph\ntrack-d: node outside graph\ntrack-d: node outside graph\ntrack-d: node outside graph\ntrack-d: node outside graph\ntrack-d: node outside graph\ntrack-d: node outside graph\ntrack-d: node outside graph\ntrack-d: node outside graph\ntrack-d: node outside graph\ntrack-d: node outside graph\ntrack-d: node outside graph\ntrack-d: missing graph number\ntrack-d: missing graph number\ntrack-d: missing graph number\ntrack-d: missing graph number\ntrack-d: missing graph number\ntrack-d: missing graph number\ntrack-d: missing graph number\ntrack-d: missing graph number\ntrack-d: missing graph number\ntrack-d: missing graph number\ntrack-d: missing graph number\ntrack-d: missing graph number\ntrack-d: edge count does not match header\ntrack-d: edge count does not match header\ntrack-d: edge count does not match header\ntrack-d: edge count does not match header\ntrack-d: edge count does not match header\ntrack-d: edge count does not match header\ntrack-d: edge count does not match header\ntrack-d: edge count does not match header\ntrack-d: edge count does not match header\ntrack-d: edge count does not match header\ntrack-d: edge count does not match header\ntrack-d: edge count does not match header\n",
+  "stderr": "",
+  "runs": [
+    {
+      "track": "d",
+      "case": "sample-seed1801",
+      "threads": 1,
+      "expected_sha256": "553f17a0b7cefe9eaa04a26e3ffb94c681404c41848e467f81919375d2b64df1",
+      "inputs_sha256": {
+        "queries.txt": "6dc067d261c13da2201688a6deb1762d82ff5e491697dca1af4252f9af971bf7",
+        "graph.txt": "2f7f41eee797d3887143d6668815a3ff41b88751c1a85733f07d1ad53f86d50b"
+      },
+      "sha256": "553f17a0b7cefe9eaa04a26e3ffb94c681404c41848e467f81919375d2b64df1"
+    },
+    {
+      "track": "d",
+      "case": "sample-seed1801",
+      "threads": 6,
+      "expected_sha256": "553f17a0b7cefe9eaa04a26e3ffb94c681404c41848e467f81919375d2b64df1",
+      "inputs_sha256": {
+        "queries.txt": "6dc067d261c13da2201688a6deb1762d82ff5e491697dca1af4252f9af971bf7",
+        "graph.txt": "2f7f41eee797d3887143d6668815a3ff41b88751c1a85733f07d1ad53f86d50b"
+      },
+      "sha256": "553f17a0b7cefe9eaa04a26e3ffb94c681404c41848e467f81919375d2b64df1"
+    },
+    {
+      "track": "d",
+      "case": "sample-seed1801",
+      "threads": 12,
+      "expected_sha256": "553f17a0b7cefe9eaa04a26e3ffb94c681404c41848e467f81919375d2b64df1",
+      "inputs_sha256": {
+        "queries.txt": "6dc067d261c13da2201688a6deb1762d82ff5e491697dca1af4252f9af971bf7",
+        "graph.txt": "2f7f41eee797d3887143d6668815a3ff41b88751c1a85733f07d1ad53f86d50b"
+      },
+      "sha256": "553f17a0b7cefe9eaa04a26e3ffb94c681404c41848e467f81919375d2b64df1"
+    },
+    {
+      "track": "d",
+      "case": "sample-seed1811",
+      "threads": 1,
+      "expected_sha256": "69d9491acfa0fbe61d270bc796b1695e11cb5bd73c3a80ee6bc3da6c1a9778e2",
+      "inputs_sha256": {
+        "queries.txt": "16e0adc2e319f7c99475d100392399594a2428213b939019ec148b5242ccb6aa",
+        "graph.txt": "136c293e778431862e7919a817d5096f9d3595c2fb1d4bd5a1fe92166d13d280"
+      },
+      "sha256": "69d9491acfa0fbe61d270bc796b1695e11cb5bd73c3a80ee6bc3da6c1a9778e2"
+    },
+    {
+      "track": "d",
+      "case": "sample-seed1811",
+      "threads": 6,
+      "expected_sha256": "69d9491acfa0fbe61d270bc796b1695e11cb5bd73c3a80ee6bc3da6c1a9778e2",
+      "inputs_sha256": {
+        "queries.txt": "16e0adc2e319f7c99475d100392399594a2428213b939019ec148b5242ccb6aa",
+        "graph.txt": "136c293e778431862e7919a817d5096f9d3595c2fb1d4bd5a1fe92166d13d280"
+      },
+      "sha256": "69d9491acfa0fbe61d270bc796b1695e11cb5bd73c3a80ee6bc3da6c1a9778e2"
+    },
+    {
+      "track": "d",
+      "case": "sample-seed1811",
+      "threads": 12,
+      "expected_sha256": "69d9491acfa0fbe61d270bc796b1695e11cb5bd73c3a80ee6bc3da6c1a9778e2",
+      "inputs_sha256": {
+        "queries.txt": "16e0adc2e319f7c99475d100392399594a2428213b939019ec148b5242ccb6aa",
+        "graph.txt": "136c293e778431862e7919a817d5096f9d3595c2fb1d4bd5a1fe92166d13d280"
+      },
+      "sha256": "69d9491acfa0fbe61d270bc796b1695e11cb5bd73c3a80ee6bc3da6c1a9778e2"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-worked",
+      "threads": 1,
+      "expected_sha256": "2e9871bba1d5013144ceff48d806a28da0e3f203b29118a89d98d8f654c3f6a0",
+      "inputs_sha256": {
+        "queries.txt": "fbb6c7ad60d4e504782559dada011fcfd909029c01367ca8c11280beae6602ca",
+        "graph.txt": "00f3a8e0504ef089f581c3b0ed49aa4822d5c8978650cea1bc30442c4fce13eb"
+      },
+      "sha256": "2e9871bba1d5013144ceff48d806a28da0e3f203b29118a89d98d8f654c3f6a0"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-worked",
+      "threads": 6,
+      "expected_sha256": "2e9871bba1d5013144ceff48d806a28da0e3f203b29118a89d98d8f654c3f6a0",
+      "inputs_sha256": {
+        "queries.txt": "fbb6c7ad60d4e504782559dada011fcfd909029c01367ca8c11280beae6602ca",
+        "graph.txt": "00f3a8e0504ef089f581c3b0ed49aa4822d5c8978650cea1bc30442c4fce13eb"
+      },
+      "sha256": "2e9871bba1d5013144ceff48d806a28da0e3f203b29118a89d98d8f654c3f6a0"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-worked",
+      "threads": 12,
+      "expected_sha256": "2e9871bba1d5013144ceff48d806a28da0e3f203b29118a89d98d8f654c3f6a0",
+      "inputs_sha256": {
+        "queries.txt": "fbb6c7ad60d4e504782559dada011fcfd909029c01367ca8c11280beae6602ca",
+        "graph.txt": "00f3a8e0504ef089f581c3b0ed49aa4822d5c8978650cea1bc30442c4fce13eb"
+      },
+      "sha256": "2e9871bba1d5013144ceff48d806a28da0e3f203b29118a89d98d8f654c3f6a0"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-forced-endpoints-0",
+      "threads": 1,
+      "expected_sha256": "5e3cb0c6dbad0647e0ed39473ec7827a8d2ac134520680a8c82f9e9721540c41",
+      "inputs_sha256": {
+        "queries.txt": "afe03eebc8c2490ac0059134283e719555d2d284cd5285edae568ceb11635045",
+        "graph.txt": "1134614aeb864c4db9fab40d938d7013b46e3c681eea217e8f539c04a06c69bb"
+      },
+      "sha256": "5e3cb0c6dbad0647e0ed39473ec7827a8d2ac134520680a8c82f9e9721540c41"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-forced-endpoints-0",
+      "threads": 6,
+      "expected_sha256": "5e3cb0c6dbad0647e0ed39473ec7827a8d2ac134520680a8c82f9e9721540c41",
+      "inputs_sha256": {
+        "queries.txt": "afe03eebc8c2490ac0059134283e719555d2d284cd5285edae568ceb11635045",
+        "graph.txt": "1134614aeb864c4db9fab40d938d7013b46e3c681eea217e8f539c04a06c69bb"
+      },
+      "sha256": "5e3cb0c6dbad0647e0ed39473ec7827a8d2ac134520680a8c82f9e9721540c41"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-forced-endpoints-0",
+      "threads": 12,
+      "expected_sha256": "5e3cb0c6dbad0647e0ed39473ec7827a8d2ac134520680a8c82f9e9721540c41",
+      "inputs_sha256": {
+        "queries.txt": "afe03eebc8c2490ac0059134283e719555d2d284cd5285edae568ceb11635045",
+        "graph.txt": "1134614aeb864c4db9fab40d938d7013b46e3c681eea217e8f539c04a06c69bb"
+      },
+      "sha256": "5e3cb0c6dbad0647e0ed39473ec7827a8d2ac134520680a8c82f9e9721540c41"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-forced-endpoints-1",
+      "threads": 1,
+      "expected_sha256": "cf16599144884a273bcb4d77ddaef347115a1a444b4d7916f47a3a08b531a88a",
+      "inputs_sha256": {
+        "queries.txt": "afe03eebc8c2490ac0059134283e719555d2d284cd5285edae568ceb11635045",
+        "graph.txt": "9a5b293aba88c468fc95b1cb5e10ab053eba020e9d387fa7104945701bc9bcd1"
+      },
+      "sha256": "cf16599144884a273bcb4d77ddaef347115a1a444b4d7916f47a3a08b531a88a"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-forced-endpoints-1",
+      "threads": 6,
+      "expected_sha256": "cf16599144884a273bcb4d77ddaef347115a1a444b4d7916f47a3a08b531a88a",
+      "inputs_sha256": {
+        "queries.txt": "afe03eebc8c2490ac0059134283e719555d2d284cd5285edae568ceb11635045",
+        "graph.txt": "9a5b293aba88c468fc95b1cb5e10ab053eba020e9d387fa7104945701bc9bcd1"
+      },
+      "sha256": "cf16599144884a273bcb4d77ddaef347115a1a444b4d7916f47a3a08b531a88a"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-forced-endpoints-1",
+      "threads": 12,
+      "expected_sha256": "cf16599144884a273bcb4d77ddaef347115a1a444b4d7916f47a3a08b531a88a",
+      "inputs_sha256": {
+        "queries.txt": "afe03eebc8c2490ac0059134283e719555d2d284cd5285edae568ceb11635045",
+        "graph.txt": "9a5b293aba88c468fc95b1cb5e10ab053eba020e9d387fa7104945701bc9bcd1"
+      },
+      "sha256": "cf16599144884a273bcb4d77ddaef347115a1a444b4d7916f47a3a08b531a88a"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-forced-endpoints-2",
+      "threads": 1,
+      "expected_sha256": "4399810827347f6fef7451f0ba439a27d2fb684106b7d49c53c53b495c0e4738",
+      "inputs_sha256": {
+        "queries.txt": "afe03eebc8c2490ac0059134283e719555d2d284cd5285edae568ceb11635045",
+        "graph.txt": "299416d8c4a66c53d597ab536b79b288ea80f681b982163d2229e57ee239c437"
+      },
+      "sha256": "4399810827347f6fef7451f0ba439a27d2fb684106b7d49c53c53b495c0e4738"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-forced-endpoints-2",
+      "threads": 6,
+      "expected_sha256": "4399810827347f6fef7451f0ba439a27d2fb684106b7d49c53c53b495c0e4738",
+      "inputs_sha256": {
+        "queries.txt": "afe03eebc8c2490ac0059134283e719555d2d284cd5285edae568ceb11635045",
+        "graph.txt": "299416d8c4a66c53d597ab536b79b288ea80f681b982163d2229e57ee239c437"
+      },
+      "sha256": "4399810827347f6fef7451f0ba439a27d2fb684106b7d49c53c53b495c0e4738"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-forced-endpoints-2",
+      "threads": 12,
+      "expected_sha256": "4399810827347f6fef7451f0ba439a27d2fb684106b7d49c53c53b495c0e4738",
+      "inputs_sha256": {
+        "queries.txt": "afe03eebc8c2490ac0059134283e719555d2d284cd5285edae568ceb11635045",
+        "graph.txt": "299416d8c4a66c53d597ab536b79b288ea80f681b982163d2229e57ee239c437"
+      },
+      "sha256": "4399810827347f6fef7451f0ba439a27d2fb684106b7d49c53c53b495c0e4738"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-forced-endpoints-3",
+      "threads": 1,
+      "expected_sha256": "76344e9ad05be87d06517f1a93a1f0acca8c6e93fb0dd9874b00aa809d10be2f",
+      "inputs_sha256": {
+        "queries.txt": "afe03eebc8c2490ac0059134283e719555d2d284cd5285edae568ceb11635045",
+        "graph.txt": "76866bc9eeb74218431abddcf8be38bb89e27d358a57b130ea1deb29114cd6cd"
+      },
+      "sha256": "76344e9ad05be87d06517f1a93a1f0acca8c6e93fb0dd9874b00aa809d10be2f"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-forced-endpoints-3",
+      "threads": 6,
+      "expected_sha256": "76344e9ad05be87d06517f1a93a1f0acca8c6e93fb0dd9874b00aa809d10be2f",
+      "inputs_sha256": {
+        "queries.txt": "afe03eebc8c2490ac0059134283e719555d2d284cd5285edae568ceb11635045",
+        "graph.txt": "76866bc9eeb74218431abddcf8be38bb89e27d358a57b130ea1deb29114cd6cd"
+      },
+      "sha256": "76344e9ad05be87d06517f1a93a1f0acca8c6e93fb0dd9874b00aa809d10be2f"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-forced-endpoints-3",
+      "threads": 12,
+      "expected_sha256": "76344e9ad05be87d06517f1a93a1f0acca8c6e93fb0dd9874b00aa809d10be2f",
+      "inputs_sha256": {
+        "queries.txt": "afe03eebc8c2490ac0059134283e719555d2d284cd5285edae568ceb11635045",
+        "graph.txt": "76866bc9eeb74218431abddcf8be38bb89e27d358a57b130ea1deb29114cd6cd"
+      },
+      "sha256": "76344e9ad05be87d06517f1a93a1f0acca8c6e93fb0dd9874b00aa809d10be2f"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-forced-endpoints-4",
+      "threads": 1,
+      "expected_sha256": "bbf454cc890a60c7196ca5911a184bc0c54fead839a929e0adac7a04b3377dbe",
+      "inputs_sha256": {
+        "queries.txt": "afe03eebc8c2490ac0059134283e719555d2d284cd5285edae568ceb11635045",
+        "graph.txt": "88afc626634c20c4de60321707e85be172dc23cf9cca4cff8b7067bc392cdaf8"
+      },
+      "sha256": "bbf454cc890a60c7196ca5911a184bc0c54fead839a929e0adac7a04b3377dbe"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-forced-endpoints-4",
+      "threads": 6,
+      "expected_sha256": "bbf454cc890a60c7196ca5911a184bc0c54fead839a929e0adac7a04b3377dbe",
+      "inputs_sha256": {
+        "queries.txt": "afe03eebc8c2490ac0059134283e719555d2d284cd5285edae568ceb11635045",
+        "graph.txt": "88afc626634c20c4de60321707e85be172dc23cf9cca4cff8b7067bc392cdaf8"
+      },
+      "sha256": "bbf454cc890a60c7196ca5911a184bc0c54fead839a929e0adac7a04b3377dbe"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-forced-endpoints-4",
+      "threads": 12,
+      "expected_sha256": "bbf454cc890a60c7196ca5911a184bc0c54fead839a929e0adac7a04b3377dbe",
+      "inputs_sha256": {
+        "queries.txt": "afe03eebc8c2490ac0059134283e719555d2d284cd5285edae568ceb11635045",
+        "graph.txt": "88afc626634c20c4de60321707e85be172dc23cf9cca4cff8b7067bc392cdaf8"
+      },
+      "sha256": "bbf454cc890a60c7196ca5911a184bc0c54fead839a929e0adac7a04b3377dbe"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-forced-endpoints-5",
+      "threads": 1,
+      "expected_sha256": "73ccb117844596bb71f0f52abc2d25a980a5ed397d797c8bea53439e8f3e6642",
+      "inputs_sha256": {
+        "queries.txt": "afe03eebc8c2490ac0059134283e719555d2d284cd5285edae568ceb11635045",
+        "graph.txt": "71f239b8d6d14dc81cc86ee4f6f42537e1a6e167a5a721c17e76ee13856c752d"
+      },
+      "sha256": "73ccb117844596bb71f0f52abc2d25a980a5ed397d797c8bea53439e8f3e6642"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-forced-endpoints-5",
+      "threads": 6,
+      "expected_sha256": "73ccb117844596bb71f0f52abc2d25a980a5ed397d797c8bea53439e8f3e6642",
+      "inputs_sha256": {
+        "queries.txt": "afe03eebc8c2490ac0059134283e719555d2d284cd5285edae568ceb11635045",
+        "graph.txt": "71f239b8d6d14dc81cc86ee4f6f42537e1a6e167a5a721c17e76ee13856c752d"
+      },
+      "sha256": "73ccb117844596bb71f0f52abc2d25a980a5ed397d797c8bea53439e8f3e6642"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-forced-endpoints-5",
+      "threads": 12,
+      "expected_sha256": "73ccb117844596bb71f0f52abc2d25a980a5ed397d797c8bea53439e8f3e6642",
+      "inputs_sha256": {
+        "queries.txt": "afe03eebc8c2490ac0059134283e719555d2d284cd5285edae568ceb11635045",
+        "graph.txt": "71f239b8d6d14dc81cc86ee4f6f42537e1a6e167a5a721c17e76ee13856c752d"
+      },
+      "sha256": "73ccb117844596bb71f0f52abc2d25a980a5ed397d797c8bea53439e8f3e6642"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-floyd-warshall-0",
+      "threads": 1,
+      "expected_sha256": "767d5d04c03445ba23703e9fbee3b4986f287afd2b0820ca9f71e637da0c7207",
+      "inputs_sha256": {
+        "queries.txt": "be01b670bbb08064c12a704e08166456d950ff1d170645f7e523cff876b50108",
+        "graph.txt": "d047ba650b383ef046a61275e15f9c0898f42fb9d692447565f145c17a028ebe"
+      },
+      "sha256": "767d5d04c03445ba23703e9fbee3b4986f287afd2b0820ca9f71e637da0c7207"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-floyd-warshall-0",
+      "threads": 6,
+      "expected_sha256": "767d5d04c03445ba23703e9fbee3b4986f287afd2b0820ca9f71e637da0c7207",
+      "inputs_sha256": {
+        "queries.txt": "be01b670bbb08064c12a704e08166456d950ff1d170645f7e523cff876b50108",
+        "graph.txt": "d047ba650b383ef046a61275e15f9c0898f42fb9d692447565f145c17a028ebe"
+      },
+      "sha256": "767d5d04c03445ba23703e9fbee3b4986f287afd2b0820ca9f71e637da0c7207"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-floyd-warshall-0",
+      "threads": 12,
+      "expected_sha256": "767d5d04c03445ba23703e9fbee3b4986f287afd2b0820ca9f71e637da0c7207",
+      "inputs_sha256": {
+        "queries.txt": "be01b670bbb08064c12a704e08166456d950ff1d170645f7e523cff876b50108",
+        "graph.txt": "d047ba650b383ef046a61275e15f9c0898f42fb9d692447565f145c17a028ebe"
+      },
+      "sha256": "767d5d04c03445ba23703e9fbee3b4986f287afd2b0820ca9f71e637da0c7207"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-floyd-warshall-1",
+      "threads": 1,
+      "expected_sha256": "d59313c8f21ad0154093a741e4b184a35461ea57ea8ab2c55417255a67a6e79f",
+      "inputs_sha256": {
+        "queries.txt": "c7a270d024d9886edd7e152f7ba973e2a3665fd12a7993dd11d111a75b2e70a8",
+        "graph.txt": "31f3acf0aead977ca03520301a54dd1f85bcc3d2eadac945e5992f472b1c1302"
+      },
+      "sha256": "d59313c8f21ad0154093a741e4b184a35461ea57ea8ab2c55417255a67a6e79f"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-floyd-warshall-1",
+      "threads": 6,
+      "expected_sha256": "d59313c8f21ad0154093a741e4b184a35461ea57ea8ab2c55417255a67a6e79f",
+      "inputs_sha256": {
+        "queries.txt": "c7a270d024d9886edd7e152f7ba973e2a3665fd12a7993dd11d111a75b2e70a8",
+        "graph.txt": "31f3acf0aead977ca03520301a54dd1f85bcc3d2eadac945e5992f472b1c1302"
+      },
+      "sha256": "d59313c8f21ad0154093a741e4b184a35461ea57ea8ab2c55417255a67a6e79f"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-floyd-warshall-1",
+      "threads": 12,
+      "expected_sha256": "d59313c8f21ad0154093a741e4b184a35461ea57ea8ab2c55417255a67a6e79f",
+      "inputs_sha256": {
+        "queries.txt": "c7a270d024d9886edd7e152f7ba973e2a3665fd12a7993dd11d111a75b2e70a8",
+        "graph.txt": "31f3acf0aead977ca03520301a54dd1f85bcc3d2eadac945e5992f472b1c1302"
+      },
+      "sha256": "d59313c8f21ad0154093a741e4b184a35461ea57ea8ab2c55417255a67a6e79f"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-floyd-warshall-2",
+      "threads": 1,
+      "expected_sha256": "d835113a71500d71680e1b67c1dca1d5f1c7a30fe9ef61a9b3a97344d75377c8",
+      "inputs_sha256": {
+        "queries.txt": "cab4bf62abf57c233b3c8a87a01a48bed42d50af2494292012f48d3e75ccbe4c",
+        "graph.txt": "3350565237c85470f889d85f14f981cffb27fc44f3c019c41b509f8ed7e1fa85"
+      },
+      "sha256": "d835113a71500d71680e1b67c1dca1d5f1c7a30fe9ef61a9b3a97344d75377c8"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-floyd-warshall-2",
+      "threads": 6,
+      "expected_sha256": "d835113a71500d71680e1b67c1dca1d5f1c7a30fe9ef61a9b3a97344d75377c8",
+      "inputs_sha256": {
+        "queries.txt": "cab4bf62abf57c233b3c8a87a01a48bed42d50af2494292012f48d3e75ccbe4c",
+        "graph.txt": "3350565237c85470f889d85f14f981cffb27fc44f3c019c41b509f8ed7e1fa85"
+      },
+      "sha256": "d835113a71500d71680e1b67c1dca1d5f1c7a30fe9ef61a9b3a97344d75377c8"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-floyd-warshall-2",
+      "threads": 12,
+      "expected_sha256": "d835113a71500d71680e1b67c1dca1d5f1c7a30fe9ef61a9b3a97344d75377c8",
+      "inputs_sha256": {
+        "queries.txt": "cab4bf62abf57c233b3c8a87a01a48bed42d50af2494292012f48d3e75ccbe4c",
+        "graph.txt": "3350565237c85470f889d85f14f981cffb27fc44f3c019c41b509f8ed7e1fa85"
+      },
+      "sha256": "d835113a71500d71680e1b67c1dca1d5f1c7a30fe9ef61a9b3a97344d75377c8"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-floyd-warshall-3",
+      "threads": 1,
+      "expected_sha256": "c5761f5fb13ef54cd3b508cff92f3f781373e44ce0fe92527f4f28dc2809b59f",
+      "inputs_sha256": {
+        "queries.txt": "2854be25780c74877c03072ae89cbfb95948a82433126b8aaa51361377236c42",
+        "graph.txt": "becea1a9aba8a52807338999fc7d7d51bff9076a13fae04375eacbed88dca404"
+      },
+      "sha256": "c5761f5fb13ef54cd3b508cff92f3f781373e44ce0fe92527f4f28dc2809b59f"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-floyd-warshall-3",
+      "threads": 6,
+      "expected_sha256": "c5761f5fb13ef54cd3b508cff92f3f781373e44ce0fe92527f4f28dc2809b59f",
+      "inputs_sha256": {
+        "queries.txt": "2854be25780c74877c03072ae89cbfb95948a82433126b8aaa51361377236c42",
+        "graph.txt": "becea1a9aba8a52807338999fc7d7d51bff9076a13fae04375eacbed88dca404"
+      },
+      "sha256": "c5761f5fb13ef54cd3b508cff92f3f781373e44ce0fe92527f4f28dc2809b59f"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-floyd-warshall-3",
+      "threads": 12,
+      "expected_sha256": "c5761f5fb13ef54cd3b508cff92f3f781373e44ce0fe92527f4f28dc2809b59f",
+      "inputs_sha256": {
+        "queries.txt": "2854be25780c74877c03072ae89cbfb95948a82433126b8aaa51361377236c42",
+        "graph.txt": "becea1a9aba8a52807338999fc7d7d51bff9076a13fae04375eacbed88dca404"
+      },
+      "sha256": "c5761f5fb13ef54cd3b508cff92f3f781373e44ce0fe92527f4f28dc2809b59f"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-floyd-warshall-4",
+      "threads": 1,
+      "expected_sha256": "7649a5cfe7fe7176d9254ef6d507088b57137d9aa4291751dd80f847606d6f78",
+      "inputs_sha256": {
+        "queries.txt": "2854be25780c74877c03072ae89cbfb95948a82433126b8aaa51361377236c42",
+        "graph.txt": "af4dab9df8ffbab567a45dd7a870d1f84bf78e59477feaf970015b86504f3559"
+      },
+      "sha256": "7649a5cfe7fe7176d9254ef6d507088b57137d9aa4291751dd80f847606d6f78"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-floyd-warshall-4",
+      "threads": 6,
+      "expected_sha256": "7649a5cfe7fe7176d9254ef6d507088b57137d9aa4291751dd80f847606d6f78",
+      "inputs_sha256": {
+        "queries.txt": "2854be25780c74877c03072ae89cbfb95948a82433126b8aaa51361377236c42",
+        "graph.txt": "af4dab9df8ffbab567a45dd7a870d1f84bf78e59477feaf970015b86504f3559"
+      },
+      "sha256": "7649a5cfe7fe7176d9254ef6d507088b57137d9aa4291751dd80f847606d6f78"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-floyd-warshall-4",
+      "threads": 12,
+      "expected_sha256": "7649a5cfe7fe7176d9254ef6d507088b57137d9aa4291751dd80f847606d6f78",
+      "inputs_sha256": {
+        "queries.txt": "2854be25780c74877c03072ae89cbfb95948a82433126b8aaa51361377236c42",
+        "graph.txt": "af4dab9df8ffbab567a45dd7a870d1f84bf78e59477feaf970015b86504f3559"
+      },
+      "sha256": "7649a5cfe7fe7176d9254ef6d507088b57137d9aa4291751dd80f847606d6f78"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-floyd-warshall-5",
+      "threads": 1,
+      "expected_sha256": "2fb210f68817468ae4457ef53b7314aad21e9bd3be08e455446c9dddb66ada0e",
+      "inputs_sha256": {
+        "queries.txt": "46fa874dbcae3fd65231b68a466bb5226c431dfa0c2333ce717600ae078eba6c",
+        "graph.txt": "e083475e7a5a7247ae50a7352f8cfab8975897b2f94ea136d221c7b9d24b97c4"
+      },
+      "sha256": "2fb210f68817468ae4457ef53b7314aad21e9bd3be08e455446c9dddb66ada0e"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-floyd-warshall-5",
+      "threads": 6,
+      "expected_sha256": "2fb210f68817468ae4457ef53b7314aad21e9bd3be08e455446c9dddb66ada0e",
+      "inputs_sha256": {
+        "queries.txt": "46fa874dbcae3fd65231b68a466bb5226c431dfa0c2333ce717600ae078eba6c",
+        "graph.txt": "e083475e7a5a7247ae50a7352f8cfab8975897b2f94ea136d221c7b9d24b97c4"
+      },
+      "sha256": "2fb210f68817468ae4457ef53b7314aad21e9bd3be08e455446c9dddb66ada0e"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-floyd-warshall-5",
+      "threads": 12,
+      "expected_sha256": "2fb210f68817468ae4457ef53b7314aad21e9bd3be08e455446c9dddb66ada0e",
+      "inputs_sha256": {
+        "queries.txt": "46fa874dbcae3fd65231b68a466bb5226c431dfa0c2333ce717600ae078eba6c",
+        "graph.txt": "e083475e7a5a7247ae50a7352f8cfab8975897b2f94ea136d221c7b9d24b97c4"
+      },
+      "sha256": "2fb210f68817468ae4457ef53b7314aad21e9bd3be08e455446c9dddb66ada0e"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-floyd-warshall-6",
+      "threads": 1,
+      "expected_sha256": "12de5f795f25734cf0a7149812bf7e59819b5c8f52c34b4d786a55a838771c0b",
+      "inputs_sha256": {
+        "queries.txt": "bdafa28364fbc582970b0e946b75de67e747c2b47ea528972d66b7f8f5de87da",
+        "graph.txt": "ab3f12253214169cd5245ca06bfb96c9dc3f8d3fbeb59f446b5e2ff913319255"
+      },
+      "sha256": "12de5f795f25734cf0a7149812bf7e59819b5c8f52c34b4d786a55a838771c0b"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-floyd-warshall-6",
+      "threads": 6,
+      "expected_sha256": "12de5f795f25734cf0a7149812bf7e59819b5c8f52c34b4d786a55a838771c0b",
+      "inputs_sha256": {
+        "queries.txt": "bdafa28364fbc582970b0e946b75de67e747c2b47ea528972d66b7f8f5de87da",
+        "graph.txt": "ab3f12253214169cd5245ca06bfb96c9dc3f8d3fbeb59f446b5e2ff913319255"
+      },
+      "sha256": "12de5f795f25734cf0a7149812bf7e59819b5c8f52c34b4d786a55a838771c0b"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-floyd-warshall-6",
+      "threads": 12,
+      "expected_sha256": "12de5f795f25734cf0a7149812bf7e59819b5c8f52c34b4d786a55a838771c0b",
+      "inputs_sha256": {
+        "queries.txt": "bdafa28364fbc582970b0e946b75de67e747c2b47ea528972d66b7f8f5de87da",
+        "graph.txt": "ab3f12253214169cd5245ca06bfb96c9dc3f8d3fbeb59f446b5e2ff913319255"
+      },
+      "sha256": "12de5f795f25734cf0a7149812bf7e59819b5c8f52c34b4d786a55a838771c0b"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-floyd-warshall-7",
+      "threads": 1,
+      "expected_sha256": "15112342cb3d441092d0fda50fb884006f30c7930b3cf20fb8f7af8360ce73af",
+      "inputs_sha256": {
+        "queries.txt": "26d9a9a1f71db6c3b15be4ef69962ec9a9bda2eb7e95d192182dc77865b358b7",
+        "graph.txt": "9817c87a40385b5d5f202b14d2905c8cdfab193d3c2acde2455c850b5b7bfca7"
+      },
+      "sha256": "15112342cb3d441092d0fda50fb884006f30c7930b3cf20fb8f7af8360ce73af"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-floyd-warshall-7",
+      "threads": 6,
+      "expected_sha256": "15112342cb3d441092d0fda50fb884006f30c7930b3cf20fb8f7af8360ce73af",
+      "inputs_sha256": {
+        "queries.txt": "26d9a9a1f71db6c3b15be4ef69962ec9a9bda2eb7e95d192182dc77865b358b7",
+        "graph.txt": "9817c87a40385b5d5f202b14d2905c8cdfab193d3c2acde2455c850b5b7bfca7"
+      },
+      "sha256": "15112342cb3d441092d0fda50fb884006f30c7930b3cf20fb8f7af8360ce73af"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-floyd-warshall-7",
+      "threads": 12,
+      "expected_sha256": "15112342cb3d441092d0fda50fb884006f30c7930b3cf20fb8f7af8360ce73af",
+      "inputs_sha256": {
+        "queries.txt": "26d9a9a1f71db6c3b15be4ef69962ec9a9bda2eb7e95d192182dc77865b358b7",
+        "graph.txt": "9817c87a40385b5d5f202b14d2905c8cdfab193d3c2acde2455c850b5b7bfca7"
+      },
+      "sha256": "15112342cb3d441092d0fda50fb884006f30c7930b3cf20fb8f7af8360ce73af"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-floyd-warshall-8",
+      "threads": 1,
+      "expected_sha256": "d0e7deb35240a8f3fd17face43edab8f8b1703edcd759dfa8277932e057cfa4e",
+      "inputs_sha256": {
+        "queries.txt": "2854be25780c74877c03072ae89cbfb95948a82433126b8aaa51361377236c42",
+        "graph.txt": "e7dcf95c96ef969d89f41319e10eadbf43364fcbba5b6100acd3b4d8bf49c9e7"
+      },
+      "sha256": "d0e7deb35240a8f3fd17face43edab8f8b1703edcd759dfa8277932e057cfa4e"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-floyd-warshall-8",
+      "threads": 6,
+      "expected_sha256": "d0e7deb35240a8f3fd17face43edab8f8b1703edcd759dfa8277932e057cfa4e",
+      "inputs_sha256": {
+        "queries.txt": "2854be25780c74877c03072ae89cbfb95948a82433126b8aaa51361377236c42",
+        "graph.txt": "e7dcf95c96ef969d89f41319e10eadbf43364fcbba5b6100acd3b4d8bf49c9e7"
+      },
+      "sha256": "d0e7deb35240a8f3fd17face43edab8f8b1703edcd759dfa8277932e057cfa4e"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-floyd-warshall-8",
+      "threads": 12,
+      "expected_sha256": "d0e7deb35240a8f3fd17face43edab8f8b1703edcd759dfa8277932e057cfa4e",
+      "inputs_sha256": {
+        "queries.txt": "2854be25780c74877c03072ae89cbfb95948a82433126b8aaa51361377236c42",
+        "graph.txt": "e7dcf95c96ef969d89f41319e10eadbf43364fcbba5b6100acd3b4d8bf49c9e7"
+      },
+      "sha256": "d0e7deb35240a8f3fd17face43edab8f8b1703edcd759dfa8277932e057cfa4e"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-floyd-warshall-9",
+      "threads": 1,
+      "expected_sha256": "5a3dc697fe5d7259ba9d738cac6c38f6339f8e871831aa8464180f471523c33e",
+      "inputs_sha256": {
+        "queries.txt": "4845953a86ac7feab1178498285656dd50f132c4a9b77ff541d9a0f7736d8022",
+        "graph.txt": "f4d610646161cfabf436cf630c979af59032e77486ed716439213c8769a9fb90"
+      },
+      "sha256": "5a3dc697fe5d7259ba9d738cac6c38f6339f8e871831aa8464180f471523c33e"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-floyd-warshall-9",
+      "threads": 6,
+      "expected_sha256": "5a3dc697fe5d7259ba9d738cac6c38f6339f8e871831aa8464180f471523c33e",
+      "inputs_sha256": {
+        "queries.txt": "4845953a86ac7feab1178498285656dd50f132c4a9b77ff541d9a0f7736d8022",
+        "graph.txt": "f4d610646161cfabf436cf630c979af59032e77486ed716439213c8769a9fb90"
+      },
+      "sha256": "5a3dc697fe5d7259ba9d738cac6c38f6339f8e871831aa8464180f471523c33e"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-floyd-warshall-9",
+      "threads": 12,
+      "expected_sha256": "5a3dc697fe5d7259ba9d738cac6c38f6339f8e871831aa8464180f471523c33e",
+      "inputs_sha256": {
+        "queries.txt": "4845953a86ac7feab1178498285656dd50f132c4a9b77ff541d9a0f7736d8022",
+        "graph.txt": "f4d610646161cfabf436cf630c979af59032e77486ed716439213c8769a9fb90"
+      },
+      "sha256": "5a3dc697fe5d7259ba9d738cac6c38f6339f8e871831aa8464180f471523c33e"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-floyd-warshall-10",
+      "threads": 1,
+      "expected_sha256": "dc4db463476eb00591063ca3bb3934f2673a61d2933dd0b9b65757efd947f81a",
+      "inputs_sha256": {
+        "queries.txt": "301faea4c264312f1d7163cd74f32cc3ae8e2371db2a3b48ba703560e51d93b4",
+        "graph.txt": "54c7174faf9224d1bf9cece2fff5fcb8b6f0ca0242444a5a74a97402eec69483"
+      },
+      "sha256": "dc4db463476eb00591063ca3bb3934f2673a61d2933dd0b9b65757efd947f81a"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-floyd-warshall-10",
+      "threads": 6,
+      "expected_sha256": "dc4db463476eb00591063ca3bb3934f2673a61d2933dd0b9b65757efd947f81a",
+      "inputs_sha256": {
+        "queries.txt": "301faea4c264312f1d7163cd74f32cc3ae8e2371db2a3b48ba703560e51d93b4",
+        "graph.txt": "54c7174faf9224d1bf9cece2fff5fcb8b6f0ca0242444a5a74a97402eec69483"
+      },
+      "sha256": "dc4db463476eb00591063ca3bb3934f2673a61d2933dd0b9b65757efd947f81a"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-floyd-warshall-10",
+      "threads": 12,
+      "expected_sha256": "dc4db463476eb00591063ca3bb3934f2673a61d2933dd0b9b65757efd947f81a",
+      "inputs_sha256": {
+        "queries.txt": "301faea4c264312f1d7163cd74f32cc3ae8e2371db2a3b48ba703560e51d93b4",
+        "graph.txt": "54c7174faf9224d1bf9cece2fff5fcb8b6f0ca0242444a5a74a97402eec69483"
+      },
+      "sha256": "dc4db463476eb00591063ca3bb3934f2673a61d2933dd0b9b65757efd947f81a"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-floyd-warshall-11",
+      "threads": 1,
+      "expected_sha256": "d5b987591e5d70e13c40f021b607f45093c65001110152e537c0cd2e06fa2c2b",
+      "inputs_sha256": {
+        "queries.txt": "4845953a86ac7feab1178498285656dd50f132c4a9b77ff541d9a0f7736d8022",
+        "graph.txt": "cf7eafe170ef533dc95b622aeff4035e4d7c416e24b09e70c62eee7ae317c677"
+      },
+      "sha256": "d5b987591e5d70e13c40f021b607f45093c65001110152e537c0cd2e06fa2c2b"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-floyd-warshall-11",
+      "threads": 6,
+      "expected_sha256": "d5b987591e5d70e13c40f021b607f45093c65001110152e537c0cd2e06fa2c2b",
+      "inputs_sha256": {
+        "queries.txt": "4845953a86ac7feab1178498285656dd50f132c4a9b77ff541d9a0f7736d8022",
+        "graph.txt": "cf7eafe170ef533dc95b622aeff4035e4d7c416e24b09e70c62eee7ae317c677"
+      },
+      "sha256": "d5b987591e5d70e13c40f021b607f45093c65001110152e537c0cd2e06fa2c2b"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-floyd-warshall-11",
+      "threads": 12,
+      "expected_sha256": "d5b987591e5d70e13c40f021b607f45093c65001110152e537c0cd2e06fa2c2b",
+      "inputs_sha256": {
+        "queries.txt": "4845953a86ac7feab1178498285656dd50f132c4a9b77ff541d9a0f7736d8022",
+        "graph.txt": "cf7eafe170ef533dc95b622aeff4035e4d7c416e24b09e70c62eee7ae317c677"
+      },
+      "sha256": "d5b987591e5d70e13c40f021b607f45093c65001110152e537c0cd2e06fa2c2b"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-sparse-large-id-weight-boundaries",
+      "threads": 1,
+      "expected_sha256": "63cf92b1973836d923d6d4499cf8f26b6ce7816795f91400599fc01b5d2f7d97",
+      "inputs_sha256": {
+        "queries.txt": "948b18f5d5f4fabda923ece4cae4bf864ce216d720812818eb34f6c0e86e6436",
+        "graph.txt": "1ecc03cdefe719d0105b043ebe1013094521f832e1a0da3b9cd11a498bbdcf07"
+      },
+      "sha256": "63cf92b1973836d923d6d4499cf8f26b6ce7816795f91400599fc01b5d2f7d97"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-sparse-large-id-weight-boundaries",
+      "threads": 6,
+      "expected_sha256": "63cf92b1973836d923d6d4499cf8f26b6ce7816795f91400599fc01b5d2f7d97",
+      "inputs_sha256": {
+        "queries.txt": "948b18f5d5f4fabda923ece4cae4bf864ce216d720812818eb34f6c0e86e6436",
+        "graph.txt": "1ecc03cdefe719d0105b043ebe1013094521f832e1a0da3b9cd11a498bbdcf07"
+      },
+      "sha256": "63cf92b1973836d923d6d4499cf8f26b6ce7816795f91400599fc01b5d2f7d97"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-sparse-large-id-weight-boundaries",
+      "threads": 12,
+      "expected_sha256": "63cf92b1973836d923d6d4499cf8f26b6ce7816795f91400599fc01b5d2f7d97",
+      "inputs_sha256": {
+        "queries.txt": "948b18f5d5f4fabda923ece4cae4bf864ce216d720812818eb34f6c0e86e6436",
+        "graph.txt": "1ecc03cdefe719d0105b043ebe1013094521f832e1a0da3b9cd11a498bbdcf07"
+      },
+      "sha256": "63cf92b1973836d923d6d4499cf8f26b6ce7816795f91400599fc01b5d2f7d97"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-wide-id-weight-boundaries",
+      "threads": 1,
+      "expected_sha256": "63cf92b1973836d923d6d4499cf8f26b6ce7816795f91400599fc01b5d2f7d97",
+      "inputs_sha256": {
+        "queries.txt": "2bfa9bf148312e914e85a99fff5719fb1a8e4c767b4b2a856bcd2263983cae67",
+        "graph.txt": "32db0e9e022c4007ea5222421639a79406439e67019d6710b2780de1ced1e021"
+      },
+      "sha256": "63cf92b1973836d923d6d4499cf8f26b6ce7816795f91400599fc01b5d2f7d97"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-wide-id-weight-boundaries",
+      "threads": 6,
+      "expected_sha256": "63cf92b1973836d923d6d4499cf8f26b6ce7816795f91400599fc01b5d2f7d97",
+      "inputs_sha256": {
+        "queries.txt": "2bfa9bf148312e914e85a99fff5719fb1a8e4c767b4b2a856bcd2263983cae67",
+        "graph.txt": "32db0e9e022c4007ea5222421639a79406439e67019d6710b2780de1ced1e021"
+      },
+      "sha256": "63cf92b1973836d923d6d4499cf8f26b6ce7816795f91400599fc01b5d2f7d97"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-wide-id-weight-boundaries",
+      "threads": 12,
+      "expected_sha256": "63cf92b1973836d923d6d4499cf8f26b6ce7816795f91400599fc01b5d2f7d97",
+      "inputs_sha256": {
+        "queries.txt": "2bfa9bf148312e914e85a99fff5719fb1a8e4c767b4b2a856bcd2263983cae67",
+        "graph.txt": "32db0e9e022c4007ea5222421639a79406439e67019d6710b2780de1ced1e021"
+      },
+      "sha256": "63cf92b1973836d923d6d4499cf8f26b6ce7816795f91400599fc01b5d2f7d97"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-degree-cursor-65535",
+      "threads": 1,
+      "expected_sha256": "dbb73232742a17ad172fc035f0a7c358379f454f6d05f1b95f3023897c0580ad",
+      "inputs_sha256": {
+        "queries.txt": "cd0366513e81aa710da299e90382b6e53b9d15daca685ce594d2988831096b59",
+        "graph.txt": "1d7bf7e808e90ecd1beddf2087af57b3b854d8197b515b29441a899891b2a0b7"
+      },
+      "sha256": "dbb73232742a17ad172fc035f0a7c358379f454f6d05f1b95f3023897c0580ad"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-degree-cursor-65535",
+      "threads": 6,
+      "expected_sha256": "dbb73232742a17ad172fc035f0a7c358379f454f6d05f1b95f3023897c0580ad",
+      "inputs_sha256": {
+        "queries.txt": "cd0366513e81aa710da299e90382b6e53b9d15daca685ce594d2988831096b59",
+        "graph.txt": "1d7bf7e808e90ecd1beddf2087af57b3b854d8197b515b29441a899891b2a0b7"
+      },
+      "sha256": "dbb73232742a17ad172fc035f0a7c358379f454f6d05f1b95f3023897c0580ad"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-degree-cursor-65535",
+      "threads": 12,
+      "expected_sha256": "dbb73232742a17ad172fc035f0a7c358379f454f6d05f1b95f3023897c0580ad",
+      "inputs_sha256": {
+        "queries.txt": "cd0366513e81aa710da299e90382b6e53b9d15daca685ce594d2988831096b59",
+        "graph.txt": "1d7bf7e808e90ecd1beddf2087af57b3b854d8197b515b29441a899891b2a0b7"
+      },
+      "sha256": "dbb73232742a17ad172fc035f0a7c358379f454f6d05f1b95f3023897c0580ad"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-degree-cursor-65536",
+      "threads": 1,
+      "expected_sha256": "dbb73232742a17ad172fc035f0a7c358379f454f6d05f1b95f3023897c0580ad",
+      "inputs_sha256": {
+        "queries.txt": "cd0366513e81aa710da299e90382b6e53b9d15daca685ce594d2988831096b59",
+        "graph.txt": "5a6d0c459d6934c3aafba7b2a4f2d6b8b8e69d0d107d01272a6e259d343af93e"
+      },
+      "sha256": "dbb73232742a17ad172fc035f0a7c358379f454f6d05f1b95f3023897c0580ad"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-degree-cursor-65536",
+      "threads": 6,
+      "expected_sha256": "dbb73232742a17ad172fc035f0a7c358379f454f6d05f1b95f3023897c0580ad",
+      "inputs_sha256": {
+        "queries.txt": "cd0366513e81aa710da299e90382b6e53b9d15daca685ce594d2988831096b59",
+        "graph.txt": "5a6d0c459d6934c3aafba7b2a4f2d6b8b8e69d0d107d01272a6e259d343af93e"
+      },
+      "sha256": "dbb73232742a17ad172fc035f0a7c358379f454f6d05f1b95f3023897c0580ad"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-degree-cursor-65536",
+      "threads": 12,
+      "expected_sha256": "dbb73232742a17ad172fc035f0a7c358379f454f6d05f1b95f3023897c0580ad",
+      "inputs_sha256": {
+        "queries.txt": "cd0366513e81aa710da299e90382b6e53b9d15daca685ce594d2988831096b59",
+        "graph.txt": "5a6d0c459d6934c3aafba7b2a4f2d6b8b8e69d0d107d01272a6e259d343af93e"
+      },
+      "sha256": "dbb73232742a17ad172fc035f0a7c358379f454f6d05f1b95f3023897c0580ad"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-wide-id-large-degree",
+      "threads": 1,
+      "expected_sha256": "dbb73232742a17ad172fc035f0a7c358379f454f6d05f1b95f3023897c0580ad",
+      "inputs_sha256": {
+        "queries.txt": "cd0366513e81aa710da299e90382b6e53b9d15daca685ce594d2988831096b59",
+        "graph.txt": "dc9d2e175bd31e6fd23b077979da62c0733b9d74e4601b204ffb050f26438ebe"
+      },
+      "sha256": "dbb73232742a17ad172fc035f0a7c358379f454f6d05f1b95f3023897c0580ad"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-wide-id-large-degree",
+      "threads": 6,
+      "expected_sha256": "dbb73232742a17ad172fc035f0a7c358379f454f6d05f1b95f3023897c0580ad",
+      "inputs_sha256": {
+        "queries.txt": "cd0366513e81aa710da299e90382b6e53b9d15daca685ce594d2988831096b59",
+        "graph.txt": "dc9d2e175bd31e6fd23b077979da62c0733b9d74e4601b204ffb050f26438ebe"
+      },
+      "sha256": "dbb73232742a17ad172fc035f0a7c358379f454f6d05f1b95f3023897c0580ad"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-wide-id-large-degree",
+      "threads": 12,
+      "expected_sha256": "dbb73232742a17ad172fc035f0a7c358379f454f6d05f1b95f3023897c0580ad",
+      "inputs_sha256": {
+        "queries.txt": "cd0366513e81aa710da299e90382b6e53b9d15daca685ce594d2988831096b59",
+        "graph.txt": "dc9d2e175bd31e6fd23b077979da62c0733b9d74e4601b204ffb050f26438ebe"
+      },
+      "sha256": "dbb73232742a17ad172fc035f0a7c358379f454f6d05f1b95f3023897c0580ad"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-degree-spills-wide-out",
+      "threads": 1,
+      "expected_sha256": "62883a07c71a23f2751ecdfafd8510e0bca5bd290a40b60d3b5e591dcb9aae59",
+      "inputs_sha256": {
+        "queries.txt": "39040477d1e56940778edd92ffd8d3c9854c1af1bd9badfc80fbc8a844dcea80",
+        "graph.txt": "b06fea0b596e467cea2382913a03b40456e3eedc0131f0b28fc9e0922a1ad149"
+      },
+      "sha256": "62883a07c71a23f2751ecdfafd8510e0bca5bd290a40b60d3b5e591dcb9aae59"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-degree-spills-wide-out",
+      "threads": 6,
+      "expected_sha256": "62883a07c71a23f2751ecdfafd8510e0bca5bd290a40b60d3b5e591dcb9aae59",
+      "inputs_sha256": {
+        "queries.txt": "39040477d1e56940778edd92ffd8d3c9854c1af1bd9badfc80fbc8a844dcea80",
+        "graph.txt": "b06fea0b596e467cea2382913a03b40456e3eedc0131f0b28fc9e0922a1ad149"
+      },
+      "sha256": "62883a07c71a23f2751ecdfafd8510e0bca5bd290a40b60d3b5e591dcb9aae59"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-degree-spills-wide-out",
+      "threads": 12,
+      "expected_sha256": "62883a07c71a23f2751ecdfafd8510e0bca5bd290a40b60d3b5e591dcb9aae59",
+      "inputs_sha256": {
+        "queries.txt": "39040477d1e56940778edd92ffd8d3c9854c1af1bd9badfc80fbc8a844dcea80",
+        "graph.txt": "b06fea0b596e467cea2382913a03b40456e3eedc0131f0b28fc9e0922a1ad149"
+      },
+      "sha256": "62883a07c71a23f2751ecdfafd8510e0bca5bd290a40b60d3b5e591dcb9aae59"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-degree-spills-wide-in",
+      "threads": 1,
+      "expected_sha256": "62883a07c71a23f2751ecdfafd8510e0bca5bd290a40b60d3b5e591dcb9aae59",
+      "inputs_sha256": {
+        "queries.txt": "501c01f22d18d7a742b641c135dc7227ede93f29243adb41e13ccdca43b6e0d0",
+        "graph.txt": "1ea5951ad7ee3f9dbd9dec6285ec8b9955b393896b18b4bea323438dec16422c"
+      },
+      "sha256": "62883a07c71a23f2751ecdfafd8510e0bca5bd290a40b60d3b5e591dcb9aae59"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-degree-spills-wide-in",
+      "threads": 6,
+      "expected_sha256": "62883a07c71a23f2751ecdfafd8510e0bca5bd290a40b60d3b5e591dcb9aae59",
+      "inputs_sha256": {
+        "queries.txt": "501c01f22d18d7a742b641c135dc7227ede93f29243adb41e13ccdca43b6e0d0",
+        "graph.txt": "1ea5951ad7ee3f9dbd9dec6285ec8b9955b393896b18b4bea323438dec16422c"
+      },
+      "sha256": "62883a07c71a23f2751ecdfafd8510e0bca5bd290a40b60d3b5e591dcb9aae59"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-degree-spills-wide-in",
+      "threads": 12,
+      "expected_sha256": "62883a07c71a23f2751ecdfafd8510e0bca5bd290a40b60d3b5e591dcb9aae59",
+      "inputs_sha256": {
+        "queries.txt": "501c01f22d18d7a742b641c135dc7227ede93f29243adb41e13ccdca43b6e0d0",
+        "graph.txt": "1ea5951ad7ee3f9dbd9dec6285ec8b9955b393896b18b4bea323438dec16422c"
+      },
+      "sha256": "62883a07c71a23f2751ecdfafd8510e0bca5bd290a40b60d3b5e591dcb9aae59"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-empty-queries",
+      "threads": 1,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "inputs_sha256": {
+        "queries.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "graph.txt": "f4a8ae8e74ddfb896a256de4e3099911dcaa6a9302591713898069b0bcd6e3d7"
+      },
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-empty-queries",
+      "threads": 6,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "inputs_sha256": {
+        "queries.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "graph.txt": "f4a8ae8e74ddfb896a256de4e3099911dcaa6a9302591713898069b0bcd6e3d7"
+      },
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-empty-queries",
+      "threads": 12,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "inputs_sha256": {
+        "queries.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "graph.txt": "f4a8ae8e74ddfb896a256de4e3099911dcaa6a9302591713898069b0bcd6e3d7"
+      },
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-long-chain-reused-workspaces",
+      "threads": 1,
+      "expected_sha256": "e86fea15c978e604cf270e62e885e295318732a1f62534b5d4711ff52f22ba75",
+      "inputs_sha256": {
+        "queries.txt": "4c425737d186e2902eecbfaf71d1c6889012355b01ffc46c9977997b9c68ab82",
+        "graph.txt": "6c905a9e4d76b807e69a92c4c1659bcacaa9bc6b32a010e5fdae1d5a047ac73a"
+      },
+      "sha256": "e86fea15c978e604cf270e62e885e295318732a1f62534b5d4711ff52f22ba75"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-long-chain-reused-workspaces",
+      "threads": 6,
+      "expected_sha256": "e86fea15c978e604cf270e62e885e295318732a1f62534b5d4711ff52f22ba75",
+      "inputs_sha256": {
+        "queries.txt": "4c425737d186e2902eecbfaf71d1c6889012355b01ffc46c9977997b9c68ab82",
+        "graph.txt": "6c905a9e4d76b807e69a92c4c1659bcacaa9bc6b32a010e5fdae1d5a047ac73a"
+      },
+      "sha256": "e86fea15c978e604cf270e62e885e295318732a1f62534b5d4711ff52f22ba75"
+    },
+    {
+      "track": "d",
+      "case": "round173-sanitize-d-long-chain-reused-workspaces",
+      "threads": 12,
+      "expected_sha256": "e86fea15c978e604cf270e62e885e295318732a1f62534b5d4711ff52f22ba75",
+      "inputs_sha256": {
+        "queries.txt": "4c425737d186e2902eecbfaf71d1c6889012355b01ffc46c9977997b9c68ab82",
+        "graph.txt": "6c905a9e4d76b807e69a92c4c1659bcacaa9bc6b32a010e5fdae1d5a047ac73a"
+      },
+      "sha256": "e86fea15c978e604cf270e62e885e295318732a1f62534b5d4711ff52f22ba75"
+    },
+    {
+      "track": "d",
+      "case": "round173-d-pipeline-asan-d-pipeline-spread-batch-0",
+      "threads": 1,
+      "expected_sha256": "4cdea5a40539b4f0662f9d8a03b6778fd20b5e18a5c6d8bcc474a257e71bc208",
+      "inputs_sha256": {
+        "queries.txt": "2bd12a3f96ce7ed486c466e34971b5bd81244267ae17d6c7f5ffa95a2fbeebc3",
+        "graph.txt": "bfc16975f62707def7fae6e98979e27a3aecb8348cf102145a4e50bf9474d03f"
+      },
+      "sha256": "4cdea5a40539b4f0662f9d8a03b6778fd20b5e18a5c6d8bcc474a257e71bc208"
+    },
+    {
+      "track": "d",
+      "case": "round173-d-pipeline-asan-d-pipeline-spread-batch-0",
+      "threads": 6,
+      "expected_sha256": "4cdea5a40539b4f0662f9d8a03b6778fd20b5e18a5c6d8bcc474a257e71bc208",
+      "inputs_sha256": {
+        "queries.txt": "2bd12a3f96ce7ed486c466e34971b5bd81244267ae17d6c7f5ffa95a2fbeebc3",
+        "graph.txt": "bfc16975f62707def7fae6e98979e27a3aecb8348cf102145a4e50bf9474d03f"
+      },
+      "sha256": "4cdea5a40539b4f0662f9d8a03b6778fd20b5e18a5c6d8bcc474a257e71bc208"
+    },
+    {
+      "track": "d",
+      "case": "round173-d-pipeline-asan-d-pipeline-spread-batch-0",
+      "threads": 12,
+      "expected_sha256": "4cdea5a40539b4f0662f9d8a03b6778fd20b5e18a5c6d8bcc474a257e71bc208",
+      "inputs_sha256": {
+        "queries.txt": "2bd12a3f96ce7ed486c466e34971b5bd81244267ae17d6c7f5ffa95a2fbeebc3",
+        "graph.txt": "bfc16975f62707def7fae6e98979e27a3aecb8348cf102145a4e50bf9474d03f"
+      },
+      "sha256": "4cdea5a40539b4f0662f9d8a03b6778fd20b5e18a5c6d8bcc474a257e71bc208"
+    },
+    {
+      "track": "d",
+      "case": "round173-d-pipeline-asan-d-pipeline-spread-batch-1",
+      "threads": 1,
+      "expected_sha256": "c0987fecce8125e04b94d0c35cdb6df554f0f618612ffe9f8b475063bf046836",
+      "inputs_sha256": {
+        "queries.txt": "2bd12a3f96ce7ed486c466e34971b5bd81244267ae17d6c7f5ffa95a2fbeebc3",
+        "graph.txt": "bcee6c1e624748917b040625d6cbbe6f5da048f60468c2ea7750ba02c4deaed4"
+      },
+      "sha256": "c0987fecce8125e04b94d0c35cdb6df554f0f618612ffe9f8b475063bf046836"
+    },
+    {
+      "track": "d",
+      "case": "round173-d-pipeline-asan-d-pipeline-spread-batch-1",
+      "threads": 6,
+      "expected_sha256": "c0987fecce8125e04b94d0c35cdb6df554f0f618612ffe9f8b475063bf046836",
+      "inputs_sha256": {
+        "queries.txt": "2bd12a3f96ce7ed486c466e34971b5bd81244267ae17d6c7f5ffa95a2fbeebc3",
+        "graph.txt": "bcee6c1e624748917b040625d6cbbe6f5da048f60468c2ea7750ba02c4deaed4"
+      },
+      "sha256": "c0987fecce8125e04b94d0c35cdb6df554f0f618612ffe9f8b475063bf046836"
+    },
+    {
+      "track": "d",
+      "case": "round173-d-pipeline-asan-d-pipeline-spread-batch-1",
+      "threads": 12,
+      "expected_sha256": "c0987fecce8125e04b94d0c35cdb6df554f0f618612ffe9f8b475063bf046836",
+      "inputs_sha256": {
+        "queries.txt": "2bd12a3f96ce7ed486c466e34971b5bd81244267ae17d6c7f5ffa95a2fbeebc3",
+        "graph.txt": "bcee6c1e624748917b040625d6cbbe6f5da048f60468c2ea7750ba02c4deaed4"
+      },
+      "sha256": "c0987fecce8125e04b94d0c35cdb6df554f0f618612ffe9f8b475063bf046836"
+    },
+    {
+      "track": "d",
+      "case": "round173-d-pipeline-asan-d-pipeline-spread-batch-511",
+      "threads": 1,
+      "expected_sha256": "bf7f91584e4b68e52feb131bda1011b1d043e161db5783b120c4a61d53ab9348",
+      "inputs_sha256": {
+        "queries.txt": "2bd12a3f96ce7ed486c466e34971b5bd81244267ae17d6c7f5ffa95a2fbeebc3",
+        "graph.txt": "579fca81beebc39bec8d32dc964a2412e1f2bb8e44282d64619bf616c23cd994"
+      },
+      "sha256": "bf7f91584e4b68e52feb131bda1011b1d043e161db5783b120c4a61d53ab9348"
+    },
+    {
+      "track": "d",
+      "case": "round173-d-pipeline-asan-d-pipeline-spread-batch-511",
+      "threads": 6,
+      "expected_sha256": "bf7f91584e4b68e52feb131bda1011b1d043e161db5783b120c4a61d53ab9348",
+      "inputs_sha256": {
+        "queries.txt": "2bd12a3f96ce7ed486c466e34971b5bd81244267ae17d6c7f5ffa95a2fbeebc3",
+        "graph.txt": "579fca81beebc39bec8d32dc964a2412e1f2bb8e44282d64619bf616c23cd994"
+      },
+      "sha256": "bf7f91584e4b68e52feb131bda1011b1d043e161db5783b120c4a61d53ab9348"
+    },
+    {
+      "track": "d",
+      "case": "round173-d-pipeline-asan-d-pipeline-spread-batch-511",
+      "threads": 12,
+      "expected_sha256": "bf7f91584e4b68e52feb131bda1011b1d043e161db5783b120c4a61d53ab9348",
+      "inputs_sha256": {
+        "queries.txt": "2bd12a3f96ce7ed486c466e34971b5bd81244267ae17d6c7f5ffa95a2fbeebc3",
+        "graph.txt": "579fca81beebc39bec8d32dc964a2412e1f2bb8e44282d64619bf616c23cd994"
+      },
+      "sha256": "bf7f91584e4b68e52feb131bda1011b1d043e161db5783b120c4a61d53ab9348"
+    },
+    {
+      "track": "d",
+      "case": "round173-d-pipeline-asan-d-pipeline-spread-batch-512",
+      "threads": 1,
+      "expected_sha256": "bf7f91584e4b68e52feb131bda1011b1d043e161db5783b120c4a61d53ab9348",
+      "inputs_sha256": {
+        "queries.txt": "2bd12a3f96ce7ed486c466e34971b5bd81244267ae17d6c7f5ffa95a2fbeebc3",
+        "graph.txt": "ae27919de15bc1a788f51f229840d1d8aeaa918a4832126e50cd9f4ea0a6fb51"
+      },
+      "sha256": "bf7f91584e4b68e52feb131bda1011b1d043e161db5783b120c4a61d53ab9348"
+    },
+    {
+      "track": "d",
+      "case": "round173-d-pipeline-asan-d-pipeline-spread-batch-512",
+      "threads": 6,
+      "expected_sha256": "bf7f91584e4b68e52feb131bda1011b1d043e161db5783b120c4a61d53ab9348",
+      "inputs_sha256": {
+        "queries.txt": "2bd12a3f96ce7ed486c466e34971b5bd81244267ae17d6c7f5ffa95a2fbeebc3",
+        "graph.txt": "ae27919de15bc1a788f51f229840d1d8aeaa918a4832126e50cd9f4ea0a6fb51"
+      },
+      "sha256": "bf7f91584e4b68e52feb131bda1011b1d043e161db5783b120c4a61d53ab9348"
+    },
+    {
+      "track": "d",
+      "case": "round173-d-pipeline-asan-d-pipeline-spread-batch-512",
+      "threads": 12,
+      "expected_sha256": "bf7f91584e4b68e52feb131bda1011b1d043e161db5783b120c4a61d53ab9348",
+      "inputs_sha256": {
+        "queries.txt": "2bd12a3f96ce7ed486c466e34971b5bd81244267ae17d6c7f5ffa95a2fbeebc3",
+        "graph.txt": "ae27919de15bc1a788f51f229840d1d8aeaa918a4832126e50cd9f4ea0a6fb51"
+      },
+      "sha256": "bf7f91584e4b68e52feb131bda1011b1d043e161db5783b120c4a61d53ab9348"
+    },
+    {
+      "track": "d",
+      "case": "round173-d-pipeline-asan-d-pipeline-spread-batch-513",
+      "threads": 1,
+      "expected_sha256": "bf7f91584e4b68e52feb131bda1011b1d043e161db5783b120c4a61d53ab9348",
+      "inputs_sha256": {
+        "queries.txt": "2bd12a3f96ce7ed486c466e34971b5bd81244267ae17d6c7f5ffa95a2fbeebc3",
+        "graph.txt": "6ef8ef8a89ca11a369be7ed29be428cd76bdd38799b5e452e2cf3cd50cbedfa5"
+      },
+      "sha256": "bf7f91584e4b68e52feb131bda1011b1d043e161db5783b120c4a61d53ab9348"
+    },
+    {
+      "track": "d",
+      "case": "round173-d-pipeline-asan-d-pipeline-spread-batch-513",
+      "threads": 6,
+      "expected_sha256": "bf7f91584e4b68e52feb131bda1011b1d043e161db5783b120c4a61d53ab9348",
+      "inputs_sha256": {
+        "queries.txt": "2bd12a3f96ce7ed486c466e34971b5bd81244267ae17d6c7f5ffa95a2fbeebc3",
+        "graph.txt": "6ef8ef8a89ca11a369be7ed29be428cd76bdd38799b5e452e2cf3cd50cbedfa5"
+      },
+      "sha256": "bf7f91584e4b68e52feb131bda1011b1d043e161db5783b120c4a61d53ab9348"
+    },
+    {
+      "track": "d",
+      "case": "round173-d-pipeline-asan-d-pipeline-spread-batch-513",
+      "threads": 12,
+      "expected_sha256": "bf7f91584e4b68e52feb131bda1011b1d043e161db5783b120c4a61d53ab9348",
+      "inputs_sha256": {
+        "queries.txt": "2bd12a3f96ce7ed486c466e34971b5bd81244267ae17d6c7f5ffa95a2fbeebc3",
+        "graph.txt": "6ef8ef8a89ca11a369be7ed29be428cd76bdd38799b5e452e2cf3cd50cbedfa5"
+      },
+      "sha256": "bf7f91584e4b68e52feb131bda1011b1d043e161db5783b120c4a61d53ab9348"
+    },
+    {
+      "track": "d",
+      "case": "round173-d-pipeline-asan-d-pipeline-spread-batch-1025",
+      "threads": 1,
+      "expected_sha256": "bf7f91584e4b68e52feb131bda1011b1d043e161db5783b120c4a61d53ab9348",
+      "inputs_sha256": {
+        "queries.txt": "2bd12a3f96ce7ed486c466e34971b5bd81244267ae17d6c7f5ffa95a2fbeebc3",
+        "graph.txt": "dac57637b1b62ba149268b08a4020d444c68eaec489d50864488d32679d100d3"
+      },
+      "sha256": "bf7f91584e4b68e52feb131bda1011b1d043e161db5783b120c4a61d53ab9348"
+    },
+    {
+      "track": "d",
+      "case": "round173-d-pipeline-asan-d-pipeline-spread-batch-1025",
+      "threads": 6,
+      "expected_sha256": "bf7f91584e4b68e52feb131bda1011b1d043e161db5783b120c4a61d53ab9348",
+      "inputs_sha256": {
+        "queries.txt": "2bd12a3f96ce7ed486c466e34971b5bd81244267ae17d6c7f5ffa95a2fbeebc3",
+        "graph.txt": "dac57637b1b62ba149268b08a4020d444c68eaec489d50864488d32679d100d3"
+      },
+      "sha256": "bf7f91584e4b68e52feb131bda1011b1d043e161db5783b120c4a61d53ab9348"
+    },
+    {
+      "track": "d",
+      "case": "round173-d-pipeline-asan-d-pipeline-spread-batch-1025",
+      "threads": 12,
+      "expected_sha256": "bf7f91584e4b68e52feb131bda1011b1d043e161db5783b120c4a61d53ab9348",
+      "inputs_sha256": {
+        "queries.txt": "2bd12a3f96ce7ed486c466e34971b5bd81244267ae17d6c7f5ffa95a2fbeebc3",
+        "graph.txt": "dac57637b1b62ba149268b08a4020d444c68eaec489d50864488d32679d100d3"
+      },
+      "sha256": "bf7f91584e4b68e52feb131bda1011b1d043e161db5783b120c4a61d53ab9348"
+    },
+    {
+      "track": "d",
+      "case": "round173-d-pipeline-asan-d-pipeline-spread-batch-4097",
+      "threads": 1,
+      "expected_sha256": "bf7f91584e4b68e52feb131bda1011b1d043e161db5783b120c4a61d53ab9348",
+      "inputs_sha256": {
+        "queries.txt": "2bd12a3f96ce7ed486c466e34971b5bd81244267ae17d6c7f5ffa95a2fbeebc3",
+        "graph.txt": "7731088abb298d9b68fa5cb1a2e97e3a3e1a2a3cf4584c915d5df6033d1d0c98"
+      },
+      "sha256": "bf7f91584e4b68e52feb131bda1011b1d043e161db5783b120c4a61d53ab9348"
+    },
+    {
+      "track": "d",
+      "case": "round173-d-pipeline-asan-d-pipeline-spread-batch-4097",
+      "threads": 6,
+      "expected_sha256": "bf7f91584e4b68e52feb131bda1011b1d043e161db5783b120c4a61d53ab9348",
+      "inputs_sha256": {
+        "queries.txt": "2bd12a3f96ce7ed486c466e34971b5bd81244267ae17d6c7f5ffa95a2fbeebc3",
+        "graph.txt": "7731088abb298d9b68fa5cb1a2e97e3a3e1a2a3cf4584c915d5df6033d1d0c98"
+      },
+      "sha256": "bf7f91584e4b68e52feb131bda1011b1d043e161db5783b120c4a61d53ab9348"
+    },
+    {
+      "track": "d",
+      "case": "round173-d-pipeline-asan-d-pipeline-spread-batch-4097",
+      "threads": 12,
+      "expected_sha256": "bf7f91584e4b68e52feb131bda1011b1d043e161db5783b120c4a61d53ab9348",
+      "inputs_sha256": {
+        "queries.txt": "2bd12a3f96ce7ed486c466e34971b5bd81244267ae17d6c7f5ffa95a2fbeebc3",
+        "graph.txt": "7731088abb298d9b68fa5cb1a2e97e3a3e1a2a3cf4584c915d5df6033d1d0c98"
+      },
+      "sha256": "bf7f91584e4b68e52feb131bda1011b1d043e161db5783b120c4a61d53ab9348"
+    },
+    {
+      "track": "d",
+      "case": "round173-d-pipeline-asan-d-pipeline-spread-batch-65544",
+      "threads": 1,
+      "expected_sha256": "bf7f91584e4b68e52feb131bda1011b1d043e161db5783b120c4a61d53ab9348",
+      "inputs_sha256": {
+        "queries.txt": "2bd12a3f96ce7ed486c466e34971b5bd81244267ae17d6c7f5ffa95a2fbeebc3",
+        "graph.txt": "1f031f70e2507bfc6a73975c415e82cdbf4908e6142ead5c5a45c5d898f50547"
+      },
+      "sha256": "bf7f91584e4b68e52feb131bda1011b1d043e161db5783b120c4a61d53ab9348"
+    },
+    {
+      "track": "d",
+      "case": "round173-d-pipeline-asan-d-pipeline-spread-batch-65544",
+      "threads": 6,
+      "expected_sha256": "bf7f91584e4b68e52feb131bda1011b1d043e161db5783b120c4a61d53ab9348",
+      "inputs_sha256": {
+        "queries.txt": "2bd12a3f96ce7ed486c466e34971b5bd81244267ae17d6c7f5ffa95a2fbeebc3",
+        "graph.txt": "1f031f70e2507bfc6a73975c415e82cdbf4908e6142ead5c5a45c5d898f50547"
+      },
+      "sha256": "bf7f91584e4b68e52feb131bda1011b1d043e161db5783b120c4a61d53ab9348"
+    },
+    {
+      "track": "d",
+      "case": "round173-d-pipeline-asan-d-pipeline-spread-batch-65544",
+      "threads": 12,
+      "expected_sha256": "bf7f91584e4b68e52feb131bda1011b1d043e161db5783b120c4a61d53ab9348",
+      "inputs_sha256": {
+        "queries.txt": "2bd12a3f96ce7ed486c466e34971b5bd81244267ae17d6c7f5ffa95a2fbeebc3",
+        "graph.txt": "1f031f70e2507bfc6a73975c415e82cdbf4908e6142ead5c5a45c5d898f50547"
+      },
+      "sha256": "bf7f91584e4b68e52feb131bda1011b1d043e161db5783b120c4a61d53ab9348"
+    },
+    {
+      "track": "d",
+      "case": "full-seed1823",
+      "threads": 1,
+      "expected_sha256": "d5ede1a4d936ea3b4bbaae08357d980ffb6c734141e2652cfdacc7c816738442",
+      "inputs_sha256": {
+        "queries.txt": "950e5e75796498d0f2385abbed99f1e7d95f193252f05fea62346746bad5a2ae",
+        "graph.txt": "93b90d76a897ceb25e72e5b56ccadf351494f1bb98f51a4ffae838e979df1287"
+      },
+      "sha256": "d5ede1a4d936ea3b4bbaae08357d980ffb6c734141e2652cfdacc7c816738442"
+    },
+    {
+      "track": "d",
+      "case": "full-seed1823",
+      "threads": 6,
+      "expected_sha256": "d5ede1a4d936ea3b4bbaae08357d980ffb6c734141e2652cfdacc7c816738442",
+      "inputs_sha256": {
+        "queries.txt": "950e5e75796498d0f2385abbed99f1e7d95f193252f05fea62346746bad5a2ae",
+        "graph.txt": "93b90d76a897ceb25e72e5b56ccadf351494f1bb98f51a4ffae838e979df1287"
+      },
+      "sha256": "d5ede1a4d936ea3b4bbaae08357d980ffb6c734141e2652cfdacc7c816738442"
+    },
+    {
+      "track": "d",
+      "case": "full-seed1823",
+      "threads": 12,
+      "expected_sha256": "d5ede1a4d936ea3b4bbaae08357d980ffb6c734141e2652cfdacc7c816738442",
+      "inputs_sha256": {
+        "queries.txt": "950e5e75796498d0f2385abbed99f1e7d95f193252f05fea62346746bad5a2ae",
+        "graph.txt": "93b90d76a897ceb25e72e5b56ccadf351494f1bb98f51a4ffae838e979df1287"
+      },
+      "sha256": "d5ede1a4d936ea3b4bbaae08357d980ffb6c734141e2652cfdacc7c816738442"
+    }
+  ],
+  "expected_failures": [
+    {
+      "case": "number",
+      "threads": 1,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "1d0730f5f34f9b304b01b9e1d7aa6bb4406004cfff2f5914f2f826ab6897a5f5"
+      }
+    },
+    {
+      "case": "number",
+      "threads": 2,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "1d0730f5f34f9b304b01b9e1d7aa6bb4406004cfff2f5914f2f826ab6897a5f5"
+      }
+    },
+    {
+      "case": "number",
+      "threads": 3,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "1d0730f5f34f9b304b01b9e1d7aa6bb4406004cfff2f5914f2f826ab6897a5f5"
+      }
+    },
+    {
+      "case": "number",
+      "threads": 4,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "1d0730f5f34f9b304b01b9e1d7aa6bb4406004cfff2f5914f2f826ab6897a5f5"
+      }
+    },
+    {
+      "case": "number",
+      "threads": 5,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "1d0730f5f34f9b304b01b9e1d7aa6bb4406004cfff2f5914f2f826ab6897a5f5"
+      }
+    },
+    {
+      "case": "number",
+      "threads": 6,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "1d0730f5f34f9b304b01b9e1d7aa6bb4406004cfff2f5914f2f826ab6897a5f5"
+      }
+    },
+    {
+      "case": "number",
+      "threads": 7,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "1d0730f5f34f9b304b01b9e1d7aa6bb4406004cfff2f5914f2f826ab6897a5f5"
+      }
+    },
+    {
+      "case": "number",
+      "threads": 8,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "1d0730f5f34f9b304b01b9e1d7aa6bb4406004cfff2f5914f2f826ab6897a5f5"
+      }
+    },
+    {
+      "case": "number",
+      "threads": 9,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "1d0730f5f34f9b304b01b9e1d7aa6bb4406004cfff2f5914f2f826ab6897a5f5"
+      }
+    },
+    {
+      "case": "number",
+      "threads": 10,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "1d0730f5f34f9b304b01b9e1d7aa6bb4406004cfff2f5914f2f826ab6897a5f5"
+      }
+    },
+    {
+      "case": "number",
+      "threads": 11,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "1d0730f5f34f9b304b01b9e1d7aa6bb4406004cfff2f5914f2f826ab6897a5f5"
+      }
+    },
+    {
+      "case": "number",
+      "threads": 12,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "1d0730f5f34f9b304b01b9e1d7aa6bb4406004cfff2f5914f2f826ab6897a5f5"
+      }
+    },
+    {
+      "case": "node",
+      "threads": 1,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "f515f7e632e1a64af461f9ff20a41e5dc42aa26edb2e4f5c061aa12a7552b112"
+      }
+    },
+    {
+      "case": "node",
+      "threads": 2,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "f515f7e632e1a64af461f9ff20a41e5dc42aa26edb2e4f5c061aa12a7552b112"
+      }
+    },
+    {
+      "case": "node",
+      "threads": 3,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "f515f7e632e1a64af461f9ff20a41e5dc42aa26edb2e4f5c061aa12a7552b112"
+      }
+    },
+    {
+      "case": "node",
+      "threads": 4,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "f515f7e632e1a64af461f9ff20a41e5dc42aa26edb2e4f5c061aa12a7552b112"
+      }
+    },
+    {
+      "case": "node",
+      "threads": 5,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "f515f7e632e1a64af461f9ff20a41e5dc42aa26edb2e4f5c061aa12a7552b112"
+      }
+    },
+    {
+      "case": "node",
+      "threads": 6,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "f515f7e632e1a64af461f9ff20a41e5dc42aa26edb2e4f5c061aa12a7552b112"
+      }
+    },
+    {
+      "case": "node",
+      "threads": 7,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "f515f7e632e1a64af461f9ff20a41e5dc42aa26edb2e4f5c061aa12a7552b112"
+      }
+    },
+    {
+      "case": "node",
+      "threads": 8,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "f515f7e632e1a64af461f9ff20a41e5dc42aa26edb2e4f5c061aa12a7552b112"
+      }
+    },
+    {
+      "case": "node",
+      "threads": 9,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "f515f7e632e1a64af461f9ff20a41e5dc42aa26edb2e4f5c061aa12a7552b112"
+      }
+    },
+    {
+      "case": "node",
+      "threads": 10,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "f515f7e632e1a64af461f9ff20a41e5dc42aa26edb2e4f5c061aa12a7552b112"
+      }
+    },
+    {
+      "case": "node",
+      "threads": 11,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "f515f7e632e1a64af461f9ff20a41e5dc42aa26edb2e4f5c061aa12a7552b112"
+      }
+    },
+    {
+      "case": "node",
+      "threads": 12,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "f515f7e632e1a64af461f9ff20a41e5dc42aa26edb2e4f5c061aa12a7552b112"
+      }
+    },
+    {
+      "case": "truncated",
+      "threads": 1,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "329011bbfbc6b6a9eb39af329b33296101fd59dd8f18ded615da45faf49f2436"
+      }
+    },
+    {
+      "case": "truncated",
+      "threads": 2,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "329011bbfbc6b6a9eb39af329b33296101fd59dd8f18ded615da45faf49f2436"
+      }
+    },
+    {
+      "case": "truncated",
+      "threads": 3,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "329011bbfbc6b6a9eb39af329b33296101fd59dd8f18ded615da45faf49f2436"
+      }
+    },
+    {
+      "case": "truncated",
+      "threads": 4,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "329011bbfbc6b6a9eb39af329b33296101fd59dd8f18ded615da45faf49f2436"
+      }
+    },
+    {
+      "case": "truncated",
+      "threads": 5,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "329011bbfbc6b6a9eb39af329b33296101fd59dd8f18ded615da45faf49f2436"
+      }
+    },
+    {
+      "case": "truncated",
+      "threads": 6,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "329011bbfbc6b6a9eb39af329b33296101fd59dd8f18ded615da45faf49f2436"
+      }
+    },
+    {
+      "case": "truncated",
+      "threads": 7,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "329011bbfbc6b6a9eb39af329b33296101fd59dd8f18ded615da45faf49f2436"
+      }
+    },
+    {
+      "case": "truncated",
+      "threads": 8,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "329011bbfbc6b6a9eb39af329b33296101fd59dd8f18ded615da45faf49f2436"
+      }
+    },
+    {
+      "case": "truncated",
+      "threads": 9,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "329011bbfbc6b6a9eb39af329b33296101fd59dd8f18ded615da45faf49f2436"
+      }
+    },
+    {
+      "case": "truncated",
+      "threads": 10,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "329011bbfbc6b6a9eb39af329b33296101fd59dd8f18ded615da45faf49f2436"
+      }
+    },
+    {
+      "case": "truncated",
+      "threads": 11,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "329011bbfbc6b6a9eb39af329b33296101fd59dd8f18ded615da45faf49f2436"
+      }
+    },
+    {
+      "case": "truncated",
+      "threads": 12,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "329011bbfbc6b6a9eb39af329b33296101fd59dd8f18ded615da45faf49f2436"
+      }
+    },
+    {
+      "case": "count",
+      "threads": 1,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "ef6a66f02e432adeee0e5c40dd7e80cc1a0aadef79a2e11cedbb85ab2991a9db"
+      }
+    },
+    {
+      "case": "count",
+      "threads": 2,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "ef6a66f02e432adeee0e5c40dd7e80cc1a0aadef79a2e11cedbb85ab2991a9db"
+      }
+    },
+    {
+      "case": "count",
+      "threads": 3,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "ef6a66f02e432adeee0e5c40dd7e80cc1a0aadef79a2e11cedbb85ab2991a9db"
+      }
+    },
+    {
+      "case": "count",
+      "threads": 4,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "ef6a66f02e432adeee0e5c40dd7e80cc1a0aadef79a2e11cedbb85ab2991a9db"
+      }
+    },
+    {
+      "case": "count",
+      "threads": 5,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "ef6a66f02e432adeee0e5c40dd7e80cc1a0aadef79a2e11cedbb85ab2991a9db"
+      }
+    },
+    {
+      "case": "count",
+      "threads": 6,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "ef6a66f02e432adeee0e5c40dd7e80cc1a0aadef79a2e11cedbb85ab2991a9db"
+      }
+    },
+    {
+      "case": "count",
+      "threads": 7,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "ef6a66f02e432adeee0e5c40dd7e80cc1a0aadef79a2e11cedbb85ab2991a9db"
+      }
+    },
+    {
+      "case": "count",
+      "threads": 8,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "ef6a66f02e432adeee0e5c40dd7e80cc1a0aadef79a2e11cedbb85ab2991a9db"
+      }
+    },
+    {
+      "case": "count",
+      "threads": 9,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "ef6a66f02e432adeee0e5c40dd7e80cc1a0aadef79a2e11cedbb85ab2991a9db"
+      }
+    },
+    {
+      "case": "count",
+      "threads": 10,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "ef6a66f02e432adeee0e5c40dd7e80cc1a0aadef79a2e11cedbb85ab2991a9db"
+      }
+    },
+    {
+      "case": "count",
+      "threads": 11,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "ef6a66f02e432adeee0e5c40dd7e80cc1a0aadef79a2e11cedbb85ab2991a9db"
+      }
+    },
+    {
+      "case": "count",
+      "threads": 12,
+      "returncode": 1,
+      "inputs_sha256": {
+        "queries.txt": "72b0ae05c90c51bc47f9dd5676cd694046bd36a5742580aa0c785b2910a607d9",
+        "graph.txt": "ef6a66f02e432adeee0e5c40dd7e80cc1a0aadef79a2e11cedbb85ab2991a9db"
+      }
+    }
+  ]
+}

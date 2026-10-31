@@ -1,0 +1,49 @@
+{
+  "observed_at_utc": "2026-10-31T22:53:13.185790+00:00",
+  "official_score": false,
+  "passed": true,
+  "scope": "NEW exact adjacency allocator native ASAN/UBSAN+TSAN and pinned GCC strict ASAN/UBSAN: compact uint32/wide6-byte values/growth/zero-small/advice-byte thresholds/alignment/overflow/RAII move/cross-thread/direct OS release;12 independent allocators. Linux linker wrappers exist ONLY in the model executable, never scored code, to observe exact mmap/munmap/optional MADV_HUGEPAGE address/length and simulate ENOMEM/advice EINVAL; vector strong preservation and absent-feature compile fallback both run. Real advice success does not guarantee physical hugepages or an Intel gain. Original edge set/get/sentinel/ID-width model rerun against changed vector storage. No host/global/harness/counter or policy changes.",
+  "runs": [
+    {
+      "mode": "native-pages-asan",
+      "stdout": "PASS exact compact/wide allocator values/growth/alignment/overflow, normal mmap failure and vector preservation, owned direct release/move/cross-thread lifetime, optional advice/simulated failure/feature-absence branches\n",
+      "stderr": "",
+      "binary_sha256": "b2f28af6d68b1d76ef9990d061759feec02d617f1c72af30504966238cb3ad96"
+    },
+    {
+      "mode": "native-pages-tsan",
+      "stdout": "PASS exact compact/wide allocator values/growth/alignment/overflow, normal mmap failure and vector preservation, owned direct release/move/cross-thread lifetime, optional advice/simulated failure/feature-absence branches\n",
+      "stderr": "",
+      "binary_sha256": "f2bb8c0b74d38f60fbed6709c1303b40acb277298f2fc1ca8d439a9f7bd9de39"
+    },
+    {
+      "mode": "native-edges-asan",
+      "stdout": "PASS lossless compact/full edge storage across ID widths and sentinel boundaries\n",
+      "stderr": "",
+      "binary_sha256": "568e0734afb3e84bcb4c97f5739c40b1ca738827148d52094d03c35f347bafd9"
+    },
+    {
+      "mode": "GCC15-Linux-strict-asan",
+      "compiler_image": "gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce",
+      "script": [
+        "set -eu",
+        "export ASAN_OPTIONS=halt_on_error=1",
+        "export UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1",
+        "g++ -std=c++20 -O1 -g -pthread -fsanitize=address,undefined -fno-sanitize-recover=all -fno-omit-frame-pointer '-DEDGE_PAGES_HEADER=\"/repo/.build/round173/source/track-d/edge_pages.hpp\"' -DTEST_WRAP_SYSCALLS -Wl,--wrap=mmap -Wl,--wrap=munmap -Wl,--wrap=madvise /repo/tools/test_edge_pages.cpp -o /tmp/pages",
+        "/tmp/pages",
+        "g++ -std=c++20 -O1 -g -pthread -fsanitize=address,undefined -fno-sanitize-recover=all -fno-omit-frame-pointer '-DEDGE_PAGES_HEADER=\"/repo/.build/round173/source/track-d/edge_pages.hpp\"' -DTEST_WRAP_SYSCALLS -Wl,--wrap=mmap -Wl,--wrap=munmap -Wl,--wrap=madvise -DTEST_ADVICE_ABSENT /repo/tools/test_edge_pages.cpp -o /tmp/pages-absent",
+        "/tmp/pages-absent",
+        "g++ -std=c++20 -O1 -g -pthread -fsanitize=address,undefined -fno-sanitize-recover=all -fno-omit-frame-pointer '-DEDGE_STORE_HEADER=\"/repo/.build/round173/source/track-d/edge_store.hpp\"' /repo/tools/test_edge_store.cpp -o /tmp/edges",
+        "/tmp/edges"
+      ],
+      "stdout": "observed test-only maps=455 unmaps=455 optional_advice=16 simulated_advice_errors=8\nPASS exact compact/wide allocator values/growth/alignment/overflow, normal mmap failure and vector preservation, owned direct release/move/cross-thread lifetime, optional advice/simulated failure/feature-absence branches\nobserved test-only maps=455 unmaps=455 optional_advice=0 simulated_advice_errors=0\nPASS exact compact/wide allocator values/growth/alignment/overflow, normal mmap failure and vector preservation, owned direct release/move/cross-thread lifetime, optional advice/simulated failure/feature-absence branches\nPASS lossless compact/full edge storage across ID widths and sentinel boundaries\n",
+      "stderr": ""
+    }
+  ],
+  "source_sha256": {
+    "tools/test_edge_pages.cpp": "aadd8121ebab8fe2b2218db5d6c66b00b8f65d7fa440cf38f7acceb9a3bddec8",
+    "tools/test_edge_store.cpp": "5fa2bfbafdf5c1dbfb00325608dc1195d414b060ee86ce89457c4fa6aa78064d",
+    ".build/round173/source/track-d/edge_pages.hpp": "f9f0666d869c5c8836364f2ef19ed40c08186382e5b9ee1952d8b3c6d3d4fb7d",
+    ".build/round173/source/track-d/edge_store.hpp": "8d6dfcf774a9cfd47dec4cc65460ab2edbc745d3317272c1acae68c59821ff59"
+  }
+}

@@ -426,3 +426,9 @@ Frozen16311 paired full-public hash trials: retained0.041741292s/RSS259522560, c
 
 
 165/72b040a run-62e2cd1dd82a passes all five real selected-combination gates: T0.044266s/M20955136/S497/K31.257749/74.747885 points. Higher repeat of exactly the winning163 A source: extra74.448567→74.747885 is variation, not another algorithm. First changed-source gain remains73.371413→74.448567. Every29 inputs/file set and local image matches selected/best sources in round165-final-source-match.json. Fresh Make/public/defaults and restored-C141 new-reference replays pass. Raw ../docs/board-round165-selected-confirmation.json.
+
+
+167/b693b45 run-609a8e322aca passes all five real gates on unchanged selected165 inputs: T0.044835s/M21049344/S497/K31.030919/74.589732 points. C68.028087/K22.938327 is a slightly higher same-source best; A/D are lower repeats. No new algorithm gain. Raw ../docs/board-round167-evidence-head.json.
+
+
+168 new compact canonical ownership keeps all retained163 output/prefix/cache logic but copies specified<=125-byte keys before release publication into fixed125-byte/ID slots or a packed atomic byte arena; longer model-only keys borrow as before. Eleven rotating public hashes all match. Fixed/packed paired0.987245/0.989759 versus retained0.038641208s, with flat RSS. The tiny local difference does not pay for added source/memory/new ownership proof. Reject before broader collision/lifetime/sanitizer/GCC/image/actual promotion. Exact patches/limits in round168-prototype-index.json. No such ownership code enters173; selected165 A stays byte-identical.

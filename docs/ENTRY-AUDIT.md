@@ -1,3 +1,5 @@
+> Candidate173 changes only D adjacency storage/optional own-page Linux advice. All fresh strict/race/GCC/independent/full-untrained/image/default/source checks pass; real all-track K pending. A/C stay selected165. No new algorithm gain claimed.
+
 # Entry audit — 31 October 2026
 
 All29 current runtime/build/metadata inputs and complete file sets match real all-gates selected165/72b040a and every best-track source in round165-final-source-match.json. A163 confirms73.371413→74.448567/K29.337848→30.829845 through the combined ordered mapped-output/prefix8 tradeoff;165's further74.747885 is same-source variation. Upper32 C loses and is fully restored to original low32-offset code; C165 and unchanged D163 higher bests are variation. No private-degree/pooled/SPSC16/CRC code is selected.

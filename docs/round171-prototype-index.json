@@ -1,0 +1,29 @@
+{
+  "observed_at_utc": "2026-10-31T22:49:07.403785+00:00",
+  "base": "b693b45d2b525d39beaf55e100bd25c02219c36c",
+  "scope": "Independently event-written direct anonymous adjacency allocator for both compact/wide vectors. Size overflow and mmap failures throw; whole owned page mappings release by RAII. Optional Linux MADV_HUGEPAGE before vector value initialization for>=2MiB allocations, advice errors ignored as functional fallback; other platforms/features retain exact mapping. No global/host/sysfs/prctl/harness changes, privileged reservation, MADV_COLLAPSE, policy bypass or physical-THP guarantee. This is an Intel-only hint hypothesis, not native THP evidence; strict allocator/advice/order/failure/range/value/lifetime/GCC/race/integration/default/image proof is required before promotion. Existing original degree/cursor/search/labels/PGO unchanged.",
+  "primary_sources": [
+    "https://www.kernel.org/doc/html/latest/admin-guide/mm/transhuge.html",
+    "https://www.man7.org/linux/man-pages/man2/madvise.2.html"
+  ],
+  "patches": [
+    {
+      "patch": "round171-edge_pages.hpp.patch",
+      "path": "track-d/edge_pages.hpp",
+      "base_sha256": null,
+      "candidate_sha256": "f9f0666d869c5c8836364f2ef19ed40c08186382e5b9ee1952d8b3c6d3d4fb7d"
+    },
+    {
+      "patch": "round171-edge_store.hpp.patch",
+      "path": "track-d/edge_store.hpp",
+      "base_sha256": "31db14bd58fb3bb45a90c963cf57397a50d5195782d01dc366b2a380d3b74ed6",
+      "candidate_sha256": "8d6dfcf774a9cfd47dec4cc65460ab2edbc745d3317272c1acae68c59821ff59"
+    },
+    {
+      "patch": "round171-Dockerfile.patch",
+      "path": "track-d/Dockerfile",
+      "base_sha256": "b894df9b62f1f82561cbcd594d8baa97fdbe91d03d8aea816d2355f8fcd90cbb",
+      "candidate_sha256": "5a0285c3128755143eed8467d107c4efd805842af0a0b197008deedc6ae61325"
+    }
+  ]
+}

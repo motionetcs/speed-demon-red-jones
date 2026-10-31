@@ -488,3 +488,9 @@ Exact current C image passes285 regular replays plus228 every-topology valid/24 
 
 
 165/72b040a run-6843e7f296dc passes all five real selected-combination gates: T0.062469s/M11997184/S672/K22.916113/68.007047 points. Restored original low32 source has a slightly higher same-source best68.007047/K22.916113; variation, not an upper32 gain. Every29 inputs/file set and local image matches selected/best sources in round165-final-source-match.json. Fresh Make/public/defaults and restored-C141 new-reference replays pass. Raw ../docs/board-round165-selected-confirmation.json.
+
+
+167/b693b45 run-4812954357e8 passes all five real gates on unchanged selected165 inputs: T0.062718s/M11821056/S672/K22.938327/68.028087 points. C68.028087/K22.938327 is a slightly higher same-source best; A/D are lower repeats. No new algorithm gain. Raw ../docs/board-round167-evidence-head.json.
+
+
+169 independently written complete bounded small-key comparisons cover BOTH first/last16 bytes for16..32-byte keys, optionally BOTH first/last8 for8..15, with full length/fallback equality. Public hashes pass, but paired block16=0.986655 and8+16=1.008735 do not justify added source/new guard/collision proof; global medians cross a host regime and are not a causal gain.170 retests owner prefetch on materially newer128 eight-byte offset entries, unlike losing75 direct-pointer entries:1/4 fingerprint probes with16/32-row blocks and fresh actual first() lookups. Every public hash matches, paired one16=1.021615,probe4-16=1.081742,probe4-32=1.086374 all lose despite misleading global medians. Reject every169/170 variant before broad sanitizer/race/guard/lifetime/GCC/image/official promotion. Source patches and proof limits remain in their prototype indices.173 C is original selected165, with no helper/prefetch change.

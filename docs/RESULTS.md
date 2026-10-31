@@ -1,3 +1,5 @@
+> Candidate173 changes only D adjacency storage/optional own-page Linux advice. All fresh strict/race/GCC/independent/full-untrained/image/default/source checks pass; real all-track K pending. A/C stay selected165. No new algorithm gain claimed.
+
 # Results — 31 October 2026
 
 Complete public feed: **2026-10-31 22:05:22 UTC**. Red Jones is **39th of87** teams with three scored tracks, versus40th/87 at21:28. The best-three machine mean is **69.246615**, up from68.768396. Overall leader Cause Of Death has82.388283. We are not number one. A163 confirms a measured total-K algorithm gain; later A/C/D same-source best increases are variation. Practice-board best records remain separate from final holdout scoring and judging.
