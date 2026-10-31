@@ -363,3 +363,6 @@ Selected128/93fc9c9 unchanged selected source passes all five real gates, run-5e
 
 
 Documentation-only head130/83a5f9c, run-a0d9f4fa93c6, passes every real gate with identical selected128 runtime inputs: T0.056743 s/M34115584/S424/K25.647959/70.45264. Lower same-source repeat, not a new algorithm regression; best records remain separate. Raw ../docs/board-round130-evidence-head.json.
+
+
+Round133/16bedd2 unchanged selected source passes all five real gates, run-c1f07fdd811b: T0.048175 s/M35315712/S424/K27.643629/72.079753. Same-source repeat; do not label the delta a new algorithm improvement. Raw ../docs/board-round133-cooperative-c.json.

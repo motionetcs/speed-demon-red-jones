@@ -1,0 +1,76 @@
+--- a/track-d/load_cursors.hpp
++++ b/track-d/load_cursors.hpp
+@@ -5,6 +5,7 @@
+ #include <cstddef>
+ #include <unordered_map>
+ #include <vector>
++#include <utility>
+ 
+ static_assert(std::atomic_ref<uint8_t>::required_alignment <= alignof(uint8_t));
+ static_assert(std::atomic_ref<uint16_t>::required_alignment <= alignof(uint16_t));
+@@ -57,3 +58,31 @@
+     uint32_t take(uint32_t node) {return wide_blocks ? take<true>(node):take<false>(node);}
+     void release(){std::vector<uint16_t>().swap(small);std::vector<uint32_t>().swap(wide);}
+ };
++
++#ifndef OFFSET_BLOCK_SHIFT
++#define OFFSET_BLOCK_SHIFT 12
++#endif
++// Read-only prefix values use a block base and exact16-bit deltas only when
++// every delta fits. A single wide block keeps the entire full32-bit vector.
++struct ReadOffsets {
++    static constexpr unsigned shift=OFFSET_BLOCK_SHIFT;
++    static_assert(shift>=1&&shift<=30);
++    static constexpr size_t block_size=size_t(1)<<shift;
++    std::vector<uint32_t> base,wide;
++    std::vector<uint16_t> small;
++    explicit ReadOffsets(std::vector<uint32_t>&& values){
++        size_t count=values.size();
++        for(size_t begin=0;begin<count;begin+=block_size){
++            size_t end=std::min(count-1,begin+block_size-1);
++            if(values[end]-values[begin]>UINT16_MAX){wide=std::move(values);return;}
++        }
++        base.resize((count+block_size-1)/block_size);small.resize(count);
++        for(size_t i=0;i<count;++i){
++            if((i&(block_size-1))==0)base[i>>shift]=values[i];
++            small[i]=static_cast<uint16_t>(values[i]-base[i>>shift]);
++        }
++        std::vector<uint32_t>().swap(values);
++    }
++    uint32_t operator[](size_t node)const{return small.empty()?wide[node]:base[node>>shift]+small[node];}
++    void prefetch(size_t node)const{if(small.empty())__builtin_prefetch(&wide[node],0,1);else __builtin_prefetch(&small[node],0,1);}
++};
+--- a/track-d/main.cpp
++++ b/track-d/main.cpp
+@@ -119,6 +119,7 @@
+         std::unordered_map<uint32_t, uint32_t> wide_weights;
+         for (const auto& local : locals) for (auto [index, weight] : local.wide) wide_weights.emplace(index, weight);
+         locals.clear(); cursor.release(); reverse_cursor.release();
++        ReadOffsets out_starts(std::move(offsets)), in_starts(std::move(reverse_offsets));
+         Scanner qscan{queries_file.data, queries_file.data + queries_file.size};
+         std::vector<std::pair<uint32_t, uint32_t>> queries;
+         while (qscan.more()) {
+@@ -138,7 +139,7 @@
+                 if (query >= queries.size()) return;
+                 auto [source, target] = queries[query];
+                 if (source == target) { answers[query] = 0; continue; }
+-                if (offsets[source] == offsets[source + 1] || reverse_offsets[target] == reverse_offsets[target + 1]) continue;
++                if (out_starts[source] == out_starts[source + 1] || in_starts[target] == in_starts[target + 1]) continue;
+                 forward.reset(); backward.reset(); forward_heap.clear(); backward_heap.clear();
+                 forward.improve(source, 0); backward.improve(target, 0);
+                 forward_heap.push({0, source}); backward_heap.push({0, target});
+@@ -150,12 +151,12 @@
+                     auto& heap = from_source ? forward_heap : backward_heap;
+                     auto& own = from_source ? forward : backward;
+                     auto& other = from_source ? backward : forward;
+-                    const auto& starts = from_source ? offsets : reverse_offsets;
++                    const auto& starts = from_source ? out_starts : in_starts;
+                     const auto& adjacency = from_source ? edges : reverse_edges;
+                     std::array<Item, 32> work;
+                     std::array<std::pair<uint32_t, uint32_t>, 32> ranges;
+                     size_t count = heap.pop_batch(work.data(), work.size());
+-                    for (size_t k = 0; k < count; ++k) __builtin_prefetch(&starts[work[k].second], 0, 1);
++                    for (size_t k = 0; k < count; ++k) starts.prefetch(work[k].second);
+                     for (size_t k = 0; k < count; ++k) {
+                         uint32_t node = work[k].second;
+                         ranges[k] = {starts[node], starts[node + 1]};

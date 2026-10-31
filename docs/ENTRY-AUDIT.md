@@ -1,4 +1,4 @@
-> Active133 C changes worker roles and NameQueue.send only; exact27 input/image proof is in round133-candidate-source-match.json. Fresh strict all-topology/cyclic-queue/race/GCC/production/default checks pass; actual133 pending. Selected128 is preserved as rollback.
+> Selected135 restores every27 runtime/build/metadata input to all-gates128/83a5 after133 loses total K. Exact source/images, fresh combined checks/defaults and selected-C every-worker/cancellation proof are in round135-selected-source-match.json.135 actual confirmation pending.
 
 # Entry audit — 31 October 2026
 

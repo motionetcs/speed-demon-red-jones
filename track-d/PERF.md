@@ -358,3 +358,9 @@ Selected128/93fc9c9 unchanged selected source passes all five real gates, run-62
 
 
 Documentation-only head130/83a5f9c, run-5323d85905cc, passes every real gate with identical selected128 runtime inputs: T0.23099 s/M77987840/S827/K18.539577/63.404992. Lower same-source repeat, not a new algorithm regression; best records remain separate. Raw ../docs/board-round130-evidence-head.json.
+
+
+Round133/16bedd2 unchanged selected source passes all five real gates, run-fc68729f503a: T0.19669 s/M76726272/S827/K20.156812/65.221092. Same-source repeat; do not label the delta a new algorithm improvement. Raw ../docs/board-round133-cooperative-c.json.
+
+
+Round134 newly allocated readonly CSR prefix compression is rejected at native screen. A block base+uint16 deltas replace full offsets only when every span fits; any wide block keeps the full32 vector. Construction/freeing after wide-weight merge is included. Eleven rotating full-public hashes pass: retained0.180995s/RSS179945472; block5120.181254/179093504, block40960.181207/180092928, block163840.182125/179781632. Paired ratios1.00031/1.00428/1.00497 are flat/slower, with at most0.85MB RSS saving and added source. No independent boundary/fallback/model/sanitizer/GCC/official proof; not promoted. Earlier peak lifetime and reusing already-final cursor arrays are distinct future hypotheses, not measured explanations. Patches/flags/limits are in round134-prototype-index.json.

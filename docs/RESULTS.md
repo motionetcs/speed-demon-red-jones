@@ -1,4 +1,4 @@
-> Active133 tests cooperative C reader/name-owner roles with64-event/64-row pumping. All27 inputs/images and strict progress/reference/default proofs pass; actual133 pending. A/D stay selected128. Evidence-head130 lower repeats pass gates and remain distinct from bests.
+> Cooperative133 passes all gates but loses C67.120025 versus67.875642; it is fully reverted. Selected135 restores all27 input bytes to known passing128/83a5; fresh public/default and selected-C every-worker reference checks pass. Actual135 confirmation follows. D134 compression is a rejected native-only screen.
 
 # Results — 31 October 2026
 
