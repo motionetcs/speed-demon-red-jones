@@ -1,0 +1,326 @@
+{
+  "created_at_utc": "2026-10-31T03:33:38.035171+00:00",
+  "official_score": false,
+  "hypotheses": {
+    "a": "Exact selection in larger groups reduces comparison work while preserving the three output ranks.",
+    "d": "A monotone integer radix heap reduces priority-queue comparisons at the cost of source size."
+  },
+  "method": "warm once; alternate baseline and variant; 7 runs per dataset/configuration; exact output check every run",
+  "experiments": [
+    {
+      "track": "d",
+      "case": "public-full-seed1",
+      "threads": 1,
+      "results": {
+        "baseline": {
+          "median_seconds": 3.7199984589999993,
+          "maximum_rss_bytes": 165150720,
+          "runs": [
+            {
+              "wall_seconds_including_launch": 3.7380213750000006,
+              "peak_process_rss_bytes": 165150720,
+              "threads": 1,
+              "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+            },
+            {
+              "wall_seconds_including_launch": 4.177688625,
+              "peak_process_rss_bytes": 165134336,
+              "threads": 1,
+              "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+            },
+            {
+              "wall_seconds_including_launch": 3.7199984589999993,
+              "peak_process_rss_bytes": 165117952,
+              "threads": 1,
+              "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+            },
+            {
+              "wall_seconds_including_launch": 3.8665035000000003,
+              "peak_process_rss_bytes": 165134336,
+              "threads": 1,
+              "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+            },
+            {
+              "wall_seconds_including_launch": 3.4529170829999956,
+              "peak_process_rss_bytes": 165150720,
+              "threads": 1,
+              "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+            },
+            {
+              "wall_seconds_including_launch": 3.6936660000000003,
+              "peak_process_rss_bytes": 165134336,
+              "threads": 1,
+              "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+            },
+            {
+              "wall_seconds_including_launch": 3.608224,
+              "peak_process_rss_bytes": 165117952,
+              "threads": 1,
+              "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+            }
+          ]
+        },
+        "radix": {
+          "median_seconds": 1.976058042,
+          "maximum_rss_bytes": 165986304,
+          "runs": [
+            {
+              "wall_seconds_including_launch": 1.976058042,
+              "peak_process_rss_bytes": 165969920,
+              "threads": 1,
+              "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+            },
+            {
+              "wall_seconds_including_launch": 2.0092289580000013,
+              "peak_process_rss_bytes": 165986304,
+              "threads": 1,
+              "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+            },
+            {
+              "wall_seconds_including_launch": 1.930736875000001,
+              "peak_process_rss_bytes": 165969920,
+              "threads": 1,
+              "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+            },
+            {
+              "wall_seconds_including_launch": 1.993391165999995,
+              "peak_process_rss_bytes": 165969920,
+              "threads": 1,
+              "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+            },
+            {
+              "wall_seconds_including_launch": 2.2286992089999984,
+              "peak_process_rss_bytes": 165969920,
+              "threads": 1,
+              "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+            },
+            {
+              "wall_seconds_including_launch": 1.886951332999999,
+              "peak_process_rss_bytes": 165969920,
+              "threads": 1,
+              "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+            },
+            {
+              "wall_seconds_including_launch": 1.9225796660000043,
+              "peak_process_rss_bytes": 165969920,
+              "threads": 1,
+              "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "track": "d",
+      "case": "public-full-seed1",
+      "threads": 3,
+      "results": {
+        "baseline": {
+          "median_seconds": 1.5237163749999922,
+          "maximum_rss_bytes": 195805184,
+          "runs": [
+            {
+              "wall_seconds_including_launch": 1.8065103329999985,
+              "peak_process_rss_bytes": 195805184,
+              "threads": 3,
+              "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+            },
+            {
+              "wall_seconds_including_launch": 1.5391110839999982,
+              "peak_process_rss_bytes": 195280896,
+              "threads": 3,
+              "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+            },
+            {
+              "wall_seconds_including_launch": 1.524870208000003,
+              "peak_process_rss_bytes": 195772416,
+              "threads": 3,
+              "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+            },
+            {
+              "wall_seconds_including_launch": 1.4937022500000054,
+              "peak_process_rss_bytes": 195248128,
+              "threads": 3,
+              "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+            },
+            {
+              "wall_seconds_including_launch": 1.4095053329999985,
+              "peak_process_rss_bytes": 195248128,
+              "threads": 3,
+              "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+            },
+            {
+              "wall_seconds_including_launch": 1.4069543340000052,
+              "peak_process_rss_bytes": 195788800,
+              "threads": 3,
+              "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+            },
+            {
+              "wall_seconds_including_launch": 1.5237163749999922,
+              "peak_process_rss_bytes": 195264512,
+              "threads": 3,
+              "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+            }
+          ]
+        },
+        "radix": {
+          "median_seconds": 0.8739099159999952,
+          "maximum_rss_bytes": 198443008,
+          "runs": [
+            {
+              "wall_seconds_including_launch": 0.8493053329999967,
+              "peak_process_rss_bytes": 198443008,
+              "threads": 3,
+              "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+            },
+            {
+              "wall_seconds_including_launch": 1.0648110420000023,
+              "peak_process_rss_bytes": 198066176,
+              "threads": 3,
+              "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+            },
+            {
+              "wall_seconds_including_launch": 0.8955434580000059,
+              "peak_process_rss_bytes": 197689344,
+              "threads": 3,
+              "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+            },
+            {
+              "wall_seconds_including_launch": 0.8712710000000001,
+              "peak_process_rss_bytes": 197935104,
+              "threads": 3,
+              "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+            },
+            {
+              "wall_seconds_including_launch": 0.8739099159999952,
+              "peak_process_rss_bytes": 197410816,
+              "threads": 3,
+              "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+            },
+            {
+              "wall_seconds_including_launch": 0.8675584169999979,
+              "peak_process_rss_bytes": 198115328,
+              "threads": 3,
+              "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+            },
+            {
+              "wall_seconds_including_launch": 0.8973160409999963,
+              "peak_process_rss_bytes": 198017024,
+              "threads": 3,
+              "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "track": "d",
+      "case": "public-full-seed1",
+      "threads": 6,
+      "results": {
+        "baseline": {
+          "median_seconds": 1.0099112079999912,
+          "maximum_rss_bytes": 241942528,
+          "runs": [
+            {
+              "wall_seconds_including_launch": 0.9723134999999985,
+              "peak_process_rss_bytes": 241188864,
+              "threads": 6,
+              "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+            },
+            {
+              "wall_seconds_including_launch": 0.9847749580000027,
+              "peak_process_rss_bytes": 241942528,
+              "threads": 6,
+              "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+            },
+            {
+              "wall_seconds_including_launch": 1.0470265419999976,
+              "peak_process_rss_bytes": 240730112,
+              "threads": 6,
+              "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+            },
+            {
+              "wall_seconds_including_launch": 1.0979420829999924,
+              "peak_process_rss_bytes": 240435200,
+              "threads": 6,
+              "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+            },
+            {
+              "wall_seconds_including_launch": 1.0210907920000096,
+              "peak_process_rss_bytes": 241172480,
+              "threads": 6,
+              "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+            },
+            {
+              "wall_seconds_including_launch": 1.0099112079999912,
+              "peak_process_rss_bytes": 240025600,
+              "threads": 6,
+              "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+            },
+            {
+              "wall_seconds_including_launch": 1.002816041999992,
+              "peak_process_rss_bytes": 240746496,
+              "threads": 6,
+              "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+            }
+          ]
+        },
+        "radix": {
+          "median_seconds": 0.6591431249999999,
+          "maximum_rss_bytes": 245563392,
+          "runs": [
+            {
+              "wall_seconds_including_launch": 0.6306505000000016,
+              "peak_process_rss_bytes": 244678656,
+              "threads": 6,
+              "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+            },
+            {
+              "wall_seconds_including_launch": 0.7073916670000102,
+              "peak_process_rss_bytes": 244776960,
+              "threads": 6,
+              "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+            },
+            {
+              "wall_seconds_including_launch": 0.6591431249999999,
+              "peak_process_rss_bytes": 245399552,
+              "threads": 6,
+              "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+            },
+            {
+              "wall_seconds_including_launch": 0.6838913339999948,
+              "peak_process_rss_bytes": 244727808,
+              "threads": 6,
+              "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+            },
+            {
+              "wall_seconds_including_launch": 0.7247645419999884,
+              "peak_process_rss_bytes": 244563968,
+              "threads": 6,
+              "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+            },
+            {
+              "wall_seconds_including_launch": 0.6525195419999932,
+              "peak_process_rss_bytes": 245563392,
+              "threads": 6,
+              "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+            },
+            {
+              "wall_seconds_including_launch": 0.636125167000003,
+              "peak_process_rss_bytes": 245497856,
+              "threads": 6,
+              "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "source_sha256": {
+    ".build/experiments/baseline/track-d.cpp": "3c3afb0069c193e311de9fd3e2a3923862af793947f1e130744df804ce697796",
+    ".build/experiments/baseline/track-a.cpp": "492ed9b2469c96503cdb19038074e849a2ada2a0e66d7cd3eb6be115c26ffb35",
+    ".build/experiments/radix/track-d.cpp": "afca7a523bfb7bfcad7453523c2b41cb58f94178f77b5d8fa9090c78e4d9d656",
+    ".build/experiments/selection/track-a.cpp": "0deac3883e70a38e47b5cfbc5ada112351c6d2fc0da1efb687ee08ca6d1ede48"
+  }
+}
