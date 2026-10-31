@@ -2,7 +2,6 @@
 #include "parallel.hpp"
 #include "names.hpp"
 #include <array>
-#include <deque>
 #include <numeric>
 #include <unordered_map>
 #include <vector>
@@ -50,6 +49,25 @@ struct Csv {
     void comma() {
         if (p == end || *p++ != ',') throw std::runtime_error("expected CSV comma");
     }
+    uint64_t integer() {
+        const char* start = p;
+        uint64_t value = 0;
+        while (p < end && *p >= '0' && *p <= '9') value = value * 10 + *p++ - '0';
+        if (p == start) throw std::runtime_error("missing CSV integer");
+        comma();
+        return value;
+    }
+    int64_t amount() {
+        bool negative = p < end && *p == '-';
+        if (negative) ++p;
+        const char* start = p;
+        uint64_t value = 0;
+        while (p < end && *p >= '0' && *p <= '9') value = value * 10 + *p++ - '0';
+        if (p == start || p == end || *p++ != '.' || end - p < 2 || p[0] < '0' || p[0] > '9' || p[1] < '0' || p[1] > '9')
+            throw std::runtime_error("invalid money");
+        value = value * 100 + (p[0] - '0') * 10 + p[1] - '0'; p += 2;
+        return negative ? -static_cast<int64_t>(value) : static_cast<int64_t>(value);
+    }
     void newline() {
         if (p == end) return; // The final record may omit its terminator.
         if (*p == '\r') ++p;
@@ -57,15 +75,6 @@ struct Csv {
     }
 };
 
-int64_t cents(std::string_view value) {
-    bool negative = !value.empty() && value.front() == '-';
-    if (negative) value.remove_prefix(1);
-    size_t dot = value.find('.');
-    if (dot == std::string_view::npos || value.size() - dot != 3)
-        throw std::runtime_error("invalid money");
-    uint64_t result = unsigned_number(value.substr(0, dot)) * 100 + unsigned_number(value.substr(dot + 1));
-    return negative ? -static_cast<int64_t>(result) : static_cast<int64_t>(result);
-}
 void money(Output& out, int64_t value) {
     if (value < 0) out.text("-");
     uint64_t n = value < 0 ? uint64_t(-(value + 1)) + 1 : uint64_t(value);
@@ -93,7 +102,7 @@ int main(int argc, char** argv) {
         constexpr uint16_t missing = UINT16_MAX;
         std::vector<uint16_t> lookup(1000000, missing);
         while (region_csv.p < region_csv.end) {
-            uint64_t id = unsigned_number(region_csv.field(scratch, false).value); region_csv.comma();
+            uint64_t id = region_csv.integer();
             auto country = region_csv.field(scratch, false).value; region_csv.newline();
             auto [it, added] = countries.try_emplace(country, static_cast<uint16_t>(groups.size()));
             if (added) groups.push_back(Group{country});
@@ -132,9 +141,9 @@ int main(int argc, char** argv) {
             }
             boundaries[i] = p;
         }
-        struct Local { std::vector<Group> groups; std::deque<std::string> storage; };
+        struct Local { std::vector<Group> groups; };
         for (size_t capacity = 131072;; capacity *= 2) {
-            Names names(capacity, groups.size());
+            Names names(capacity, groups.size(), records.size);
             std::vector<Local> locals(threads);
             for (auto& local : locals) local.groups = groups;
             parallel(threads, [&](unsigned worker) {
@@ -144,13 +153,13 @@ int main(int argc, char** argv) {
                     std::string name_scratch, unused;
                     while (csv.p < csv.end) {
                         csv.bom();
-                        uint64_t id = unsigned_number(csv.field(unused, false).value); csv.comma();
+                        uint64_t id = csv.integer();
                         Field name = csv.field(name_scratch, true); csv.comma();
                         Field note = csv.field(unused, false); csv.comma();
-                        uint64_t region = unsigned_number(csv.field(unused, false).value); csv.comma();
-                        int64_t amount = cents(csv.field(unused, false).value); csv.newline();
+                        uint64_t region = csv.integer();
+                        int64_t amount = csv.amount(); csv.newline();
                         size_t country = region < lookup.size() && lookup[region] != missing ? lookup[region] : unmatched;
-                        auto& entry = names.intern(name.value, local.storage);
+                        auto& entry = names.intern(name.value);
                         Group& group = local.groups[country];
                         group.names += names.first(entry, country);
                         ++group.count; group.ids += static_cast<int64_t>(id); group.sum += amount;

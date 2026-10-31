@@ -140,7 +140,7 @@ def adversarial():
     for seed in range(12):
         rng = random.Random(seed)
         n = rng.randrange(2, 28)
-        edges = [(rng.randrange(n), rng.randrange(n), rng.choice([0, 1, 17, 4294967295, rng.randrange(1000)]))
+        edges = [(rng.randrange(n), rng.randrange(n), rng.choice([0, 1, 17, 65534, 65535, 65536, 4294967295, rng.randrange(1000)]))
                  for _ in range(rng.randrange(0, n * 5))]
         if edges:
             edges += [edges[0], (edges[0][0], edges[0][1], 0)]

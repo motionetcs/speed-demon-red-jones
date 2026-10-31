@@ -128,7 +128,17 @@ int main(int argc, char** argv) {
                     uint64_t n = totals[group].count, errors = totals[group].errors;
                     if (!n) continue;
                     auto first = latencies.begin() + offsets[group];
-                    std::sort(first, first + n);
+                    if (n < 64) std::sort(first, first + n);
+                    else {
+                        size_t unselected = 0;
+                        for (uint64_t percentile : {50, 95, 99}) {
+                            size_t rank = (percentile * n + 99) / 100 - 1;
+                            if (rank >= unselected) {
+                                std::nth_element(first + unselected, first + rank, first + n);
+                                unselected = rank + 1;
+                            }
+                        }
+                    }
                     output[h].text(hours[h]); output[h].text(" "); output[h].text(endpoints[e]);
                     for (uint64_t value : {n, uint64_t(first[(50 * n + 99) / 100 - 1]),
                                            uint64_t(first[(95 * n + 99) / 100 - 1]),

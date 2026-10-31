@@ -26,7 +26,7 @@ Five alternating local full-data runs after warmup gave these medians:
 
 The original binary ignores the thread override. These Apple ARM process-launch-inclusive timings select promising candidates only. The first Intel board experiment uses 12 workers; a subsequent board comparison can decide whether six physical-core workers trade better against memory and merge overhead on the scoring CPU.
 
-Next hypotheses: quote-aware parallel CSV parsing and exact concurrent name membership for C; bidirectional search and faster graph loading for D. Neither is claimed as implemented or measured yet.
+C and D refinements are now implemented and checked; the experiment history below distinguishes local evidence from official scores.
 
 ### Confirmed A board improvement
 
@@ -34,6 +34,12 @@ Run `run-ca62e267fa82`: 0.081951 s, 60,215,296 bytes, S=316, K=19.908239, 64.951
 
 ## C: quote-aware parallel parsing and shared exact membership
 
-The candidate is implemented and passes reference, adversarial, full-public, memory/UB-sanitizer, thread-sanitizer, and Linux container checks. Local five-run medians improved from 1.155291 s to 0.132393 s at twelve requested workers. See `opt-c-parallel-*.json` for actual evidence. Its first board measurement is pending.
+The candidate is implemented and passes reference, adversarial, full-public, memory/UB-sanitizer, thread-sanitizer, and Linux container checks. Local five-run medians improved from 1.155291 s to 0.132393 s at twelve requested workers. See `opt-c-parallel-*.json` for actual evidence. Its first board measurement passed: `run-a82ca12db6e4`, 0.124259 s, K=16.035293, 60.253844 machine points, versus the original 0.962631 s and 40.421548 points.
 
-D's bidirectional/sparse-distance prototype is local and not yet submitted. Tiny/all-pairs/long-chain and two sample seeds pass; full-data performance and remaining checks must be completed before a board push.
+D's refined bidirectional/parallel-load/shared-label implementation is ready for its first board run. All reference, independent-seed, full-data, sanitizer, race, and Linux checks pass. The prototype and rejected approaches are retained in per-track PERF.md logs.
+
+## Next combined candidate
+
+A returns to twelve workers after six scored K=19.565079 versus twelve K=19.908239; the difference is small enough to include noise. Exact selection is retested after the memory-layout change and improved twelve-worker local median by about 6%. C compact lookup/numeric parsing improved local median by about 28%. D's parallel loader, bidirectional radix search, and query-owned shared atomic labels roughly halved local whole-process time; packed edges trade runtime against memory. No official improvement is claimed for these refinements until their exact commit scores.
+
+Every refined track passes new independent sample seeds 23/41, full public byte/hash comparisons, adversarial cases, memory/UB and race sanitizers, and offline restricted GCC15 Linux validation. See `opt-a-parallel-selection-*`, `opt-c-compact-d-packed-*`, and `opt-d-packed-final-*`. Source fingerprints remain in historical reports; later prose edits naturally change documentation hashes.

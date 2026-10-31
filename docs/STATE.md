@@ -3,7 +3,7 @@
 This is the fresh Red Jones Speed Demon entry. Read `CODEX_PROMPT.md` for the full execution prompt.
 
 - Completed: current official rules/spec/harness research; live-board snapshot; two public participant README reviews; fresh A/C/D C++20 implementation; native and offline Linux x86-64 builds; differential, adversarial, sample, full-public, and sanitizer validation; local optimization experiments and performance logs.
-- Adopted experiment: Track D radix heap, default six workers. Rejected experiment: Track A percentile selection, which was slower on both measured sample seeds.
+- Original adopted experiment: Track D radix heap. Original serial-layout A percentile selection was rejected on samples; it has since been retested after changing the parallel memory layout.
 - Current full-public output hashes match the published manifest for all three tracks, natively and in restricted Linux x86-64 containers. All three tracks also passed the first official live-board run on 31 October 2026 at 03:57 UTC. `docs/first-board-run.json` retains the actual records, and each PERF.md cites its run ID.
 - Completed external steps: entrant-confirmed individual registration, successful fresh team submission, repository-only read access for the board app, a push to `speed-demon`, and three real scored board results. Future public-source publication by freeze remains required. Final holdout and judging results are separate and unavailable.
 - Fresh private GitHub destination: https://github.com/motionetcs/speed-demon-red-jones . Required branch: `speed-demon`.
@@ -19,6 +19,11 @@ This is the fresh Red Jones Speed Demon entry. Read `CODEX_PROMPT.md` for the fu
 
 ## Active optimization round
 
-The user requested comparison with leaders and continued optimization of A/C/D using real board runs. The baseline comparison is `docs/OPTIMIZATION.md` and `optimization-baseline-board.json`. A's parallel aggregation candidate has passed targeted differential, sanitizer, thread-sanitizer, and Linux container checks. Await its exact-commit board report before judging improvement. C and D retain their existing passing source until their own candidates are ready.
+The user requested comparison with leaders and continued optimization of A/C/D using real board runs. Baseline and exact reports are in `docs/OPTIMIZATION.md`.
 
-Optimization checkpoint: A's twelve-worker version scored as `run-ca62e267fa82`: 0.081951 s, K=19.908239, 64.951642 points, every gate passed. C's parallel version is fully checked locally and in Linux containers and is being sent alongside A's six-worker comparison. D has an uncommitted bidirectional/sparse-distance prototype; do not accidentally include it until its full-data and sanitizer checks pass. Board watcher: `python3 tools/watch_board.py --report <path>` checks exact commit identity.
+- A twelve-worker parallel aggregation scored `run-ca62e267fa82`: 0.081951 s, K=19.908239, 64.951642 points, all gates passed. Six-worker comparison `run-b768e98565d3`: 0.091654 s, K=19.565079, 64.574080 points; twelve restored based on observed K, with small-difference uncertainty acknowledged.
+- C parallel parsing/shared exact names scored `run-a82ca12db6e4`: 0.124259 s, K=16.035293, 60.253844 points, every gate passed.
+- Latest pushed commit before the next candidate: `835148746ad0da7f69d93a9f72f80cb710f1b52a`; records `board-opt-c12-a6.json`.
+- Next combined candidate: A parallel exact rank selection; C compact name lookup, shared character arena, direct numeric parsing; D parallel one-pass loading, bidirectional radix search, shared query-owned atomic labels with exact fallback, lossless packed edges. All targeted references, adversarial cases, new sample seeds 23/41, full public hashes at 1/6/12, memory/UB and race sanitizers, and offline Linux full-data checks pass. See report families named in OPTIMIZATION.md.
+- Do not infer official improvement from local Apple ARM timings. Next step: push this validated candidate, capture its exact-commit board report, and retain/revert by observed K. Then consider a separately tested native-CPU compilation experiment; official harness documentation says native compilation builds on the scoring CPU.
+- Board watcher: `python3 tools/watch_board.py --report <path>` checks exact commit identity. Do not push another source revision until its result is captured. Default query/parse workers A12/C12/D6; D graph load at most4.

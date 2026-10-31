@@ -21,7 +21,7 @@ struct RadixHeap {
         buckets[std::bit_width(item.first ^ last)].push_back(item);
         ++count;
     }
-    Item pop() {
+    void prepare() {
         if (buckets[0].empty()) {
             size_t index = 1;
             while (buckets[index].empty()) ++index;
@@ -31,6 +31,10 @@ struct RadixHeap {
                 buckets[std::bit_width(item.first ^ last)].push_back(item);
             buckets[index].clear();
         }
+    }
+    uint64_t minimum() { prepare(); return last; }
+    Item pop() {
+        prepare();
         Item item = buckets[0].back();
         buckets[0].pop_back(); --count;
         return item;

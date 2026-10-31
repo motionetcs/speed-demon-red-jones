@@ -11,7 +11,7 @@ inline unsigned worker_count() {
         if (n < 1 || n > 12) throw std::runtime_error("threads must be 1 to 12");
         return static_cast<unsigned>(n);
     }
-    return 6;
+    return 12;
 }
 
 template<class Function> void parallel(unsigned count, Function function) {
