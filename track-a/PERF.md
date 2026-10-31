@@ -124,3 +124,7 @@ Next isolated hypothesis: keep hour-owned workspaces and generic GCC, replacing 
 `run-9c7fc0032577` on `bba4fe03074368db5bb0bc0b49af917306e9bdb2` passed every gate: T=0.061931 s, M=40,112,128 bytes, S=344, K=24.525137, points=69.480572. Record: `../docs/board-round4-edgepack.json`. Runtime build inputs are unchanged from the retained configuration; the score difference is repeat variation.
 
 Next compiler hypothesis: full-scale training at independent seed1000003, plus sample130363, better represents the scored workload than two samples. In C, sample and full use the same name-pool size, so new-key frequency differs materially. All input/output/profile files remain in builder stages. Public seed1 is not a training input. Validate on other seeds and real board K; retain only measured overall gains.
+
+## Full-scale training / specialized decoder: real result
+
+`run-96c43d019bcc` on `eb16c07b177d5213110083063d4b38e50548714c` passed all gates: T=0.064078 s, M=39,161,856 bytes, S=344, K=24.226658, points=69.214675. Record: `../docs/board-round5-full-pgo.json`. Full-scale training is below the prior69.621943-point best, so restore the sample104729/130363 build.

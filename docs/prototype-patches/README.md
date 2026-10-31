@@ -9,3 +9,5 @@ These are historical experiments, not the submitted track sources. Apply each pa
 All variants were written during this event. No copied answers or training outputs are included.
 
 For the private-loader cursor model, copy `test-private-loader.cpp` to the disposable checkout root and compile it with address/UB sanitizers. It checks80 generated degree layouts, high-degree overflow, and the65535/65536 block boundary against explicit32-bit cursor ranges. This test passed before the slower prototype was rejected.
+
+C locality prototypes `round6-owned-blocks.patch` and `round6-inline262k.patch` apply to `eb16c07`. Compile normally; warm once and hash each full trial. Owned names with a separate bitmap are slower than the selected inline-country layout. Doubling the inline table saves about3% local time but costs2.1MB, so it is not selected. These variants were not sent to the board.

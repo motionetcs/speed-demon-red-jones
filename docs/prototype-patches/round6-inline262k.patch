@@ -1,0 +1,138 @@
+diff --git a/track-c/main.cpp b/track-c/main.cpp
+--- a/track-c/main.cpp
++++ b/track-c/main.cpp
+@@ -141,8 +141,8 @@
+             }
+             boundaries[i] = p;
+         }
+-        struct Local { std::vector<Group> groups; std::deque<std::string> storage; };
+-        for (size_t capacity = 131072;; capacity *= 2) {
++        struct Local { std::vector<Group> groups; StringArena storage; };
++        for (size_t capacity = 262144;; capacity *= 2) {
+             Names names(capacity, groups.size(), records.data);
+             std::vector<Local> locals(threads);
+             for (auto& local : locals) local.groups = groups;
+@@ -160,7 +160,7 @@
+                         uint64_t region = csv.integer();
+                         int64_t amount = csv.amount(); csv.newline();
+                         size_t country = region < lookup.size() && lookup[region] != missing ? lookup[region] : unmatched;
+-                        auto& entry = names.intern(name.value, name.escaped, local.storage, hash);
++                        auto& entry = names.intern(name.value, local.storage, hash);
+                         Group& group = local.groups[country];
+                         group.names += names.first(entry, country);
+                         ++group.count; group.ids += static_cast<int64_t>(id); group.sum += amount;
+diff --git a/track-c/names.hpp b/track-c/names.hpp
+--- a/track-c/names.hpp
++++ b/track-c/names.hpp
+@@ -1,48 +1,63 @@
+ #pragma once
+-#include <array>
++#include <algorithm>
+ #include <atomic>
+-#include <deque>
++#include <cstdint>
++#include <cstring>
+ #include <memory>
++#include <new>
++#include <type_traits>
++#include <vector>
+ 
++struct alignas(8) NameKey { uint32_t length, padding; };
++static_assert(sizeof(NameKey) == 8 && alignof(std::atomic<uint64_t>) <= alignof(NameKey));
++static_assert(std::is_trivially_destructible_v<std::atomic<uint64_t>>);
++
++// One stable allocation holds header, actual country words, then exact name bytes.
++// Each arena has one owner; table publication makes completed keys visible.
++struct StringArena {
++    std::vector<std::unique_ptr<char[]>> blocks;
++    char* next = nullptr;
++    size_t remaining = 0;
++    NameKey* make(std::string_view value, size_t words) {
++        if (value.size() > UINT32_MAX || words > (SIZE_MAX - sizeof(NameKey) - value.size() - 7) / sizeof(std::atomic<uint64_t>))
++            throw std::runtime_error("name storage size overflow");
++        size_t bytes = sizeof(NameKey) + words * sizeof(std::atomic<uint64_t>) + value.size();
++        bytes = (bytes + 7) & ~size_t(7);
++        if (bytes > remaining) {
++            size_t capacity = std::max<size_t>(65536, bytes);
++            blocks.emplace_back(new char[capacity]); next = blocks.back().get(); remaining = capacity;
++        }
++        auto* result = ::new (static_cast<void*>(next)) NameKey{static_cast<uint32_t>(value.size()), 0};
++        ::new (static_cast<void*>(next + sizeof(NameKey))) std::atomic<uint64_t>[words]{};
++        char* data = next + sizeof(NameKey) + words * sizeof(std::atomic<uint64_t>);
++        if (!value.empty()) std::memcpy(data, value.data(), value.size());
++        next += bytes; remaining -= bytes; return result;
++    }
++};
+ struct Canceled {};
+ struct Names {
+-    struct Entry {
+-        std::atomic<uint64_t> state{0}; // 0 empty, 1 being published, otherwise the full hash.
+-        uint32_t offset = 0, length = 0;
+-    };
++    struct Entry { std::atomic<uint64_t> state{0}; NameKey* key = nullptr; };
+     size_t capacity, words;
+-    const char* input;
+-    std::unique_ptr<const char*[]> decoded;
+     std::unique_ptr<Entry[]> entries;
+-    std::unique_ptr<std::atomic<uint64_t>[]> membership;
+     std::atomic<size_t> used{0};
+     std::atomic<bool> canceled{false}, too_small{false};
+-    Names(size_t size, size_t countries, const char* data) : capacity(size), words((countries + 63) / 64),
+-        input(data), decoded(new const char*[size]),
+-        entries(std::make_unique<Entry[]>(size)),
+-        membership(std::make_unique<std::atomic<uint64_t>[]>(size * words)) {}
+-
++    Names(size_t size, size_t countries, const char*) : capacity(size), words((countries + 63) / 64),
++        entries(std::make_unique<Entry[]>(size)) {}
+     static uint64_t hash_key(std::string_view key) {
+-        uint64_t hash = std::hash<std::string_view>{}(key);
+-        return hash < 2 ? hash + 2 : hash;
++        uint64_t hash = std::hash<std::string_view>{}(key); return hash < 2 ? hash + 2 : hash;
+     }
+     void prefetch(uint64_t hash) const { __builtin_prefetch(&entries[hash & (capacity - 1)], 0, 1); }
+-    Entry& intern(std::string_view key, bool escaped, std::deque<std::string>& storage, uint64_t hash) {
++    std::string_view bytes(const NameKey* key) const {
++        return {reinterpret_cast<const char*>(key) + sizeof(NameKey) + words * sizeof(std::atomic<uint64_t>), key->length};
++    }
++    Entry& intern(std::string_view key, StringArena& storage, uint64_t hash) {
+         if (canceled.load(std::memory_order_relaxed)) throw Canceled{};
+         size_t index = hash & (capacity - 1);
+         for (;;) {
+-            Entry& entry = entries[index];
+-            uint64_t state = entry.state.load(std::memory_order_acquire);
++            Entry& entry = entries[index]; uint64_t state = entry.state.load(std::memory_order_acquire);
+             if (state == 0) {
+                 if (entry.state.compare_exchange_strong(state, 1, std::memory_order_acq_rel)) {
+-                    try {
+-                        if (key.size() > UINT32_MAX) throw std::runtime_error("name too large");
+-                        entry.length = static_cast<uint32_t>(key.size());
+-                        if (escaped || uint64_t(key.data() - input) >= UINT32_MAX) {
+-                            storage.emplace_back(key); decoded[index] = storage.back().data();
+-                            entry.offset = UINT32_MAX;
+-                        } else entry.offset = static_cast<uint32_t>(key.data() - input);
+-                    }
++                    try { entry.key = storage.make(key, words); }
+                     catch (...) { canceled.store(true); entry.state.store(0, std::memory_order_release); throw; }
+                     entry.state.store(hash, std::memory_order_release);
+                     if (used.fetch_add(1, std::memory_order_relaxed) >= capacity * 7 / 8) {
+@@ -55,17 +70,14 @@
+                 if (canceled.load(std::memory_order_relaxed)) throw Canceled{};
+                 state = entry.state.load(std::memory_order_acquire);
+             }
+-            if (state == hash) {
+-                const char* bytes = entry.offset == UINT32_MAX ? decoded[index] : input + entry.offset;
+-                if (std::string_view(bytes, entry.length) == key) return entry;
+-            }
++            if (state == hash && bytes(entry.key) == key) return entry;
+             if (canceled.load(std::memory_order_relaxed)) throw Canceled{};
+             index = (index + 1) & (capacity - 1);
+         }
+     }
+     bool first(Entry& entry, size_t country) {
+-        auto& word = membership[size_t(&entry - entries.get()) * words + country / 64];
++        auto* bits = reinterpret_cast<std::atomic<uint64_t>*>(reinterpret_cast<char*>(entry.key) + sizeof(NameKey));
+         uint64_t bit = uint64_t(1) << (country % 64);
+-        return (word.fetch_or(bit, std::memory_order_relaxed) & bit) == 0;
++        return (bits[country / 64].fetch_or(bit, std::memory_order_relaxed) & bit) == 0;
+     }
+ };

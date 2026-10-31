@@ -1,0 +1,267 @@
+{
+  "created_at_utc": "2026-10-31T06:22:09.253856+00:00",
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "python": "3.9.6 (default, Aug 25 2026, 21:26:21) \n[Clang 21.0.0 (clang-2100.3.34.2)]",
+  "memory_scope": "process RSS, not official cgroup memory.peak",
+  "official_score": false,
+  "binary_sha256": {
+    "c": "44183f99963fbde8bc2ef3ea1ef472ffbdc24def87c0e4998f98a699ad5f0853"
+  },
+  "official_revision": "ad1f06063a76bf94066f169e133ec0c2e1485b65",
+  "source_root": "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round6-c-inline",
+  "source_sha256": {
+    "track-c/Dockerfile": "05a592c43ce33d50644ed8c3201c5400885e74488402d8c47e499e1380b46260",
+    "track-c/PERF.md": "937a694d64ea991008504f847ebc4595b3e52e727f41efcb2e0736b724fe98cd",
+    "track-c/README.md": "7c6ebb51365bb500cdc962e4c7913d45b2bf13c0a8b62c7a7d2a3d9f545bcd0b",
+    "track-c/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+    "track-c/main.cpp": "458724cc026f698443adf0ba607ed124fbd866dc73ca6f6aa78db663f431b102",
+    "track-c/names.hpp": "0581ad7e1b1f0af6c516ec95cae64f8acbee2490fa53824efcc608a735dff763",
+    "track-c/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420",
+    "track-c/training_generator.py": "9e61672eb814fa4e1bc2e3cf30c8e7ca9629804191ce5ae60a66c8b61ba704f2"
+  },
+  "checks": [
+    {
+      "track": "c",
+      "case": "tiny-seed521",
+      "reference_sha256": "2914ee80229be390714fd655c2aa3bf338584cae648e738fd087d5871e4a9dd0",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.38540775,
+          "peak_process_rss_bytes": 5963776,
+          "requested_threads": 1,
+          "sha256": "2914ee80229be390714fd655c2aa3bf338584cae648e738fd087d5871e4a9dd0"
+        },
+        {
+          "wall_seconds_including_launch": 0.013129292000000015,
+          "peak_process_rss_bytes": 6193152,
+          "requested_threads": 6,
+          "sha256": "2914ee80229be390714fd655c2aa3bf338584cae648e738fd087d5871e4a9dd0"
+        },
+        {
+          "wall_seconds_including_launch": 0.007442041999999982,
+          "peak_process_rss_bytes": 6488064,
+          "requested_threads": 12,
+          "sha256": "2914ee80229be390714fd655c2aa3bf338584cae648e738fd087d5871e4a9dd0"
+        }
+      ]
+    },
+    {
+      "track": "c",
+      "case": "tiny-seed523",
+      "reference_sha256": "a7aa3d3708e58b12d01cd65d34ccc12af7f9bc2df0e54cea1c125ced2ba92c58",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.007828666999999956,
+          "peak_process_rss_bytes": 5963776,
+          "requested_threads": 1,
+          "sha256": "a7aa3d3708e58b12d01cd65d34ccc12af7f9bc2df0e54cea1c125ced2ba92c58"
+        },
+        {
+          "wall_seconds_including_launch": 0.008530916999999971,
+          "peak_process_rss_bytes": 6242304,
+          "requested_threads": 6,
+          "sha256": "a7aa3d3708e58b12d01cd65d34ccc12af7f9bc2df0e54cea1c125ced2ba92c58"
+        },
+        {
+          "wall_seconds_including_launch": 0.007083791999999978,
+          "peak_process_rss_bytes": 6422528,
+          "requested_threads": 12,
+          "sha256": "a7aa3d3708e58b12d01cd65d34ccc12af7f9bc2df0e54cea1c125ced2ba92c58"
+        }
+      ]
+    },
+    {
+      "track": "c",
+      "case": "c-worked",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.0075800420000000646,
+          "peak_process_rss_bytes": 5881856,
+          "requested_threads": 1,
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "wall_seconds_including_launch": 0.007793083000000034,
+          "peak_process_rss_bytes": 6094848,
+          "requested_threads": 6,
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "wall_seconds_including_launch": 0.006920999999999955,
+          "peak_process_rss_bytes": 6225920,
+          "requested_threads": 12,
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "track": "c",
+      "case": "c-grammar-eof",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.0061500000000001,
+          "peak_process_rss_bytes": 5881856,
+          "requested_threads": 1,
+          "sha256": "0c084eef633858f79b023d1d767c8c474e73ad5c37f3f587c1145c3aa36e52ec"
+        },
+        {
+          "wall_seconds_including_launch": 0.005926082999999971,
+          "peak_process_rss_bytes": 6062080,
+          "requested_threads": 6,
+          "sha256": "0c084eef633858f79b023d1d767c8c474e73ad5c37f3f587c1145c3aa36e52ec"
+        },
+        {
+          "wall_seconds_including_launch": 0.00751366600000003,
+          "peak_process_rss_bytes": 6225920,
+          "requested_threads": 12,
+          "sha256": "0c084eef633858f79b023d1d767c8c474e73ad5c37f3f587c1145c3aa36e52ec"
+        }
+      ]
+    },
+    {
+      "track": "c",
+      "case": "c-grammar-bom-eof",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.007809000000000066,
+          "peak_process_rss_bytes": 5881856,
+          "requested_threads": 1,
+          "sha256": "0c084eef633858f79b023d1d767c8c474e73ad5c37f3f587c1145c3aa36e52ec"
+        },
+        {
+          "wall_seconds_including_launch": 0.006198833000000015,
+          "peak_process_rss_bytes": 6062080,
+          "requested_threads": 6,
+          "sha256": "0c084eef633858f79b023d1d767c8c474e73ad5c37f3f587c1145c3aa36e52ec"
+        },
+        {
+          "wall_seconds_including_launch": 0.005474332999999998,
+          "peak_process_rss_bytes": 6209536,
+          "requested_threads": 12,
+          "sha256": "0c084eef633858f79b023d1d767c8c474e73ad5c37f3f587c1145c3aa36e52ec"
+        }
+      ]
+    },
+    {
+      "track": "c",
+      "case": "c-grammar-lf",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.00581029200000005,
+          "peak_process_rss_bytes": 5881856,
+          "requested_threads": 1,
+          "sha256": "0c084eef633858f79b023d1d767c8c474e73ad5c37f3f587c1145c3aa36e52ec"
+        },
+        {
+          "wall_seconds_including_launch": 0.0051529590000000125,
+          "peak_process_rss_bytes": 6078464,
+          "requested_threads": 6,
+          "sha256": "0c084eef633858f79b023d1d767c8c474e73ad5c37f3f587c1145c3aa36e52ec"
+        },
+        {
+          "wall_seconds_including_launch": 0.005532124999999999,
+          "peak_process_rss_bytes": 6176768,
+          "requested_threads": 12,
+          "sha256": "0c084eef633858f79b023d1d767c8c474e73ad5c37f3f587c1145c3aa36e52ec"
+        }
+      ]
+    },
+    {
+      "track": "c",
+      "case": "c-grammar-crlf",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.005118999999999985,
+          "peak_process_rss_bytes": 5881856,
+          "requested_threads": 1,
+          "sha256": "0c084eef633858f79b023d1d767c8c474e73ad5c37f3f587c1145c3aa36e52ec"
+        },
+        {
+          "wall_seconds_including_launch": 0.004952667000000077,
+          "peak_process_rss_bytes": 6045696,
+          "requested_threads": 6,
+          "sha256": "0c084eef633858f79b023d1d767c8c474e73ad5c37f3f587c1145c3aa36e52ec"
+        },
+        {
+          "wall_seconds_including_launch": 0.005778665999999988,
+          "peak_process_rss_bytes": 6176768,
+          "requested_threads": 12,
+          "sha256": "0c084eef633858f79b023d1d767c8c474e73ad5c37f3f587c1145c3aa36e52ec"
+        }
+      ]
+    },
+    {
+      "track": "c",
+      "case": "c-canonical-quote-forms",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.005020875000000036,
+          "peak_process_rss_bytes": 5881856,
+          "requested_threads": 1,
+          "sha256": "6b1388dccaf03ba5abc1f292215da2872b752d1916bb02425ecd327477c5b64e"
+        },
+        {
+          "wall_seconds_including_launch": 0.004824750000000044,
+          "peak_process_rss_bytes": 6078464,
+          "requested_threads": 6,
+          "sha256": "6b1388dccaf03ba5abc1f292215da2872b752d1916bb02425ecd327477c5b64e"
+        },
+        {
+          "wall_seconds_including_launch": 0.004984875,
+          "peak_process_rss_bytes": 6258688,
+          "requested_threads": 12,
+          "sha256": "6b1388dccaf03ba5abc1f292215da2872b752d1916bb02425ecd327477c5b64e"
+        }
+      ]
+    },
+    {
+      "track": "c",
+      "case": "c-parallel-resize-and-seams",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.017922374999999935,
+          "peak_process_rss_bytes": 16482304,
+          "requested_threads": 1,
+          "sha256": "b403a09bcd43861b5a65577a172f9f0d8980a634342103890d5fe1d1fe9150c9"
+        },
+        {
+          "wall_seconds_including_launch": 0.019743500000000136,
+          "peak_process_rss_bytes": 16662528,
+          "requested_threads": 6,
+          "sha256": "b403a09bcd43861b5a65577a172f9f0d8980a634342103890d5fe1d1fe9150c9"
+        },
+        {
+          "wall_seconds_including_launch": 0.01979299999999995,
+          "peak_process_rss_bytes": 16809984,
+          "requested_threads": 12,
+          "sha256": "b403a09bcd43861b5a65577a172f9f0d8980a634342103890d5fe1d1fe9150c9"
+        }
+      ]
+    },
+    {
+      "track": "c",
+      "case": "c-wide-country-membership",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.0058201659999999045,
+          "peak_process_rss_bytes": 6094848,
+          "requested_threads": 1,
+          "sha256": "9fce39382de5447ca24757e4e1391551a2f077160f2fa46b288d6806e0e88e04"
+        },
+        {
+          "wall_seconds_including_launch": 0.004969667000000122,
+          "peak_process_rss_bytes": 6307840,
+          "requested_threads": 6,
+          "sha256": "9fce39382de5447ca24757e4e1391551a2f077160f2fa46b288d6806e0e88e04"
+        },
+        {
+          "wall_seconds_including_launch": 0.005354042000000003,
+          "peak_process_rss_bytes": 6553600,
+          "requested_threads": 12,
+          "sha256": "9fce39382de5447ca24757e4e1391551a2f077160f2fa46b288d6806e0e88e04"
+        }
+      ]
+    }
+  ],
+  "passed": true
+}

@@ -1,0 +1,101 @@
+diff --git a/track-c/main.cpp b/track-c/main.cpp
+--- a/track-c/main.cpp
++++ b/track-c/main.cpp
+@@ -141,7 +141,7 @@
+             }
+             boundaries[i] = p;
+         }
+-        struct Local { std::vector<Group> groups; std::deque<std::string> storage; };
++        struct Local { std::vector<Group> groups; StringArena storage; };
+         for (size_t capacity = 131072;; capacity *= 2) {
+             Names names(capacity, groups.size(), records.data);
+             std::vector<Local> locals(threads);
+@@ -160,7 +160,7 @@
+                         uint64_t region = csv.integer();
+                         int64_t amount = csv.amount(); csv.newline();
+                         size_t country = region < lookup.size() && lookup[region] != missing ? lookup[region] : unmatched;
+-                        auto& entry = names.intern(name.value, name.escaped, local.storage, hash);
++                        auto& entry = names.intern(name.value, local.storage, hash);
+                         Group& group = local.groups[country];
+                         group.names += names.first(entry, country);
+                         ++group.count; group.ids += static_cast<int64_t>(id); group.sum += amount;
+diff --git a/track-c/names.hpp b/track-c/names.hpp
+--- a/track-c/names.hpp
++++ b/track-c/names.hpp
+@@ -1,24 +1,39 @@
+ #pragma once
+ #include <array>
+ #include <atomic>
+-#include <deque>
++#include <vector>
++#include <cstring>
++#include <algorithm>
+ #include <memory>
+ 
++// Each worker owns growing blocks; published byte addresses never move.
++struct StringArena {
++    std::vector<std::unique_ptr<char[]>> blocks;
++    char* next = nullptr;
++    size_t remaining = 0;
++    const char* copy(std::string_view value) {
++        if (value.empty()) return "";
++        if (value.size() > remaining) {
++            size_t bytes = std::max<size_t>(65536, value.size());
++            blocks.emplace_back(new char[bytes]); next = blocks.back().get(); remaining = bytes;
++        }
++        char* result = next; std::memcpy(result, value.data(), value.size());
++        next += value.size(); remaining -= value.size(); return result;
++    }
++};
+ struct Canceled {};
+ struct Names {
+     struct Entry {
+         std::atomic<uint64_t> state{0}; // 0 empty, 1 being published, otherwise the full hash.
+-        uint32_t offset = 0, length = 0;
++        const char* bytes = nullptr;
++        uint32_t length = 0;
+     };
+     size_t capacity, words;
+-    const char* input;
+-    std::unique_ptr<const char*[]> decoded;
+     std::unique_ptr<Entry[]> entries;
+     std::unique_ptr<std::atomic<uint64_t>[]> membership;
+     std::atomic<size_t> used{0};
+     std::atomic<bool> canceled{false}, too_small{false};
+-    Names(size_t size, size_t countries, const char* data) : capacity(size), words((countries + 63) / 64),
+-        input(data), decoded(new const char*[size]),
++    Names(size_t size, size_t countries, const char*) : capacity(size), words((countries + 63) / 64),
+         entries(std::make_unique<Entry[]>(size)),
+         membership(std::make_unique<std::atomic<uint64_t>[]>(size * words)) {}
+ 
+@@ -27,7 +42,7 @@
+         return hash < 2 ? hash + 2 : hash;
+     }
+     void prefetch(uint64_t hash) const { __builtin_prefetch(&entries[hash & (capacity - 1)], 0, 1); }
+-    Entry& intern(std::string_view key, bool escaped, std::deque<std::string>& storage, uint64_t hash) {
++    Entry& intern(std::string_view key, StringArena& storage, uint64_t hash) {
+         if (canceled.load(std::memory_order_relaxed)) throw Canceled{};
+         size_t index = hash & (capacity - 1);
+         for (;;) {
+@@ -38,10 +53,7 @@
+                     try {
+                         if (key.size() > UINT32_MAX) throw std::runtime_error("name too large");
+                         entry.length = static_cast<uint32_t>(key.size());
+-                        if (escaped || uint64_t(key.data() - input) >= UINT32_MAX) {
+-                            storage.emplace_back(key); decoded[index] = storage.back().data();
+-                            entry.offset = UINT32_MAX;
+-                        } else entry.offset = static_cast<uint32_t>(key.data() - input);
++                        entry.bytes = storage.copy(key);
+                     }
+                     catch (...) { canceled.store(true); entry.state.store(0, std::memory_order_release); throw; }
+                     entry.state.store(hash, std::memory_order_release);
+@@ -56,8 +68,7 @@
+                 state = entry.state.load(std::memory_order_acquire);
+             }
+             if (state == hash) {
+-                const char* bytes = entry.offset == UINT32_MAX ? decoded[index] : input + entry.offset;
+-                if (std::string_view(bytes, entry.length) == key) return entry;
++                if (std::string_view(entry.bytes, entry.length) == key) return entry;
+             }
+             if (canceled.load(std::memory_order_relaxed)) throw Canceled{};
+             index = (index + 1) & (capacity - 1);

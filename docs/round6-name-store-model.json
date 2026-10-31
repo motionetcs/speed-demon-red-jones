@@ -1,0 +1,15 @@
+{
+  "created_at_utc": "2026-10-31T06:29:06.343439+00:00",
+  "official_score": false,
+  "method": "stable block allocation through1MiB keys and275 country words; empty/NUL/UTF8 names; forced full-hash collisions; country boundaries through17576; four-thread40000-update model against std::set; Clang ASAN/UBSAN/TSAN and GCC15/Linux ASAN/UBSAN",
+  "source_sha256": {
+    "track-c/names.hpp": "56311a43e695e63623187e8870909a16b00976f0dee775bf3a645dedb4ca5191",
+    "tools/test_name_store.cpp": "8d7b8d3b5b3129fc2dd4abbafa33c973d8862ce72c8ce4d9640470b53a5c43e0"
+  },
+  "runs": {
+    "native_memory_ub": "PASS stable name blocks, large/empty/NUL/UTF-8 keys, deliberate collisions, country-word boundaries, parallel std::set model",
+    "native_thread": "PASS stable name blocks, large/empty/NUL/UTF-8 keys, deliberate collisions, country-word boundaries, parallel std::set model",
+    "linux_memory_ub": "PASS stable name blocks, large/empty/NUL/UTF-8 keys, deliberate collisions, country-word boundaries, parallel std::set model"
+  },
+  "passed": true
+}

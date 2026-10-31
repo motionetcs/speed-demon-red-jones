@@ -18,4 +18,4 @@ Specification: https://github.com/hackathon-raptors/speed-demon-2026/blob/main/s
 
 Profile-guided compilation on the stronger hour-owned algorithm is retained after a real-board gain. The byte-identical official generator trains two independent sample seeds104729/130363 inside an offline builder. Only the executable is copied into the final image; all answers are recomputed at runtime. Prior PGO comparisons also carried rejected allocator/delimiter changes, so they do not establish the effect on this restored algorithm. The exact board result is recorded in PERF.md.
 
-Current compiler experiment trains an independent full-scale seed1000003 plus sample130363. This gives branch profiles closer to the full workload; all training remains in builder stages. Full-public and untrained Linux outputs pass. Retention awaits actual board K.
+The full-scale PGO comparison scored below the two-sample build. The retained Docker build trains sample seeds104729/130363; the exact board comparison is in PERF.md.

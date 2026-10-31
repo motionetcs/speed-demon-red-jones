@@ -5,16 +5,16 @@ Fresh Red Jones entry: https://github.com/motionetcs/speed-demon-red-jones ; pri
 ## Best confirmed configurations
 
 - A: source algorithm from `d2fd0b5`, generic GCC with sample-seed PGO from `46504cb`; twelve workers/hour-owned workspaces, exact selection, original allocator environment. Best69.621943 points/K24.685326, `run-7b5e46ea09f2`.
-- C: exact d2 parser/compact mapped-and-decoded keys and atomic membership, twelve workers, ordinary native-targeted GCC. Best63.747340/K18.834184, `run-60c3460244d4`. Sample PGO, canonical interiors and delimiter-only variants scored lower; hardware hashing was rejected locally before submission.
-- D: `a5394d3` six-byte CSR edges, private compact exact labels,64-distance bands with8-entry batches, six workers/up tofour loaders, sample PGO. Best57.219555/K13.944120, `run-ca3be2d2ada3`.
+- C: exact d2 parser/compact mapped-and-decoded keys and atomic membership, twelve workers, native-targeted GCC with full seed1000003 and sample130363 training. Best64.079939/K19.124882 with full-scale training, `run-948b67b2853e`. Sample PGO, canonical interiors and delimiter-only variants scored lower; hardware hashing was rejected locally before submission.
+- D: `eb16c07` specialized four-byte CSR edges with exact six-byte fallback, private compact exact labels,64-distance bands with8-entry batches, six workers/up tofour loaders, full-scale PGO. Best57.732417/K14.277374, `run-e3e91f5f3cec`.
 
 `bba4fe0` is pushed and passed all gates, but its variable-width packed D edges score55.706308:77.61 MB helps memory, while0.513509 s hurts total K. It is a rejected candidate, not the strongest D source.
 
 ## Current unscored candidate
 
-Working tree tests full-scale PGO training at independent seed1000003 plus sample130363 for A/C/D. D specializes21-bit packed-node loops once at the graph header, retaining exact six-byte fallback beyond2^21 nodes and exact uint32 weight side tables. The code computes every answer from current timed input; no cached outputs or seed recognition. The runtime images copy only executables.
+Working tree restores A sample PGO, keeps D's confirmed specialized/full-training source, and tests C dense name keys: one worker-owned stable allocation holds exact decoded bytes and actual atomic country words, with16-byte full-hash/pointer table entries. No fixed distinct-name or country limit; retry growth and full equality remain. Native five-trial median improves about16% with similar RSS. New sample/full, growth/seam/wide-country, strict ASAN/UBSAN, TSAN,40k-update std::set model and Linux checks pass. Complete the GCC model and exact build-input hash assertion before pushing, then capture every exact board result before another source push.
 
-Native D fresh sample/full/Floyd-Warshall, strict ASAN/UBSAN, TSAN and both compact/wide-ID fixtures pass. A/C full-training Linux images and63 independent untrained Linux runs pass. D full-training offline build/replay remains in progress. Do not submit until it passes, build input hashes match, and the precise candidate is documented. Do not push a subsequent source until the preceding exact-commit board report is saved. Reject this candidate if its real K is lower, restoring the configurations above.
+An unsubmitted D loader prototype is prepared only under `.build/round7-d-counters`: shared byte degree counters with exact256-wrap spills and shared relative16-bit cursors with exact32-bit block fallback. It has not been compiled/tested or promoted. Benchmark only when no compiler/training/test job is running.
 
 ## Iteration commands and evidence
 
