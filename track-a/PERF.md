@@ -369,3 +369,13 @@ Round133/16bedd2 unchanged selected source passes all five real gates, run-c1f07
 
 
 Restored selected135/2b3834d, run-b611fb45a28d, passes every real gate with exact selected128 runtime bytes: T0.045414 s/M35229696/S424/K28.485435/72.731143. Lower same-source confirmation, not another algorithm change. Current regular-image1323 cases, additional selected-C228 every-worker/24 normal errors, fresh combined public/defaults and all27 inputs match round135-final-source-match.json. Raw ../docs/board-round135-selected-confirmation.json.
+
+
+Evidence-head137/715dcc6, run-ef33912695a8, passes all five real gates on identical selected128 runtime: T0.049508s/M35635200/S424/K27.219866/71.744299 points. C has a slightly higher same-source best67.916082/K22.820315; that is variation, not another algorithm improvement. Raw ../docs/board-round137-evidence-head.json.
+
+
+## Grammar-based method length dispatch
+
+139 replaces the ignored method's byte-by-byte space scan with its exact3..7-byte length from the first two method bytes. The frozen grammar lists all seven methods; every input row still supplies its actual method bytes. A32-byte lower bound makes both dispatch bytes in-range, and the computed delimiter is bounds/space checked. Endpoint/record/escape/quantile/output logic, exact4096 cache and generic/sample PGO are unchanged. This uses no endpoint catalogue, seed recognition or ordering bound.
+
+13811 rotating full-public hashes: retained0.040810s/RSS264617984, skip-three0.040207/264601600 paired0.984124, method-length0.039733/264503296 paired0.967400. Only method-length gets broader139 validation. Fresh1637/1657 strict ASAN/UBSAN,1663 TSAN, every method×72hour×status×1..125-byte endpoint×escape combination ordered/shuffled, full1/6/12 and compact-ID4095 references pass. New pinned offline GCC production image passes96 reference replays and actual defaults;96 extra GCC ASAN/UBSAN integrations also pass. All unchanged primitive/cache/publication header bytes retain selected75 proof. Exact inputs/images in round139-candidate-source-match.json. Native3.26% paired hypothesis is not an Intel gain; retain only on actual K>28.740275/72.924546.

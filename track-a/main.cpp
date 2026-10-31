@@ -38,12 +38,16 @@ int main(int argc, char** argv) {
             LocalEndpoints local_names(endpoints);
             size_t reserve_hint = (limit - p) / (72 * 64);
             while (p < limit) {
-                if (limit - p < 28) throw std::runtime_error("truncated timestamp");
+                if (limit - p < 32) throw std::runtime_error("truncated timestamp");
                 const char* line = p;
                 int month = (p[5] - '0') * 10 + p[6] - '0', day = (p[8] - '0') * 10 + p[9] - '0';
                 int hour = (month == 10 ? day - 30 : day + 1) * 24 + (p[11] - '0') * 10 + p[12] - '0' - 18;
                 if (hour < 0 || hour >= 72) throw std::runtime_error("hour outside specification");
-                p += 28; while (p < limit && *p != ' ') ++p;
+                p += 28;
+                unsigned method_size = *p == 'P' ? (p[1] == 'O' ? 4 : p[1] == 'U' ? 3 : 5)
+                    : *p == 'G' ? 3 : *p == 'H' ? 4 : *p == 'D' ? 6 : 7;
+                if (size_t(limit - p) <= method_size || p[method_size] != ' ') throw std::runtime_error("invalid method");
+                p += method_size;
                 if (p == limit) throw std::runtime_error("missing endpoint");
                 const char* start = ++p;
                 p = static_cast<const char*>(std::memchr(start, ' ', limit - start));

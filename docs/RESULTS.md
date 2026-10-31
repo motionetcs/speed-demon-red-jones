@@ -1,3 +1,5 @@
+> Active139 A method-length/D exact weight-map reserve has full local strict/image/default proof. Real139 pending; selected128/715dcc6 is rollback. Evidence137 slightly higher C is same-source variation.
+
 # Results — 31 October 2026
 
 Complete public feed: **2026-10-31 18:45:00 UTC**. Red Jones is **40th of84** teams with three scored tracks. The best-three machine mean remains **68.600513**. The earlier pass raised it from68.328988; this heartbeat has no new confirmed algorithm gain. Overall leader Cause Of Death has81.805732. We are not number one. Practice-board best records are separate from final holdout scoring and judging.

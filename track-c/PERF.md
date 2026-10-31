@@ -430,3 +430,6 @@ Round133/16bedd2 cooperative64/64 worker pipeline passes all five real gates, ru
 
 
 Restored selected135/2b3834d, run-c71ee4a7dbf1, passes every real gate with exact selected128 runtime bytes: T0.095021 s/M12017664/S672/K18.574421/63.445764. Lower same-source confirmation, not another algorithm change. Current regular-image1323 cases, additional selected-C228 every-worker/24 normal errors, fresh combined public/defaults and all27 inputs match round135-final-source-match.json. Raw ../docs/board-round135-selected-confirmation.json.
+
+
+Evidence-head137/715dcc6, run-9ebddf7e8d11, passes all five real gates on identical selected128 runtime: T0.062369s/M12300288/S672/K22.820315/67.916082 points. C has a slightly higher same-source best67.916082/K22.820315; that is variation, not another algorithm improvement. Raw ../docs/board-round137-evidence-head.json.
