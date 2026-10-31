@@ -1,23 +1,16 @@
-# Final restoration — round87
+# Selected optimization state — final confirmed 87
 
-Official81/576feb0 passes all5 gates. A bounded word scan loses72.512561/K28.200137 versus best72.879783/K28.681090 and is removed. Exact342c0aa A runtime/build/metadata and README are restored, including removal of space_scan.hpp and its Make dependency. C stays exact4eb6f36/0008c8a, with new unchanged-source best67.750087/K22.646534 (variation). D stays exact342c0aa with best64.454305/K19.457458.
+Selected compiled source b80c1ab98657ab4f5d4d6ce3ffe83b9012c2dcda passes every official gate for A/C/D; raw record docs/board-round87-selected-final.json. Every current runtime/build/metadata input and each current best source matches it in round87-final-source-match.json. Later changes are evidence/prose only. No unscored runtime candidate or local board watcher remains after this confirmation.
 
-Final compiled source has27 inputs: A75 exact local cache/canonical views, C71 bounded canonical pipeline, D75 lossless packed labels plus original full-width fallback. New87 Linux A restoration, matching-image replays, fresh combined Make/public1/6/12, real defaults and audit must pass before pushing. Capture an actual87 all-track board confirmation; do not stop with only the restoration commit or infer gates from earlier source identity. No unscored runtime prototype should remain.
+Best machine mean 68.274147, rank 31/77 at 2026-10-31T14:21:20Z; leader Cause Of Death 81.805732. Not number one. Exact per-track best/latest records and experiment decisions are in RESULTS.md.
 
-## Evidence and operation
+A retains the75 exact local cache/canonical views;81 word scan is rejected and removed.
+C retains exact4eb6f36/0008c8a bounded canonical-name pipeline. D retains exact342c0aa lossless packed labels with the original full-width fallback. C prefetch/index and D standard fallback lose actual K. Cache/output/numeric/reset/in-place screens not selected remain reproducible patches only. Never reintroduce a rejected family without a materially new hypothesis.
 
-Fresh final Make and full-public1/6/12 outputs pass. Current image replays A69/C120/D945=1134, actual native/Linux defaults pass. C fresh1223/1229 ASAN/UBSAN,1231 TSAN, all-country widths through17576, independent private-name/collision/growth/long-key and CSV-boundary native/GCC models, all1..12 worker progress/ownership/batch-end tests and expected prompt cancellation pass. A/D exact prior sanitizer/race/primitive/independent graph source is preserved. D has256 Floyd graphs/85,871 reference answers. Unified test_name_store.cpp supports current private and legacy shared APIs; both retested native/GCC in70.
+All selected images have explicit current IDs and A96/C147/D1032=1275 independently checked fixture replays, fresh combined Make/public1/6/12 and actual native/Linux defaults. Strict native/GCC/sanitizer/race/reference proof is reused only for byte-identical sources; limits are explicit in candidate/final proofs. D retains256 independent graphs/85871 answers. Native timing/RSS/diagnostic counts are not official measurements. Benchmark sequentially; isolate fixture run IDs and never overwrite an image tag during replay.
 
-Benchmark sequentially with no concurrent compiler/test/training/UI workload. Apple phase/RSS and emulated Linux times are not official Intel/cgroup scores. Current native profiles point to A parsing and D search; all5 D hash/reset screens lose. Native validation uses isolated --run-id fixtures/outputs; preserve earlier shared-path and Darwin-observer limitations/corrections. Replays must assert image identity; never overwrite validated tags mid-replay. No default arguments/thread overrides in actual Linux default checks.
+No pre-event private implementation or competitor solution is imported. MIT attribution and AI disclosure remain. Observable audit checks pass; no organizer eligibility or human-understanding attestation is fabricated. Individual registration is entrant-confirmed; accepted team form/app scope/actual gate records are retained.
 
-Public board feeds were slow. Normal public current-object byte ranges verify one complete team object and its ETag/Content-Range; whole snapshots provide rankings. A conditional multipart read failed safely on changed ETag; public historical-version GET returned403 and was stopped. No historical access workaround or private competitor request.
+Freeze2 November2026 15:00 UTC/20:30 IST; public recorded MIT source due16:00 UTC/21:30 IST. Repository private now; future publication/monitoring are not scheduled. Preserve the final passing speed-demon source and keep app access through freeze.
 
-## Remaining entry requirements
-
-Registration entrant-confirmed; accepted team/app scope and real A/C/D gate records verified. App has only this repository's code/metadata read access. MIT attribution and AI disclosure retained. Audits certify observable checks only; no fabricated organizer eligibility or human-understanding attestation.
-
-Freeze2 November2026 15:00 UTC/20:30 IST. Preserve final passing speed-demon source and make that MIT source public by16:00 UTC/21:30 IST. Private is allowed now. Publication/future monitoring are not scheduled.
-
-## Separate emoji target
-
-User chose overall leader counters, not the separate clicker millions. Saved visible respect5848/devils13290/pumpkins38/cans37 exceeds observed Cause Of Death369/75/28/8 at that proof time. Counts can change through visitors; reactions do not affect K/rank/demon level. No new reactions this pass. Only intended visible controls; prior bulk pumpkin hold was automatically rejected and stopped, never retry or bypass it. No counter edits/identity changes/rate-limit bypass or pumpkinlab.
+The emoji target is the overall leader, not the separate clicker leaderboard. Saved visible counts5848/13290/38/37 exceeded the then-observed Cause Of Death369/75/28/8. No reaction actions this pass; no current count recheck is claimed. Reactions do not affect machine rank. Prior bulk pumpkin hold was automatically rejected and stopped; never retry/bypass it or edit counters/identities/rate limits.

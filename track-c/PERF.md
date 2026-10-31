@@ -309,3 +309,6 @@ Round79 restored71 source passes every gate, run-491cee46b5aa: T0.062217 s/M1368
 
 
 Round81 unchanged restored71 source passes all gates again, run-fa6fa707f785: T0.062192 s/M13045760/S660/K22.646534/67.750087. This exceeds the older67.613586 observation with identical runtime/build/metadata. It is timing/memory variation, not a new C algorithm. Raw ../docs/board-round81-bounded-space.json.
+
+
+Final selected combination b80c1ab98657ab4f5d4d6ce3ffe83b9012c2dcda, run-92f0b3cc5905, passes check/build/correctness/timeout/sandbox: T0.062514 s/M13045760/S660/K22.588135/67.694018 points. All27 current runtime/build/metadata inputs and each current best source match the selected commit in ../docs/round87-final-source-match.json. Historical best and this latest same-source confirmation remain separate; a lower repeat is not hidden or labelled a new algorithm regression. Current A96/C147/D1032=1275 matching-image fixture replays, fresh combined Make/public1/6/12 and actual native/Linux defaults pass. Later updates are evidence/prose only. Raw ../docs/board-round87-selected-final.json.

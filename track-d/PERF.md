@@ -293,3 +293,6 @@ Instrumented capacity-only diagnostic82 (on rejected79) finds most reset samples
 
 
 Round81 restored75 source passes all gates, run-1295b6dc67f6: T0.223551 s/M76488704/S827/K18.918819/63.844702. Historical best64.454305 remains separate from this slower exact-source repeat. Keep the original full-width fallback and packed75 labels. Raw ../docs/board-round81-bounded-space.json.
+
+
+Final selected combination b80c1ab98657ab4f5d4d6ce3ffe83b9012c2dcda, run-d906507c3974, passes check/build/correctness/timeout/sandbox: T0.240533 s/M77619200/S827/K18.185307/62.986032 points. All27 current runtime/build/metadata inputs and each current best source match the selected commit in ../docs/round87-final-source-match.json. Historical best and this latest same-source confirmation remain separate; a lower repeat is not hidden or labelled a new algorithm regression. Current A96/C147/D1032=1275 matching-image fixture replays, fresh combined Make/public1/6/12 and actual native/Linux defaults pass. Later updates are evidence/prose only. Raw ../docs/board-round87-selected-final.json.

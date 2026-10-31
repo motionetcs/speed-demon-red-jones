@@ -300,3 +300,6 @@ The selected word scan passes fresh1333/1337 strict ASAN/UBSAN,1361 TSAN, full1/
 
 
 Round81/576feb0 bounded space scan passes every official gate, run-59d6c4c4deb0: T0.046072 s/M34525184/S444/K28.200137/72.512561. It loses to28.681090/72.879783. Restore every342c0aa A runtime/build/metadata input and README; remove space_scan.hpp, its Docker COPY and Make dependency. The native/GCC protected-page model and fresh integration passes remain evidence for the rejected scanner, not a selected Intel gain. Raw ../docs/board-round81-bounded-space.json.
+
+
+Final selected combination b80c1ab98657ab4f5d4d6ce3ffe83b9012c2dcda, run-bcec1deb5817, passes check/build/correctness/timeout/sandbox: T0.046913 s/M34394112/S424/K28.16152/72.482805 points. All27 current runtime/build/metadata inputs and each current best source match the selected commit in ../docs/round87-final-source-match.json. Historical best and this latest same-source confirmation remain separate; a lower repeat is not hidden or labelled a new algorithm regression. Current A96/C147/D1032=1275 matching-image fixture replays, fresh combined Make/public1/6/12 and actual native/Linux defaults pass. Later updates are evidence/prose only. Raw ../docs/board-round87-selected-final.json.
