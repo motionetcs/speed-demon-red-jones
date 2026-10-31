@@ -190,3 +190,7 @@ Next test only the small-group sort cutoff64→32. Eleven rotating native full-p
 Round30 commit2c6c51e452faf284f013fd6b12d7333c310dcecc passes every official gate: run-982572415f2b, T=0.050484 s, M=34,037,760, S=378, K=27.676524, points=72.105578. This beats the preceding71.545464/K26.971760; retain cutoff32 on the fused/lazy layout. The exact total-score difference is recorded; a single run does not remove observed timing/memory variation. Record: ../docs/board-round30-cutoff-parity.json.
 
 Round32 ce5ad53ee45296595a6eab2c9ac74d77fa4c61e7 repeats unchanged A source at71.826222/K27.322752, T=0.051646 s/M=34,291,712, run-33b64ac59910; every gate passed. Historical72.105578 remains the best observation; no A algorithm changed. Record: ../docs/board-round32-balanced-frontier.json.
+
+## Final restored-combination confirmation
+
+Exact commit 71a023706495a99867f32a3e1856317f0d9e73bb passes check/build/correctness/timeout/sandbox for all A/C/D. This track's run run-aea59f5857c9: T=0.051652 s, M=34,152,448 bytes, S=378, K=27.343411, points=71.842634. Record: ../docs/board-round32-retained-final.json. Every one of the27 retained runtime/build/metadata inputs matches this scored commit in round32-final-source-match.json. All weaker runtime experiments are removed. This repeated-source result confirms the combination; historical best and latest confirmation remain separate, and repeat deltas are not called algorithm gains. Further updates are documentation/evidence only.

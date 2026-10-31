@@ -189,3 +189,7 @@ Next simplify the record-boundary prepass: XOR the quote predicates directly, si
 Round30 commit2c6c51e452faf284f013fd6b12d7333c310dcecc passes every official gate: run-9711d7d8fc4a, T=0.079040 s, M=12,390,400, S=591, K=20.635539, points=65.730791. This beats the preceding65.174972/K20.114046 despite higher observed charged memory; retain exact XOR quote parity. Record: ../docs/board-round30-cutoff-parity.json.
 
 Round32 ce5ad53ee45296595a6eab2c9ac74d77fa4c61e7 repeats unchanged C source at66.040306/K20.931778, T=0.078051 s/M=11,907,072, run-a0191e29220f; every gate passed. This higher observation is repeat variation on the retained XOR/narrow-lookup source, not another algorithm gain. Record: ../docs/board-round32-balanced-frontier.json.
+
+## Final restored-combination confirmation
+
+Exact commit 71a023706495a99867f32a3e1856317f0d9e73bb passes check/build/correctness/timeout/sandbox for all A/C/D. This track's run run-e562a54a2e3f: T=0.077215 s, M=11,071,488 bytes, S=591, K=21.353266, points=66.473216. Record: ../docs/board-round32-retained-final.json. Every one of the27 retained runtime/build/metadata inputs matches this scored commit in round32-final-source-match.json. All weaker runtime experiments are removed. This repeated-source result confirms the combination; historical best and latest confirmation remain separate, and repeat deltas are not called algorithm gains. Further updates are documentation/evidence only.

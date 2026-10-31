@@ -2,11 +2,17 @@
 
 Fresh Red Jones entry: https://github.com/motionetcs/speed-demon-red-jones ; private, required branch `speed-demon`, tracks A/C/D. Preserve unrelated workspace folders. All own solution code was written during the event. Official reference material is pinned under tools/official. No private pre-event implementation is imported.
 
-## Active verification
+## Retained runtime and real confirmation
 
-The balanced-minimum D experiment passed every gate but lost on real K (15.307933 versus retained16.026845), and every D runtime/build/metadata input is restored to2c6c51e. The next confirmation is of this restored combination. All27 current inputs match the exact all-gates-passing A/C/D source2c6c51e452faf284f013fd6b12d7333c310dcecc, proven in round32-restored-source-match.json. No unscored runtime candidate remains. Capture the final restored-combination board run before a documentation push.
+Final exact all-gates-passing source: `71a023706495a99867f32a3e1856317f0d9e73bb`, board-round32-retained-final.json. Every one of the27 runtime/build/track metadata inputs matches that scored commit in round32-final-source-match.json. All temporary runtime experiments are removed. Documentation/evidence updates after that commit change no compiled input. The working source is also byte-identical to2c6c51e across these27 inputs; the final run confirms the restored combination independently.
 
-Best observations: A72.105578/K27.676524 (2c6c51e), C66.040306/K20.931778 (byte-identical C atce5ad53), D60.242402/K16.026845 (byte-identical D atb1388b0). A is fused exact records/lazy allocation/8192 endpoints/cutoff32. C is exact quoted SIMD/country map/narrow lookup/XOR parity. D is sparse12/band64/count-balanced. Same-source repeats vary and are not additional algorithm gains. The rejected balanced policy is preserved outside scored folders in round32-balanced-minimum.patch with its real losing score and full validation.
+- A: twelve workers, fused exact four-byte records and full uint32 latency escapes, shared full-equality endpoint IDs,8192 slots, lazy hour allocation, released dictionary metadata, sort cutoff32, generic GCC/two-sample PGO. Best72.105578/K27.676524 at2c6c51e.
+- C: twelve workers, exact quoted-field SIMD, direct country map, narrow region lookup with16-bit fallback, exact name/country atomics, XOR quote parity, native GCC/full+sample PGO. Best66.473216/K21.353266 at71a0237.
+- D: twelve workers, sparse exact labels, band64/batch8/count-balanced frontiers, compact edge/degree/cursor storage with full fallbacks, native GCC/full+sample PGO. Best60.242402/K16.026845 atb1388b0, byte-identical D inputs. Final confirmation60.030877 is a repeat, not a new algorithm change.
+
+Final complete snapshot 2026-10-31T09:28:41Z: machine mean66.095609, rank32/68, overall leader80.505463. This pass starts at64.902963; scores improve, but the leaders remain ahead. RESULTS.md records the exact best/latest distinction and per-track gaps. No victory or final holdout/judge result is claimed.
+
+The balanced-minimum D policy passes every gate but scores59.245827, below retained60.242402, and is reverted. It is preserved in round32-balanced-minimum.patch with full validation and actual losing score. The final restored combination is real-board confirmed. There are no active source candidates or board watchers from this pass.
 
 ## Engineering rules and evidence
 
@@ -28,4 +34,6 @@ Freeze: 2 November2026 at15:00 UTC /20:30 IST. Preserve the final passing branch
 
 ## Emoji target
 
-The user clarified that the target is overall #1's counters, not the separate clicker leader's millions. Saved visible controls show respect5,848 /devils13,290 /pumpkins29 /cans22 (total19,189), above observed overall leader Cause Of Death369/75/28/8 in every category. Confirm persistence, save the final screenshot and update emoji-status.json. No additional farming is needed for this target. Only built-in respect/devil holds and separate normal pumpkin/can clicks were used; no direct counter edits, identity changes, rate-limit bypass or pumpkinlab. A prior bulk pumpkin hold was blocked by automatic review and stopped; it must not be reattempted. Reactions do not change K or machine rank.
+The user clarified the target is overall #1's counters. Final verified visible row: respect5,848 /devils13,290 /pumpkins38 /cans37 (total19,213), above observed Cause Of Death369/75/28/8 in all four. Target met; no extra reaction farming is needed. Proof: emoji-status.json and emoji-result.jpg. Counts may also change through other visitors. The UI initially showed0 cans after reload; after one normal can click its complete response showed37 for us and8 for the leader. This does not establish any reset or expiry mechanism.
+
+Use intended visible controls only. No direct counter API/value edits, identity changes, rate-limit bypass or pumpkinlab. A prior bulk pumpkin hold was blocked by automatic review and stopped; never retry it. Separate normal pumpkin/can clicks and explicitly supported respect/devil holds fulfilled the target. Reactions do not change K, rank or demon level. The separate clicker leader's millions are outside the clarified target.
