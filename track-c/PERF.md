@@ -270,3 +270,6 @@ Fresh1223/1229 ASAN/UBSAN,1231 TSAN, full1/6/12 hashes and all country widths0..
 
 
 Round67 eb80bc6, run-b070e35b2761 passes every gate: T0.062764 s/M13,221,888/S660/K22.482722/67.592444 points. This improves66.848983/K21.725994, including source/memory. Runtime falls12.67% versus71.868 ms. Retain the bounded canonical-key pipeline; do not transfer the narrower-scanner-only result as a separate gain. Record ../docs/board-round67-bounded-c-pipeline.json. Historical and confirmation runs remain separate. The unified name-store model now dispatches to the correct private or historical shared API; both bodies are retested under native/GCC sanitizers rather than silently running an incompatible old API.
+
+
+Round70 7402c7f, run-d2e3d6e500a5 passes all official gates: T0.062559 s/M13357056/S660/K22.473765/67.583792 points. Code is byte-identical to the retained67 pipeline. This67.583792 repeat is within0.01 point of67.592444 and also exceeds the preceding66.848983; it confirms the measured pipeline improvement without inventing another algorithm gain. Exact report ../docs/board-round70-endpoint-crc.json.

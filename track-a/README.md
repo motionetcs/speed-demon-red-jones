@@ -19,5 +19,3 @@ Validation covers untrained samples, full published hashes at1/6/12 workers, str
 With another24 hours: obtain legitimate Intel profiles, measure parse/selection/output phases, and test changes against independent seeds before board promotion.
 
 Specification: https://github.com/hackathon-raptors/speed-demon-2026/blob/main/specs/a-ingest.md
-
-The Intel build enables SSE4.2 CRC32C for full endpoint-byte hashing; exact full-key comparisons remain mandatory. ARM development builds use the standard hash. Each read is length-bounded, and dedicated reference/guard-page tests cover the actual Intel path. See PERF.md for the real outcome.

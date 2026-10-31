@@ -254,3 +254,6 @@ Round64 exact restored D repeat run-deaaea0d7ecd passes all gates: T0.221016 s/M
 Round67 unchanged D repeat run-d0de0cbd76d3 passes all gates: T0.235584 s/M90,849,280/S772/K17.990691/62.752392 points. This is variation of exact57cc23e, not a new algorithm.
 
 Five current retained-source instrumented Apple runs, full hashes checked: degree counting53.702 ms, prefix/allocation7.123, scatter/release55.742, graph search154.350. Search is about57% of these local phase totals. No Intel phase timing is claimed. The next screen targets full node-bit mixing and reset locality. Eleven rotating full-public exact-hash trials: retained0.279381 s, folded hash0.288099, high-product hash0.317396, dense reset0.286384, fold+reset0.285505, shrinking logical tables+fold0.292981. All lose; the final variant saves about5.1MB native RSS but costs4.9% time plus source. Reject every variant before broad sanitizer/Linux/board promotion. Preserve patches and limits in round68-70-prototype-index.json; keep exact57cc23e.
+
+
+Round70 7402c7f, run-121a8b2f038c passes all official gates: T0.289287 s/M91000832/S772/K16.229738/60.515575 points. Code is unchanged57cc23e. This lower repeat is retained honestly as variation, not described as an algorithm change. Exact report ../docs/board-round70-endpoint-crc.json.

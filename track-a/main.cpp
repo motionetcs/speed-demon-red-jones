@@ -52,7 +52,7 @@ int main(int argc, char** argv) {
                 uint64_t latency = decimal_digits(p, limit);
                 if (p == start || p - start > 10 || latency > UINT32_MAX || p == limit || *p != '\n') throw std::runtime_error("invalid latency");
                 ++p;
-                uint16_t key = endpoints.intern(endpoint, Endpoints::hash_key(endpoint));
+                uint16_t key = endpoints.intern(endpoint, std::hash<std::string_view>{}(endpoint));
                 if (chunk.first[hour] == UINT32_MAX) {
                     chunk.first[hour] = static_cast<uint32_t>(line - file.data);
                     chunk.records[hour].reserve(reserve_hint);

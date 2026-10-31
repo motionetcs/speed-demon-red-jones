@@ -1,6 +1,6 @@
 # Entry audit — 31 October2026
 
-The observable checks in ENTRY-AUDIT.json passed. The final selected source 07c3136 passes every official gate for A/C/D, with all 27 inputs and 1,056 current-image replays tied in round55-final-source-match.json. Fresh selected-source sanitizer/race checks use isolated paths. This is evidence about the repository and build policy, not an organizer-issued eligibility certificate. RESULTS.md and per-track PERF.md distinguish exact scored source, current candidates, best observations and lower same-source repeats.
+The observable checks in ENTRY-AUDIT.json passed. All27 selected runtime/build/metadata inputs match all-gates scored eb80bc6 and each current best track source. Fresh combined Make/full-public/default checks and1,134 current-image Linux fixture replays pass, tied in round71-final-source-match.json. The retained C pipeline also has a second genuine same-source confirmation on round70. The final restoration commit will receive a fresh official confirmation. This is repository/build evidence, not an organizer-issued eligibility certificate. RESULTS.md and PERF.md distinguish algorithm gains, rejected candidates and unchanged-source variation.
 
 The accepted live entry is Red Jones, tracks A/C/D. B is blank because it is not entered. The earlier screenshot showed rows11–25 while our row was below that range. Three counted tracks satisfy the practice board's overall comparison; reactions are separate.
 

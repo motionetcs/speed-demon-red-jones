@@ -12,7 +12,7 @@ This is the fresh local entry. Check actual external state before treating it as
 | Licence | MIT, official attribution retained |
 | Fresh repository | https://github.com/motionetcs/speed-demon-red-jones — private |
 | Submission branch | speed-demon |
-| Remote source | Selected scored source `07c31360af938e391c3e09e3d21f969a1709b092`; all27 current compiled/build/metadata inputs match it and current best-record sources. See RESULTS.md and round55-final-source-match.json |
+| Remote source | Selected runtime/build/metadata exactly matches all-gates scored `eb80bc6d279802d8280a0dc15b8d824aa2d96ac1` and each current best track source; restored A plus retained C pipeline/D. Fresh final restoration confirmation is pending. See RESULTS.md and round71-final-source-match.json |
 | Individual registration | Entrant confirmed already registered on 31 October 2026; not duplicated |
 | Team form | Submitted successfully for this fresh repository, A/C/D; Tally displayed “Form submitted” |
 | Board app access | Installed and verified on 31 October 2026; only the fresh repository selected; read-only code and metadata |

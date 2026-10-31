@@ -16,11 +16,15 @@ Input need not be sorted. Hour vectors allocate only when they receive records a
 
 ## C: CSV records
 
-A line break inside quotes belongs to a field, so splitting the file on line breaks would be wrong. Our parser follows quoting rules, decodes each doubled quote to one literal quote, preserves trailing spaces, and skips a BOM only at a record boundary. A bounded scanner locates quotes while the parser still checks all quoting rules. It joins region IDs to country codes; unknown regions are grouped as `_UNMATCHED`.
+A line break inside quotes belongs to a field, so splitting the file on line breaks would be wrong. Our parser follows quoting rules, counts a doubled quote as one literal byte, preserves trailing spaces, and skips a BOM only at a record boundary. A bounded scanner locates quotes while the parser still checks all quoting rules. It joins region IDs to country codes; unknown regions are grouped as `_UNMATCHED`.
 
 The region lookup uses a smaller format only when all country IDs and the unmatched sentinel fit; larger country sets keep the wider format. Storage changes never change the joined country.
 
-Money is integer cents: `-0.05` is the integer -5. This makes sums and formatting exact. Every distinct name is stored once in a stable worker-owned block beside a set of country membership bits. The name and its bits share one allocation for cache locality. A bit is either present or absent, so distinct counts are exact without storing millions of separate country/name objects. Full names are compared before sharing a key; hash collisions cannot merge different names. A release/acquire handoff makes the completed key visible before another worker reads it.
+Money is integer cents: `-0.05` is the integer -5. This makes sums and formatting exact. Readers compute ordinary country totals while parsing each record once. Names go in bounded batches to hash-shard owners. At the default twelve workers, eight read and four own name tables. Each connection has one staging and one published batch, at most512 events each. Release/acquire hands the vector to its one consumer; an ordered empty batch finishes that stream. Exceptions cancel the pipeline so workers can exit instead of waiting forever. A one-worker run uses the same exact private name table directly.
+
+Every name goes to one owner, so country membership bits need no shared update. Full key bytes decide equality; collisions cannot merge names. The internal key is the field interior with literal quotes doubled. This encoding is one-to-one: legal unquoted fields contain no quotes, so their bytes already match the same encoding. Quoted `plain` and unquoted `plain` therefore match; quoted-empty and empty also match. Decoded name/note byte lengths are still counted separately. Events borrow the immutable mapped input; each unique key is copied once into the owner's stable block beside its country bits.
+
+Worker partitions begin at proven record ends. A quote that can only close a text field gives a known field boundary; the full parser then advances to a real record terminator. If no safe anchor exists, that boundary becomes EOF. That can make one worker do more work, but it never guesses that a newline inside quotes ends a record.
 
 ## D: directed shortest paths
 
