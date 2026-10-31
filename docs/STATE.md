@@ -1,49 +1,35 @@
 # Current working state
 
-Fresh Red Jones entry: https://github.com/motionetcs/speed-demon-red-jones ; private, required branch `speed-demon`, tracks A/C/D. Preserve unrelated workspace folders. All own solution code was written during the event. Official reference material is pinned under tools/official. No private pre-event implementation is imported.
+Fresh Red Jones entry: https://github.com/motionetcs/speed-demon-red-jones ; private, required branch speed-demon, tracks A/C/D. All own solution code is event-written. Preserve unrelated folders. No private pre-event implementation is imported.
 
-## Active pass starting09:33 UTC on31 October2026
+## Selected source awaiting combined confirmation
 
-Round38 improves D to60.654874/K16.334185; round44 cap2 improves it slightly to60.664986/K16.341793 (all gates). Losing A/C parser/grouped-table changes from rounds38/43 are reverted to exactbf75194 before the new candidates. Round45 writer, round46 split hashes and round49 scheduling losers are archived honestly. A/C still prefer12 workers.
+A/C restored exactly tobf75194 runtime/build/metadata after rounds38/43/51 fail to beat historical bests. D retains the real improvements:16-row bounded prefetch loader, process-local glibc arena cap2, and up to12 loaders. Round51 c4f966f D run-9f2217b19cd8 passes every gate: T0.248728 s/M88,686,592/S772/K17.593454/62.267555 points. The twelve-loader build takes163.371 s, within600. A prefaulting and C aligned-statistics score lower and are removed.
 
-Round51 is ready for exact-commit board submission: A Linux input MAP_POPULATE, C aligned worker-private aggregate counters, D12 loaders on the retained bounded prefetch loader plus cap2. All27 runtime/build/metadata inputs match exact Linux builds. Native/reference/strict sanitizer/race/full/default suites pass;1056 exact-image Linux replays and69 extra GCC15/Linux A ASAN/UBSAN integration runs pass. C/D source byte-identical to fully validated round50. Proof round51-candidate-source-match.json. No Mac speed claim is made for Linux-only A.
+Current best machine points: A72.105578/K27.676524, C66.473216/K21.353266, D62.267555/K17.593454; best-three mean66.828101. Not first place; obtain a fresh complete comparison after final confirmation. D began this pass at60.242402, so the combined retained D gain is2.025153 points. Source variants with unchanged code are reported as repeats, not algorithm gains.
 
-Capture round51 real scores before another runtime push. Retain only if real K beats A27.676524/72.105578, C21.353266/66.473216, D16.341793/60.664986. Restore A/C tobf75194 or D to1ed8388 if needed. Exact candidate contexts and reports remain for rejected-source attribution. Update RESULTS/OWNER/SUBMISSION/this state after final selection; older baseline section follows for provenance.
+Exact selected contexts .build/round55/source; all27 compiled/build/metadata inputs match scored bases and strict native sanitizer/race source contexts in round55-selected-source-match.json. Current-image Linux public/default checks and1056 fixture replays pass. D's new image ID was replayed again rather than reusing old-image evidence. Push this combination and capture its exact board result before another runtime change. No new unscored prototype belongs in track folders.
 
-Native fixtures now use --run-id. The original round38 shared adversarial paths were corrected with isolated reruns and1047 matching Linux replays; preserved reports state the limitation. No pre-event private implementation, cached answers or input recognition is used.
+Rejected block/deque/reservation/cache/grouped/tagged/split/counter-layout/output/delimiter/ordered-query variants are in per-track PERF, raw reports and docs/prototype-patches. Screening-only checks are explicitly limited; no false sanitizer or official result is claimed. The last marginal numeric suffix is outside runtime and has only full-hash screening.
 
-## Retained runtime and real confirmation
+## Validation and operating rules
 
-Final exact all-gates-passing source: `71a023706495a99867f32a3e1856317f0d9e73bb`, board-round32-retained-final.json. Every one of the27 runtime/build/track metadata inputs matches that scored commit in round32-final-source-match.json. All temporary runtime experiments are removed. Documentation/evidence updates after that commit change no compiled input. The working source is also byte-identical to2c6c51e across these27 inputs; the final run confirms the restored combination independently.
+Benchmark one process at a time, warm/rotate/hash all outputs, with no simultaneous agent compilers/tests/training/UI actions. Background desktop activity is not isolated. Apple process RSS and emulated Linux times are not official Intel/cgroup scores. Retain by real total K, including source and memory.
 
-- A: twelve workers, fused exact four-byte records and full uint32 latency escapes, shared full-equality endpoint IDs,8192 slots, lazy hour allocation, released dictionary metadata, sort cutoff32, generic GCC/two-sample PGO. Best72.105578/K27.676524 at2c6c51e.
-- C: twelve workers, exact quoted-field SIMD, direct country map, narrow region lookup with16-bit fallback, exact name/country atomics, XOR quote parity, native GCC/full+sample PGO. Best66.473216/K21.353266 at71a0237.
-- D: twelve workers, sparse exact labels, band64/batch8/count-balanced frontiers, compact edge/degree/cursor storage with full fallbacks, native GCC/full+sample PGO. Best60.242402/K16.026845 atb1388b0, byte-identical D inputs. Final confirmation60.030877 is a repeat, not a new algorithm change.
+Use tools/verify.py --run-id to isolate fixture and output paths. Round38 originally shared adversarial paths; isolated reruns and1047 image-matched Linux replays corrected that attribution; raw reports preserve the limitation. Subsequent jobs use isolated IDs. Independent graph fixtures have one writer/job. Do not overwrite mutable validated image tags until their replays finish. Assert every image/source identity. Test actual defaults without thread/path overrides in Linux.
 
-Final complete snapshot 2026-10-31T09:28:41Z: machine mean66.095609, rank32/68, overall leader80.505463. This pass starts at64.902963; scores improve, but the leaders remain ahead. RESULTS.md records the exact best/latest distinction and per-track gaps. No victory or final holdout/judge result is claimed.
+A preserves exact uint32 latency escapes/ID4095/full name equality; C full CSV/BOM/quote/name/money and country widths through17576; D exact directed duplicates/zero/MAX weights, degree/cursor overflow and64-bit paths. Current source has sanitizer/race/reference/full/public/independent/Linux evidence.
 
-The balanced-minimum D policy passes every gate but scores59.245827, below retained60.242402, and is reverted. It is preserved in round32-balanced-minimum.patch with full validation and actual losing score. The final restored combination is real-board confirmed. There are no active source candidates or board watchers from this pass.
-
-## Engineering rules and evidence
-
-Benchmark one process at a time, with no simultaneous compilers/tests/training/UI activity; warm once, rotate and hash every output. Apple native RSS/timing and emulated Linux times are development evidence, not official Intel/cgroup scores. Source size and dependencies count in K. Preserve historical raw reports.
-
-A keeps full equality and exact latency escapes, including ID4095 and UINT32_MAX. C preserves every quoting/BOM/name/money rule, table growth and full country-width fallback. D keeps zero/large weights, every edge direction/duplicate, conservative queue bounds and exact64-bit paths. Use tools/verify.py with unique reports/new seeds/source roots; strict ASAN/UBSAN and TSAN; tools/test_band_graphs.py for independent graphs; container_verify.py plus verify_container_cases.py for exact offline restricted Linux outputs. Prove image IDs and source hashes. Test actual defaults without environment or path overrides in Linux.
-
-The round18 Linux contexts omitted hidden metadata because an early copy used a shell glob. round18-candidate-source-match.json now states the scope honestly:23 compiled/build inputs match,3 metadata files separately match the previously scored source. No compiled input differed. Round22 onward uses full directory copies, including hidden metadata; new C quote helper makes27 total inputs.
-
-Rejected experiments and exact validation limits are in per-track PERF.md, raw reports and docs/prototype-patches. Do not import an old prototype just because a public hash passed. Batch8 C, merged/twin D labels, owner-routed C, compact name-pointer slots, sampled hashing, direct-index distance arrays, old unquoted SIMD, private membership, negative filters and corridors lack a convincing total tradeoff or lost on the real board. No unscored prototype belongs in a track folder.
-
-`tools/watch_board.py --commit <sha> --report docs/<unique>.json` waits for exact A/C/D scored records. Capture the preceding commit before another source push; the board spaces dispatches. `tools/compare_board.py` refreshes best records/ranks and best-three machine-point mean. Rank can move while scores improve. Update RESULTS.md, source identity and owner docs after final retention.
+Official watch: tools/watch_board.py --commit SHA --report docs/UNIQUE.json. Comparison: tools/compare_board.py with unique snapshot/report. Capture each commit before another source push. Report historical best separately from latest confirmation. Update RESULTS/OWNER/SUBMISSION after final retention.
 
 ## Entry requirements
 
-Registration is entrant-confirmed; accepted team/app access and real A/C/D gate records are verified. The board app has repository-only read access. MIT attribution is preserved. The audit checks observable requirements; it does not certify eligibility or invent human understanding. B is blank because it is not entered. The owner briefing explains the current algorithms honestly.
+Registration entrant-confirmed; team/app accepted; real A/C/D gate records verified. App access is repository-only code/metadata read. MIT attribution is retained and AI assistance is disclosed. Observable audit checks are evidence, not organizer eligibility certification or a human-understanding attestation.
 
-Freeze: 2 November2026 at15:00 UTC /20:30 IST. Preserve the final passing branch commit and make that MIT source public by16:00 UTC /21:30 IST. Private is allowed now. Publication and future monitoring are not scheduled; do not claim otherwise.
+Freeze2 November2026 15:00 UTC/20:30 IST. Preserve final passing speed-demon commit and make that MIT source public by16:00 UTC/21:30 IST. Private is allowed now. Publication/future monitoring are not scheduled. Do not claim otherwise.
 
 ## Emoji target
 
-The user clarified the target is overall #1's counters. Final verified visible row: respect5,848 /devils13,290 /pumpkins38 /cans37 (total19,213), above observed Cause Of Death369/75/28/8 in all four. Target met; no extra reaction farming is needed. Proof: emoji-status.json and emoji-result.jpg. Counts may also change through other visitors. The UI initially showed0 cans after reload; after one normal can click its complete response showed37 for us and8 for the leader. This does not establish any reset or expiry mechanism.
+User clarified overall #1, not the separate clicker millions. Saved visible row respect5848/devils13290/pumpkins38/cans37 exceeds observed Cause Of Death369/75/28/8 in all four. Proof emoji-status.json and emoji-result.jpg. Target met; no more farming is needed. Counts can change via other visitors. Reactions do not change K/rank/demon level.
 
-Use intended visible controls only. No direct counter API/value edits, identity changes, rate-limit bypass or pumpkinlab. A prior bulk pumpkin hold was blocked by automatic review and stopped; never retry it. Separate normal pumpkin/can clicks and explicitly supported respect/devil holds fulfilled the target. Reactions do not change K, rank or demon level. The separate clicker leader's millions are outside the clarified target.
+Use intended visible controls only. Prior bulk pumpkin hold was automatically rejected and stopped; never retry/bypass it. No direct counter edits, identity changes, rate-limit bypass or pumpkinlab.

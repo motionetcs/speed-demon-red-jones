@@ -1,0 +1,16 @@
+--- a/track-a/main.cpp
++++ b/track-a/main.cpp
+@@ -109,8 +109,11 @@
+                         }
+                     }
+                     out.text(label); out.text(" "); out.text(paths[key]);
+-                    for (uint64_t value : {n, uint64_t(first[(50 * n + 99) / 100 - 1]), uint64_t(first[(95 * n + 99) / 100 - 1]), uint64_t(first[(99 * n + 99) / 100 - 1]), errors, errors * 1000000 / n}) { out.text(" "); out.number(static_cast<int64_t>(value)); }
+-                    out.text("\n");
++                    char tail[128]; char* next = tail;
++                    for (uint64_t value : {n, uint64_t(first[(50 * n + 99) / 100 - 1]), uint64_t(first[(95 * n + 99) / 100 - 1]), uint64_t(first[(99 * n + 99) / 100 - 1]), errors, errors * 1000000 / n}) {
++                        *next++ = ' '; next = std::to_chars(next, tail + sizeof(tail), value).ptr;
++                    }
++                    *next++ = '\n'; out.text({tail, static_cast<size_t>(next - tail)});
+                 }
+             }
+         });
