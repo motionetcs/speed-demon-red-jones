@@ -1,4 +1,4 @@
-> Active candidate111 changes only A CPU targeting and C final-image arena cap on the exact selected algorithms. Restored109 passes every real gate: A72.786488/C67.402878/D64.547044. Historical bests remain72.924546/67.750087/65.222044; the lower repeats are visible, not hidden. New111 images pass1323 reference cases/defaults in round111-candidate-source-match.json; actual111 scores are pending.
+> Active118 changes only A's exact calendar identity over the guaranteed72-hour range. All27 inputs/new images pass1323 reference runs/defaults and fresh all-hour/sanitizer/race proof. C original71 and D32 stay selected; losing111 settings are removed. Actual118 scores are pending. Best observations remain72.924546/67.750087/65.222044; material lower repeats are preserved.
 
 # Historical selected results before candidate89
 

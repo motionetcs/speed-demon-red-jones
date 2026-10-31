@@ -330,3 +330,6 @@ Round107/8182e42 block-owned split-direction loading passes every official gate,
 
 
 Selected restoration109/6e5950c passes every official gate, run-c7cff86160b4: T0.208181 s/M77750272/S827/K19.540734/64.547044. It exactly matches the same runtime/build/metadata source as104's65.222044/K20.157695. Preserve both: this lower repeat is material measurement/scheduling variation, not another algorithm change. The two32-entry observations do not support a precise causal5.7% estimate. D32 remains the selected best-record source; the controlled native comparisons and initial real improvement are supporting evidence. Raw ../docs/board-round109-selected-confirmation.json. A/C restored originals also pass; no owned-loader code remains.
+
+
+Round111 unchanged selected D32 passes every official gate, run-13f7fa4b0adb: T0.200718 s/M77692928/S827/K19.903632/64.946617. This third same-source observation lies between104 and109. Best65.222044 remains, without claiming another algorithm change. Raw ../docs/board-round111-native-a-arena-c.json.

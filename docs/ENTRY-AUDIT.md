@@ -1,6 +1,6 @@
-# Active111 audit context
+# Active118 audit context
 
-Every solution C++/header/metadata/generator byte matches selected109, which passes all official gates. A changes only both GCC passes to-native CPU targeting with original sample PGO; C adds only final-image MALLOC_ARENA_MAX=2; D is retained32-entry atomic loading. All27 source/configuration inputs and explicit new image IDs,1323 Linux replays and actual defaults match round111-candidate-source-match.json. Existing identical-source strict proof is reused explicitly; actual111 acceptance remains pending. Publication remains excluded pending the specific approval required by automatic review.
+Only A calendar arithmetic changes from real-confirmed selected6e5950c, with an algebraic identity over the exact promised four dates. All27 runtime/build/metadata inputs and explicit new A/current C/D images,1323 reference replays/defaults and fresh1543/1549 sanitizer,1553 TSAN/all72-hour/method/escape proof match round118-candidate-source-match.json. No record-buffer, native-A, C-arena or owned-D prototype remains. Actual118 acceptance is pending; publication still requires the specific approval requested after automatic review rejected that visibility scope.
 
 # Entry audit — 31 October 2026
 

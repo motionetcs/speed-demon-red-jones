@@ -1,0 +1,65 @@
+--- a/track-c/main.cpp
++++ b/track-c/main.cpp
+@@ -46,6 +46,30 @@
+             }
+         }
+         throw std::runtime_error("unterminated quoted field");
++    }
++    // Only payload fields need raw canonical bytes plus decoded byte length.
++    Field data_field(std::string& scratch){
++        if(p==end||*p!='"')return field(scratch,false);
++        const char* start=++p;size_t quotes=0;
++        auto finish=[&](const char* close,size_t before){size_t raw=static_cast<size_t>(close-start);p=close+1;return Field{{start,raw},raw-before/2,before!=0};};
++        while(end-p>=16){
++            uint32_t mask=quote_mask16(p);
++            if(mask){
++
++                uint32_t parity=mask;parity^=parity<<1;parity^=parity<<2;parity^=parity<<4;parity^=parity<<8;
++                if(quotes&1)parity=~parity;
++                uint32_t next=(mask>>1)|(uint32_t(p+16<end&&p[16]=='"')<<15);
++                uint32_t closing=mask&parity&~next;
++                if(closing){unsigned i=std::countr_zero(closing);return finish(p+i,quotes+std::popcount(mask&((1U<<i)-1)));}
++                quotes+=std::popcount(mask);
++            }
++            p+=16;
++        }
++        while(p<end){
++            if(*p=='"'){++quotes;if((quotes&1)&&(p+1==end||p[1]!='"'))return finish(p,quotes-1);}
++            ++p;
++        }
++        throw std::runtime_error("unterminated quoted payload");
+     }
+     void comma() {
+         if (p == end || *p++ != ',') throw std::runtime_error("expected CSV comma");
+@@ -184,9 +208,9 @@
+                         Csv csv{boundaries[worker],boundaries[worker+1]};std::string name_scratch,unused;
+                         while(csv.p<csv.end){
+                             if(canceled.load(std::memory_order_relaxed))throw std::runtime_error("name pipeline canceled");
+-                            csv.bom();uint64_t id=csv.integer();Field name=csv.field(name_scratch,false);csv.comma();
++                            csv.bom();uint64_t id=csv.integer();Field name=csv.data_field(name_scratch);csv.comma();
+                             uint64_t hash=Names::hash_key(name.value);
+-                            Field note=csv.field(unused,false);csv.comma();uint64_t region=csv.integer();int64_t amount=csv.amount();csv.newline();
++                            Field note=csv.data_field(unused);csv.comma();uint64_t region=csv.integer();int64_t amount=csv.amount();csv.newline();
+                             size_t country=region<region_lookup.size()&&region_lookup[region]!=no_region?region_lookup[region]:unmatched;
+                             Group& group=local.groups[country];++group.count;group.ids+=static_cast<int64_t>(id);group.sum+=amount;
+                             group.minimum=std::min(group.minimum,amount);group.maximum=std::max(group.maximum,amount);
+--- a/track-c/quote_scan.hpp
++++ b/track-c/quote_scan.hpp
+@@ -28,3 +28,17 @@
+ #endif
+     return static_cast<const char*>(std::memchr(p, '"', end - p));
+ }
++
++// Caller supplies a complete16-byte in-range block; one bit per exact quote.
++inline uint32_t quote_mask16(const char* p){
++#if defined(__SSE2__)
++    auto bytes=_mm_loadu_si128(reinterpret_cast<const __m128i*>(p));
++    return static_cast<uint32_t>(_mm_movemask_epi8(_mm_cmpeq_epi8(bytes,_mm_set1_epi8('"'))));
++#elif defined(__aarch64__) && defined(__ARM_NEON) && __BYTE_ORDER__==__ORDER_LITTLE_ENDIAN__
++    auto equal=vceqq_u8(vld1q_u8(reinterpret_cast<const uint8_t*>(p)),vdupq_n_u8('"'));
++    uint8x8_t weights={1,2,4,8,16,32,64,128};auto bits=vandq_u8(equal,vcombine_u8(weights,weights));
++    return uint32_t(vaddv_u8(vget_low_u8(bits)))|(uint32_t(vaddv_u8(vget_high_u8(bits)))<<8);
++#else
++    uint32_t mask=0;for(unsigned i=0;i<16;++i)mask|=uint32_t(p[i]=='"')<<i;return mask;
++#endif
++}

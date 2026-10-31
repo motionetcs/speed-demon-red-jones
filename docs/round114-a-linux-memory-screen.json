@@ -1,0 +1,104 @@
+{
+  "observed_at_utc": "2026-10-31T16:39:28.484126+00:00",
+  "official_score": false,
+  "scope": "Unprivileged local test wrapper reads only its own cgroup memory.max/peak after solution execution. Solutions themselves never read cgroups; wrapper is not shipped. Each container has8GiB max verified, fresh cgroup per run, default12 workers, read-only input/root and exact public output. Warm once then5 alternating trials. Emulated Linux on Apple: shell/JIT/kernel/cache charging differ from native scoring, so this is diagnostic memory evidence only, never an official score or timing.",
+  "results": {
+    "retained": {
+      "median_peak_bytes": 281698304,
+      "runs": [
+        {
+          "peak_bytes_including_shell_emulation_and_kernel": 282406912,
+          "memory_limit_bytes": 8589934592,
+          "image_id": "sha256:da9f5d30d653b0b3ff69f1d6c8b4f283cf2f960bf185c64316ef0ab9e6705217",
+          "output_sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "peak_bytes_including_shell_emulation_and_kernel": 281575424,
+          "memory_limit_bytes": 8589934592,
+          "image_id": "sha256:da9f5d30d653b0b3ff69f1d6c8b4f283cf2f960bf185c64316ef0ab9e6705217",
+          "output_sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "peak_bytes_including_shell_emulation_and_kernel": 282464256,
+          "memory_limit_bytes": 8589934592,
+          "image_id": "sha256:da9f5d30d653b0b3ff69f1d6c8b4f283cf2f960bf185c64316ef0ab9e6705217",
+          "output_sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "peak_bytes_including_shell_emulation_and_kernel": 281341952,
+          "memory_limit_bytes": 8589934592,
+          "image_id": "sha256:da9f5d30d653b0b3ff69f1d6c8b4f283cf2f960bf185c64316ef0ab9e6705217",
+          "output_sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "peak_bytes_including_shell_emulation_and_kernel": 281698304,
+          "memory_limit_bytes": 8589934592,
+          "image_id": "sha256:da9f5d30d653b0b3ff69f1d6c8b4f283cf2f960bf185c64316ef0ab9e6705217",
+          "output_sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        }
+      ]
+    },
+    "raw-bounded": {
+      "median_peak_bytes": 276619264,
+      "runs": [
+        {
+          "peak_bytes_including_shell_emulation_and_kernel": 275632128,
+          "memory_limit_bytes": 8589934592,
+          "image_id": "sha256:be1a27e3dd8242dfd9ff4faf33c640f8f2d44962a24eed2c4b6082cd61a333ef",
+          "output_sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "peak_bytes_including_shell_emulation_and_kernel": 280281088,
+          "memory_limit_bytes": 8589934592,
+          "image_id": "sha256:be1a27e3dd8242dfd9ff4faf33c640f8f2d44962a24eed2c4b6082cd61a333ef",
+          "output_sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "peak_bytes_including_shell_emulation_and_kernel": 276619264,
+          "memory_limit_bytes": 8589934592,
+          "image_id": "sha256:be1a27e3dd8242dfd9ff4faf33c640f8f2d44962a24eed2c4b6082cd61a333ef",
+          "output_sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "peak_bytes_including_shell_emulation_and_kernel": 279187456,
+          "memory_limit_bytes": 8589934592,
+          "image_id": "sha256:be1a27e3dd8242dfd9ff4faf33c640f8f2d44962a24eed2c4b6082cd61a333ef",
+          "output_sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "peak_bytes_including_shell_emulation_and_kernel": 276037632,
+          "memory_limit_bytes": 8589934592,
+          "image_id": "sha256:be1a27e3dd8242dfd9ff4faf33c640f8f2d44962a24eed2c4b6082cd61a333ef",
+          "output_sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        }
+      ]
+    }
+  },
+  "source_sha256": {
+    "retained": {
+      "training_generator.py": "d82b43b8f617016808f85cbe9be86af1fee8466296a0848ab8e6908ee3c4b0b4",
+      "Dockerfile": "1be0b0b49370973674d5910deb7d043f133eb85895f2043cf82a61abfcdba3e4",
+      "io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+      "README.md": "4fe1a47bfc61c41e7e8b6f64458d846231df20854a69117904b3c94b71bf0613",
+      "endpoint_table.hpp": "913048b747b8f938cf1b438f29648a62d11434b2d71c3fb9a9b5f5aae31df745",
+      "PERF.md": "9b5ee4fce9db251ebcc7b2c29cda8c899cde8f5c6afa99e91a20b1418f8aafae",
+      ".speed-demon.toml": "c9ae973186c14661797640f427009129e2a80d1aecefd5d4fa413ee7f3da44d8",
+      "main.cpp": "7c6376cc1ed883ca5d7305236b19f16d9c88e9ab21d06a6cbfd2fdab4de1b77c",
+      "decimal.hpp": "aee2210ac5894050834ffd37903718b3b7bdc6673240559baa85b350bea9b581",
+      "parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420"
+    },
+    "raw-bounded": {
+      "record_buffer.hpp": "64021f96e12d0bebc19b10dc7b05019241370481b7d2b02d349f894799f16454",
+      "training_generator.py": "d82b43b8f617016808f85cbe9be86af1fee8466296a0848ab8e6908ee3c4b0b4",
+      "Dockerfile": "a28239dc67848bd4f83b27060631276d283080b95eae3caec37e257af1295770",
+      "io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+      "README.md": "4fe1a47bfc61c41e7e8b6f64458d846231df20854a69117904b3c94b71bf0613",
+      "endpoint_table.hpp": "913048b747b8f938cf1b438f29648a62d11434b2d71c3fb9a9b5f5aae31df745",
+      "PERF.md": "9b5ee4fce9db251ebcc7b2c29cda8c899cde8f5c6afa99e91a20b1418f8aafae",
+      ".speed-demon.toml": "c9ae973186c14661797640f427009129e2a80d1aecefd5d4fa413ee7f3da44d8",
+      "main.cpp": "709475c8658b96fd16efcef0f2db264b9d70b20c57e82bda16bf49d6ebb1ee04",
+      "decimal.hpp": "aee2210ac5894050834ffd37903718b3b7bdc6673240559baa85b350bea9b581",
+      "parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420"
+    }
+  }
+}

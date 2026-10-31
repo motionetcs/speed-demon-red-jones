@@ -1,0 +1,92 @@
+--- a/track-a/Dockerfile
++++ b/track-a/Dockerfile
+@@ -1,6 +1,6 @@
+ FROM gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce AS build
+ WORKDIR /src
+-COPY training_generator.py main.cpp endpoint_table.hpp io.hpp decimal.hpp parallel.hpp ./
++COPY record_buffer.hpp training_generator.py main.cpp endpoint_table.hpp io.hpp decimal.hpp parallel.hpp ./
+ RUN g++ -std=c++20 -O3 -DNDEBUG -pthread -static -fprofile-generate=/profile -fprofile-update=atomic main.cpp -o /solution
+ RUN python3 training_generator.py --seed 104729 --scale sample --out /training && /solution --data /training --out /training-output && python3 training_generator.py --seed 130363 --scale sample --out /training && /solution --data /training --out /training-output
+ RUN g++ -std=c++20 -O3 -DNDEBUG -pthread -static -fprofile-use=/profile -fprofile-correction -Werror=missing-profile main.cpp -o /solution
+--- a/track-a/main.cpp
++++ b/track-a/main.cpp
+@@ -2,6 +2,7 @@
+ #include "decimal.hpp"
+ #include "endpoint_table.hpp"
+ #include "parallel.hpp"
++#include "record_buffer.hpp"
+ #include <atomic>
+ #include <memory>
+ #include <numeric>
+@@ -27,7 +28,8 @@
+         }
+         Endpoints endpoints;
+         struct Chunk {
+-            std::array<std::vector<uint32_t>, 72> records, wide;
++            std::array<RecordBuffer,72> records;
++            std::array<std::vector<uint32_t>,72> wide;
+             std::array<uint32_t, 72> first;
+             Chunk() { first.fill(UINT32_MAX); }
+         };
+@@ -36,12 +38,13 @@
+             const char* p = boundaries[worker]; const char* limit = boundaries[worker + 1];
+             auto& chunk = chunks[worker];
+             LocalEndpoints local_names(endpoints);
+-            size_t reserve_hint = (limit - p) / (72 * 64);
++            size_t reserve_hint = static_cast<size_t>(limit-p)/32+1;
+             while (p < limit) {
+                 if (limit - p < 28) throw std::runtime_error("truncated timestamp");
+                 const char* line = p;
+-                int month = (p[5] - '0') * 10 + p[6] - '0', day = (p[8] - '0') * 10 + p[9] - '0';
+-                int hour = (month == 10 ? day - 30 : day + 1) * 24 + (p[11] - '0') * 10 + p[12] - '0' - 18;
++                // Frozen dates Oct30/31, Nov1/2 give last-digit sums0/1/2/3.
++                int day_index=(p[6]-'0')+(p[9]-'0');
++                int hour=day_index*24+(p[11]-'0')*10+p[12]-'0'-18;
+                 if (hour < 0 || hour >= 72) throw std::runtime_error("hour outside specification");
+                 p += 28; while (p < limit && *p != ' ') ++p;
+                 if (p == limit) throw std::runtime_error("missing endpoint");
+@@ -56,9 +59,9 @@
+                 uint16_t key = local_names.intern(endpoint);
+                 if (chunk.first[hour] == UINT32_MAX) {
+                     chunk.first[hour] = static_cast<uint32_t>(line - file.data);
+-                    chunk.records[hour].reserve(reserve_hint);
++                    chunk.records[hour].allocate(reserve_hint);
+                 }
+-                chunk.records[hour].push_back(std::min(uint32_t(latency), latency_escape) << 13 | uint32_t(error) << 12 | key);
++                chunk.records[hour].append(std::min(uint32_t(latency), latency_escape) << 13 | uint32_t(error) << 12 | key);
+                 if (latency >= latency_escape) chunk.wide[hour].push_back(static_cast<uint32_t>(latency));
+             }
+         });
+@@ -90,7 +93,7 @@
+                         if (latency == latency_escape) latency = chunk.wide[hour][wide++];
+                         latencies[cursor[record & 4095]++] = latency;
+                     }
+-                    std::vector<uint32_t>().swap(chunk.records[hour]); std::vector<uint32_t>().swap(chunk.wide[hour]);
++                    chunk.records[hour].release(); std::vector<uint32_t>().swap(chunk.wide[hour]);
+                 }
+                 std::string label = std::string(file.data + first_line, 13) + ":00:00Z";
+                 auto& out = output[hour]; out.bytes.reserve(order.size() * 100);
+--- /dev/null
++++ b/track-a/record_buffer.hpp
+@@ -0,0 +1,21 @@
++#pragma once
++#include <cassert>
++#include <cstddef>
++#include <cstdint>
++#include <memory>
++// At most one row per32 input bytes: every accepted row consumes at least36.
++// Allocate on first use without value-initializing unused capacity. Only the
++// written prefix is ever read; ownership transfers after parser threads join.
++struct RecordBuffer {
++    RecordBuffer()=default;
++    RecordBuffer(const RecordBuffer&)=delete;
++    RecordBuffer& operator=(const RecordBuffer&)=delete;
++    std::unique_ptr<uint32_t[]> values;
++    size_t used=0,capacity=0;
++    void allocate(size_t maximum){assert(!values&&used==0);values.reset(new uint32_t[maximum]);capacity=maximum;}
++    void append(uint32_t value){assert(used<capacity);values[used++]=value;}
++    size_t size()const{return used;}
++    const uint32_t* begin()const{return values.get();}
++    const uint32_t* end()const{return used?values.get()+used:values.get();}
++    void release(){values.reset();used=capacity=0;}
++};

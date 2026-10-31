@@ -40,8 +40,9 @@ int main(int argc, char** argv) {
             while (p < limit) {
                 if (limit - p < 28) throw std::runtime_error("truncated timestamp");
                 const char* line = p;
-                int month = (p[5] - '0') * 10 + p[6] - '0', day = (p[8] - '0') * 10 + p[9] - '0';
-                int hour = (month == 10 ? day - 30 : day + 1) * 24 + (p[11] - '0') * 10 + p[12] - '0' - 18;
+                // Frozen dates Oct30/31, Nov1/2 give last-digit sums0/1/2/3.
+                int day_index=(p[6]-'0')+(p[9]-'0');
+                int hour=day_index*24+(p[11]-'0')*10+p[12]-'0'-18;
                 if (hour < 0 || hour >= 72) throw std::runtime_error("hour outside specification");
                 p += 28; while (p < limit && *p != ' ') ++p;
                 if (p == limit) throw std::runtime_error("missing endpoint");
