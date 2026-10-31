@@ -73,20 +73,23 @@ int main(int argc, char** argv) {
         }
         std::vector<uint32_t> cursor(offsets), reverse_cursor(reverse_offsets);
         EdgeStore edges(m, n), reverse_edges(m, n);
-        parallel(loaders, [&](unsigned worker) {
+        auto scatter = [&]<bool Compact>() {
+            parallel(loaders, [&](unsigned worker) {
             auto& local = locals[worker];
             Scanner input{boundaries[worker], boundaries[worker + 1]};
             while (input.more()) {
                 uint32_t u = input.number(), v = input.number(), value = input.number();
                 uint32_t out = std::atomic_ref(cursor[u]).fetch_add(1, std::memory_order_relaxed);
                 uint32_t in = std::atomic_ref(reverse_cursor[v]).fetch_add(1, std::memory_order_relaxed);
-                uint32_t weight = std::min(value, edges.weight_limit);
-                edges.set(out, v, weight); reverse_edges.set(in, u, weight);
-                if (value >= edges.weight_limit) {
+                uint32_t weight = std::min(value, Compact ? EdgeStore::small_limit : uint32_t(UINT16_MAX));
+                edges.set<Compact>(out, v, weight); reverse_edges.set<Compact>(in, u, weight);
+                if (value >= (Compact ? EdgeStore::small_limit : uint32_t(UINT16_MAX))) {
                     local.wide.emplace_back(out * 2, value); local.wide.emplace_back(in * 2 + 1, value);
                 }
             }
         });
+        };
+        if (edges.compact) scatter.template operator()<true>(); else scatter.template operator()<false>();
         std::unordered_map<uint32_t, uint32_t> wide_weights;
         for (const auto& local : locals) for (auto [index, weight] : local.wide) wide_weights.emplace(index, weight);
         locals.clear(); std::vector<uint32_t>().swap(cursor); std::vector<uint32_t>().swap(reverse_cursor);
@@ -100,7 +103,7 @@ int main(int argc, char** argv) {
         threads = static_cast<unsigned>(std::min<size_t>(threads, queries.size()));
         std::vector<int64_t> answers(queries.size(), -1);
         std::atomic<size_t> next{0};
-        auto worker = [&] {
+        auto worker = [&]<bool Compact>() {
             constexpr uint64_t infinity = UINT64_MAX;
             FastDistances forward, backward;
             RadixHeap forward_heap, backward_heap;
@@ -130,14 +133,14 @@ int main(int argc, char** argv) {
                     for (size_t k = 0; k < count; ++k) {
                         uint32_t node = work[k].second;
                         ranges[k] = {starts[node], starts[node + 1]};
-                        if (ranges[k].first < ranges[k].second) adjacency.prefetch(ranges[k].first);
+                        if (ranges[k].first < ranges[k].second) adjacency.template prefetch<Compact>(ranges[k].first);
                     }
                     for (size_t k = 0; k < count; ++k) {
                         auto [d, u] = work[k];
                         if (d != own.get(u)) continue; // Earlier items may improve this label within the band.
                         for (uint32_t i = ranges[k].first; i < ranges[k].second; ++i) {
-                            auto [destination, tag] = adjacency.get(i);
-                            uint32_t weight = tag == adjacency.weight_limit ? wide_weights.at(i * 2 + (from_source ? 0 : 1)) : tag;
+                            auto [destination, tag] = adjacency.template get<Compact>(i);
+                            uint32_t weight = tag == (Compact ? EdgeStore::small_limit : uint32_t(UINT16_MAX)) ? wide_weights.at(i * 2 + (from_source ? 0 : 1)) : tag;
                             uint64_t candidate = d + weight;
                             if (own.improve(destination, candidate)) {
                                 heap.push({candidate, destination});
@@ -150,7 +153,10 @@ int main(int argc, char** argv) {
                 if (best != infinity) answers[query] = static_cast<int64_t>(best);
             }
         };
-        if (threads) parallel(threads, [&](unsigned) { worker(); });
+        if (threads) {
+            if (edges.compact) parallel(threads, [&](unsigned) { worker.template operator()<true>(); });
+            else parallel(threads, [&](unsigned) { worker.template operator()<false>(); });
+        }
         Output output;
         for (int64_t answer : answers) { output.number(answer); output.text("\n"); }
         output.save(paths.out / "distances.txt");

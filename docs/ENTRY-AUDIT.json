@@ -1,43 +1,40 @@
 {
-  "observed_at_utc": "2026-10-31T06:08:47.145089+00:00",
+  "observed_at_utc": "2026-10-31T06:17:39.915121+00:00",
   "scope": "Observable repository/history/build-policy checks, not an organizer eligibility certificate",
-  "source_commit": "46504cbb5cda9e3df890ffe202dab4e3f7587393",
+  "source_commit": "bba4fe03074368db5bb0bc0b49af917306e9bdb2",
   "dirty_paths": [
-    "M Makefile",
-    " M docs/ENTRY-AUDIT.md",
-    " M docs/OWNER-BRIEFING.md",
+    "M docs/ENTRY-AUDIT.md",
     " M docs/STATE.md",
+    " M tools/test_edge_store.cpp",
     " M tools/verify.py",
-    " M tools/watch_board.py",
+    " M tools/verify_container_cases.py",
+    " M track-a/Dockerfile",
     " M track-a/PERF.md",
     " M track-a/README.md",
     " M track-c/Dockerfile",
     " M track-c/PERF.md",
     " M track-c/README.md",
-    " D track-c/training_generator.py",
     " M track-d/Dockerfile",
     " M track-d/PERF.md",
     " M track-d/README.md",
+    " M track-d/edge_store.hpp",
     " M track-d/main.cpp",
-    " M track-d/radix_heap.hpp",
-    "?? docs/board-round3-pgo-band.json",
-    "?? docs/round4-edge-store-model.json",
-    "?? docs/round4-edgepack-boundary.json",
-    "?? docs/round4-edgepack-independent.json",
-    "?? docs/round4-edgepack-native.json",
-    "?? docs/round4-edgepack-public.json",
-    "?? docs/round4-edgepack-tiny.json",
-    "?? docs/round4-final-container.json",
-    "?? docs/round4-final-independent.json",
-    "?? docs/round4-final-linux-cases.json",
-    "?? docs/round4-final-linux-six.json",
-    "?? docs/round4-final-public.json",
-    "?? docs/round4-final-sample.json",
-    "?? docs/round4-final-sanitizers.json",
-    "?? docs/round4-final-thread-sanitizer.json",
-    "?? docs/round4-retained-ac-sanitizers.json",
-    "?? tools/test_edge_store.cpp",
-    "?? track-d/edge_store.hpp"
+    "?? docs/board-round4-edgepack.json",
+    "?? docs/round5-edge-store-model.json",
+    "?? docs/round5-final-independent.json",
+    "?? docs/round5-final-linux-cases.json",
+    "?? docs/round5-final-linux-six.json",
+    "?? docs/round5-final-public.json",
+    "?? docs/round5-final-sample.json",
+    "?? docs/round5-final-sanitizers.json",
+    "?? docs/round5-final-thread-sanitizer.json",
+    "?? docs/round5-fixedpack-native.json",
+    "?? docs/round5-fixedpack-public.json",
+    "?? docs/round5-fixedpack-tiny.json",
+    "?? docs/round5-full-pgo-ac-container.json",
+    "?? docs/round5-full-pgo-ac-linux-cases.json",
+    "?? docs/round5-full-pgo-d-container.json",
+    "?? track-c/training_generator.py"
   ],
   "repository": {
     "defaultBranchRef": {
@@ -204,6 +201,14 @@
       ]
     },
     {
+      "requirement": "Observed commit timestamps inside event: bba4fe0",
+      "passed": true,
+      "evidence": [
+        "2026-10-31T11:38:48+05:30",
+        "2026-10-31T11:38:48+05:30"
+      ]
+    },
+    {
       "requirement": "A required file Dockerfile",
       "passed": true,
       "evidence": "track-a/Dockerfile"
@@ -312,6 +317,7 @@
       "requirement": "C no dataset/binary in build context",
       "passed": true,
       "evidence": [
+        "training_generator.py",
         "Dockerfile",
         "names.hpp",
         "io.hpp",
@@ -477,6 +483,11 @@
       "commit": "46504cbb5cda9e3df890ffe202dab4e3f7587393",
       "author_time": "2026-10-31T11:33:29+05:30",
       "committer_time": "2026-10-31T11:33:29+05:30"
+    },
+    {
+      "commit": "bba4fe03074368db5bb0bc0b49af917306e9bdb2",
+      "author_time": "2026-10-31T11:38:48+05:30",
+      "committer_time": "2026-10-31T11:38:48+05:30"
     }
   ],
   "future_requirements": [

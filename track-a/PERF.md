@@ -118,3 +118,9 @@ Next isolated hypothesis: keep hour-owned workspaces and generic GCC, replacing 
 ## Isolated compiler /128-band board result
 
 `run-7b5e46ea09f2` on `46504cbb5cda9e3df890ffe202dab4e3f7587393` passed all gates: T=0.061706 s, M=39,182,336 bytes, S=344, K=24.685326, points=69.621943. Record: `../docs/board-round3-pgo-band.json`. Isolated PGO improves the preceding best69.286469 to69.621943; retained.
+
+## Variable-width packing: real board result
+
+`run-9c7fc0032577` on `bba4fe03074368db5bb0bc0b49af917306e9bdb2` passed every gate: T=0.061931 s, M=40,112,128 bytes, S=344, K=24.525137, points=69.480572. Record: `../docs/board-round4-edgepack.json`. Runtime build inputs are unchanged from the retained configuration; the score difference is repeat variation.
+
+Next compiler hypothesis: full-scale training at independent seed1000003, plus sample130363, better represents the scored workload than two samples. In C, sample and full use the same name-pool size, so new-key frequency differs materially. All input/output/profile files remain in builder stages. Public seed1 is not a training input. Validate on other seeds and real board K; retain only measured overall gains.
