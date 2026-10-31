@@ -1,6 +1,11 @@
 #pragma once
 #include <atomic>
+#include <functional>
+#if defined(__SSE4_2__)
+#include <nmmintrin.h>
+#endif
 #include <cstdint>
+#include <cstring>
 #include <memory>
 #include <stdexcept>
 #include <string_view>
@@ -12,6 +17,16 @@ struct Endpoints {
     std::unique_ptr<Entry[]> entries = std::make_unique<Entry[]>(capacity);
     std::atomic<uint32_t> used{0};
     std::atomic<bool> canceled{false};
+    static uint64_t hash_key(std::string_view key) {
+#if defined(__SSE4_2__)
+        uint64_t hash=key.size();const char* p=key.data();size_t remaining=key.size();
+        while(remaining>=8){uint64_t word;std::memcpy(&word,p,8);hash=_mm_crc32_u64(hash,word);p+=8;remaining-=8;}
+        if(remaining){uint64_t tail=0;std::memcpy(&tail,p,remaining);hash=_mm_crc32_u64(hash,tail);}
+        return hash*0x9e3779b97f4a7c15ULL;
+#else
+        return std::hash<std::string_view>{}(key);
+#endif
+    }
     uint16_t intern(std::string_view value, uint64_t hash) {
         if (canceled.load(std::memory_order_relaxed)) throw std::runtime_error("endpoint limit exceeded");
         size_t slot = hash & (capacity - 1);

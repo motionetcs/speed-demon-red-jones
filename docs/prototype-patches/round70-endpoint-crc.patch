@@ -1,0 +1,56 @@
+--- a/track-a/Dockerfile
++++ b/track-a/Dockerfile
+@@ -1,9 +1,9 @@
+ FROM gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce AS build
+ WORKDIR /src
+ COPY training_generator.py main.cpp endpoint_table.hpp io.hpp decimal.hpp parallel.hpp ./
+-RUN g++ -std=c++20 -O3 -DNDEBUG -pthread -static -fprofile-generate=/profile -fprofile-update=atomic main.cpp -o /solution
++RUN g++ -std=c++20 -O3 -msse4.2 -DNDEBUG -pthread -static -fprofile-generate=/profile -fprofile-update=atomic main.cpp -o /solution
+ RUN python3 training_generator.py --seed 104729 --scale sample --out /training && /solution --data /training --out /training-output && python3 training_generator.py --seed 130363 --scale sample --out /training && /solution --data /training --out /training-output
+-RUN g++ -std=c++20 -O3 -DNDEBUG -pthread -static -fprofile-use=/profile -fprofile-correction -Werror=missing-profile main.cpp -o /solution
++RUN g++ -std=c++20 -O3 -msse4.2 -DNDEBUG -pthread -static -fprofile-use=/profile -fprofile-correction -Werror=missing-profile main.cpp -o /solution
+ 
+ FROM debian:13-slim@sha256:62bd423aeee912639ca8ee681c2b762cb3e25137e0a92b20be455898a9f034ad
+ COPY --from=build /solution /app/solution
+--- a/track-a/endpoint_table.hpp
++++ b/track-a/endpoint_table.hpp
+@@ -1,6 +1,11 @@
+ #pragma once
+ #include <atomic>
++#include <functional>
++#if defined(__SSE4_2__)
++#include <nmmintrin.h>
++#endif
+ #include <cstdint>
++#include <cstring>
+ #include <memory>
+ #include <stdexcept>
+ #include <string_view>
+@@ -12,6 +17,16 @@
+     std::unique_ptr<Entry[]> entries = std::make_unique<Entry[]>(capacity);
+     std::atomic<uint32_t> used{0};
+     std::atomic<bool> canceled{false};
++    static uint64_t hash_key(std::string_view key) {
++#if defined(__SSE4_2__)
++        uint64_t hash=key.size();const char* p=key.data();size_t remaining=key.size();
++        while(remaining>=8){uint64_t word;std::memcpy(&word,p,8);hash=_mm_crc32_u64(hash,word);p+=8;remaining-=8;}
++        if(remaining){uint64_t tail=0;std::memcpy(&tail,p,remaining);hash=_mm_crc32_u64(hash,tail);}
++        return hash*0x9e3779b97f4a7c15ULL;
++#else
++        return std::hash<std::string_view>{}(key);
++#endif
++    }
+     uint16_t intern(std::string_view value, uint64_t hash) {
+         if (canceled.load(std::memory_order_relaxed)) throw std::runtime_error("endpoint limit exceeded");
+         size_t slot = hash & (capacity - 1);
+--- a/track-a/main.cpp
++++ b/track-a/main.cpp
+@@ -52,7 +52,7 @@
+                 uint64_t latency = decimal_digits(p, limit);
+                 if (p == start || p - start > 10 || latency > UINT32_MAX || p == limit || *p != '\n') throw std::runtime_error("invalid latency");
+                 ++p;
+-                uint16_t key = endpoints.intern(endpoint, std::hash<std::string_view>{}(endpoint));
++                uint16_t key = endpoints.intern(endpoint, Endpoints::hash_key(endpoint));
+                 if (chunk.first[hour] == UINT32_MAX) {
+                     chunk.first[hour] = static_cast<uint32_t>(line - file.data);
+                     chunk.records[hour].reserve(reserve_hint);

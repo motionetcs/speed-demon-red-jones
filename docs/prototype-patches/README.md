@@ -53,3 +53,5 @@ Round61 patches apply to57cc23e. Mapped-records A, serial-boundaries C and one-l
 Rounds63–64 patches apply to9933500b9335ab4866a21ac96990dac5fa2f8cb5. See round63-64-prototype-index.json for precise screening versus full-validation limits. The round64 selected combination restores D from57cc23e; only mapped/scalar/native A and128-bit C proceed to a new real benchmark.
 
 Rounds65–67 ownership patches apply to44d8c636a8a5a225ce6496d82966b2049e6ce2f4. Compiler macro variants and precise screening/full-validation limits are recorded in round65-67-prototype-index.json. Only the selected67 pipeline receives broad validation and a new official benchmark.
+
+Rounds68–70 patches apply toeb80bc6d279802d8280a0dc15b8d824aa2d96ac1. Phase markers are diagnostics only. D hash/reset variants are screened and rejected; only A endpoint CRC receives broad validation and a new official run. Exact limits: round68-70-prototype-index.json.

@@ -1,0 +1,48 @@
+--- a/track-a/main.cpp
++++ b/track-a/main.cpp
+@@ -1,3 +1,4 @@
++#include <chrono>
+ #include "io.hpp"
+ #include "decimal.hpp"
+ #include "endpoint_table.hpp"
+@@ -11,10 +12,13 @@
+ 
+ int main(int argc, char** argv) {
+     try {
++        using ProfileClock=std::chrono::steady_clock;auto profile_last=ProfileClock::now();
++        auto mark=[&](const char* name){auto now=ProfileClock::now();std::fprintf(stderr,"PHASE %s %.9f\n",name,std::chrono::duration<double>(now-profile_last).count());profile_last=ProfileClock::now();};
+         Paths run_paths(argc, argv);
+         MappedFile file(run_paths.data / "requests.log");
+         if (file.size > UINT32_MAX) throw std::runtime_error("input exceeds uint32 capacity");
+         const char* end = file.data + file.size;
++        mark("open");
+         unsigned threads = worker_count();
+         std::vector<const char*> boundaries(threads + 1);
+         boundaries.front() = file.data; boundaries.back() = end;
+@@ -61,6 +65,7 @@
+                 if (latency >= latency_escape) chunk.wide[hour].push_back(static_cast<uint32_t>(latency));
+             }
+         });
++        mark("parse");
+         std::vector<std::string_view> paths(endpoints.used.load());
+         for (size_t i = 0; i < Endpoints::capacity; ++i) {
+             auto state = endpoints.entries[i].state.load();
+@@ -69,6 +74,7 @@
+         endpoints.entries.reset(); // Path views borrow the still-mapped input.
+         std::vector<uint16_t> order(paths.size()); std::iota(order.begin(), order.end(), 0);
+         std::sort(order.begin(), order.end(), [&](uint16_t a, uint16_t b) { return paths[a] < paths[b]; });
++        mark("dictionary");
+         std::array<Output, 72> output;
+         std::atomic<unsigned> next_hour{0};
+         parallel(threads, [&](unsigned) {
+@@ -114,8 +120,10 @@
+                 }
+             }
+         });
++        mark("aggregate_select_format");
+         std::ofstream stream(run_paths.out / "summary.txt", std::ios::binary);
+         for (const auto& hour : output) stream.write(hour.bytes.data(), static_cast<std::streamsize>(hour.bytes.size()));
+         stream.close(); if (!stream) throw std::runtime_error("cannot write summary.txt");
++        mark("write");
+     } catch (const std::exception& e) { std::fprintf(stderr,"track-a: %s\n",e.what()); return 1; }
+ }

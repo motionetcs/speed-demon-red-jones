@@ -1,0 +1,65 @@
+--- a/track-d/main.cpp
++++ b/track-d/main.cpp
+@@ -1,3 +1,4 @@
++#include <chrono>
+ #include "radix_heap.hpp"
+ #include "edge_store.hpp"
+ #include "load_cursors.hpp"
+@@ -29,6 +30,8 @@
+ 
+ int main(int argc, char** argv) {
+     try {
++        using ProfileClock=std::chrono::steady_clock;auto profile_last=ProfileClock::now();
++        auto mark=[&](const char* name){auto now=ProfileClock::now();std::fprintf(stderr,"PHASE %s %.9f\n",name,std::chrono::duration<double>(now-profile_last).count());profile_last=ProfileClock::now();};
+         Paths paths(argc, argv);
+         unsigned threads = 12;
+         if (const char* value = std::getenv("SPEED_DEMON_THREADS")) {
+@@ -41,6 +44,7 @@
+         uint32_t n = scan.number(), m = scan.number();
+         const char* edge_start = scan.p;
+         while (edge_start < graph.data + graph.size && *edge_start <= ' ') ++edge_start;
++        mark("open");
+         unsigned loaders = std::min(threads, 12U);
+         std::vector<const char*> boundaries(loaders + 1);
+         boundaries.front() = edge_start; boundaries.back() = graph.data + graph.size;
+@@ -71,6 +75,7 @@
+                 for (size_t i=0;i<count;++i) { auto [u,v]=batch[i]; degree.add(u, local.out_spills); reverse_degree.add(v, local.in_spills); }
+             }
+         });
++        mark("degree");
+         size_t edge_count = 0;
+         for (const auto& local : locals) edge_count += local.count;
+         if (edge_count != m) throw std::runtime_error("edge count does not match header");
+@@ -87,6 +92,7 @@
+         SharedCursor cursor(offsets), reverse_cursor(reverse_offsets);
+         bool wide_cursors = cursor.wide_blocks || reverse_cursor.wide_blocks;
+         EdgeStore edges(m, n), reverse_edges(m, n);
++        mark("prefix_allocate");
+         auto scatter = [&]<bool Compact, bool WideCursors>() {
+             parallel(loaders, [&](unsigned worker) {
+             auto& local = locals[worker];
+@@ -119,6 +125,7 @@
+         std::unordered_map<uint32_t, uint32_t> wide_weights;
+         for (const auto& local : locals) for (auto [index, weight] : local.wide) wide_weights.emplace(index, weight);
+         locals.clear(); cursor.release(); reverse_cursor.release();
++        mark("scatter_release");
+         Scanner qscan{queries_file.data, queries_file.data + queries_file.size};
+         std::vector<std::pair<uint32_t, uint32_t>> queries;
+         while (qscan.more()) {
+@@ -179,13 +186,16 @@
+                 if (best != infinity) answers[query] = static_cast<int64_t>(best);
+             }
+         };
++        mark("query_setup");
+         if (threads) {
+             if (edges.compact) parallel(threads, [&](unsigned) { worker.template operator()<true>(); });
+             else parallel(threads, [&](unsigned) { worker.template operator()<false>(); });
+         }
++        mark("search");
+         Output output;
+         for (int64_t answer : answers) { output.number(answer); output.text("\n"); }
+         output.save(paths.out / "distances.txt");
++        mark("write");
+     } catch (const std::exception& e) {
+         std::fprintf(stderr, "track-d: %s\n", e.what());
+         return 1;

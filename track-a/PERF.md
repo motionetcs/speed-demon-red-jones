@@ -252,3 +252,14 @@ Thirteen rotating full-public native trials, all hashes checked: retained0.04934
 
 
 Round64 44d8c63, run-3620a71d60a0, all gates pass: T0.059905 s/M25,292,800/S382/K26.919313/71.503199 points. Exact run ID is in ../docs/board-round64-native-scalar-sse.json. It fails27.676524, so restore all57cc23e A inputs, including decimal.hpp, and remove the mapped allocator. The native/lean combination saves charged memory but does not improve total score. No gain claimed.
+
+
+## Search-directed full-name hardware hash
+
+Retained A on round67 is unchanged57cc23e: run-71111a1ff019, T0.054356 s/M34,086,912/S378/K26.664862/71.296967 points, all gates passed. This is repeat variation; historical72.105578/K27.676524 remains the threshold.
+
+Five instrumented full-public Apple runs, every hash checked, median phases: opening2.160 ms, parsing25.000, dictionary0.174, aggregation/selection/formatting7.665, writing10.519. These are local diagnostics; output storage/CPU differ from Intel. Parsing is the largest local phase. Exact raw report ../docs/round68-retained-phase-profile.json.
+
+The new candidate uses hardware CRC32C over every endpoint byte in bounded8-byte loads, with zero-padded tail and length seed, then a64-bit multiplication to spread the hash. Full string length/byte equality still decides identity, so32-bit CRC collisions never merge endpoints. No endpoint catalogue or input recognition is used. On amd64 the build explicitly enables only SSE4.2 rather than all native CPU optimizations; ARM retains standard hashing. The scoring i5 supports the instruction. This is a target-specific hypothesis, not an Apple timing claim.
+
+Fresh1237/1249 ASAN/UBSAN,1259 TSAN, full1/6/12 outputs, all methods/hours, exact escapes/ID4095 pass. GCC15/Linux explicitly executes the SSE4.2 path: a separate bit-polynomial CRC reference matches every byte/length/random/protected-page case and4096 IDs. Deliberate full-hash collisions, publication/reserved states and overflow models pass.69 exact-image Linux replays plus69 extra -msse4.2 GCC ASAN/UBSAN integration runs and actual defaults pass. Legacy/shared and current/private name-model API dispatch both pass native/GCC checks; model bodies remain independent exact references. Real K must exceed27.676524.

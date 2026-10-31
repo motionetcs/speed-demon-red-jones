@@ -1,0 +1,23 @@
+--- a/track-d/distance_map.hpp
++++ b/track-d/distance_map.hpp
+@@ -1,5 +1,6 @@
+ #pragma once
+ #include <cstdint>
++#include <algorithm>
+ #include <atomic>
+ #include <utility>
+ #include <vector>
+@@ -53,11 +54,11 @@
+     std::vector<uint32_t> touched;
+     Distances wide;
+     size_t slot(uint32_t node) const {
+-        size_t index = (node * 0x9e3779b1U) & (labels.size() - 1);
++        uint32_t mixed=node*0x9e3779b1U; mixed^=mixed>>16; size_t index=mixed & (labels.size()-1);
+         while (labels[index] && uint32_t(labels[index] >> 32) != node + 1) index = (index + 1) & (labels.size() - 1);
+         return index;
+     }
+-    void reset() { for (uint32_t index : touched) labels[index] = 0; touched.clear(); wide.reset(); }
++    void reset(){if(labels.size()>4096 && touched.size()<labels.size()/16)labels.assign(4096,0);else if(touched.size()>labels.size()/8)std::fill(labels.begin(),labels.end(),0);else for(uint32_t i:touched)labels[i]=0;touched.clear();wide.reset();}
+     uint64_t get(uint32_t node) const {
+         if (node == UINT32_MAX || touched.empty()) return wide.get(node);
+         uint64_t label = labels[slot(node)];

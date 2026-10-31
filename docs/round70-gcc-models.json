@@ -1,0 +1,31 @@
+{
+  "observed_at_utc": "2026-10-31T12:53:27.624135+00:00",
+  "official_score": false,
+  "scope": "Pinned GCC15/Linux strict ASAN/UBSAN; actual SSE4.2 endpoint CRC compared with independent bit-polynomial reference across bytes/random/protected pages/4096 IDs; concurrent exact endpoint collision/state/ID models; unified name model dispatch tested on current private and historical shared APIs. Emulated correctness only.",
+  "compiler_image": "gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce",
+  "script": [
+    "set -eu",
+    "export UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1",
+    "g++ -std=c++20 -O1 -g -pthread -msse4.2 -DREQUIRE_ENDPOINT_CRC -fsanitize=address,undefined '-DENDPOINTS_HEADER=\"/repo/.build/round70/source/track-a/endpoint_table.hpp\"' /repo/tools/test_endpoint_hash.cpp -o /tmp/model0",
+    "/tmp/model0",
+    "g++ -std=c++20 -O1 -g -pthread -msse4.2 -fsanitize=address,undefined '-DENDPOINTS_HEADER=\"/repo/.build/round70/source/track-a/endpoint_table.hpp\"' /repo/tools/test_endpoint_table.cpp -o /tmp/model1",
+    "/tmp/model1",
+    "g++ -std=c++20 -O1 -g -pthread  -fsanitize=address,undefined '-DNAMES_HEADER=\"/repo/.build/round67/source/track-c/names.hpp\"' /repo/tools/test_name_store.cpp -o /tmp/model2",
+    "/tmp/model2",
+    "g++ -std=c++20 -O1 -g -pthread  -fsanitize=address,undefined '-DNAMES_HEADER=\"/repo/.build/round62/source/track-c/names.hpp\"' /repo/tools/test_name_store.cpp -o /tmp/model3",
+    "/tmp/model3"
+  ],
+  "output": "PASS active SSE4.2 endpoint CRC versus independent polynomial reference, all bytes/lengths/random/guard pages and4096 exact IDs\nPASS concurrent full-hash collisions, exact bytes, unique IDs, reserved states and 12-bit ID boundary\nPASS private exact-name std::set/collision/country/growth/stable-block/long-NUL-UTF8-key models\nPASS stable name blocks, large/empty/NUL/UTF-8 keys, deliberate collisions, country-word boundaries, parallel std::set model\n",
+  "diagnostics": "",
+  "passed": true,
+  "sha256": {
+    "tools/test_endpoint_table.cpp": "5aea29474ca50b9849458725e13abc3ddb71ba48fa6c2de2d4b818d2247dc5ae",
+    "tools/private_names_model.hpp": "6241a707fcee7a81a8db25bf1f5888e12d6b9f5aa4a0891120baea6fb44a75b2",
+    "tools/test_endpoint_hash.cpp": "c72147ea8b69313d2f2d75b85af3834ad2804c3882095872a1468b5503adefd3",
+    ".build/round70/source/track-a/endpoint_table.hpp": "4909334c50283a95dc23022439b63f36e3a43ecc7cc5e287c68d26be209bdf60",
+    "tools/test_private_names.cpp": "f31eac9307dd84878a79a1c0601932349e7ca0f1f4d978652636444594a90447",
+    "tools/test_name_store.cpp": "683002bf528f64c680123d8cd3a4e3eeafed403d1ba3e65c691dfb478b4cc820",
+    ".build/round62/source/track-c/names.hpp": "56311a43e695e63623187e8870909a16b00976f0dee775bf3a645dedb4ca5191",
+    ".build/round67/source/track-c/names.hpp": "437245b108bf64fec292ff038086f1ff8be5e536534466428d640412b295a499"
+  }
+}
