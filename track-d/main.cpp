@@ -1,5 +1,6 @@
 #include "radix_heap.hpp"
 #include "edge_store.hpp"
+#include "load_cursors.hpp"
 #include "io.hpp"
 #include "decimal.hpp"
 #include "distance_map.hpp"
@@ -51,9 +52,9 @@ int main(int argc, char** argv) {
             }
             boundaries[i] = p;
         }
-        struct Local { size_t count = 0; std::vector<std::pair<uint32_t, uint32_t>> wide; };
+        struct Local { size_t count = 0; DegreeBytes::Spills out_spills, in_spills; std::vector<std::pair<uint32_t, uint32_t>> wide; };
         std::vector<Local> locals(loaders);
-        std::vector<uint32_t> offsets(size_t(n) + 1), reverse_offsets(size_t(n) + 1);
+        DegreeBytes degree(n), reverse_degree(n);
         parallel(loaders, [&](unsigned worker) {
             auto& local = locals[worker];
             Scanner input{boundaries[worker], boundaries[worker + 1]};
@@ -61,26 +62,33 @@ int main(int argc, char** argv) {
                 uint32_t u = input.number(), v = input.number(); input.number();
                 if (u >= n || v >= n) throw std::runtime_error("node outside graph");
                 ++local.count;
-                std::atomic_ref(offsets[size_t(u) + 1]).fetch_add(1, std::memory_order_relaxed);
-                std::atomic_ref(reverse_offsets[size_t(v) + 1]).fetch_add(1, std::memory_order_relaxed);
+                degree.add(u, local.out_spills); reverse_degree.add(v, local.in_spills);
             }
         });
         size_t edge_count = 0;
         for (const auto& local : locals) edge_count += local.count;
         if (edge_count != m) throw std::runtime_error("edge count does not match header");
-        for (size_t i = 1; i <= n; ++i) {
-            offsets[i] += offsets[i - 1]; reverse_offsets[i] += reverse_offsets[i - 1];
+        std::vector<uint32_t> offsets(size_t(n) + 1), reverse_offsets(size_t(n) + 1);
+        for (const auto& local : locals) {
+            for (auto [node, count] : local.out_spills) offsets[size_t(node) + 1] += count;
+            for (auto [node, count] : local.in_spills) reverse_offsets[size_t(node) + 1] += count;
         }
-        std::vector<uint32_t> cursor(offsets), reverse_cursor(reverse_offsets);
+        for (size_t i = 1; i <= n; ++i) {
+            offsets[i] += offsets[i - 1] + degree.values[i - 1];
+            reverse_offsets[i] += reverse_offsets[i - 1] + reverse_degree.values[i - 1];
+        }
+        degree.release(); reverse_degree.release();
+        SharedCursor cursor(offsets), reverse_cursor(reverse_offsets);
+        bool wide_cursors = cursor.wide_blocks || reverse_cursor.wide_blocks;
         EdgeStore edges(m, n), reverse_edges(m, n);
-        auto scatter = [&]<bool Compact>() {
+        auto scatter = [&]<bool Compact, bool WideCursors>() {
             parallel(loaders, [&](unsigned worker) {
             auto& local = locals[worker];
             Scanner input{boundaries[worker], boundaries[worker + 1]};
             while (input.more()) {
                 uint32_t u = input.number(), v = input.number(), value = input.number();
-                uint32_t out = std::atomic_ref(cursor[u]).fetch_add(1, std::memory_order_relaxed);
-                uint32_t in = std::atomic_ref(reverse_cursor[v]).fetch_add(1, std::memory_order_relaxed);
+                uint32_t out = cursor.template take<WideCursors>(u);
+                uint32_t in = reverse_cursor.template take<WideCursors>(v);
                 uint32_t weight = std::min(value, Compact ? EdgeStore::small_limit : uint32_t(UINT16_MAX));
                 edges.set<Compact>(out, v, weight); reverse_edges.set<Compact>(in, u, weight);
                 if (value >= (Compact ? EdgeStore::small_limit : uint32_t(UINT16_MAX))) {
@@ -89,10 +97,14 @@ int main(int argc, char** argv) {
             }
         });
         };
-        if (edges.compact) scatter.template operator()<true>(); else scatter.template operator()<false>();
+        if (edges.compact) {
+            if (wide_cursors) scatter.template operator()<true,true>(); else scatter.template operator()<true,false>();
+        } else {
+            if (wide_cursors) scatter.template operator()<false,true>(); else scatter.template operator()<false,false>();
+        }
         std::unordered_map<uint32_t, uint32_t> wide_weights;
         for (const auto& local : locals) for (auto [index, weight] : local.wide) wide_weights.emplace(index, weight);
-        locals.clear(); std::vector<uint32_t>().swap(cursor); std::vector<uint32_t>().swap(reverse_cursor);
+        locals.clear(); cursor.release(); reverse_cursor.release();
         Scanner qscan{queries_file.data, queries_file.data + queries_file.size};
         std::vector<std::pair<uint32_t, uint32_t>> queries;
         while (qscan.more()) {

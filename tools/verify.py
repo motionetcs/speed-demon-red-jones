@@ -198,6 +198,20 @@ def adversarial():
             rows.append(check("d", label, {
                 "graph.txt": f"{nodes} {len(arcs)}\n" + "".join(f"{u} {v} {w}\n" for u, v, w in arcs),
                 "queries.txt": "".join(f"{u} {v}\n" for u, v in pairs)}, "".join(f"{answer}\n" for answer in answers)))
+    if "d" in ACTIVE_TRACKS:
+        for count,n,label in [(65535,4,"d-degree-cursor-65535"),(65536,4,"d-degree-cursor-65536"),(65536,(1<<21)+1,"d-wide-id-large-degree")]:
+            arcs = [(0,1,i%4096) for i in range(count)]
+            rows.append(check("d",label,{"graph.txt":f"{n} {count}\n"+"".join(f"{u} {v} {w}\n" for u,v,w in arcs),"queries.txt":"0 1\n1 0\n0 2\n2 2\n0 0\n"},"0\n-1\n-1\n0\n0\n"))
+        n=33000;arcs=[]
+        for v in range(1,n):
+            weight=65535 if v%29==0 else (v*7919)%4096
+            arcs.extend([(0,v,weight),(0,v,4294967295 if v%31==0 else weight+1)])
+        pairs=[(0,n-1),(n-1,0),(1,2),(0,1),(n//2,n//2),(0,0)]
+        expected=[65535 if (n-1)%29==0 else ((n-1)*7919)%4096,-1,-1,7919%4096,0,0]
+        for reverse,label in [(False,"d-degree-spills-wide-out"),(True,"d-degree-spills-wide-in")]:
+            source_arcs=[(v,u,w) for u,v,w in arcs] if reverse else arcs
+            queries=[(t,s) for s,t in pairs] if reverse else pairs
+            rows.append(check("d",label,{"graph.txt":f"{n} {len(arcs)}\n"+"".join(f"{u} {v} {w}\n" for u,v,w in source_arcs),"queries.txt":"".join(f"{s} {t}\n" for s,t in queries)},"".join(f"{value}\n" for value in expected)))
     rows.append(check("d", "d-empty-queries", {"graph.txt": "1 0\n", "queries.txt": ""}, b""))
     if "d" in ACTIVE_TRACKS:
         n = 20000
@@ -241,6 +255,7 @@ def main():
               "binary_sha256": {tr: digest(BIN_DIR / ("track-" + tr)) for tr in args.tracks},
               "official_revision": (ROOT / "tools/official-revision.txt").read_text().strip(),
               "source_root": str(args.source_root.resolve()),
+              "source_sha256_scope": "Context snapshot at verification time; binary fingerprint recorded separately. Submitted build inputs are matched to independent Linux build reports.",
               "source_sha256": {str(p.relative_to(args.source_root.resolve())): digest(p) for tr in args.tracks
                                 for p in sorted((args.source_root.resolve() / ("track-" + tr)).glob("*")) if p.is_file()}, "checks": []}
     if args.public:

@@ -4,17 +4,19 @@ Fresh Red Jones entry: https://github.com/motionetcs/speed-demon-red-jones ; pri
 
 ## Best confirmed configurations
 
-- A: source algorithm from `d2fd0b5`, generic GCC with sample-seed PGO from `46504cb`; twelve workers/hour-owned workspaces, exact selection, original allocator environment. Best69.621943 points/K24.685326, `run-7b5e46ea09f2`.
-- C: exact d2 parser/compact mapped-and-decoded keys and atomic membership, twelve workers, native-targeted GCC with full seed1000003 and sample130363 training. Best64.079939/K19.124882 with full-scale training, `run-948b67b2853e`. Sample PGO, canonical interiors and delimiter-only variants scored lower; hardware hashing was rejected locally before submission.
-- D: `eb16c07` specialized four-byte CSR edges with exact six-byte fallback, private compact exact labels,64-distance bands with8-entry batches, six workers/up tofour loaders, full-scale PGO. Best57.732417/K14.277374, `run-e3e91f5f3cec`.
+- A: source algorithm from `d2fd0b5`, generic GCC with sample-seed PGO from `46504cb`; twelve workers/hour-owned workspaces, exact selection, original allocator environment. Best69.704972 points/K24.779894, `run-1f9a7602cf67` (same-source repeat).
+- C: exact d2 parser/compact mapped-and-decoded keys and atomic membership, twelve workers, native-targeted GCC with full seed1000003 and sample130363 training. Best64.406855/K19.414987 with dense keys and full-scale training, `run-62fc3f0d2df4`. Sample PGO, canonical interiors and delimiter-only variants scored lower; hardware hashing was rejected locally before submission.
+- D: `eb16c07` specialized four-byte CSR edges with exact six-byte fallback, private compact exact labels,64-distance bands with8-entry batches, six workers/up tofour loaders, full-scale PGO. Best58.157255/K14.559454, `run-138c7d1ae27d` (same-source repeat).
 
 `bba4fe0` is pushed and passed all gates, but its variable-width packed D edges score55.706308:77.61 MB helps memory, while0.513509 s hurts total K. It is a rejected candidate, not the strongest D source.
 
 ## Current unscored candidate
 
-Working tree restores A sample PGO, keeps D's confirmed specialized/full-training source, and tests C dense name keys: one worker-owned stable allocation holds exact decoded bytes and actual atomic country words, with16-byte full-hash/pointer table entries. No fixed distinct-name or country limit; retry growth and full equality remain. Native five-trial median improves about16% with similar RSS. New sample/full, growth/seam/wide-country, strict ASAN/UBSAN, TSAN,40k-update std::set model and Linux checks pass. Complete the GCC model and exact build-input hash assertion before pushing, then capture every exact board result before another source push.
+`cb8cbed` passed all official gates and retains dense C keys. A/D runtime/build inputs are unchanged from prior accepted configurations, with ordinary repeat variation. Current best-three mean63.914577, rank31/60 at the saved snapshot; leaders are still ahead.
 
-An unsubmitted D loader prototype is prepared only under `.build/round7-d-counters`: shared byte degree counters with exact256-wrap spills and shared relative16-bit cursors with exact32-bit block fallback. It has not been compiled/tested or promoted. Benchmark only when no compiler/training/test job is running.
+Working tree changes D loader only: shared byte degree counters with exact256-wrap spills and shared relative16-bit cursors with exact32-bit block fallback. Native full, fresh samples,256 independent graphs, high-degree/wrap/wide-ID fixtures, strict ASAN/UBSAN/TSAN, exact-slot/degree models and846 restricted Linux cases pass. Finish the GCC model, assert current build hashes against `round7-final-container.json`, then push and capture exact board results before another source push.
+
+A larger unsubmitted prototype is prepared under `.build/round8-a-flat`: two passes, shared exact endpoint IDs, per-chunk16-bit counts with exact spills, count storage reused as scatter cursors, one uint32 latency array, per-hour selection and ordered streaming output with cancellation-safe atomic tokens. It has not yet been compiled/tested. No prototype is a confirmed gain until real board K exceeds the retained build. Benchmark with no concurrent compilers/tests/training.
 
 ## Iteration commands and evidence
 

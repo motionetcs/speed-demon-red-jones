@@ -1,39 +1,37 @@
 {
-  "observed_at_utc": "2026-10-31T06:29:44.693215+00:00",
+  "observed_at_utc": "2026-10-31T06:45:19.741363+00:00",
   "scope": "Observable repository/history/build-policy checks, not an organizer eligibility certificate",
-  "source_commit": "eb16c07b177d5213110083063d4b38e50548714c",
+  "source_commit": "cb8cbedcd20a28153ebe790bb58f6b4c9bcc5f26",
   "dirty_paths": [
-    "M docs/ENTRY-AUDIT.md",
+    "M Makefile",
     " M docs/OWNER-BRIEFING.md",
     " M docs/STATE.md",
-    " M docs/prototype-patches/README.md",
-    " M track-a/Dockerfile",
+    " M docs/optimization-comparison.json",
+    " M docs/optimization-current-board.json",
+    " M tools/verify.py",
     " M track-a/PERF.md",
-    " M track-a/README.md",
     " M track-c/PERF.md",
     " M track-c/README.md",
-    " M track-c/main.cpp",
-    " M track-c/names.hpp",
+    " M track-d/Dockerfile",
     " M track-d/PERF.md",
     " M track-d/README.md",
-    "?? docs/board-round5-full-pgo.json",
-    "?? docs/prototype-patches/round6-inline262k.patch",
-    "?? docs/prototype-patches/round6-owned-blocks.patch",
-    "?? docs/round6-c-arena-native.json",
-    "?? docs/round6-c-arena-public.json",
-    "?? docs/round6-c-arena-tiny.json",
-    "?? docs/round6-c-inline-native.json",
-    "?? docs/round6-c-inline-public.json",
-    "?? docs/round6-c-inline-tiny.json",
-    "?? docs/round6-c-inline-wide-native.json",
-    "?? docs/round6-final-container.json",
-    "?? docs/round6-final-linux-cases.json",
-    "?? docs/round6-final-public.json",
-    "?? docs/round6-final-sample.json",
-    "?? docs/round6-final-sanitizers.json",
-    "?? docs/round6-final-thread-sanitizer.json",
-    "?? docs/round6-name-store-model.json",
-    "?? tools/test_name_store.cpp"
+    " M track-d/main.cpp",
+    "?? docs/board-round6-dense-c.json",
+    "?? docs/round7-d-counters-native.json",
+    "?? docs/round7-d-counters-overflow.json",
+    "?? docs/round7-d-counters-public.json",
+    "?? docs/round7-d-counters-tiny.json",
+    "?? docs/round7-final-container.json",
+    "?? docs/round7-final-independent.json",
+    "?? docs/round7-final-linux-cases.json",
+    "?? docs/round7-final-linux-six.json",
+    "?? docs/round7-final-public.json",
+    "?? docs/round7-final-sample.json",
+    "?? docs/round7-final-sanitizers.json",
+    "?? docs/round7-final-thread-sanitizer.json",
+    "?? docs/round7-loader-model.json",
+    "?? tools/test_loader_cursors.cpp",
+    "?? track-d/load_cursors.hpp"
   ],
   "repository": {
     "defaultBranchRef": {
@@ -216,6 +214,14 @@
       ]
     },
     {
+      "requirement": "Observed commit timestamps inside event: cb8cbed",
+      "passed": true,
+      "evidence": [
+        "2026-10-31T11:59:45+05:30",
+        "2026-10-31T11:59:45+05:30"
+      ]
+    },
+    {
       "requirement": "A required file Dockerfile",
       "passed": true,
       "evidence": "track-a/Dockerfile"
@@ -390,6 +396,7 @@
         "edge_store.hpp",
         "README.md",
         "PERF.md",
+        "load_cursors.hpp",
         "radix_heap.hpp",
         ".speed-demon.toml",
         "distance_map.hpp",
@@ -500,6 +507,11 @@
       "commit": "eb16c07b177d5213110083063d4b38e50548714c",
       "author_time": "2026-10-31T11:47:40+05:30",
       "committer_time": "2026-10-31T11:47:40+05:30"
+    },
+    {
+      "commit": "cb8cbedcd20a28153ebe790bb58f6b4c9bcc5f26",
+      "author_time": "2026-10-31T11:59:45+05:30",
+      "committer_time": "2026-10-31T11:59:45+05:30"
     }
   ],
   "future_requirements": [

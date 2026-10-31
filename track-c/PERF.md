@@ -129,3 +129,7 @@ Next compiler hypothesis: full-scale training at independent seed1000003, plus s
 `run-948b67b2853e` on `eb16c07b177d5213110083063d4b38e50548714c` passed all gates: T=0.093897 s, M=13,455,360 bytes, S=495, K=19.124882, points=64.079939. Record: `../docs/board-round5-full-pgo.json`. Observed K improves beyond the ordinary build63.747340 to64.079939 points; retain full-scale training. This is one practice comparison, not a statistical guarantee. Next: dense exact name/country storage removes the separate bitmap and scattered representative strings.
 
 Five alternating hash-checked local trials measured0.094802 s borrowed keys,0.083491 s owned name blocks,0.079711 s inline country words; RSS216.15/216.96/216.09MB. A separate initial-capacity comparison measured0.093464 s at131k versus0.090453 at262k, but added2.1MB; retain131k. Full/new-seed, growth/seam/country tests, strict sanitizers, a concurrent std::set key model and Linux checks pass. Actual board K is pending; Apple timings are not Intel scores.
+
+## Dense C dictionary: exact board result
+
+`run-62fc3f0d2df4` on `cb8cbedcd20a28153ebe790bb58f6b4c9bcc5f26` passed all gates: T=0.089832 s, M=13,357,056 bytes, S=524, K=19.414987, points=64.406855. Record: `../docs/board-round6-dense-c.json`. The dense name/country allocation improves the preceding64.079939-point best to64.406855; retained.

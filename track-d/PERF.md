@@ -127,3 +127,9 @@ Next compiler hypothesis: full-scale training at independent seed1000003, plus s
 ## Full-scale training / specialized decoder: real result
 
 `run-e3e91f5f3cec` on `eb16c07b177d5213110083063d4b38e50548714c` passed all gates: T=0.423052 s, M=76,783,616 bytes, S=641, K=14.277374, points=57.732417. Record: `../docs/board-round5-full-pgo.json`. Specialized decoding and full training improve beyond57.219555 to57.732417, with76.78MB cgroup memory. Build time160.596 s stays within the published600-second limit. This combination is retained; the lower-scoring variable-width decoder is not.
+
+## Dense C dictionary: exact board result
+
+`run-138c7d1ae27d` on `cb8cbedcd20a28153ebe790bb58f6b4c9bcc5f26` passed all gates: T=0.404073 s, M=78,094,336 bytes, S=641, K=14.559454, points=58.157255. Record: `../docs/board-round6-dense-c.json`. Runtime/build inputs are unchanged from the retained configuration; this small higher observation is repeat variation, not an algorithm gain.
+
+Next loader hypothesis: shared byte degree counts plus exact256-wrap spills, then shared16-bit block-relative cursors with exact32-bit wide-block fallback. Counters remain atomic; each wrap and edge slot has one owner. Five alternating full-public trials measured0.305556 s /182.39MB RSS old versus0.269400 s /175.19MB narrow; Apple ARM development evidence only. Full/new-seed outputs, independent Floyd graphs, high-degree/65535/65536/wide-ID fixtures, strict sanitizers, concurrent exact-slot models and846 Linux cases pass. Actual board K pending.

@@ -128,3 +128,7 @@ Next compiler hypothesis: full-scale training at independent seed1000003, plus s
 ## Full-scale training / specialized decoder: real result
 
 `run-96c43d019bcc` on `eb16c07b177d5213110083063d4b38e50548714c` passed all gates: T=0.064078 s, M=39,161,856 bytes, S=344, K=24.226658, points=69.214675. Record: `../docs/board-round5-full-pgo.json`. Full-scale training is below the prior69.621943-point best, so restore the sample104729/130363 build.
+
+## Dense C dictionary: exact board result
+
+`run-1f9a7602cf67` on `cb8cbedcd20a28153ebe790bb58f6b4c9bcc5f26` passed all gates: T=0.060856 s, M=39,796,736 bytes, S=344, K=24.779894, points=69.704972. Record: `../docs/board-round6-dense-c.json`. Runtime/build inputs are unchanged from the retained configuration; this small higher observation is repeat variation, not an algorithm gain.
