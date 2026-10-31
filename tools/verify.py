@@ -113,6 +113,19 @@ def adversarial():
     if "c" in ACTIVE_TRACKS:
         import csv
         import io
+        forms = []
+        values = ["", "abc", "abc ", '"', '""', 'a"b', 'a""b', "a,b", "line\nsecond", "\ufeffz", "é"]
+        ident = 1
+        for value in values:
+            for quote_mode in [csv.QUOTE_MINIMAL, csv.QUOTE_ALL]:
+                field = io.StringIO(newline="")
+                csv.writer(field, quoting=quote_mode, lineterminator="\n").writerow([value])
+                encoded = "" if value == "" and quote_mode == csv.QUOTE_MINIMAL else field.getvalue()[:-1]
+                forms.append(str(ident) + "," + encoded + ',"note ""pair""\nnext\ufeff",1,0.00\r\n')
+                ident += 1
+        records = ("id,name,note,region_id,amount\r\n" + "".join(forms)).encode()
+        regions = b"region_id,country\n1,AAA\n"
+        rows.append(check("c", "c-canonical-quote-forms", {"records.csv": records, "regions.csv": regions}, c.run_reference(records, regions)))
         stream = io.StringIO(newline="")
         writer = csv.writer(stream, lineterminator="\r\n")
         stream.write("\ufeff")

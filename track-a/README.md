@@ -16,4 +16,4 @@ With another24 hours: profile the retained layout on Intel, compare bounded load
 
 Specification: https://github.com/hackathon-raptors/speed-demon-2026/blob/main/specs/a-ingest.md
 
-The Docker build currently tests profile-guided compilation. `training_generator.py` is byte-identical to the official generator; it creates two independent sample seeds inside the offline build. GCC collects execution profiles, then recompiles without runtime instrumentation. The final stage copies only the executable. The published rules explicitly permit this training and exclude unchanged official generator copies from S. All untrained/full-output checks still apply; PERF.md distinguishes experiments from confirmed gains.
+The current allocator experiment sets the process-local glibc mmap threshold to4096 bytes, so completed hour buffers can be returned to the kernel. It uses the generic GCC build again; the arena-cap and A PGO variants did not beat the earlier best board K. Only the next real board result decides whether this threshold is retained.

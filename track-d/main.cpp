@@ -124,17 +124,27 @@ int main(int argc, char** argv) {
                     auto& other = from_source ? backward : forward;
                     const auto& starts = from_source ? offsets : reverse_offsets;
                     const auto& adjacency = from_source ? edges : reverse_edges;
-                    auto [d, u] = heap.pop();
-                    if (d != own.get(u)) continue;
-                    for (uint32_t i = starts[u]; i < starts[u + 1]; ++i) {
-                        Edge edge = adjacency[i];
-                        uint32_t destination = edge.to;
-                        uint32_t weight = edge.weight == UINT16_MAX ? wide_weights.at(i * 2 + (from_source ? 0 : 1)) : edge.weight;
-                        uint64_t candidate = d + weight;
-                        if (own.improve(destination, candidate)) {
-                            heap.push({candidate, destination});
-                            uint64_t opposite = other.get(destination);
-                            if (opposite != infinity) best = std::min(best, candidate + opposite);
+                    std::array<Item, 8> work;
+                    std::array<std::pair<uint32_t, uint32_t>, 8> ranges;
+                    size_t count = heap.pop_batch(work.data(), work.size());
+                    for (size_t k = 0; k < count; ++k) __builtin_prefetch(&starts[work[k].second], 0, 1);
+                    for (size_t k = 0; k < count; ++k) {
+                        uint32_t node = work[k].second;
+                        ranges[k] = {starts[node], starts[node + 1]};
+                        if (ranges[k].first < ranges[k].second) __builtin_prefetch(&adjacency[ranges[k].first], 0, 1);
+                    }
+                    for (size_t k = 0; k < count; ++k) {
+                        auto [d, u] = work[k];
+                        if (d != own.get(u)) continue; // Earlier items may improve this label within the band.
+                        for (uint32_t i = ranges[k].first; i < ranges[k].second; ++i) {
+                            Edge edge = adjacency[i]; uint32_t destination = edge.to;
+                            uint32_t weight = edge.weight == UINT16_MAX ? wide_weights.at(i * 2 + (from_source ? 0 : 1)) : edge.weight;
+                            uint64_t candidate = d + weight;
+                            if (own.improve(destination, candidate)) {
+                                heap.push({candidate, destination});
+                                uint64_t opposite = other.get(destination);
+                                if (opposite != infinity) best = std::min(best, candidate + opposite);
+                            }
                         }
                     }
                 }

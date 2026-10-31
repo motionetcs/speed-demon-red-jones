@@ -104,3 +104,9 @@ The arena cap lowers measured memory but did not beat the preceding no-cap K24.3
 Next experiment changes only the build: GCC profile generation with atomic counters, two sample datasets generated at seeds104729/130363, then profile-use recompilation with missing-profile errors enabled. The training generator is a byte-identical official copy, explicitly exempt from source size by the published harness; only `/solution` enters the final runtime stage. No public seed1 input, training dataset, cached result, or profile file enters that runtime image. The current algorithms/worker counts are unchanged from the preceding board comparison.
 
 Offline Linux full-public/tiny outputs and129 untrained sample/adversarial runs across1/6/12 workers pass collectively. Reports: `round2-pgo-containers-{public,tiny}.json`, `round2-pgo-untrained-containers.json`. Untrained cases include name-table growth, quoted seams/EOF, percentile boundaries, and full-width graph distances. Actual board K decides retention; no compiler speedup is claimed in advance.
+
+## PGO: exact board result
+
+`run-2ae41917013b` on `18896fe59b2dfd93036b023388f29dd0a4108449` passed every gate: T=0.063857 s, M=39,718,912 bytes, S=345, K=24.189551, points=69.18139. Record: `../docs/board-round2-pgo.json`. This is below the preceding best, so PGO and the weaker arena/delimiter experiment are removed from this track.
+
+Next isolated hypothesis: keep hour-owned workspaces and generic GCC, replacing the rejected arena cap with process-local mmap threshold4096. Offline Linux/full/default checks pass; the actual board K remains pending.

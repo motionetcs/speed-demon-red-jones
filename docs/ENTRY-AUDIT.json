@@ -1,20 +1,53 @@
 {
-  "observed_at_utc": "2026-10-31T05:30:49.891903+00:00",
+  "observed_at_utc": "2026-10-31T05:55:59.572879+00:00",
   "scope": "Observable repository/history/build-policy checks, not an organizer eligibility certificate",
-  "source_commit": "b5df2af979bda869c0827b4dd59fda40f5a1ebe8",
+  "source_commit": "18896fe59b2dfd93036b023388f29dd0a4108449",
   "dirty_paths": [
-    "M tools/audit_entry.py",
+    "M docs/ENTRY-AUDIT.json",
+    " M docs/ENTRY-AUDIT.md",
+    " M docs/OWNER-BRIEFING.md",
+    " M docs/STATE.md",
+    " M docs/optimization-comparison.json",
+    " M docs/optimization-current-board.json",
+    " M tools/test_primitives.cpp",
+    " M tools/verify.py",
+    " M tools/verify_container_cases.py",
     " M track-a/Dockerfile",
+    " M track-a/PERF.md",
+    " M track-a/README.md",
+    " D track-a/training_generator.py",
     " M track-c/Dockerfile",
-    " M track-d/Dockerfile",
-    "?? docs/board-round2-private-d.json",
-    "?? docs/round2-pgo-containers-public.json",
-    "?? docs/round2-pgo-containers-tiny.json",
-    "?? docs/round2-pgo-untrained-containers.json",
-    "?? tools/verify_container_cases.py",
-    "?? track-a/training_generator.py",
-    "?? track-c/training_generator.py",
-    "?? track-d/training_generator.py"
+    " M track-c/PERF.md",
+    " M track-c/README.md",
+    " M track-c/main.cpp",
+    " M track-c/names.hpp",
+    " D track-c/training_generator.py",
+    " M track-d/PERF.md",
+    " M track-d/README.md",
+    " M track-d/main.cpp",
+    " M track-d/radix_heap.hpp",
+    "?? docs/board-round2-pgo.json",
+    "?? docs/round2-c-private-native.json",
+    "?? docs/round2-c-private-public.json",
+    "?? docs/round2-c-private-tiny.json",
+    "?? docs/round2-canonical-band-container.json",
+    "?? docs/round2-canonical-band-linux-cases.json",
+    "?? docs/round2-canonical-band-linux-six.json",
+    "?? docs/round2-canonical-band-public.json",
+    "?? docs/round2-canonical-band-sample.json",
+    "?? docs/round2-canonical-band-sanitizers.json",
+    "?? docs/round2-canonical-band-thread-sanitizer.json",
+    "?? docs/round2-canonical-band-tiny.json",
+    "?? docs/round2-canonical-equivalence.json",
+    "?? docs/round2-canonical-native.json",
+    "?? docs/round2-d-bands-native.json",
+    "?? docs/round2-d-bands-public.json",
+    "?? docs/round2-d-bands-tiny.json",
+    "?? docs/round2-d-batch-independent.json",
+    "?? docs/round2-d-batch-native.json",
+    "?? docs/round2-d-batch-public.json",
+    "?? docs/round2-d-batch-tiny.json",
+    "?? tools/test_band_graphs.py"
   ],
   "repository": {
     "defaultBranchRef": {
@@ -157,6 +190,14 @@
       ]
     },
     {
+      "requirement": "Observed commit timestamps inside event: 18896fe",
+      "passed": true,
+      "evidence": [
+        "2026-10-31T11:02:27+05:30",
+        "2026-10-31T11:02:27+05:30"
+      ]
+    },
+    {
       "requirement": "A required file Dockerfile",
       "passed": true,
       "evidence": "track-a/Dockerfile"
@@ -205,7 +246,6 @@
       "requirement": "A no dataset/binary in build context",
       "passed": true,
       "evidence": [
-        "training_generator.py",
         "Dockerfile",
         "io.hpp",
         "README.md",
@@ -265,7 +305,6 @@
       "requirement": "C no dataset/binary in build context",
       "passed": true,
       "evidence": [
-        "training_generator.py",
         "Dockerfile",
         "names.hpp",
         "io.hpp",
@@ -415,6 +454,11 @@
       "commit": "b5df2af979bda869c0827b4dd59fda40f5a1ebe8",
       "author_time": "2026-10-31T10:55:31+05:30",
       "committer_time": "2026-10-31T10:55:31+05:30"
+    },
+    {
+      "commit": "18896fe59b2dfd93036b023388f29dd0a4108449",
+      "author_time": "2026-10-31T11:02:27+05:30",
+      "committer_time": "2026-10-31T11:02:27+05:30"
     }
   ],
   "future_requirements": [

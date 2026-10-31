@@ -16,6 +16,10 @@
 #include <sys/mman.h>
 #include <unistd.h>
 
+#ifndef RADIX_BATCH_BUCKET_BITS
+#define RADIX_BATCH_BUCKET_BITS 0
+#endif
+uint64_t band(uint64_t distance) { return distance >> RADIX_BATCH_BUCKET_BITS; }
 void number_case(const std::string& text) {
     uint64_t expected = 0;
     auto reference = std::from_chars(text.data(), text.data() + text.size(), expected);
@@ -48,14 +52,27 @@ int main() {
                 uint64_t distance = last + random() % 10000;
                 RadixHeap::Item item{distance, uint32_t(random())}; queue.push(item); expected.insert(item);
             } else {
-                assert(queue.minimum() == expected.begin()->first);
-                auto item = queue.pop(); assert(item.first == expected.begin()->first);
-                auto found = expected.find(item); assert(found != expected.end()); expected.erase(found); last = item.first;
+                assert(queue.minimum() == (band(expected.begin()->first) << RADIX_BATCH_BUCKET_BITS));
+#if RADIX_BATCH_BUCKET_BITS > 0
+                if (i % 2) {
+                    RadixHeap::Item work[8]; uint64_t first_band = band(expected.begin()->first);
+                    size_t count = queue.pop_batch(work, 8); assert(count && count <= 8);
+                    for (size_t k = 0; k < count; ++k) {
+                        assert(band(work[k].first) == first_band);
+                        auto found = expected.find(work[k]); assert(found != expected.end()); expected.erase(found);
+                        last = std::max(last, work[k].first);
+                    }
+                } else
+#endif
+                {
+                    auto item = queue.pop(); assert(band(item.first) == band(expected.begin()->first));
+                    auto found = expected.find(item); assert(found != expected.end()); expected.erase(found); last = item.first;
+                }
             }
             assert(queue.count == expected.size() && queue.empty() == expected.empty());
             // Peeking rebases radix buckets; mirror Dijkstra by peeking immediately before extraction.
         }
-        while (!expected.empty()) { auto item = queue.pop(); assert(item.first == expected.begin()->first); expected.erase(expected.find(item)); }
+        while (!expected.empty()) { auto item = queue.pop(); assert(band(item.first) == band(expected.begin()->first)); expected.erase(expected.find(item)); }
         queue.clear(); queue.push({UINT64_MAX, UINT32_MAX}); assert(queue.pop() == RadixHeap::Item(UINT64_MAX, UINT32_MAX));
     }
     FastDistances labels;

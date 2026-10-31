@@ -14,13 +14,13 @@ The log is not sorted. We keep all the hour buckets until the input is finished,
 
 ## C: CSV records
 
-A line break inside quotes belongs to a field, so splitting the file on line breaks would be wrong. Our parser follows quoting rules, turns a doubled quote into one literal quote, preserves trailing spaces, and skips a BOM only at a record boundary. It joins region IDs to country codes; unknown regions are grouped as `_UNMATCHED`.
+A line break inside quotes belongs to a field, so splitting the file on line breaks would be wrong. Our parser follows quoting rules, counts each doubled quote as one decoded byte, preserves trailing spaces, and skips a BOM only at a record boundary. For name equality it keeps the canonical quoted interior: doubling every quote is reversible, so exact encoded equality is equivalent to exact decoded equality. Quoted and unquoted plain names have the same interior. It joins region IDs to country codes; unknown regions are grouped as `_UNMATCHED`.
 
 Money is integer cents: `-0.05` is the integer -5. This makes sums and formatting exact. Every distinct name gets an ID and a set of country membership bits. A bit is either present or absent, so distinct counts are exact without storing millions of separate country/name objects. Full names are compared before sharing an ID; hash collisions cannot merge different names.
 
 ## D: directed shortest paths
 
-The retained version builds compact outgoing and incoming edge lists and searches from both ends. Dijkstra's algorithm explores the cheapest reachable distance first. A lower bound from the two frontiers tells us when their best meeting path is optimal. This is correct because every edge weight is non-negative, including zero. Edge direction matters, duplicate edges are retained, and distances use 64-bit integers because a path can exceed the largest 32-bit weight.
+The retained version builds compact outgoing and incoming edge lists and searches from both ends. The queue processes small distance bands while retaining every exact distance. An improved label is revisited even within the same band. Conservative lower bounds from the two frontiers tell us when their best meeting path is optimal; the algorithm checks that condition only after a whole batch finishes. This is correct because every edge weight is non-negative, including zero. Edge direction matters, duplicate edges are retained, and distances use 64-bit integers because a path can exceed the largest 32-bit weight.
 
 Workers answer separate queries and write to separate answer slots. The final output keeps the original query order. Reusable workspaces avoid allocating a large map for every query. Each worker now owns compact exact distance maps. Ordinary distances fit in32 bits; larger distances keep a full64-bit fallback. No query writes another worker's labels. The loader uses atomic counters to assign unique CSR slots.
 
