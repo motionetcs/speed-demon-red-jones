@@ -1,0 +1,43 @@
+{
+  "observed_at_utc": "2026-10-31T21:39:09.186884+00:00",
+  "base": "08828281ff169da3e7024978bfcd384bab0da1f7",
+  "scope": "Screen-only new writer on accepted mapped/cache145. All12 existing aggregation workers stay; completed-hour producer takes a brief output mutex, marks completion, writes every consecutive completed hour and releases bytes. No extra/dedicated thread or waiting for a missing hour. Variants isolate ordinary versus directly mapped output strings and optional160 single-word prefix decoder. Earlier16 old-layout mutex and45/101 extra/dedicated writers did not combine12 full workers and direct record/output page release. No new correctness/model/lifetime/race/GCC/image/actual proof claimed yet.",
+  "patches": [
+    {
+      "patch": "round162-mutex-main.cpp.patch",
+      "path": "track-a/main.cpp",
+      "base_sha256": "f68428acc3f2d238058ee5c4fac371376bf2b507e7e95040f4b477133bbbb83d",
+      "candidate_sha256": "e061592b681b5855292bf7a3f7e931d949ce89110cc579a87e0f6cd3a195f05d"
+    },
+    {
+      "patch": "round162-mapped-mutex-main.cpp.patch",
+      "path": "track-a/main.cpp",
+      "base_sha256": "f68428acc3f2d238058ee5c4fac371376bf2b507e7e95040f4b477133bbbb83d",
+      "candidate_sha256": "e061592b681b5855292bf7a3f7e931d949ce89110cc579a87e0f6cd3a195f05d"
+    },
+    {
+      "patch": "round162-mapped-mutex-io.hpp.patch",
+      "path": "track-a/io.hpp",
+      "base_sha256": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+      "candidate_sha256": "a8838c50064520b806fcd2032cda0e9f246e9d3b6869fb951e3555cd5e8dfead"
+    },
+    {
+      "patch": "round162-mapped-mutex-prefix-main.cpp.patch",
+      "path": "track-a/main.cpp",
+      "base_sha256": "f68428acc3f2d238058ee5c4fac371376bf2b507e7e95040f4b477133bbbb83d",
+      "candidate_sha256": "e061592b681b5855292bf7a3f7e931d949ce89110cc579a87e0f6cd3a195f05d"
+    },
+    {
+      "patch": "round162-mapped-mutex-prefix-io.hpp.patch",
+      "path": "track-a/io.hpp",
+      "base_sha256": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+      "candidate_sha256": "a8838c50064520b806fcd2032cda0e9f246e9d3b6869fb951e3555cd5e8dfead"
+    },
+    {
+      "patch": "round162-mapped-mutex-prefix-decimal.hpp.patch",
+      "path": "track-a/decimal.hpp",
+      "base_sha256": "aee2210ac5894050834ffd37903718b3b7bdc6673240559baa85b350bea9b581",
+      "candidate_sha256": "e6a53e983c0475fe3e49ffe2630a8603f96298b7866e0f4ef3b2ed0f165cb94e"
+    }
+  ]
+}

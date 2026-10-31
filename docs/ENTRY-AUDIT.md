@@ -1,3 +1,5 @@
+> Candidate163 A/C passes fresh strict/race/native-GCC/reference/image/default/source checks; real all-track K is pending. Root now contains these candidates and unchanged selected D. The selected145 history below remains separate until actual results.
+
 # Entry audit — 31 October 2026
 
 Every28 current runtime/build/metadata input and complete file set matches actual all-gates157/34293c2 and each best-track source in round157-final-source-match.json. All3 real restored records pass; lower unchanged-source repeats remain separate from bests. Selected A retains mapped/cache145's total-K gain; original dedicated offset C and atomic-loader/D32 remain.151 SPSC and155 pooled/private-degree candidates passed gates but lost actual K and are fully removed. Their separate proofs remain historical.

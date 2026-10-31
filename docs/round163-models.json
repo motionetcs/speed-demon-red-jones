@@ -1,0 +1,60 @@
+{
+  "observed_at_utc": "2026-10-31T21:44:04.626685+00:00",
+  "official_score": false,
+  "passed": true,
+  "scope": "NEW exact extracted OrderedOutput protocol: mapped char/string growth, NUL/terminator/direct cross-thread unmap, every1..12 producers ordered/reversed/shuffled/empty/lag output, exact independent binary concatenation and normal open/write failure (Linux/dev/full). Native strict ASAN/UBSAN and TSAN plus pinned GCC strict ASAN/UBSAN. NEW prefix8 models: scalar modulo/from_chars fulluint64, every byte/position/length/arbitrary suffix/guard boundary. NEW upper32 names placement: exact upper0/1 fingerprint/full collisions and lower-bit owners, rerun full original offset index/country/std::set/storage/growth/long-key model. No failed private-degree/pooled protocol proof is transferred.",
+  "runs": [
+    {
+      "mode": "native-decimal-asan",
+      "stdout": "PASS leading decimal byte/reference/guard-page model\n",
+      "stderr": "",
+      "binary_sha256": "aea16947d31b780be4c416ffa2c92d1c58c15f9d62d1c443cd8c349c13393fca"
+    },
+    {
+      "mode": "native-ordered-asan",
+      "stdout": "PASS mapped char growth/NUL/terminator/direct cross-thread release; all1..12 producers ordered/reverse/random/empty/lag output and normal sink failures\n",
+      "stderr": "",
+      "binary_sha256": "da7f9f9071bbc30e5fb416b3f4dab081bca258de397589e0a5d1e4dafadc3a1d"
+    },
+    {
+      "mode": "native-ordered-tsan",
+      "stdout": "PASS mapped char growth/NUL/terminator/direct cross-thread release; all1..12 producers ordered/reverse/random/empty/lag output and normal sink failures\n",
+      "stderr": "",
+      "binary_sha256": "3e0f9d029ec28e1c8980a08aa3fe504c437bdd1165b9e8be1022e6fe7a0f5bfd"
+    },
+    {
+      "mode": "native-names-asan",
+      "stdout": "PASS offset-name independent std::set, low32 fingerprint collisions including0/1, full-key collisions, all-country words, table/block growth, exact full/partial/oversized blocks, long NUL/UTF8 keys, encoded-index boundaries and overflow guards\nPASS exact upper32 placement including0/1, colliding upper/different lower hashes, all low-bit owners and full-key country membership\n",
+      "stderr": "",
+      "binary_sha256": "44bd6f93a19ed98058ac03fe4acaedc0169915f239861b5a334def88c3b74f9f"
+    },
+    {
+      "mode": "GCC15-Linux-strict-asan",
+      "image": "gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce",
+      "script": [
+        "set -eu",
+        "export ASAN_OPTIONS=halt_on_error=1",
+        "export UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1",
+        "g++ -std=c++20 -O1 -g -pthread -fsanitize=address,undefined -fno-sanitize-recover=all -fno-omit-frame-pointer '-DDECIMAL_HEADER=\"/repo/.build/round163/source/track-a/decimal.hpp\"' /repo/tools/test_decimal_prefix.cpp -o /tmp/decimal",
+        "/tmp/decimal",
+        "g++ -std=c++20 -O1 -g -pthread -fsanitize=address,undefined -fno-sanitize-recover=all -fno-omit-frame-pointer '-DORDERED_OUTPUT_HEADER=\"/repo/.build/round163/source/track-a/ordered_output.hpp\"' /repo/tools/test_ordered_output.cpp -o /tmp/ordered",
+        "/tmp/ordered /tmp/ordered-cases",
+        "g++ -std=c++20 -O1 -g -pthread -fsanitize=address,undefined -fno-sanitize-recover=all -fno-omit-frame-pointer '-DNAMES_HEADER=\"/repo/.build/round163/source/track-c/names.hpp\"' /repo/tools/test_high_names.cpp -o /tmp/names",
+        "/tmp/names"
+      ],
+      "stdout": "PASS leading decimal byte/reference/guard-page model\nPASS mapped char growth/NUL/terminator/direct cross-thread release; all1..12 producers ordered/reverse/random/empty/lag output and normal sink failures\nPASS offset-name independent std::set, low32 fingerprint collisions including0/1, full-key collisions, all-country words, table/block growth, exact full/partial/oversized blocks, long NUL/UTF8 keys, encoded-index boundaries and overflow guards\nPASS exact upper32 placement including0/1, colliding upper/different lower hashes, all low-bit owners and full-key country membership\n",
+      "stderr": ""
+    }
+  ],
+  "source_sha256": {
+    "tools/test_decimal_prefix.cpp": "045496a36a9ed2966539218365e4253b65fd641bee8ae9a736a727f404623202",
+    "tools/test_ordered_output.cpp": "1b292e55b35150bd035f66c6d35143eb7112b1823979f3bcd049f6db9d946801",
+    "tools/test_high_names.cpp": "49c7ded2c832a1ed0fa8219f6c8b08c7ca8c79719f2a1fe288b7339627f04e27",
+    "tools/offset_names_model.hpp": "80082d9d37052c2f8ba3612c15c5ad3386f672e2b5ead83d2dd3f64e6794842e",
+    ".build/round163/source/track-a/io.hpp": "a8838c50064520b806fcd2032cda0e9f246e9d3b6869fb951e3555cd5e8dfead",
+    ".build/round163/source/track-a/mapped_allocator.hpp": "060bb6a0622338b9151e767d827cbf30c8e4d940cc7e170ad51757c4a6b0808b",
+    ".build/round163/source/track-a/decimal.hpp": "e6a53e983c0475fe3e49ffe2630a8603f96298b7866e0f4ef3b2ed0f165cb94e",
+    ".build/round163/source/track-a/ordered_output.hpp": "b6f0911f5d6396ca35ad657a1de6364aa3e52a5dd6a9275d95f768e54f4fd69d",
+    ".build/round163/source/track-c/names.hpp": "23fea418a08d6155563ed2f8c766920f0fc90906cb6ee01e788c43483c5844cf"
+  }
+}

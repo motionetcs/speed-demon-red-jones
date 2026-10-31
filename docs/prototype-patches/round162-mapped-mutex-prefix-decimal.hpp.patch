@@ -1,0 +1,39 @@
+--- a/track-a/decimal.hpp
++++ b/track-a/decimal.hpp
+@@ -3,20 +3,23 @@
+ #include <cstdint>
+ #include <cstring>
+ 
+-// Four ASCII digits in one bounded load. Every byte is validated before batching.
+-inline uint64_t decimal_digits(const char*& p, const char* end) {
+-    uint64_t value = 0;
+-    if constexpr (std::endian::native == std::endian::little) {
+-        while (end - p >= 4) {
+-            uint32_t bytes;
+-            std::memcpy(&bytes, p, 4);
+-            uint32_t digits = bytes ^ 0x30303030U;
+-            if ((digits & 0xf0f0f0f0U) || ((digits + 0x06060606U) & 0x10101010U)) break;
+-            uint32_t pairs = (digits & 0x00ff00ffU) * 10 + ((digits >> 8) & 0x00ff00ffU);
+-            value = value * 10000 + (pairs & 0xffffU) * 100 + (pairs >> 16);
+-            p += 4;
++// Validate a bounded word, then decimal-reduce its leading digit bytes only.
++inline uint64_t decimal_digits(const char*& p,const char* end) {
++    uint64_t value=0;
++    if constexpr(std::endian::native==std::endian::little) {
++        if(end-p>=8){
++            uint64_t bytes;std::memcpy(&bytes,p,8);
++            uint64_t digits=bytes^0x3030303030303030ULL;
++            uint64_t invalid=(digits&0xf0f0f0f0f0f0f0f0ULL)|((digits+0x0606060606060606ULL)&0x1010101010101010ULL);
++            unsigned count=std::countr_zero(invalid)/8;
++            if(count){
++                digits<<=(8-count)*8;
++                digits=(digits*10+(digits>>8))&0x00ff00ff00ff00ffULL;
++                digits=(digits*100+(digits>>16))&0x0000ffff0000ffffULL;
++                value=(digits*10000+(digits>>32))&0xffffffffULL;p+=count;
++            }
+         }
+     }
+-    while (p < end && *p >= '0' && *p <= '9') value = value * 10 + *p++ - '0';
++    while(p<end&&*p>='0'&&*p<='9')value=value*10+*p++-'0';
+     return value;
+ }

@@ -1,0 +1,29 @@
+--- a/track-d/private_degrees.hpp
++++ b/track-d/private_degrees.hpp
+@@ -1,4 +1,6 @@
+ #pragma once
++#include <algorithm>
++#include <stdexcept>
+ #include <cstddef>
+ #include <cstdint>
+ #include <memory>
+@@ -22,11 +24,15 @@
+         cell=static_cast<uint8_t>((cell&~(mask<<shift))|(((old+1)&mask)<<shift));
+         if(old==mask)spills[node]+=mask+1;
+     }
+-    void accumulate(std::vector<uint32_t>& totals)const{
+-        size_t full=nodes/per_byte;
+-        for(size_t i=0;i<full;++i){unsigned cell=values.get()[i];for(unsigned k=0;k<per_byte;++k){totals[i*per_byte+k+1]+=cell&mask;cell>>=Bits;}}
+-        for(size_t node=full*per_byte;node<nodes;++node)totals[node+1]+=(values.get()[node/per_byte]>>((node%per_byte)*Bits))&mask;
++    void accumulate_spills(std::vector<uint32_t>& totals)const{
+         for(auto [node,count]:spills)totals[size_t(node)+1]+=count;
++    }
++    void accumulate_lows(std::vector<uint32_t>& totals,size_t begin,size_t end)const{
++        if(begin>end||end>nodes)throw std::out_of_range("private degree reduction range");
++        while(begin<end&&begin%per_byte){totals[begin+1]+=(values.get()[begin/per_byte]>>((begin%per_byte)*Bits))&mask;++begin;}
++        size_t full=end/per_byte;
++        for(size_t i=begin/per_byte;i<full;++i){unsigned cell=values.get()[i];for(unsigned k=0;k<per_byte;++k){totals[i*per_byte+k+1]+=cell&mask;cell>>=Bits;}}
++        for(size_t node=std::max(begin,full*per_byte);node<end;++node)totals[node+1]+=(values.get()[node/per_byte]>>((node%per_byte)*Bits))&mask;
+     }
+     void release(){values.reset();decltype(spills)().swap(spills);}
+ };

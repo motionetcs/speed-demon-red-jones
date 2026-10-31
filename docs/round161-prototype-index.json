@@ -1,0 +1,32 @@
+{
+  "observed_at_utc": "2026-10-31T21:37:19.450101+00:00",
+  "base_runtime": "69322d0faa79c0602eb03837666084a3c0ab79f6",
+  "own_private_base": "4191767218b6d41f5b777c51fde0110fbfe02b37",
+  "scope": "Screen-only distinct private-degree reduction. After parser join, private spill maps pre-add serially. Reduction workers own disjoint full uint32 output ranges, sum immutable packed lows including partial field boundaries, join, then all mapped arrays/spills release before original prefix/cursor/edge creation. 2/8-bit screens, original atomic scatter/search/labels/PGO unchanged.155 serial-lows candidate lost real K; parallel reduction needs new range/ownership/phase lifetime/native/GCC/race/integration/default/image/actual proof. No measured target phase-cause claim.",
+  "patches": [
+    {
+      "patch": "round161-private2-parallel-private_degrees.hpp.patch",
+      "base155_sha256": "12e67f71803c11df4be10693d5953b135079bbe96efdfecc1e41552c447f432c",
+      "candidate_sha256": "f0d777d0e77aad70148237577ede155e26b3c57c5cae7b833bb37a59db29fb4c",
+      "path": "track-d/private_degrees.hpp"
+    },
+    {
+      "patch": "round161-private2-parallel-main.cpp.patch",
+      "base155_sha256": "c54b2beaa0478efb79cff8f895709a4941ed81bfef576581e1f72de498f1a3bd",
+      "candidate_sha256": "c9270cd09bd473930d25024049c285b86e0d4795c0bb529b0f5505512edbfc13",
+      "path": "track-d/main.cpp"
+    },
+    {
+      "patch": "round161-private8-parallel-private_degrees.hpp.patch",
+      "base155_sha256": "12e67f71803c11df4be10693d5953b135079bbe96efdfecc1e41552c447f432c",
+      "candidate_sha256": "f0d777d0e77aad70148237577ede155e26b3c57c5cae7b833bb37a59db29fb4c",
+      "path": "track-d/private_degrees.hpp"
+    },
+    {
+      "patch": "round161-private8-parallel-main.cpp.patch",
+      "base155_sha256": "c54b2beaa0478efb79cff8f895709a4941ed81bfef576581e1f72de498f1a3bd",
+      "candidate_sha256": "445806674673a44b3107f8bfb58007811800d3a37302351db90e88b6c1755665",
+      "path": "track-d/main.cpp"
+    }
+  ]
+}

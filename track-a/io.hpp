@@ -1,4 +1,5 @@
 #pragma once
+#include "mapped_allocator.hpp"
 #include <algorithm>
 #include <charconv>
 #include <cstdint>
@@ -61,7 +62,7 @@ inline uint64_t unsigned_number(std::string_view text) {
 }
 
 struct Output {
-    std::string bytes;
+    std::basic_string<char,std::char_traits<char>,MappedAllocator<char>> bytes;
     void text(std::string_view s) { bytes.append(s); }
     void number(int64_t n) {
         char b[32];

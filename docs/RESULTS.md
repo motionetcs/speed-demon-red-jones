@@ -1,3 +1,5 @@
+> Candidate163 A/C passes fresh strict/race/native-GCC/reference/image/default/source checks; real all-track K is pending. Root now contains these candidates and unchanged selected D. The selected145 history below remains separate until actual results.
+
 # Results — 31 October 2026
 
 Complete public feed: **2026-10-31 21:28:12 UTC**. Red Jones is **40th of87** teams with three scored tracks. The best-three machine mean is **68.768396**, versus68.754000 at19:25. Overall leader Cause Of Death has82.227260. We are not number one. The small mean increase comes solely from147's unchanged-source C variation; no new algorithm gain is confirmed this heartbeat. Team counts changed, and practice-board best records are separate from final holdout scoring and judging.

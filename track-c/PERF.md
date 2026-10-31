@@ -472,3 +472,13 @@ Exact current C image passes285 regular replays plus228 every-topology valid/24 
 
 
 157/34293c2 run-280abcfaed3b passes all five real gates after exact selected145 restoration: T0.062285s/M12685312/S672/K22.695362/67.796856 points. Lower unchanged-source repeat; historical best 67.958752 stays separate. All28 inputs and complete file sets match current best-track sources; fresh157 combined public/defaults and original C48 pressure replays pass. Rejected151/155 code is absent. Raw ../docs/board-round157-selected-confirmation.json and round157-final-source-match.json.
+
+
+159/0882828 run-bada483f50d8 passes all five real gates on identical selected145 source: T0.063052s/M12009472/S672/K22.805252/67.901744 points. Lower same-source repeat; no new algorithm gain. Raw ../docs/board-round159-evidence-head.json.
+
+
+## Decouple owner routing from table placement
+
+163 changes only the compact name table's placement/rejection fingerprint from low32 to upper32 bits of the same full64 routing hash. With four owners, routing fixes two low bits; selecting upper bits avoids that fixed placement pattern. Full key length and every byte remain the final equality check; index0 alone denotes an empty entry, so fingerprint0/1 stay legal. grow() uses the same stored fingerprint. Country bits, offset blocks, parser, private-owner roles, original512-event SPSC pipeline and PGO are unchanged.
+
+160 paired native ratio0.977261; frozen163 paired0.977752. Frozen global medians0.057768625 retained/0.058417709 new cross a host speed regime and do not show a causal global improvement; only the small paired hypothesis is offered for an Intel K test, with flat RSS and no source-layout expansion. Fresh1783/1787 strict ASAN/UBSAN,1789 TSAN, full1/6/12, all country widths/every1..12 topology/skew/quoted1MiB/BOM/cents/normal errors pass. New upper32 placement/collision/0/1/different-low-bit model also reruns the full offset std::set/country/index/growth/long-key model under native and GCC strict sanitizers. New C image passes141 regular replays plus228 every-worker valid/24 normal errors and48 pressure invocations; counts overlap other suites and are correctness invocations, not independent timing samples. Actual defaults pass. Exact29-source/local-image proof is round163-candidate-source-match.json. Keep only if actual K exceeds22.865201/67.958752; otherwise restore names.hpp/README exactly0882828 and original image263099fc....

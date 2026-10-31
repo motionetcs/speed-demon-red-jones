@@ -6,6 +6,7 @@
 #include <atomic>
 #include <memory>
 #include <numeric>
+#include "ordered_output.hpp"
 
 static constexpr uint32_t latency_escape = (1U << 19) - 1;
 using Records=std::vector<uint32_t,MappedAllocator<uint32_t>>;
@@ -69,7 +70,7 @@ int main(int argc, char** argv) {
         endpoints.entries.reset(); // Path views borrow the still-mapped input.
         std::vector<uint16_t> order(paths.size()); std::iota(order.begin(), order.end(), 0);
         std::sort(order.begin(), order.end(), [&](uint16_t a, uint16_t b) { return paths[a] < paths[b]; });
-        std::array<Output, 72> output;
+        OrderedOutput writer(run_paths.out / "summary.txt");
         std::atomic<unsigned> next_hour{0};
         parallel(threads, [&](unsigned) {
             std::vector<Count> groups(paths.size());
@@ -82,7 +83,7 @@ int main(int argc, char** argv) {
                     count += chunk.records[hour].size(); first_line = std::min(first_line, chunk.first[hour]);
                     for (uint32_t record : chunk.records[hour]) { auto& group = groups[record & 4095]; ++group.count; group.errors += (record >> 12) & 1; }
                 }
-                if (!count) continue;
+                if(!count){writer.publish(hour);continue;}
                 uint32_t offset = 0;
                 for (uint16_t key : order) { cursor[key] = offsets[key] = offset; offset += groups[key].count; }
                 latencies.resize(count);
@@ -96,7 +97,7 @@ int main(int argc, char** argv) {
                     Records().swap(chunk.records[hour]); std::vector<uint32_t>().swap(chunk.wide[hour]);
                 }
                 std::string label = std::string(file.data + first_line, 13) + ":00:00Z";
-                auto& out = output[hour]; out.bytes.reserve(order.size() * 100);
+                auto& out = writer.hours[hour]; out.bytes.reserve(order.size() * 100);
                 for (uint16_t key : order) {
                     uint64_t n = groups[key].count, errors = groups[key].errors; if (!n) continue;
                     auto first = latencies.begin() + offsets[key];
@@ -112,10 +113,9 @@ int main(int argc, char** argv) {
                     for (uint64_t value : {n, uint64_t(first[(50 * n + 99) / 100 - 1]), uint64_t(first[(95 * n + 99) / 100 - 1]), uint64_t(first[(99 * n + 99) / 100 - 1]), errors, errors * 1000000 / n}) { out.text(" "); out.number(static_cast<int64_t>(value)); }
                     out.text("\n");
                 }
+                writer.publish(hour);
             }
         });
-        std::ofstream stream(run_paths.out / "summary.txt", std::ios::binary);
-        for (const auto& hour : output) stream.write(hour.bytes.data(), static_cast<std::streamsize>(hour.bytes.size()));
-        stream.close(); if (!stream) throw std::runtime_error("cannot write summary.txt");
+        writer.finish();
     } catch (const std::exception& e) { std::fprintf(stderr,"track-a: %s\n",e.what()); return 1; }
 }

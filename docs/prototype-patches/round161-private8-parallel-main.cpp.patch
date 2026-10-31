@@ -1,0 +1,25 @@
+--- a/track-d/main.cpp
++++ b/track-d/main.cpp
+@@ -53,7 +53,7 @@
+             }
+             boundaries[i] = p;
+         }
+-        struct Local { size_t count=0;PrivateDegrees<2> out_degree,in_degree;std::vector<std::pair<uint32_t,uint32_t>> wide;explicit Local(uint32_t n):out_degree(n),in_degree(n){} };
++        struct Local { size_t count=0;PrivateDegrees<8> out_degree,in_degree;std::vector<std::pair<uint32_t,uint32_t>> wide;explicit Local(uint32_t n):out_degree(n),in_degree(n){} };
+         std::vector<Local> locals;locals.reserve(loaders);for(unsigned i=0;i<loaders;++i)locals.emplace_back(n);
+         parallel(loaders, [&](unsigned worker) {
+             auto& local = locals[worker];
+@@ -75,7 +75,12 @@
+         for (const auto& local : locals) edge_count += local.count;
+         if (edge_count != m) throw std::runtime_error("edge count does not match header");
+         std::vector<uint32_t> offsets(size_t(n) + 1), reverse_offsets(size_t(n) + 1);
+-        for(auto& local:locals){local.out_degree.accumulate(offsets);local.in_degree.accumulate(reverse_offsets);local.out_degree.release();local.in_degree.release();}
++        for(const auto& local:locals){local.out_degree.accumulate_spills(offsets);local.in_degree.accumulate_spills(reverse_offsets);}
++        parallel(loaders,[&](unsigned worker){
++            size_t begin=size_t(n)*worker/loaders,end=size_t(n)*(worker+1)/loaders;
++            for(const auto& local:locals){local.out_degree.accumulate_lows(offsets,begin,end);local.in_degree.accumulate_lows(reverse_offsets,begin,end);}
++        });
++        for(auto& local:locals){local.out_degree.release();local.in_degree.release();}
+         for(size_t i=1;i<=n;++i){offsets[i]+=offsets[i-1];reverse_offsets[i]+=reverse_offsets[i-1];}
+         SharedCursor cursor(offsets), reverse_cursor(reverse_offsets);
+         bool wide_cursors = cursor.wide_blocks || reverse_cursor.wide_blocks;

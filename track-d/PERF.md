@@ -403,3 +403,9 @@ Evidence147/69322d0 run-6aba70749f25 passes all real gates on identical selected
 
 
 157/34293c2 run-e91a4732b13e passes all five real gates after exact selected145 restoration: T0.253388s/M76582912/S827/K17.765703/62.479120 points. Lower unchanged-source repeat; historical best 65.222044 stays separate. All28 inputs and complete file sets match current best-track sources; fresh157 combined public/defaults and original C48 pressure replays pass. Rejected151/155 code is absent. Raw ../docs/board-round157-selected-confirmation.json and round157-final-source-match.json.
+
+
+159/0882828 run-6a9b5c62c143 passes all five real gates on identical selected145 source: T0.199552s/M77021184/S827/K19.996396/65.047586 points. Lower same-source repeat; no new algorithm gain. Raw ../docs/board-round159-evidence-head.json.
+
+
+160's new single-word prefix decoder is flat on current D: paired0.996491 versus retained, despite passing strict primitive models; no broader D integration/image/actual promotion.161's distinct disjoint-range parallel packed-low reduction measures original0.181292542, losing155 serial-private2=0.164014083 (paired0.905690), parallel-private2=0.163056750 (0.902018), parallel-private8=0.165848667 (0.914875). The tiny extra gain over already-losing serial155 does not justify added source/memory/new protocol proof. Both remain full-public native screens only, with exact patches archived; no private-degree code enters163. Original12 atomic loaders/band64/D32 stay byte-identical to selected104 best source.
