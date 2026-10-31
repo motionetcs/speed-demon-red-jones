@@ -1,6 +1,6 @@
 # Validation evidence
 
-All listed checks completed successfully on 31 October 2026. These are local correctness/build checks and development experiments, not official scores.
+All listed checks completed successfully on 31 October 2026. The local reports are correctness/build checks and development experiments. Actual official live-board evidence is listed separately below; final holdout and judge scores remain unavailable.
 
 | Evidence | What passed |
 | --- | --- |
@@ -11,6 +11,7 @@ All listed checks completed successfully on 31 October 2026. These are local cor
 | `validation-containers-full.json` | Final offline Linux x86-64 builds, allowlisted digest-pinned images, image-size gate, restricted non-root containers, and full A/C/D output hashes |
 | `experiments-local.json` | Seven alternating baseline/candidate runs per sample/worker configuration; exact outputs checked on every run |
 | `experiments-d-full.json` | Full-public binary-heap versus radix-heap experiment at one, three, and six workers; seven alternating runs per configuration |
+| `first-board-run.json` | Official live board: A/C/D all scored on commit `788ae3b`, passing check/build/correctness/timeout/sandbox gates; actual run IDs, T/M/S/D/K, and machine points retained |
 
 The independent graph oracle is Floyd–Warshall, rather than another copy of our Dijkstra implementation. The CSV grammar checks include embedded UTF-8 bytes, BOMs within quoted data, escaped quotes, CR/LF inside quotes, and EOF without a terminator from the official grammar fixtures. Exact percentile ranks, duplicate requests, timestamp boundaries, empty input, parallel edges, zero weights, and 64-bit distances are covered.
 
@@ -26,4 +27,4 @@ The published manifest is retained in `public-sha256.json`. Input data and gener
 
 ## Limits
 
-The execution host is Apple ARM. Native timings include process launch; process RSS is not the official cgroup `memory.peak`. x86-64 container validation used emulation, so its timing cannot establish performance on the event's Intel machine. The true holdout seed and final judge scores are unavailable. Real board runs, registration, app access, and public-source publication are separate external steps documented in `SUBMISSION.md`.
+The local execution host is Apple ARM. Native timings include process launch; process RSS is not the official cgroup `memory.peak`. x86-64 container validation used emulation. The live-board report supplies actual Intel-box measurements on the public dataset; it is not final holdout scoring or judging. Registration and app access are complete as documented in `SUBMISSION.md`; public-source publication by the required deadline is still a future step.

@@ -16,7 +16,7 @@ This is the fresh local entry. Check actual external state before treating it as
 | Individual registration | Entrant confirmed already registered on 31 October 2026; not duplicated |
 | Team form | Submitted successfully for this fresh repository, A/C/D; Tally displayed “Form submitted” |
 | Board app access | Installed and verified on 31 October 2026; only the fresh repository selected; read-only code and metadata |
-| Official scored runs | None verified for this fresh entry |
+| Official scored runs | A, C, D all scored successfully at 03:57 UTC on 31 October 2026; exact evidence in `first-board-run.json` |
 | Public-source publication | Not performed |
 
 ## External steps
@@ -31,4 +31,6 @@ No automatic future publication or message has been scheduled by this project.
 
 The official GitHub app `Speed Demon Board` requests only `contents: read` and `metadata: read`. Installation `177100099` was verified in the signed-in owner's Brave Work profile. Its saved settings show **Selected 1 repository: motionetcs/speed-demon-red-jones**. The entrant authorized that exact scope.
 
-The team form at https://tally.so/r/Ar7g9z was submitted through Brave Work on 31 October 2026 at approximately 03:55 UTC. It names this fresh repository and selects A, C, D. Tally visibly confirmed successful submission. Personal optional information was omitted. The entrant said individual registration was already complete, so no duplicate individual form was sent. The board registry and first scored results still need to be observed.
+The team form at https://tally.so/r/Ar7g9z was submitted through Brave Work on 31 October 2026 at approximately 03:55 UTC. It names this fresh repository and selects A, C, D. Tally visibly confirmed successful submission. Personal optional information was omitted. The entrant said individual registration was already complete, so no duplicate individual form was sent.
+
+The board registry accepted Red Jones and scored commit `788ae3b205928ca2bc3d60100703d5660123d0f0`. All selected tracks passed check, build, correctness, timeout, and sandbox gates. Actual run IDs: A `run-c76f845b747a`, C `run-bbda54bf2316`, D `run-3e323bfac066`. See https://speeddemon.dev/board/#red-jones-00c4a7 and `first-board-run.json`. Final holdout scoring and judging remain separate.
