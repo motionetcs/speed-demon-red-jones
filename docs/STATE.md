@@ -1,10 +1,10 @@
-# Active optimization state — round77
+# Active optimization state — round79
 
-Official75/342c0aa passes all5 gates on all3 tracks. Retain new A exact4096 local cache/canonical views72.331814/K27.966381 and new D lossless8-way packed labels64.454305/K19.457458. Reject C16-event owner prefetch67.285041/K22.166688 versus retained67.613586/K22.504622. Full75 snapshot mean68.056836, rank31/77, leader81.805732.
+Official77/1a9deb5 passes every gate. A unchanged75 cache source improves observed best to72.747672/K28.507127 (repeat variation). C owner index loses67.447703/K22.333360, now restored to exact4eb6f36 C inputs with best67.613586/K22.504622. Retained D75 best64.454305/K19.457458;77 same-source repeat63.956879 is variation. No number one claim.
 
-Candidate77 changes only C to the prior simple event loop plus table index hash>>2, separating lookup geometry from the low bits fixed by hash%4 owner routing. All full hashes/keys remain exact. Fresh1301/1303 strict sanitizer,1307 TSAN, all-country widths, all1..12 pipeline/reference/cancellation, independent routed-owner/collision/growth/stable/long-key native/GCC models,147 matching-image Linux replays and actual defaults pass. All27 frozen inputs/images are tied in round77-candidate-source-match.json; A/D reuse byte-identical75 evidence.
+Candidate79 changes only D's full-width fallback from an eager custom4096-label epoch table to an exact standard unordered_map<uint32_t,uint64_t>. All packed identity/distance reconstruction, queues, search, CSR and numeric logic remain. Source shrinks; no extra dependency. Native full-public screen similar0.7% faster and1.6MB lower RSS; Mac evidence only. Fresh1319/1321 strict sanitizer,1327 TSAN, independent256 graphs/85,871 answers, native/GCC packed/fallback/boundary/reference/primitive models, matching-image Linux cases and actual defaults pass. C restoration has a freshly rebuilt image. All27 frozen source identities and validation reuse limits are explicit in round79-candidate-source-match.json.
 
-Capture all77 official records before any further runtime push. Keep C only if real total K exceeds22.504622; otherwise restore exact4eb6f36 C runtime/build/metadata and README, preserving chronological PERF. New A/D must remain75. Baseline source/proof and all raw results remain. No pre-event private or competitor implementation is imported.
+Capture all79 official records before another runtime push. Keep new D only if real K exceeds19.457458; otherwise restore exact342c0aa D runtime/build/metadata and README. A stays75 and C stays4eb6f36. Preserve all chronological PERF/prototype/raw evidence; do not import pre-event private or competitor implementation.
 
 ## Evidence and operation
 

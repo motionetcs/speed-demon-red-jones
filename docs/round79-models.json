@@ -1,0 +1,44 @@
+{
+  "observed_at_utc": "2026-10-31T13:59:16.436267+00:00",
+  "official_score": false,
+  "scope": "Strict native/GCC15 Linux independent exact-node/full-distance reference, reconstruction, full-bucket overflow, large-node/distance fallback, growth, promotion, reset, maximal packed words/widths and numeric/queue primitives. GCC SSE2 and AVX2 configurations both execute the actual SSE2 packed-label header path.",
+  "runs": [
+    {
+      "mode": "native",
+      "model": "test_packed_distances.cpp",
+      "stdout": "PASS exact distance reference, packed-key reconstruction, full-bucket fallback, grow/promotion/reset, boundary words/nodes and64-bit labels\n",
+      "stderr": "",
+      "binary_sha256": "c6b92d768c6d8d0898d976aec2537c6c27b1b483f333b4bff127541c931a1330"
+    },
+    {
+      "mode": "native",
+      "model": "test_primitives.cpp",
+      "stdout": "PASS decimal reference/byte/guard-page checks and compact/wide queue/label model checks\n",
+      "stderr": "",
+      "binary_sha256": "e6127d6d24a884b4fb9b4a9ef11a176f0b934d755ecd9a3c0b52ccef53b50e73"
+    },
+    {
+      "mode": "GCC15-Linux-amd64",
+      "script": [
+        "set -eu",
+        "export UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1",
+        "g++ -std=c++20 -O1 -g -pthread -fsanitize=address,undefined -msse2 '-DDISTANCE_MAP_HEADER=\"/repo/.build/round79/source/track-d/distance_map.hpp\"' -DREQUIRE_PACKED_LABELS /repo/tools/test_packed_distances.cpp -o /tmp/model",
+        "/tmp/model",
+        "g++ -std=c++20 -O1 -g -pthread -fsanitize=address,undefined -mavx2 '-DDISTANCE_MAP_HEADER=\"/repo/.build/round79/source/track-d/distance_map.hpp\"' -DREQUIRE_PACKED_LABELS /repo/tools/test_packed_distances.cpp -o /tmp/model",
+        "/tmp/model",
+        "g++ -std=c++20 -O1 -g -pthread -fsanitize=address,undefined -msse2 '-DDECIMAL_HEADER=\"/repo/.build/round79/source/track-a/decimal.hpp\"' '-DCOMPACT_QUEUE_HEADER=\"/repo/.build/round79/source/track-d/radix_heap.hpp\"' '-DDISTANCE_MAP_HEADER=\"/repo/.build/round79/source/track-d/distance_map.hpp\"' /repo/tools/test_primitives.cpp -o /tmp/model",
+        "/tmp/model"
+      ],
+      "stdout": "PASS exact distance reference, packed-key reconstruction, full-bucket fallback, grow/promotion/reset, boundary words/nodes and64-bit labels\nPASS exact distance reference, packed-key reconstruction, full-bucket fallback, grow/promotion/reset, boundary words/nodes and64-bit labels\nPASS decimal reference/byte/guard-page checks and compact/wide queue/label model checks\n",
+      "stderr": ""
+    }
+  ],
+  "source_sha256": {
+    "tools/test_packed_distances.cpp": "45a0c4e861189c1ccf91e092685630daa068f6216be06852741179aaeea79ed4",
+    "tools/test_primitives.cpp": "8ba7999c2b3de11688090a64f7cad35129ac8d3cc5db7aac59ff5efd8880924e",
+    ".build/round79/source/track-a/decimal.hpp": "aee2210ac5894050834ffd37903718b3b7bdc6673240559baa85b350bea9b581",
+    ".build/round79/source/track-d/radix_heap.hpp": "7fb2052bb951ca391c5b1883d8e673f554a43ab3d06286e43597105c2d82b6e3",
+    ".build/round79/source/track-d/distance_map.hpp": "124fe1d2aeb35e8f1974382e5e10e638356e47cfa257f07a7c5f69fa4461073a"
+  },
+  "passed": true
+}

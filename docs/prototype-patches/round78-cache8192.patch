@@ -1,0 +1,11 @@
+--- a/track-a/endpoint_table.hpp
++++ b/track-a/endpoint_table.hpp
+@@ -38,7 +38,7 @@
+ 
+ struct LocalEndpoints {
+     struct Slot{const char* data=nullptr;uint32_t hash=0;uint16_t length=0,id=UINT16_MAX;};
+-    Endpoints& shared;std::vector<Slot> slots=std::vector<Slot>(4096);
++    Endpoints& shared;std::vector<Slot> slots=std::vector<Slot>(8192);
+     explicit LocalEndpoints(Endpoints& table):shared(table){}
+     static uint32_t hash_key(std::string_view v){
+         if(v.size()<4){uint32_t h=2166136261U;for(unsigned char c:v)h=(h^c)*16777619U;return h;}

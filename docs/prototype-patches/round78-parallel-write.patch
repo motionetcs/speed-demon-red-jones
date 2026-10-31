@@ -1,0 +1,40 @@
+--- a/track-a/main.cpp
++++ b/track-a/main.cpp
+@@ -3,6 +3,7 @@
+ #include "endpoint_table.hpp"
+ #include "parallel.hpp"
+ #include <atomic>
++#include <cerrno>
+ #include <memory>
+ #include <numeric>
+ 
+@@ -111,8 +112,26 @@
+                 }
+             }
+         });
+-        std::ofstream stream(run_paths.out / "summary.txt", std::ios::binary);
+-        for (const auto& hour : output) stream.write(hour.bytes.data(), static_cast<std::streamsize>(hour.bytes.size()));
+-        stream.close(); if (!stream) throw std::runtime_error("cannot write summary.txt");
++        std::array<off_t,73> positions{};
++        for(size_t i=0;i<output.size();++i)positions[i+1]=positions[i]+output[i].bytes.size();
++        int fd=open((run_paths.out/"summary.txt").c_str(),O_WRONLY|O_CREAT|O_TRUNC,0666);
++        if(fd<0)throw std::runtime_error("cannot open summary.txt");
++        struct File {int fd;~File(){if(fd>=0)close(fd);}} output_file{fd};
++        if(ftruncate(fd,positions.back()))throw std::runtime_error("cannot size summary.txt");
++        next_hour.store(0,std::memory_order_relaxed);
++        parallel(threads,[&](unsigned){
++            for(;;){
++                size_t i=next_hour.fetch_add(1,std::memory_order_relaxed);if(i>=output.size())return;
++                const auto& bytes=output[i].bytes;size_t done=0;
++                while(done<bytes.size()){
++                    ssize_t n=pwrite(fd,bytes.data()+done,bytes.size()-done,positions[i]+done);
++                    if(n<0&&errno==EINTR)continue;
++                    if(n<=0)throw std::runtime_error("cannot write summary.txt");
++                    done+=static_cast<size_t>(n);
++                }
++            }
++        });
++        int status=close(fd);output_file.fd=-1;
++        if(status)throw std::runtime_error("cannot close summary.txt");
+     } catch (const std::exception& e) { std::fprintf(stderr,"track-a: %s\n",e.what()); return 1; }
+ }

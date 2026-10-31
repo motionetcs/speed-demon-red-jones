@@ -281,3 +281,6 @@ Fresh1283/1289 ASAN/UBSAN,1291 TSAN, public/default1/6/12, exact method/hour/esc
 
 
 Round75 commit342c0aa, run-74e8fa2d125f, passes all five official gates: T=0.047604 s, M=34332672 B, S=424, K=27.966381, points=72.331814. Retain the exact local-cache/canonical-view change; it exceeds prior72.140972/K27.721673. Raw result: ../docs/board-round75-cache-prefetch-labels.json. One observation does not remove timing/memory variation.
+
+
+Round77 unchanged75 A source passes every gate again: run-defe2eced259, T0.045519 s/M34893824/S424/K28.507127/72.747672 points. The better observation is repeat variation, not another algorithm change. Round78 screens reject cache2048 (0.042615 versus0.040629 s), cache8192 (0.040539, larger RSS for0.2%) and parallel pwrite output (0.040315, only0.8% and more source/RSS). Every trial matches the full public hash. No broad sanitizer/Linux/board claim applies to these unselected prototypes. Raw ../docs/round78-cache-output-wide-bench.json.

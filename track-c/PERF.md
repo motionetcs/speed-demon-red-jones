@@ -300,3 +300,6 @@ Default routing uses hash%4, fixing the low two bits for every name in a given o
 Eleven rotating sequential full-public native trials: retained0.059044 s,75 prefetch0.060912, plain shift2=0.057556, high32=0.057960, fold=0.058247; combined prefetch shift2/high32/fold=0.061420/0.059442/0.059948. All output hashes match and RSS is essentially flat. Choose the smallest2.5% faster plain shift2 hypothesis. These are Mac screens, not Intel gains.
 
 Fresh1301/1303 strict ASAN/UBSAN,1307 TSAN, full1/6/12, countries0/1/254/255/256/257/17576, pipeline progress/reference/cancellation at every1..12 workers, native/GCC strict independent full-key/collision/growth/long-key models plus every fixed-low-two-bit owner,147 exact-image Linux replays and actual defaults pass. All source identities are frozen in round77-candidate-source-match.json. Real K must exceed22.504622/67.613586.
+
+
+Round77/1a9deb5, run-1d87df780cae passes all official gates: T0.062544 s/M13774848/S661/K22.333360/67.447703. Although independently indexing owner hashes is logically sound and faster locally, total K does not beat22.504622/67.613586. Reject it and restore exact4eb6f36 C runtime/build/metadata and README. Current restored Linux source/image matches that score-confirmed source; no new C algorithm gain is claimed. Raw ../docs/board-round77-owner-index.json.

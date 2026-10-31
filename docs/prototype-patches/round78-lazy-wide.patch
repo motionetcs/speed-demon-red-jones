@@ -1,0 +1,19 @@
+--- a/track-d/distance_map.hpp
++++ b/track-d/distance_map.hpp
+@@ -13,7 +13,7 @@
+ 
+ struct Distances {
+     struct Label { uint32_t node = 0, epoch = 0; uint64_t distance = 0; };
+-    std::vector<Label> labels = std::vector<Label>(4096);
++    std::vector<Label> labels;
+     uint32_t epoch = 0;
+     size_t used = 0;
+     static size_t hash(uint32_t node) {
+@@ -40,6 +40,7 @@
+         return label.epoch == epoch ? label.distance : UINT64_MAX;
+     }
+     bool improve(uint32_t node, uint64_t distance) {
++        if(labels.empty())labels.resize(4096);
+         if (used * 2 >= labels.size()) {
+             auto previous = std::move(labels);
+             labels.resize(previous.size() * 2);

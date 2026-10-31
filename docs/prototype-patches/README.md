@@ -59,3 +59,5 @@ Rounds68–70 patches apply toeb80bc6d279802d8280a0dc15b8d824aa2d96ac1. Phase ma
 Rounds73–75 patches apply to4eb6f366b309c968eb72dabc83d46e073c33bfa5. Only selected75 families have the broader reference/sanitizer/race/GCC/default/image evidence; limits and compiler overrides are in round73-75-prototype-index.json.
 
 Round76 index variants and parent commits are in round76-prototype-index.json. Only selected plain-shift2 has broad current-source validation before official77.
+
+Round78 cache/output/fallback variants apply to342c0aa; full identities and screening-versus-broad-validation limits are in round78-prototype-index.json. Only stdlib-wide is promoted79.

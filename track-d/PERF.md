@@ -274,3 +274,14 @@ Fresh1283/1289 ASAN/UBSAN,1291 TSAN, full/default/degree/cursor/wide-ID/zero/MAX
 
 
 Round75 commit342c0aa, run-22b23e81f4d4, passes all five official gates: T=0.2113 s, M=76529664 B, S=827, K=19.457458, points=64.454305. Retain the lossless packed-label change; it exceeds prior64.084694/K19.129071. Raw result: ../docs/board-round75-cache-prefetch-labels.json. One observation does not remove timing/memory variation.
+
+
+Round77 unchanged75 D source passes all gates again, run-e1b39207f577: T0.220476 s/M77164544/S827/K19.016806/63.956879. The lower repeat remains separate from the best64.454305. Raw ../docs/board-round77-owner-index.json.
+
+## Smaller exact full-width fallback
+
+The packed table already handles common IDs/distances exactly; its full-width fallback need not eagerly allocate4096 custom epoch labels for every direction/worker. Replace only that fallback with std::unordered_map<uint32_t,uint64_t>. Full node IDs are keys and all64 distance bits are values. Clearing at query boundaries and strict improvements preserve the same exact semantics. Hash collisions still require complete integer equality. This uses only the standard library, with no new runtime dependency. The packed tag/reconstruction/growth/slot protocol and all graph/search/queue logic remain unchanged.
+
+Eleven rotating sequential full-public native trials:75 retained0.189305 s/179.60MB, lazy custom fallback0.187833/179.98MB, standard fallback0.188042/178.01MB. Select the standard fallback: similar0.7% time improvement, roughly1.6MB lower peak RSS, and substantially less custom source. The lazy variant is rejected at screening only. Intel total K must exceed19.457458/64.454305.
+
+Fresh1319/1321 strict ASAN/UBSAN,1327 TSAN, full1/6/12, all degree/cursor/wide-ID/MAX-weight/64-bit cases,256 independent Floyd graphs/85,871 answers, strict native/GCC exact-map/reference/reconstruction/growth/full-bucket/promotion/reset/extreme-width/numeric/queue models pass. 1032 exact-current-image Linux cases and actual native/Linux defaults pass. All27 selected inputs match frozen79 and the corresponding exact source/image evidence. A reuses exact75 proof and C reuses exact restored71 source, freshly rebuilding its Linux image. Real board acceptance remains pending.
