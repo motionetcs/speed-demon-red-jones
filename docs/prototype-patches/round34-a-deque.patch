@@ -1,0 +1,45 @@
+--- a/track-a/main.cpp
++++ b/track-a/main.cpp
+@@ -3,6 +3,7 @@
+ #include "endpoint_table.hpp"
+ #include "parallel.hpp"
+ #include <atomic>
++#include <deque>
+ #include <memory>
+ #include <numeric>
+ 
+@@ -27,7 +28,8 @@
+         }
+         Endpoints endpoints;
+         struct Chunk {
+-            std::array<std::vector<uint32_t>, 72> records, wide;
++            std::array<std::deque<uint32_t>, 72> records;
++            std::array<std::vector<uint32_t>, 72> wide;
+             std::array<uint32_t, 72> first;
+             Chunk() { first.fill(UINT32_MAX); }
+         };
+@@ -35,7 +37,6 @@
+         parallel(threads, [&](unsigned worker) {
+             const char* p = boundaries[worker]; const char* limit = boundaries[worker + 1];
+             auto& chunk = chunks[worker];
+-            size_t reserve_hint = (limit - p) / (72 * 64);
+             while (p < limit) {
+                 if (limit - p < 28) throw std::runtime_error("truncated timestamp");
+                 const char* line = p;
+@@ -55,7 +56,6 @@
+                 uint16_t key = endpoints.intern(endpoint, std::hash<std::string_view>{}(endpoint));
+                 if (chunk.first[hour] == UINT32_MAX) {
+                     chunk.first[hour] = static_cast<uint32_t>(line - file.data);
+-                    chunk.records[hour].reserve(reserve_hint);
+                 }
+                 chunk.records[hour].push_back(std::min(uint32_t(latency), latency_escape) << 13 | uint32_t(error) << 12 | key);
+                 if (latency >= latency_escape) chunk.wide[hour].push_back(static_cast<uint32_t>(latency));
+@@ -93,7 +93,7 @@
+                         if (latency == latency_escape) latency = chunk.wide[hour][wide++];
+                         latencies[cursor[record & 4095]++] = latency;
+                     }
+-                    std::vector<uint32_t>().swap(chunk.records[hour]); std::vector<uint32_t>().swap(chunk.wide[hour]);
++                    std::deque<uint32_t>().swap(chunk.records[hour]); std::vector<uint32_t>().swap(chunk.wide[hour]);
+                 }
+                 std::string label = std::string(file.data + first_line, 13) + ":00:00Z";
+                 auto& out = output[hour]; out.bytes.reserve(order.size() * 100);

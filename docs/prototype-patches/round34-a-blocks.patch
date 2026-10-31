@@ -1,0 +1,100 @@
+--- a/track-a/main.cpp
++++ b/track-a/main.cpp
+@@ -1,6 +1,7 @@
+ #include "io.hpp"
+ #include "decimal.hpp"
+ #include "endpoint_table.hpp"
++#include "record_blocks.hpp"
+ #include "parallel.hpp"
+ #include <atomic>
+ #include <memory>
+@@ -27,7 +28,8 @@
+         }
+         Endpoints endpoints;
+         struct Chunk {
+-            std::array<std::vector<uint32_t>, 72> records, wide;
++            std::array<RecordBlocks, 72> records;
++            std::array<std::vector<uint32_t>, 72> wide;
+             std::array<uint32_t, 72> first;
+             Chunk() { first.fill(UINT32_MAX); }
+         };
+@@ -35,7 +37,6 @@
+         parallel(threads, [&](unsigned worker) {
+             const char* p = boundaries[worker]; const char* limit = boundaries[worker + 1];
+             auto& chunk = chunks[worker];
+-            size_t reserve_hint = (limit - p) / (72 * 64);
+             while (p < limit) {
+                 if (limit - p < 28) throw std::runtime_error("truncated timestamp");
+                 const char* line = p;
+@@ -55,7 +56,6 @@
+                 uint16_t key = endpoints.intern(endpoint, std::hash<std::string_view>{}(endpoint));
+                 if (chunk.first[hour] == UINT32_MAX) {
+                     chunk.first[hour] = static_cast<uint32_t>(line - file.data);
+-                    chunk.records[hour].reserve(reserve_hint);
+                 }
+                 chunk.records[hour].push_back(std::min(uint32_t(latency), latency_escape) << 13 | uint32_t(error) << 12 | key);
+                 if (latency >= latency_escape) chunk.wide[hour].push_back(static_cast<uint32_t>(latency));
+@@ -80,7 +80,7 @@
+                 size_t count = 0; uint32_t first_line = UINT32_MAX;
+                 for (const auto& chunk : chunks) {
+                     count += chunk.records[hour].size(); first_line = std::min(first_line, chunk.first[hour]);
+-                    for (uint32_t record : chunk.records[hour]) { auto& group = groups[record & 4095]; ++group.count; group.errors += (record >> 12) & 1; }
++                    chunk.records[hour].each([&](uint32_t record) { auto& group = groups[record & 4095]; ++group.count; group.errors += (record >> 12) & 1; });
+                 }
+                 if (!count) continue;
+                 uint32_t offset = 0;
+@@ -88,12 +88,12 @@
+                 latencies.resize(count);
+                 for (auto& chunk : chunks) {
+                     size_t wide = 0;
+-                    for (uint32_t record : chunk.records[hour]) {
++                    chunk.records[hour].each([&](uint32_t record) {
+                         uint32_t latency = record >> 13;
+                         if (latency == latency_escape) latency = chunk.wide[hour][wide++];
+                         latencies[cursor[record & 4095]++] = latency;
+-                    }
+-                    std::vector<uint32_t>().swap(chunk.records[hour]); std::vector<uint32_t>().swap(chunk.wide[hour]);
++                    });
++                    chunk.records[hour].clear(); std::vector<uint32_t>().swap(chunk.wide[hour]);
+                 }
+                 std::string label = std::string(file.data + first_line, 13) + ":00:00Z";
+                 auto& out = output[hour]; out.bytes.reserve(order.size() * 100);
+--- /dev/null
++++ b/track-a/record_blocks.hpp
+@@ -0,0 +1,26 @@
++#pragma once
++#include <algorithm>
++#include <cstdint>
++#include <memory>
++#include <vector>
++
++struct RecordBlocks {
++    static constexpr size_t block_size = 4096;
++    std::vector<std::unique_ptr<uint32_t[]>> blocks;
++    size_t count = 0;
++    size_t size() const { return count; }
++    void push_back(uint32_t value) {
++        if (count % block_size == 0) blocks.emplace_back(new uint32_t[block_size]);
++        blocks.back()[count % block_size] = value;
++        ++count;
++    }
++    template<class Function> void each(Function function) const {
++        size_t remaining = count;
++        for (const auto& block : blocks) {
++            size_t used = std::min(remaining, block_size);
++            for (size_t i = 0; i < used; ++i) function(block[i]);
++            remaining -= used;
++        }
++    }
++    void clear() { blocks.clear(); count = 0; }
++};
+--- a/track-a/Dockerfile
++++ b/track-a/Dockerfile
+@@ -1,6 +1,6 @@
+ FROM gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce AS build
+ WORKDIR /src
+-COPY training_generator.py main.cpp endpoint_table.hpp io.hpp decimal.hpp parallel.hpp ./
++COPY record_blocks.hpp training_generator.py main.cpp endpoint_table.hpp io.hpp decimal.hpp parallel.hpp ./
+ RUN g++ -std=c++20 -O3 -DNDEBUG -pthread -static -fprofile-generate=/profile -fprofile-update=atomic main.cpp -o /solution
+ RUN python3 training_generator.py --seed 104729 --scale sample --out /training && /solution --data /training --out /training-output && python3 training_generator.py --seed 130363 --scale sample --out /training && /solution --data /training --out /training-output
+ RUN g++ -std=c++20 -O3 -DNDEBUG -pthread -static -fprofile-use=/profile -fprofile-correction -Werror=missing-profile main.cpp -o /solution

@@ -1,0 +1,44 @@
+--- a/track-a/main.cpp
++++ b/track-a/main.cpp
+@@ -3,8 +3,18 @@
+ #include "endpoint_table.hpp"
+ #include "parallel.hpp"
+ #include <atomic>
++#include <bit>
+ #include <memory>
+ #include <numeric>
++
++inline uint32_t cache_hash(std::string_view value) {
++    if (value.size() < 4) return static_cast<uint32_t>(std::hash<std::string_view>{}(value));
++    uint32_t a, b, c;
++    std::memcpy(&a, value.data(), 4); std::memcpy(&b, value.data() + (value.size() - 4) / 2, 4);
++    std::memcpy(&c, value.data() + value.size() - 4, 4);
++    uint32_t hash = (a ^ std::rotl(b, 11) ^ std::rotl(c, 23) ^ static_cast<uint32_t>(value.size())) * 0x9e3779b1U;
++    return hash ^ (hash >> 16);
++}
+ 
+ static constexpr uint32_t latency_escape = (1U << 19) - 1;
+ struct Count { uint32_t count = 0, errors = 0; };
+@@ -35,6 +45,8 @@
+         parallel(threads, [&](unsigned worker) {
+             const char* p = boundaries[worker]; const char* limit = boundaries[worker + 1];
+             auto& chunk = chunks[worker];
++            struct Cached { std::string_view value; uint16_t id = UINT16_MAX; };
++            std::array<Cached, 256> cache{};
+             size_t reserve_hint = (limit - p) / (72 * 64);
+             while (p < limit) {
+                 if (limit - p < 28) throw std::runtime_error("truncated timestamp");
+@@ -52,7 +64,12 @@
+                 uint64_t latency = decimal_digits(p, limit);
+                 if (p == start || p - start > 10 || latency > UINT32_MAX || p == limit || *p != '\n') throw std::runtime_error("invalid latency");
+                 ++p;
+-                uint16_t key = endpoints.intern(endpoint, std::hash<std::string_view>{}(endpoint));
++                auto hash = cache_hash(endpoint);
++                auto& cached = cache[hash & (cache.size() - 1)];
++                if (cached.id == UINT16_MAX || cached.value != endpoint) {
++                    cached.id = endpoints.intern(endpoint, std::hash<std::string_view>{}(endpoint)); cached.value = endpoint;
++                }
++                uint16_t key = cached.id;
+                 if (chunk.first[hour] == UINT32_MAX) {
+                     chunk.first[hour] = static_cast<uint32_t>(line - file.data);
+                     chunk.records[hour].reserve(reserve_hint);

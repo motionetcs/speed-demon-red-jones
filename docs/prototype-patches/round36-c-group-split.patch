@@ -1,0 +1,52 @@
+--- a/track-c/names.hpp
++++ b/track-c/names.hpp
+@@ -21,21 +21,24 @@
+ struct StringArena {
+     std::vector<std::unique_ptr<char[]>> blocks;
+     char* next = nullptr;
++    char* limit = nullptr;
+     size_t remaining = 0;
+     NameKey* make(std::string_view value, size_t words) {
+         if (value.size() > UINT32_MAX || words > (SIZE_MAX - sizeof(NameKey) - value.size() - 7) / sizeof(std::atomic<uint64_t>))
+             throw std::runtime_error("name storage size overflow");
+-        size_t bytes = sizeof(NameKey) + words * sizeof(std::atomic<uint64_t>) + value.size();
+-        bytes = (bytes + 7) & ~size_t(7);
++        size_t immutable_bytes = (sizeof(NameKey) + value.size() + 7) & ~size_t(7);
++        size_t bit_bytes = words * sizeof(std::atomic<uint64_t>);
++        size_t bytes = immutable_bytes + bit_bytes;
+         if (bytes > remaining) {
+             size_t capacity = std::max<size_t>(65536, bytes);
+-            blocks.emplace_back(new char[capacity]); next = blocks.back().get(); remaining = capacity;
++            blocks.emplace_back(new char[capacity]); next = blocks.back().get(); remaining = capacity; limit = next + capacity;
+         }
+-        auto* result = ::new (static_cast<void*>(next)) NameKey{static_cast<uint32_t>(value.size()), 0};
+-        ::new (static_cast<void*>(next + sizeof(NameKey))) std::atomic<uint64_t>[words]{};
+-        char* data = next + sizeof(NameKey) + words * sizeof(std::atomic<uint64_t>);
++        char* bits = limit - bit_bytes;
++        auto* result = ::new (static_cast<void*>(next)) NameKey{static_cast<uint32_t>(value.size()), static_cast<uint32_t>((bits - next) / 8)};
++        ::new (static_cast<void*>(bits)) std::atomic<uint64_t>[words]{};
++        char* data = next + sizeof(NameKey);
+         if (!value.empty()) std::memcpy(data, value.data(), value.size());
+-        next += bytes; remaining -= bytes; return result;
++        next += immutable_bytes; limit = bits; remaining -= bytes; return result;
+     }
+ };
+ struct Canceled {};
+@@ -63,7 +66,7 @@
+         __builtin_prefetch(&controls[group], 0, 1); __builtin_prefetch(&entries[group * 8], 0, 1);
+     }
+     std::string_view bytes(const NameKey* key) const {
+-        return {reinterpret_cast<const char*>(key) + sizeof(NameKey) + words * sizeof(std::atomic<uint64_t>), key->length};
++        return {reinterpret_cast<const char*>(key) + sizeof(NameKey), key->length};
+     }
+     Entry& intern(std::string_view key, StringArena& storage, uint64_t hash) {
+         size_t group = (hash & (capacity - 1)) / 8;
+@@ -102,7 +105,7 @@
+         too_small.store(true); canceled.store(true); throw Canceled{};
+     }
+     bool first(Entry& entry, size_t country) {
+-        auto* bits = reinterpret_cast<std::atomic<uint64_t>*>(reinterpret_cast<char*>(entry.key) + sizeof(NameKey));
++        auto* bits = reinterpret_cast<std::atomic<uint64_t>*>(reinterpret_cast<char*>(entry.key) + size_t(entry.key->padding) * 8);
+         uint64_t bit = uint64_t(1) << (country % 64);
+         return (bits[country / 64].fetch_or(bit, std::memory_order_relaxed) & bit) == 0;
+     }

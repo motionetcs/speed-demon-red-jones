@@ -1,0 +1,11 @@
+--- a/track-a/main.cpp
++++ b/track-a/main.cpp
+@@ -35,7 +35,7 @@
+         parallel(threads, [&](unsigned worker) {
+             const char* p = boundaries[worker]; const char* limit = boundaries[worker + 1];
+             auto& chunk = chunks[worker];
+-            size_t reserve_hint = (limit - p) / (72 * 64);
++            size_t reserve_hint = (limit - p) / 1024;
+             while (p < limit) {
+                 if (limit - p < 28) throw std::runtime_error("truncated timestamp");
+                 const char* line = p;

@@ -193,3 +193,11 @@ Round32 ce5ad53ee45296595a6eab2c9ac74d77fa4c61e7 repeats unchanged C source at66
 ## Final restored-combination confirmation
 
 Exact commit 71a023706495a99867f32a3e1856317f0d9e73bb passes check/build/correctness/timeout/sandbox for all A/C/D. This track's run run-e562a54a2e3f: T=0.077215 s, M=11,071,488 bytes, S=591, K=21.353266, points=66.473216. Record: ../docs/board-round32-retained-final.json. Every one of the27 retained runtime/build/metadata inputs matches this scored commit in round32-final-source-match.json. All weaker runtime experiments are removed. This repeated-source result confirms the combination; historical best and latest confirmation remain separate, and repeat deltas are not called algorithm gains. Further updates are documentation/evidence only.
+
+## Round38: grouped exact name lookup
+
+Eight immutable key pointers share one atomic64-bit control word. Control value0 means empty,1 marks the group's sole writer, and published fingerprint bytes only choose full-name equality candidates. Readers acquire the word and wait for any writer before reading pointers; a successful CAS claims one empty byte. The writer initializes its full key/country words, then release-publishes the updated word. Other writers wait, so publication cannot lose a neighboring byte or insert the same name twice. Byte-mask false candidates are proven to refer to published entries and still require exact byte equality. Hashes never substitute for equality.
+
+The slots shrink from16 to8 bytes, plus one control byte each. String ownership, country atomics, width fallback and cancellation/reparse remain exact. Eleven rotating native trials: baseline0.097859 s/217.14MB, grouped0.091800/214.60MB. Separate key/bitmap arenas, extra key prefetch and larger changes lose locally and are not promoted. The refactored layout-independent name model passes the unchanged baseline as well as the experimental layouts; dedicated reserved-state/mask/failure tests, ASAN/UBSAN and TSAN pass.
+
+Fresh1009/1013 strict sanitizer,1019 race/reference cases, full public1/6/12, country counts0/1/254/255/256/257/17576, grammar/growth/NUL/UTF-8/empty-key models, pinned GCC15 strict models,54 exact-image Linux replays and actual default entrypoints pass. Reports ../docs/round36-name-models.json and ../docs/round38-*.json. Only actual total K decides retention.

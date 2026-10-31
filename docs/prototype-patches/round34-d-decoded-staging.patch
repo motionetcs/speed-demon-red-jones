@@ -1,0 +1,68 @@
+--- a/track-d/main.cpp
++++ b/track-d/main.cpp
+@@ -52,19 +52,35 @@
+             }
+             boundaries[i] = p;
+         }
+-        struct Local { size_t count = 0; DegreeBytes::Spills out_spills, in_spills; std::vector<std::pair<uint32_t, uint32_t>> wide; };
++        struct Local {
++            size_t count = 0; DegreeBytes::Spills out_spills, in_spills;
++            std::vector<std::pair<uint32_t, uint32_t>> wide;
++            std::vector<uint64_t> parsed;
++            std::vector<std::array<uint32_t, 3>> large;
++            std::vector<uint32_t> full_weights;
++        };
+         std::vector<Local> locals(loaders);
+         DegreeBytes degree(n), reverse_degree(n);
+-        parallel(loaders, [&](unsigned worker) {
+-            auto& local = locals[worker];
+-            Scanner input{boundaries[worker], boundaries[worker + 1]};
+-            while (input.more()) {
+-                uint32_t u = input.number(), v = input.number(); input.number();
+-                if (u >= n || v >= n) throw std::runtime_error("node outside graph");
+-                ++local.count;
+-                degree.add(u, local.out_spills); reverse_degree.add(v, local.in_spills);
+-            }
+-        });
++        auto parse = [&]<bool Compact>() {
++            parallel(loaders, [&](unsigned worker) {
++                auto& local = locals[worker];
++                size_t hint = size_t(m) / loaders + size_t(m) / (loaders * 16);
++                if constexpr (Compact) local.parsed.reserve(hint); else local.large.reserve(hint);
++                Scanner input{boundaries[worker], boundaries[worker + 1]};
++                while (input.more()) {
++                    uint32_t u = input.number(), v = input.number(), value = input.number();
++                    if (u >= n || v >= n) throw std::runtime_error("node outside graph");
++                    ++local.count;
++                    degree.add(u, local.out_spills); reverse_degree.add(v, local.in_spills);
++                    if constexpr (Compact) {
++                        uint32_t tag = std::min(value, EdgeStore::small_limit);
++                        local.parsed.push_back(uint64_t(u) << 32 | uint64_t(tag) << EdgeStore::node_bits | v);
++                        if (value >= EdgeStore::small_limit) local.full_weights.push_back(value);
++                    } else local.large.push_back({u, v, value});
++                }
++            });
++        };
++        if (n <= EdgeStore::node_mask + 1) parse.template operator()<true>(); else parse.template operator()<false>();
+         size_t edge_count = 0;
+         for (const auto& local : locals) edge_count += local.count;
+         if (edge_count != m) throw std::runtime_error("edge count does not match header");
+@@ -84,9 +100,15 @@
+         auto scatter = [&]<bool Compact, bool WideCursors>() {
+             parallel(loaders, [&](unsigned worker) {
+             auto& local = locals[worker];
+-            Scanner input{boundaries[worker], boundaries[worker + 1]};
+-            while (input.more()) {
+-                uint32_t u = input.number(), v = input.number(), value = input.number();
++            size_t wide = 0;
++            for (size_t i = 0; i < local.count; ++i) {
++                uint32_t u, v, value;
++                if constexpr (Compact) {
++                    uint64_t item = local.parsed[i]; u = static_cast<uint32_t>(item >> 32);
++                    v = static_cast<uint32_t>(item) & EdgeStore::node_mask;
++                    value = static_cast<uint32_t>(item) >> EdgeStore::node_bits;
++                    if (value == EdgeStore::small_limit) value = local.full_weights[wide++];
++                } else { auto item = local.large[i]; u = item[0]; v = item[1]; value = item[2]; }
+                 uint32_t out = cursor.template take<WideCursors>(u);
+                 uint32_t in = reverse_cursor.template take<WideCursors>(v);
+                 uint32_t weight = std::min(value, Compact ? EdgeStore::small_limit : uint32_t(UINT16_MAX));

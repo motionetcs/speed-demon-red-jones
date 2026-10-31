@@ -197,3 +197,11 @@ Round32 ce5ad53ee45296595a6eab2c9ac74d77fa4c61e7 passes every official gate: run
 ## Final restored-combination confirmation
 
 Exact commit 71a023706495a99867f32a3e1856317f0d9e73bb passes check/build/correctness/timeout/sandbox for all A/C/D. This track's run run-4dba3dfffd2a: T=0.303599 s, M=94,232,576 bytes, S=728, K=15.871484, points=60.030877. Record: ../docs/board-round32-retained-final.json. Every one of the27 retained runtime/build/metadata inputs matches this scored commit in round32-final-source-match.json. All weaker runtime experiments are removed. This repeated-source result confirms the combination; historical best and latest confirmation remain separate, and repeat deltas are not called algorithm gains. Further updates are documentation/evidence only.
+
+## Round38: batched graph-loader memory access
+
+Native phase diagnostics show substantial degree/scatter cost. Keeping decoded edges avoids a text pass but adds about40MB peak RSS; ordered query batches are slower. Prefer a bounded16-row loader pipeline: decode and prefetch degree/cursor addresses, claim the exact atomic slots, prefetch the resulting edge addresses, then scatter every row. Both text passes, exact wrap/spill handling, wide cursors/IDs/weights, query algorithm and output order remain. Extra scratch is only16 rows per loader. No file-order or seed-specific assumption is introduced.
+
+Eleven rotating public-hash-checked native trials: baseline0.339602 s/192.45MB, loader8=0.343298/191.59MB, loader16=0.324033/192.72MB, loader32=0.332808/191.59MB. Select16 as a modest total-score hypothesis with essentially unchanged memory; Apple time is not Intel K.
+
+Fresh1009/1013 strict ASAN/UBSAN,1019 TSAN, complete public1/6/12 outputs, partial batches and all high-degree/wide-ID/MAX-weight/64-bit adversarial cases,256 independent Floyd–Warshall graphs/85,871 answers, strict GCC loader/edge models,843 exact-image Linux replays and actual defaults pass. Reports ../docs/round38-*.json. Retain only if real K improves.

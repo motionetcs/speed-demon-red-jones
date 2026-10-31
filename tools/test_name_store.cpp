@@ -12,20 +12,21 @@
 
 int main() {
     for (size_t words : {1U,4U,5U,275U}) {
-        StringArena arena;
+        StringArena arena; Names view(128,words*64);
         std::vector<std::pair<NameKey*,std::string>> saved;
         for (size_t size : {0U,1U,7U,8U,63U,64U,65535U,65536U,65537U,1048576U}) {
             std::string value(size, 'x'); for (size_t i=0;i<size;++i) value[i]=char(i%251);
             NameKey* key=arena.make(value,words); assert(key->length==size);
             assert(reinterpret_cast<uintptr_t>(key)%alignof(NameKey)==0);
-            auto* bits=reinterpret_cast<std::atomic<uint64_t>*>(reinterpret_cast<char*>(key)+sizeof(NameKey));
-            for(size_t i=0;i<words;++i){assert(bits[i].load()==0);bits[i].store(UINT64_MAX-i);}
+            Names::Entry entry; entry.key=key;
+            for(size_t i=0;i<words*64;++i){assert(view.first(entry,i));assert(!view.first(entry,i));}
             saved.emplace_back(key,std::move(value));
         }
         for(unsigned i=0;i<10000;++i)arena.make(std::to_string(i),words);
         for(const auto& [key,value]:saved) {
-            const char* bytes=reinterpret_cast<const char*>(key)+sizeof(NameKey)+words*sizeof(std::atomic<uint64_t>);
-            assert(std::string_view(bytes,key->length)==value);
+            assert(view.bytes(key)==value);
+            Names::Entry entry; entry.key=key;
+            for(size_t i=0;i<words*64;++i)assert(!view.first(entry,i));
         }
         bool threw=false;try{arena.make("x",SIZE_MAX);}catch(const std::runtime_error&){threw=true;}assert(threw);
     }

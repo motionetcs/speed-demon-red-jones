@@ -1,0 +1,10 @@
+--- a/track-d/main.cpp
++++ b/track-d/main.cpp
+@@ -141,6 +141,7 @@
+                     std::array<Item, 8> work;
+                     std::array<std::pair<uint32_t, uint32_t>, 8> ranges;
+                     size_t count = heap.pop_batch(work.data(), work.size());
++                    std::sort(work.begin(), work.begin() + count);
+                     for (size_t k = 0; k < count; ++k) __builtin_prefetch(&starts[work[k].second], 0, 1);
+                     for (size_t k = 0; k < count; ++k) {
+                         uint32_t node = work[k].second;

@@ -47,6 +47,13 @@ struct SharedCursor {
         }
         return base[block]+std::atomic_ref(small[node]).fetch_add(1,std::memory_order_relaxed);
     }
+    template<bool HasWide> void prefetch(uint32_t node) const {
+        if constexpr (HasWide) {
+            uint32_t index = wide_index[node >> shift];
+            if (index != UINT32_MAX) { __builtin_prefetch(&wide[size_t(index) * block_size + (node & (block_size - 1))], 1, 1); return; }
+        }
+        __builtin_prefetch(&small[node], 1, 1);
+    }
     uint32_t take(uint32_t node) {return wide_blocks ? take<true>(node):take<false>(node);}
     void release(){std::vector<uint16_t>().swap(small);std::vector<uint32_t>().swap(wide);}
 };

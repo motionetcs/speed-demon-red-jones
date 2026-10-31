@@ -1,0 +1,75 @@
+--- a/track-a/main.cpp
++++ b/track-a/main.cpp
+@@ -1,4 +1,5 @@
+ #include "io.hpp"
++#include <chrono>
+ #include "decimal.hpp"
+ #include "endpoint_table.hpp"
+ #include "parallel.hpp"
+@@ -11,6 +12,8 @@
+ 
+ int main(int argc, char** argv) {
+     try {
++        using Clock = std::chrono::steady_clock;
++        auto started = Clock::now();
+         Paths run_paths(argc, argv);
+         MappedFile file(run_paths.data / "requests.log");
+         if (file.size > UINT32_MAX) throw std::runtime_error("input exceeds uint32 capacity");
+@@ -61,6 +64,7 @@
+                 if (latency >= latency_escape) chunk.wide[hour].push_back(static_cast<uint32_t>(latency));
+             }
+         });
++        auto parsed = Clock::now();
+         std::vector<std::string_view> paths(endpoints.used.load());
+         for (size_t i = 0; i < Endpoints::capacity; ++i) {
+             auto state = endpoints.entries[i].state.load();
+@@ -71,11 +75,13 @@
+         std::sort(order.begin(), order.end(), [&](uint16_t a, uint16_t b) { return paths[a] < paths[b]; });
+         std::array<Output, 72> output;
+         std::atomic<unsigned> next_hour{0};
+-        parallel(threads, [&](unsigned) {
++        std::array<double, 12> count_scatter{}, selection{}, formatting{};
++        parallel(threads, [&](unsigned worker) {
+             std::vector<Count> groups(paths.size());
+             std::vector<uint32_t> offsets(paths.size()), cursor(paths.size()), latencies;
+             for (;;) {
+                 unsigned hour = next_hour.fetch_add(1, std::memory_order_relaxed); if (hour >= 72) return;
++                auto hour_start = Clock::now();
+                 std::fill(groups.begin(), groups.end(), Count{});
+                 size_t count = 0; uint32_t first_line = UINT32_MAX;
+                 for (const auto& chunk : chunks) {
+@@ -95,11 +101,13 @@
+                     }
+                     std::vector<uint32_t>().swap(chunk.records[hour]); std::vector<uint32_t>().swap(chunk.wide[hour]);
+                 }
++                auto gathered = Clock::now(); count_scatter[worker] += std::chrono::duration<double>(gathered-hour_start).count();
+                 std::string label = std::string(file.data + first_line, 13) + ":00:00Z";
+                 auto& out = output[hour]; out.bytes.reserve(order.size() * 100);
+                 for (uint16_t key : order) {
+                     uint64_t n = groups[key].count, errors = groups[key].errors; if (!n) continue;
+                     auto first = latencies.begin() + offsets[key];
++                    auto select_start = Clock::now();
+                     if (n < 32) std::sort(first, first + n);
+                     else {
+                         size_t unselected = 0;
+@@ -108,14 +116,19 @@
+                             if (rank >= unselected) { std::nth_element(first + unselected, first + rank, first + n); unselected = rank + 1; }
+                         }
+                     }
++                    auto selected = Clock::now(); selection[worker] += std::chrono::duration<double>(selected-select_start).count();
+                     out.text(label); out.text(" "); out.text(paths[key]);
+                     for (uint64_t value : {n, uint64_t(first[(50 * n + 99) / 100 - 1]), uint64_t(first[(95 * n + 99) / 100 - 1]), uint64_t(first[(99 * n + 99) / 100 - 1]), errors, errors * 1000000 / n}) { out.text(" "); out.number(static_cast<int64_t>(value)); }
+                     out.text("\n");
++                    formatting[worker] += std::chrono::duration<double>(Clock::now()-selected).count();
+                 }
+             }
+         });
++        auto processed = Clock::now();
+         std::ofstream stream(run_paths.out / "summary.txt", std::ios::binary);
+         for (const auto& hour : output) stream.write(hour.bytes.data(), static_cast<std::streamsize>(hour.bytes.size()));
+-        stream.close(); if (!stream) throw std::runtime_error("cannot write summary.txt");
++        stream.close();
++        std::fprintf(stderr,"PROFILE parse=%f process=%f count_scatter_sum=%f select_sum=%f format_sum=%f write=%f\n",std::chrono::duration<double>(parsed-started).count(),std::chrono::duration<double>(processed-parsed).count(),std::accumulate(count_scatter.begin(),count_scatter.end(),0.0),std::accumulate(selection.begin(),selection.end(),0.0),std::accumulate(formatting.begin(),formatting.end(),0.0),std::chrono::duration<double>(Clock::now()-processed).count());
++        if (!stream) throw std::runtime_error("cannot write summary.txt");
+     } catch (const std::exception& e) { std::fprintf(stderr,"track-a: %s\n",e.what()); return 1; }
+ }

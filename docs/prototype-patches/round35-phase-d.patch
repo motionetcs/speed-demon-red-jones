@@ -1,0 +1,47 @@
+--- a/track-d/main.cpp
++++ b/track-d/main.cpp
+@@ -2,6 +2,7 @@
+ #include "edge_store.hpp"
+ #include "load_cursors.hpp"
+ #include "io.hpp"
++#include <chrono>
+ #include "decimal.hpp"
+ #include "distance_map.hpp"
+ #include "parallel.hpp"
+@@ -29,6 +30,8 @@
+ 
+ int main(int argc, char** argv) {
+     try {
++        using Clock = std::chrono::steady_clock;
++        auto started = Clock::now();
+         Paths paths(argc, argv);
+         unsigned threads = 12;
+         if (const char* value = std::getenv("SPEED_DEMON_THREADS")) {
+@@ -65,6 +68,7 @@
+                 degree.add(u, local.out_spills); reverse_degree.add(v, local.in_spills);
+             }
+         });
++        auto parsed = Clock::now();
+         size_t edge_count = 0;
+         for (const auto& local : locals) edge_count += local.count;
+         if (edge_count != m) throw std::runtime_error("edge count does not match header");
+@@ -105,6 +109,7 @@
+         std::unordered_map<uint32_t, uint32_t> wide_weights;
+         for (const auto& local : locals) for (auto [index, weight] : local.wide) wide_weights.emplace(index, weight);
+         locals.clear(); cursor.release(); reverse_cursor.release();
++        auto loaded = Clock::now();
+         Scanner qscan{queries_file.data, queries_file.data + queries_file.size};
+         std::vector<std::pair<uint32_t, uint32_t>> queries;
+         while (qscan.more()) {
+@@ -169,9 +174,11 @@
+             if (edges.compact) parallel(threads, [&](unsigned) { worker.template operator()<true>(); });
+             else parallel(threads, [&](unsigned) { worker.template operator()<false>(); });
+         }
++        auto searched = Clock::now();
+         Output output;
+         for (int64_t answer : answers) { output.number(answer); output.text("\n"); }
+         output.save(paths.out / "distances.txt");
++        std::fprintf(stderr,"PROFILE first_parse=%f scatter=%f search=%f output=%f\n",std::chrono::duration<double>(parsed-started).count(),std::chrono::duration<double>(loaded-parsed).count(),std::chrono::duration<double>(searched-loaded).count(),std::chrono::duration<double>(Clock::now()-searched).count());
+     } catch (const std::exception& e) {
+         std::fprintf(stderr, "track-d: %s\n", e.what());
+         return 1;

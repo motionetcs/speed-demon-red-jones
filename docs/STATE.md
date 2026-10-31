@@ -2,6 +2,12 @@
 
 Fresh Red Jones entry: https://github.com/motionetcs/speed-demon-red-jones ; private, required branch `speed-demon`, tracks A/C/D. Preserve unrelated workspace folders. All own solution code was written during the event. Official reference material is pinned under tools/official. No private pre-event implementation is imported.
 
+## Active pass starting09:33 UTC on31 October2026
+
+The root runtime remains the proven source below, with no unscored runtime files promoted. Fresh starting comparison: round33-start-comparison.json, mean66.095609/rank32/68, leader80.544041. Selected candidates are isolated under .build/round38/source, including hidden metadata: A exact hour-prefix cache plus specified-method widths; C eight-entry groups controlled by one atomic publication word and full-byte equality; D16-edge batched degree/cursor/output prefetch, same exact labels/edges/fallbacks. Default12 remains. All fresh validation passed, including942 exact-image Linux replays, actual default entrypoints, native race checks and pinned GCC sanitizer models. The exact round38 source is being pushed for a real board run; do not claim a gain before capturing that exact-commit result. Source proof: round38-candidate-source-match.json.
+
+Screening reports round34–37 distinguish Apple timings/RSS from official scores. Selected local comparison: A0.053022→0.048550 s, C0.097859→0.091800 with~2.5MB less RSS, D0.339602→0.324033 with similar RSS. C name/control models pass strict ASAN/UBSAN. Models now check name APIs rather than hard-coded storage offsets and pass the unchanged baseline too. Split arenas, endpoint front caches, block/deque storage, enlarged reservations, ordered query batches and key-prefetch variants lose or lack a convincing gain and remain outside scored folders. D whole-graph decoded staging saves time but costs~40MB RSS; prefer the low-memory loader pipeline first.
+
 ## Retained runtime and real confirmation
 
 Final exact all-gates-passing source: `71a023706495a99867f32a3e1856317f0d9e73bb`, board-round32-retained-final.json. Every one of the27 runtime/build/track metadata inputs matches that scored commit in round32-final-source-match.json. All temporary runtime experiments are removed. Documentation/evidence updates after that commit change no compiled input. The working source is also byte-identical to2c6c51e across these27 inputs; the final run confirms the restored combination independently.

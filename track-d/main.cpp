@@ -58,11 +58,17 @@ int main(int argc, char** argv) {
         parallel(loaders, [&](unsigned worker) {
             auto& local = locals[worker];
             Scanner input{boundaries[worker], boundaries[worker + 1]};
+            std::array<std::pair<uint32_t,uint32_t>, 16> batch;
             while (input.more()) {
-                uint32_t u = input.number(), v = input.number(); input.number();
-                if (u >= n || v >= n) throw std::runtime_error("node outside graph");
-                ++local.count;
-                degree.add(u, local.out_spills); reverse_degree.add(v, local.in_spills);
+                size_t count = 0;
+                while (count < batch.size() && input.more()) {
+                    uint32_t u = input.number(), v = input.number(); input.number();
+                    if (u >= n || v >= n) throw std::runtime_error("node outside graph");
+                    __builtin_prefetch(&degree.values[u], 1, 1); __builtin_prefetch(&reverse_degree.values[v], 1, 1);
+                    batch[count++] = {u,v};
+                }
+                local.count += count;
+                for (size_t i=0;i<count;++i) { auto [u,v]=batch[i]; degree.add(u, local.out_spills); reverse_degree.add(v, local.in_spills); }
             }
         });
         size_t edge_count = 0;
@@ -85,14 +91,22 @@ int main(int argc, char** argv) {
             parallel(loaders, [&](unsigned worker) {
             auto& local = locals[worker];
             Scanner input{boundaries[worker], boundaries[worker + 1]};
+            struct Row { uint32_t u, v, value, out, in; };
+            std::array<Row, 16> batch;
             while (input.more()) {
-                uint32_t u = input.number(), v = input.number(), value = input.number();
-                uint32_t out = cursor.template take<WideCursors>(u);
-                uint32_t in = reverse_cursor.template take<WideCursors>(v);
-                uint32_t weight = std::min(value, Compact ? EdgeStore::small_limit : uint32_t(UINT16_MAX));
-                edges.set<Compact>(out, v, weight); reverse_edges.set<Compact>(in, u, weight);
-                if (value >= (Compact ? EdgeStore::small_limit : uint32_t(UINT16_MAX))) {
-                    local.wide.emplace_back(out * 2, value); local.wide.emplace_back(in * 2 + 1, value);
+                size_t count = 0;
+                while (count < batch.size() && input.more()) {
+                    auto& row = batch[count++]; row.u=input.number(); row.v=input.number(); row.value=input.number();
+                    cursor.template prefetch<WideCursors>(row.u); reverse_cursor.template prefetch<WideCursors>(row.v);
+                }
+                for (size_t i=0;i<count;++i) {
+                    auto& row=batch[i]; row.out=cursor.template take<WideCursors>(row.u); row.in=reverse_cursor.template take<WideCursors>(row.v);
+                    edges.template prefetch<Compact,true>(row.out); reverse_edges.template prefetch<Compact,true>(row.in);
+                }
+                for (size_t i=0;i<count;++i) {
+                    auto& row=batch[i]; uint32_t weight=std::min(row.value, Compact ? EdgeStore::small_limit : uint32_t(UINT16_MAX));
+                    edges.set<Compact>(row.out,row.v,weight); reverse_edges.set<Compact>(row.in,row.u,weight);
+                    if(row.value >= (Compact ? EdgeStore::small_limit : uint32_t(UINT16_MAX))) { local.wide.emplace_back(row.out*2,row.value); local.wide.emplace_back(row.in*2+1,row.value); }
                 }
             }
         });

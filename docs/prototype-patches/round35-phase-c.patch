@@ -1,0 +1,83 @@
+--- a/track-c/main.cpp
++++ b/track-c/main.cpp
+@@ -1,4 +1,5 @@
+ #include "io.hpp"
++#include <chrono>
+ #include "quote_scan.hpp"
+ #include "parallel.hpp"
+ #include "names.hpp"
+@@ -90,6 +91,8 @@
+ 
+ int main(int argc, char** argv) {
+     try {
++        using Clock = std::chrono::steady_clock;
++        auto started = Clock::now();
+         Paths paths(argc, argv);
+         MappedFile region_file(paths.data / "regions.csv"), records(paths.data / "records.csv");
+         Csv region_csv{region_file.data, region_file.data + region_file.size};
+@@ -122,6 +125,7 @@
+             narrow_lookup.assign(lookup.begin(), lookup.end());
+             std::vector<uint16_t>().swap(lookup);
+         }
++        auto joined = Clock::now();
+         Csv header{records.data, records.data + records.size};
+         header.bom();
+         for (auto expected : {"id", "name", "note", "region_id", "amount"}) {
+@@ -153,6 +157,8 @@
+             }
+             boundaries[i] = p;
+         }
++        auto split = Clock::now();
++        std::vector<std::array<double, 5>> samples(threads);
+         struct Local { std::vector<Group> groups; StringArena storage; };
+         for (size_t capacity = 131072;; capacity *= 2) {
+             Names names(capacity, groups.size());
+@@ -165,7 +171,10 @@
+                     auto& local = locals[worker];
+                     Csv csv{boundaries[worker], boundaries[worker + 1]};
+                     std::string name_scratch, unused;
++                    size_t sample_row = 0;
+                     while (csv.p < csv.end) {
++                        bool sample = (sample_row++ & 1023) == 0;
++                        auto begin = sample ? Clock::now() : Clock::time_point{};
+                         csv.bom();
+                         uint64_t id = csv.integer();
+                         Field name = csv.field(name_scratch, true); csv.comma();
+@@ -174,12 +183,20 @@
+                         uint64_t region = csv.integer();
+                         int64_t amount = csv.amount(); csv.newline();
+                         size_t country = region < region_lookup.size() && region_lookup[region] != no_region ? region_lookup[region] : unmatched;
++                        auto parsed = sample ? Clock::now() : Clock::time_point{};
+                         auto& entry = names.intern(name.value, local.storage, hash);
++                        auto interned = sample ? Clock::now() : Clock::time_point{};
+                         Group& group = local.groups[country];
+                         group.names += names.first(entry, country);
++                        auto marked = sample ? Clock::now() : Clock::time_point{};
+                         ++group.count; group.ids += static_cast<int64_t>(id); group.sum += amount;
+                         group.minimum = std::min(group.minimum, amount); group.maximum = std::max(group.maximum, amount);
+                         group.name_bytes += name.bytes; group.note_bytes += note.bytes;
++                        if (sample) {
++                            auto done = Clock::now(); auto& row = samples[worker];
++                            row[0] += std::chrono::duration<double>(parsed-begin).count(); row[1] += std::chrono::duration<double>(interned-parsed).count();
++                            row[2] += std::chrono::duration<double>(marked-interned).count(); row[3] += std::chrono::duration<double>(done-marked).count(); ++row[4];
++                        }
+                     }
+                 } catch (const Canceled&) {
+                     return;
+@@ -199,6 +216,7 @@
+             }
+             break;
+         }
++        auto consumed = Clock::now();
+         std::sort(groups.begin(), groups.end(), [](const Group& a, const Group& b) { return a.country < b.country; });
+         Output output;
+         for (const Group& group : groups) if (group.count) {
+@@ -209,6 +227,8 @@
+             output.text("\n");
+         }
+         output.save(paths.out / "aggregates.txt");
++        std::array<double,5> total{}; for (const auto& row : samples) for (size_t i=0;i<5;++i) total[i]+=row[i];
++        std::fprintf(stderr,"PROFILE regions=%f split=%f consume=%f output=%f sampled_rows=%.0f csv_ns=%.1f intern_ns=%.1f membership_ns=%.1f stats_ns=%.1f\n",std::chrono::duration<double>(joined-started).count(),std::chrono::duration<double>(split-joined).count(),std::chrono::duration<double>(consumed-split).count(),std::chrono::duration<double>(Clock::now()-consumed).count(),total[4],total[0]/total[4]*1e9,total[1]/total[4]*1e9,total[2]/total[4]*1e9,total[3]/total[4]*1e9);
+     } catch (const std::exception& e) {
+         std::fprintf(stderr, "track-c: %s\n", e.what());
+         return 1;
