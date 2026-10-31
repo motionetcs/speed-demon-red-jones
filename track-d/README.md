@@ -1,6 +1,6 @@
 # Track D: exact bidirectional shortest paths
 
-Read `/data/graph.txt` and `/data/queries.txt`; write only `/out/distances.txt`. Local `--data` and `--out` options are supported. No extra runtime dependencies. `SPEED_DEMON_THREADS=1` through `12` selects query workers; the default is six.
+Read `/data/graph.txt` and `/data/queries.txt`; write only `/out/distances.txt`. Local `--data` and `--out` options are supported. No extra runtime dependencies. `SPEED_DEMON_THREADS=1` through `12` selects query workers; the current worker-count experiment defaults to twelve.
 
 Up to four workers parse newline-aligned graph chunks into local degree counts. Prefix offsets assign disjoint scatter ranges for forward and reverse compressed adjacency arrays. A second parallel parse fills those ranges directly, avoiding a retained edge-tuple array. Degree/cursor buffers are released before query processing. All directed edges are preserved, including duplicates, zero weights, and self-loops. Sources with no outgoing edges and targets with no incoming edges permit exact early rejection.
 

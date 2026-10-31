@@ -64,14 +64,16 @@ int main(int argc, char** argv) {
                 while (p < end && *p != ' ') ++p;
                 if (p == end) throw std::runtime_error("missing endpoint");
                 const char* start = ++p;
-                while (p < end && *p != ' ') ++p;
+                p = static_cast<const char*>(std::memchr(start, ' ', end - start));
+                if (!p) throw std::runtime_error("missing endpoint delimiter");
                 std::string_view endpoint(start, p - start);
                 if (end - p < 5) throw std::runtime_error("missing status");
                 bool error = p[1] == '5'; p += 5;
                 start = p;
-                while (p < end && *p != '\n') ++p;
-                uint64_t latency = unsigned_number({start, static_cast<size_t>(p - start)});
-                if (latency > UINT32_MAX || p == end) throw std::runtime_error("invalid latency line");
+                uint64_t latency = 0;
+                while (p < end && *p >= '0' && *p <= '9') latency = latency * 10 + *p++ - '0';
+                if (p == start || p - start > 10 || latency > UINT32_MAX || p == end || *p != '\n')
+                    throw std::runtime_error("invalid latency line");
                 ++p;
                 uint32_t group = local.intern(endpoint) * 72 + hour;
                 ++local.groups[group].count; local.groups[group].errors += error;
