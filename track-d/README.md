@@ -31,5 +31,3 @@ The narrow-counter loader passes all official gates and improves observed D to60
 Both loader passes use bounded16-row scratch batches to overlap degree/cursor/edge accesses. The final image caps process-local glibc arenas at2; no host setting is modified. Current exact run IDs and retention decisions are in PERF.md.
 
 Search extracts at most32 full-distance entries from one conservative64-distance band per batch; this changes scheduling and scratch only.
-
-After scatter joins, the full-width weight table reserves the exact number of accumulated forward/reverse escape entries before their unchanged insertion loop. This changes allocation only.

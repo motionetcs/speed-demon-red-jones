@@ -1,4 +1,4 @@
-> Active139 A method-length/D exact weight-map reserve has full local strict/image/default proof. Real139 pending; selected128/715dcc6 is rollback. Evidence137 slightly higher C is same-source variation.
+> Active145 mapped-record A with accepted cache has fresh strict/model/image/default proof; real145 pending. C/D restore exact selected128.139 loses and is removed; complete updated comparison follows selection.
 
 # Entry audit — 31 October 2026
 

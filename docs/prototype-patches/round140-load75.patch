@@ -1,0 +1,11 @@
+--- a/track-c/names.hpp
++++ b/track-c/names.hpp
+@@ -57,7 +57,7 @@
+         for(;;){
+             auto& e=entries[i];
+             if(!e.index){
+-                if(used>=entries.size()*7/8){grow();i=fingerprint&(entries.size()-1);continue;}
++                if(used>=entries.size()*3/4){grow();i=fingerprint&(entries.size()-1);continue;}
+                 uint32_t index=make(key);e={fingerprint,index};++used;break;
+             }
+             if(e.hash==fingerprint&&bytes(e.index)==key)break;

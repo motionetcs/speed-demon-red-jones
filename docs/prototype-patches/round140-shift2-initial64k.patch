@@ -1,0 +1,30 @@
+--- a/track-c/names.hpp
++++ b/track-c/names.hpp
+@@ -17,7 +17,7 @@
+ struct Names {
+     struct Entry {uint32_t hash=0,index=0;};
+     std::vector<Entry> entries;std::vector<std::unique_ptr<uint64_t[]>> storage;size_t words,used=0,next=0,remaining=0;
+-    explicit Names(size_t countries):entries(16384),words((countries+63)/64){}
++    explicit Names(size_t countries):entries(65536),words((countries+63)/64){}
+     static uint64_t hash_key(std::string_view key){uint64_t h=std::hash<std::string_view>{}(key);return h<2?h+2:h;}
+     static uint32_t encode_index(size_t block,size_t word){
+         if(block>=(size_t(1)<<19)||word>=8192)throw std::runtime_error("name block/word index capacity");
+@@ -49,15 +49,15 @@
+     void grow(){
+         if(entries.size()>SIZE_MAX/2/sizeof(Entry))throw std::runtime_error("name table overflow");
+         std::vector<Entry> larger(entries.size()*2);
+-        for(auto e:entries)if(e.index){size_t i=e.hash&(larger.size()-1);while(larger[i].index)i=(i+1)&(larger.size()-1);larger[i]=e;}
++        for(auto e:entries)if(e.index){size_t i=(e.hash>>2)&(larger.size()-1);while(larger[i].index)i=(i+1)&(larger.size()-1);larger[i]=e;}
+         entries.swap(larger);
+     }
+     bool first(std::string_view key,size_t country,uint64_t hash){
+-        uint32_t fingerprint=static_cast<uint32_t>(hash);size_t i=fingerprint&(entries.size()-1);
++        uint32_t fingerprint=static_cast<uint32_t>(hash);size_t i=(fingerprint>>2)&(entries.size()-1);
+         for(;;){
+             auto& e=entries[i];
+             if(!e.index){
+-                if(used>=entries.size()*7/8){grow();i=fingerprint&(entries.size()-1);continue;}
++                if(used>=entries.size()*7/8){grow();i=(fingerprint>>2)&(entries.size()-1);continue;}
+                 uint32_t index=make(key);e={fingerprint,index};++used;break;
+             }
+             if(e.hash==fingerprint&&bytes(e.index)==key)break;

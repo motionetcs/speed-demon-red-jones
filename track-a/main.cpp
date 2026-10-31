@@ -1,4 +1,5 @@
 #include "io.hpp"
+#include "mapped_allocator.hpp"
 #include "decimal.hpp"
 #include "endpoint_table.hpp"
 #include "parallel.hpp"
@@ -7,6 +8,7 @@
 #include <numeric>
 
 static constexpr uint32_t latency_escape = (1U << 19) - 1;
+using Records=std::vector<uint32_t,MappedAllocator<uint32_t>>;
 struct Count { uint32_t count = 0, errors = 0; };
 
 int main(int argc, char** argv) {
@@ -27,7 +29,8 @@ int main(int argc, char** argv) {
         }
         Endpoints endpoints;
         struct Chunk {
-            std::array<std::vector<uint32_t>, 72> records, wide;
+            std::array<Records, 72> records;
+            std::array<std::vector<uint32_t>, 72> wide;
             std::array<uint32_t, 72> first;
             Chunk() { first.fill(UINT32_MAX); }
         };
@@ -38,16 +41,12 @@ int main(int argc, char** argv) {
             LocalEndpoints local_names(endpoints);
             size_t reserve_hint = (limit - p) / (72 * 64);
             while (p < limit) {
-                if (limit - p < 32) throw std::runtime_error("truncated timestamp");
+                if (limit - p < 28) throw std::runtime_error("truncated timestamp");
                 const char* line = p;
                 int month = (p[5] - '0') * 10 + p[6] - '0', day = (p[8] - '0') * 10 + p[9] - '0';
                 int hour = (month == 10 ? day - 30 : day + 1) * 24 + (p[11] - '0') * 10 + p[12] - '0' - 18;
                 if (hour < 0 || hour >= 72) throw std::runtime_error("hour outside specification");
-                p += 28;
-                unsigned method_size = *p == 'P' ? (p[1] == 'O' ? 4 : p[1] == 'U' ? 3 : 5)
-                    : *p == 'G' ? 3 : *p == 'H' ? 4 : *p == 'D' ? 6 : 7;
-                if (size_t(limit - p) <= method_size || p[method_size] != ' ') throw std::runtime_error("invalid method");
-                p += method_size;
+                p += 28; while (p < limit && *p != ' ') ++p;
                 if (p == limit) throw std::runtime_error("missing endpoint");
                 const char* start = ++p;
                 p = static_cast<const char*>(std::memchr(start, ' ', limit - start));
@@ -94,7 +93,7 @@ int main(int argc, char** argv) {
                         if (latency == latency_escape) latency = chunk.wide[hour][wide++];
                         latencies[cursor[record & 4095]++] = latency;
                     }
-                    std::vector<uint32_t>().swap(chunk.records[hour]); std::vector<uint32_t>().swap(chunk.wide[hour]);
+                    Records().swap(chunk.records[hour]); std::vector<uint32_t>().swap(chunk.wide[hour]);
                 }
                 std::string label = std::string(file.data + first_line, 13) + ":00:00Z";
                 auto& out = output[hour]; out.bytes.reserve(order.size() * 100);

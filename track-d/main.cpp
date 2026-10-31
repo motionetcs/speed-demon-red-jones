@@ -117,7 +117,6 @@ int main(int argc, char** argv) {
             if (wide_cursors) scatter.template operator()<false,true>(); else scatter.template operator()<false,false>();
         }
         std::unordered_map<uint32_t, uint32_t> wide_weights;
-        size_t wide_count=0;for(const auto& local:locals)wide_count+=local.wide.size();wide_weights.reserve(wide_count);
         for (const auto& local : locals) for (auto [index, weight] : local.wide) wide_weights.emplace(index, weight);
         locals.clear(); cursor.release(); reverse_cursor.release();
         Scanner qscan{queries_file.data, queries_file.data + queries_file.size};

@@ -1,0 +1,36 @@
+{
+  "observed_at_utc": "2026-10-31T19:19:20.273753+00:00",
+  "official_score": false,
+  "passed": true,
+  "scope": "Fresh strict native ASAN/UBSAN and TSAN plus pinned GCC15/Linux ASAN/UBSAN assert exact vector values/growth/alignment/overflow, direct OS release (Darwin residency versus Linux mincore error), cross-thread destruction and12 independent concurrent allocators. Header is byte-identical to our event-written62 allocator; full145 combination has separate fresh integration evidence. No changed platform observer assumption is silently hidden; original correction is round62-allocator-model-correction.json.",
+  "runs": [
+    {
+      "mode": "native-asan",
+      "stdout": "PASS mapped vector growth, alignment, overflow, direct OS release and cross-thread destruction\n",
+      "stderr": "",
+      "binary_sha256": "2baa015cf0879719ea53f564bf9a57a8e62db8e7a6242b5d95969f8c21640493"
+    },
+    {
+      "mode": "native-tsan",
+      "stdout": "PASS mapped vector growth, alignment, overflow, direct OS release and cross-thread destruction\n",
+      "stderr": "",
+      "binary_sha256": "5dda13acfecff4a90dcaa022aa507c086e3239f46251264dcec03ccd6ac84d50"
+    },
+    {
+      "mode": "GCC15-Linux-asan",
+      "script": [
+        "set -eu",
+        "export ASAN_OPTIONS=halt_on_error=1",
+        "export UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1",
+        "g++ -std=c++20 -O1 -g -pthread -fsanitize=address,undefined -fno-omit-frame-pointer '-DMAPPED_ALLOCATOR_HEADER=\"/repo/.build/round145/source/track-a/mapped_allocator.hpp\"' /repo/tools/test_mapped_allocator.cpp -o /tmp/model",
+        "/tmp/model"
+      ],
+      "stdout": "PASS mapped vector growth, alignment, overflow, direct OS release and cross-thread destruction\n",
+      "stderr": ""
+    }
+  ],
+  "source_sha256": {
+    ".build/round145/source/track-a/mapped_allocator.hpp": "060bb6a0622338b9151e767d827cbf30c8e4d940cc7e170ad51757c4a6b0808b",
+    "tools/test_mapped_allocator.cpp": "acfbb553d89c0823e5a442430d928df62cd702e42c102c62511da402401fef0c"
+  }
+}

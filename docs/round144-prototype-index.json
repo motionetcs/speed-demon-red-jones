@@ -1,0 +1,40 @@
+{
+  "variants": [
+    {
+      "label": "mapped-cache",
+      "base": "184778cf6986dba479a1480db53690e148847127",
+      "patch": "prototype-patches/round144-mapped-cache.patch",
+      "source_sha256": {
+        ".speed-demon.toml": "c9ae973186c14661797640f427009129e2a80d1aecefd5d4fa413ee7f3da44d8",
+        "Dockerfile": "e335d5f85d26b72847835e3105e6cf883185426744af7fce63042d113a08e804",
+        "decimal.hpp": "aee2210ac5894050834ffd37903718b3b7bdc6673240559baa85b350bea9b581",
+        "endpoint_table.hpp": "913048b747b8f938cf1b438f29648a62d11434b2d71c3fb9a9b5f5aae31df745",
+        "io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+        "main.cpp": "f68428acc3f2d238058ee5c4fac371376bf2b507e7e95040f4b477133bbbb83d",
+        "mapped_allocator.hpp": "060bb6a0622338b9151e767d827cbf30c8e4d940cc7e170ad51757c4a6b0808b",
+        "parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420",
+        "training_generator.py": "d82b43b8f617016808f85cbe9be86af1fee8466296a0848ab8e6908ee3c4b0b4"
+      },
+      "scope": "Native screen only for mapped-method. Mapped-cache receives separate145 fresh source-bound proof before any promotion;62 primitive proof is for the identical allocator header only."
+    },
+    {
+      "label": "mapped-method",
+      "base": "184778cf6986dba479a1480db53690e148847127",
+      "patch": "prototype-patches/round144-mapped-method.patch",
+      "source_sha256": {
+        ".speed-demon.toml": "c9ae973186c14661797640f427009129e2a80d1aecefd5d4fa413ee7f3da44d8",
+        "Dockerfile": "e335d5f85d26b72847835e3105e6cf883185426744af7fce63042d113a08e804",
+        "decimal.hpp": "aee2210ac5894050834ffd37903718b3b7bdc6673240559baa85b350bea9b581",
+        "endpoint_table.hpp": "913048b747b8f938cf1b438f29648a62d11434b2d71c3fb9a9b5f5aae31df745",
+        "io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+        "main.cpp": "74c9a22dc1daf4be859d889ce2590ec6e13d4c67ac1c24aa81ca25ce28cc6cd7",
+        "mapped_allocator.hpp": "060bb6a0622338b9151e767d827cbf30c8e4d940cc7e170ad51757c4a6b0808b",
+        "parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420",
+        "training_generator.py": "d82b43b8f617016808f85cbe9be86af1fee8466296a0848ab8e6908ee3c4b0b4"
+      },
+      "scope": "Native screen only for mapped-method. Mapped-cache receives separate145 fresh source-bound proof before any promotion;62 primitive proof is for the identical allocator header only."
+    }
+  ],
+  "native_report": "round144-mapped-cache-screen.json",
+  "scope": "Native Apple screening only; no official score. Exact source can be reconstructed from the recorded fresh-entry parent and patch. Only our own event-written62 code is reused; source-event/provenance approval review is separately recorded in round144-event-provenance.json. Generic/sample PGO and75 cache are preserved."
+}

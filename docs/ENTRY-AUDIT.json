@@ -1,12 +1,14 @@
 {
-  "observed_at_utc": "2026-10-31T19:09:06.977375+00:00",
+  "observed_at_utc": "2026-10-31T19:21:31.790736+00:00",
   "scope": "Observable repository/history/build-policy checks, not an organizer eligibility certificate",
-  "source_commit": "715dcc6582fa352e909e9b1f382f19677b1e8d6b",
+  "source_commit": "184778cf6986dba479a1480db53690e148847127",
   "dirty_paths": [
-    "M docs/ENTRY-AUDIT.md",
+    "M Makefile",
+    " M docs/ENTRY-AUDIT.md",
     " M docs/RESULTS.md",
     " M docs/STATE.md",
     " M docs/SUBMISSION.md",
+    " M track-a/Dockerfile",
     " M track-a/PERF.md",
     " M track-a/README.md",
     " M track-a/main.cpp",
@@ -14,28 +16,38 @@
     " M track-d/PERF.md",
     " M track-d/README.md",
     " M track-d/main.cpp",
-    "?? docs/board-round137-evidence-head.json",
-    "?? docs/prototype-patches/round138-method-length.patch",
-    "?? docs/prototype-patches/round138-skip-three.patch",
-    "?? docs/round138-method-screen.json",
-    "?? docs/round138-prototype-index.json",
-    "?? docs/round139-a-linux-sanitizers.json",
-    "?? docs/round139-ad-linux-cases.json",
-    "?? docs/round139-ad-linux.json",
-    "?? docs/round139-candidate-source-match.json",
-    "?? docs/round139-candidate.json",
-    "?? docs/round139-compact-records.json",
-    "?? docs/round139-d-extra-linux.json",
-    "?? docs/round139-d-independent-sanitize.json",
-    "?? docs/round139-d-independent-tsan.json",
-    "?? docs/round139-d-pipeline-asan.json",
-    "?? docs/round139-d-pipeline-tsan.json",
-    "?? docs/round139-defaults.json",
-    "?? docs/round139-make-public.json",
-    "?? docs/round139-method-hours.json",
-    "?? docs/round139-sanitize.json",
-    "?? docs/round139-selected-linux.json",
-    "?? docs/round139-tsan.json"
+    "?? docs/board-round139-method-reserve.json",
+    "?? docs/prototype-patches/round140-load50.patch",
+    "?? docs/prototype-patches/round140-load75.patch",
+    "?? docs/prototype-patches/round140-shift2-initial64k.patch",
+    "?? docs/prototype-patches/round140-shift2-load75.patch",
+    "?? docs/prototype-patches/round140-shift2.patch",
+    "?? docs/prototype-patches/round142-group16.patch",
+    "?? docs/prototype-patches/round142-group4.patch",
+    "?? docs/prototype-patches/round142-group8.patch",
+    "?? docs/prototype-patches/round144-mapped-cache.patch",
+    "?? docs/prototype-patches/round144-mapped-method.patch",
+    "?? docs/round140-c-load-screen.json",
+    "?? docs/round140-prototype-index.json",
+    "?? docs/round142-group-screen.json",
+    "?? docs/round142-prototype-index.json",
+    "?? docs/round144-event-provenance.json",
+    "?? docs/round144-mapped-cache-screen.json",
+    "?? docs/round144-prototype-index.json",
+    "?? docs/round145-a-linux-cases.json",
+    "?? docs/round145-a-linux-sanitizers.json",
+    "?? docs/round145-a-linux.json",
+    "?? docs/round145-allocator-models.json",
+    "?? docs/round145-candidate-source-match.json",
+    "?? docs/round145-candidate.json",
+    "?? docs/round145-compact-records.json",
+    "?? docs/round145-defaults.json",
+    "?? docs/round145-make-public.json",
+    "?? docs/round145-method-hours.json",
+    "?? docs/round145-sanitize.json",
+    "?? docs/round145-selected-linux.json",
+    "?? docs/round145-tsan.json",
+    "?? track-a/mapped_allocator.hpp"
   ],
   "repository": {
     "defaultBranchRef": {
@@ -642,6 +654,14 @@
       ]
     },
     {
+      "requirement": "Observed commit timestamps inside event: 184778c",
+      "passed": true,
+      "evidence": [
+        "2026-11-01T00:39:34+05:30",
+        "2026-11-01T00:39:34+05:30"
+      ]
+    },
+    {
       "requirement": "A required file Dockerfile",
       "passed": true,
       "evidence": "track-a/Dockerfile"
@@ -696,6 +716,7 @@
         "README.md",
         "endpoint_table.hpp",
         "PERF.md",
+        "mapped_allocator.hpp",
         ".speed-demon.toml",
         "main.cpp",
         "decimal.hpp",
@@ -1194,6 +1215,11 @@
       "commit": "715dcc6582fa352e909e9b1f382f19677b1e8d6b",
       "author_time": "2026-11-01T00:27:48+05:30",
       "committer_time": "2026-11-01T00:27:48+05:30"
+    },
+    {
+      "commit": "184778cf6986dba479a1480db53690e148847127",
+      "author_time": "2026-11-01T00:39:34+05:30",
+      "committer_time": "2026-11-01T00:39:34+05:30"
     }
   ],
   "future_requirements": [
