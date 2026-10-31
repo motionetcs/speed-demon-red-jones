@@ -1,23 +1,21 @@
 # Track A: exact hourly log aggregation
 
-Read `/data/requests.log`; write exactly `/out/summary.txt`. Local `--data` and `--out` options are supported. No extra runtime dependencies. `SPEED_DEMON_THREADS=1` through `12` selects workers; twelve is the default.
+Read `/data/requests.log`; write only `/out/summary.txt`. Development `--data`/`--out` options are supported. Standard C++20/OS facilities only. `SPEED_DEMON_THREADS=1` through `12`; default12.
 
-A parallel newline-aligned prepass reads timestamps and stores input-derived line offsets by full UTC hour. The 72-hour range and ASCII timestamp format come from the frozen specification. Offsets are uint32 because the published full-scale input is below 4 GB; a larger file is rejected explicitly. All offsets are computed anew during the timed run, with no stored input catalog or answers.
+Newline-aligned workers parse each timestamp, endpoint, status and exact uint32 latency once. The frozen specification supplies the72-hour range and timestamp grammar. An exact shared endpoint dictionary assigns input-derived IDs. Its hash fingerprint only chooses candidates: complete byte equality resolves every collision. Release/acquire publication prevents readers from seeing incomplete entries. The specified endpoint catalogue contains1,842 names; the representation supports4,096 IDs and rejects overflow explicitly.
 
-A worker owns one complete hour at a time. It parses endpoints, status, and exact uint32 latencies into a reusable small workspace. Local endpoint interning checks complete byte equality and grows its flat table. Counts and errors are exact. Prefix offsets scatter that hour's latency values into contiguous per-endpoint ranges. Groups below64 items are sorted; larger groups use progressively restricted exact nearest-rank selections. The zero-based rank is `(p*n+99)/100-1`. Duplicate requests count twice, and 500 through599 count as errors; integer arithmetic computes parts per million.
+Each request becomes one four-byte record:12 endpoint-ID bits,1 error bit and19 latency-tag bits. The all-ones latency tag consumes a full uint32 latency from that worker/hour's side vector. Values equal to the sentinel, larger values and MAX_UINT32 all retain their exact values. Duplicate requests remain separate records. Only hour vectors that receive a record reserve space. The input mapping outlives every endpoint view; dictionary metadata can be released once those views have been copied.
 
-Only one worker reads or releases each hour's line-offset vectors. Releasing them after use bounds live temporary storage instead of retaining all requests and all worker/hour groups together. Per-worker endpoint catalogs and allocations are reused across hours. String views refer to the immutable mapping, which outlives every worker. Output is formatted into separate hour buffers, with endpoints in byte order, then written in UTC-hour order.
+A worker then owns a complete hour. It counts each endpoint and its errors, computes prefix offsets, and scatters exact latencies into contiguous ranges. Small groups are sorted; larger groups use progressively restricted exact nearest-rank selections. The zero-based rank is `(p*n+99)/100-1`. HTTP500 through599 are errors; integer arithmetic computes parts per million exactly. No quantile is approximated.
 
-Work is O(input bytes + requests), plus exact selection and small-group sorting. Storage is O(line offsets + live hourly workspaces + output). Thread exceptions are joined and propagated. Four ASCII digits can be parsed in one bounded integer load after validating every byte; scalar handling covers tails and non-little-endian hosts. No approximation is used.
+Only the owner of an hour reads or releases that hour's record/escape vectors. Worker-private counts, offsets, cursors and latency buffers are reused across hours. Output is formatted into independent hour buffers, endpoints sorted by complete bytes, then written in UTC-hour order. Input order does not affect grouping. A file above4GB is rejected before converting its first-line positions to uint32.
 
-Build: `clang++ -std=c++20 -O3 -pthread main.cpp -o solution`. Docker independently builds a static Linux executable offline from pinned allowlisted images. New-seed examples, rank boundaries, empty input, growth beyond2500 endpoints, full published hashes, memory/UB and race sanitizers, and Linux checks pass. See `PERF.md` and `../docs/round2-ac-*.json`; local timing is not an official score.
+Work is O(input bytes + requests), plus exact selection/small-group sorting and key ordering. Storage is O(compact request records + exact escapes + live hourly workspaces + output). Thread exceptions are joined and propagated. The bounded decimal helper validates every digit; scalar tails cover short and non-little-endian inputs.
 
-With another24 hours: profile the retained layout on Intel, compare bounded load/formatting paths, and test any compiler-guided tuning on independent generator seeds before board submission.
+Build: `clang++ -std=c++20 -O3 -pthread main.cpp -o solution`. Docker builds a static Linux executable offline from pinned allowlisted images. The unchanged official generator trains independent sample seeds104729/130363 for PGO. Only the executable enters the runtime image; no dataset, profile or answer cache does.
+
+Validation covers untrained samples, full published hashes at1/6/12 workers, strict memory/UB and race sanitizers, deliberate full-hash collisions, unique IDs, ID4095/overflow, exact latency escapes, and restricted GCC15/Linux cases/defaults. Exact scored commit/run IDs and rejected experiments are in `PERF.md`. Local Apple timing is development evidence; real board K decides retention.
+
+With another24 hours: obtain legitimate Intel profiles, measure parse/selection/output phases, and test changes against independent seeds before board promotion.
 
 Specification: https://github.com/hackathon-raptors/speed-demon-2026/blob/main/specs/a-ingest.md
-
-Profile-guided compilation on the stronger hour-owned algorithm is retained after a real-board gain. The byte-identical official generator trains two independent sample seeds104729/130363 inside an offline builder. Only the executable is copied into the final image; all answers are recomputed at runtime. Prior PGO comparisons also carried rejected allocator/delimiter changes, so they do not establish the effect on this restored algorithm. The exact board result is recorded in PERF.md.
-
-The full-scale PGO comparison scored below the two-sample build. The retained Docker build trains sample seeds104729/130363; the exact board comparison is in PERF.md.
-
-The later flat-count/ordered-streaming experiment passed all gates but scored66.822927 versus this configuration69.704972, so it is rejected. Its source remains at commit2917982 and its correctness/model evidence remains in `../docs/round8-*`.

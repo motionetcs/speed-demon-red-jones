@@ -135,7 +135,8 @@ int main(int argc, char** argv) {
         std::vector<unsigned char> parity(threads);
         for (unsigned i = 0; i <= threads; ++i) raw[i] = start + (end - start) * i / threads;
         parallel(threads, [&](unsigned i) {
-            parity[i] = static_cast<unsigned char>(std::count(raw[i], raw[i + 1], '"') & 1);
+            parity[i] = std::accumulate(raw[i], raw[i + 1], static_cast<unsigned char>(0),
+                [](unsigned char bit, char byte) { return static_cast<unsigned char>(bit ^ (byte == '"')); });
         });
         boundaries.front() = start; boundaries.back() = end;
         bool inside = false;

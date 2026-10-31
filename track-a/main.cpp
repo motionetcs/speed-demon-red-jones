@@ -100,7 +100,7 @@ int main(int argc, char** argv) {
                 for (uint16_t key : order) {
                     uint64_t n = groups[key].count, errors = groups[key].errors; if (!n) continue;
                     auto first = latencies.begin() + offsets[key];
-                    if (n < 64) std::sort(first, first + n);
+                    if (n < 32) std::sort(first, first + n);
                     else {
                         size_t unselected = 0;
                         for (uint64_t percentile : {50, 95, 99}) {

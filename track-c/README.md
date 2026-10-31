@@ -2,9 +2,9 @@
 
 Read `/data/records.csv` and `/data/regions.csv`; write only `/out/aggregates.txt`. Development `--data`/`--out` options are supported. C++20/OS facilities only, no extra runtime libraries. `SPEED_DEMON_THREADS=1` through `12`; default12.
 
-The parser respects commas, escaped quotes and CR/LF within quoted fields, both record terminators, optional final terminators, trailing spaces, empty names and BOMs at record boundaries. Name escapes are decoded exactly into reusable scratch storage. Note lengths are counted without materializing notes. A parallel quote-parity scan finds valid record boundaries. Numeric fields consume delimiters directly. Money is signed integer cents throughout, including negative values below one unit.
+The parser respects commas, escaped quotes and CR/LF within quoted fields, both record terminators, optional final terminators, trailing spaces, empty names and BOMs at record boundaries. Bounded SIMD loads find the next quote inside quoted fields; a scalar tail handles the remaining bytes. Name escapes are decoded exactly into reusable scratch storage. Note lengths are counted without materializing notes. A parallel quote-parity scan finds valid record boundaries. Numeric fields consume delimiters directly. Money is signed integer cents throughout, including negative values below one unit.
 
-Region IDs map to compact country IDs; unknown regions use `_UNMATCHED`. Local sums, extrema, byte totals and counts are reduced after workers join. Output keys are byte-sorted. A country without records produces no line.
+Plain three-byte uppercase country codes use an exact26^3 index. Region IDs map to compact country IDs; unknown regions use `_UNMATCHED`. Local sums, extrema, byte totals and counts are reduced after workers join. Output keys are byte-sorted. A country without records produces no line. At most255 countries permit a one-byte region lookup with an unmatched sentinel;256 or more retain the exact two-byte format, selected once before processing.
 
 A shared flat name table stores full atomic hashes and pointers to immutable exact name keys. Full byte equality resolves hash collisions; hashes alone never identify names. Each unique key is copied once into its publishing worker's stable arena. The same allocation holds its length, exactly enough atomic country-membership words, and its decoded name bytes. This improves locality instead of following scattered representative strings into the input mapping and a separate bitmap. Worker-owned64KiB blocks grow as needed; a larger key gets a larger block. Addresses remain stable when the block-pointer vector grows.
 
@@ -22,4 +22,4 @@ With another24 hours: profile the retained layout on Intel, test parsing and loo
 
 Specification: https://github.com/hackathon-raptors/speed-demon-2026/blob/main/specs/c-join.md
 
-The retained dense dictionary has best observed64.904735 points/K19.865280. A bounded SIMD field scanner passed all gates and ISA models but scored64.315949 after source cost, so its helper is removed from this scored folder. See PERF.md for exact records and rejected source history.
+The older unquoted-delimiter SIMD scanner scored lower and was rejected. The later quoted-field scanner plus direct country map passed all official gates at65.139069 points/K20.080817, including source cost. These scan different field forms; the rejected helper remains outside the scored folder. See PERF.md for exact source identities, run records and decisions.

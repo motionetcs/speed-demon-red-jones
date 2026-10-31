@@ -1,6 +1,6 @@
 # Track D: exact bidirectional shortest paths
 
-Read `/data/graph.txt` and `/data/queries.txt`; write exactly `/out/distances.txt`. Local `--data` and `--out` options are supported. Standard C++20/OS facilities only. `SPEED_DEMON_THREADS=1` through `12` selects query workers; default6, based on prior real-board comparisons.
+Read `/data/graph.txt` and `/data/queries.txt`; write exactly `/out/distances.txt`. Local `--data` and `--out` options are supported. Standard C++20/OS facilities only. `SPEED_DEMON_THREADS=1` through `12` selects query workers; default12, retained after the current compact-loader configuration scored higher with twelve workers.
 
 Up to4 workers count outgoing/incoming degrees in newline-aligned chunks using shared atomic byte counters. A thread observing wrap255→0 records256 in its own spill map. After joining, the final byte plus every recorded spill gives the exact uint32 degree, including high-degree vertices. Prefix sums create forward/reverse CSR offsets, then byte storage is released.
 
