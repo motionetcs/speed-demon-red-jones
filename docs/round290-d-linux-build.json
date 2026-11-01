@@ -1,0 +1,102 @@
+{
+  "started_at_utc": "2026-11-01T16:53:16.561761+00:00",
+  "official_score": false,
+  "mode": "build",
+  "track": "d",
+  "source_sha256": {
+    "track-d/training_generator.py": "bbf37741159004149c5896265a98ae00b90e90a05ad48c2912ecf8bdce126d65",
+    "track-d/Dockerfile": "b894df9b62f1f82561cbcd594d8baa97fdbe91d03d8aea816d2355f8fcd90cbb",
+    "track-d/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+    "track-d/edge_store.hpp": "31db14bd58fb3bb45a90c963cf57397a50d5195782d01dc366b2a380d3b74ed6",
+    "track-d/README.md": "c96189bfa7f3a3d14f45d7db9dfa52c7f441bc82b1bbbea92fcf5000e5116ae8",
+    "track-d/PERF.md": "893964d61992ad12db34867ef5921337d1a0b5a5ed630709dc6aeaf1ad131018",
+    "track-d/load_cursors.hpp": "69bb855e76fdb729ce64856723a7e759f1844bcb34ffaaca2ad7776bdcafdf01",
+    "track-d/radix_heap.hpp": "7fb2052bb951ca391c5b1883d8e673f554a43ab3d06286e43597105c2d82b6e3",
+    "track-d/.speed-demon.toml": "6d6100843803548ba58c1c1eaf2d1dbaecb9a431fd5c9a8408d214580466465c",
+    "track-d/distance_map.hpp": "210ed008e9496f603eb54c2d2b197981e99cc463c42891124b61940f5b5b1125",
+    "track-d/main.cpp": "2ae51c58857b3904276a22bc390c6620cabbece021a39aa6508d7009a33467a1",
+    "track-d/decimal.hpp": "aee2210ac5894050834ffd37903718b3b7bdc6673240559baa85b350bea9b581",
+    "track-d/parallel.hpp": "614e48333aabbd7a9d7b008119d41acc7f908e467769772d01e10d84c282bdab"
+  },
+  "manifest_sha256": "916081620e8182988530e9d87d261ef32ec829817149b2cb25bfd0ac86284af9",
+  "native_report_sha256": "31325cfabc285d9a53954c1220b9d95469dcb54f4789d5bf59796a3a9f19c8c1",
+  "scope": "Fresh exact D290 bounded128 cross-node edge gather/prefetch main under pinned offline Linux/amd64 GCC strict ASAN/UBSAN and unique unchanged allowed-PGO production image. New exact-block/prefetch models separately GCC validated; original map method bodies and other header primitives source-bound. Old262 references are input/expected data only, never bypass-source proof. Whole new main freshly executes all cases. Native/VM time or memory is not organizer K/ELF evidence.",
+  "commands": [
+    {
+      "label": "build",
+      "argv": [
+        "docker",
+        "build",
+        "--platform",
+        "linux/amd64",
+        "--network=none",
+        "-t",
+        "speed-demon-fresh/track-d:round290-relax-gather",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round290/source/track-d"
+      ]
+    },
+    {
+      "label": "inspect",
+      "argv": [
+        "docker",
+        "image",
+        "inspect",
+        "speed-demon-fresh/track-d:round290-relax-gather"
+      ]
+    },
+    {
+      "label": "original-config",
+      "argv": [
+        "docker",
+        "image",
+        "inspect",
+        "sha256:c4d3c407647521f82a295be8f0ebaa3de8d755d121a0439f7ddc5ea51968bb04"
+      ]
+    },
+    {
+      "label": "elf",
+      "argv": [
+        "docker",
+        "run",
+        "--rm",
+        "--pull=never",
+        "--platform",
+        "linux/amd64",
+        "--network=none",
+        "--read-only",
+        "--memory=8g",
+        "--memory-swap=8g",
+        "--pids-limit=512",
+        "--cap-drop=ALL",
+        "--security-opt=no-new-privileges",
+        "--user",
+        "65534:65534",
+        "--tmpfs",
+        "/tmp:rw,exec,size=1g",
+        "-e",
+        "MALLOC_ARENA_MAX=2",
+        "--entrypoint",
+        "sha256sum",
+        "sha256:452b6b7ae6eb5554a32f45f847dabc70a17390d70b8b2c03859dc551f7bfdadd",
+        "/app/solution"
+      ]
+    }
+  ],
+  "image_id": "sha256:452b6b7ae6eb5554a32f45f847dabc70a17390d70b8b2c03859dc551f7bfdadd",
+  "image_tag": "speed-demon-fresh/track-d:round290-relax-gather",
+  "image_bytes": 30972194,
+  "elf_sha256": "22952f967cd5e2ecce13edf8d785e65ea861c6d4e72a1ab4d32ef63de27ecc8f",
+  "image_config": {
+    "User": "65534:65534",
+    "Env": [
+      "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "MALLOC_ARENA_MAX=2"
+    ],
+    "Entrypoint": [
+      "/app/solution"
+    ]
+  },
+  "training": "Unchanged pinned native GCC/full1000003 then sample130363/default thread budget12, actual query cap12 bounded by Q. Only executable enters final image; no publicseed1 training.",
+  "passed": true,
+  "completed_at_utc": "2026-11-01T16:54:40.087131+00:00"
+}

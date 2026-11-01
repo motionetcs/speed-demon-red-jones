@@ -1,0 +1,7 @@
+# Historical D289 native screen runners
+
+These exact executed wrappers describe an isolated fresh-event bounded128-edge cross-node gather/prefetch prototype. They expect the recorded ignored build/data layout and immutable source/binary hashes; they do not enter scored images. Successful stages must not be repeated merely to poll. Original287 remains selected and real-passing. Published patches reconstruct the prototype from that exact parent. Native timing is not official Intel/cgroup/K evidence.
+
+The full3109 generator succeeded. The official D reference CLI computed answers but could not save because its output directory did not exist. A recovery initially stopped at a generation-only precondition; that assertion was corrected before further CPU work. Only the unsaved oracle stage then repeated, saved distances.txt successfully, and a leftover summary.txt metadata path failed before benchmark work. The final wrapper reused completed inputs/reference and binaries without another generation, oracle calculation, compilation or training. The report preserves these failures and exact recovery scope. No runtime bug fix or production-source change occurred.
+
+Only full-reference native screening is complete. New pending-buffer/stale/growth/prefetch/Floyd/native-GCC strict/race/image/default proof and a real board run are required before selection. No holdout, eligibility or number-one guarantee.

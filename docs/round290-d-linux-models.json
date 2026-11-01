@@ -1,0 +1,81 @@
+{
+  "started_at_utc": "2026-11-01T16:50:13.598145+00:00",
+  "official_score": false,
+  "scope": "Fresh pinned offline GCC-native strict ASAN/UBSAN exact production-body pending model and complete packed-key/prefetch bounds/grow/full64 oracle model. Test State normal reset precondition matches production. No production helper suppression or runtime/harness/counter change.",
+  "source_sha256": {
+    "track-d/training_generator.py": "bbf37741159004149c5896265a98ae00b90e90a05ad48c2912ecf8bdce126d65",
+    "track-d/Dockerfile": "b894df9b62f1f82561cbcd594d8baa97fdbe91d03d8aea816d2355f8fcd90cbb",
+    "track-d/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+    "track-d/edge_store.hpp": "31db14bd58fb3bb45a90c963cf57397a50d5195782d01dc366b2a380d3b74ed6",
+    "track-d/README.md": "c96189bfa7f3a3d14f45d7db9dfa52c7f441bc82b1bbbea92fcf5000e5116ae8",
+    "track-d/PERF.md": "893964d61992ad12db34867ef5921337d1a0b5a5ed630709dc6aeaf1ad131018",
+    "track-d/load_cursors.hpp": "69bb855e76fdb729ce64856723a7e759f1844bcb34ffaaca2ad7776bdcafdf01",
+    "track-d/radix_heap.hpp": "7fb2052bb951ca391c5b1883d8e673f554a43ab3d06286e43597105c2d82b6e3",
+    "track-d/.speed-demon.toml": "6d6100843803548ba58c1c1eaf2d1dbaecb9a431fd5c9a8408d214580466465c",
+    "track-d/distance_map.hpp": "210ed008e9496f603eb54c2d2b197981e99cc463c42891124b61940f5b5b1125",
+    "track-d/main.cpp": "2ae51c58857b3904276a22bc390c6620cabbece021a39aa6508d7009a33467a1",
+    "track-d/decimal.hpp": "aee2210ac5894050834ffd37903718b3b7bdc6673240559baa85b350bea9b581",
+    "track-d/parallel.hpp": "614e48333aabbd7a9d7b008119d41acc7f908e467769772d01e10d84c282bdab"
+  },
+  "model_source_sha256": {
+    "pending_model.cpp": "bafdd90a488a6194885a6c0585e09bf03f426f76b03ac45b7369f6264587134b",
+    "pending-block.hpp": "be85118248a0c53b1ce3293956ef8124e1c464589356715ed884b12a65dfcddf",
+    "packed_prefetch_model.cpp": "95bfcdd9a2203f6472a7fe8f7edab1a2354754803192cf453cd4e17a9b7914ce",
+    "pending_model-gcc.cpp": "751d7ecc044d0941353a9879b431fb0ed129b2420aa8e34f85c3e013f8ef7b68",
+    "packed_prefetch_model-gcc.cpp": "fb5de58b9f4b64a54101c5cf91b6b889f6bf6729d24ec1d0e4d8750fae3c0dcd"
+  },
+  "commands": [
+    {
+      "argv": [
+        "docker",
+        "run",
+        "--rm",
+        "--pull=never",
+        "--platform",
+        "linux/amd64",
+        "--network=none",
+        "--read-only",
+        "--memory=8g",
+        "--memory-swap=8g",
+        "--pids-limit=512",
+        "--cap-drop=ALL",
+        "--security-opt=no-new-privileges",
+        "--user",
+        "65534:65534",
+        "--tmpfs",
+        "/tmp:rw,exec,size=1g",
+        "-e",
+        "MALLOC_ARENA_MAX=2",
+        "-i",
+        "--entrypoint",
+        "/bin/sh",
+        "-v",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh:/repo:ro",
+        "-v",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round290/linux-proof/models:/out:rw",
+        "gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce",
+        "-s"
+      ],
+      "script": "set -eu\nexport ASAN_OPTIONS=halt_on_error=1\nexport UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1\ng++ -std=c++20 -O1 -g -march=native -Wall -Wextra -Wpedantic -Werror -pthread -fsanitize=address,undefined -fno-sanitize-recover=all -fno-omit-frame-pointer /repo/.build/round290/pending_model-gcc.cpp -o /out/pending_model\n/out/pending_model >/out/pending_model.stdout 2>/out/pending_model.stderr\nsha256sum /out/pending_model >/out/pending_model.sha256\ng++ -std=c++20 -O1 -g -march=native -Wall -Wextra -Wpedantic -Werror -pthread -fsanitize=address,undefined -fno-sanitize-recover=all -fno-omit-frame-pointer /repo/.build/round290/packed_prefetch_model-gcc.cpp -o /out/packed_prefetch_model\n/out/packed_prefetch_model >/out/packed_prefetch_model.stdout 2>/out/packed_prefetch_model.stderr\nsha256sum /out/packed_prefetch_model >/out/packed_prefetch_model.sha256\n"
+    }
+  ],
+  "returncode": 0,
+  "stdout": "",
+  "stderr": "",
+  "models": [
+    {
+      "name": "pending_model",
+      "binary_sha256": "c63787455947aa8f1640ff50fc5473e1a1107c92548dd686801572afab7a9808",
+      "stdout": "PASS gathered-relax exact-block compact=1 side=0 model-checks=428980 full=6418 partial=169 split=3134 stale=2128 growth=1 wide=20\nPASS gathered-relax exact-block compact=1 side=1 model-checks=427221 full=6333 partial=168 split=3093 stale=2106 growth=1 wide=20\nPASS gathered-relax exact-block compact=0 side=0 model-checks=444832 full=6268 partial=170 split=3074 stale=1859 growth=3 wide=20\nPASS gathered-relax exact-block compact=0 side=1 model-checks=450082 full=6365 partial=166 split=3084 stale=1869 growth=1 wide=20\n",
+      "stderr": ""
+    },
+    {
+      "name": "packed_prefetch_model",
+      "binary_sha256": "2892d59d4a721a22896b7aaa49a0b712d35fd32b9209f5bef5831e14c8fe70c1",
+      "stdout": "PASS exact distance reference, packed-key reconstruction, full-bucket fallback, grow/promotion/reset, boundary words/nodes and64-bit labels\n",
+      "stderr": ""
+    }
+  ],
+  "passed": true,
+  "completed_at_utc": "2026-11-01T16:50:23.763718+00:00"
+}

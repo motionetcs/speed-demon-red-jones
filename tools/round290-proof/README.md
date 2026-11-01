@@ -1,0 +1,9 @@
+# Historical D290 proof runners and models
+
+These exact executed wrappers and models bind the bounded128 cross-node edge-gather prototype to its source/input/model/compiler/image hashes. They expect the recorded ignored .build/round290/source and reference-case layout; a new checkout must use a new proof identity and record its own hashes. Successful stages must not repeat merely to poll. No test tool enters a scored image.
+
+pending-block.hpp is the exact extracted production relaxation block included in the independent std::map/edge/queue/best model. Both compact/wide edge layouts and both directions execute full/partial/zero/split/stale/growth/full64 streams. packed_prefetch_model exercises the complete existing exact key/distance model plus new hint-address bounds at0/1/10/20 bits and growth/reset/fallback/large IDs. GCC copies differ only in whitespace, with explicit bindings; strict warnings were never suppressed.
+
+The failed-initial-model source omitted required reset-before-first-use, unlike production. Only that own blocked test was terminated; the failed source/identity is preserved and is not a passing test. Corrected model initialization then received fresh strict ASAN/UBSAN, TSAN and GCC runs. Initial GCC misleading-indentation failure occurred before executable/run; whitespace-only GCC model copies then passed. No runtime fix or passing proof was invented. Native full3109 wrapper failures/recovery remain separately in round289 evidence. Native/VM time/RSS are not organizer K/ELF or eligibility claims.
+
+Only exact current source proof and a real board record can select a candidate. A/C and original unchanged primitive headers retain prior proof by byte identity; new pending/helper/header tests and changed main are fresh. The final image contains only the executable, with unchanged allowed full1000003/sample130363 PGO and no publicseed1 training.

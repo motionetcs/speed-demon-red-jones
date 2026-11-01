@@ -1,0 +1,12 @@
+--- original/track-d/distance_map.hpp
++++ screen289/track-d/distance_map.hpp
+@@ -88,6 +88,9 @@
+         }
+         return labels.size();
+     }
++    void prefetch(uint32_t node)const{
++        if(node<node_limit)__builtin_prefetch(&labels[size_t(node&((1U<<bits)-1))*8],0,1);
++    }
+     void grow(){
+         unsigned old_bits=bits,old_shift=11+bits;uint32_t old_mask=distance_mask();
+         auto previous=std::move(labels);++bits;labels.assign(previous.size()*2,0);
