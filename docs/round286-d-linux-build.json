@@ -1,0 +1,102 @@
+{
+  "started_at_utc": "2026-11-01T15:41:01.300012+00:00",
+  "official_score": false,
+  "mode": "build",
+  "track": "d",
+  "source_sha256": {
+    "track-d/training_generator.py": "bbf37741159004149c5896265a98ae00b90e90a05ad48c2912ecf8bdce126d65",
+    "track-d/Dockerfile": "b894df9b62f1f82561cbcd594d8baa97fdbe91d03d8aea816d2355f8fcd90cbb",
+    "track-d/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+    "track-d/edge_store.hpp": "31db14bd58fb3bb45a90c963cf57397a50d5195782d01dc366b2a380d3b74ed6",
+    "track-d/README.md": "7c0201a1a8fe66e97d21b3421facd11e966c7e9845419900c71ee37843637315",
+    "track-d/PERF.md": "096a5c429f5f5af10ac3b1d68221a3d457ab9f93b889924ed6dce5bba3c6419a",
+    "track-d/load_cursors.hpp": "69bb855e76fdb729ce64856723a7e759f1844bcb34ffaaca2ad7776bdcafdf01",
+    "track-d/radix_heap.hpp": "7fb2052bb951ca391c5b1883d8e673f554a43ab3d06286e43597105c2d82b6e3",
+    "track-d/.speed-demon.toml": "6d6100843803548ba58c1c1eaf2d1dbaecb9a431fd5c9a8408d214580466465c",
+    "track-d/distance_map.hpp": "07b254af4e7a149bdae50e426c3355446e104333e6a8dcd43cd29181db4a8604",
+    "track-d/main.cpp": "ef150f423540644db988e3cbdfa1bb352ade28c7acbe522e698cda4b076b4843",
+    "track-d/decimal.hpp": "aee2210ac5894050834ffd37903718b3b7bdc6673240559baa85b350bea9b581",
+    "track-d/parallel.hpp": "614e48333aabbd7a9d7b008119d41acc7f908e467769772d01e10d84c282bdab"
+  },
+  "manifest_sha256": "6cfa9fef982fe0aaebbcdcd30dd7fc6e89d9b7bd7b90e55932fcb68c41f90668",
+  "native_report_sha256": "8ec835ba51f794f775777185b4e24a1653eb0f6bc07dd391f2fb0dc929a2f4db",
+  "scope": "Fresh exact querycap6 D286 source under pinned offline restricted Linux/amd64 GCC strict ASAN/UBSAN or one unchanged-permitted-training native-GCC PGO image. All original header primitive proofs retained only by exact bytes. Original996 and later262 reference fixtures/expected hashes are data only; no old source-specific algorithm/main proof substituted. Native/VM time or memory is not organizer K/ELF evidence.",
+  "commands": [
+    {
+      "label": "build",
+      "argv": [
+        "docker",
+        "build",
+        "--platform",
+        "linux/amd64",
+        "--network=none",
+        "-t",
+        "speed-demon-fresh/track-d:round286-query6",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round286/source/track-d"
+      ]
+    },
+    {
+      "label": "inspect",
+      "argv": [
+        "docker",
+        "image",
+        "inspect",
+        "speed-demon-fresh/track-d:round286-query6"
+      ]
+    },
+    {
+      "label": "original-config",
+      "argv": [
+        "docker",
+        "image",
+        "inspect",
+        "sha256:c4d3c407647521f82a295be8f0ebaa3de8d755d121a0439f7ddc5ea51968bb04"
+      ]
+    },
+    {
+      "label": "elf",
+      "argv": [
+        "docker",
+        "run",
+        "--rm",
+        "--pull=never",
+        "--platform",
+        "linux/amd64",
+        "--network=none",
+        "--read-only",
+        "--memory=8g",
+        "--memory-swap=8g",
+        "--pids-limit=512",
+        "--cap-drop=ALL",
+        "--security-opt=no-new-privileges",
+        "--user",
+        "65534:65534",
+        "--tmpfs",
+        "/tmp:rw,exec,size=1g",
+        "-e",
+        "MALLOC_ARENA_MAX=2",
+        "--entrypoint",
+        "sha256sum",
+        "sha256:c4d1d6a2a4946883ffe5bcd8829e774428bfa2c92a86c2182df846607ac4ee5b",
+        "/app/solution"
+      ]
+    }
+  ],
+  "image_id": "sha256:c4d1d6a2a4946883ffe5bcd8829e774428bfa2c92a86c2182df846607ac4ee5b",
+  "image_tag": "speed-demon-fresh/track-d:round286-query6",
+  "image_bytes": 30971286,
+  "elf_sha256": "73cb87c92f0681f5336624679abcb0e9f4fc31a333d3f34580a60fe00fcf4b0c",
+  "image_config": {
+    "User": "65534:65534",
+    "Env": [
+      "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "MALLOC_ARENA_MAX=2"
+    ],
+    "Entrypoint": [
+      "/app/solution"
+    ]
+  },
+  "training": "Unchanged pinned native GCC/full1000003 then sample130363/default thread budget12, actual query cap6. Only executable enters final image; no publicseed1 training.",
+  "passed": true,
+  "completed_at_utc": "2026-11-01T15:42:29.078568+00:00"
+}

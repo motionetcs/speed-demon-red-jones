@@ -1,6 +1,6 @@
 # Results — 1 November 2026
 
-Complete ordinary public feed **2026-11-01T13:36:23Z**: Red Jones **rank 51 of 99**, best-three machine mean **69.436015**, leader ALL STAR **83.918002**. Best track scores are unchanged; other teams advanced. Number one is unachieved. Rejected A268/269, C274 and D262 are removed; full original275 restoration passes all real gates. Best/latest variation and final holdout/judging remain separate.
+Complete ordinary public feed **2026-11-01T14:40:03Z**: Red Jones **rank 52 of 101**, best-three machine mean **69.436015**, leader ALL STAR **83.973925**. Best scores remain unchanged while other teams advance. Number one is unachieved. C280 group4 passes real gates but loses totalK and is fully removed; original281 restoration passes every real gate. Best/latest variation and final holdout/judging remain separate.
 
 A268 and269 real A K31.952782/75.225434 and31.926607/75.207638 narrowly miss best31.974332/75.240074. Both changes are removed, including the obsolete-member deletion. Complete original A main/io/README/image restored and fresh native/image public/default checks pass. The repeated original270 A result is lower; this is preserved as variation without inventing a causal explanation. No new algorithm or best-score gain is claimed.
 
@@ -8,9 +8,9 @@ C274 passes every real gate but scores C66.057248/K20.948115, below best68.11807
 
 | Track | Best points | K | Rank | Leader |
 | --- | ---: | ---: | ---: | --- |
-| A | 75.240074 | 31.974332 | 54/117 | Cause Of Death 87.755998 |
-| C | 68.118071 | 23.033578 | 54/99 | NickTrapp 83.834454 |
-| D | 65.319494 | 20.248361 | 33/102 | Lex 73.620947 |
+| A | 75.240074 | 31.974332 | 55/120 | Cause Of Death 87.755998 |
+| C | 68.118071 | 23.033578 | 55/101 | NickTrapp 83.834454 |
+| D | 65.319494 | 20.248361 | 33/104 | Lex 73.620947 |
 
 Four changes are retained:
 
@@ -23,15 +23,15 @@ A178 changes only the first build-time training104729/sample→1000003/full, kee
 
 A retains163 ordered mapped-output/prefix8/exact4096 cache. C is fully original std::hash/low32 offset/eight-reader/four-owner/512-event with original16-byte quote scan. A/C/D use full1000003/sample130363 offline PGO. D retains12 atomic degree/cursor workers, bidirectional CSR/band64/query32 and arena2. Every new native-ISA/CRC/AVX-quote/radix/weight-skip/query-order prototype is absent. OWNER-BRIEFING describes actual techniques without claiming personal understanding.
 
-Last real-passing original29 runtime/build/metadata inputs, complete file sets/README and Make match real275 **06d3742686e78a4bfa7c7ad85adc4df9e827c3d7**, original270 and each historical best-track source. Full original A178/C175/D163 code and immutable original images are selected. [Exact current proof](round275-final-source-match.json); [rejected274 proof](round274-scored-source-match.json). Local images are distinct from organizer binaries.
+All29 selected runtime/build/metadata inputs, complete file sets/README and Make match real281 **17965626c38f4318ed55e33c24c68bbe68bdc88c**, original275 and each historical best-track source. Full original A178/C175/D163 code and immutable original images are selected. [Exact current proof](round281-final-source-match.json); [rejected280 proof](round280-scored-source-match.json). Local images are distinct from organizer binaries.
 
-| Selected275 | Run | Time | Charged memory | S | K | Points |
+| Selected281 | Run | Time | Charged memory | S | K | Points |
 | --- | --- | ---: | ---: | ---: | ---: | ---: |
-| A | run-e80b829be01b | 0.043878 | 20717568 | 497 | 31.467321 | 74.892988 |
-| C | run-73e15ee3523c | 0.063676 | 12288000 | 672 | 22.589414 | 67.695248 |
-| D | run-1939a1087861 | 0.211379 | 76730368 | 827 | 19.443633 | 64.438871 |
+| A | run-623d051300f1 | 0.042998 | 21250048 | 497 | 31.626769 | 75.002741 |
+| C | run-39625ab36f08 | 0.061231 | 12447744 | 672 | 22.976574 | 68.064264 |
+| D | run-bd78eca5f851 | 0.196322 | 76824576 | 827 | 20.170529 | 65.235864 |
 
-All check/build/correctness/timeout/sandbox gatesPASS. [Raw record](board-round275-selected-confirmation.json). Latest lower repeats remain separate from historical best. [Complete current-feed comparison](round275-confirmed-comparison.json), [raw download proof](round275-feed-proof.json).
+All check/build/correctness/timeout/sandbox gatesPASS. [Raw record](board-round281-selected-confirmation.json). Latest lower repeats remain separate from historical best. [Complete current-feed comparison](round281-confirmed-comparison.json), [raw download proof](round281-feed-proof.json).
 
 Fresh234 original C production **630+50 normal errors** and actual no-argument/no-thread-override **72+9** pass, including230 independent monetary boundaries and all1..12 topologies. Combined public1/6/12 and native/Linux default12 pass. Original-source221 native strict/race executables freshly run monetary cases; original221 GCC177+30 and127 primitives retained. Rejected230 helper/GCC216 proofs are not relabeled as original. Unchanged A81/D996 image/independent/Floyd/full64 proofs retained, no new234 A/D whole-bank replay. Exact native225 executables and immutable images reused; no234 compilation/training. [Production](round234-c-image-matrix.json), [actual defaults](round234-c-default-matrix.json), [public](round234-native-public.json), [defaults](round234-defaults.json).
 
@@ -102,6 +102,8 @@ Fresh234 original C production **630+50 normal errors** and actual no-argument/n
 | [270 /4821139](board-round270-selected-confirmation.json) | 73.415898 | 67.916579 | 65.188811 | Confirm full original29 restoration |
 | [274 /2ae05ea](board-round274-upper-owner.json) | 74.197069 | 66.057248 | 64.930780 | Reject upper32 owner routing on C K |
 | [275 /06d3742](board-round275-selected-confirmation.json) | 74.892988 | 67.695248 | 64.438871 | Confirm complete original29 restoration |
+| [280 /5b84630](board-round280-group4.json) | 74.515758 | 67.738509 | 64.887114 | Reject full-fingerprint group4 C on total K |
+| [281 /1796562](board-round281-selected-confirmation.json) | 75.002741 | 68.064264 | 65.235864 | Confirm complete original29 restoration |
 
 Every historical row passes all five gates. Unchanged tracks are repeated observations; higher repeats are variation. Exact time/memory/S/K/source/run IDs remain in JSON and PERF logs.
 
@@ -150,7 +152,7 @@ A211/212 removes only unused Output.save. Native ELF is byte-identical; GCC/PGO 
 
 Hourly local continuation remains active while Mac/app are available. Finish exact pending documentation-head records before new runtime pushes. No new reactions; emojis do not change machine ranking. Stop runtime edits at **2 November2026 15:00UTC/20:30IST** and preserve the last passing recorded source. The owner explicitly approved **only motionetcs/speed-demon-red-jones becoming public under MIT during15:00–16:00UTC/20:30–21:30IST**, after freeze preservation and final secret/privacy recheck. [Authorization](PUBLICATION-AUTHORIZATION.json) and the accepted automation update resolve the earlier missing-approval condition. Keep private before that window; no grants/credential changes or rejection bypass. Publication has not happened. Verify public MIT source by16:00UTC, pause heartbeat after deadline and report verified status. After freeze no runtime edits.
 
-[Complete feed](round275-confirmed-board.json) · [Feed integrity](round275-feed-proof.json) · [Leader comparison](round275-confirmed-comparison.json) · [Entry audit](ENTRY-AUDIT.md) · [Live board](https://speeddemon.dev/board/#red-jones-00c4a7)
+[Complete feed](round281-confirmed-board.json) · [Feed integrity](round281-feed-proof.json) · [Leader comparison](round281-confirmed-comparison.json) · [Entry audit](ENTRY-AUDIT.md) · [Live board](https://speeddemon.dev/board/#red-jones-00c4a7)
 
 
 255 exact A/D local models/native/GCC/PGO/default proofs pass but real A K29.472757/73.471038 loses31.974332/75.240074; real D K19.921170/64.965742 loses20.248361/65.319494. A S491 vs497 is a measured source reduction. D M73543680 vs best76922880 saves3379200B (4.39%), but T.202919 vs.194716 and S853 vs827 do not yield a best total-K gain. These are observed record comparisons, not precise causal timing estimates. C source unchanged, lower repeat is variation. Complete original A/D restored, README training prose corrected to actual1000003/full then130363/sample. Exact actual29/Git/frozen/local-image proof round255-scored-source-match.json; rejected span/bucket strict/race/GCC/image proofs remain historical, never relabeled as original. Fresh256 original native/image public1/6/12 and actualdefaults pass with immutable original binaries/images, no compiler/training or whole-bank replay. Real256 all-track restoration passes, exactsource/best identity in round256-final-source-match.json.
@@ -182,3 +184,16 @@ Hourly local continuation remains active while Mac/app are available. Finish exa
 Candidate280 group4 owner table is fully locally verified and ready for one authorized real all-track trial. Native models/main strict/race, GCC282+25, exact PGO image840+50, actual noarg/default94+9, actual Make/alltrack12 and all29/source/image proof pass. Only C main/names change; best scores and last actual275 records above remain unchanged until a real result. Old275 is the complete rollback. [Candidate proof](round280-candidate-source-match.json), [proof archive](round280-c-proof-archive.json). No target gain claimed.
 
 280/5b84630 passes every actual gate but C run-381426c3293d T.061495/M12513280/S727/K22.634462/67.738509 loses retained best23.033578/68.118071. The observed1.66% lower time does not offset this record’s higher source(+55 lines) and memory(+847872B) in totalK. This is not a precise causal timing estimate. Complete group4 header and main style normalization removed; original275 C/table/README/image restored and fresh native/image public/default controls pass. All29 exact original restored; one cooled281 real confirmation next. No new best score or rank gain. [Rejected proof](round280-scored-source-match.json), [raw280](board-round280-group4.json).
+
+
+282 touched-bucket reset is native-only rejected. Bucket starts recorded once, contiguous8-label blocks cleared, separate live-entry count/grow rebuilds preserve intended original thresholds; no new get/slot epoch check. One compile, original263 control; public1/6/12 and13pairs public/1823/2633 full hashes pass. Ratios1.077021/1.016050/1.063301, wins5/5/4, native RSS about2.9–3.1MB lower. Time/source cost lacks support; reject BEFORE new bucket-list/map/growth/zero/reset/wide/Floyd/guard/strict/race/GCC/image/default/actual proof. No target K or general correctness claimed; original selected source untouched. Exact round282-d-touched-bucket-screen.json and patch.
+
+
+283 complete bounded endpoint-cache comparisons cover first/last8 for8..16 bytes and first/last16 for17..32, with original empty/other-length semantics and unchanged full-key global fallback. Native public1/6/12 and13pairs public/1951/2221 all hashes pass; ratios.979208/.996504/.966026 with8/13wins each are modest. Fresh untrained full3001 official-generator/Python-oracle confirmation, existing binaries/no recompile or training, is only.990484 with8/13wins and nearly flat RSS. REJECT before new all-length/every-position/guard/cache-collision/strict/race/GCC/image/default/actual proof; source growth lacks a strong case. No official S/K or general correctness claimed, original selected untouched. Exact round283-a-cache-equality-screen.json, fresh-confirmation.json and patch.
+
+281 original restoration is real-confirmed on every gate; C280 rejected; subsequent D282 grouped reset and A283 cache equality screens rejected before broad promotion. No new best score or rank gain. Current source/real-run bindings are above.
+
+
+284 two independently refillable query contexts per worker with staged CSR-prefix/range/adjacency prefetch is rejected at native screen. Default6 OS query workers/12 contexts/24 direction maps keep the original12 graph loaders and per-query32-item bands. Full public1/6/12 and13pairs public/1823/2633 hashesPASS, but native1.162765/1.178240/1.149348 slower with essentially flat RSS. Reject before state/refill/ownership/odd/zero/Floyd/strict/race/GCC/image/default/actual proof; no target gain/general correctness claim. Primary AMAC independent-state concept https://www.research.ed.ac.uk/en/publications/asynchronous-memory-access-chaining/ only, not full AMAC or copied implementation. Reused exact current233 main/header phase evidence without profiling again; stale STATE profiling suggestion corrected. CppCon video listing search description read, direct playback fetch failed; no watched-video claim. Exact round284-d-query-pair-screen.json and patch.
+
+Candidate286 query-only cap6 is fully locally verified and ready for one authorized target time/memory trial. This is NOT a native-speed winner: q6 slows Apple9–11% while saving9–10MB native RSS; q8 remains unselected. The official i5/12-thread topology can trade throughput/private allocation differently. Current exact main ASAN/UBSAN/TSAN/new Floyd/query-count/every-budget/full public/untrained proof, pinned GCC1320+12/new exact PGO image1950+48/true defaults425+4/rootMake/alltrack12 and all29/source/image checks pass. No target gain claimed; only actual D K>20.248361/65.319494 permits retention, otherwise original281 restoration. [Proof](round286-candidate-source-match.json), [archive](round286-proof-archive.json).

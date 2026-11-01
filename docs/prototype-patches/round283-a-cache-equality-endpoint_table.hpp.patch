@@ -1,0 +1,28 @@
+--- original/track-a/endpoint_table.hpp
++++ rejected283/track-a/endpoint_table.hpp
+@@ -46,11 +46,24 @@
+         uint32_t h=(a^std::rotl(b,11)^std::rotl(c,23)^uint32_t(v.size()))*0x9e3779b1U;return h^(h>>16);
+     }
+ 
++    static bool same_bytes(const char* left,const char* right,size_t length){
++        if(length>=8&&length<=16){
++            uint64_t a,b,c,d;std::memcpy(&a,left,8);std::memcpy(&b,right,8);
++            std::memcpy(&c,left+length-8,8);std::memcpy(&d,right+length-8,8);
++            return ((a^b)|(c^d))==0;
++        }
++        if(length>16&&length<=32){
++            uint64_t a[2],b[2],c[2],d[2];std::memcpy(a,left,16);std::memcpy(b,right,16);
++            std::memcpy(c,left+length-16,16);std::memcpy(d,right+length-16,16);
++            return ((a[0]^b[0])|(a[1]^b[1])|(c[0]^d[0])|(c[1]^d[1]))==0;
++        }
++        return !length||std::memcmp(left,right,length)==0;
++    }
+     uint16_t intern(std::string_view value){
+         if(value.size()>UINT16_MAX)return shared.intern(value,std::hash<std::string_view>{}(value));
+         uint32_t hash=hash_key(value);size_t i=hash&(slots.size()-1);
+         const auto& cached=slots[i];
+-        if(cached.id!=UINT16_MAX&&cached.hash==hash&&cached.length==value.size()&&(value.empty()||std::memcmp(cached.data,value.data(),value.size())==0))return cached.id;
++        if(cached.id!=UINT16_MAX&&cached.hash==hash&&cached.length==value.size()&&same_bytes(cached.data,value.data(),value.size()))return cached.id;
+         uint16_t id=shared.intern(value,std::hash<std::string_view>{}(value));
+         slots[i]={shared.canonical[id].data(),hash,static_cast<uint16_t>(value.size()),id};return id;
+     }

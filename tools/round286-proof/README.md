@@ -1,0 +1,5 @@
+# Historical query-budget proof runners
+
+These files are exact byte copies of the runners executed for round286, preserved for provenance. They expect the recorded .build/round286/source snapshot/preflight and reference-bank layout; they are not production code and never enter runtime images. The native runner contains the exact independent Python Floyd/reference-case generator and changed-main ASAN/UBSAN/TSAN invocation logic. The Linux runner replays input/reference content only, compiles current GCC main, builds the unique allowed PGO image and runs its actual default entrypoint. Successful stages/checkpoints must not be rerun merely to poll status.
+
+A repeated proof on a new checkout must create a fresh run ID/source manifest, use that checkout’s actual paths, and record its own compiler/image/source hashes. The archived results remain evidence only for the exact recorded source. Header primitive-model proofs are retained by byte identity; no old main or bypass-source pass is substituted. Native times/RSS and emulated Linux timing are not organizer scores.

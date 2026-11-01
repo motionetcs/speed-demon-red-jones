@@ -12,7 +12,7 @@ This is the fresh local entry. Check actual external state before treating it as
 | Licence | MIT, official attribution retained |
 | Fresh repository | https://github.com/motionetcs/speed-demon-red-jones — private |
 | Submission branch | speed-demon |
-| Remote source | Rejected280 5b846302e12d8dc1809db729c4777723b63c51e1 passes actual gates but loses C totalK. Complete original C source/image restored locally, all29/source/public/default checks pass. One cooled281 all-track confirmation next; best scores unchanged. |
+| Remote source | Original281 17965626c38f4318ed55e33c24c68bbe68bdc88c is on speed-demon; all A/C/D real gates pass, all29/Make/README/Git/best/local-image identities verified. Entire C280 group4 change removed. Best unchanged, full-feed rank52/101, #1 unachieved. |
 | Individual registration | Entrant confirmed already registered on 31 October 2026; not duplicated |
 | Team form | Submitted successfully for this fresh repository, A/C/D; Tally displayed “Form submitted” |
 | Board app access | Installed and verified on 31 October 2026; only the fresh repository selected; read-only code and metadata |
@@ -35,8 +35,6 @@ The team form at https://tally.so/r/Ar7g9z was submitted through Brave Work on 3
 
 The board registry accepted Red Jones and scored commit `788ae3b205928ca2bc3d60100703d5660123d0f0`. All selected tracks passed check, build, correctness, timeout, and sandbox gates. Actual run IDs: A `run-c76f845b747a`, C `run-bbda54bf2316`, D `run-3e323bfac066`. See https://speeddemon.dev/board/#red-jones-00c4a7 and `first-board-run.json`. Final holdout scoring and judging remain separate.
 
-Current passing selection is original275/06d3742686e78a4bfa7c7ad85adc4df9e827c3d7, all real A/C/D gates pass. A268/269 formatting and C274 routing were rejected and fully restored; D262 preprocessing was already restored. Native-only D276 chain, C277 quote parity and A278 small-order-statistics screens were rejected without promotion. No source/publication/sign-in step is pending now. Exact current29/Git/best/local-image identity, actual run IDs and standings are in RESULTS.md and round275-final-source-match.json. Historical trial reports remain separate. Repository is private under MIT until the owner-approved publication window.
+Current passing selection is original281/17965626c38f4318ed55e33c24c68bbe68bdc88c. A/C/D pass every real gate. C280 group4 K22.634462/67.738509 fails best23.033578/68.118071; source and image are fully restored, with exact all29/source/Make/README/file-set/Git/local-image proof and fresh changed-back public/default checks. Native-only279 short-key hash,282 touched-bucket reset and283 cache comparison are rejected without promotion. Real current scores remain separate from historical best. No sign-in or owner action is needed. Public MIT source is still pending only in the owner-approved future window; repository remains private.
 
-Candidate280 is locally verified for an authorized C-only source trial; real commit/run pending at this evidence head. GCC282+25/image840+50/default94+9/actual Make and full-public checks pass; A/D unchanged. Last real passing275 remains the rollback. No source publication, grants or credentials changed.
-
-280 actual group4 C K22.634462 is below best23.033578, so full original main/table/README/image restored. Local281 controls pass; next authorized cooled rollback confirmation. No best-score or publication claim.
+Candidate286 is locally verified for one authorized D query-budget memory tradeoff trial; only D main/README change, A/C remain original. Native q6 is slower but lower RSS; no official K gain yet. GCC1320+12/image1950+48/default425+4/actual Make/source pass. Current recorded281 is the complete rollback; private MIT unchanged.

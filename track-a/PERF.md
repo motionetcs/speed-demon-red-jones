@@ -9,9 +9,9 @@ The two material retained layout changes are mapped records (real145, run-1fc761
 | Record | Run ID | T seconds | Charged memory bytes | S | K | Machine points |
 | --- | --- | ---: | ---: | ---: | ---: | ---: |
 | Best observed | run-004bfb2aafff | 0.042474 | 20746240 | 497 | 31.974332 | 75.240074 |
-| Passing original275 | run-e80b829be01b | 0.043878 | 20717568 | 497 | 31.467321 | 74.892988 |
+| Passing original281 | run-623d051300f1 | 0.042998 | 21250048 | 497 | 31.626769 | 75.002741 |
 
-These are real public-board records, not final holdout or judging totals. All five gates pass for both rows. Local native timing/RSS and emulated Linux checks are labeled separately throughout this log. The observed best is not a promise of repeatable timing or victory. [Current source and decisions](../docs/RESULTS.md), [exact passing source proof](../docs/round275-final-source-match.json), [latest raw record](../docs/board-round275-selected-confirmation.json).
+These are real public-board records, not final holdout or judging totals. All five gates pass for both rows. Local native timing/RSS and emulated Linux checks are labeled separately throughout this log. The observed best is not a promise of repeatable timing or victory. [Current source and decisions](../docs/RESULTS.md), [exact passing source proof](../docs/round281-final-source-match.json), [latest raw record](../docs/board-round281-selected-confirmation.json).
 
 ## Historical experiments
 
@@ -617,3 +617,9 @@ Original275/06d3742686e78a4bfa7c7ad85adc4df9e827c3d7 all five actual gatesPASS, 
 
 
 278 exact small-group median/top-two prototype is rejected at native screen. n<4 sort;4..31 median nth then upper-tail top1/top2 because nearest95/max agree through19 and nearest95 is second-max for20..31; larger groups unchanged. One compile, original263 control, full-public1/6/12 and13 rotating pairs public/full1951/full2221 all input/output/source/ELF hashes PASS. Ratios.990631/1.020653/.998557, wins9/4/7 are mixed/flat with source growth. No independent exhaustive sort/rank/duplicates/full32/guard/strict/race/GCC/image/default/actual proof or target gain claimed. Original selected source untouched. Exact ../docs/round278-a-small-order-statistics-screen.json and ../docs/prototype-patches/round278-a-small-order-statistics-main.cpp.patch.
+
+
+283 complete bounded endpoint-cache comparisons cover first/last8 for8..16 bytes and first/last16 for17..32, with original empty/other-length semantics and unchanged full-key global fallback. Native public1/6/12 and13pairs public/1951/2221 all hashes pass; ratios.979208/.996504/.966026 with8/13wins each are modest. Fresh untrained full3001 official-generator/Python-oracle confirmation, existing binaries/no recompile or training, is only.990484 with8/13wins and nearly flat RSS. REJECT before new all-length/every-position/guard/cache-collision/strict/race/GCC/image/default/actual proof; source growth lacks a strong case. No official S/K or general correctness claimed, original selected untouched. Exact ../docs/round283-a-cache-equality-screen.json, fresh-confirmation.json and patch.
+
+
+Original281/17965626c38f4318ed55e33c24c68bbe68bdc88c all five actual gatesPASS, run-623d051300f1: T0.042998s/M21250048/S497/K31.626769/75.002741. Complete original29/Make/README/file-set/Git/best-component/local-image identity ../docs/round281-final-source-match.json. C280 group4 rejected fully; original linear source restored. Best unchanged; latest lower repeats remain variation, no new gain/precise causal timing claim. Raw ../docs/board-round281-selected-confirmation.json.

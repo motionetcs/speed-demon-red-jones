@@ -9,9 +9,9 @@ The retained table change is actual128, run-5f755c073a9a (exact actual ID is pre
 | Record | Run ID | T seconds | Charged memory bytes | S | K | Machine points |
 | --- | --- | ---: | ---: | ---: | ---: | ---: |
 | Best observed | run-5faf38e26ef1 | 0.062531 | 11665408 | 672 | 23.033578 | 68.118071 |
-| Passing original275 | run-73e15ee3523c | 0.063676 | 12288000 | 672 | 22.589414 | 67.695248 |
+| Passing original281 | run-39625ab36f08 | 0.061231 | 12447744 | 672 | 22.976574 | 68.064264 |
 
-These are real public-board records, not final holdout or judging totals. All five gates pass for both rows. Local native timing/RSS and emulated Linux checks are labeled separately throughout this log. The observed best is not a promise of repeatable timing or victory. [Current source and decisions](../docs/RESULTS.md), [exact passing source proof](../docs/round275-final-source-match.json), [latest raw record](../docs/board-round275-selected-confirmation.json).
+These are real public-board records, not final holdout or judging totals. All five gates pass for both rows. Local native timing/RSS and emulated Linux checks are labeled separately throughout this log. The observed best is not a promise of repeatable timing or victory. [Current source and decisions](../docs/RESULTS.md), [exact passing source proof](../docs/round281-final-source-match.json), [latest raw record](../docs/board-round281-selected-confirmation.json).
 
 ## Historical experiments
 
@@ -725,3 +725,6 @@ Pinned GCC current main282 references+25 normal errors, unique unchanged full100
 
 
 280/5b84630 run-381426c3293d passes every real gate: T0.061495s/M12513280/S727/K22.634462/67.738509, below best23.033578/68.118071. Compared with best, observed time is1.66% lower but source55 lines(+8.18%) and memory847872B(+7.27%) are higher; totalK loses1.73%. These are record comparisons, not a precise causal timing/phase estimate. REJECT full group4 header and2-line main style normalization; complete original275 C main/names/README/image restored. Fresh immutable original native/image public1/6/12/default8 controlsPASS, no compiler/model/training duplication. New group4 strict/race/GCC282+25/image840+50/default94+9/current Make/model proof remains historical rejected-source evidence. One cooled real281 all-track confirmation next. Raw ../docs/board-round280-group4.json and exact ../docs/round280-scored-source-match.json.
+
+
+Original281/17965626c38f4318ed55e33c24c68bbe68bdc88c all five actual gatesPASS, run-39625ab36f08: T0.061231s/M12447744/S672/K22.976574/68.064264. Complete original29/Make/README/file-set/Git/best-component/local-image identity ../docs/round281-final-source-match.json. C280 group4 rejected fully; original linear source restored. Best unchanged; latest lower repeats remain variation, no new gain/precise causal timing claim. Raw ../docs/board-round281-selected-confirmation.json.

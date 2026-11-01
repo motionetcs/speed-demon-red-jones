@@ -1,0 +1,33 @@
+{
+  "primary_concept": "https://www.research.ed.ac.uk/en/publications/asynchronous-memory-access-chaining/",
+  "video_research": {
+    "primary_listing": "https://isocpp.org/blog/2015/09/video-available-chandler-carruth-tuning-cpp-benchmarks-and-cpus-and-compile",
+    "youtube": "https://www.youtube.com/watch?v=nXaxk27zwlk",
+    "status": "Search index description/title read only; direct YouTube fetch failed, primary listing403 stopped; no watched-video/transcript claim."
+  },
+  "existing_profile_reused_without_measurement": {
+    "report": "docs/round233-current-phase-profile.json",
+    "source_main_sha256": "6ae66971d7a6fd1f6bb75741daa522c681eae20e200f426547f8c537161327cc",
+    "current_headers_byte_identical": {
+      "io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+      "edge_store.hpp": "31db14bd58fb3bb45a90c963cf57397a50d5195782d01dc366b2a380d3b74ed6",
+      "load_cursors.hpp": "69bb855e76fdb729ce64856723a7e759f1844bcb34ffaaca2ad7776bdcafdf01",
+      "radix_heap.hpp": "7fb2052bb951ca391c5b1883d8e673f554a43ab3d06286e43597105c2d82b6e3",
+      "distance_map.hpp": "07b254af4e7a149bdae50e426c3355446e104333e6a8dcd43cd29181db4a8604",
+      "decimal.hpp": "aee2210ac5894050834ffd37903718b3b7bdc6673240559baa85b350bea9b581",
+      "parallel.hpp": "614e48333aabbd7a9d7b008119d41acc7f908e467769772d01e10d84c282bdab"
+    },
+    "median_phase_seconds": {
+      "open_partition_degree_alloc": 0.000987875,
+      "parse_degrees": 0.053354333,
+      "prefix_cursor_edge_alloc": 0.007557583,
+      "parse_scatter": 0.059265583,
+      "wide_merge_release": 0.000278042,
+      "query_setup": 4.1625e-05,
+      "queries": 0.1640005,
+      "write": 0.00045975
+    },
+    "instrumented_over_control_wall_ratio": 1.014619979508077,
+    "scope": "This existing233 profile already covers exact current main/headers; correcting stale STATE suggestion, no duplicate coarse profile compile/run. Apple instrumented phase evidence only, not Intel causal attribution."
+  }
+}

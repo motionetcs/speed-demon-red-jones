@@ -1,0 +1,124 @@
+--- original/track-d/main.cpp
++++ rejected284/track-d/main.cpp
+@@ -131,57 +131,79 @@
+         std::atomic<size_t> next{0};
+         auto worker = [&]<bool Compact>() {
+             constexpr uint64_t infinity = UINT64_MAX;
+-            FastDistances forward, backward;
+-            RadixHeap forward_heap, backward_heap;
++            struct Context {
++                FastDistances forward, backward;
++                RadixHeap forward_heap, backward_heap;
++                size_t query=0,count=0;
++                uint32_t source=0,target=0;
++                uint64_t best=UINT64_MAX;
++                bool active=false,prepared=false,from_source=false;
++                std::array<Item,32> work;
++                std::array<std::pair<uint32_t,uint32_t>,32> ranges;
++            };
++            std::array<Context,2> states;
+             for (;;) {
+-                size_t query = next.fetch_add(1, std::memory_order_relaxed);
+-                if (query >= queries.size()) return;
+-                auto [source, target] = queries[query];
+-                if (source == target) { answers[query] = 0; continue; }
+-                if (offsets[source] == offsets[source + 1] || reverse_offsets[target] == reverse_offsets[target + 1]) continue;
+-                forward.reset(); backward.reset(); forward_heap.clear(); backward_heap.clear();
+-                forward.improve(source, 0); backward.improve(target, 0);
+-                forward_heap.push({0, source}); backward_heap.push({0, target});
+-                uint64_t best = infinity;
+-                while (!forward_heap.empty() && !backward_heap.empty()) {
+-                    if (best != infinity && forward_heap.minimum() + backward_heap.minimum() >= best) break;
+-                    // Balance frontier work rather than absolute distances: no-in sources have huge initial weights.
+-                    bool from_source = forward_heap.count <= backward_heap.count;
+-                    auto& heap = from_source ? forward_heap : backward_heap;
+-                    auto& own = from_source ? forward : backward;
+-                    auto& other = from_source ? backward : forward;
+-                    const auto& starts = from_source ? offsets : reverse_offsets;
+-                    const auto& adjacency = from_source ? edges : reverse_edges;
+-                    std::array<Item, 32> work;
+-                    std::array<std::pair<uint32_t, uint32_t>, 32> ranges;
+-                    size_t count = heap.pop_batch(work.data(), work.size());
+-                    for (size_t k = 0; k < count; ++k) __builtin_prefetch(&starts[work[k].second], 0, 1);
+-                    for (size_t k = 0; k < count; ++k) {
+-                        uint32_t node = work[k].second;
+-                        ranges[k] = {starts[node], starts[node + 1]};
+-                        if (ranges[k].first < ranges[k].second) adjacency.template prefetch<Compact>(ranges[k].first);
++                bool have_work=false;
++                for (auto& state:states) {
++                    state.prepared=false;
++                    for (;;) {
++                        if (!state.active) {
++                            state.query=next.fetch_add(1,std::memory_order_relaxed);
++                            if (state.query>=queries.size()) break;
++                            auto [source,target]=queries[state.query];state.source=source;state.target=target;
++                            if (source==target) {answers[state.query]=0;continue;}
++                            if (offsets[source]==offsets[source+1]||reverse_offsets[target]==reverse_offsets[target+1]) continue;
++                            state.forward.reset();state.backward.reset();state.forward_heap.clear();state.backward_heap.clear();
++                            state.forward.improve(source,0);state.backward.improve(target,0);
++                            state.forward_heap.push({0,source});state.backward_heap.push({0,target});
++                            state.best=infinity;state.active=true;
++                        }
++                        if (state.forward_heap.empty()||state.backward_heap.empty()||
++                            (state.best!=infinity&&state.forward_heap.minimum()+state.backward_heap.minimum()>=state.best)) {
++                            if (state.best!=infinity) answers[state.query]=static_cast<int64_t>(state.best);
++                            state.active=false;continue;
++                        }
++                        state.from_source=state.forward_heap.count<=state.backward_heap.count;
++                        auto& heap=state.from_source?state.forward_heap:state.backward_heap;
++                        const auto& starts=state.from_source?offsets:reverse_offsets;
++                        state.count=heap.pop_batch(state.work.data(),state.work.size());
++                        for (size_t k=0;k<state.count;++k) __builtin_prefetch(&starts[state.work[k].second],0,1);
++                        state.prepared=true;have_work=true;break;
+                     }
+-                    for (size_t k = 0; k < count; ++k) {
+-                        auto [d, u] = work[k];
+-                        if (d != own.get(u)) continue; // Earlier items may improve this label within the band.
+-                        for (uint32_t i = ranges[k].first; i < ranges[k].second; ++i) {
+-                            auto [destination, tag] = adjacency.template get<Compact>(i);
+-                            uint32_t weight = tag == (Compact ? EdgeStore::small_limit : uint32_t(UINT16_MAX)) ? wide_weights.at(i * 2 + (from_source ? 0 : 1)) : tag;
+-                            uint64_t candidate = d + weight;
+-                            if (own.improve(destination, candidate)) {
+-                                heap.push({candidate, destination});
+-                                uint64_t opposite = other.get(destination);
+-                                if (opposite != infinity) best = std::min(best, candidate + opposite);
++                }
++                if (!have_work) return;
++                for (auto& state:states) if (state.prepared) {
++                    const auto& starts=state.from_source?offsets:reverse_offsets;
++                    const auto& adjacency=state.from_source?edges:reverse_edges;
++                    for (size_t k=0;k<state.count;++k) {
++                        uint32_t node=state.work[k].second;state.ranges[k]={starts[node],starts[node+1]};
++                        if (state.ranges[k].first<state.ranges[k].second) adjacency.template prefetch<Compact>(state.ranges[k].first);
++                    }
++                }
++                for (auto& state:states) if (state.prepared) {
++                    auto& heap=state.from_source?state.forward_heap:state.backward_heap;
++                    auto& own=state.from_source?state.forward:state.backward;
++                    auto& other=state.from_source?state.backward:state.forward;
++                    const auto& adjacency=state.from_source?edges:reverse_edges;
++                    for (size_t k=0;k<state.count;++k) {
++                        auto [d,u]=state.work[k];if (d!=own.get(u)) continue;
++                        for (uint32_t i=state.ranges[k].first;i<state.ranges[k].second;++i) {
++                            auto [destination,tag]=adjacency.template get<Compact>(i);
++                            uint32_t weight=tag==(Compact?EdgeStore::small_limit:uint32_t(UINT16_MAX))?wide_weights.at(i*2+(state.from_source?0:1)):tag;
++                            uint64_t candidate=d+weight;
++                            if (own.improve(destination,candidate)) {
++                                heap.push({candidate,destination});uint64_t opposite=other.get(destination);
++                                if (opposite!=infinity) state.best=std::min(state.best,candidate+opposite);
+                             }
+                         }
+                     }
+                 }
+-                if (best != infinity) answers[query] = static_cast<int64_t>(best);
+             }
+         };
+         if (threads) {
+-            if (edges.compact) parallel(threads, [&](unsigned) { worker.template operator()<true>(); });
+-            else parallel(threads, [&](unsigned) { worker.template operator()<false>(); });
++            unsigned query_workers=(threads+1)/2;
++            if (edges.compact) parallel(query_workers,[&](unsigned){worker.template operator()<true>();});
++            else parallel(query_workers,[&](unsigned){worker.template operator()<false>();});
+         }
+         Output output;
+         for (int64_t answer : answers) { output.number(answer); output.text("\n"); }
