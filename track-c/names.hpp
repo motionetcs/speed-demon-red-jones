@@ -49,15 +49,15 @@ struct Names {
     void grow(){
         if(entries.size()>SIZE_MAX/2/sizeof(Entry))throw std::runtime_error("name table overflow");
         std::vector<Entry> larger(entries.size()*2);
-        for(auto e:entries)if(e.index){size_t i=(e.hash>>2)&(larger.size()-1);while(larger[i].index)i=(i+1)&(larger.size()-1);larger[i]=e;}
+        for(auto e:entries)if(e.index){size_t i=e.hash&(larger.size()-1);while(larger[i].index)i=(i+1)&(larger.size()-1);larger[i]=e;}
         entries.swap(larger);
     }
     bool first(std::string_view key,size_t country,uint64_t hash){
-        uint32_t fingerprint=static_cast<uint32_t>(hash);size_t i=(fingerprint>>2)&(entries.size()-1);
+        uint32_t fingerprint=static_cast<uint32_t>(hash);size_t i=fingerprint&(entries.size()-1);
         for(;;){
             auto& e=entries[i];
             if(!e.index){
-                if(used>=entries.size()*7/8){grow();i=(fingerprint>>2)&(entries.size()-1);continue;}
+                if(used>=entries.size()*7/8){grow();i=fingerprint&(entries.size()-1);continue;}
                 uint32_t index=make(key);e={fingerprint,index};++used;break;
             }
             if(e.hash==fingerprint&&bytes(e.index)==key)break;

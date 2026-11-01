@@ -9,5 +9,3 @@ An exact local synchronization proof selects true record boundaries. Reader work
 No input seed or answer is recognized. All output is computed in the timed run. See `PERF.md` for actual experiments, source/memory costs, independent tests and real board outcomes.
 
 Owner table entries use a32-bit rejection fingerprint and a32-bit stable-block word index. Full length/byte equality still decides names, including collisions; the complete64-bit hash routes owners.64KiB word blocks and dedicated oversized-key blocks retain exact name bytes/country words with checked index arithmetic.
-
-Candidate204 uses fingerprint bits starting at bit2 for each private table's home slot and rehash. The stored fingerprint, exact byte equality and full-hash owner routing remain unchanged. This reduces home-slot conflicts from the two fixed routing bits at four owners; arbitrary other owner counts still use the same exact lookup. It is an unconfirmed performance experiment until its real total-K record is evaluated.

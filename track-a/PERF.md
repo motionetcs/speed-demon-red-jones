@@ -483,3 +483,6 @@ Pinned offline allowlisted A build/public1/6/12 passes, followed by81 exact-imag
 
 
 201 bounded2/4/8 adjacent front-cache probes preserve exact full-key comparison and global fallback. All full-public hashes pass in11 rotating native runs, but paired1.005356/0.992900/0.994820 is flat against added comparisons/source. Reject before new collision/eviction/wrap/guard/canonical-publication/strict/race/GCC/image/actual proof. Original4096 direct cache remains. Primary associativity paper2304.04954 motivates conflict analysis only; its random-hash/LRU theorem does not apply to this sampled-hash/home-eviction design. No imported implementation.
+
+
+204/0112b33 run-0e889b96ee08 all five real gates pass: T0.045522s/M20799488/S497/K30.869510/74.476487 points. Unchanged selected197 source lower repeat; historical best separate. Raw ../docs/board-round204-shifted-offset-home.json.

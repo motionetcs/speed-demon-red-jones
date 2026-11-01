@@ -485,3 +485,6 @@ Eleven rotating public hashes pass, but retained0.183108542s/RSS179421184 versus
 
 
 203 standard checked from_chars and at-most-one in-row separator are isolated native screens on unchanged current graph/search layout. Every full-public hash passes; paired1.154143/1.006474 loses/flat, so reject before new scalar/range/guard/grammar/error/strict/race/Floyd/GCC/image/actual proof. The single-separator candidate relies on frozen single-SP/LF grammar and may reject outside-grammar repeated whitespace; it is not selected. Original generic whitespace/four-digit decoder stays. C++20 from_chars primary return/error contract was read; no performance claim follows from that API.
+
+
+204/0112b33 run-c2468e07339d all five real gates pass: T0.196428s/M77426688/S827/K20.133625/65.196098 points. Unchanged selected197 source lower repeat; historical best separate. Raw ../docs/board-round204-shifted-offset-home.json.
