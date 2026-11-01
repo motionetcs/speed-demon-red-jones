@@ -1,0 +1,39 @@
+--- /dev/null
++++ isolated236-plain/track-a/hour_index.hpp
+@@ -0,0 +1,36 @@
++#pragma once
++#include "mapped_allocator.hpp"
++#include <array>
++#include <cstdint>
++#include <cstring>
++#include <stdexcept>
++#include <vector>
++
++struct HourRun { uint32_t first, last; };
++static_assert(sizeof(HourRun)==8);
++using HourRuns=std::vector<HourRun,MappedAllocator<HourRun>>;
++struct HourPartition {
++    std::array<HourRuns,72> runs;
++    std::array<uint32_t,72> rows{};
++};
++// Every emitted span is a complete sequence of lines with one decoded hour.
++inline HourPartition index_hour_runs(const char* begin,const char* end,uint64_t base){
++    if(end<begin || base>UINT32_MAX || uint64_t(end-begin)>UINT32_MAX-base)
++        throw std::runtime_error("hour index exceeds uint32 capacity");
++    HourPartition index; const char* line=begin; const char* run_start=begin; int previous=-1;
++    while(line<end){
++        const char* next=static_cast<const char*>(std::memchr(line,'\n',size_t(end-line)));
++        if(!next)throw std::runtime_error("unterminated request line");
++        ++next;if(next-line<28)throw std::runtime_error("truncated timestamp");
++        int month=(line[5]-'0')*10+line[6]-'0',day=(line[8]-'0')*10+line[9]-'0';
++        int hour=(month==10?day-30:day+1)*24+(line[11]-'0')*10+line[12]-'0'-18;
++        if(hour<0||hour>=72)throw std::runtime_error("hour outside specification");
++        if(hour!=previous){
++            if(previous>=0)index.runs[size_t(previous)].push_back({uint32_t(base+uint64_t(run_start-begin)),uint32_t(base+uint64_t(line-begin))});
++            run_start=line;previous=hour;
++        }
++        ++index.rows[size_t(hour)];line=next;
++    }
++    if(previous>=0)index.runs[size_t(previous)].push_back({uint32_t(base+uint64_t(run_start-begin)),uint32_t(base+uint64_t(end-begin))});
++    return index;
++}

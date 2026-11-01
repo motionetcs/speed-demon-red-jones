@@ -1,0 +1,11 @@
+--- selected234/track-a/main.cpp
++++ isolated239-mapped-keep/track-a/main.cpp
+@@ -74,7 +74,7 @@
+         std::atomic<unsigned> next_hour{0};
+         parallel(threads, [&](unsigned) {
+             std::vector<Count> groups(paths.size());
+-            std::vector<uint32_t> offsets(paths.size()), cursor(paths.size()), latencies;
++            std::vector<uint32_t> offsets(paths.size()), cursor(paths.size()); Records latencies;
+             for (;;) {
+                 unsigned hour = next_hour.fetch_add(1, std::memory_order_relaxed); if (hour >= 72) return;
+                 std::fill(groups.begin(), groups.end(), Count{});

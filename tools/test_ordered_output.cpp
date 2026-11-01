@@ -33,7 +33,8 @@ int main(int argc,char** argv){
         for(unsigned h=0;h<72;++h){size_t n=h%7?size_t(h+1)*193:0;if(h==0&&pattern==3)n=1048576;expected[h].resize(n);for(size_t i=0;i<n;++i)expected[h][i]=char((i+h)%251);}
         std::atomic<unsigned> next{0};std::vector<std::thread> threads;
         for(unsigned w=0;w<workers;++w)threads.emplace_back([&]{for(;;){unsigned k=next.fetch_add(1);if(k>=72)return;unsigned h=order[k];auto& bytes=writer.hours[h].bytes;bytes.append(expected[h].data(),expected[h].size());if((h+k)%5==0)std::this_thread::yield();writer.publish(h);}});
-        for(auto& t:threads)t.join();writer.finish();assert(writer.next==72);for(const auto& h:writer.hours)assert(h.bytes.empty());
+        for(auto& t:threads)t.join();
+        writer.finish();assert(writer.next==72);for(const auto& h:writer.hours)assert(h.bytes.empty());
         std::ifstream input(path,std::ios::binary);std::string actual((std::istreambuf_iterator<char>(input)),{}),joined;for(const auto& h:expected)joined+=h;assert(actual==joined);
     }
     auto bad=root/"directory";std::filesystem::create_directory(bad);bool threw=false;try{OrderedOutput writer(bad);}catch(const std::runtime_error&){threw=true;}assert(threw);

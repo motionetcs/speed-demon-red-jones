@@ -1,0 +1,19 @@
+--- isolated236-cached/track-a/main.cpp
++++ isolated238-mapped/track-a/main.cpp
+@@ -30,7 +30,7 @@
+         Endpoints endpoints;OrderedOutput writer(run_paths.out/"summary.txt");std::atomic<unsigned> next_hour{0};
+         parallel(threads,[&](unsigned){
+             LocalEndpoints local_names(endpoints);
+-            std::vector<Count> groups(4096);std::vector<uint32_t> offsets(4096),cursor(4096),latencies;
++            std::vector<Count> groups(4096);std::vector<uint32_t> offsets(4096),cursor(4096);Records latencies;
+             std::vector<uint16_t> order;Records records;std::vector<uint32_t> wide;
+             for(;;){
+                 unsigned hour=next_hour.fetch_add(1,std::memory_order_relaxed);if(hour>=72)return;
+@@ -72,6 +72,7 @@
+                     for(uint64_t value:{n,uint64_t(first[(50*n+99)/100-1]),uint64_t(first[(95*n+99)/100-1]),uint64_t(first[(99*n+99)/100-1]),errors,errors*1000000/n}){out.text(" ");out.number(int64_t(value));}
+                     out.text("\n");
+                 }
++                Records().swap(latencies);
+                 writer.publish(hour);
+             }
+         });

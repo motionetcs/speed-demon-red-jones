@@ -1,0 +1,90 @@
+--- track-c/main.cpp
++++ track-c/main.cpp
+@@ -14,11 +14,12 @@
+     void bom() {
+         if (end - p >= 3 && std::memcmp(p, "\xef\xbb\xbf", 3) == 0) p += 3;
+     }
+-    Field field(std::string& scratch, bool decode) {
++    template<bool Decode = false, bool CountOnly = false> auto field(std::string& scratch) {
+         const char* start = p;
+         if (p == end || *p != '"') {
+             while (p < end && *p != ',' && *p != '\r' && *p != '\n') ++p;
+-            return {{start, static_cast<size_t>(p - start)}, static_cast<size_t>(p - start), false};
++            if constexpr (CountOnly) return static_cast<size_t>(p - start);
++            else return Field{{start, static_cast<size_t>(p - start)}, static_cast<size_t>(p - start), false};
+         }
+         const char* segment = ++p;
+         start = segment;
+@@ -29,7 +30,7 @@
+             if (!quote) throw std::runtime_error("unterminated quoted field");
+             bytes += static_cast<size_t>(quote - segment);
+             if (quote + 1 < end && quote[1] == '"') {
+-                if (decode) {
++                if (Decode) {
+                     if (!escaped) scratch.assign(start, quote - start);
+                     else scratch.append(segment, quote - segment);
+                     scratch.push_back('"');
+@@ -39,10 +40,13 @@
+                 segment = p = quote + 2;
+             } else {
+                 p = quote + 1;
+-                if (decode && escaped) scratch.append(segment, quote - segment);
+-                std::string_view value = escaped && decode ? std::string_view(scratch)
+-                    : std::string_view(start, static_cast<size_t>(quote - start));
+-                return {value, bytes, escaped};
++                if (Decode && escaped) scratch.append(segment, quote - segment);
++                if constexpr (CountOnly) return bytes;
++                else {
++                    std::string_view value = escaped && Decode ? std::string_view(scratch)
++                        : std::string_view(start, static_cast<size_t>(quote - start));
++                    return Field{value, bytes, escaped};
++                }
+             }
+         }
+         throw std::runtime_error("unterminated quoted field");
+@@ -92,7 +96,7 @@
+             if(before=='"'||before==','||before=='\r'||before=='\n'||before==0xbf)continue;
+             Csv tail{quote+2,end};std::string unused;
+             for(;;){
+-                tail.field(unused,false);
++                tail.field(unused);
+                 if(tail.p==end)break;
+                 if(*tail.p==','){tail.comma();continue;}
+                 tail.newline();break;
+@@ -123,8 +127,8 @@
+         MappedFile region_file(paths.data / "regions.csv"), records(paths.data / "records.csv");
+         Csv region_csv{region_file.data, region_file.data + region_file.size};
+         std::string scratch;
+-        auto h1 = region_csv.field(scratch, false); region_csv.comma();
+-        auto h2 = region_csv.field(scratch, false); region_csv.newline();
++        auto h1 = region_csv.field(scratch); region_csv.comma();
++        auto h2 = region_csv.field(scratch); region_csv.newline();
+         if (h1.value != "region_id" || h2.value != "country") throw std::runtime_error("bad regions header");
+         constexpr uint16_t missing = UINT16_MAX;
+         std::vector<uint16_t> country_index(26 * 26 * 26, missing);
+@@ -154,7 +158,7 @@
+         Csv header{records.data, records.data + records.size};
+         header.bom();
+         for (auto expected : {"id", "name", "note", "region_id", "amount"}) {
+-            if (header.field(scratch, true).value != expected) throw std::runtime_error("bad records header");
++            if (header.field<true>(scratch).value != expected) throw std::runtime_error("bad records header");
+             if (std::string_view(expected) != "amount") header.comma(); else header.newline();
+         }
+         unsigned threads = worker_count();
+@@ -184,13 +188,13 @@
+                         Csv csv{boundaries[worker],boundaries[worker+1]};std::string name_scratch,unused;
+                         while(csv.p<csv.end){
+                             if(canceled.load(std::memory_order_relaxed))throw std::runtime_error("name pipeline canceled");
+-                            csv.bom();uint64_t id=csv.integer();Field name=csv.field(name_scratch,false);csv.comma();
++                            csv.bom();uint64_t id=csv.integer();Field name=csv.field(name_scratch);csv.comma();
+                             uint64_t hash=Names::hash_key(name.value);
+-                            Field note=csv.field(unused,false);csv.comma();uint64_t region=csv.integer();int64_t amount=csv.amount();csv.newline();
++                            size_t note_bytes=csv.field<false,true>(unused);csv.comma();uint64_t region=csv.integer();int64_t amount=csv.amount();csv.newline();
+                             size_t country=region<region_lookup.size()&&region_lookup[region]!=no_region?region_lookup[region]:unmatched;
+                             Group& group=local.groups[country];++group.count;group.ids+=static_cast<int64_t>(id);group.sum+=amount;
+                             group.minimum=std::min(group.minimum,amount);group.maximum=std::max(group.maximum,amount);
+-                            group.name_bytes+=name.bytes;group.note_bytes+=note.bytes;
++                            group.name_bytes+=name.bytes;group.note_bytes+=note_bytes;
+                             if(!owners){group.names+=serial->first(name.value,country,hash);continue;}
+                             unsigned owner=hash%owners;NameEvent event{name.value,hash,static_cast<uint16_t>(country)};
+                             auto& batch=batches[owner];batch.push_back(std::move(event));

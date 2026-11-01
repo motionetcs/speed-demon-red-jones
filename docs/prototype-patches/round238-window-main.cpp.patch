@@ -1,0 +1,41 @@
+--- isolated236-cached/track-a/main.cpp
++++ isolated238-window/track-a/main.cpp
+@@ -5,6 +5,7 @@
+ #include "parallel.hpp"
+ #include "ordered_output.hpp"
+ #include "hour_index.hpp"
++#include "hour_work.hpp"
+ #include <atomic>
+ #include <memory>
+ 
+@@ -27,15 +28,16 @@
+         }
+         std::vector<HourPartition> chunks(threads);
+         parallel(threads,[&](unsigned worker){chunks[worker]=index_hour_runs(boundaries[worker],boundaries[worker+1],uint64_t(boundaries[worker]-file.data));});
+-        Endpoints endpoints;OrderedOutput writer(run_paths.out/"summary.txt");std::atomic<unsigned> next_hour{0};
++        Endpoints endpoints;OrderedOutput writer(run_paths.out/"summary.txt");HourWorkWindow work(threads);
+         parallel(threads,[&](unsigned){
++            try{
+             LocalEndpoints local_names(endpoints);
+             std::vector<Count> groups(4096);std::vector<uint32_t> offsets(4096),cursor(4096),latencies;
+             std::vector<uint16_t> order;Records records;std::vector<uint32_t> wide;
+             for(;;){
+-                unsigned hour=next_hour.fetch_add(1,std::memory_order_relaxed);if(hour>=72)return;
++                unsigned hour=work.claim();if(hour>=72)return;
+                 size_t count=0;for(const auto& chunk:chunks)count+=chunk.rows[hour];
+-                if(!count){writer.publish(hour);continue;}
++                if(!count){work.completed(writer.publish(hour));continue;}
+                 std::fill(groups.begin(),groups.end(),Count{});order.clear();records.reserve(count);uint32_t first_line=UINT32_MAX;
+                 for(auto& chunk:chunks){
+                     for(auto run:chunk.runs[hour]){
+@@ -72,8 +74,9 @@
+                     for(uint64_t value:{n,uint64_t(first[(50*n+99)/100-1]),uint64_t(first[(95*n+99)/100-1]),uint64_t(first[(99*n+99)/100-1]),errors,errors*1000000/n}){out.text(" ");out.number(int64_t(value));}
+                     out.text("\n");
+                 }
+-                writer.publish(hour);
++                work.completed(writer.publish(hour));
+             }
++            }catch(...){work.cancel();throw;}
+         });
+         writer.finish();
+     }catch(const std::exception& e){std::fprintf(stderr,"track-a: %s\n",e.what());return 1;}

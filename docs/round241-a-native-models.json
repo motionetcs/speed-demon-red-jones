@@ -1,0 +1,114 @@
+{
+  "observed_at_utc": "2026-11-01T05:48:50.065659+00:00",
+  "passed": true,
+  "official_score": false,
+  "scope": "Fresh exact production241 bounded internal hour window and changed prefix-publisher models. Every1..12 workers, one owner/per hour, token maximum/retirement, delayed first/empty/NUL/long output, early/mid-work concurrent cancel and blocked-waiter wakeup. Native strict ASAN/UBSAN and TSAN; no race/sanitizer/warning suppression. Existing unchanged parser/cache/allocator primitives retained by source identity.",
+  "runs": [
+    {
+      "mode": "asan",
+      "model": "window",
+      "compile": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-pthread",
+        "-fno-omit-frame-pointer",
+        "-fsanitize=address,undefined",
+        "-fno-sanitize-recover=all",
+        "-DHOUR_WORK_HEADER=\"/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round241/source/track-a/hour_work.hpp\"",
+        "-DORDERED_OUTPUT_HEADER=\"/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round241/source/track-a/ordered_output.hpp\"",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/tools/test_hour_work.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round241/a-models/window-asan"
+      ],
+      "binary_sha256": "81deca2f6b449a41aff9d311fc4e330000bff8bda06a89ade29ac8d9def1147e",
+      "stdout": "PASS exact hour credit/prefix publication/one owner/bounded lag/empty/NUL/retirement/cancel-wakeup and sink protocol all1..12 workers\n",
+      "stderr": ""
+    },
+    {
+      "mode": "asan",
+      "model": "ordered",
+      "compile": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-pthread",
+        "-fno-omit-frame-pointer",
+        "-fsanitize=address,undefined",
+        "-fno-sanitize-recover=all",
+        "-DHOUR_WORK_HEADER=\"/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round241/source/track-a/hour_work.hpp\"",
+        "-DORDERED_OUTPUT_HEADER=\"/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round241/source/track-a/ordered_output.hpp\"",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/tools/test_ordered_output.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round241/a-models/ordered-asan"
+      ],
+      "binary_sha256": "571b533d0cd1470c782f3423764bff58cfb73f09f4883dedbc86d1870cc31d8b",
+      "stdout": "PASS mapped char growth/NUL/terminator/direct cross-thread release; all1..12 producers ordered/reverse/random/empty/lag output and normal sink failures\n",
+      "stderr": ""
+    },
+    {
+      "mode": "tsan",
+      "model": "window",
+      "compile": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-pthread",
+        "-fno-omit-frame-pointer",
+        "-fsanitize=thread",
+        "-DHOUR_WORK_HEADER=\"/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round241/source/track-a/hour_work.hpp\"",
+        "-DORDERED_OUTPUT_HEADER=\"/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round241/source/track-a/ordered_output.hpp\"",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/tools/test_hour_work.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round241/a-models/window-tsan"
+      ],
+      "binary_sha256": "71229a0ec4261874492d0743301baafc1655f7e2480cb857cef399ea38d88fd8",
+      "stdout": "PASS exact hour credit/prefix publication/one owner/bounded lag/empty/NUL/retirement/cancel-wakeup and sink protocol all1..12 workers\n",
+      "stderr": ""
+    },
+    {
+      "mode": "tsan",
+      "model": "ordered",
+      "compile": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-pthread",
+        "-fno-omit-frame-pointer",
+        "-fsanitize=thread",
+        "-DHOUR_WORK_HEADER=\"/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round241/source/track-a/hour_work.hpp\"",
+        "-DORDERED_OUTPUT_HEADER=\"/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round241/source/track-a/ordered_output.hpp\"",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/tools/test_ordered_output.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round241/a-models/ordered-tsan"
+      ],
+      "binary_sha256": "516c5917adea8b283990f59f82cedcfb21fb6160d84b8831783b4b4fcf47ca62",
+      "stdout": "PASS mapped char growth/NUL/terminator/direct cross-thread release; all1..12 producers ordered/reverse/random/empty/lag output and normal sink failures\n",
+      "stderr": ""
+    }
+  ],
+  "source_sha256": {
+    ".build/round241/source/track-a/hour_work.hpp": "5a5de5bcd25032270541c12724b854ee8b916a8cd74de594de1a6afd9c9278a4",
+    ".build/round241/source/track-a/ordered_output.hpp": "83148cacdfb6e08ab2fe0c59e2ffd3f909ad1d74dd700ffbc4ba25ac7d6763b2",
+    ".build/round241/source/track-a/io.hpp": "a8838c50064520b806fcd2032cda0e9f246e9d3b6869fb951e3555cd5e8dfead",
+    ".build/round241/source/track-a/mapped_allocator.hpp": "060bb6a0622338b9151e767d827cbf30c8e4d940cc7e170ad51757c4a6b0808b",
+    "tools/test_hour_work.cpp": "de2a7fcf9e56d5465a498ea95aba5bd3e5d1bf41b05adc9303895f786b705f27",
+    "tools/test_ordered_output.cpp": "327f99e8a5d63b5baeb60902c610441114033d44e04b77d85f95e52aa2ec6a6d"
+  }
+}

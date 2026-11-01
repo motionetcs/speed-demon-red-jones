@@ -1,0 +1,26 @@
+{
+  "observed_at_utc": "2026-11-01T05:49:11.840726+00:00",
+  "passed": true,
+  "official_score": false,
+  "compiler_image": "gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce",
+  "scope": "Exact241 semaphore/prefix-publisher under pinned offline GCC15 strict ASAN/UBSAN, all1..12 window/one-owner/cancel-wakeup/lag/NUL/empty/retirement and /dev/full errors plus mapped output lifetime models. No sanitizer/warning suppression; existing unchanged parser/cache primitives retained by byte identity.",
+  "script": [
+    "set -eu",
+    "export ASAN_OPTIONS=halt_on_error=1",
+    "export UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1",
+    "g++ -std=c++20 -O1 -g -Wall -Wextra -Wpedantic -pthread -fsanitize=address,undefined -fno-sanitize-recover=all -fno-omit-frame-pointer '-DHOUR_WORK_HEADER=\"/repo/.build/round241/source/track-a/hour_work.hpp\"' '-DORDERED_OUTPUT_HEADER=\"/repo/.build/round241/source/track-a/ordered_output.hpp\"' /repo/tools/test_hour_work.cpp -o /tmp/window",
+    "/tmp/window /tmp/window-outputs",
+    "g++ -std=c++20 -O1 -g -Wall -Wextra -Wpedantic -pthread -fsanitize=address,undefined -fno-sanitize-recover=all -fno-omit-frame-pointer '-DHOUR_WORK_HEADER=\"/repo/.build/round241/source/track-a/hour_work.hpp\"' '-DORDERED_OUTPUT_HEADER=\"/repo/.build/round241/source/track-a/ordered_output.hpp\"' /repo/tools/test_ordered_output.cpp -o /tmp/ordered",
+    "/tmp/ordered /tmp/ordered-outputs"
+  ],
+  "stdout": "PASS exact hour credit/prefix publication/one owner/bounded lag/empty/NUL/retirement/cancel-wakeup and sink protocol all1..12 workers\nPASS mapped char growth/NUL/terminator/direct cross-thread release; all1..12 producers ordered/reverse/random/empty/lag output and normal sink failures\n",
+  "stderr": "",
+  "source_sha256": {
+    ".build/round241/source/track-a/hour_work.hpp": "5a5de5bcd25032270541c12724b854ee8b916a8cd74de594de1a6afd9c9278a4",
+    ".build/round241/source/track-a/ordered_output.hpp": "83148cacdfb6e08ab2fe0c59e2ffd3f909ad1d74dd700ffbc4ba25ac7d6763b2",
+    ".build/round241/source/track-a/io.hpp": "a8838c50064520b806fcd2032cda0e9f246e9d3b6869fb951e3555cd5e8dfead",
+    ".build/round241/source/track-a/mapped_allocator.hpp": "060bb6a0622338b9151e767d827cbf30c8e4d940cc7e170ad51757c4a6b0808b",
+    "tools/test_hour_work.cpp": "de2a7fcf9e56d5465a498ea95aba5bd3e5d1bf41b05adc9303895f786b705f27",
+    "tools/test_ordered_output.cpp": "327f99e8a5d63b5baeb60902c610441114033d44e04b77d85f95e52aa2ec6a6d"
+  }
+}

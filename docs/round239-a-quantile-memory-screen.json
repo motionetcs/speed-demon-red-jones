@@ -1,0 +1,316 @@
+{
+  "observed_at_utc": "2026-11-01T05:45:02.048118+00:00",
+  "official_score": false,
+  "scope": "Original selected234 architecture with only private quantile scratch std::vector replaced by the existing same-source mapped allocator, retained across hours or released after formatting. No hour index/window, parser, algorithm, endpoint, source-exemption or training change. Separate from214 record growth and236/238 hour-index changes. Native Mac time/RSS not Intel/cgroup/K; new lifetime/strict/race/independent/GCC/image/default/actual proof required before promotion. Root runtime unchanged.",
+  "method": "Entire compiler/preflight1/6/12/warm13 rotating full-public batch under agreed shared advisory measurement lock.",
+  "prototype_index": {
+    "mapped-keep": {
+      "compile": [
+        "clang++",
+        "-std=c++20",
+        "-O3",
+        "-DNDEBUG",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-pthread",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round239/mapped-keep/track-a/main.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round239/mapped-keep/native/track-a"
+      ],
+      "source_sha256": {
+        "io.hpp": "a8838c50064520b806fcd2032cda0e9f246e9d3b6869fb951e3555cd5e8dfead",
+        "ordered_output.hpp": "b6f0911f5d6396ca35ad657a1de6364aa3e52a5dd6a9275d95f768e54f4fd69d",
+        "endpoint_table.hpp": "913048b747b8f938cf1b438f29648a62d11434b2d71c3fb9a9b5f5aae31df745",
+        "mapped_allocator.hpp": "060bb6a0622338b9151e767d827cbf30c8e4d940cc7e170ad51757c4a6b0808b",
+        "main.cpp": "a2265310a47aecdeb4c406e055a89a92d0eeeaac9c0ba2a05dec40dbaf68cd59",
+        "decimal.hpp": "e6a53e983c0475fe3e49ffe2630a8603f96298b7866e0f4ef3b2ed0f165cb94e",
+        "parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420"
+      },
+      "patch_sha256": "558343e199c0d2bc8a187b80278af4876f42ddfbb50ef8ad1f79a7019de48d65"
+    },
+    "mapped-release": {
+      "compile": [
+        "clang++",
+        "-std=c++20",
+        "-O3",
+        "-DNDEBUG",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-pthread",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round239/mapped-release/track-a/main.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round239/mapped-release/native/track-a"
+      ],
+      "source_sha256": {
+        "io.hpp": "a8838c50064520b806fcd2032cda0e9f246e9d3b6869fb951e3555cd5e8dfead",
+        "ordered_output.hpp": "b6f0911f5d6396ca35ad657a1de6364aa3e52a5dd6a9275d95f768e54f4fd69d",
+        "endpoint_table.hpp": "913048b747b8f938cf1b438f29648a62d11434b2d71c3fb9a9b5f5aae31df745",
+        "mapped_allocator.hpp": "060bb6a0622338b9151e767d827cbf30c8e4d940cc7e170ad51757c4a6b0808b",
+        "main.cpp": "5085ae33e4972ff21d21d2e1ae395c6177a1343c7651a40217e9813451682129",
+        "decimal.hpp": "e6a53e983c0475fe3e49ffe2630a8603f96298b7866e0f4ef3b2ed0f165cb94e",
+        "parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420"
+      },
+      "patch_sha256": "a837c8826147c86a54082a4a931302fb8e2cb5af33a7ce002baaaba13a8c4960"
+    }
+  },
+  "results": {
+    "control": {
+      "median_seconds": 0.042532500000000084,
+      "maximum_rss_bytes": 259112960,
+      "median_within_rotation_time_ratio": 1.0,
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.042532500000000084,
+          "peak_process_rss_bytes": 258703360,
+          "requested_threads": 12,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "wall_seconds_including_launch": 0.04257154200000013,
+          "peak_process_rss_bytes": 259112960,
+          "requested_threads": 12,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "wall_seconds_including_launch": 0.043684834000000006,
+          "peak_process_rss_bytes": 258293760,
+          "requested_threads": 12,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "wall_seconds_including_launch": 0.04363570800000005,
+          "peak_process_rss_bytes": 258244608,
+          "requested_threads": 12,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "wall_seconds_including_launch": 0.04234345900000047,
+          "peak_process_rss_bytes": 258523136,
+          "requested_threads": 12,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "wall_seconds_including_launch": 0.04323291700000009,
+          "peak_process_rss_bytes": 258441216,
+          "requested_threads": 12,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "wall_seconds_including_launch": 0.04184325000000033,
+          "peak_process_rss_bytes": 258916352,
+          "requested_threads": 12,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "wall_seconds_including_launch": 0.041831707999999246,
+          "peak_process_rss_bytes": 257605632,
+          "requested_threads": 12,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "wall_seconds_including_launch": 0.040202874999999416,
+          "peak_process_rss_bytes": 258473984,
+          "requested_threads": 12,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "wall_seconds_including_launch": 0.04882166600000026,
+          "peak_process_rss_bytes": 256393216,
+          "requested_threads": 12,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "wall_seconds_including_launch": 0.0408825420000003,
+          "peak_process_rss_bytes": 258965504,
+          "requested_threads": 12,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "wall_seconds_including_launch": 0.04208824999999994,
+          "peak_process_rss_bytes": 258048000,
+          "requested_threads": 12,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "wall_seconds_including_launch": 0.0426302500000002,
+          "peak_process_rss_bytes": 258637824,
+          "requested_threads": 12,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        }
+      ]
+    },
+    "mapped-keep": {
+      "median_seconds": 0.04310412499999927,
+      "maximum_rss_bytes": 259899392,
+      "median_within_rotation_time_ratio": 1.0240244192797308,
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.043777500000000025,
+          "peak_process_rss_bytes": 258277376,
+          "requested_threads": 12,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "wall_seconds_including_launch": 0.043848958999999965,
+          "peak_process_rss_bytes": 259145728,
+          "requested_threads": 12,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "wall_seconds_including_launch": 0.04303391699999981,
+          "peak_process_rss_bytes": 258408448,
+          "requested_threads": 12,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "wall_seconds_including_launch": 0.0442370409999997,
+          "peak_process_rss_bytes": 259244032,
+          "requested_threads": 12,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "wall_seconds_including_launch": 0.041684875000000066,
+          "peak_process_rss_bytes": 259604480,
+          "requested_threads": 12,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "wall_seconds_including_launch": 0.041573000000000526,
+          "peak_process_rss_bytes": 259440640,
+          "requested_threads": 12,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "wall_seconds_including_launch": 0.04310412499999927,
+          "peak_process_rss_bytes": 259588096,
+          "requested_threads": 12,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "wall_seconds_including_launch": 0.04380520799999932,
+          "peak_process_rss_bytes": 258473984,
+          "requested_threads": 12,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "wall_seconds_including_launch": 0.042259374999999544,
+          "peak_process_rss_bytes": 258637824,
+          "requested_threads": 12,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "wall_seconds_including_launch": 0.0424665829999995,
+          "peak_process_rss_bytes": 259522560,
+          "requested_threads": 12,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "wall_seconds_including_launch": 0.0431718339999998,
+          "peak_process_rss_bytes": 258883584,
+          "requested_threads": 12,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "wall_seconds_including_launch": 0.042046166999999635,
+          "peak_process_rss_bytes": 259031040,
+          "requested_threads": 12,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "wall_seconds_including_launch": 0.043654416999999945,
+          "peak_process_rss_bytes": 259899392,
+          "requested_threads": 12,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        }
+      ]
+    },
+    "mapped-release": {
+      "median_seconds": 0.043453041999999886,
+      "maximum_rss_bytes": 259145728,
+      "median_within_rotation_time_ratio": 1.0111946561444238,
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.043453041999999886,
+          "peak_process_rss_bytes": 258080768,
+          "requested_threads": 12,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "wall_seconds_including_launch": 0.04644233299999989,
+          "peak_process_rss_bytes": 258179072,
+          "requested_threads": 12,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "wall_seconds_including_launch": 0.04536712499999984,
+          "peak_process_rss_bytes": 257638400,
+          "requested_threads": 12,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "wall_seconds_including_launch": 0.04276599999999986,
+          "peak_process_rss_bytes": 259145728,
+          "requested_threads": 12,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "wall_seconds_including_launch": 0.04228512499999981,
+          "peak_process_rss_bytes": 258080768,
+          "requested_threads": 12,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "wall_seconds_including_launch": 0.05660299999999996,
+          "peak_process_rss_bytes": 258965504,
+          "requested_threads": 12,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "wall_seconds_including_launch": 0.04172483299999996,
+          "peak_process_rss_bytes": 258228224,
+          "requested_threads": 12,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "wall_seconds_including_launch": 0.04212708399999965,
+          "peak_process_rss_bytes": 258310144,
+          "requested_threads": 12,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "wall_seconds_including_launch": 0.04358366700000005,
+          "peak_process_rss_bytes": 258392064,
+          "requested_threads": 12,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "wall_seconds_including_launch": 0.043505125000000255,
+          "peak_process_rss_bytes": 258015232,
+          "requested_threads": 12,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "wall_seconds_including_launch": 0.04134020800000027,
+          "peak_process_rss_bytes": 257900544,
+          "requested_threads": 12,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "wall_seconds_including_launch": 0.042354875000000014,
+          "peak_process_rss_bytes": 257474560,
+          "requested_threads": 12,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "wall_seconds_including_launch": 0.045019457999999624,
+          "peak_process_rss_bytes": 257523712,
+          "requested_threads": 12,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        }
+      ]
+    }
+  },
+  "decision": "Reject both original-layout mapped quantile scratch variants before broad new proof or board promotion: paired1.024024/1.011195 with no RSS saving. Root runtime untouched."
+}

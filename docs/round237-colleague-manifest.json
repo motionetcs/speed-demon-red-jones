@@ -1,0 +1,87 @@
+{
+  "created_at_utc": "2026-11-01T05:26:09.341257+00:00",
+  "official_score": false,
+  "sources": {
+    "c": {
+      "training_generator.py": "9e61672eb814fa4e1bc2e3cf30c8e7ca9629804191ce5ae60a66c8b61ba704f2",
+      "Dockerfile": "637e81c6fca4507f4c4e7368efde7b6904d07879ae9ec992c5e25175d50e1fae",
+      "names.hpp": "f62a25fdb9f229575c42fc013220f7f38dd5a68ea5ac83aa1702d0589c15501b",
+      "io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+      "quote_scan.hpp": "0b170a766254dee1bc14f9e9180cc1900da01d41f5d09053d5579e01a7fb9cfa",
+      "README.md": "6a64233dcbf8967678d87f403c99969067f468ee5066b0f172751f437cccb841",
+      "PERF.md": "c619faf1fe44aaa19b8e787f03026fe28d53154ea747f078ad3bd22b59287da9",
+      ".speed-demon.toml": "3371600b8033a377bc373378e703191dfec36c1ae991b617650dfa480edc00b4",
+      "main.cpp": "8f1703c20ec7e17bb708abff7d7a88945e0dcd8b83acc00b137607a7ceee1b0d",
+      "parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420"
+    },
+    "d": {
+      "training_generator.py": "bbf37741159004149c5896265a98ae00b90e90a05ad48c2912ecf8bdce126d65",
+      "Dockerfile": "b894df9b62f1f82561cbcd594d8baa97fdbe91d03d8aea816d2355f8fcd90cbb",
+      "io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+      "edge_store.hpp": "31db14bd58fb3bb45a90c963cf57397a50d5195782d01dc366b2a380d3b74ed6",
+      "README.md": "abf631f570e4eee1576e59ce1bfb6d3875081c87c234b96a261aa85f654baf95",
+      "PERF.md": "8ba0def352f9340717ae594688d71b6cd8fbabf4dad65108fcf6676094c0d062",
+      "load_cursors.hpp": "69bb855e76fdb729ce64856723a7e759f1844bcb34ffaaca2ad7776bdcafdf01",
+      "radix_heap.hpp": "7fb2052bb951ca391c5b1883d8e673f554a43ab3d06286e43597105c2d82b6e3",
+      ".speed-demon.toml": "6d6100843803548ba58c1c1eaf2d1dbaecb9a431fd5c9a8408d214580466465c",
+      "distance_map.hpp": "07b254af4e7a149bdae50e426c3355446e104333e6a8dcd43cd29181db4a8604",
+      "main.cpp": "6ae66971d7a6fd1f6bb75741daa522c681eae20e200f426547f8c537161327cc",
+      "decimal.hpp": "aee2210ac5894050834ffd37903718b3b7bdc6673240559baa85b350bea9b581",
+      "parallel.hpp": "614e48333aabbd7a9d7b008119d41acc7f908e467769772d01e10d84c282bdab"
+    }
+  },
+  "variants": {
+    "c-load-half": {
+      "track": "c",
+      "hypothesis": "Earlier exact-table growth reduces probing; full key equality and all country bits remain unchanged. Extra allocation must earn its measured cost.",
+      "patch": "--- track-c/names.hpp\n+++ track-c/names.hpp\n@@ -57,7 +57,7 @@\n         for(;;){\n             auto& e=entries[i];\n             if(!e.index){\n-                if(used>=entries.size()*7/8){grow();i=fingerprint&(entries.size()-1);continue;}\n+                if(used>=entries.size()/2){grow();i=fingerprint&(entries.size()-1);continue;}\n                 uint32_t index=make(key);e={fingerprint,index};++used;break;\n             }\n             if(e.hash==fingerprint&&bytes(e.index)==key)break;\n"
+    },
+    "c-load-five-eighths": {
+      "track": "c",
+      "hypothesis": "Earlier exact-table growth reduces probing; full key equality and all country bits remain unchanged. Extra allocation must earn its measured cost.",
+      "patch": "--- track-c/names.hpp\n+++ track-c/names.hpp\n@@ -57,7 +57,7 @@\n         for(;;){\n             auto& e=entries[i];\n             if(!e.index){\n-                if(used>=entries.size()*7/8){grow();i=fingerprint&(entries.size()-1);continue;}\n+                if(used>=entries.size()*5/8){grow();i=fingerprint&(entries.size()-1);continue;}\n                 uint32_t index=make(key);e={fingerprint,index};++used;break;\n             }\n             if(e.hash==fingerprint&&bytes(e.index)==key)break;\n"
+    },
+    "c-load-three-quarters": {
+      "track": "c",
+      "hypothesis": "Earlier exact-table growth reduces probing; full key equality and all country bits remain unchanged. Extra allocation must earn its measured cost.",
+      "patch": "--- track-c/names.hpp\n+++ track-c/names.hpp\n@@ -57,7 +57,7 @@\n         for(;;){\n             auto& e=entries[i];\n             if(!e.index){\n-                if(used>=entries.size()*7/8){grow();i=fingerprint&(entries.size()-1);continue;}\n+                if(used>=entries.size()*3/4){grow();i=fingerprint&(entries.size()-1);continue;}\n                 uint32_t index=make(key);e={fingerprint,index};++used;break;\n             }\n             if(e.hash==fingerprint&&bytes(e.index)==key)break;\n"
+    },
+    "c-load-half-shift": {
+      "track": "c",
+      "hypothesis": "Earlier exact-table growth reduces probing; full key equality and all country bits remain unchanged. Extra allocation must earn its measured cost.",
+      "patch": "--- track-c/names.hpp\n+++ track-c/names.hpp\n@@ -49,15 +49,15 @@\n     void grow(){\n         if(entries.size()>SIZE_MAX/2/sizeof(Entry))throw std::runtime_error(\"name table overflow\");\n         std::vector<Entry> larger(entries.size()*2);\n-        for(auto e:entries)if(e.index){size_t i=e.hash&(larger.size()-1);while(larger[i].index)i=(i+1)&(larger.size()-1);larger[i]=e;}\n+        for(auto e:entries)if(e.index){size_t i=(e.hash>>2)&(larger.size()-1);while(larger[i].index)i=(i+1)&(larger.size()-1);larger[i]=e;}\n         entries.swap(larger);\n     }\n     bool first(std::string_view key,size_t country,uint64_t hash){\n-        uint32_t fingerprint=static_cast<uint32_t>(hash);size_t i=fingerprint&(entries.size()-1);\n+        uint32_t fingerprint=static_cast<uint32_t>(hash);size_t i=(fingerprint>>2)&(entries.size()-1);\n         for(;;){\n             auto& e=entries[i];\n             if(!e.index){\n-                if(used>=entries.size()*7/8){grow();i=fingerprint&(entries.size()-1);continue;}\n+                if(used>=entries.size()/2){grow();i=(fingerprint>>2)&(entries.size()-1);continue;}\n                 uint32_t index=make(key);e={fingerprint,index};++used;break;\n             }\n             if(e.hash==fingerprint&&bytes(e.index)==key)break;\n"
+    },
+    "d-upper-bound": {
+      "track": "d",
+      "hypothesis": "Nonnegative weights mean a partial cost already at least the valid best complete route cannot improve the answer. Preserve the original conservative batch stopping rule and exact distances.",
+      "patch": "--- track-d/main.cpp\n+++ track-d/main.cpp\n@@ -168,6 +168,7 @@\n                             auto [destination, tag] = adjacency.template get<Compact>(i);\n                             uint32_t weight = tag == (Compact ? EdgeStore::small_limit : uint32_t(UINT16_MAX)) ? wide_weights.at(i * 2 + (from_source ? 0 : 1)) : tag;\n                             uint64_t candidate = d + weight;\n+                            if (candidate >= best) continue;\n                             if (own.improve(destination, candidate)) {\n                                 heap.push({candidate, destination});\n                                 uint64_t opposite = other.get(destination);\n"
+    },
+    "d-node-bound": {
+      "track": "d",
+      "hypothesis": "Nonnegative weights mean a partial cost already at least the valid best complete route cannot improve the answer. Preserve the original conservative batch stopping rule and exact distances.",
+      "patch": "--- track-d/main.cpp\n+++ track-d/main.cpp\n@@ -163,7 +163,7 @@\n                     }\n                     for (size_t k = 0; k < count; ++k) {\n                         auto [d, u] = work[k];\n-                        if (d != own.get(u)) continue; // Earlier items may improve this label within the band.\n+                        if (d >= best || d != own.get(u)) continue; // Earlier items may improve this label within the band.\n                         for (uint32_t i = ranges[k].first; i < ranges[k].second; ++i) {\n                             auto [destination, tag] = adjacency.template get<Compact>(i);\n                             uint32_t weight = tag == (Compact ? EdgeStore::small_limit : uint32_t(UINT16_MAX)) ? wide_weights.at(i * 2 + (from_source ? 0 : 1)) : tag;\n"
+    },
+    "d-twin-labels": {
+      "track": "d",
+      "hypothesis": "Pack both frontier labels with one exact node identity and return opposite distance during a successful update, removing the second table lookup. Extra common storage and SIMD work must earn total runtime/memory/source cost. This is distinct from older unpacked merged tables."
+    },
+    "c-field24": {
+      "track": "c",
+      "hypothesis": "Reduce returned field metadata without changing byte counts or keys."
+    },
+    "c-field-specialized": {
+      "track": "c",
+      "hypothesis": "Specialize decoding mode at compile time, so raw name/note parsing need not carry the decoded-string branch/argument. Exact field algorithm remains unchanged; different from prior always_inline trial."
+    },
+    "d-settled-cut": {
+      "track": "d",
+      "hypothesis": "An opposite label strictly below its pending band is final under nonnegative weights. Completing the route at that vertex permits cutting this continuation. Every feasible meeting gives an actual upper bound. Extra opposite lookups and source cost must earn their cost. Needs independent zero-weight/directed/Floyd/band model proof before any selection."
+    },
+    "c-note-count": {
+      "track": "c",
+      "hypothesis": "The exact same CSV scan can return just a size_t for notes, whose string view is never consumed. Compile-time count-only mode avoids returning a32-byte Field for every note, while preserving quotes, decoded lengths and full size_t ranges. Same source algorithm, no narrower numeric limits."
+    }
+  },
+  "source_match": "19 C/D runtime/build/metadata inputs match original passing225; README/PERF deliberately excluded from this runtime claim.",
+  "acceptance": "Correctness first; native screen is triage only. A promising runtime/memory/source tradeoff needs independent source-bound tests and real board results."
+}

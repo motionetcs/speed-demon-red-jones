@@ -1,0 +1,86 @@
+{
+  "observed_at_utc": "2026-11-01T05:32:13.001488+00:00",
+  "official_score": false,
+  "results": {
+    "c": {
+      "baseline": {
+        "median_seconds": 0.06997454099999878,
+        "max_rss_bytes": 216285184,
+        "paired_median_ratio": 1.0,
+        "paired_wins": 0
+      },
+      "c-load-half": {
+        "median_seconds": 0.06960612499999996,
+        "max_rss_bytes": 217432064,
+        "paired_median_ratio": 1.0288165352281422,
+        "paired_wins": 3
+      },
+      "c-load-five-eighths": {
+        "median_seconds": 0.06879766700000012,
+        "max_rss_bytes": 217038848,
+        "paired_median_ratio": 0.945285308448652,
+        "paired_wins": 7
+      },
+      "c-load-three-quarters": {
+        "median_seconds": 0.06579387499999889,
+        "max_rss_bytes": 217645056,
+        "paired_median_ratio": 0.9402544705509399,
+        "paired_wins": 5
+      },
+      "c-load-half-shift": {
+        "median_seconds": 0.06369954199999839,
+        "max_rss_bytes": 216809472,
+        "paired_median_ratio": 0.9482712660257733,
+        "paired_wins": 6
+      }
+    },
+    "d": {
+      "baseline": {
+        "median_seconds": 0.2564492499999993,
+        "max_rss_bytes": 178831360,
+        "paired_median_ratio": 1.0,
+        "paired_wins": 0
+      },
+      "d-upper-bound": {
+        "median_seconds": 0.25482133399999896,
+        "max_rss_bytes": 178618368,
+        "paired_median_ratio": 0.9376594662169674,
+        "paired_wins": 6
+      },
+      "d-node-bound": {
+        "median_seconds": 0.2471284580000006,
+        "max_rss_bytes": 179044352,
+        "paired_median_ratio": 0.9692297843210995,
+        "paired_wins": 5
+      },
+      "d-twin-labels": {
+        "median_seconds": 0.33093879100000123,
+        "max_rss_bytes": 197427200,
+        "paired_median_ratio": 1.1356007397175096,
+        "paired_wins": 3
+      }
+    }
+  },
+  "binary_sha256": {
+    ".build/interactive-improve/baseline/bin/track-c": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+    ".build/interactive-improve/c-load-half/bin/track-c": "f83b040cca9dfe07660aa9dc958864ed5bd23129a881080ceb73bc7a10b48585",
+    ".build/interactive-improve/c-load-five-eighths/bin/track-c": "089537b39592c565705280fd11dd59e86996104a40dfc079334edc008fdb6d29",
+    ".build/interactive-improve/c-load-three-quarters/bin/track-c": "08750bda8845c9e6b62190074f7a178e329fde1f10d53dfb4b4429390ebe633b",
+    ".build/interactive-improve/c-load-half-shift/bin/track-c": "4e0d5e2de9874f615ed869375981e5e0a0a51c33a62191fe55ab2ac84b430043",
+    ".build/interactive-improve/baseline/bin/track-d": "0438329cb45c31689cc1c25749cbdd3c6674533ab897cf1c692ab51d47aaa7eb",
+    ".build/interactive-improve/d-upper-bound/bin/track-d": "0b419b28667267aa910ceff7531bdadc92d84d3196ec179fb049d93ae3f7831f",
+    ".build/interactive-improve/d-node-bound/bin/track-d": "787a06212d33b4d56a8322f8756482cf5bf887cd0ccbdea17c22f9d0afe670ec",
+    ".build/interactive-improve/d-twin-labels/bin/track-d": "7a0e7ab3da70351d1a5d3b5ac726fc5525ec0c5ee52ac466f7cb5d733c3587d5"
+  },
+  "input_sha256": {
+    ".data/c/public-full-seed1/regions.csv": "414c57c4f3ec968f9bce28c59eebfdf57a9425322b468db7ee964c18c4852fe1",
+    ".data/c/public-full-seed1/records.csv": "36166f4ac44101a22ebf25b4f949436a681a2698cb0f2ae1f7f6853010259f48",
+    ".data/d/public-full-seed1/queries.txt": "160f1ef48378dcb567a8d9ddd2676ee777b044a5ede3ad4c7b42e812aa4b3a6f",
+    ".data/d/public-full-seed1/graph.txt": "fe6471f2712d10b23c2ec58a4cbc7db1ea3e742daf6b6db62829e74d6c4a26c7"
+  },
+  "decisions": {
+    "d-twin-labels": "Reject: independent strict model/public hashes pass, but paired1.13560 and about18.6MB extra native RSS lose. No GCC/image/official claim.",
+    "c-load-half": "Reject: paired1.02882 with extra RSS.",
+    "other_candidates": "Triage only: host wall variation is large. C5/8 and D upper-bound need tighter alternating confirmation on public and untrained full inputs before promotion."
+  }
+}
