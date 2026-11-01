@@ -601,3 +601,9 @@ Fresh native and pinned GCC-native strict offset/index std::set models cover ful
 
 
 220/0e5f1aa unchanged selected217 runtime, run-2c593768268e, all five actual gates pass: T0.079011s/M12619776/S672/K20.171351/65.236749 points. Lower unchanged repeats, not new gains; bests separate. Raw ../docs/board-round220-evidence-head.json.
+
+
+221/3611979 run-60d712df6638 all five actual gates pass: T0.080874s/M10493952/S673/K20.682353/65.779997 points. C matched6 build/runtime loses K20.682353 versus23.033578; fully restore original C Docker/README. A/D unchanged lower repeats. New strict177/image510/default59+errors proofs remain historical to candidate. No target phase/cause claim; raw ../docs/board-round221-matched-six.json and round221-scored-source-match.json.
+
+
+224 matched8 build/runtime: original C++/headers/compiler flags and training1000003/full+130363/sample unchanged. Native8 previously flat; runtime-only8 lost real K19.020029. Matching6 also lost20.682353. This distinct3-owner trained profile is a separate negative-evidence-aware target test; no causal denominator or gain claim. Keep only actual K>23.033578 with all gates, otherwise fully restore original.

@@ -1,6 +1,6 @@
 {
   "observed_at_utc": "2026-11-01T04:02:25.229577+00:00",
-  "status": "All local221 public/strict/race/untrained/GCC/exact-image/default/source checks pass. Promoted ONLY C Docker/README/PERF to root; real all-track result pending. Root A/D original, Make unchanged.",
+  "status": "Reject221 matched6 PGO/runtime; all real gates pass but C K20.682353 loses23.033578, points65.779997 loses68.118071. Full original C Docker/README restored; fresh matched8 trial isolated224, no causal profile/timing claim.",
   "hypothesis_record": "round219-matched-profile-plan.json",
   "C_K_must_exceed": 23.033578,
   "C_points_reference": 68.118071,
@@ -44,5 +44,38 @@
     "track-a/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420"
   },
   "strict_race_scope": "Fresh unchanged-source native strict/untrained sample/full and TSAN, fresh pinned GCC strict integration and exact new production-image matrix planned. Source-identical127 offset/country/SPSC/quote models remain relevant; optional206 helper gcc mode was not a recorded executed report and is not claimed as evidence. New PGO image never assumed old ELF identity.",
-  "c_image_id": "sha256:a98688095c275f8f11f6469a73fd220038491e7449b8a28ac2b115734ba67efc"
+  "c_image_id": "sha256:a98688095c275f8f11f6469a73fd220038491e7449b8a28ac2b115734ba67efc",
+  "actual_commit": "36119799047b2071838dd23996e88e8547863ffa",
+  "actual_c": {
+    "run_id": "run-60d712df6638",
+    "commit": "36119799047b2071838dd23996e88e8547863ffa",
+    "pushed_at": "2026-11-01T04:07:44Z",
+    "dispatched_at": "2026-11-01T04:08:01Z",
+    "started_at": "2026-11-01T04:09:48Z",
+    "ended_at": "2026-11-01T04:09:50Z",
+    "queue_latency_s": 124.4,
+    "ok": true,
+    "stage": "scored",
+    "gates": {
+      "check": true,
+      "build": true,
+      "correctness": true,
+      "timeout": true,
+      "sandbox": true
+    },
+    "T_s": 0.080874,
+    "M_bytes": 10493952,
+    "S": 673,
+    "D": 1,
+    "K": 20.682353,
+    "points": 65.779997,
+    "static_axes": "measured",
+    "timeout_s": 43.332,
+    "build_s": 53.818,
+    "image_bytes": 121538476,
+    "failure": null,
+    "lang": [
+      "C++"
+    ]
+  }
 }

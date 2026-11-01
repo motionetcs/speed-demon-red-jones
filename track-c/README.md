@@ -11,4 +11,4 @@ No input seed or answer is recognized. All output is computed in the timed run. 
 Owner table entries use a32-bit rejection fingerprint and a32-bit stable-block word index. Full length/byte equality still decides names, including collisions; the complete64-bit hash routes owners.64KiB word blocks and dedicated oversized-key blocks retain exact name bytes/country words with checked index arithmetic.
 
 
-Candidate221 trains both existing official-generator PGO workloads at six workers and declares image runtime default6 (four readers/two owners); ordinary1..12 overrides and native fallback12 remain. Source/headers and flags are unchanged. Build hypothesis only, actual K acceptance pending.
+Candidate224: both unchanged official-generator PGO workloads train at8; runtime image default8=5readers/3owners, ordinary1..12 override/native fallback12 unchanged. Build hypothesis, actual K pending.

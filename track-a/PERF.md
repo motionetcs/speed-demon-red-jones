@@ -510,3 +510,9 @@ Pinned offline allowlisted A build/public1/6/12 passes, followed by81 exact-imag
 
 
 220/0e5f1aa unchanged selected217 runtime, run-e3c66b946472, all five actual gates pass: T0.050295s/M21311488/S497/K29.225757/73.288289 points. Lower unchanged repeats, not new gains; bests separate. Raw ../docs/board-round220-evidence-head.json.
+
+
+221/3611979 run-7f00e22060b9 all five actual gates pass: T0.044034s/M20910080/S497/K31.353478/74.814286 points. C matched6 build/runtime loses K20.682353 versus23.033578; fully restore original C Docker/README. A/D unchanged lower repeats. New strict177/image510/default59+errors proofs remain historical to candidate. No target phase/cause claim; raw ../docs/board-round221-matched-six.json and round221-scored-source-match.json.
+
+
+222 unchanged current217/206 binary total-worker screen6/8/10 versus12: paired elapsed{'12': 1.0, '6': 1.1466410711947166, '8': 1.0429915566153687, '10': 0.9909907008601615}. All full-public input/output hashes pass,11 rotating sequential trials after warmup. Six/eight slower; ten effectively flat. Keep12 before any new default/GCC/PGO/image/actual proof; Mac RSS/time are not cgroup/Intel K. Raw ../docs/round222-a-workers-screen.json.
