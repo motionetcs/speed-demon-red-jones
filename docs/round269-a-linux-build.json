@@ -1,0 +1,101 @@
+{
+  "started_at_utc": "2026-11-01T11:59:36.083655+00:00",
+  "official_score": false,
+  "track": "a",
+  "mode": "build",
+  "source_sha256": {
+    "track-a/.speed-demon.toml": "c9ae973186c14661797640f427009129e2a80d1aecefd5d4fa413ee7f3da44d8",
+    "track-a/Dockerfile": "c415bd88f27a18da83c33990744690358b9c158a8b1ea3dc60c289d123f4ff90",
+    "track-a/PERF.md": "e2e9b77865b9f611404316113a53337307f1a5535dfe18ad21ce750fd0df71e8",
+    "track-a/README.md": "9ac955ca0309409e527db4a33b25253f45a4e319e0c553abcdcf672dd45260bf",
+    "track-a/decimal.hpp": "e6a53e983c0475fe3e49ffe2630a8603f96298b7866e0f4ef3b2ed0f165cb94e",
+    "track-a/endpoint_table.hpp": "913048b747b8f938cf1b438f29648a62d11434b2d71c3fb9a9b5f5aae31df745",
+    "track-a/io.hpp": "0074661fd53c05fa1d7420af398fe181d2c7b95e1c8099e97f447fc5f5d7506f",
+    "track-a/main.cpp": "0e0d620424e32d81f2a1a77f9ab28210ea01ca7e91e9260a6f276db6857eb35f",
+    "track-a/mapped_allocator.hpp": "060bb6a0622338b9151e767d827cbf30c8e4d940cc7e170ad51757c4a6b0808b",
+    "track-a/ordered_output.hpp": "b6f0911f5d6396ca35ad657a1de6364aa3e52a5dd6a9275d95f768e54f4fd69d",
+    "track-a/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420",
+    "track-a/training_generator.py": "d82b43b8f617016808f85cbe9be86af1fee8466296a0848ab8e6908ee3c4b0b4"
+  },
+  "frozen_manifest_sha256": "f45018aa3afa157e446985e632d1a97aef7dabe37732948c281504e547d7c336",
+  "native_proof_sha256": "632d6f983664110b09bff6c81aabde7c7ceb176c895f788999ad33725e7ef8e0",
+  "scope": "Fresh exact A269 completed suffix source, restricted pinned offline Linux/amd64. Input/reference contents reused; every current compiler/image invocation is fresh. No old source-specific GCC/image execution proof substituted; native268 executed-body proof retained by exact identical bodies after deleting only the obsolete unused member. Emulated time/RSS is not organizer scoring.",
+  "commands": [
+    {
+      "label": "build",
+      "argv": [
+        "docker",
+        "build",
+        "--platform",
+        "linux/amd64",
+        "--network=none",
+        "-t",
+        "speed-demon-fresh/track-a:round269-complete-suffix",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round269/source/track-a"
+      ],
+      "stdin": null
+    },
+    {
+      "label": "inspect",
+      "argv": [
+        "docker",
+        "image",
+        "inspect",
+        "speed-demon-fresh/track-a:round269-complete-suffix"
+      ],
+      "stdin": null
+    },
+    {
+      "label": "original-config",
+      "argv": [
+        "docker",
+        "image",
+        "inspect",
+        "sha256:b57c3ff9ccff3ea71b97c41e9d1c694afa00f6387485dccc3098f2bfcfd5cf91"
+      ],
+      "stdin": null
+    },
+    {
+      "label": "elf",
+      "argv": [
+        "docker",
+        "run",
+        "--rm",
+        "--platform",
+        "linux/amd64",
+        "--network=none",
+        "--read-only",
+        "--memory=8g",
+        "--memory-swap=8g",
+        "--pids-limit=512",
+        "--cap-drop=ALL",
+        "--security-opt=no-new-privileges",
+        "--user",
+        "65534:65534",
+        "--tmpfs",
+        "/tmp:rw,exec,size=1g",
+        "--entrypoint",
+        "sha256sum",
+        "sha256:6bf73655471f9f34222866c6a802c6b8d060c55de9a37be0f4f224221c6ef42d",
+        "/app/solution"
+      ],
+      "stdin": null
+    }
+  ],
+  "image_id": "sha256:6bf73655471f9f34222866c6a802c6b8d060c55de9a37be0f4f224221c6ef42d",
+  "image_tag": "speed-demon-fresh/track-a:round269-complete-suffix",
+  "image_bytes": 30958179,
+  "elf_sha256": "e07a0dc4dbf9ff9c1aa3ac819bcb7d938390cdfdb05788f9079ae696188a9d44",
+  "image_config": {
+    "User": "65534:65534",
+    "Env": [
+      "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+    ],
+    "Entrypoint": [
+      "/app/solution"
+    ]
+  },
+  "training": "Unchanged official1000003/full then130363/sample/default12/generic GCC; only executable in final image; no publicseed1 training.",
+  "passed": true,
+  "completed_at_utc": "2026-11-01T11:59:51.940787+00:00"
+}

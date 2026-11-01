@@ -2,7 +2,7 @@
 
 Complete ordinary public feed **2026-11-01T10:51:58Z**: Red Jones **rank 48 of 96**, best-three machine mean **69.436015**, leader ALL STAR **83.253265**. Number one is unachieved. New262 degree-two D passes every gate but loses totalK; full original263 restoration passes all real gates. Best/latest variation and final holdout/judging remain separate.
 
-A268 is a new locally fully verified A candidate awaiting one real all-track trial. It buffers the same six numeric fields before one append; all strict/race/fresh-reference/GCC/exact-image/default checks pass. Current working A/main differs from last real passing737b80f; best scores above are unchanged until official evidence. No new K or rank gain is claimed.
+A268/97e58d7 passes all real gates: A75.225434/K31.952782, just below best75.240074/31.974332, so no total gain is claimed. A269 completes that refactor by deleting its now-unused scalar formatter; fresh exact-source native strict/race/GCC/model/image/default and actual Make/all-track controls pass. Its separate cooled actual trial is pending. C/D unchanged observations remain variation.
 
 | Track | Best points | K | Rank | Leader |
 | --- | ---: | ---: | ---: | --- |
