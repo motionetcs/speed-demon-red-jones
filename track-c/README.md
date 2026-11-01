@@ -9,6 +9,3 @@ An exact local synchronization proof selects true record boundaries. Reader work
 No input seed or answer is recognized. All output is computed in the timed run. See `PERF.md` for actual experiments, source/memory costs, independent tests and real board outcomes.
 
 Owner table entries use a32-bit rejection fingerprint and a32-bit stable-block word index. Full length/byte equality still decides names, including collisions; the complete64-bit hash routes owners.64KiB word blocks and dedicated oversized-key blocks retain exact name bytes/country words with checked index arithmetic.
-
-
-Candidate224: both unchanged official-generator PGO workloads train at8; runtime image default8=5readers/3owners, ordinary1..12 override/native fallback12 unchanged. Build hypothesis, actual K pending.

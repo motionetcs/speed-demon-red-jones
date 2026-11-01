@@ -1,0 +1,25 @@
+--- selected217/track-a/main.cpp
++++ isolated227-hour-key/track-a/main.cpp
+@@ -38,14 +38,20 @@
+         std::vector<Chunk> chunks(threads);
+         parallel(threads, [&](unsigned worker) {
+             const char* p = boundaries[worker]; const char* limit = boundaries[worker + 1];
++            uint64_t previous_hour_key=0; int previous_hour=-1;
+             auto& chunk = chunks[worker];
+             LocalEndpoints local_names(endpoints);
+             size_t reserve_hint = (limit - p) / (72 * 64);
+             while (p < limit) {
+                 if (limit - p < 28) throw std::runtime_error("truncated timestamp");
+                 const char* line = p;
+-                int month = (p[5] - '0') * 10 + p[6] - '0', day = (p[8] - '0') * 10 + p[9] - '0';
+-                int hour = (month == 10 ? day - 30 : day + 1) * 24 + (p[11] - '0') * 10 + p[12] - '0' - 18;
++                uint64_t hour_key; std::memcpy(&hour_key,p+5,sizeof hour_key);
++                if(previous_hour<0 || hour_key!=previous_hour_key){
++                    int month = (p[5] - '0') * 10 + p[6] - '0', day = (p[8] - '0') * 10 + p[9] - '0';
++                    previous_hour = (month == 10 ? day - 30 : day + 1) * 24 + (p[11] - '0') * 10 + p[12] - '0' - 18;
++                    previous_hour_key=hour_key;
++                }
++                int hour=previous_hour;
+                 if (hour < 0 || hour >= 72) throw std::runtime_error("hour outside specification");
+                 p += 28; while (p < limit && *p != ' ') ++p;
+                 if (p == limit) throw std::runtime_error("missing endpoint");

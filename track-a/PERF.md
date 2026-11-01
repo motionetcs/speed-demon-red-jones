@@ -516,3 +516,9 @@ Pinned offline allowlisted A build/public1/6/12 passes, followed by81 exact-imag
 
 
 222 unchanged current217/206 binary total-worker screen6/8/10 versus12: paired elapsed{'12': 1.0, '6': 1.1466410711947166, '8': 1.0429915566153687, '10': 0.9909907008601615}. All full-public input/output hashes pass,11 rotating sequential trials after warmup. Six/eight slower; ten effectively flat. Keep12 before any new default/GCC/PGO/image/actual proof; Mac RSS/time are not cgroup/Intel K. Raw ../docs/round222-a-workers-screen.json.
+
+
+224/bdbdcb5 run-411623e51471 all five actual gates pass: T0.045155s/M20852736/S497/K30.978858/74.553270 points. C matched8 build/runtime loses18.287870 versus23.033578; fully restore original C Docker/README/C263 image. A/D unchanged lower repeats. Source-identical221 strict/race/GCC stays relevant to original C++,224 production510/default59+errors proof is historical to rejected PGO/config. No target phase/cause claim. Raw ../docs/board-round224-matched-eight.json.
+
+
+227 isolated current-input last timestamp-key reuse copies8 safe bytes at offsets5..12 after original28-byte guard, recomputes exact month/day/hour for every changed key and retains range check. Full-public11 alternating hashes pass, paired1.009866/RSS flat, reject before new shuffled-key/truncation/guard/strict/race/GCC/image/actual proof. No root parser change or precomputed/cached output/seed catalogue. Raw ../docs/round227-hour-key-screen.json and exact prototype patch.

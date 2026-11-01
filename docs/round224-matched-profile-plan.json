@@ -1,6 +1,6 @@
 {
   "observed_at_utc": "2026-11-01T04:11:19.852275+00:00",
-  "status": "All local224 new PGO image510+30, default59+4, public/actual-default/source checks pass. Source-identical221 strict/race/GCC retained. Only validated C Docker/README/PERF promoted to root; real all-track224 pending.",
+  "status": "Reject224 matched8 PGO/runtime; every real gate passes but K18.287870/63.108157 loses23.033578/68.118071. Full original C Docker/README restored; retain source-only221 strict/race/GCC evidence, production224 proof historical. No causal profile/timing explanation.",
   "hypothesis": "Original own ELF specializes owner4;8total has3owners. Native8 flat, runtime-only8 and matched6 lost actual K. A matching8 profile may differ, untested and no promised recovery; no source algorithm changes.",
   "scope": "Only C Dockerfile both existing train invocations environment8 and final ENV8. Original C++/headers/flags/Make/generator. Native217/206 binaries reused. No host/affinity/harness/counter/identity changes.",
   "threshold_c_K": 23.033578,
@@ -44,5 +44,38 @@
     "track-a/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420"
   },
   "source_bound_checks": "Exact221 original C++/headers fresh strict/race/untrained/GCC177+30 and original127 models retained; new PGO production510+30/default59+4/public/actual defaults required. Never claim old ELF identity.",
-  "c_image_id": "sha256:34d548c5745a425994937611662a609165d3e7f4194d33a0febc98e9d0ccc65b"
+  "c_image_id": "sha256:34d548c5745a425994937611662a609165d3e7f4194d33a0febc98e9d0ccc65b",
+  "actual_commit": "bdbdcb5cca2edcc740b1316b09602d5ab76100f1",
+  "actual_c": {
+    "run_id": "run-4de10ff88942",
+    "commit": "bdbdcb5cca2edcc740b1316b09602d5ab76100f1",
+    "pushed_at": "2026-11-01T04:14:31Z",
+    "dispatched_at": "2026-11-01T04:14:43Z",
+    "started_at": "2026-11-01T04:15:51Z",
+    "ended_at": "2026-11-01T04:15:53Z",
+    "queue_latency_s": 79.8,
+    "ok": true,
+    "stage": "scored",
+    "gates": {
+      "check": true,
+      "build": true,
+      "correctness": true,
+      "timeout": true,
+      "sandbox": true
+    },
+    "T_s": 0.097965,
+    "M_bytes": 12021760,
+    "S": 673,
+    "D": 1,
+    "K": 18.28787,
+    "points": 63.108157,
+    "static_axes": "measured",
+    "timeout_s": 43.332,
+    "build_s": 54.072,
+    "image_bytes": 121538277,
+    "failure": null,
+    "lang": [
+      "C++"
+    ]
+  }
 }

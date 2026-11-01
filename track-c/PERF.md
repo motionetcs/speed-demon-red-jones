@@ -607,3 +607,9 @@ Fresh native and pinned GCC-native strict offset/index std::set models cover ful
 
 
 224 matched8 build/runtime: original C++/headers/compiler flags and training1000003/full+130363/sample unchanged. Native8 previously flat; runtime-only8 lost real K19.020029. Matching6 also lost20.682353. This distinct3-owner trained profile is a separate negative-evidence-aware target test; no causal denominator or gain claim. Keep only actual K>23.033578 with all gates, otherwise fully restore original.
+
+
+224/bdbdcb5 run-4de10ff88942 all five actual gates pass: T0.097965s/M12021760/S673/K18.287870/63.108157 points. C matched8 build/runtime loses18.287870 versus23.033578; fully restore original C Docker/README/C263 image. A/D unchanged lower repeats. Source-identical221 strict/race/GCC stays relevant to original C++,224 production510/default59+errors proof is historical to rejected PGO/config. No target phase/cause claim. Raw ../docs/board-round224-matched-eight.json.
+
+
+226 current original low32/8-byte-table batch128/256/1024 versus512,11 rotating full-public native hashes at12 workers paired1.049064/1.000470/0.995618; at8 paired1.011321/1.004029/1.017199. Keep512: slower/flat,1024 adds RSS. No targetK/cgroup claim or new batch-boundary/strict/race/GCC/image/actual proof for rejected constants. Raw ../docs/round226-c-batch-screen.json.

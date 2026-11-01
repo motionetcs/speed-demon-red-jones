@@ -515,3 +515,6 @@ Eleven rotating public hashes pass, but retained0.183108542s/RSS179421184 versus
 
 
 222 unchanged current217/206 binary total-worker screen6/8/10 versus12: paired elapsed{'12': 1.0, '6': 1.0942936880913468, '8': 1.0387099004134537, '10': 1.0012261660379695}. All full-public input/output hashes pass,11 rotating sequential trials after warmup. Six/eight slower; ten effectively flat. Keep12 before any new default/GCC/PGO/image/actual proof; Mac RSS/time are not cgroup/Intel K. Raw ../docs/round222-d-workers-screen.json.
+
+
+224/bdbdcb5 run-beb9b7410cd5 all five actual gates pass: T0.202490s/M77811712/S827/K19.810298/64.844551 points. C matched8 build/runtime loses18.287870 versus23.033578; fully restore original C Docker/README/C263 image. A/D unchanged lower repeats. Source-identical221 strict/race/GCC stays relevant to original C++,224 production510/default59+errors proof is historical to rejected PGO/config. No target phase/cause claim. Raw ../docs/board-round224-matched-eight.json.
