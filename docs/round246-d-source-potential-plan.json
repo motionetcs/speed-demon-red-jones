@@ -1,0 +1,17 @@
+{
+  "created_at_utc": "2026-11-01T06:02:49.702951+00:00",
+  "status": "Design only; coordinated colleague reviewing/preparing after241 proof; no implementation/compiler/measurement/source promotion here",
+  "scope": "Actual-input query-specific feasible potential for a source with several high-cost outgoing edges, distinct from rejected62 unique mandatory-edge peeling. No cached outputs, seed/type/catalogue recognition, approximation or integer narrowing.",
+  "idea": "If actual source out-degree<=8 and minimum outgoing B>UINT32_MAX/2, h(source)=-B, all other h=0. Traverse original directed edge (u,v) with uint64 w+h(u)-h(v): subtractB leaving source, addB entering source; self-loop has zero net adjustment. Minimum outgoing B guarantees nonnegative reduced costs, including every parallel edge. For source!=target all path costs telescope to original-B; addB back to a finite optimum. Source==target returns0 before any transform. Backward traversal must reconstruct original edge orientation. Threshold/degree choose work policy only, never answer cutoff.",
+  "requirements": [
+    "Independent mathematical potential/nonnegative/telescoping model, especially source self-loop, cycles, MAX weights, parallel exits/direct meetings/unreachable and original/reverse orientation",
+    "Exact FastDistances full64 fallback and transformed inbound weights potentially>UINT32; no truncation",
+    "Native public/untrained full screen before broad proof; compare source/RSS/time total tradeoff, not time alone",
+    "New native/GCC strict/race/Floyd/source/image/default and actual total-K proof before promotion; original D remains selected pending241 result"
+  ],
+  "primary_source": {
+    "title": "MIT6.006 Lecture14 Johnson algorithm",
+    "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/7d7d5c35490f41b7b037cafbda7019ad_MIT6_006S20_lec14.pdf",
+    "inference": "Standard path-potential telescoping specializes to a single known query endpoint; this specific optimization and expected packed-label benefit are our untested inference, not a quoted result or imported implementation."
+  }
+}

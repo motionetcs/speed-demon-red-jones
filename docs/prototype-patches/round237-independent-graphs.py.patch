@@ -1,0 +1,36 @@
+--- tools/test_band_graphs.py
++++ isolated237/independent_graphs.py
+@@ -8,15 +8,15 @@
+ import random
+ import subprocess
+ 
+-ROOT=Path(__file__).resolve().parents[1]
++ROOT=Path(__file__).resolve().parent
+ 
+ 
+ def main():
+-    p=argparse.ArgumentParser();p.add_argument('--binary',type=Path,required=True);p.add_argument('--report',type=Path,required=True);p.add_argument('--count',type=int,default=256);p.add_argument('--spread-ids',action='store_true');a=p.parse_args()
++    p=argparse.ArgumentParser();p.add_argument('--binary',type=Path,required=True);p.add_argument('--report',type=Path,required=True);p.add_argument('--count',type=int,default=256);p.add_argument('--spread-ids',action='store_true');p.add_argument('--threads',type=int,nargs='+');a=p.parse_args()
+     binary=a.binary.resolve();cases=[]
+     weights=[0,1,2,31,32,63,64,65,127,128,129,255,256,257,65535,4294967295]
+     for seed in range(a.count):
+-        rng=random.Random(0x4ca700+seed);n=rng.randrange(4,29);edges=[];inf=10**40
++        rng=random.Random(0x6de01131+seed);n=rng.randrange(4,29);edges=[];inf=10**40
+         distance=[[0 if u==v else inf for v in range(n)] for u in range(n)]
+         # A cheaper path arrives after a larger label within one band.
+         edges.extend([(0,1,50),(0,2,1),(2,1,1),(1,3,1)])
+@@ -36,9 +36,11 @@
+         (data/'queries.txt').write_text(''.join(f'{ids[u]} {ids[v]}\n' for u,v in queries))
+         expected=''.join(str(-1 if distance[u][v]>=inf else distance[u][v])+'\n' for u,v in queries).encode()
+         threads=seed%12+1 if a.spread_ids else [1,6,12][seed%3]
+-        subprocess.run([str(binary),'--data',str(data),'--out',str(out)],env=dict(os.environ,SPEED_DEMON_THREADS=str(threads),UBSAN_OPTIONS="halt_on_error=1:print_stacktrace=1"),check=True,timeout=30)
+-        actual=(out/'distances.txt').read_bytes();assert actual==expected,(seed,n,threads)
+-        cases.append({'seed':seed,'nodes':nodes,'logical_nodes':n,'case':label,'edges':len(edges),'queries':len(queries),'threads':threads,'sha256':hashlib.sha256(actual).hexdigest()})
++        for threads in (a.threads or [threads]):
++            result=subprocess.run([str(binary),'--data',str(data),'--out',str(out)],env=dict(os.environ,SPEED_DEMON_THREADS=str(threads),UBSAN_OPTIONS="halt_on_error=1:print_stacktrace=1",TSAN_OPTIONS="halt_on_error=1"),capture_output=True,check=True,timeout=30)
++            assert not result.stdout and not result.stderr,(seed,threads,result.stdout,result.stderr)
++            actual=(out/'distances.txt').read_bytes();assert actual==expected,(seed,n,threads)
++            cases.append({'seed':seed,'nodes':nodes,'logical_nodes':n,'case':label,'data_folder':str(data.resolve()),'edges':len(edges),'queries':len(queries),'threads':threads,'sha256':hashlib.sha256(actual).hexdigest()})
+     a.report.parent.mkdir(parents=True,exist_ok=True)
+     a.report.write_text(json.dumps({'official_score':False,'method':'independent Floyd-Warshall, boundary-weight and delayed-improvement graphs, complete output-byte comparisons','spread_ids':a.spread_ids,'binary_sha256':hashlib.sha256(binary.read_bytes()).hexdigest(),'cases':cases,'passed':True},indent=2)+'\n')
+     print('PASS',len(cases),'independent graphs and',sum(c['queries'] for c in cases),'query outputs',flush=True)

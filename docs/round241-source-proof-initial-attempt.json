@@ -1,0 +1,6 @@
+{
+  "observed_at_utc": "2026-11-01T06:10:42.621590+00:00",
+  "passed": false,
+  "official_score": false,
+  "reason": "Source/image binder stopped on an incorrect assumption that default12 is set in Docker ENV. Both unchanged C/D Dockerfiles use code fallback12 with no thread override; D retains only existing MALLOC_ARENA_MAX2. All actual-default runs already passed. Correct binder compares exact Env/User/Entrypoint/Cmd to immutable original passing images and verifies no thread ENV override. No runtime/config/test change, compiler or image rerun needed."
+}

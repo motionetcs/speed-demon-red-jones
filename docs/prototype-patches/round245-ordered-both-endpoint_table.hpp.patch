@@ -1,0 +1,39 @@
+--- isolated-238-both/track-a/endpoint_table.hpp
++++ isolated245-ordered-both/track-a/endpoint_table.hpp
+@@ -1,5 +1,7 @@
+ #pragma once
+ #include <atomic>
++#include <algorithm>
++#include <mutex>
+ #include <array>
+ #include <bit>
+ #include <cstring>
+@@ -18,6 +20,9 @@
+     std::array<std::string_view,4096> canonical{};
+     std::atomic<uint32_t> used{0};
+     std::atomic<bool> canceled{false};
++    std::mutex order_mutex;std::array<uint16_t,4096> sorted{};size_t sorted_count=0;
++    std::vector<uint16_t> ordered(){std::lock_guard guard(order_mutex);return {sorted.begin(),sorted.begin()+sorted_count};}
++
+     uint16_t intern(std::string_view value, uint64_t hash) {
+         if (canceled.load(std::memory_order_relaxed)) throw std::runtime_error("endpoint limit exceeded");
+         size_t slot = hash & (capacity - 1);
+@@ -26,9 +31,16 @@
+             if (!state && entry.state.compare_exchange_strong(state, 1, std::memory_order_acq_rel)) {
+                 auto id = used.fetch_add(1, std::memory_order_relaxed);
+                 if (id >= 4096) { canceled.store(true); entry.state.store(0, std::memory_order_release); throw std::runtime_error("endpoint limit exceeded"); }
+-                canonical[id]=value; entry.value = value; entry.state.store((hash & hash_mask) | (id + 2), std::memory_order_release); return static_cast<uint16_t>(id);
++                canonical[id]=value; entry.value = value;
++                try {
++                    std::lock_guard guard(order_mutex);
++                    auto first=sorted.begin(),last=first+sorted_count;
++                    auto pos=std::lower_bound(first,last,value,[&](uint16_t key,std::string_view v){return canonical[key]<v;});
++                    std::move_backward(pos,last,last+1);*pos=uint16_t(id);++sorted_count;
++                } catch(...) {canceled.store(true,std::memory_order_release);entry.state.store(0,std::memory_order_release);throw;}
++                entry.state.store((hash & hash_mask) | (id + 2), std::memory_order_release); return static_cast<uint16_t>(id);
+             }
+-            while (state == 1) state = entry.state.load(std::memory_order_acquire);
++            while (state == 1) {if(canceled.load(std::memory_order_acquire))throw std::runtime_error("endpoint publication canceled");state=entry.state.load(std::memory_order_acquire);}
+             if (state > 1 && (state & hash_mask) == (hash & hash_mask) && entry.value == value) return static_cast<uint16_t>((state & 65535) - 2);
+             slot = (slot + 1) & (capacity - 1);
+         }

@@ -1,0 +1,121 @@
+{
+  "observed_at_utc": "2026-11-01T06:10:05.726042+00:00",
+  "official_score": false,
+  "passed": true,
+  "scope": "Final authoritative C/D runtime/build/metadata and exact local images. D retains v1 native proof by byte identity; C v1 source/proof and failed GCC compile remain historical. C final formatting-corrected source has fresh v2 strict/race/GCC/PGO/production/default proof. Final official board result remains pending and separate.",
+  "source_manifest": "candidate241-source-v2.json",
+  "runtime_build_metadata_files_matched_to_owner": [
+    "track-c/training_generator.py",
+    "track-c/Dockerfile",
+    "track-c/names.hpp",
+    "track-c/io.hpp",
+    "track-c/quote_scan.hpp",
+    "track-c/.speed-demon.toml",
+    "track-c/main.cpp",
+    "track-c/parallel.hpp",
+    "track-d/training_generator.py",
+    "track-d/Dockerfile",
+    "track-d/io.hpp",
+    "track-d/edge_store.hpp",
+    "track-d/load_cursors.hpp",
+    "track-d/radix_heap.hpp",
+    "track-d/.speed-demon.toml",
+    "track-d/distance_map.hpp",
+    "track-d/main.cpp",
+    "track-d/decimal.hpp",
+    "track-d/parallel.hpp"
+  ],
+  "documentation_scope": "Owner README/PERF updates are explicitly outside runtime image identity; they must be finalized honestly before push.",
+  "reports": {
+    "proof-asan/stage.json": {
+      "sha256": "db444b37251882b0f30f9b7920c99f13e152624eee077e4c9a5333125c1a0d4b",
+      "track_scope": "d",
+      "passed": true
+    },
+    "proof-tsan/stage.json": {
+      "sha256": "939e55606ad8252311778eb9c7509ba5086afffa2fa799ce060c319ce5d9b4bd",
+      "track_scope": "d",
+      "passed": true
+    },
+    "proof-asan-v2/stage.json": {
+      "sha256": "13ab564315ab6c6c567bd987f5615c54bf14c8d67d17e91fb00ca19d617dd7b8",
+      "track_scope": "c",
+      "passed": true
+    },
+    "proof-tsan-v2/stage.json": {
+      "sha256": "adcf4bb2467a7898fcbbf6f108aabc9708adeeee3b2c6403670962a031f2a4db",
+      "track_scope": "c",
+      "passed": true
+    },
+    "linux-c-gcc/report.json": {
+      "sha256": "bc18e3ae4c4b07bd60bdfd17483cd7bbeeffdd6a3681ce2e5494662bbdaad683",
+      "track_scope": "c",
+      "passed": true
+    },
+    "linux-d-gcc/report.json": {
+      "sha256": "d9dd43b972409d89e6de036a0f01d80cb7b229722b66ab0cfd70f285b20e70b2",
+      "track_scope": "d",
+      "passed": true
+    },
+    "linux-c-build/report.json": {
+      "sha256": "b777235e552ffd8a9d759ce230d74a5d733f3c1beb79ac06b6e9e1e4836f444a",
+      "track_scope": "c",
+      "passed": true
+    },
+    "linux-d-build/report.json": {
+      "sha256": "c53826e70dc1e890a8bc3f9af76c7921232a73531bd0f7b3d10af52c19ba8c23",
+      "track_scope": "d",
+      "passed": true
+    },
+    "linux-c-image/report.json": {
+      "sha256": "803fc9a72d2c9c0dfc692a5235be7a30aea011dfa30d98d4c6bca99c7bd14055",
+      "track_scope": "c",
+      "passed": true
+    },
+    "linux-d-image/report.json": {
+      "sha256": "4e4235e7317beed62431de015b9210d54cd9ca39a37d74aea6995517f9ca9acd",
+      "track_scope": "d",
+      "passed": true
+    },
+    "linux-c-defaults/report.json": {
+      "sha256": "cfaff361858bf052b8879b03cc388511024bad68fb5ef4989ebcb777fce10da3",
+      "track_scope": "c",
+      "passed": true
+    },
+    "linux-d-defaults/report.json": {
+      "sha256": "3eff3ff6d7f2d62e307e1a295d0a3ecc2d77260bf2e28a205d835d827ec43400",
+      "track_scope": "d",
+      "passed": true
+    }
+  },
+  "tracks": {
+    "c": {
+      "main_sha256": "aed296ba88ded415aca0f33545b51e222bf3a7d6104df55afe0d523f6c0981ba",
+      "image_id": "sha256:729a4d206c7415b083524292b55956889582260ecd4e13c1dfe12c1e1974ec32",
+      "elf_sha256": "a4aa75e0c593f2d3a12c314f750f66df7a57cc75f74473b451053bf28cbd725f",
+      "gcc_valid_invocations": 231,
+      "gcc_expected_errors": 25,
+      "production_valid_invocations": 645,
+      "production_expected_errors": 50,
+      "actual_default_valid_invocations": 75,
+      "actual_default_expected_errors": 9,
+      "configured_default_cap": 12,
+      "image_scope": "Local replayed image, not an asserted organizer binary; emulated Linux outputs/sandbox/build proof only."
+    },
+    "d": {
+      "main_sha256": "3e03e8e048e829c1beecd539f12d5ff3193965dbc2a85ab9e20558903d7b768e",
+      "image_id": "sha256:165b576d984cd22e34d85038597c6c6ebaf1ee1710717e6bcf713fb98d5afe9f",
+      "elf_sha256": "ddb7232f4955ebab1b773fcacfe1be9a010df2f50cf32be22784813fb2a6c5c7",
+      "gcc_valid_invocations": 1092,
+      "gcc_expected_errors": 12,
+      "production_valid_invocations": 1164,
+      "production_expected_errors": 48,
+      "actual_default_valid_invocations": 41,
+      "actual_default_expected_errors": 4,
+      "configured_default_cap": 12,
+      "image_scope": "Local replayed image, not an asserted organizer binary; emulated Linux outputs/sandbox/build proof only."
+    }
+  },
+  "initial_compile_failure": "linux-c-gcc-attempt1/failure.json",
+  "performance_limit": "Native gains are small and noisy; no official improvement claimed before exact target board run."
+}

@@ -1,0 +1,239 @@
+{
+  "started_at_utc": "2026-11-01T05:57:38.176866+00:00",
+  "official_score": false,
+  "mode": "asan",
+  "source_sha256": {
+    "track-c/training_generator.py": "9e61672eb814fa4e1bc2e3cf30c8e7ca9629804191ce5ae60a66c8b61ba704f2",
+    "track-c/Dockerfile": "637e81c6fca4507f4c4e7368efde7b6904d07879ae9ec992c5e25175d50e1fae",
+    "track-c/names.hpp": "f62a25fdb9f229575c42fc013220f7f38dd5a68ea5ac83aa1702d0589c15501b",
+    "track-c/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+    "track-c/quote_scan.hpp": "0b170a766254dee1bc14f9e9180cc1900da01d41f5d09053d5579e01a7fb9cfa",
+    "track-c/README.md": "6a64233dcbf8967678d87f403c99969067f468ee5066b0f172751f437cccb841",
+    "track-c/PERF.md": "c619faf1fe44aaa19b8e787f03026fe28d53154ea747f078ad3bd22b59287da9",
+    "track-c/.speed-demon.toml": "3371600b8033a377bc373378e703191dfec36c1ae991b617650dfa480edc00b4",
+    "track-c/main.cpp": "aed296ba88ded415aca0f33545b51e222bf3a7d6104df55afe0d523f6c0981ba",
+    "track-c/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420",
+    "track-d/training_generator.py": "bbf37741159004149c5896265a98ae00b90e90a05ad48c2912ecf8bdce126d65",
+    "track-d/Dockerfile": "b894df9b62f1f82561cbcd594d8baa97fdbe91d03d8aea816d2355f8fcd90cbb",
+    "track-d/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+    "track-d/edge_store.hpp": "31db14bd58fb3bb45a90c963cf57397a50d5195782d01dc366b2a380d3b74ed6",
+    "track-d/README.md": "abf631f570e4eee1576e59ce1bfb6d3875081c87c234b96a261aa85f654baf95",
+    "track-d/PERF.md": "8ba0def352f9340717ae594688d71b6cd8fbabf4dad65108fcf6676094c0d062",
+    "track-d/load_cursors.hpp": "69bb855e76fdb729ce64856723a7e759f1844bcb34ffaaca2ad7776bdcafdf01",
+    "track-d/radix_heap.hpp": "7fb2052bb951ca391c5b1883d8e673f554a43ab3d06286e43597105c2d82b6e3",
+    "track-d/.speed-demon.toml": "6d6100843803548ba58c1c1eaf2d1dbaecb9a431fd5c9a8408d214580466465c",
+    "track-d/distance_map.hpp": "07b254af4e7a149bdae50e426c3355446e104333e6a8dcd43cd29181db4a8604",
+    "track-d/main.cpp": "3e03e8e048e829c1beecd539f12d5ff3193965dbc2a85ab9e20558903d7b768e",
+    "track-d/decimal.hpp": "aee2210ac5894050834ffd37903718b3b7bdc6673240559baa85b350bea9b581",
+    "track-d/parallel.hpp": "614e48333aabbd7a9d7b008119d41acc7f908e467769772d01e10d84c282bdab"
+  },
+  "steps": [
+    {
+      "label": "compile-c",
+      "command": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-pthread",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-fno-sanitize-recover=all",
+        "-fno-omit-frame-pointer",
+        "-fsanitize=address,undefined",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/candidate241-source-v2/track-c/main.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/proof-asan-v2/track-c"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "compile-field-model",
+      "command": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-pthread",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-fno-sanitize-recover=all",
+        "-fno-omit-frame-pointer",
+        "-fsanitize=address,undefined",
+        "-DCSV_HEADER=\"frozen-csv.hpp\"",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/csv_field_model.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/proof-asan-v2/field-model"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "field-model",
+      "command": [
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/proof-asan-v2/field-model"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "compile-numeric-model",
+      "command": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-pthread",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-fno-sanitize-recover=all",
+        "-fno-omit-frame-pointer",
+        "-fsanitize=address,undefined",
+        "-DCSV_MODEL_HEADER=\"/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/frozen-csv.hpp\"",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/tools/test_csv_numeric.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/proof-asan-v2/numeric-model"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "numeric-model",
+      "command": [
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/proof-asan-v2/numeric-model"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "tiny-adversarial",
+      "command": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/tools/verify.py",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/proof-asan-v2",
+        "--source-root",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/candidate241-source-v2",
+        "--run-id",
+        "interactive241-v2-asan",
+        "--tracks",
+        "c",
+        "--scale",
+        "tiny",
+        "--seeds",
+        "2441",
+        "2447",
+        "--threads",
+        "1",
+        "6",
+        "12",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/proof-asan-v2/tiny-adversarial.json"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "sample",
+      "command": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/tools/verify.py",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/proof-asan-v2",
+        "--source-root",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/candidate241-source-v2",
+        "--run-id",
+        "interactive241-v2-asan-sample",
+        "--tracks",
+        "c",
+        "--scale",
+        "sample",
+        "--seeds",
+        "2459",
+        "--threads",
+        "1",
+        "6",
+        "12",
+        "--skip-adversarial",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/proof-asan-v2/sample.json"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "countries",
+      "command": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/tools/test_country_codes.py",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/proof-asan-v2",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/proof-asan-v2/countries.json"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "name-pipeline",
+      "command": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/tools/test_name_pipeline.py",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/proof-asan-v2",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/proof-asan-v2/name-pipeline.json",
+        "--run-id",
+        "interactive241-v2-asan-name-pipeline"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "topology",
+      "command": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/tools/test_cooperative_pipeline.py",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/proof-asan-v2",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/proof-asan-v2/topology.json",
+        "--run-id",
+        "interactive241-v2-asan-topology"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "pressure",
+      "command": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/tools/test_name_ring_pressure.py",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/proof-asan-v2",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/proof-asan-v2/pressure.json",
+        "--run-id",
+        "interactive241-v2-asan-pressure"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "amounts",
+      "command": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/tools/test_c_amounts.py",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/proof-asan-v2",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/proof-asan-v2/amounts.json",
+        "--run-id",
+        "interactive241-v2-asan-amounts"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "production_csv_extract_sha256": "736904e36b7dd4c5b473e2c6f9aa375b93ed446ab05226096502fbf9a0bfe564",
+  "binary_sha256": {
+    "c": "bf5687b8b4534e154ca59ed899583caa452e6560b031abed1c4da43287e0f80f"
+  },
+  "passed": true,
+  "completed_at_utc": "2026-11-01T05:58:01.464206+00:00"
+}

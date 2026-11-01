@@ -1,0 +1,30 @@
+#pragma once
+#include <atomic>
+#include <cstddef>
+#include <semaphore>
+#include <stdexcept>
+
+// One credit per in-flight hour; only a flushed prefix returns its credits.
+struct HourWorkWindow {
+    unsigned workers;
+    std::counting_semaphore<128> credits;
+    std::atomic<unsigned> next{0};
+    std::atomic<bool> canceled{false};
+    static std::ptrdiff_t initial(unsigned n){
+        if(n<1||n>12)throw std::runtime_error("invalid hour worker count");
+        return std::ptrdiff_t(n);
+    }
+    explicit HourWorkWindow(unsigned n):workers(n),credits(initial(n)){}
+    unsigned claim(){
+        credits.acquire();
+        if(canceled.load(std::memory_order_acquire))throw std::runtime_error("hour work canceled");
+        return next.fetch_add(1,std::memory_order_relaxed);
+    }
+    void completed(size_t flushed){
+        if(flushed>72)throw std::runtime_error("invalid flushed hour count");
+        if(flushed)credits.release(std::ptrdiff_t(flushed));
+    }
+    void cancel(){
+        if(!canceled.exchange(true,std::memory_order_acq_rel))credits.release(std::ptrdiff_t(workers));
+    }
+};

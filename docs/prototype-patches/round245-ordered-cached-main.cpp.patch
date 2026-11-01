@@ -1,0 +1,28 @@
+--- isolated-236-cached/track-a/main.cpp
++++ isolated245-ordered-cached/track-a/main.cpp
+@@ -50,7 +50,7 @@
+                             uint64_t latency=decimal_digits(p,limit);
+                             if(p==start||p-start>10||latency>UINT32_MAX||p==limit||*p!='\n')throw std::runtime_error("invalid latency");
+                             ++p;uint16_t key=local_names.intern(endpoint);auto& group=groups[key];
+-                            if(!group.count)order.push_back(key);++group.count;group.errors+=error;
++                            ++group.count;group.errors+=error;
+                             records.push_back(std::min(uint32_t(latency),latency_escape)<<13|uint32_t(error)<<12|key);
+                             if(latency>=latency_escape)wide.push_back(uint32_t(latency));
+                         }
+@@ -58,14 +58,14 @@
+                     HourRuns().swap(chunk.runs[hour]);
+                 }
+                 if(records.size()!=count)throw std::runtime_error("hour index count mismatch");
+-                std::sort(order.begin(),order.end(),[&](uint16_t a,uint16_t b){return endpoints.canonical[a]<endpoints.canonical[b];});
++                order=endpoints.ordered();
+                 uint32_t offset=0;for(uint16_t key:order){cursor[key]=offsets[key]=offset;offset+=groups[key].count;}
+                 latencies.resize(count);size_t wi=0;
+                 for(uint32_t record:records){uint32_t latency=record>>13;if(latency==latency_escape)latency=wide[wi++];latencies[cursor[record&4095]++]=latency;}
+                 Records().swap(records);std::vector<uint32_t>().swap(wide);
+                 std::string label=std::string(file.data+first_line,13)+":00:00Z";auto& out=writer.hours[hour];out.bytes.reserve(order.size()*100);
+                 for(uint16_t key:order){
+-                    uint64_t n=groups[key].count,errors=groups[key].errors;auto first=latencies.begin()+offsets[key];
++                    uint64_t n=groups[key].count,errors=groups[key].errors;if(!n)continue;auto first=latencies.begin()+offsets[key];
+                     if(n<32)std::sort(first,first+n);
+                     else{size_t unselected=0;for(uint64_t percentile:{50,95,99}){size_t rank=(percentile*n+99)/100-1;if(rank>=unselected){std::nth_element(first+unselected,first+rank,first+n);unselected=rank+1;}}}
+                     out.text(label);out.text(" ");out.text(endpoints.canonical[key]);

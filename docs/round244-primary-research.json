@@ -1,0 +1,28 @@
+{
+  "observed_at_utc": "2026-11-01T05:54:03.639785+00:00",
+  "official_score": false,
+  "scope": "Primary-source API/research review only; no library/competitor implementation copied or adapted. Existing own runtime uses standard library semaphore, exact percentiles remain required. Native/GCC strict/race/protocol/image checks, not abstract documentation, bind candidate correctness.",
+  "sources": [
+    {
+      "title": "GCC15 counting_semaphore API source documentation",
+      "url": "https://gcc.gnu.org/onlinedocs/gcc-15.1.0/libstdc++/api/a00194_source.html",
+      "finding": "Standard acquire/release counting API; max/constructor preconditions must hold. Own window validates1..12 before construction, no more than96 credits even with one cancellation (max128). No compiler-bug-free guarantee inferred from API docs; pinned-image executions are recorded separately."
+    },
+    {
+      "title": "GCC upstream semaphore rewrite discussion",
+      "url": "https://gcc.gnu.org/pipermail/gcc-patches/2025-May/685054.html",
+      "finding": "Upstream implementation changes and precondition checks are compiler-version-sensitive. No new code is copied and no newer patch is assumed to be in the pinned image."
+    },
+    {
+      "title": "UMD Parallel Selection Overview",
+      "url": "https://www.umiacs.umd.edu/research/EXPAR/papers/3494/node17.html",
+      "finding": "Public primary research discusses exact shared-memory selection; no new algorithm implementation or performance result follows from the abstract."
+    }
+  ],
+  "reproduction": {
+    "count_only_model": "tools/test_csv_field_modes.cpp byte-identical to isolated tested csv_field_model.cpp; pass CSV_HEADER macro to a wrapper containing byte-exact production Field/Csv and original quote header. Numeric model remains tools/test_csv_numeric.cpp.",
+    "fresh_floyd_patch": "docs/prototype-patches/round237-independent-graphs.py.patch",
+    "fresh_floyd_sha256": "988a5180c61b86a1d6fcefcb2baab9613a849bceafec0182f6834e57b4695ce1",
+    "note": "Patch records the actual fresh seed/threads/data-root adaptations; original tools/test_band_graphs.py unchanged. Generated inputs stay outside runtime images, never answer caches."
+  }
+}

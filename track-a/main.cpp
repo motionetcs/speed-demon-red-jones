@@ -7,6 +7,7 @@
 #include <memory>
 #include <numeric>
 #include "ordered_output.hpp"
+#include "hour_work.hpp"
 
 static constexpr uint32_t latency_escape = (1U << 19) - 1;
 using Records=std::vector<uint32_t,MappedAllocator<uint32_t>>;
@@ -71,19 +72,20 @@ int main(int argc, char** argv) {
         std::vector<uint16_t> order(paths.size()); std::iota(order.begin(), order.end(), 0);
         std::sort(order.begin(), order.end(), [&](uint16_t a, uint16_t b) { return paths[a] < paths[b]; });
         OrderedOutput writer(run_paths.out / "summary.txt");
-        std::atomic<unsigned> next_hour{0};
+        HourWorkWindow work(threads);
         parallel(threads, [&](unsigned) {
+            try {
             std::vector<Count> groups(paths.size());
             std::vector<uint32_t> offsets(paths.size()), cursor(paths.size()), latencies;
             for (;;) {
-                unsigned hour = next_hour.fetch_add(1, std::memory_order_relaxed); if (hour >= 72) return;
+                unsigned hour = work.claim(); if (hour >= 72) return;
                 std::fill(groups.begin(), groups.end(), Count{});
                 size_t count = 0; uint32_t first_line = UINT32_MAX;
                 for (const auto& chunk : chunks) {
                     count += chunk.records[hour].size(); first_line = std::min(first_line, chunk.first[hour]);
                     for (uint32_t record : chunk.records[hour]) { auto& group = groups[record & 4095]; ++group.count; group.errors += (record >> 12) & 1; }
                 }
-                if(!count){writer.publish(hour);continue;}
+                if(!count){work.completed(writer.publish(hour));continue;}
                 uint32_t offset = 0;
                 for (uint16_t key : order) { cursor[key] = offsets[key] = offset; offset += groups[key].count; }
                 latencies.resize(count);
@@ -113,8 +115,9 @@ int main(int argc, char** argv) {
                     for (uint64_t value : {n, uint64_t(first[(50 * n + 99) / 100 - 1]), uint64_t(first[(95 * n + 99) / 100 - 1]), uint64_t(first[(99 * n + 99) / 100 - 1]), errors, errors * 1000000 / n}) { out.text(" "); out.number(static_cast<int64_t>(value)); }
                     out.text("\n");
                 }
-                writer.publish(hour);
+                work.completed(writer.publish(hour));
             }
+            } catch (...) { work.cancel(); throw; }
         });
         writer.finish();
     } catch (const std::exception& e) { std::fprintf(stderr,"track-a: %s\n",e.what()); return 1; }
