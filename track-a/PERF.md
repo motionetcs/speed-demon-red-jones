@@ -585,3 +585,6 @@ Candidate255 local proof, official trial pending. New isolated254 replaces old40
 
 
 258/5871ce0 run-14201f55515d original source allfive real gatesPASS: T0.046470s/M21217280/S497/K30.431731/74.166333 points. Exact original best-source/Git/frozen/local-image proof ../docs/round258-final-source-match.json; lower identical-source repeats are variation, including C slow outlier, not a new source regression or gain. No new compiler/training/broad-bank replay or rejected aligned proof substitution. Raw ../docs/board-round258-selected-confirmation.json.
+
+
+262/5198eaf run-ea2dcfb169c2 all five real gatesPASS: T0.047618s/M21192704/S497/K30.069630/73.906404 points. Unchanged original source repeat; lower result is variation, not a new source regression or gain. Exact29 actual/Git/frozen/image proof ../docs/round262-scored-source-match.json. New degree-two models/GCC/PGO/image proofs remain historical to rejected code; never relabeled as original. Raw ../docs/board-round262-degree2-bypass.json.

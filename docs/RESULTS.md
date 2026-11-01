@@ -19,7 +19,7 @@ A178 changes only the first build-time training104729/sample→1000003/full, kee
 
 A retains163 ordered mapped-output/prefix8/exact4096 cache. C is fully original std::hash/low32 offset/eight-reader/four-owner/512-event with original16-byte quote scan. A/C/D use full1000003/sample130363 offline PGO. D retains12 atomic degree/cursor workers, bidirectional CSR/band64/query32 and arena2. Every new native-ISA/CRC/AVX-quote/radix/weight-skip/query-order prototype is absent. OWNER-BRIEFING describes actual techniques without claiming personal understanding.
 
-Candidate262 is locally selected for one real all-track trial: only D main.cpp adds reciprocal degree-two bypass, with complete native/strict/race/GCC/image/default/actual-Make proof and exact29/Make/image binding in [candidate proof](round262-candidate-source-match.json). A/C stay original and match their best sources. Last passing original258 **5871ce017f49bb33b37679de221350b09a3b7eb4** is preserved as rollback, [exact proof](round258-final-source-match.json). No new target gain is claimed before the real record; local images are distinct from organizer binaries.
+Candidate262 passed all five real gates but D scored **63.262026/K18.417918**, below best65.319494/K20.248361; the whole degree-two change is rejected. [Exact actual-source proof](round262-scored-source-match.json). Original all29/Make is restored locally with fresh D public/default checks, awaiting real263 restoration confirmation. A/C unchanged; original258 remains the previous passing recorded source, [proof](round258-final-source-match.json). No new target gain is claimed.
 
 | Last passing258 | Run | Time | Charged memory | S | K | Points |
 | --- | --- | ---: | ---: | ---: | ---: | ---: |
@@ -148,3 +148,6 @@ Hourly local continuation remains active while Mac/app are available. Finish exa
 
 
 258 real original restoration passes all five gates at5871ce017f49bb33b37679de221350b09a3b7eb4. Best scores unchanged, current full feed rank44/94. Larger fresh degree-two preprocessing260 and two-phase parallel independent-set261 both pass legal-input public/untrained reference screening but lose or are flat:260 paired1.097161/1.092828/1.118897;2611.003411/.991176/.997330. Reject before subset-activation/Floyd/strict/race/GCC/image/actual proof; no target gain or general correctness claim. Primary paper motivates the distance-preserving concept, not a timing prediction; no library/competitor solution imported. Exact patches/decisions preserved outside scored folders. Original all29/Make/images remain selected.
+
+
+262/5198eaf actual D run-f7e163626bbc: T0.231625s/M74383360/S912/K18.417918/63.262026, every gatePASS. Memory is2539520B lower than the old best (3.30%), but time/source/totalK lose. These are record comparisons, not a precise causal estimate. Entire new main/README restored; new degree-two tests remain historical, not original-source proof. Fresh original263 native/image public1/6/12 and actual noarg/nooverride defaults pass using immutable original binaries/images, no compilation/training/broad replay. Single real restoration next.

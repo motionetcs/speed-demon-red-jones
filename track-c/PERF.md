@@ -676,3 +676,6 @@ Candidate249 selected local proof: original SCALAR Csv, PIPELINE_READERS8→7 pl
 
 
 258/5871ce0 run-db01c551499e original source allfive real gatesPASS: T0.100887s/M11845632/S672/K18.078394/62.857992 points. Exact original best-source/Git/frozen/local-image proof ../docs/round258-final-source-match.json; lower identical-source repeats are variation, including C slow outlier, not a new source regression or gain. No new compiler/training/broad-bank replay or rejected aligned proof substitution. Raw ../docs/board-round258-selected-confirmation.json.
+
+
+262/5198eaf run-30dbe3e153da all five real gatesPASS: T0.063480s/M12181504/S672/K22.663681/67.766522 points. Unchanged original source repeat; lower result is variation, not a new source regression or gain. Exact29 actual/Git/frozen/image proof ../docs/round262-scored-source-match.json. New degree-two models/GCC/PGO/image proofs remain historical to rejected code; never relabeled as original. Raw ../docs/board-round262-degree2-bypass.json.
