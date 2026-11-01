@@ -531,3 +531,13 @@ Fresh2053/2063 strict ASAN/UBSAN, full2039,2069 TSAN, public1/6/12, all countrie
 
 
 187/d6cea74 run-0040c07b5d6f all five real gates pass: T0.098959s/M12079104/S672/K18.182538/62.982725 points. Original C fully restored. Lower same-source0.098959s/62.982725 outlier stays separate from68.118071 best; no algorithm-regression or target-phase explanation asserted. All29 inputs/full file sets match current selected and best-track sources, round187-final-source-match.json; fresh original-C405 references/30 errors and combined public/defaults pass. Raw ../docs/board-round187-selected-confirmation.json.
+
+
+189/ceb78f8 run-31c9587a4cc3 passes all five real gates on unchanged selected187 runtime: T0.061886s/M12267520/S672/K22.921420/68.012076 points. Lower same-source variation; C0.061886s here versus1870.098959s is not a new algorithm gain or causal explanation. Raw ../docs/board-round189-evidence-head.json.
+
+
+## Bounded AVX2 first-quote search
+
+190 adds only a32-byte AVX2 first-match loop before the original SSE16/NEON/scalar tail. Each complete in-range load compares bytes to quote, extracts a32-bit mask and uses trailing-zero count only for a nonzero mask. Mask bit31 is preserved through uint32 conversion. Tail/parser/escaped-pair/decoded count/raw canonical key/numeric/country/partition/queue/PGO/default logic stays. This is distinct from losing121's full structural/PCLMUL parser and112's payload quote-count mask. No CSV grammar assumptions are weakened. ARM executes the unchanged fallback, so no native ARM speedup is claimed. Primary Clang intrinsic semantics and official kickoff transcript support the AVX2-only target hypothesis; no played-video claim.
+
+Fresh independent quote model checks0..256 lengths/all quote positions, every256 byte at96 offsets,65536 low16 masks/high31/63,100000 random binary buffers,1MiB/logical ends with quotes immediately outside and both protected-page boundaries. NativeNEON/scalar and GCC AVX2/SSE2/scalar strict ASAN/UBSAN pass; exact preprocessed helper confirms32-byte AVX2 block only in AVX2 mode. New2101/2111 ASAN/UBSAN/full2129,2131 TSAN, all countries/every topology/1MiB/pressure/normal errors pass. GCC strict144 valid+30 normal errors uses-march=native and proves__AVX2__, so new path really executes. Exact PGO image405 valid+30 errors, public1/6/12 and actual combined native/Linux defaults pass. Original queue/name protocols stay source-bound; nativeTSAN is unchanged NEON/shared-protocol evidence, not an unexecuted x86TSAN claim. All29 source/image/context/file sets bind in round190-candidate-source-match.json. Keep only if real C K>23.033578/68.118071, otherwise restore quote_scan.hpp/README exactlyceb78f8 and original263099fc image. No target gain before actual result.

@@ -9,3 +9,5 @@ An exact local synchronization proof selects true record boundaries. Reader work
 No input seed or answer is recognized. All output is computed in the timed run. See `PERF.md` for actual experiments, source/memory costs, independent tests and real board outcomes.
 
 Owner table entries use a32-bit rejection fingerprint and a32-bit stable-block word index. Full length/byte equality still decides names, including collisions; the complete64-bit hash routes owners.64KiB word blocks and dedicated oversized-key blocks retain exact name bytes/country words with checked index arithmetic.
+
+Candidate190 searches complete in-range32-byte blocks for the first quote when compiled for AVX2. Existing SSE16/NEON/scalar tails and every parser statement/key/byte-count/pipeline rule remain. Only nonzero masks use trailing-zero count. ARM runs the unchanged fallback, so no native ARM timing advantage is claimed; only actual target total K can retain this hypothesis.

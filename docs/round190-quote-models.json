@@ -1,0 +1,95 @@
+{
+  "observed_at_utc": "2026-11-01T00:41:22.260007+00:00",
+  "official_score": false,
+  "passed": true,
+  "scope": "Fresh exact190 first-quote scalar oracle: lengths0..256, every single quote offset, all256 bytes at96 positions,65536 low16 masks with high31/63 quotes,100000 random binary0..1024 buffers,1MiB scan, logical ends with quotes immediately outside, both protected-page boundaries. Native NEON/scalar and pinned GCC AVX2/SSE2/scalar strict ASAN/UBSAN execute. GCC preprocessed exact helper body proves AVX2 block is present only in AVX2 mode, with SSE16 tail; long no-quote inputs necessarily exercise vector loop. No native/Intel timing or pipeline correctness claimed by primitive model alone.",
+  "native_runs": [
+    {
+      "mode": "native-neon",
+      "compile": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-fsanitize=address,undefined",
+        "-fno-sanitize-recover=all",
+        "-fno-omit-frame-pointer",
+        "-DQUOTE_SCAN_HEADER=\"/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round190/source/track-c/quote_scan.hpp\"",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/tools/test_quote_scan.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round190/models/native-neon"
+      ],
+      "stdout": "PASS independent first-quote reference, all bytes/offsets,16-bit masks, random/1MiB/logical-tail and both protected-page boundaries; compiled=NEON\n",
+      "stderr": "",
+      "binary_sha256": "91ba1569768a0d414b4e1fb21587c100e9b690403daf5ab5399e492656b1c6f0"
+    },
+    {
+      "mode": "native-scalar",
+      "compile": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-fsanitize=address,undefined",
+        "-fno-sanitize-recover=all",
+        "-fno-omit-frame-pointer",
+        "-U__ARM_NEON",
+        "-DQUOTE_SCAN_HEADER=\"/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round190/source/track-c/quote_scan.hpp\"",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/tools/test_quote_scan.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round190/models/native-scalar"
+      ],
+      "stdout": "PASS independent first-quote reference, all bytes/offsets,16-bit masks, random/1MiB/logical-tail and both protected-page boundaries; compiled=scalar\n",
+      "stderr": "",
+      "binary_sha256": "cd5a8e4f95f0b6a621aa09e88cb76ff0e536f6472c57b1c7c02a3f194e50feff"
+    }
+  ],
+  "compiler_image": "gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce",
+  "gcc_script": [
+    "set -eu",
+    "export ASAN_OPTIONS=halt_on_error=1",
+    "export UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1",
+    "g++ -std=c++20 -O1 -g -mavx2 -fsanitize=address,undefined -fno-sanitize-recover=all -fno-omit-frame-pointer '-DQUOTE_SCAN_HEADER=\"/repo/.build/round190/source/track-c/quote_scan.hpp\"' /repo/tools/test_quote_scan.cpp -o /tmp/avx2",
+    "/tmp/avx2",
+    "g++ -std=c++20 -mavx2 -E -P '-DQUOTE_SCAN_HEADER=\"/repo/.build/round190/source/track-c/quote_scan.hpp\"' /repo/tools/test_quote_scan.cpp > /out/avx2-preprocessed.cpp",
+    "g++ -std=c++20 -O1 -g -msse2 -mno-avx -mno-avx2 -fsanitize=address,undefined -fno-sanitize-recover=all -fno-omit-frame-pointer '-DQUOTE_SCAN_HEADER=\"/repo/.build/round190/source/track-c/quote_scan.hpp\"' /repo/tools/test_quote_scan.cpp -o /tmp/sse2",
+    "/tmp/sse2",
+    "g++ -std=c++20 -msse2 -mno-avx -mno-avx2 -E -P '-DQUOTE_SCAN_HEADER=\"/repo/.build/round190/source/track-c/quote_scan.hpp\"' /repo/tools/test_quote_scan.cpp > /out/sse2-preprocessed.cpp",
+    "g++ -std=c++20 -O1 -g -mno-avx -mno-avx2 -U__SSE2__ -fsanitize=address,undefined -fno-sanitize-recover=all -fno-omit-frame-pointer '-DQUOTE_SCAN_HEADER=\"/repo/.build/round190/source/track-c/quote_scan.hpp\"' /repo/tools/test_quote_scan.cpp -o /tmp/scalar",
+    "/tmp/scalar",
+    "g++ -std=c++20 -mno-avx -mno-avx2 -U__SSE2__ -E -P '-DQUOTE_SCAN_HEADER=\"/repo/.build/round190/source/track-c/quote_scan.hpp\"' /repo/tools/test_quote_scan.cpp > /out/scalar-preprocessed.cpp",
+    "g++ -std=c++20 -march=native -dM -E -x c++ /dev/null > /out/native-macros.txt"
+  ],
+  "gcc_stdout": "PASS independent first-quote reference, all bytes/offsets,16-bit masks, random/1MiB/logical-tail and both protected-page boundaries; compiled=AVX2\nPASS independent first-quote reference, all bytes/offsets,16-bit masks, random/1MiB/logical-tail and both protected-page boundaries; compiled=SSE2\nPASS independent first-quote reference, all bytes/offsets,16-bit masks, random/1MiB/logical-tail and both protected-page boundaries; compiled=scalar\n",
+  "gcc_stderr": "",
+  "gcc_preprocessed_helper": {
+    "avx2": {
+      "sha256": "a8783bcb6091adb7a039c6b0df15171e94595b3ba5ff15bc4c4a6baade8cd655",
+      "contains_avx2_load": true,
+      "contains_sse2_tail": true
+    },
+    "sse2": {
+      "sha256": "6c218b0b7c7043fc973cca60e69b19a141caf2f64b44b816468d628d37c29fd6",
+      "contains_avx2_load": false,
+      "contains_sse2_tail": true
+    },
+    "scalar": {
+      "sha256": "38cda164f80ea661bab6b8ccdcfac30557ead4d878f2783a570da821b587c082",
+      "contains_avx2_load": false,
+      "contains_sse2_tail": false
+    }
+  },
+  "gcc_march_native_features": [
+    "#define __SSE4_2__ 1",
+    "#define __AVX2__ 1",
+    "#define __SSE2__ 1"
+  ],
+  "header_sha256": "9bdee7f204381aa1cab5c631e39bd94ce07c79b6079bf949105f0669ac5e7699",
+  "model_sha256": "b3383116206acffca5feafab4e710628483afadf7f41c279cd08ea7207223c24"
+}

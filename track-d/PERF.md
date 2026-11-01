@@ -461,3 +461,6 @@ Fresh sample1801/1811 strict ASAN/UBSAN,1819 TSAN, public1/6/12, all high-degree
 188 screens one outgoing CSR/cursor/adjacency plus exact one-direction banded Dijkstra. Atomic incoming-byte flags generically reject no-in targets, with no catalogue/seed logic. Target relaxations give an upper bound; only a between-batch queue floor >=best would stop. Existing headers and sentinel sidecar keys i*2 stay. This new construction/query/flag/termination protocol would need independent/Floyd/full64/partial-batch/native-GCC strict/race/full/reference/image/default/actual proof; a public hash is not that proof.
 
 Eleven rotating public hashes pass, but retained0.183108542s/RSS179421184 versus one-way0.317186084/159891456 has paired1.737101 (73.71% slower), for19,529,728 fewer native RSS bytes. Reject before promotion; no Intel/cgroup K or generic correctness claim. Original bidirectional D stays. Exact limits/patches: round188-prototype-index.json, round188-oneway-screen.json. This larger idea is tried/rejected, not an unimplemented priority.
+
+
+189/ceb78f8 run-5e01e6895a08 passes all five real gates on unchanged selected187 runtime: T0.196251s/M77217792/S827/K20.153588/65.217619 points. Lower same-source variation; C0.061886s here versus1870.098959s is not a new algorithm gain or causal explanation. Raw ../docs/board-round189-evidence-head.json.

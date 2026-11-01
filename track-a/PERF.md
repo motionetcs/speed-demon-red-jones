@@ -460,3 +460,6 @@ Pinned offline allowlisted A build/public1/6/12 passes, followed by81 exact-imag
 
 
 187/d6cea74 run-d3e26c39a872 all five real gates pass: T0.043080s/M21213184/S497/K31.607629/74.989596 points. Unchanged178 build lower repeat;75.240074/K31.974332 stays best. Mixed repeats limit causality. All29 inputs/full file sets match current selected and best-track sources, round187-final-source-match.json; fresh original-C405 references/30 errors and combined public/defaults pass. Raw ../docs/board-round187-selected-confirmation.json.
+
+
+189/ceb78f8 run-9c865e71a863 passes all five real gates on unchanged selected187 runtime: T0.043933s/M20951040/S497/K31.377215/74.830719 points. Lower same-source variation; C0.061886s here versus1870.098959s is not a new algorithm gain or causal explanation. Raw ../docs/board-round189-evidence-head.json.
