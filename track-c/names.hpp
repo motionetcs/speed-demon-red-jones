@@ -1,6 +1,12 @@
 #pragma once
 #define SPEED_DEMON_OFFSET_NAMES 1
 #include <algorithm>
+#include <bit>
+#if defined(__SSE2__)
+#include <immintrin.h>
+#elif defined(__ARM_NEON)
+#include <arm_neon.h>
+#endif
 #include <atomic>
 #include <thread>
 #include <cstdint>
@@ -15,9 +21,10 @@
 
 // One owner owns the relocatable arena. Word indices survive every growth.
 struct Names {
-    struct Entry {uint32_t hash=0,index=0;};
-    std::vector<Entry> entries;std::vector<std::unique_ptr<uint64_t[]>> storage;size_t words,used=0,next=0,remaining=0;
-    explicit Names(size_t countries):entries(16384),words((countries+63)/64){}
+    struct Group {uint32_t hashes[4]={},indices[4]={};};
+    static_assert(sizeof(Group)==32);
+    std::vector<Group> entries;std::vector<std::unique_ptr<uint64_t[]>> storage;size_t words,used=0,next=0,remaining=0;
+    explicit Names(size_t countries):entries(4096),words((countries+63)/64){}
     static uint64_t hash_key(std::string_view key){uint64_t h=std::hash<std::string_view>{}(key);return h<2?h+2:h;}
     static uint32_t encode_index(size_t block,size_t word){
         if(block>=(size_t(1)<<19)||word>=8192)throw std::runtime_error("name block/word index capacity");
@@ -46,26 +53,57 @@ struct Names {
     std::string_view bytes(uint32_t index)const{
         auto* data=at(index);return {reinterpret_cast<const char*>(data+1+words),static_cast<size_t>(data[0])};
     }
+    static constexpr unsigned lane_bits=
+#if defined(__ARM_NEON) && !defined(__SSE2__) && __BYTE_ORDER__==__ORDER_LITTLE_ENDIAN__
+        16;
+#else
+        1;
+#endif
+    static uint64_t equal_lanes(const uint32_t* p,uint32_t key){
+#if defined(__SSE2__)
+        auto values=_mm_loadu_si128(reinterpret_cast<const __m128i*>(p));
+        return static_cast<unsigned>(_mm_movemask_ps(_mm_castsi128_ps(_mm_cmpeq_epi32(values,_mm_set1_epi32(key)))));
+#elif defined(__ARM_NEON) && __BYTE_ORDER__==__ORDER_LITTLE_ENDIAN__
+        auto matches=vceqq_u32(vld1q_u32(p),vdupq_n_u32(key));
+        return vget_lane_u64(vreinterpret_u64_u16(vmovn_u32(matches)),0);
+#else
+        uint64_t mask=0;for(unsigned i=0;i<4;++i)mask|=uint64_t(p[i]==key)<<i;return mask;
+#endif
+    }
+    static unsigned lane(uint64_t mask){return std::countr_zero(mask)/lane_bits;}
+    static size_t home(uint32_t fingerprint,size_t size){return (fingerprint>>2)&(size-1);}
     void grow(){
-        if(entries.size()>SIZE_MAX/2/sizeof(Entry))throw std::runtime_error("name table overflow");
-        std::vector<Entry> larger(entries.size()*2);
-        for(auto e:entries)if(e.index){size_t i=e.hash&(larger.size()-1);while(larger[i].index)i=(i+1)&(larger.size()-1);larger[i]=e;}
+        if(entries.size()>SIZE_MAX/2/sizeof(Group))throw std::runtime_error("name table overflow");
+        std::vector<Group> larger(entries.size()*2);
+        for(const auto& group:entries)for(unsigned j=0;j<4;++j)if(group.indices[j]){
+            size_t i=home(group.hashes[j],larger.size());
+            for(;;){uint64_t empty=equal_lanes(larger[i].indices,0);
+                if(empty){unsigned k=lane(empty);larger[i].hashes[k]=group.hashes[j];larger[i].indices[k]=group.indices[j];break;}
+                i=(i+1)&(larger.size()-1);
+            }
+        }
         entries.swap(larger);
     }
     bool first(std::string_view key,size_t country,uint64_t hash){
-        uint32_t fingerprint=static_cast<uint32_t>(hash);size_t i=fingerprint&(entries.size()-1);
+        uint32_t fingerprint=static_cast<uint32_t>(hash),selected=0;size_t i=home(fingerprint,entries.size());
         for(;;){
-            auto& e=entries[i];
-            if(!e.index){
-                if(used>=entries.size()*7/8){grow();i=fingerprint&(entries.size()-1);continue;}
-                uint32_t index=make(key);e={fingerprint,index};++used;break;
+            auto& group=entries[i];uint64_t empty=equal_lanes(group.indices,0);
+            uint64_t matches=equal_lanes(group.hashes,fingerprint)&~empty;
+            while(matches){unsigned j=lane(matches);
+                if(bytes(group.indices[j])==key){selected=group.indices[j];break;}
+                matches&=~(((uint64_t(1)<<lane_bits)-1)<<(j*lane_bits));
             }
-            if(e.hash==fingerprint&&bytes(e.index)==key)break;
+            if(selected)break;
+            if(empty){
+                if(used>=entries.size()*7/2){grow();i=home(fingerprint,entries.size());continue;}
+                unsigned j=lane(empty);selected=make(key);group.hashes[j]=fingerprint;group.indices[j]=selected;++used;break;
+            }
             i=(i+1)&(entries.size()-1);
         }
-        auto& bits=at(entries[i].index)[1+country/64];uint64_t bit=uint64_t(1)<<(country%64);
+        auto& bits=at(selected)[1+country/64];uint64_t bit=uint64_t(1)<<(country%64);
         bool fresh=!(bits&bit);bits|=bit;return fresh;
     }
+
 };
 struct NameEvent {
     std::string_view key;uint64_t hash;uint16_t country;

@@ -9,9 +9,9 @@ The two material retained layout changes are mapped records (real145, run-1fc761
 | Record | Run ID | T seconds | Charged memory bytes | S | K | Machine points |
 | --- | --- | ---: | ---: | ---: | ---: | ---: |
 | Best observed | run-004bfb2aafff | 0.042474 | 20746240 | 497 | 31.974332 | 75.240074 |
-| Passing original270 | run-d2cafa1720c7 | 0.050079 | 20918272 | 497 | 29.398011 | 73.415898 |
+| Passing original275 | run-e80b829be01b | 0.043878 | 20717568 | 497 | 31.467321 | 74.892988 |
 
-These are real public-board records, not final holdout or judging totals. All five gates pass for both rows. Local native timing/RSS and emulated Linux checks are labeled separately throughout this log. The observed best is not a promise of repeatable timing or victory. [Current source and decisions](../docs/RESULTS.md), [exact passing source proof](../docs/round270-final-source-match.json), [latest raw record](../docs/board-round270-selected-confirmation.json).
+These are real public-board records, not final holdout or judging totals. All five gates pass for both rows. Local native timing/RSS and emulated Linux checks are labeled separately throughout this log. The observed best is not a promise of repeatable timing or victory. [Current source and decisions](../docs/RESULTS.md), [exact passing source proof](../docs/round275-final-source-match.json), [latest raw record](../docs/board-round275-selected-confirmation.json).
 
 ## Historical experiments
 
@@ -590,7 +590,7 @@ Candidate255 local proof, official trial pending. New isolated254 replaces old40
 262/5198eaf run-ea2dcfb169c2 all five real gatesPASS: T0.047618s/M21192704/S497/K30.069630/73.906404 points. Unchanged original source repeat; lower result is variation, not a new source regression or gain. Exact29 actual/Git/frozen/image proof ../docs/round262-scored-source-match.json. New degree-two models/GCC/PGO/image proofs remain historical to rejected code; never relabeled as original. Raw ../docs/board-round262-degree2-bypass.json.
 
 
-263/737b80f run-8131a6fabe83 original allfive real gatesPASS: T0.047414s/M20885504/S497/K30.222379/74.016432 points. Exact original best-source/Git/frozen/local-image proof ../docs/round270-final-source-match.json. Lower identical-source repeats are variation; no new gain or rejected degree-two proof substitution. Fresh D-only original public/default checks used immutable binaries/images, no compilation/training/broad replay. Raw ../docs/board-round270-selected-confirmation.json.
+263/737b80f run-8131a6fabe83 original allfive real gatesPASS: T0.047414s/M20885504/S497/K30.222379/74.016432 points. Exact original best-source/Git/frozen/local-image proof ../docs/round263-final-source-match.json. Lower identical-source repeats are variation; no new gain or rejected degree-two proof substitution. Fresh D-only original public/default checks used immutable binaries/images, no compilation/training/broad replay. Raw ../docs/board-round263-selected-confirmation.json.
 
 
 264 two/four independent newline-aligned cursors per existing worker were freshly implemented in isolated own source, retaining12 total workers/exact cache/latency escapes and minimum first-line positions. Existing263 native control reused; each prototype compiled once under shared lock. Published1/6/12 plus13 rotating triples over public/full1951/full2221 match every exact reference and before-after input/source/ELF hash. Stream2 paired ratios.981771/.984287/.982195; stream4 .985507/.984106/.984301, essentially flat native RSS. Reject weak time/source case BEFORE broad partition/strict/race/GCC/image/default/board promotion. No Intel total-K gain. docs/round264-a-stream-screen.json; immutable .build/round264/frozen.json. Conceptual inspiration from independent-state latency hiding in Kocberber/Falsafi/Grot AMAC (https://www.research.ed.ac.uk/en/publications/asynchronous-memory-access-chaining/); this simple row-level interleaving is not complete AMAC and uses no copied implementation.
@@ -611,3 +611,9 @@ Candidate268 local proof complete, real trial pending. Only six-number suffix fo
 
 
 270/4821139 original-source confirmation run-d2cafa1720c7 passes all five actual gates: T0.050079s/M20918272/S497/K29.398011/73.415898. Full original all29/Make/Git/source/image identity verified. Lower unchanged-source repeats remain variation; no target-phase explanation or new gain claimed. Raw ../docs/board-round270-selected-confirmation.json and exact ../docs/round270-final-source-match.json.
+
+
+Original275/06d3742686e78a4bfa7c7ad85adc4df9e827c3d7 all five actual gatesPASS, run-e80b829be01b: T0.043878s/M20717568/S497/K31.467321/74.892988. Complete all29/Make/README/Git/best component/local-image identity in ../docs/round275-final-source-match.json. Entire rejected274 route/style change removed. Best remains unchanged; lower latest repeat is preserved as variation without a new causal timing claim. Raw ../docs/board-round275-selected-confirmation.json.
+
+
+278 exact small-group median/top-two prototype is rejected at native screen. n<4 sort;4..31 median nth then upper-tail top1/top2 because nearest95/max agree through19 and nearest95 is second-max for20..31; larger groups unchanged. One compile, original263 control, full-public1/6/12 and13 rotating pairs public/full1951/full2221 all input/output/source/ELF hashes PASS. Ratios.990631/1.020653/.998557, wins9/4/7 are mixed/flat with source growth. No independent exhaustive sort/rank/duplicates/full32/guard/strict/race/GCC/image/default/actual proof or target gain claimed. Original selected source untouched. Exact ../docs/round278-a-small-order-statistics-screen.json and ../docs/prototype-patches/round278-a-small-order-statistics-main.cpp.patch.

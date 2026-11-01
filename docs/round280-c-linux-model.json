@@ -1,0 +1,135 @@
+{
+  "started_at_utc": "2026-11-01T14:16:54.457362+00:00",
+  "official_score": false,
+  "mode": "model",
+  "track": "c",
+  "source_sha256": {
+    "track-c/training_generator.py": "9e61672eb814fa4e1bc2e3cf30c8e7ca9629804191ce5ae60a66c8b61ba704f2",
+    "track-c/Dockerfile": "637e81c6fca4507f4c4e7368efde7b6904d07879ae9ec992c5e25175d50e1fae",
+    "track-c/names.hpp": "d6903e0cf607fae00483cbe5a4138ee48b1b5b459a81813e0e74f8a5c6af87b9",
+    "track-c/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+    "track-c/quote_scan.hpp": "0b170a766254dee1bc14f9e9180cc1900da01d41f5d09053d5579e01a7fb9cfa",
+    "track-c/README.md": "6a64233dcbf8967678d87f403c99969067f468ee5066b0f172751f437cccb841",
+    "track-c/PERF.md": "5a77f7ef846af1ceb8950949d299ee45ac0d50e5f352e6fa4394a3882bb35e40",
+    "track-c/.speed-demon.toml": "3371600b8033a377bc373378e703191dfec36c1ae991b617650dfa480edc00b4",
+    "track-c/main.cpp": "08ff83e5eab7d03c2221f37064f5fb698a2d14f7e79e9e355e19b5e7bdf96e92",
+    "track-c/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420"
+  },
+  "manifest_sha256": "130c749adb0407984365a86ddfb52e9912f3aeb2d03292cfb2c5485b10dabf88",
+  "native_proof_sha256": "015cac995fedacebc0785803a3e454cc692bc51caeb915d23446e093d7719ba3",
+  "scope": "Fresh exact C280 group4 full32-bit-fingerprint/zero-index SIMD owner table under restricted pinned offline Linux/amd64 strict GCC or unique unchanged-training PGO image. All new lane/empty/collision/probe/growth/full-key/country models execute against this header; prior linear/group8 passes are not substituted. Native/emulated timings are not organizer K/cgroup/ELF evidence.",
+  "commands": [
+    {
+      "label": "model",
+      "argv": [
+        "docker",
+        "run",
+        "--rm",
+        "--platform",
+        "linux/amd64",
+        "--network=none",
+        "--read-only",
+        "--memory=8g",
+        "--memory-swap=8g",
+        "--pids-limit=512",
+        "--cap-drop=ALL",
+        "--security-opt=no-new-privileges",
+        "--user",
+        "65534:65534",
+        "--tmpfs",
+        "/tmp:rw,exec,size=1g",
+        "-i",
+        "--entrypoint",
+        "/bin/sh",
+        "-v",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh:/repo:ro",
+        "-v",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round280/linux-proof/model:/out:rw",
+        "gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce",
+        "-s"
+      ],
+      "stdin": "set -eu\nexport ASAN_OPTIONS=halt_on_error=1\nexport UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1\ng++ --version\ng++ -std=c++20 -O1 -g -march=native -Wall -Wextra -Wpedantic -Werror -pthread -fsanitize=address,undefined -fno-sanitize-recover=all -fno-omit-frame-pointer '-DNAMES_HEADER=\"/repo/.build/round280/source/track-c/names.hpp\"' /repo/.build/round280/native-proof/group_model.cpp -o /out/route-model\nsha256sum /out/route-model >/out/route-model.sha256.tmp\nmv /out/route-model.sha256.tmp /out/route-model.sha256\n/out/route-model >/out/model.out 2>/out/model.err\n"
+    },
+    {
+      "label": "scalar-model",
+      "argv": [
+        "docker",
+        "run",
+        "--rm",
+        "--platform",
+        "linux/amd64",
+        "--network=none",
+        "--read-only",
+        "--memory=8g",
+        "--memory-swap=8g",
+        "--pids-limit=512",
+        "--cap-drop=ALL",
+        "--security-opt=no-new-privileges",
+        "--user",
+        "65534:65534",
+        "--tmpfs",
+        "/tmp:rw,exec,size=1g",
+        "-i",
+        "--entrypoint",
+        "/bin/sh",
+        "-v",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh:/repo:ro",
+        "-v",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round280/linux-proof/model:/out:rw",
+        "gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce",
+        "-s"
+      ],
+      "stdin": "set -eu\nexport ASAN_OPTIONS=halt_on_error=1\nexport UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1\ng++ -std=c++20 -O1 -g -march=native -Wall -Wextra -Wpedantic -Werror -pthread -fsanitize=address,undefined -fno-sanitize-recover=all -fno-omit-frame-pointer -DMODEL_FORCE_SCALAR '-DNAMES_HEADER=\"/repo/.build/round280/source/track-c/names.hpp\"' /repo/.build/round280/native-proof/group_model.cpp -o /out/group-model-scalar\nsha256sum /out/group-model-scalar >/out/group-model-scalar.sha256.tmp\nmv /out/group-model-scalar.sha256.tmp /out/group-model-scalar.sha256\n/out/group-model-scalar >/out/scalar-model.out 2>/out/scalar-model.err\n"
+    },
+    {
+      "label": "native-gcc-pair",
+      "argv": [
+        "python3",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round280/native-proof/test_route_collision.py",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round280/native-proof/asan",
+        "--model-report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round280/linux-proof/model/gcc-model.json",
+        "--run-id",
+        "round280-asan-gccpair",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/docs/round280-c-asan-collision-gcc.json"
+      ],
+      "stdin": null
+    }
+  ],
+  "forced_scalar_model": {
+    "passed": true,
+    "binary_sha256": "bd2e6bcbdc053b69ce03ab083d0809cf8fcd8b36f67ea814b6b3d5c6baf091a3",
+    "model_cpp_sha256": "7b3f3ab781a0f16cc6aee2aa6da55724cda432e64e7723b96e2fc29bee0243b0",
+    "scope": "Fresh GCC strict ASAN/UBSAN unit executes the generic equal_lanes/one-bit lane branch of the actual current header using explicit test-unit architecture-selection undefines; no claim about a different physical CPU.",
+    "stdout": "PASS group4 lane/empty/full32 masks,first-lane/removal,unaligned groups,guarded16B loads 30032 checks\nPASS group4 forced full-fingerprint0/1/MAX collisions,final-group wrap,dense-prefix,growth/reference membership\nPASS offset-name independent std::set, low32 fingerprint collisions including0/1, full-key collisions, all-country words, table/block growth, exact full/partial/oversized blocks, long NUL/UTF8 keys, encoded-index boundaries and overflow guards\nPASS independent std::set: mixed low2 fingerprints with same shifted home, zero/MAX32 homes and wrap probes, distinct full64 hashes, every1..11 owner routing with table growth and repeated exact country updates\nPASS route membership 1297900 checks\nCOLLISION\tRouting qcwkeaaaaa\tRouting cjileaaaaa\t6932626207961704462\t1612494130152138766\t907995150\t2\t26885\n"
+  },
+  "model": {
+    "passed": true,
+    "official_score": false,
+    "actual_collision": {
+      "left": "Routing qcwkeaaaaa",
+      "right": "Routing cjileaaaaa",
+      "left_full_hash": 6932626207961704462,
+      "right_full_hash": 1612494130152138766,
+      "low32_fingerprint": 907995150,
+      "new_default_owner": 2,
+      "keys_searched": 26885,
+      "compiler_scope": "Pinned GCC15/Linux native std::hash model; native Apple pair is separately labeled"
+    },
+    "model_cpp_sha256": "7b3f3ab781a0f16cc6aee2aa6da55724cda432e64e7723b96e2fc29bee0243b0",
+    "binary_sha256": "61610336c7b55b625c27266f25815ddd8c61981054f9d3051664d90bd09a8f68",
+    "source_main_sha256": "08ff83e5eab7d03c2221f37064f5fb698a2d14f7e79e9e355e19b5e7bdf96e92",
+    "stdout": "PASS group4 lane/empty/full32 masks,first-lane/removal,unaligned groups,guarded16B loads 30032 checks\nPASS group4 forced full-fingerprint0/1/MAX collisions,final-group wrap,dense-prefix,growth/reference membership\nPASS offset-name independent std::set, low32 fingerprint collisions including0/1, full-key collisions, all-country words, table/block growth, exact full/partial/oversized blocks, long NUL/UTF8 keys, encoded-index boundaries and overflow guards\nPASS independent std::set: mixed low2 fingerprints with same shifted home, zero/MAX32 homes and wrap probes, distinct full64 hashes, every1..11 owner routing with table growth and repeated exact country updates\nPASS route membership 1297900 checks\nCOLLISION\tRouting qcwkeaaaaa\tRouting cjileaaaaa\t6932626207961704462\t1612494130152138766\t907995150\t2\t26885\n",
+    "stderr": "",
+    "returncode": 0,
+    "scope": "Fresh exact new group4 equal-mask/empty/candidate/full-key probing/grow/store protocol against independent scalar lanes and std::set. Own earlier offset/index/route model inputs adapted explicitly for new Group capacity and unchanged modulo owner; all execute anew. Previous group8/old linear passes are not substituted. Shared queue/parser/quote/numeric primitives unchanged; actual-main new native strict/race/every-topology/collision/full-input proof follows."
+  },
+  "native_gcc_pair_reports": [
+    "docs/round280-c-asan-collision-gcc.json",
+    "docs/round280-c-tsan-collision-gcc.json"
+  ],
+  "passed": true,
+  "completed_at_utc": "2026-11-01T14:17:43.826379+00:00"
+}

@@ -1,0 +1,41 @@
+--- original/track-c/main.cpp
++++ rejected277/track-c/main.cpp
+@@ -24,6 +24,38 @@
+         start = segment;
+         size_t bytes = 0;
+         bool escaped = false;
++        if (!decode) {
++            size_t quotes = 0;
++            while (end - p >= 16) {
++                uint64_t mask = quote_block_mask(p);
++                if (!mask) { p += 16; continue; }
++                uint64_t parity = mask;
++                for (unsigned shift=quote_lane_bits;shift<16*quote_lane_bits;shift*=2) parity ^= parity << shift;
++                if (quotes & 1) parity = ~parity;
++                uint64_t closing = mask & parity & ~(mask >> quote_lane_bits);
++                if (end-p>16 && p[16]=='"') closing &= ~(((uint64_t(1)<<quote_lane_bits)-1) << (15*quote_lane_bits));
++                if (closing) {
++                    unsigned index = std::countr_zero(closing)/quote_lane_bits;
++                    quotes += std::popcount(mask & ((uint64_t(1)<<(index*quote_lane_bits))-1))/quote_lane_bits;
++                    const char* close = p+index; p=close+1;
++                    size_t length = static_cast<size_t>(close-start);
++                    return {{start,length},length-quotes/2,quotes!=0};
++                }
++                quotes += std::popcount(mask)/quote_lane_bits;
++                p += 16;
++            }
++            while (p<end) {
++                if (*p=='"') {
++                    if (!(quotes&1) && (p+1==end || p[1]!='"')) {
++                        const char* close=p++;size_t length=static_cast<size_t>(close-start);
++                        return {{start,length},length-quotes/2,quotes!=0};
++                    }
++                    ++quotes;
++                }
++                ++p;
++            }
++            throw std::runtime_error("unterminated quoted field");
++        }
+         while (p < end) {
+             const char* quote = find_quote(p, end);
+             if (!quote) throw std::runtime_error("unterminated quoted field");

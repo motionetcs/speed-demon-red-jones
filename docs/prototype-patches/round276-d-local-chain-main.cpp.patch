@@ -1,0 +1,34 @@
+--- original/track-d/main.cpp
++++ rejected276/track-d/main.cpp
+@@ -168,10 +168,29 @@
+                             auto [destination, tag] = adjacency.template get<Compact>(i);
+                             uint32_t weight = tag == (Compact ? EdgeStore::small_limit : uint32_t(UINT16_MAX)) ? wide_weights.at(i * 2 + (from_source ? 0 : 1)) : tag;
+                             uint64_t candidate = d + weight;
+-                            if (own.improve(destination, candidate)) {
+-                                heap.push({candidate, destination});
++                            uint32_t predecessor = u;
++                            unsigned followed = 0;
++                            for (;;) {
++                                if (!own.improve(destination, candidate)) break;
+                                 uint64_t opposite = other.get(destination);
+                                 if (opposite != infinity) best = std::min(best, candidate + opposite);
++                                if (destination == (from_source ? target : source)) break;
++                                uint32_t first = starts[destination], end = starts[destination + 1];
++                                uint32_t degree = end - first;
++                                if (!degree) break;
++                                if (degree > 2 || followed == 8) { heap.push({candidate, destination}); break; }
++                                auto [next_node, next_tag] = adjacency.template get<Compact>(first);
++                                uint32_t chosen = first;
++                                if (degree == 2) {
++                                    auto [second_node, second_tag] = adjacency.template get<Compact>(first + 1);
++                                    if (next_node == predecessor) { next_node = second_node; next_tag = second_tag; chosen = first + 1; }
++                                    else if (second_node != predecessor) { heap.push({candidate, destination}); break; }
++                                }
++                                uint32_t next_weight = next_tag == (Compact ? EdgeStore::small_limit : uint32_t(UINT16_MAX)) ? wide_weights.at(chosen * 2 + (from_source ? 0 : 1)) : next_tag;
++                                predecessor = destination;
++                                destination = next_node;
++                                candidate += next_weight;
++                                ++followed;
+                             }
+                         }
+                     }

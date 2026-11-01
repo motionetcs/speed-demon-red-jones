@@ -1,0 +1,24 @@
+--- original/track-a/main.cpp
++++ rejected278/track-a/main.cpp
+@@ -101,8 +101,19 @@
+                 for (uint16_t key : order) {
+                     uint64_t n = groups[key].count, errors = groups[key].errors; if (!n) continue;
+                     auto first = latencies.begin() + offsets[key];
+-                    if (n < 32) std::sort(first, first + n);
+-                    else {
++                    if (n < 4) std::sort(first, first + n);
++                    else if (n < 32) {
++                        size_t middle = (50*n+99)/100-1;
++                        std::nth_element(first, first+middle, first+n);
++                        uint32_t largest=0, second=0;
++                        for (auto it=first+middle+1;it!=first+n;++it) {
++                            uint32_t value=*it;
++                            if (value>=largest) {second=largest;largest=value;}
++                            else second=std::max(second,value);
++                        }
++                        first[n-1]=largest;
++                        if (n>=20) first[n-2]=second;
++                    } else {
+                         size_t unselected = 0;
+                         for (uint64_t percentile : {50, 95, 99}) {
+                             size_t rank = (percentile * n + 99) / 100 - 1;

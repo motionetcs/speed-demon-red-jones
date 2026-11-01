@@ -9,9 +9,9 @@ The retained32-entry query batch first improves the measured result in actual104
 | Record | Run ID | T seconds | Charged memory bytes | S | K | Machine points |
 | --- | --- | ---: | ---: | ---: | ---: | ---: |
 | Best observed | run-d86cb628f914 | 0.194716 | 76922880 | 827 | 20.248361 | 65.319494 |
-| Passing original270 | run-af760cd267ea | 0.196162 | 77819904 | 827 | 20.126869 | 65.188811 |
+| Passing original275 | run-1939a1087861 | 0.211379 | 76730368 | 827 | 19.443633 | 64.438871 |
 
-These are real public-board records, not final holdout or judging totals. All five gates pass for both rows. Local native timing/RSS and emulated Linux checks are labeled separately throughout this log. The observed best is not a promise of repeatable timing or victory. [Current source and decisions](../docs/RESULTS.md), [exact passing source proof](../docs/round270-final-source-match.json), [latest raw record](../docs/board-round270-selected-confirmation.json).
+These are real public-board records, not final holdout or judging totals. All five gates pass for both rows. Local native timing/RSS and emulated Linux checks are labeled separately throughout this log. The observed best is not a promise of repeatable timing or victory. [Current source and decisions](../docs/RESULTS.md), [exact passing source proof](../docs/round275-final-source-match.json), [latest raw record](../docs/board-round275-selected-confirmation.json).
 
 ## Historical experiments
 
@@ -592,10 +592,16 @@ Candidate262 local proof complete; official trial pending. Only main.cpp inserts
 262/5198eaf run-f7e163626bbc all five real gatesPASS: T0.231625s/M74383360/S912/K18.417918/63.262026 points. Reject full degree-two main/README change and restore original. Native3-seed gains are not target gains; observed lower memory does not pay for time/source cost. Exact29 actual/Git/frozen/image proof ../docs/round262-scored-source-match.json. New degree-two models/GCC/PGO/image proofs remain historical to rejected code; never relabeled as original. Raw ../docs/board-round262-degree2-bypass.json.
 
 
-263/737b80f run-109a0eacb0e2 original allfive real gatesPASS: T0.203206s/M76959744/S827/K19.818958/64.854041 points. Exact original best-source/Git/frozen/local-image proof ../docs/round270-final-source-match.json. Lower identical-source repeats are variation; no new gain or rejected degree-two proof substitution. Fresh D-only original public/default checks used immutable binaries/images, no compilation/training/broad replay. Raw ../docs/board-round270-selected-confirmation.json.
+263/737b80f run-109a0eacb0e2 original allfive real gatesPASS: T0.203206s/M76959744/S827/K19.818958/64.854041 points. Exact original best-source/Git/frozen/local-image proof ../docs/round263-final-source-match.json. Lower identical-source repeats are variation; no new gain or rejected degree-two proof substitution. Fresh D-only original public/default checks used immutable binaries/images, no compilation/training/broad replay. Raw ../docs/board-round263-selected-confirmation.json.
 
 
 267 freshly isolates two/four newline-aligned row cursors inside each existing graph loader for both parse passes, feeding the unchanged16-row degree/scatter batches. Existing263 native control reused; two optimized compiles. Public1/6/12 and13 rotating triples on public/full1823/2633 all output/input/source/ELF hashesPASS. Stream2 ratios1.032971/1.039981/1.047113; stream4 1.040566/1.038854/1.044714;0/13 wins each, native RSS flat. REJECT before new general partition/partial-batch/scatter/Floyd/strict/race/GCC/image/default/actual proof. No original primitive proof transferred to discarded source. docs/round267-d-stream-screen.json/.build/round267 immutable source.
 
 
 270/4821139 original-source confirmation run-af760cd267ea passes all five actual gates: T0.196162s/M77819904/S827/K20.126869/65.188811. Full original all29/Make/Git/source/image identity verified. Lower unchanged-source repeats remain variation; no target-phase explanation or new gain claimed. Raw ../docs/board-round270-selected-confirmation.json and exact ../docs/round270-final-source-match.json.
+
+
+Original275/06d3742686e78a4bfa7c7ad85adc4df9e827c3d7 all five actual gatesPASS, run-1939a1087861: T0.211379s/M76730368/S827/K19.443633/64.438871. Complete all29/Make/README/Git/best component/local-image identity in ../docs/round275-final-source-match.json. Entire rejected274 route/style change removed. Best remains unchanged; lower latest repeat is preserved as variation without a new causal timing claim. Raw ../docs/board-round275-selected-confirmation.json.
+
+
+276 isolated query-local bounded8 chain relaxation preserves exact intermediate labels/meets and follows degree1 or degree2 with immediate back edge without graph preprocessing. Full public1/6/12 and public/1823/2633 warmups+13 rotating pairs all match full expected hashes; original263 binary reused, one prototype compile. Paired ratios1.174130/1.212086/1.206271, wins0/0/2: REJECT before general activation/Floyd/allpairs/zero-stale-full64/strict/race/GCC/image/default/actual proof. Source adds query complexity and saves no native time despite modest RSS reductions. No inferred Intel phase/cause/gain. Current original275 source/image untouched. Exact ../docs/round276-d-local-chain-screen.json and ../docs/prototype-patches/round276-d-local-chain-main.cpp.patch.

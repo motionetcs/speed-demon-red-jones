@@ -1,0 +1,405 @@
+{
+  "started_at_utc": "2026-11-01T14:12:53.022745+00:00",
+  "official_score": false,
+  "selected_in_root": false,
+  "scope": "Fresh exact new group4 equal-mask/empty/candidate/full-key probing/grow/store protocol against independent scalar lanes and std::set. Own earlier offset/index/route model inputs adapted explicitly for new Group capacity and unchanged modulo owner; all execute anew. Previous group8/old linear passes are not substituted. Shared queue/parser/quote/numeric primitives unchanged; actual-main new native strict/race/every-topology/collision/full-input proof follows.",
+  "source_sha256": {
+    "track-c/training_generator.py": "9e61672eb814fa4e1bc2e3cf30c8e7ca9629804191ce5ae60a66c8b61ba704f2",
+    "track-c/Dockerfile": "637e81c6fca4507f4c4e7368efde7b6904d07879ae9ec992c5e25175d50e1fae",
+    "track-c/names.hpp": "d6903e0cf607fae00483cbe5a4138ee48b1b5b459a81813e0e74f8a5c6af87b9",
+    "track-c/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+    "track-c/quote_scan.hpp": "0b170a766254dee1bc14f9e9180cc1900da01d41f5d09053d5579e01a7fb9cfa",
+    "track-c/README.md": "6a64233dcbf8967678d87f403c99969067f468ee5066b0f172751f437cccb841",
+    "track-c/PERF.md": "5a77f7ef846af1ceb8950949d299ee45ac0d50e5f352e6fa4394a3882bb35e40",
+    "track-c/.speed-demon.toml": "3371600b8033a377bc373378e703191dfec36c1ae991b617650dfa480edc00b4",
+    "track-c/main.cpp": "08ff83e5eab7d03c2221f37064f5fb698a2d14f7e79e9e355e19b5e7bdf96e92",
+    "track-c/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420"
+  },
+  "compiles": [
+    {
+      "unit": "route-model",
+      "command": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-pthread",
+        "-fno-omit-frame-pointer",
+        "-fsanitize=address,undefined",
+        "-fno-sanitize-recover=all",
+        "-DNAMES_HEADER=\"/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round280/source/track-c/names.hpp\"",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round280/native-proof/group_model.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round280/native-proof/route-model-asan"
+      ],
+      "source_sha256": "7b3f3ab781a0f16cc6aee2aa6da55724cda432e64e7723b96e2fc29bee0243b0",
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "binary_sha256": "7e9de4eb609088310bcdcab6a3e23b7cd6e4c6fd23dc4a080c2803b4e1dd3b2d"
+    },
+    {
+      "unit": "group-model-scalar",
+      "command": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-pthread",
+        "-fno-omit-frame-pointer",
+        "-fsanitize=address,undefined",
+        "-fno-sanitize-recover=all",
+        "-DMODEL_FORCE_SCALAR",
+        "-DNAMES_HEADER=\"/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round280/source/track-c/names.hpp\"",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round280/native-proof/group_model.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round280/native-proof/group-model-scalar-asan"
+      ],
+      "source_sha256": "7b3f3ab781a0f16cc6aee2aa6da55724cda432e64e7723b96e2fc29bee0243b0",
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "binary_sha256": "f2479f540ac8e942f05214aa58fcb6cb2f2eac4971c94fa75d57f55d50860884"
+    },
+    {
+      "unit": "asan-main",
+      "command": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-pthread",
+        "-fno-omit-frame-pointer",
+        "-fsanitize=address,undefined",
+        "-fno-sanitize-recover=all",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round280/source/track-c/main.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round280/native-proof/asan/track-c"
+      ],
+      "source_sha256": "08ff83e5eab7d03c2221f37064f5fb698a2d14f7e79e9e355e19b5e7bdf96e92",
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "binary_sha256": "e9f5d33f5d15ccf58dbfa00c34688a72e2c7ca5f1e1918b2b4634c4f4ab4b6bb"
+    },
+    {
+      "unit": "tsan-main",
+      "command": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-pthread",
+        "-fno-omit-frame-pointer",
+        "-fsanitize=thread",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round280/source/track-c/main.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round280/native-proof/tsan/track-c"
+      ],
+      "source_sha256": "08ff83e5eab7d03c2221f37064f5fb698a2d14f7e79e9e355e19b5e7bdf96e92",
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "binary_sha256": "d705ac4dc79748805e843e75b7469c242f20e385d55a7c3209763c3d73806ee9"
+    }
+  ],
+  "runs": [
+    {
+      "suite": "asan-sample",
+      "command": [
+        "python3",
+        "tools/verify.py",
+        "--run-id",
+        "round280-asan-sample",
+        "--source-root",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round280/source",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round280/native-proof/asan",
+        "--tracks",
+        "c",
+        "--threads",
+        "1",
+        "6",
+        "12",
+        "--scale",
+        "sample",
+        "--seeds",
+        "2927",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/docs/round280-c-asan-sample.json"
+      ],
+      "returncode": 0,
+      "report": "docs/round280-c-asan-sample.json"
+    },
+    {
+      "suite": "asan-full",
+      "command": [
+        "python3",
+        "tools/verify.py",
+        "--run-id",
+        "round280-asan-full",
+        "--source-root",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round280/source",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round280/native-proof/asan",
+        "--tracks",
+        "c",
+        "--threads",
+        "1",
+        "6",
+        "12",
+        "--scale",
+        "full",
+        "--seeds",
+        "2939",
+        "--skip-adversarial",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/docs/round280-c-asan-full.json"
+      ],
+      "returncode": 0,
+      "report": "docs/round280-c-asan-full.json"
+    },
+    {
+      "suite": "asan-countries",
+      "command": [
+        "python3",
+        "-c",
+        "import sys;sys.path.insert(0,'tools');import verify;verify.RUN_ID='round280-asan';import test_country_codes;test_country_codes.main()",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round280/native-proof/asan",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/docs/round280-c-asan-countries.json"
+      ],
+      "returncode": 0,
+      "report": "docs/round280-c-asan-countries.json"
+    },
+    {
+      "suite": "asan-pipeline",
+      "command": [
+        "python3",
+        "tools/test_name_pipeline.py",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round280/native-proof/asan",
+        "--run-id",
+        "round280-asan-pipeline",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/docs/round280-c-asan-pipeline.json"
+      ],
+      "returncode": 0,
+      "report": "docs/round280-c-asan-pipeline.json"
+    },
+    {
+      "suite": "asan-topology",
+      "command": [
+        "python3",
+        "tools/test_cooperative_pipeline.py",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round280/native-proof/asan",
+        "--run-id",
+        "round280-asan-topology",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/docs/round280-c-asan-topology.json"
+      ],
+      "returncode": 0,
+      "report": "docs/round280-c-asan-topology.json"
+    },
+    {
+      "suite": "asan-pressure",
+      "command": [
+        "python3",
+        "tools/test_name_ring_pressure.py",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round280/native-proof/asan",
+        "--run-id",
+        "round280-asan-pressure",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/docs/round280-c-asan-pressure.json"
+      ],
+      "returncode": 0,
+      "report": "docs/round280-c-asan-pressure.json"
+    },
+    {
+      "suite": "asan-collision-native",
+      "command": [
+        "python3",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round280/native-proof/test_route_collision.py",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round280/native-proof/asan",
+        "--model-report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round280/native-proof/native-model.json",
+        "--run-id",
+        "round280-asan-nativepair",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/docs/round280-c-asan-collision-native.json"
+      ],
+      "returncode": 0,
+      "report": "docs/round280-c-asan-collision-native.json"
+    },
+    {
+      "suite": "tsan-sample",
+      "command": [
+        "python3",
+        "tools/verify.py",
+        "--run-id",
+        "round280-tsan-sample",
+        "--source-root",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round280/source",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round280/native-proof/tsan",
+        "--tracks",
+        "c",
+        "--threads",
+        "1",
+        "6",
+        "12",
+        "--scale",
+        "sample",
+        "--seeds",
+        "2953",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/docs/round280-c-tsan-sample.json"
+      ],
+      "returncode": 0,
+      "report": "docs/round280-c-tsan-sample.json"
+    },
+    {
+      "suite": "tsan-countries",
+      "command": [
+        "python3",
+        "-c",
+        "import sys;sys.path.insert(0,'tools');import verify;verify.RUN_ID='round280-tsan';import test_country_codes;test_country_codes.main()",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round280/native-proof/tsan",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/docs/round280-c-tsan-countries.json"
+      ],
+      "returncode": 0,
+      "report": "docs/round280-c-tsan-countries.json"
+    },
+    {
+      "suite": "tsan-pipeline",
+      "command": [
+        "python3",
+        "tools/test_name_pipeline.py",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round280/native-proof/tsan",
+        "--run-id",
+        "round280-tsan-pipeline",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/docs/round280-c-tsan-pipeline.json"
+      ],
+      "returncode": 0,
+      "report": "docs/round280-c-tsan-pipeline.json"
+    },
+    {
+      "suite": "tsan-topology",
+      "command": [
+        "python3",
+        "tools/test_cooperative_pipeline.py",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round280/native-proof/tsan",
+        "--run-id",
+        "round280-tsan-topology",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/docs/round280-c-tsan-topology.json"
+      ],
+      "returncode": 0,
+      "report": "docs/round280-c-tsan-topology.json"
+    },
+    {
+      "suite": "tsan-pressure",
+      "command": [
+        "python3",
+        "tools/test_name_ring_pressure.py",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round280/native-proof/tsan",
+        "--run-id",
+        "round280-tsan-pressure",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/docs/round280-c-tsan-pressure.json"
+      ],
+      "returncode": 0,
+      "report": "docs/round280-c-tsan-pressure.json"
+    },
+    {
+      "suite": "tsan-collision-native",
+      "command": [
+        "python3",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round280/native-proof/test_route_collision.py",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round280/native-proof/tsan",
+        "--model-report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round280/native-proof/native-model.json",
+        "--run-id",
+        "round280-tsan-nativepair",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/docs/round280-c-tsan-collision-native.json"
+      ],
+      "returncode": 0,
+      "report": "docs/round280-c-tsan-collision-native.json"
+    }
+  ],
+  "model_identity": {
+    "observed_at_utc": "2026-11-01T14:11:33.919334+00:00",
+    "scope": "Fresh exact new group4 equal-mask/empty/candidate/full-key probing/grow/store protocol against independent scalar lanes and std::set. Own earlier offset/index/route model inputs adapted explicitly for new Group capacity and unchanged modulo owner; all execute anew. Previous group8/old linear passes are not substituted. Shared queue/parser/quote/numeric primitives unchanged; actual-main new native strict/race/every-topology/collision/full-input proof follows.",
+    "source_main_sha256": "08ff83e5eab7d03c2221f37064f5fb698a2d14f7e79e9e355e19b5e7bdf96e92",
+    "source_names_sha256": "d6903e0cf607fae00483cbe5a4138ee48b1b5b459a81813e0e74f8a5c6af87b9",
+    "model_files": {
+      "native-proof/index_model.hpp": "79d82fc26a7d6fd56cd2d22163c4e69c4868a4e10efd87dc24c500ec393921f5",
+      "native-proof/route_model.hpp": "ac29ba011dae6443e628535b446a83035176aeeabd681aae9d0e58a70717e3d2",
+      "native-proof/offset_model.hpp": "2239e9a035929e814d30880fa8eb5164211b699432280e921e4e01f6f8caca37",
+      "native-proof/group_model.cpp": "7b3f3ab781a0f16cc6aee2aa6da55724cda432e64e7723b96e2fc29bee0243b0"
+    },
+    "formatting_binding": "formatting-proof.json",
+    "model_preflight_correction": {
+      "reason": "First compiler rejected test-model swapped std::set<pair<string,country>> field accesses. Corrected reference-model fields before any model ELF or program proof ran. Selected/candidate runtime unchanged.",
+      "first_attempt": "native-proof/attempt1-compile.json",
+      "source_before": "native-proof/group_model-attempt1.cpp"
+    }
+  },
+  "route_model": {
+    "passed": true,
+    "official_score": false,
+    "actual_collision": {
+      "left": "Routing nfkoeaaaaa",
+      "right": "Routing jqgseaaaaa",
+      "left_full_hash": 10027994028737077263,
+      "right_full_hash": 5905765373874839567,
+      "low32_fingerprint": 1151115279,
+      "new_default_owner": 3,
+      "keys_searched": 148754,
+      "compiler_scope": "Native Apple libc++ std::hash only; separate GCC pair required"
+    },
+    "source_main_sha256": "08ff83e5eab7d03c2221f37064f5fb698a2d14f7e79e9e355e19b5e7bdf96e92",
+    "model_cpp_sha256": "7b3f3ab781a0f16cc6aee2aa6da55724cda432e64e7723b96e2fc29bee0243b0",
+    "model_binary_sha256": "7e9de4eb609088310bcdcab6a3e23b7cd6e4c6fd23dc4a080c2803b4e1dd3b2d",
+    "stdout": "PASS group4 lane/empty/full32 masks,first-lane/removal,unaligned groups,guarded16B loads 30032 checks\nPASS group4 forced full-fingerprint0/1/MAX collisions,final-group wrap,dense-prefix,growth/reference membership\nPASS offset-name independent std::set, low32 fingerprint collisions including0/1, full-key collisions, all-country words, table/block growth, exact full/partial/oversized blocks, long NUL/UTF8 keys, encoded-index boundaries and overflow guards\nPASS independent std::set: mixed low2 fingerprints with same shifted home, zero/MAX32 homes and wrap probes, distinct full64 hashes, every1..11 owner routing with table growth and repeated exact country updates\nPASS route membership 1297900 checks\nCOLLISION\tRouting nfkoeaaaaa\tRouting jqgseaaaaa\t10027994028737077263\t5905765373874839567\t1151115279\t3\t148754\n",
+    "stderr": "",
+    "returncode": 0,
+    "scope": "Fresh exact new group4 equal-mask/empty/candidate/full-key probing/grow/store protocol against independent scalar lanes and std::set. Own earlier offset/index/route model inputs adapted explicitly for new Group capacity and unchanged modulo owner; all execute anew. Previous group8/old linear passes are not substituted. Shared queue/parser/quote/numeric primitives unchanged; actual-main new native strict/race/every-topology/collision/full-input proof follows."
+  },
+  "forced_scalar_model": {
+    "passed": true,
+    "binary_sha256": "f2479f540ac8e942f05214aa58fcb6cb2f2eac4971c94fa75d57f55d50860884",
+    "scope": "MODEL_FORCE_SCALAR undefines only header-selection architecture macros before including this actual Names source, executing the generic equal_lanes/1-bit lane path. Compiler backend remains native; not a claim about different physical architecture.",
+    "stdout": "PASS group4 lane/empty/full32 masks,first-lane/removal,unaligned groups,guarded16B loads 30032 checks\nPASS group4 forced full-fingerprint0/1/MAX collisions,final-group wrap,dense-prefix,growth/reference membership\nPASS offset-name independent std::set, low32 fingerprint collisions including0/1, full-key collisions, all-country words, table/block growth, exact full/partial/oversized blocks, long NUL/UTF8 keys, encoded-index boundaries and overflow guards\nPASS independent std::set: mixed low2 fingerprints with same shifted home, zero/MAX32 homes and wrap probes, distinct full64 hashes, every1..11 owner routing with table growth and repeated exact country updates\nPASS route membership 1297900 checks\nCOLLISION\tRouting nfkoeaaaaa\tRouting jqgseaaaaa\t10027994028737077263\t5905765373874839567\t1151115279\t3\t148754\n"
+  },
+  "passed": true,
+  "completed_at_utc": "2026-11-01T14:14:19.962490+00:00"
+}
