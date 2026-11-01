@@ -1,0 +1,44 @@
+--- selected247/track-a/endpoint_table.hpp
++++ isolated252-replace1024/track-a/endpoint_table.hpp
+@@ -36,22 +36,24 @@
+     }
+ };
+ 
+-struct LocalEndpoints {
+-    struct Slot{const char* data=nullptr;uint32_t hash=0;uint16_t length=0,id=UINT16_MAX;};
+-    Endpoints& shared;std::vector<Slot> slots=std::vector<Slot>(4096);
+-    explicit LocalEndpoints(Endpoints& table):shared(table){}
+-    static uint32_t hash_key(std::string_view v){
+-        if(v.size()<4){uint32_t h=2166136261U;for(unsigned char c:v)h=(h^c)*16777619U;return h;}
+-        uint32_t a,b,c;std::memcpy(&a,v.data(),4);std::memcpy(&b,v.data()+(v.size()-4)/2,4);std::memcpy(&c,v.data()+v.size()-4,4);
+-        uint32_t h=(a^std::rotl(b,11)^std::rotl(c,23)^uint32_t(v.size()))*0x9e3779b1U;return h^(h>>16);
+-    }
+-
+-    uint16_t intern(std::string_view value){
+-        if(value.size()>UINT16_MAX)return shared.intern(value,std::hash<std::string_view>{}(value));
+-        uint32_t hash=hash_key(value);size_t i=hash&(slots.size()-1);
+-        const auto& cached=slots[i];
+-        if(cached.id!=UINT16_MAX&&cached.hash==hash&&cached.length==value.size()&&(value.empty()||std::memcmp(cached.data,value.data(),value.size())==0))return cached.id;
+-        uint16_t id=shared.intern(value,std::hash<std::string_view>{}(value));
+-        slots[i]={shared.canonical[id].data(),hash,static_cast<uint16_t>(value.size()),id};return id;
++// A private parsing hint never replaces full byte equality or the delimiter.
++template<size_t Slots> struct EndpointSpanCache {
++    static_assert(Slots&&!(Slots&(Slots-1)));
++    struct Hint{const char* data=nullptr;uint16_t size=0,id=UINT16_MAX;};
++    Endpoints& shared;std::array<Hint,Slots> hints{};
++    explicit EndpointSpanCache(Endpoints& s):shared(s){}
++    uint16_t read(const char*& p,const char* end){
++        const char* start=p;Hint* hint=nullptr;
++        if(end-start>=16){
++            uint64_t a,b;std::memcpy(&a,start,8);std::memcpy(&b,start+8,8);
++            uint64_t h=(a^std::rotl(b,23))*0x9e3779b97f4a7c15ULL;h^=h>>32;
++            hint=&hints[h&(Slots-1)];
++            if(hint->id!=UINT16_MAX&&size_t(end-start)>hint->size&&start[hint->size]==' '&&std::memcmp(start,hint->data,hint->size)==0){p=start+hint->size;return hint->id;}
++        }
++        const char* separator=static_cast<const char*>(std::memchr(start,' ',size_t(end-start)));
++        if(!separator)throw std::runtime_error("missing endpoint/status");
++        std::string_view value(start,size_t(separator-start));uint16_t id=shared.intern(value,std::hash<std::string_view>{}(value));
++        if(hint&&value.size()>=16&&value.size()<=UINT16_MAX)*hint={shared.canonical[id].data(),uint16_t(value.size()),id};
++        p=separator;return id;
+     }
+ };

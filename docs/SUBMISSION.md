@@ -12,7 +12,7 @@ This is the fresh local entry. Check actual external state before treating it as
 | Licence | MIT, official attribution retained |
 | Fresh repository | https://github.com/motionetcs/speed-demon-red-jones — private |
 | Submission branch | speed-demon |
-| Remote source | C-only249 passes all real gates but loses totalK21.142704. Full original29/Make/READMEs restored locally as253; fresh C public/default checks pass using immutable original source/image/native, no compiler/training; unchanged A/D proof retained. Real253 confirmation pending, no new gain or number-one claim. |
+| Remote source | Candidate255 A254-span/D255-bucket-epoch local proofs complete, exact29/Make binding; authorized commit/push and real confirmation next. Last passing original253 retained for rollback. No new official gain or number-one claim yet. |
 | Individual registration | Entrant confirmed already registered on 31 October 2026; not duplicated |
 | Team form | Submitted successfully for this fresh repository, A/C/D; Tally displayed “Form submitted” |
 | Board app access | Installed and verified on 31 October 2026; only the fresh repository selected; read-only code and metadata |

@@ -1,0 +1,59 @@
+{
+  "observed_at_utc": "2026-11-01T06:55:13.476948+00:00",
+  "passed": true,
+  "official_score": false,
+  "scope": "New exact span2048 API/private hints replacing old LocalEndpoints: independent bounded scalar delimiter/full-key oracle; all byte values/0..128 lengths; equal prefix/different length and suffix; forced hint collisions Slots1/2/2048; zero/truncated/unaligned/physical protected-page and logical bounds; long65535/65536/1MiB; stable immutable canonical ownership, ID4095/4096 limit and private caches with shared canonical publication at all1..12 workers. New native strict ASAN/UBSAN and TSAN. No warning/race/sanitizer suppression, no old LocalEndpoints proof substitution. Global interner fragment unchanged.",
+  "runs": [
+    {
+      "mode": "asan",
+      "compile": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-pthread",
+        "-fno-omit-frame-pointer",
+        "-fsanitize=address,undefined",
+        "-fno-sanitize-recover=all",
+        "-DENDPOINTS_HEADER=\"/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round254/source/track-a/endpoint_table.hpp\"",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/tools/test_endpoint_spans.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round254/models/span-asan"
+      ],
+      "binary_sha256": "0a773e76680d841d1859c48fcd999a900fba9e464d8df53e9b0d04a76de3a962",
+      "stdout": "PASS 385754 exact span/scalar-oracle, byte, truncation, alias, collision, long-key, ID4095/limit, guard/alignment, immutable lifetime and private-cache publication checks; concurrency all1..12\n",
+      "stderr": ""
+    },
+    {
+      "mode": "tsan",
+      "compile": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-pthread",
+        "-fno-omit-frame-pointer",
+        "-fsanitize=thread",
+        "-DENDPOINTS_HEADER=\"/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round254/source/track-a/endpoint_table.hpp\"",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/tools/test_endpoint_spans.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round254/models/span-tsan"
+      ],
+      "binary_sha256": "0292b6d9270a99800ba678cc9d2b19fc464abafa7262cf96b864d38d7c6d0a29",
+      "stdout": "PASS 385754 exact span/scalar-oracle, byte, truncation, alias, collision, long-key, ID4095/limit, guard/alignment, immutable lifetime and private-cache publication checks; concurrency all1..12\n",
+      "stderr": ""
+    }
+  ],
+  "source_sha256": {
+    ".build/round254/source/track-a/endpoint_table.hpp": "05ae28c94809a4707cc81e424bed467e952241628d8d9e940d2213cfd381e383",
+    "tools/test_endpoint_spans.cpp": "f55da219d1d7963602a62221ff23eb69fef140bd565a6e916246c5a6bd48fd1a"
+  }
+}

@@ -1,0 +1,228 @@
+{
+  "observed_at_utc": "2026-11-01T06:58:45.676017+00:00",
+  "passed": true,
+  "official_score": false,
+  "scope": "Independent complete reference at all1..12 workers:4096 exact endpoints sharing first16 bytes, differing lengths/suffixes through125bytes, every method/hour and latency width/fulluint32 escape, duplicates/shuffled chunks and ID4095. Deliberately adversarial hint collisions, not a speed benchmark. Primed prefix with missing delimiter/status/truncated/overflow latency plus4097-endpoint cancellation must return normal1/no sanitizer/no output/no hang at1/6/12.",
+  "binary_sha256": "c4da450f3d7eae67719fefa9fbc351494a4bf8cf769e4f90f61a6fa60b6b20fa",
+  "checks": [
+    {
+      "track": "a",
+      "case": "round254-a-span-tsan-a-span-prefix-aliases-id4095",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.09811033399999997,
+          "peak_process_rss_bytes": 50561024,
+          "requested_threads": 1,
+          "sha256": "961c280d0705cf8391852eeff13d0184c1ea5bc21eeb29ebf74eec4603677dbe"
+        },
+        {
+          "wall_seconds_including_launch": 0.07034604100000003,
+          "peak_process_rss_bytes": 54755328,
+          "requested_threads": 2,
+          "sha256": "961c280d0705cf8391852eeff13d0184c1ea5bc21eeb29ebf74eec4603677dbe"
+        },
+        {
+          "wall_seconds_including_launch": 0.06200370900000002,
+          "peak_process_rss_bytes": 60833792,
+          "requested_threads": 3,
+          "sha256": "961c280d0705cf8391852eeff13d0184c1ea5bc21eeb29ebf74eec4603677dbe"
+        },
+        {
+          "wall_seconds_including_launch": 0.04836020899999999,
+          "peak_process_rss_bytes": 63717376,
+          "requested_threads": 4,
+          "sha256": "961c280d0705cf8391852eeff13d0184c1ea5bc21eeb29ebf74eec4603677dbe"
+        },
+        {
+          "wall_seconds_including_launch": 0.047493167,
+          "peak_process_rss_bytes": 68599808,
+          "requested_threads": 5,
+          "sha256": "961c280d0705cf8391852eeff13d0184c1ea5bc21eeb29ebf74eec4603677dbe"
+        },
+        {
+          "wall_seconds_including_launch": 0.04860504200000004,
+          "peak_process_rss_bytes": 71909376,
+          "requested_threads": 6,
+          "sha256": "961c280d0705cf8391852eeff13d0184c1ea5bc21eeb29ebf74eec4603677dbe"
+        },
+        {
+          "wall_seconds_including_launch": 0.055239124999999945,
+          "peak_process_rss_bytes": 74891264,
+          "requested_threads": 7,
+          "sha256": "961c280d0705cf8391852eeff13d0184c1ea5bc21eeb29ebf74eec4603677dbe"
+        },
+        {
+          "wall_seconds_including_launch": 0.05698283400000004,
+          "peak_process_rss_bytes": 78495744,
+          "requested_threads": 8,
+          "sha256": "961c280d0705cf8391852eeff13d0184c1ea5bc21eeb29ebf74eec4603677dbe"
+        },
+        {
+          "wall_seconds_including_launch": 0.08242579100000003,
+          "peak_process_rss_bytes": 82526208,
+          "requested_threads": 9,
+          "sha256": "961c280d0705cf8391852eeff13d0184c1ea5bc21eeb29ebf74eec4603677dbe"
+        },
+        {
+          "wall_seconds_including_launch": 0.141188667,
+          "peak_process_rss_bytes": 86294528,
+          "requested_threads": 10,
+          "sha256": "961c280d0705cf8391852eeff13d0184c1ea5bc21eeb29ebf74eec4603677dbe"
+        },
+        {
+          "wall_seconds_including_launch": 0.09995833300000001,
+          "peak_process_rss_bytes": 87703552,
+          "requested_threads": 11,
+          "sha256": "961c280d0705cf8391852eeff13d0184c1ea5bc21eeb29ebf74eec4603677dbe"
+        },
+        {
+          "wall_seconds_including_launch": 0.06155983300000001,
+          "peak_process_rss_bytes": 92897280,
+          "requested_threads": 12,
+          "sha256": "961c280d0705cf8391852eeff13d0184c1ea5bc21eeb29ebf74eec4603677dbe"
+        }
+      ],
+      "reference_sha256": "961c280d0705cf8391852eeff13d0184c1ea5bc21eeb29ebf74eec4603677dbe",
+      "inputs_sha256": {
+        "requests.log": "411ecd367cb0cdcb1cd1b636f7b66f78a7245615beac37f44f7a457b7e7357b8"
+      }
+    }
+  ],
+  "expected_failures": [
+    {
+      "case": "round254-a-span-tsan-missing-delimiter",
+      "threads": 1,
+      "returncode": 1,
+      "stderr": "track-a: missing endpoint/status\n",
+      "inputs_sha256": {
+        "requests.log": "058bbeb5b9f7f3e60b8c9dc0bd0c05db3fb5be9d7f421b0171029e916362bfab"
+      }
+    },
+    {
+      "case": "round254-a-span-tsan-missing-delimiter",
+      "threads": 6,
+      "returncode": 1,
+      "stderr": "track-a: missing endpoint/status\n",
+      "inputs_sha256": {
+        "requests.log": "058bbeb5b9f7f3e60b8c9dc0bd0c05db3fb5be9d7f421b0171029e916362bfab"
+      }
+    },
+    {
+      "case": "round254-a-span-tsan-missing-delimiter",
+      "threads": 12,
+      "returncode": 1,
+      "stderr": "track-a: missing endpoint/status\n",
+      "inputs_sha256": {
+        "requests.log": "058bbeb5b9f7f3e60b8c9dc0bd0c05db3fb5be9d7f421b0171029e916362bfab"
+      }
+    },
+    {
+      "case": "round254-a-span-tsan-missing-status",
+      "threads": 1,
+      "returncode": 1,
+      "stderr": "track-a: missing endpoint/status\n",
+      "inputs_sha256": {
+        "requests.log": "eb514ab9db4b79c6f524d699d1206ad9a46018f849e5b83bc16b7a1c20112585"
+      }
+    },
+    {
+      "case": "round254-a-span-tsan-missing-status",
+      "threads": 6,
+      "returncode": 1,
+      "stderr": "track-a: missing endpoint/status\n",
+      "inputs_sha256": {
+        "requests.log": "eb514ab9db4b79c6f524d699d1206ad9a46018f849e5b83bc16b7a1c20112585"
+      }
+    },
+    {
+      "case": "round254-a-span-tsan-missing-status",
+      "threads": 12,
+      "returncode": 1,
+      "stderr": "track-a: missing endpoint/status\n",
+      "inputs_sha256": {
+        "requests.log": "eb514ab9db4b79c6f524d699d1206ad9a46018f849e5b83bc16b7a1c20112585"
+      }
+    },
+    {
+      "case": "round254-a-span-tsan-truncated-latency",
+      "threads": 1,
+      "returncode": 1,
+      "stderr": "track-a: invalid latency\n",
+      "inputs_sha256": {
+        "requests.log": "66e8d9e34e35342e46323be79cbe62ad1b49bee8315915ada5501fc611a04505"
+      }
+    },
+    {
+      "case": "round254-a-span-tsan-truncated-latency",
+      "threads": 6,
+      "returncode": 1,
+      "stderr": "track-a: invalid latency\n",
+      "inputs_sha256": {
+        "requests.log": "66e8d9e34e35342e46323be79cbe62ad1b49bee8315915ada5501fc611a04505"
+      }
+    },
+    {
+      "case": "round254-a-span-tsan-truncated-latency",
+      "threads": 12,
+      "returncode": 1,
+      "stderr": "track-a: invalid latency\n",
+      "inputs_sha256": {
+        "requests.log": "66e8d9e34e35342e46323be79cbe62ad1b49bee8315915ada5501fc611a04505"
+      }
+    },
+    {
+      "case": "round254-a-span-tsan-overflow-latency",
+      "threads": 1,
+      "returncode": 1,
+      "stderr": "track-a: invalid latency\n",
+      "inputs_sha256": {
+        "requests.log": "69c5c9f8b9b0cdbe5b6bc65d2eac69f07a313142ed4eee30e645909614e0c1ce"
+      }
+    },
+    {
+      "case": "round254-a-span-tsan-overflow-latency",
+      "threads": 6,
+      "returncode": 1,
+      "stderr": "track-a: invalid latency\n",
+      "inputs_sha256": {
+        "requests.log": "69c5c9f8b9b0cdbe5b6bc65d2eac69f07a313142ed4eee30e645909614e0c1ce"
+      }
+    },
+    {
+      "case": "round254-a-span-tsan-overflow-latency",
+      "threads": 12,
+      "returncode": 1,
+      "stderr": "track-a: invalid latency\n",
+      "inputs_sha256": {
+        "requests.log": "69c5c9f8b9b0cdbe5b6bc65d2eac69f07a313142ed4eee30e645909614e0c1ce"
+      }
+    },
+    {
+      "case": "round254-a-span-tsan-endpoint-quota",
+      "threads": 1,
+      "returncode": 1,
+      "stderr": "track-a: endpoint limit exceeded\n",
+      "inputs_sha256": {
+        "requests.log": "584fc68694d24aace3ac77759679c110a1a3bbb5b43c25cc12817c0cb18b12ac"
+      }
+    },
+    {
+      "case": "round254-a-span-tsan-endpoint-quota",
+      "threads": 6,
+      "returncode": 1,
+      "stderr": "track-a: endpoint limit exceeded\n",
+      "inputs_sha256": {
+        "requests.log": "584fc68694d24aace3ac77759679c110a1a3bbb5b43c25cc12817c0cb18b12ac"
+      }
+    },
+    {
+      "case": "round254-a-span-tsan-endpoint-quota",
+      "threads": 12,
+      "returncode": 1,
+      "stderr": "track-a: endpoint limit exceeded\n",
+      "inputs_sha256": {
+        "requests.log": "584fc68694d24aace3ac77759679c110a1a3bbb5b43c25cc12817c0cb18b12ac"
+      }
+    }
+  ]
+}

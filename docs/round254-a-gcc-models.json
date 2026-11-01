@@ -1,0 +1,20 @@
+{
+  "observed_at_utc": "2026-11-01T07:04:35.428461+00:00",
+  "passed": true,
+  "official_score": false,
+  "scope": "Exact new span2048/private-hint model under pinned offline Linux GCC15 strictASAN/UBSAN/Werror, no suppression; scalar/fullkey/collision/bounds/guards/longkey/IDquota/immutableownership/privatecache sharedpublication all1..12. Old LocalEndpoints models are not substituted.",
+  "compiler_image": "gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce",
+  "script": [
+    "set -eu",
+    "export ASAN_OPTIONS=halt_on_error=1",
+    "export UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1",
+    "g++ -std=c++20 -O1 -g -Wall -Wextra -Wpedantic -Werror -pthread -fsanitize=address,undefined -fno-sanitize-recover=all -fno-omit-frame-pointer '-DENDPOINTS_HEADER=\"/repo/.build/round254/source/track-a/endpoint_table.hpp\"' /repo/tools/test_endpoint_spans.cpp -o /tmp/span",
+    "/tmp/span"
+  ],
+  "stdout": "PASS 385754 exact span/scalar-oracle, byte, truncation, alias, collision, long-key, ID4095/limit, guard/alignment, immutable lifetime and private-cache publication checks; concurrency all1..12\n",
+  "stderr": "",
+  "source_sha256": {
+    ".build/round254/source/track-a/endpoint_table.hpp": "05ae28c94809a4707cc81e424bed467e952241628d8d9e940d2213cfd381e383",
+    "tools/test_endpoint_spans.cpp": "f55da219d1d7963602a62221ff23eb69fef140bd565a6e916246c5a6bd48fd1a"
+  }
+}

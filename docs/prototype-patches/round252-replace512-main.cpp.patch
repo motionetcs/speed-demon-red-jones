@@ -1,0 +1,28 @@
+--- selected247/track-a/main.cpp
++++ isolated252-replace512/track-a/main.cpp
+@@ -39,7 +39,7 @@
+         parallel(threads, [&](unsigned worker) {
+             const char* p = boundaries[worker]; const char* limit = boundaries[worker + 1];
+             auto& chunk = chunks[worker];
+-            LocalEndpoints local_names(endpoints);
++            EndpointSpanCache<512> local_names(endpoints);
+             size_t reserve_hint = (limit - p) / (72 * 64);
+             while (p < limit) {
+                 if (limit - p < 28) throw std::runtime_error("truncated timestamp");
+@@ -50,14 +50,12 @@
+                 p += 28; while (p < limit && *p != ' ') ++p;
+                 if (p == limit) throw std::runtime_error("missing endpoint");
+                 const char* start = ++p;
+-                p = static_cast<const char*>(std::memchr(start, ' ', limit - start));
+-                if (!p || limit - p < 5) throw std::runtime_error("missing endpoint/status");
+-                std::string_view endpoint(start, p - start);
++                uint16_t key=local_names.read(p,limit);
++                if(limit-p<5)throw std::runtime_error("missing endpoint/status");
+                 bool error = p[1] == '5'; p += 5; start = p;
+                 uint64_t latency = decimal_digits(p, limit);
+                 if (p == start || p - start > 10 || latency > UINT32_MAX || p == limit || *p != '\n') throw std::runtime_error("invalid latency");
+                 ++p;
+-                uint16_t key = local_names.intern(endpoint);
+                 if (chunk.first[hour] == UINT32_MAX) {
+                     chunk.first[hour] = static_cast<uint32_t>(line - file.data);
+                     chunk.records[hour].reserve(reserve_hint);

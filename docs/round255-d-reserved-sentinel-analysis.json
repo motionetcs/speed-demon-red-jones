@@ -1,0 +1,17 @@
+{
+  "observed_at_utc": "2026-11-01T06:59:31.272666+00:00",
+  "passed": true,
+  "rows": [
+    {
+      "source": "original",
+      "header_sha256": "07b254af4e7a149bdae50e426c3355446e104333e6a8dcd43cd29181db4a8604",
+      "output": "1 18446744073709551615"
+    },
+    {
+      "source": "epoch4",
+      "header_sha256": "e729b9954ae8a6b59dcf50e09e20345fb886dbd9b384da9d1083e7e932d8b6fc",
+      "output": "1 18446744073709551615"
+    }
+  ],
+  "finding": "Original unchanged Distances wide API reports changed when storing reserved UINT64_MAX on absent node; candidate identical. Initial model asked value<infinity for reserved sentinel, outside supported graph finite-distance domain. Frozen spec valid answers<2^63. Correct model mutations to finite distances<=UINT64_MAX-1; keep absent/reset infinity checks and this exact baseline-equivalence sentinel probe. No candidate source fix or warning suppression."
+}

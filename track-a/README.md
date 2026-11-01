@@ -12,7 +12,7 @@ Only the owner of an hour reads or releases that hour's record/escape vectors. W
 
 Work is O(input bytes + requests), plus exact selection/small-group sorting and key ordering. Storage is O(compact request records + exact escapes + live hourly workspaces + output). Thread exceptions are joined and propagated. The bounded decimal helper validates every digit; scalar tails cover short and non-little-endian inputs.
 
-Build: `clang++ -std=c++20 -O3 -pthread main.cpp -o solution`. Docker builds a static Linux executable offline from pinned allowlisted images. The unchanged official generator trains independent sample seeds104729/130363 for PGO. Only the executable enters the runtime image; no dataset, profile or answer cache does.
+Build: `clang++ -std=c++20 -O3 -pthread main.cpp -o solution`. Docker builds a static Linux executable offline from pinned allowlisted images. The byte-identical official generator trains seed1000003 at full scale, then130363 at sample scale for PGO, using the original generic GCC flags and default12 workers. Only the executable enters the runtime image; no dataset, profile or answer cache does.
 
 Validation covers untrained samples, full published hashes at1/6/12 workers, strict memory/UB and race sanitizers, deliberate full-hash collisions, unique IDs, ID4095/overflow, exact latency escapes, and restricted GCC15/Linux cases/defaults. Exact scored commit/run IDs and rejected experiments are in `PERF.md`. Local Apple timing is development evidence; real board K decides retention.
 
@@ -20,9 +20,9 @@ With another24 hours: obtain legitimate Intel profiles, measure parse/selection/
 
 Specification: https://github.com/hackathon-raptors/speed-demon-2026/blob/main/specs/a-ingest.md
 
-Per-worker exact direct caches point at globally published immutable views. Sampling only indexes the cache; full names still decide equality, and misses use the original global interner. Actual total-score acceptance is recorded in PERF.md.
+Each parser has a2048-slot parsing-hint table learned only from the current input. The first16 in-range bytes choose a slot; a hit requires the complete learned endpoint bytes and the actual following space within bounds. It reuses only the learned endpoint ID and delimiter position. Misses use a bounded delimiter scan and the original full-key global interner. Short/long fields, collisions and aliases retain exact fallback behavior; every row still parses status/latency and is counted. Canonical views borrow the immutable input mapping. Real total-score acceptance is recorded separately in PERF.md.
 
-Compact record vectors use a stateless mapped allocator; after an hour has been fully scattered, its record storage returns directly to the operating system. The unchanged cache retains borrowed input views. Wide latency escapes and all quantiles remain exact.
+Compact record vectors use a stateless mapped allocator; after an hour has been fully scattered, its record storage returns directly to the operating system. The parsing hints retain borrowed immutable input views. Wide latency escapes and all quantiles remain exact.
 
 The retained163 design keeps all twelve aggregation workers. Finished hour output is published under one mutex; each publisher flushes only consecutive completed hours, then releases directly mapped output bytes. Empty hours also publish. No extra writer thread or assumption about input order is used. The bounded leading eight-digit decoder validates bytes and retains exact full-uint32/scalar tails.
 
