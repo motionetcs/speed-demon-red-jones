@@ -14,7 +14,7 @@ struct Csv {
     void bom() {
         if (end - p >= 3 && std::memcmp(p, "\xef\xbb\xbf", 3) == 0) p += 3;
     }
-    [[gnu::always_inline]] Field field(std::string& scratch, bool decode) {
+    Field field(std::string& scratch, bool decode) {
         const char* start = p;
         if (p == end || *p != '"') {
             while (p < end && *p != ',' && *p != '\r' && *p != '\n') ++p;
@@ -50,7 +50,7 @@ struct Csv {
     void comma() {
         if (p == end || *p++ != ',') throw std::runtime_error("expected CSV comma");
     }
-    [[gnu::always_inline]] uint64_t integer() {
+    uint64_t integer() {
         const char* start = p;
         uint64_t value = 0;
         while (p < end && *p >= '0' && *p <= '9') value = value * 10 + *p++ - '0';
@@ -58,7 +58,7 @@ struct Csv {
         comma();
         return value;
     }
-    [[gnu::always_inline]] int64_t amount() {
+    int64_t amount() {
         bool negative = p < end && *p == '-';
         if (negative) ++p;
         const char* start = p;

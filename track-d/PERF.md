@@ -447,3 +447,9 @@ Fresh sample1801/1811 strict ASAN/UBSAN,1819 TSAN, public1/6/12, all high-degree
 
 
 183 independently screens degree64/scatter64/both32/both64/both128 staging on the current compact graph/D32-query layout. Eleven rotating full-public hashes pass; paired0.990132/0.998705/0.993385/0.994459/1.002234 are effectively flat or losing, so all are rejected before new partial-batch/strict/race/GCC/image/default/actual proof. This is separate from accepted query-work batching104. Original16-row degree/scatter bodies remain unchanged in184. Raw round183-loader-stage-screen.json and prototype patches/index.
+
+
+184/2a228b4 run-1d5ff8ea4383 all real gates pass: T0.200384s/M77852672/S827/K19.912032/64.955779 points. Lower unchanged original D variation; best kept separately. Raw ../docs/board-round184-inline-parsers.json.
+
+
+185 replaces only zero-initialized adjacency vectors with standard C++20 make_unique_for_overwrite fixed arrays in an isolated native screen. Object layout/lifetime stays compact4-byte/wide6-byte; production would require proof that every slot is written exactly once before any query read. Public hashes pass but paired1.004704 loses (retained0.181588541s/RSS179240960 versus0.183213458/180240384). Reject before new write-coverage/read-after-write/0-allocation/strict/race/GCC/image/default/actual proof. No overwrite-array code enters runtime. Primary C++20 creation semantics https://timsong-cpp.github.io/cppwp/n4861/unique.ptr.create ; no custom allocator or host/harness change.

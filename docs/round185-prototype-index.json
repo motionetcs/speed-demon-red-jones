@@ -1,0 +1,14 @@
+{
+  "observed_at_utc": "2026-11-01T00:04:56.395823+00:00",
+  "base": "2a228b48669647705c3f7da11192b3d47fb5046b",
+  "scope": "Native screen only. Replace value-initialized adjacency vectors with fixed-length unique arrays default-initialized through standard C++20 make_unique_for_overwrite. Stored objects/lifetimes/compact4-byte and wide6-byte layouts unchanged. Production scatter must write every index exactly once before any query read after joins. No custom allocator, optional page hint, host/harness change. Needs fresh instrumented independent write-once/full-coverage/read-after-write model, allocation/0/full/sentinel/partial-batch strict/race/GCC/new full/reference/image/default/actual proof if promoted. Original value-initialized-storage proof alone is insufficient.",
+  "primary_reference": "https://timsong-cpp.github.io/cppwp/n4861/unique.ptr.create",
+  "patches": [
+    {
+      "patch": "round185-overwrite-edge_store.hpp.patch",
+      "path": "track-d/edge_store.hpp",
+      "base_sha256": "31db14bd58fb3bb45a90c963cf57397a50d5195782d01dc366b2a380d3b74ed6",
+      "candidate_sha256": "5929e22355fc104809eb608e36865cc66509e7b13bbad146590a5b6380a91936"
+    }
+  ]
+}
