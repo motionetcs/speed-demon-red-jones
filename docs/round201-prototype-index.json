@@ -1,0 +1,31 @@
+{
+  "observed_at_utc": "2026-11-01T01:54:39.903903+00:00",
+  "base": "d4027c9da87a5a71e946dfaf2adaa84736c6508b",
+  "scope": "Native screen only. Bounded2/4/8 adjacent cache probes, empty first slot insertion, home eviction if all inspected slots occupied. Every local hit retains full hash/length/byte comparison, and every miss/long key calls unchanged exact global interner. Table remains4096x16 bytes; no runtime catalogue/seed recognition, hash equality shortcut, unbounded probe or capacity assumption. Additional comparisons may cost more than saved global misses. New independent collision/eviction/wrap/empty/long-key/guard/canonical-publication/race/GCC/untrained/full/image/default/actual K proof required before promotion.",
+  "primary_sources": [
+    "https://arxiv.org/abs/2304.04954",
+    "https://timsong-cpp.github.io/cppwp/n4861/string.view.comparison"
+  ],
+  "research_limit": "Cache-associativity paper motivates examining collision conflict; its fully-random-hash/LRU guarantees do NOT apply to this sampled-hash/bounded-home-eviction cache. No paper or competitor code imported.",
+  "patches": [
+    {
+      "patch": "round201-probe2-endpoint_table.hpp.patch",
+      "path": "track-a/endpoint_table.hpp",
+      "base_sha256": "913048b747b8f938cf1b438f29648a62d11434b2d71c3fb9a9b5f5aae31df745",
+      "candidate_sha256": "b8cc4546f6a47e78c1ee5ff1d98b63e8caf304c1119598d40748f95b56669a20"
+    },
+    {
+      "patch": "round201-probe4-endpoint_table.hpp.patch",
+      "path": "track-a/endpoint_table.hpp",
+      "base_sha256": "913048b747b8f938cf1b438f29648a62d11434b2d71c3fb9a9b5f5aae31df745",
+      "candidate_sha256": "720b03a2f01a8bd02b965faea349b738920024d98b5fab89e73e3ca1e5a26fcb"
+    },
+    {
+      "patch": "round201-probe8-endpoint_table.hpp.patch",
+      "path": "track-a/endpoint_table.hpp",
+      "base_sha256": "913048b747b8f938cf1b438f29648a62d11434b2d71c3fb9a9b5f5aae31df745",
+      "candidate_sha256": "6572201de52879a21545c06311c971ed264436a4fd0d23d448164ece48fe2957"
+    }
+  ],
+  "decision": "Reject all bounded local-cache probes before broad validation: paired improvements below1% are flat against added source/comparisons; original4096 direct cache remains."
+}

@@ -557,3 +557,15 @@ Fresh native fallback/GCC SSE4.2+fallback strict polynomial/all-byte/random/1MiB
 
 
 197/8003961 run-5a9a5be47984 all five real gates pass: T0.062422s/M11792384/S672/K23.003818/68.089996 points. Original std::hash/low32/quote C restored;23.003818 remains below best23.033578. No new algorithm gain. All29 source/build/metadata inputs/full file sets match selected and current best-track sources. Fresh original A81/C501+30 errors, combined public/defaults pass; round197-final-source-match.json. Raw ../docs/board-round197-selected-confirmation.json.
+
+
+199/d4027c9 run-a6160af16561 all five real gates pass on unchanged selected197 runtime: T0.062815s/M12214272/S672/K22.771094/67.869194 points. Lower same-source repeat, historical best kept separately. Raw ../docs/board-round199-evidence-head.json.
+
+
+200 read-only two-sample/independent full2203 profile: lossless trailing-space-run compression would save only3400–3960 rounded key-payload bytes;95.3k full bases remain. Reject before implementation; preserve every space and exact canonical key.198 sparse-country proposal also remains rejected. No runtime catalogue/seed recognition or cgroup/K claim.
+
+202 re-evaluates shifted home and24-byte events only on materially newer128 eight-byte offset entries. Old77/104 sixteen-byte-table losses are retained; new11 rotating native full-public hashes give paired0.925304 for shift2 and0.942004 for event24. Select only shift2 for fresh204 proof, not a combination. Event24 remains native-only/unproved and absent. These are local hypotheses, not Intel scores.
+
+204 changes exactly three owner-table expressions: home index, rehash and retry use fingerprint>>2, so default four-owner routing no longer fixes the first two home-slot bits. Stored low32 rejection fingerprints, full length/byte equality, full64 owner routing, private stable blocks/country bitmaps, original quote/parser/eight-reader/four-owner/512-event queues and native GCC/full1000003+sample130363 PGO stay. Other owner counts remain exact without a distribution or collision-free assumption.
+
+Fresh native and pinned GCC-native strict offset/index std::set models cover full-key/low32/full64 collisions0/1/MAX, shifted-home low2 aliases/wrap, table/block growth, all country words, long NUL/UTF8/1MiB keys and overflow. New model executes every1..11 owner routing with actual table growth. Fresh2251/2267 ASAN/UBSAN/full2281,2273 TSAN, every country width/topology/1MiB/pressure/normal error pass. Pinned GCC strict production168 valid+30 errors and exact new PGO image501 valid+30 errors pass, along with public1/6/12, combined Make and actual native/Linux defaults. CRC-pair fixture inputs here do not claim CRC activation; hashing remains original std::hash. All29 inputs/full file sets and explicit images bind in round204-candidate-source-match.json. Only supported real C total K above23.033578/68.118071 permits retention; otherwise restore names.hpp/README exactlyd4027c9 and original C263 image, preserve honest records and confirm restored combination. No target gain is claimed before the actual run.

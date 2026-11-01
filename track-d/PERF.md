@@ -479,3 +479,9 @@ Eleven rotating public hashes pass, but retained0.183108542s/RSS179421184 versus
 
 
 197/8003961 run-28e38f7bbc46 all five real gates pass: T0.197938s/M77545472/S827/K20.050533/65.106296 points. Unchanged original D; lower repeat, best20.248361 remains. All29 source/build/metadata inputs/full file sets match selected and current best-track sources. Fresh original A81/C501+30 errors, combined public/defaults pass; round197-final-source-match.json. Raw ../docs/board-round197-selected-confirmation.json.
+
+
+199/d4027c9 run-8f7e6a0b1289 all five real gates pass on unchanged selected197 runtime: T0.199210s/M76984320/S827/K20.015469/65.068289 points. Lower same-source repeat, historical best kept separately. Raw ../docs/board-round199-evidence-head.json.
+
+
+203 standard checked from_chars and at-most-one in-row separator are isolated native screens on unchanged current graph/search layout. Every full-public hash passes; paired1.154143/1.006474 loses/flat, so reject before new scalar/range/guard/grammar/error/strict/race/Floyd/GCC/image/actual proof. The single-separator candidate relies on frozen single-SP/LF grammar and may reject outside-grammar repeated whitespace; it is not selected. Original generic whitespace/four-digit decoder stays. C++20 from_chars primary return/error contract was read; no performance claim follows from that API.

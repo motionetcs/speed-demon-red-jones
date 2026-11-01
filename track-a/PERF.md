@@ -477,3 +477,9 @@ Pinned offline allowlisted A build/public1/6/12 passes, followed by81 exact-imag
 
 
 197/8003961 run-291f7705fa6e all five real gates pass: T0.043935s/M21061632/S497/K31.343480/74.807361 points. Original generic/full-PGO A restored; lower same-source repeat, best31.974332 remains. All29 source/build/metadata inputs/full file sets match selected and current best-track sources. Fresh original A81/C501+30 errors, combined public/defaults pass; round197-final-source-match.json. Raw ../docs/board-round197-selected-confirmation.json.
+
+
+199/d4027c9 run-df1f3d713f80 all five real gates pass on unchanged selected197 runtime: T0.042801s/M21176320/S497/K31.721512/75.067694 points. Lower same-source repeat, historical best kept separately. Raw ../docs/board-round199-evidence-head.json.
+
+
+201 bounded2/4/8 adjacent front-cache probes preserve exact full-key comparison and global fallback. All full-public hashes pass in11 rotating native runs, but paired1.005356/0.992900/0.994820 is flat against added comparisons/source. Reject before new collision/eviction/wrap/guard/canonical-publication/strict/race/GCC/image/actual proof. Original4096 direct cache remains. Primary associativity paper2304.04954 motivates conflict analysis only; its random-hash/LRU theorem does not apply to this sampled-hash/home-eviction design. No imported implementation.

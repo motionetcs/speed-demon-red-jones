@@ -1,0 +1,12 @@
+--- a/track-d/main.cpp
++++ b/track-d/main.cpp
+@@ -19,7 +19,8 @@
+     const char* end;
+     bool more() { while (p < end && *p <= ' ') ++p; return p < end; }
+     uint32_t number() {
+-        if (!more() || *p < '0' || *p > '9') throw std::runtime_error("missing graph number");
++        if(p<end&&*p<=' ')++p;
++        if(p==end||*p<'0'||*p>'9')throw std::runtime_error("missing graph number");
+         uint64_t value = decimal_digits(p, end);
+         if (value > UINT32_MAX) throw std::runtime_error("graph integer out of range");
+         return static_cast<uint32_t>(value);

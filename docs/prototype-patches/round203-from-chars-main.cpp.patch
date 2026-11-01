@@ -1,0 +1,26 @@
+--- a/track-d/main.cpp
++++ b/track-d/main.cpp
+@@ -2,7 +2,7 @@
+ #include "edge_store.hpp"
+ #include "load_cursors.hpp"
+ #include "io.hpp"
+-#include "decimal.hpp"
++#include <charconv>
+ #include "distance_map.hpp"
+ #include "parallel.hpp"
+ #include <memory>
+@@ -19,10 +19,10 @@
+     const char* end;
+     bool more() { while (p < end && *p <= ' ') ++p; return p < end; }
+     uint32_t number() {
+-        if (!more() || *p < '0' || *p > '9') throw std::runtime_error("missing graph number");
+-        uint64_t value = decimal_digits(p, end);
+-        if (value > UINT32_MAX) throw std::runtime_error("graph integer out of range");
+-        return static_cast<uint32_t>(value);
++        if(!more())throw std::runtime_error("missing graph number");
++        uint32_t value;auto result=std::from_chars(p,end,value);
++        if(result.ec!=std::errc{})throw std::runtime_error("invalid graph number");
++        p=result.ptr;return value;
+     }
+ };
+ using Item = std::pair<uint64_t, uint32_t>;

@@ -1,0 +1,21 @@
+{
+  "observed_at_utc": "2026-11-01T01:57:55.020292+00:00",
+  "base": "d4027c9da87a5a71e946dfaf2adaa84736c6508b",
+  "scope": "Native screen only. from_chars replaces numeric helper, retaining generic whitespace and exactuint32/error checks; unused decimal header still archived but would be removed from COPY/context if promoted. single-separator consumes at most one separator inside number; outer more remains generic. Official frozen D contract guarantees single SP/LF separators; multiple whitespace inside a row is outside grammar and may now fail normally. Neither variant removes range/node/edge-count checks. Both need fresh scalar/fulluint32/tail/guard/normal-error/independent-Floyd/untrained/strict/race/GCC/image/default/real-K proofs before promotion.",
+  "primary_source": "https://timsong-cpp.github.io/cppwp/n4861/charconv.from.chars",
+  "patches": [
+    {
+      "patch": "round203-from-chars-main.cpp.patch",
+      "path": "track-d/main.cpp",
+      "base_sha256": "6ae66971d7a6fd1f6bb75741daa522c681eae20e200f426547f8c537161327cc",
+      "candidate_sha256": "d695bbf195893e1ccbd519ddf991b12da1b3176c9481d323afb714bbf444a381"
+    },
+    {
+      "patch": "round203-single-separator-main.cpp.patch",
+      "path": "track-d/main.cpp",
+      "base_sha256": "6ae66971d7a6fd1f6bb75741daa522c681eae20e200f426547f8c537161327cc",
+      "candidate_sha256": "e6ba177147924e0e577eeaadfce0652a94fa9ee6a7d0fc73c0d6cddb0c3a4fca"
+    }
+  ],
+  "decision": "Reject both before broad validation: from_chars paired1.154143 loses, single-separator1.006474 flat/losing; original generic whitespace/four-digit helper remains."
+}

@@ -1,0 +1,66 @@
+{
+  "observed_at_utc": "2026-11-01T02:00:35.474371+00:00",
+  "official_score": false,
+  "passed": true,
+  "scope": "Fresh204 shifted-home production header under native/GCC-native strict ASAN/UBSAN. Independent std::set/full-key/low32/full64 collisions including0/1, all-country words, table/block growth, oversized/NUL/UTF8 keys, exact index/overflow guards. New model mixes low2 fingerprints with equal shifted homes at zero/MAX32/wrap, and executes every1..11 owner routing with actual table growth/repeated exact country updates. No parser/race/performance claim from models alone. Both original and new model run directly against exact frozen Names; no substitute legacy table or runtime hooks.",
+  "native_runs": [
+    {
+      "mode": "native-offset",
+      "compile": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-pthread",
+        "-fsanitize=address,undefined",
+        "-fno-sanitize-recover=all",
+        "-fno-omit-frame-pointer",
+        "-DNAMES_HEADER=\"/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round204/source/track-c/names.hpp\"",
+        "tools/test_offset_names.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round204/models/offset"
+      ],
+      "stdout": "PASS offset-name independent std::set, low32 fingerprint collisions including0/1, full-key collisions, all-country words, table/block growth, exact full/partial/oversized blocks, long NUL/UTF8 keys, encoded-index boundaries and overflow guards\n",
+      "stderr": "",
+      "binary_sha256": "fa2f434f5fc05e01f972541877f2dda9771fc92d9a673274d3d6de4ae089a913"
+    },
+    {
+      "mode": "native-index",
+      "compile": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-pthread",
+        "-fsanitize=address,undefined",
+        "-fno-sanitize-recover=all",
+        "-fno-omit-frame-pointer",
+        "-DNAMES_HEADER=\"/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round204/source/track-c/names.hpp\"",
+        "tools/test_offset_name_index.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round204/models/index"
+      ],
+      "stdout": "PASS independent std::set: mixed low2 fingerprints with same shifted home, zero/MAX32 homes and wrap probes, distinct full64 hashes, every1..11 owner routing with table growth and repeated exact country updates\n",
+      "stderr": "",
+      "binary_sha256": "7c4df8ec2a674bfdbbb4191c81aa939f7158008e3c71f3a080cae67640e79026"
+    }
+  ],
+  "compiler_image": "gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce",
+  "gcc_script": [
+    "set -eu",
+    "export ASAN_OPTIONS=halt_on_error=1",
+    "export UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1",
+    "g++ -std=c++20 -O1 -g -march=native -pthread -fsanitize=address,undefined -fno-sanitize-recover=all -fno-omit-frame-pointer '-DNAMES_HEADER=\"/repo/.build/round204/source/track-c/names.hpp\"' /repo/tools/test_offset_names.cpp -o /tmp/offset",
+    "/tmp/offset",
+    "g++ -std=c++20 -O1 -g -march=native -pthread -fsanitize=address,undefined -fno-sanitize-recover=all -fno-omit-frame-pointer '-DNAMES_HEADER=\"/repo/.build/round204/source/track-c/names.hpp\"' /repo/tools/test_offset_name_index.cpp -o /tmp/index",
+    "/tmp/index"
+  ],
+  "gcc_stdout": "PASS offset-name independent std::set, low32 fingerprint collisions including0/1, full-key collisions, all-country words, table/block growth, exact full/partial/oversized blocks, long NUL/UTF8 keys, encoded-index boundaries and overflow guards\nPASS independent std::set: mixed low2 fingerprints with same shifted home, zero/MAX32 homes and wrap probes, distinct full64 hashes, every1..11 owner routing with table growth and repeated exact country updates\n",
+  "gcc_stderr": "",
+  "source_sha256": {
+    ".build/round204/source/track-c/names.hpp": "1cab46e4357e63b74f9d396ca6f307d9a975e803ea7a4d2daf1a6485af210fad",
+    "tools/test_offset_names.cpp": "bcf06dd08cf3c07b2a6fef432db80f6d8b1584be76b8bbf58bb345f9e6bd771f",
+    "tools/offset_names_model.hpp": "80082d9d37052c2f8ba3612c15c5ad3386f672e2b5ead83d2dd3f64e6794842e",
+    "tools/test_offset_name_index.cpp": "06731a4c51f4979548b186e5ce94209104c840dc7eeb34173833134f4421bc09"
+  }
+}

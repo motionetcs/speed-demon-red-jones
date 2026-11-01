@@ -1,0 +1,20 @@
+--- a/track-a/endpoint_table.hpp
++++ b/track-a/endpoint_table.hpp
+@@ -48,10 +48,13 @@
+ 
+     uint16_t intern(std::string_view value){
+         if(value.size()>UINT16_MAX)return shared.intern(value,std::hash<std::string_view>{}(value));
+-        uint32_t hash=hash_key(value);size_t i=hash&(slots.size()-1);
+-        const auto& cached=slots[i];
+-        if(cached.id!=UINT16_MAX&&cached.hash==hash&&cached.length==value.size()&&(value.empty()||std::memcmp(cached.data,value.data(),value.size())==0))return cached.id;
++        uint32_t hash=hash_key(value);size_t home=hash&(slots.size()-1),chosen=home;
++        for(size_t probe=0;probe<2;++probe){
++            size_t i=(home+probe)&(slots.size()-1);const auto& cached=slots[i];
++            if(cached.id==UINT16_MAX){chosen=i;break;}
++            if(cached.hash==hash&&cached.length==value.size()&&(value.empty()||std::memcmp(cached.data,value.data(),value.size())==0))return cached.id;
++        }
+         uint16_t id=shared.intern(value,std::hash<std::string_view>{}(value));
+-        slots[i]={shared.canonical[id].data(),hash,static_cast<uint16_t>(value.size()),id};return id;
++        slots[chosen]={shared.canonical[id].data(),hash,static_cast<uint16_t>(value.size()),id};return id;
+     }
+ };
