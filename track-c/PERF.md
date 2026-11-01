@@ -554,3 +554,6 @@ Fresh native fallback/GCC SSE4.2+fallback strict polynomial/all-byte/random/1MiB
 
 
 195/10e3ade run-acc2c9e9eb34 all five real gates pass: T0.061860s/M12578816/S730/K22.530101/67.638157 points. Reject Intel CRC:22.530101 loses23.033578; T0.061860/M12578816/S730 versus old0.062531/11665408/672. Restore names/Docker/README, delete name_hash.hpp, restore Make dependency. Full strict/actual collision proof stays historical. Raw ../docs/board-round195-native-a-crc-c.json.
+
+
+197/8003961 run-5a9a5be47984 all five real gates pass: T0.062422s/M11792384/S672/K23.003818/68.089996 points. Original std::hash/low32/quote C restored;23.003818 remains below best23.033578. No new algorithm gain. All29 source/build/metadata inputs/full file sets match selected and current best-track sources. Fresh original A81/C501+30 errors, combined public/defaults pass; round197-final-source-match.json. Raw ../docs/board-round197-selected-confirmation.json.

@@ -476,3 +476,6 @@ Eleven rotating public hashes pass, but retained0.183108542s/RSS179421184 versus
 
 
 196 skips numeric accumulation for first-pass weights only; the original scatter still decodes/range-checks every actual weight before queries/output. It keeps generic whitespace/token endpoints and node checks, not fixed-line or seed assumptions. Native full hashes pass but paired1.003300 is flat/losing (raw0.182325959/0.182167875), so reject before new lexical/deferred-invalid/guard/strict/race/Floyd/full/GCC/image/actual proof. No skip method enters runtime; both original weight parses remain.
+
+
+197/8003961 run-28e38f7bbc46 all five real gates pass: T0.197938s/M77545472/S827/K20.050533/65.106296 points. Unchanged original D; lower repeat, best20.248361 remains. All29 source/build/metadata inputs/full file sets match selected and current best-track sources. Fresh original A81/C501+30 errors, combined public/defaults pass; round197-final-source-match.json. Raw ../docs/board-round197-selected-confirmation.json.

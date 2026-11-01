@@ -474,3 +474,6 @@ Pinned offline allowlisted A build/public1/6/12 passes, followed by81 exact-imag
 
 
 195/10e3ade run-bd204a738692 all five real gates pass: T0.043456s/M21204992/S497/K31.473022/74.896922 points. Reject native ISA on newer context:31.473022 loses31.974332; restore complete Docker/README toceb78f8 and original full-PGO B57 image. No target improvement claimed. Raw ../docs/board-round195-native-a-crc-c.json.
+
+
+197/8003961 run-291f7705fa6e all five real gates pass: T0.043935s/M21061632/S497/K31.343480/74.807361 points. Original generic/full-PGO A restored; lower same-source repeat, best31.974332 remains. All29 source/build/metadata inputs/full file sets match selected and current best-track sources. Fresh original A81/C501+30 errors, combined public/defaults pass; round197-final-source-match.json. Raw ../docs/board-round197-selected-confirmation.json.
