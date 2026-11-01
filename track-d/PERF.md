@@ -453,3 +453,11 @@ Fresh sample1801/1811 strict ASAN/UBSAN,1819 TSAN, public1/6/12, all high-degree
 
 
 185 replaces only zero-initialized adjacency vectors with standard C++20 make_unique_for_overwrite fixed arrays in an isolated native screen. Object layout/lifetime stays compact4-byte/wide6-byte; production would require proof that every slot is written exactly once before any query read. Public hashes pass but paired1.004704 loses (retained0.181588541s/RSS179240960 versus0.183213458/180240384). Reject before new write-coverage/read-after-write/0-allocation/strict/race/GCC/image/default/actual proof. No overwrite-array code enters runtime. Primary C++20 creation semantics https://timsong-cpp.github.io/cppwp/n4861/unique.ptr.create ; no custom allocator or host/harness change.
+
+
+187/d6cea74 run-893f46cf2767 all five real gates pass: T0.201343s/M77291520/S827/K19.893315/64.935358 points. Unchanged original D lower repeat;65.319494/K20.248361 stays best. All29 inputs/full file sets match current selected and best-track sources, round187-final-source-match.json; fresh original-C405 references/30 errors and combined public/defaults pass. Raw ../docs/board-round187-selected-confirmation.json.
+
+
+188 screens one outgoing CSR/cursor/adjacency plus exact one-direction banded Dijkstra. Atomic incoming-byte flags generically reject no-in targets, with no catalogue/seed logic. Target relaxations give an upper bound; only a between-batch queue floor >=best would stop. Existing headers and sentinel sidecar keys i*2 stay. This new construction/query/flag/termination protocol would need independent/Floyd/full64/partial-batch/native-GCC strict/race/full/reference/image/default/actual proof; a public hash is not that proof.
+
+Eleven rotating public hashes pass, but retained0.183108542s/RSS179421184 versus one-way0.317186084/159891456 has paired1.737101 (73.71% slower), for19,529,728 fewer native RSS bytes. Reject before promotion; no Intel/cgroup K or generic correctness claim. Original bidirectional D stays. Exact limits/patches: round188-prototype-index.json, round188-oneway-screen.json. This larger idea is tried/rejected, not an unimplemented priority.

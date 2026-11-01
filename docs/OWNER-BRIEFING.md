@@ -20,6 +20,8 @@ Record vectors and output strings obtain their pages directly from the operating
 
 A bounded eight-byte decoder converts the leading decimal digits together, then handles any remaining digits normally. It never loads beyond its input boundary, keeps complete32-bit latencies, and still verifies the newline and range. The combined ordered-output/decoder change has a real board result:73.371413→74.448567 points, with about24% less charged memory,1.47% lower measured time and more source. Individual component effects were not measured separately; best and latest runs remain distinct in RESULTS.
 
+Build-time PGO runs the same program on independent generator output:1000003/full, then130363/sample. These workloads teach the compiler common branches. Training inputs, answers and profiles do not enter the runtime image, and published seed1 is never trained. Current A has a slightly higher observed best with mixed repeats; final timing is not promised.
+
 ## C: CSV records
 
 A line break inside quotes belongs to a field, so splitting the file on line breaks would be wrong. Our parser follows quoting rules, counts a doubled quote as one literal byte, preserves trailing spaces, and skips a BOM only at a record boundary. A bounded scanner locates quotes while the parser still checks all quoting rules. It joins region IDs to country codes; unknown regions are grouped as `_UNMATCHED`.

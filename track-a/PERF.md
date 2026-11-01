@@ -457,3 +457,6 @@ Pinned offline allowlisted A build/public1/6/12 passes, followed by81 exact-imag
 
 
 184/2a228b4 run-8dbc52563984 all real gates pass: T0.042414s/M21045248/S497/K31.905497/75.193276 points. Same full-PGO build31.905497 is0.375% above previous original17531.786315, below first17831.974332. Two of three changed-build observations exceed prior best, one is lower. Retain this modest measured build choice without a precise causal gain claim; later higher repeats are variation. Raw ../docs/board-round184-inline-parsers.json.
+
+
+187/d6cea74 run-d3e26c39a872 all five real gates pass: T0.043080s/M21213184/S497/K31.607629/74.989596 points. Unchanged178 build lower repeat;75.240074/K31.974332 stays best. Mixed repeats limit causality. All29 inputs/full file sets match current selected and best-track sources, round187-final-source-match.json; fresh original-C405 references/30 errors and combined public/defaults pass. Raw ../docs/board-round187-selected-confirmation.json.

@@ -528,3 +528,6 @@ Fresh2053/2063 strict ASAN/UBSAN, full2039,2069 TSAN, public1/6/12, all countrie
 
 
 184/2a228b4 run-9f659978a7c5 all real gates pass: T0.062545s/M12468224/S672/K22.726464/67.826593 points. Reject combined parser inlining:22.726464 loses original23.033578 despite native10.94%. Restore Cmain/README exactly42c50ce and original263099fc image. Fresh full strict/GCC/image proof stays historical to rejected code. Raw ../docs/board-round184-inline-parsers.json.
+
+
+187/d6cea74 run-0040c07b5d6f all five real gates pass: T0.098959s/M12079104/S672/K18.182538/62.982725 points. Original C fully restored. Lower same-source0.098959s/62.982725 outlier stays separate from68.118071 best; no algorithm-regression or target-phase explanation asserted. All29 inputs/full file sets match current selected and best-track sources, round187-final-source-match.json; fresh original-C405 references/30 errors and combined public/defaults pass. Raw ../docs/board-round187-selected-confirmation.json.
