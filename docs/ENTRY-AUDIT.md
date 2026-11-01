@@ -1,5 +1,8 @@
 # Entry audit — 1 November 2026
 
+Latest: D290 passes every real gate but loses K19.066210/64.013219 vs20.248361/65.319494. Main/distance_map/README/image fully restored to original287. Fresh original public/default8 controls and all29/Make/README/full sets pass without compilation/training repetition. Local original291 restoration awaits one cooled exact-commit all-track confirmation. Selected source never keeps a known losing optimization; no new best or qualification certificate claimed.
+
+
 Candidate290 is now fully locally verified for one authorized real D trial: exact bounded128 cross-node edge gather/prefetch and original12-worker/32-band64 solver, all29/Make/README/full-file-set/local-image proofs, fresh exact-block/prefetch/native strict/race/independent/Floyd/untrained checks, pinned GCC models/main1347+12, unique permitted PGO image2049+48 and true default434+4 PASS. Actual rootMake/public/default all-track12 PASS. Historical original287 remains rollback; no target K claimed before actual result. Only D K>20.248361/65.319494 supports retention. Failed test reset and strict-style attempts are disclosed in source-bound proof archive, not production fixes or passing old proofs. Repository stays PRIVATE/MIT; publication only Nov2 approved window.
 
 
