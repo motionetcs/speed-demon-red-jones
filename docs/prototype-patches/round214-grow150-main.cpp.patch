@@ -1,0 +1,13 @@
+--- a/track-a/main.cpp
++++ b/track-a/main.cpp
+@@ -62,7 +62,9 @@
+                     chunk.first[hour] = static_cast<uint32_t>(line - file.data);
+                     chunk.records[hour].reserve(reserve_hint);
+                 }
+-                chunk.records[hour].push_back(std::min(uint32_t(latency), latency_escape) << 13 | uint32_t(error) << 12 | key);
++                auto& records=chunk.records[hour];
++                if(records.size()==records.capacity())records.reserve(records.size()+records.size()/2+1);
++                records.push_back(std::min(uint32_t(latency), latency_escape) << 13 | uint32_t(error) << 12 | key);
+                 if (latency >= latency_escape) chunk.wide[hour].push_back(static_cast<uint32_t>(latency));
+             }
+         });

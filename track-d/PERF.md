@@ -500,3 +500,6 @@ Eleven rotating public hashes pass, but retained0.183108542s/RSS179421184 versus
 
 
 212/e65b2b0 run-08b031fc94e0 all five real gates pass: T0.204276s/M76382208/S827/K19.796786/64.829734 points. Unchanged selected206 lower repeat; historical best separate. Raw ../docs/board-round212-unused-a-c6.json.
+
+
+213/4e41c96 run-790d56924609 all five real gates pass: T0.198328s/M76267520/S827/K20.097492/65.157093 points. Unchanged original selected206 source lower repeat; best separate. Raw ../docs/board-round213-c8.json.

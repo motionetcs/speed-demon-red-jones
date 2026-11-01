@@ -498,3 +498,9 @@ Pinned offline allowlisted A build/public1/6/12 passes, followed by81 exact-imag
 
 
 212/e65b2b0 run-887f6d41948b all five real gates pass: T0.043655s/M20877312/S490/K31.566256/74.961153 points. SourceS490 versus497 is lower, but K31.566256 loses31.974332 and local GCC ELF differs; predeclared source-only branch is unavailable. Restore complete io.hpp/B57. No causal slowdown or target gain claimed. Raw ../docs/board-round212-unused-a-c6.json.
+
+
+213/4e41c96 run-c0d1e219b0d9 all five real gates pass: T0.044261s/M20692992/S497/K31.338317/74.803783 points. Unchanged original selected206 source lower repeat; best separate. Raw ../docs/board-round213-c8.json.
+
+
+214 isolated mapped-record vector growth1.5/4/8 retains every value/order/escape and allocator flag; only standard reserve-on-full policy changes, with existing file-size/64-bit arithmetic guards.11 rotating public hashes pass but paired1.037363/0.984085/1.013302 with essentially flat RSS259.4–259.7MB does not establish a worthwhile total-K case. Grow8 global0.039642 versus0.040247 is misleading against paired1.013302. Unused virtual capacity is not resident memory; no accounting APIs or mmap flags are changed. Reject before new capacity-boundary/overflow/allocator-lifetime/strict/race/GCC/image/default/actual proof. Original vector policy remains; exact patches/index/report preserve screening scope.

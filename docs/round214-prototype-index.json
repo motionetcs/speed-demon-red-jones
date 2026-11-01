@@ -1,0 +1,27 @@
+{
+  "observed_at_utc": "2026-11-01T03:44:43.709952+00:00",
+  "base": "4e41c96b54b3c14fcad6b3e0a470fec9680c1484",
+  "scope": "Native screen only of private mapped-record vector growth1.5/4/8 versus normal vector policy. Same initial reserve hint, every exact record/escape/ID/parser/quantile/output/allocator/build byte otherwise unchanged. Standard reserve on a full vector grows capacity; only constructed size is read. Larger virtual capacity can reduce repeated mmap/copy/unmap; unused capacity is not claimed resident. Smaller growth may increase copy counts. Existing file<=UINT32 bound and monotone parser progress on64-bit target bound size*8+1 arithmetic; vector/max_size/allocator checks remain. No mmap flags, accounting APIs, host/harness/counters/seed/catalogue changes. Need new capacity-boundary/reference/allocator/native-GCC strict/race/untrained/full/image/default/actual-K proof if promoted; public hashes are not generic correctness proof.",
+  "limits": "MappedAllocator is ordinary unchanged lazy anonymous storage; native RSS and virtual capacity differ and neither predicts official charged memory. Source cost and extra hot-path check/copies may erase any benefit. Old unmapped/old-layout reserve/bounded-array experiments are not this policy on163/178.",
+  "patches": [
+    {
+      "patch": "round214-grow150-main.cpp.patch",
+      "path": "track-a/main.cpp",
+      "base_sha256": "02661f93bc65fc35d359c80e19d82578968ab68725e8b325e48c630c3e27310c",
+      "candidate_sha256": "9a44cb68df00a6cc2457a74c0e9266da8d3817019a8be497047abe08c454b760"
+    },
+    {
+      "patch": "round214-grow4-main.cpp.patch",
+      "path": "track-a/main.cpp",
+      "base_sha256": "02661f93bc65fc35d359c80e19d82578968ab68725e8b325e48c630c3e27310c",
+      "candidate_sha256": "d8de1160a5c6071fd318b03cab9b03bf440624b5f4d6763977cc63fd670ff2de"
+    },
+    {
+      "patch": "round214-grow8-main.cpp.patch",
+      "path": "track-a/main.cpp",
+      "base_sha256": "02661f93bc65fc35d359c80e19d82578968ab68725e8b325e48c630c3e27310c",
+      "candidate_sha256": "36901d82cb67f405e14c093591713f45eb0daf457769ee3b4735942795b5b057"
+    }
+  ],
+  "decision": "Reject all214 policies before broad proof. grow150/grow4/grow8 paired1.037363/0.984085/1.013302; native RSS essentially flat259.4\u2013259.7MB.1.6% grow4 screen alone does not justify extra source/new capacity-policy proof; grow8 global median is misleading against paired loss. No cgroup/K gain or generic correctness claimed; root A untouched."
+}
