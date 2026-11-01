@@ -1,0 +1,97 @@
+{
+  "started_at_utc": "2026-11-01T12:54:08.851643+00:00",
+  "official_score": false,
+  "mode": "model",
+  "track": "c",
+  "source_sha256": {
+    "track-c/.speed-demon.toml": "3371600b8033a377bc373378e703191dfec36c1ae991b617650dfa480edc00b4",
+    "track-c/Dockerfile": "637e81c6fca4507f4c4e7368efde7b6904d07879ae9ec992c5e25175d50e1fae",
+    "track-c/PERF.md": "2a64d2e68cb92db7ae817504d5425c0343c7fa27bf76cc0f8d814bd32b515bad",
+    "track-c/README.md": "6a64233dcbf8967678d87f403c99969067f468ee5066b0f172751f437cccb841",
+    "track-c/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+    "track-c/main.cpp": "59edb15b886b6fd043b4e4a270f43b9a0cb5b77d5a27236cb4fd6afe061fbd59",
+    "track-c/names.hpp": "f62a25fdb9f229575c42fc013220f7f38dd5a68ea5ac83aa1702d0589c15501b",
+    "track-c/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420",
+    "track-c/quote_scan.hpp": "0b170a766254dee1bc14f9e9180cc1900da01d41f5d09053d5579e01a7fb9cfa",
+    "track-c/training_generator.py": "9e61672eb814fa4e1bc2e3cf30c8e7ca9629804191ce5ae60a66c8b61ba704f2"
+  },
+  "manifest_sha256": "a49d7d5b21beec15ab6effedfea9cfad09a13e37789cba79ad6db4551351a106",
+  "native_proof_sha256": "4a6353ea87751d49e882c07974a23eb96c60f8666957a072d4511afaf298d565",
+  "scope": "Fresh exact C274 upper32 routing source under restricted pinned offline Linux/amd64 GCC or unique unchanged-training PGO image. Original primitive header bodies remain byte-identical; no prior changed-main execution/model/production proof substituted. Native/emulated times are not organizer K/cgroup/ELF evidence.",
+  "commands": [
+    {
+      "label": "model",
+      "argv": [
+        "docker",
+        "run",
+        "--rm",
+        "--platform",
+        "linux/amd64",
+        "--network=none",
+        "--read-only",
+        "--memory=8g",
+        "--memory-swap=8g",
+        "--pids-limit=512",
+        "--cap-drop=ALL",
+        "--security-opt=no-new-privileges",
+        "--user",
+        "65534:65534",
+        "--tmpfs",
+        "/tmp:rw,exec,size=1g",
+        "-i",
+        "--entrypoint",
+        "/bin/sh",
+        "-v",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh:/repo:ro",
+        "-v",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round274/linux-proof/model:/out:rw",
+        "gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce",
+        "-s"
+      ],
+      "stdin": "set -eu\nexport ASAN_OPTIONS=halt_on_error=1\nexport UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1\ng++ --version\ng++ -std=c++20 -O1 -g -march=native -Wall -Wextra -Wpedantic -Werror -pthread -fsanitize=address,undefined -fno-sanitize-recover=all -fno-omit-frame-pointer '-DNAMES_HEADER=\"/repo/.build/round274/source/track-c/names.hpp\"' /repo/.build/round274/native-proof/route_model.cpp -o /out/route-model\nsha256sum /out/route-model >/out/route-model.sha256.tmp\nmv /out/route-model.sha256.tmp /out/route-model.sha256\n/out/route-model >/out/model.out 2>/out/model.err\n"
+    },
+    {
+      "label": "native-gcc-pair",
+      "argv": [
+        "python3",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round274/native-proof/test_route_collision.py",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round274/native-proof/asan",
+        "--model-report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round274/linux-proof/model/gcc-model.json",
+        "--run-id",
+        "round274-asan-gccpair",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/docs/round274-c-asan-collision-gcc.json"
+      ],
+      "stdin": null
+    }
+  ],
+  "model": {
+    "passed": true,
+    "official_score": false,
+    "actual_collision": {
+      "left": "Routing qcwkeaaaaa",
+      "right": "Routing cjileaaaaa",
+      "left_full_hash": 6932626207961704462,
+      "right_full_hash": 1612494130152138766,
+      "low32_fingerprint": 907995150,
+      "new_default_owner": 2,
+      "keys_searched": 26885,
+      "compiler_scope": "Pinned GCC15/Linux native std::hash model; native Apple pair is separately labeled"
+    },
+    "model_cpp_sha256": "269eab85aa8808d47f2a628358c07d5a6e8c912feca98d6e8f79d8170bae1e4b",
+    "binary_sha256": "d6696d30e074db7e620e38ba3a919a5d0f8305632d925517d3f5d890652023b2",
+    "source_main_sha256": "59edb15b886b6fd043b4e4a270f43b9a0cb5b77d5a27236cb4fd6afe061fbd59",
+    "stdout": "PASS route membership 1297900 checks\nCOLLISION\tRouting qcwkeaaaaa\tRouting cjileaaaaa\t6932626207961704462\t1612494130152138766\t907995150\t2\t26885\n",
+    "stderr": "",
+    "returncode": 0,
+    "scope": "Exact changed routing expression, independent arithmetic and std::set(country,key) membership through real unchanged Names, forced fingerprints/high halves/every1..11 owner count/all country words, skewed50000-key growth and genuine fp32+default-owner collision. No cryptographic/collision-free assumption or runtime injection in main."
+  },
+  "native_gcc_pair_reports": [
+    "docs/round274-c-asan-collision-gcc.json",
+    "docs/round274-c-tsan-collision-gcc.json"
+  ],
+  "passed": true,
+  "completed_at_utc": "2026-11-01T12:54:17.777330+00:00"
+}

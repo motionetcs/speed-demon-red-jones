@@ -12,7 +12,7 @@ This is the fresh local entry. Check actual external state before treating it as
 | Licence | MIT, official attribution retained |
 | Fresh repository | https://github.com/motionetcs/speed-demon-red-jones — private |
 | Submission branch | speed-demon |
-| Remote source | Original263 737b80f273907c6afe749412a2ff44515e195b9d is on speed-demon and all A/C/D gates pass. New D26263.262026 rejected; restored latest D64.854041, best65.319494 unchanged. Exact29/Make/best/Git/image proof complete. Rank48/96; #1 remains unachieved. |
+| Remote source | Original270 4821139d5893c99862bada65dc7aa988a8ebf649 is on speed-demon and all A/C/D gates pass. A268/269 and D262 rejected; all29/Make/best/Git/image identity verified. Best scores unchanged; current rank50/98; #1 remains unachieved. |
 | Individual registration | Entrant confirmed already registered on 31 October 2026; not duplicated |
 | Team form | Submitted successfully for this fresh repository, A/C/D; Tally displayed “Form submitted” |
 | Board app access | Installed and verified on 31 October 2026; only the fresh repository selected; read-only code and metadata |
@@ -40,3 +40,7 @@ A268 candidate is fully locally verified; only A/main changes. Pinned offline PG
 268/97e58d7 real all-track gatesPASS, but A K31.952782 narrowly misses best31.974332.269 completes only its obsolete scalar-member removal, with fresh exact-source native/GCC/image/default/root controls. A separate normally cooled real trial is ready; no gain/eligibility guarantee claimed.
 
 269/17443e4 real all-track gatesPASS but A31.926607 misses best31.974332. Both268+269 changes are rejected; full original A main/io/README and immutable B57 image restored, all29/Make/file sets and fresh native/image public/default checks pass. One cooled real270 restoration confirmation pending. No victory/eligibility claim.
+
+270 exact original source is now real all-track passing, with current complete-feed comparison and final source binding in RESULTS.md/STATE.md. No permission or sign-in needed now; repository remains private until the approved publication window.
+
+Candidate274 upper32 owner routing is fully locally proved: native strict/race/independent/genuine-fingerprint model, current GCC279+25/image837+50/default93+9 and actual root Make/all-track public/default12 pass. One real all-track trial next; no K/rank gain claimed. Last passing original482 remains the complete rollback. Private MIT unchanged.

@@ -192,7 +192,7 @@ int main(int argc, char** argv) {
                             group.minimum=std::min(group.minimum,amount);group.maximum=std::max(group.maximum,amount);
                             group.name_bytes+=name.bytes;group.note_bytes+=note.bytes;
                             if(!owners){group.names+=serial->first(name.value,country,hash);continue;}
-                            unsigned owner=hash%owners;NameEvent event{name.value,hash,static_cast<uint16_t>(country)};
+                            unsigned owner=static_cast<uint32_t>(hash>>32)%owners;NameEvent event{name.value,hash,static_cast<uint16_t>(country)};
                             auto& batch=batches[owner];batch.push_back(std::move(event));
                             if(batch.size()==NAME_BATCH)queues[size_t(worker)*owners+owner].send(batch,canceled);
                         }
@@ -204,8 +204,10 @@ int main(int argc, char** argv) {
                             if(canceled.load(std::memory_order_relaxed))throw std::runtime_error("name pipeline canceled");
                             bool progress=false;
                             for(unsigned reader=0;reader<readers;++reader){
-                                if(finished[reader])continue;auto& queue=queues[size_t(reader)*owners+owner];
-                                if(!queue.ready.load(std::memory_order_acquire))continue;progress=true;
+                                if(finished[reader])continue;
+                                auto& queue=queues[size_t(reader)*owners+owner];
+                                if(!queue.ready.load(std::memory_order_acquire))continue;
+                                progress=true;
                                 if(queue.rows.empty()){finished[reader]=true;--remaining;}
                                 else for(const auto& e:queue.rows)distinct[owner][e.country]+=names.first(e.value(),e.country,e.hash);
                                 queue.rows.clear();queue.ready.store(false,std::memory_order_release);

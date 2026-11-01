@@ -1,0 +1,18 @@
+{
+  "observed_at_utc": "2026-11-01T13:04:20.012413+00:00",
+  "passed": true,
+  "before_main_sha256": "59edb15b886b6fd043b4e4a270f43b9a0cb5b77d5a27236cb4fd6afe061fbd59",
+  "after_main_sha256": "3dc572374e6372f84bab3ebdd8920db368f0d2f081cef45c59259a321f4a4327",
+  "before_source": "preformat-source/track-c/main.cpp",
+  "exact_reversible_changes": [
+    [
+      "if(finished[reader])continue;auto& queue=queues[size_t(reader)*owners+owner];",
+      "if(finished[reader])continue;\n                                auto& queue=queues[size_t(reader)*owners+owner];"
+    ],
+    [
+      "if(!queue.ready.load(std::memory_order_acquire))continue;progress=true;",
+      "if(!queue.ready.load(std::memory_order_acquire))continue;\n                                progress=true;"
+    ]
+  ],
+  "scope": "Formatting-only recovery from compiler style warnings in two pre-existing statements. No algorithm/token change or validation suppression. Completed native route/main/model fixtures and GCC route model are not rerun or relabeled; their recorded old byte hashes remain. Successful current GCC main, exact production image, defaults and actual root Make use the formatted exact source. No production PGO build started before this correction."
+}

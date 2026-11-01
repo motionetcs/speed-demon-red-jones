@@ -1,0 +1,34 @@
+--- selected270/track-c/names.hpp
++++ unscored273/track-c/names.hpp
+@@ -69,13 +69,20 @@
+ };
+ struct NameEvent {
+     std::string_view key;uint64_t hash;uint16_t country;
+-    std::string_view value()const{return key;}
++    std::string_view value(const char* = nullptr)const{return key;}
+ };
++// Chosen only when the entire records mapping fits32 bits.
++// Full64 hash routes before enqueue; the table consumes exactly this low32 fingerprint.
++struct CompactNameEvent {
++    uint32_t offset,length,hash;uint16_t country;
++    std::string_view value(const char* base)const{return {base+offset,length};}
++};
++static_assert(sizeof(CompactNameEvent)==16);
+ // One producer and one consumer transfer a vector through release/acquire.
+ // Every key borrows immutable input; the consumer copies each unique key.
+-struct NameQueue {
+-    alignas(64) std::atomic<bool> ready{false};std::vector<NameEvent> rows;
+-    void send(std::vector<NameEvent>& batch,const std::atomic<bool>& canceled){
++template<class Event> struct BasicNameQueue {
++    alignas(64) std::atomic<bool> ready{false};std::vector<Event> rows;
++    void send(std::vector<Event>& batch,const std::atomic<bool>& canceled){
+         while(ready.load(std::memory_order_acquire)){
+             if(canceled.load(std::memory_order_relaxed))throw std::runtime_error("name pipeline canceled");
+             std::this_thread::yield();
+@@ -84,3 +91,6 @@
+         rows.swap(batch);ready.store(true,std::memory_order_release);
+     }
+ };
++
++using NameQueue=BasicNameQueue<NameEvent>;
++using CompactNameQueue=BasicNameQueue<CompactNameEvent>;
