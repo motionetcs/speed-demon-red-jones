@@ -4,7 +4,7 @@ Complete ordinary public feed **2026-11-01T12:13:38Z**: Red Jones **rank 50 of 9
 
 A268 and269 real A K31.952782/75.225434 and31.926607/75.207638 narrowly miss best31.974332/75.240074. Both changes are removed, including the obsolete-member deletion. Complete original A main/io/README/image restored and fresh native/image public/default checks pass. The repeated original270 A result is lower; this is preserved as variation without inventing a causal explanation. No new algorithm or best-score gain is claimed.
 
-C274 is fully locally verified and awaiting a real all-track trial. Only upper32 owner routing changes; original lower32 exact table and queue remain. Current source/image/all29 proof, fresh strict/race/independent/GCC837-image/default checks are linked in its proof archive. No new C K/rank gain is claimed before the actual record.
+C274 passes every real gate but scores C66.057248/K20.948115, below best68.118071/23.033578. Its full routing/style change is removed; exact original C source/image restored, all29 identities and fresh native/image public/default checks pass. One cooled275 real all-track restoration confirmation is pending. No new best score or rank gain is claimed.
 
 | Track | Best points | K | Rank | Leader |
 | --- | ---: | ---: | ---: | --- |

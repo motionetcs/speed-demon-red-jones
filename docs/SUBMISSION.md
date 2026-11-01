@@ -44,3 +44,5 @@ A268 candidate is fully locally verified; only A/main changes. Pinned offline PG
 270 exact original source is now real all-track passing, with current complete-feed comparison and final source binding in RESULTS.md/STATE.md. No permission or sign-in needed now; repository remains private until the approved publication window.
 
 Candidate274 upper32 owner routing is fully locally proved: native strict/race/independent/genuine-fingerprint model, current GCC279+25/image837+50/default93+9 and actual root Make/all-track public/default12 pass. One real all-track trial next; no K/rank gain claimed. Last passing original482 remains the complete rollback. Private MIT unchanged.
+
+274/2ae05ea all real gatesPASS, but C20.948115/66.057248 loses best23.033578/68.118071. Complete original C main/README/style bytes and immutable C263 image restored; all29/Make/file sets and fresh original public/default checks pass. One cooled275 real all-track restoration confirmation next. No score/eligibility guarantee.
