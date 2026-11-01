@@ -522,3 +522,6 @@ Pinned offline allowlisted A build/public1/6/12 passes, followed by81 exact-imag
 
 
 227 isolated current-input last timestamp-key reuse copies8 safe bytes at offsets5..12 after original28-byte guard, recomputes exact month/day/hour for every changed key and retains range check. Full-public11 alternating hashes pass, paired1.009866/RSS flat, reject before new shuffled-key/truncation/guard/strict/race/GCC/image/actual proof. No root parser change or precomputed/cached output/seed catalogue. Raw ../docs/round227-hour-key-screen.json and exact prototype patch.
+
+
+225/2d71679 run-507737200352 all five actual restoration gates pass: T0.042640s/M20922368/S497/K31.858122/75.161009 points. Full original217/187 runtime restored after221/224 matched6/8 PGO losses. All29 inputs/file sets/Make match scored/current best sources, round225-final-source-match.json. Fresh original C510+30 image references, actual no-argument/no-worker-override59+4 and native/Linux default12/public checks pass. Source-identical221 strict/race/GCC177+30 retained; original A81/D996 immutable proofs remain, no new A/D whole-bank replay. Native executables/images reused, no225 compilation/training claimed. Best/latest/variation separate. Raw ../docs/board-round225-selected-confirmation.json.

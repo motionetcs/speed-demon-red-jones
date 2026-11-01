@@ -1,12 +1,12 @@
 # Results — 1 November 2026
 
-Complete ordinary public feed **2026-11-01T03:57:49Z**: Red Jones is **rank 43 of 93** with best-three machine mean **69.436015**. Leader Cause Of Death has **82.949904**. We are not number one. No supported new gain: all-gates212 unused-A/C6 and213 C8 lose total K. Full original selected217 restoration passes all tracks. Best scores, unchanged-repeat variation and final holdout/judging remain separate.
+Complete ordinary public feed **2026-11-01T04:25:19Z**: Red Jones is **rank 43 of 93** with best-three machine mean **69.436015**. Leader Cause Of Death has **82.949904**. We are not number one. No supported new algorithm/build gain: matched6/8 C profiles pass all gates but lose totalK; both fully restored. Selected225 passes all tracks. Best scores, unchanged-repeat variation and final holdout/judging remain separate.
 
 | Track | Best points | K | Rank | Leader |
 | --- | ---: | ---: | ---: | --- |
-| A | 75.240074 | 31.974332 | 45/110 | Cause Of Death 87.755998 |
+| A | 75.240074 | 31.974332 | 46/111 | Cause Of Death 87.755998 |
 | C | 68.118071 | 23.033578 | 47/92 | NickTrapp 83.834454 |
-| D | 65.319494 | 20.248361 | 27/95 | Cause Of Death 73.226910 |
+| D | 65.319494 | 20.248361 | 28/95 | Cause Of Death 73.226910 |
 
 Four changes are retained:
 
@@ -19,15 +19,15 @@ A178 changes only the first build-time training104729/sample→1000003/full, kee
 
 A retains163 ordered mapped-output/prefix8/exact4096 cache. C is fully original std::hash/low32 offset/eight-reader/four-owner/512-event with original16-byte quote scan. A/C/D use full1000003/sample130363 offline PGO. D retains12 atomic degree/cursor workers, bidirectional CSR/band64/query32 and arena2. Every new native-ISA/CRC/AVX-quote/radix/weight-skip/query-order prototype is absent. OWNER-BRIEFING describes actual techniques without claiming personal understanding.
 
-All29 inputs and complete runtime/build file sets match real all-gates selected217/3f3cff44ae6f723aec542bbd69676a10cf4ad44e and best sources(A178,C175,D163). [Final source/local-image proof](round217-final-source-match.json) distinguishes local replayed image IDs from unexposed organizer IDs. Later documentation heads are not individually claimed scored.
+All29 inputs and complete runtime/build file sets match real all-gates selected225/2d7167908513f13163d757a004c9a23e6e48d7c9 and current best sources. Runtime is fully original selected217/187(A178/C175/D163); any newer best on the same source is variation. [Source/local-image proof](round225-final-source-match.json) distinguishes local replayed IDs from unexposed organizer IDs. Later documentation heads are not individually claimed scored.
 
-| Selected217 | Run | Time | Charged memory | S | K | Points |
+| Selected225 | Run | Time | Charged memory | S | K | Points |
 | --- | --- | ---: | ---: | ---: | ---: | ---: |
-| A | run-fa996bb6e176 | 0.048738s | 21,037,056B | 497 | 29.765974 | 73.686005 |
-| C | run-4d745e414ae8 | 0.063535s | 12,296,192B | 672 | 22.611452 | 67.716422 |
-| D | run-866cc657d4fa | 0.261475s | 75,792,384B | 827 | 17.525144 | 62.183080 |
+| A | run-507737200352 | 0.042640s | 20,922,368B | 497 | 31.858122 | 75.161009 |
+| C | run-eaf5b50e30e8 | 0.062347s | 12,673,024B | 672 | 22.688472 | 67.790263 |
+| D | run-a9d48331b7ba | 0.197528s | 78,024,704B | 827 | 20.046615 | 65.102052 |
 
-All check/build/correctness/timeout/sandbox gates pass. [Raw selected record](board-round217-selected-confirmation.json). Latest points remain below historical bests. Earlier original-C1870.098959s/62.982725 outlier remains unexplained.
+All check/build/correctness/timeout/sandbox gates pass. [Raw selected record](board-round225-selected-confirmation.json). Higher unchanged repeats are variation. Earlier original-C1870.098959s/62.982725 outlier remains unexplained.
 
 | Actual batch / commit | A points | C points | D points | Decision |
 | --- | ---: | ---: | ---: | --- |
@@ -74,10 +74,14 @@ All check/build/correctness/timeout/sandbox gates pass. [Raw selected record](bo
 | [212 /e65b2b0](board-round212-unused-a-c6.json) | 74.961153 | 65.398398 | 64.829734 | Reject unused-A cleanup and C6 default on K |
 | [213 /4e41c96](board-round213-c8.json) | 74.803783 | 63.960559 | 65.157093 | Reject C8 default on K |
 | [217 /3f3cff4](board-round217-selected-confirmation.json) | 73.686005 | 67.716422 | 62.183080 | Confirm full original-source restoration |
+| [220 /0e5f1aa](board-round220-evidence-head.json) | 73.288289 | 65.236749 | 64.006354 | Lower unchanged repeats |
+| [221 /3611979](board-round221-matched-six.json) | 74.814286 | 65.779997 | 65.172580 | Reject matched6 C profile on total K |
+| [224 /bdbdcb5](board-round224-matched-eight.json) | 74.553270 | 63.108157 | 64.844551 | Reject matched8 C profile on total K |
+| [225 /2d71679](board-round225-selected-confirmation.json) | 75.161009 | 67.790263 | 65.102052 | Confirm full original-source restoration |
 
 Every historical row passes all five gates. Unchanged tracks are repeated observations; higher repeats are variation. Exact time/memory/S/K/source/run IDs remain in JSON and PERF logs.
 
-Current selected images retain **A81/C501/D996=1,578** regular reference invocations, with overlapping semantics explicitly not independent timing samples. Original A81 independent194/full2221, C501 independent204/full2281/all requested workers+30 errors, original A163 output/prefix/cache/mapped-char, C127 offset/full-key/country/SPSC/quote strict/race and D104 band/Floyd/race/full64/D175996 image proofs stay exact by source/binary identity. Synthetic CRC-pair inputs do not activate CRC on std::hash. Older C135228+24/C15748 and D1080 remain valid. Fresh217 full-public1/6/12 and actual native/Linux default12 pass; exact206 native executables reused, no new compilation or whole-bank217 replay claimed. [Public](round217-native-public.json), [defaults](round217-defaults.json), [identity](round217-final-source-match.json).
+Selected local images have **A81/C510/D996=1,587** regular reference invocations. Fresh225 original C263 replays510 production reference invocations on independent inputs+30 normal errors, plus59 unique actual no-argument/no-thread-override cases+4 errors; overlapping semantics are not independent timing samples. The bank includes new untrained2299/2309/2311 and old204/193 independent country/topology/quote/EOF/pressure cases. Synthetic CRC-pair inputs do not activate CRC on std::hash. Original A81 independent194/full2221 and D175996/Floyd/full64 remain exact source/image proofs, with no new225 A/D whole-bank replay claimed. Source-identical221 native strict/race and pinned GCC177+30 validate original C++, while original127 offset/country/SPSC/quote models remain source-bound. Fresh225 public1/6/12 and actual native/Linux default12 pass; immutable images and exact217/206 native executables reused, no225 compilation/training claimed. [C production](round225-c-image-matrix.json), [C actual default](round225-c-default-matrix.json), [public](round225-native-public.json), [defaults](round225-defaults.json), [identity](round225-final-source-match.json).
 
 Rejected190 C AVX2 quote search has fresh all-byte/logical-end/protected-page models on actual AVX2/SSE2/scalar and native NEON/scalar, strict/race/full2129/country/topology/pressure/errors,144 GCC valid+30 errors and405 exact-image valid+30 errors. Actual K22.928248 loses23.033578 despite T0.061274s versus0.062531s; memory12,419,072 versus11,665,408B and S682 versus672 contribute. These are observations, not a precise causal decomposition.
 
@@ -100,8 +104,20 @@ A211/212 removes only unused Output.save. Native ELF is byte-identical; GCC/PGO 
 
 [214 A mapped-record growth](round214-growth-screen.json) isolated1.5/4/8 reserve policies keep ordinary constructed vectors and existing lazy mmap allocator. Eleven rotating full-public paired elapsed1.037363/0.984085/1.013302 with flat nativeRSS rejects the weak case before new capacity/overflow/allocator/guard/strict/race/GCC/image/default/actual proof. Unused virtual capacity is not resident memory; no claimed large memory saving. Root A never changed. [Prototype identity](round214-prototype-index.json).
 
-[218 read-only local C ELF research](round218-local-profile-disassembly.json) finds an owner-count4 branch with an and3 path and alternate dynamic division in a cold unsigned-char path. Official GCC documents value-profile denominator specialization. Matching training worker count to runtime is an untested build hypothesis; no execution counts, causal explanation of C6/C8 slowdowns, new build or organizer ELF claim. [219 matched-profile plan](round219-matched-profile-plan.json) is design only; no new runtime candidate this cycle.
+[218 read-only local C ELF research](round218-local-profile-disassembly.json) finds an owner-count4 branch with an and3 path and alternate dynamic division in a cold unsigned-char path. Official GCC documents value-profile denominator specialization. Matching training worker count to runtime is an untested build hypothesis; no execution counts, causal explanation of C6/C8 slowdowns, new build or organizer ELF claim. [219 matched-profile plan](round219-matched-profile-plan.json) has now been implemented/tested/rejected as221 and224 below; it is no longer an unimplemented priority.
+
+221 and224 change only C Dockerfile: both unchanged official-generator full1000003/sample130363 PGO training executions and final image default are6 or8. C++/headers/flags/Make/generator remain exact; native fallback12 and ordinary1..12 overrides remain. Own218 ELF owner4 fast path motivated this untested hypothesis. New frozen221 strict sample2299/full2309/TSAN2311 and pinned GCC177 valid+30 normal errors pass; source-identical224 reuses that proof explicitly. Each new PGO image freshly passes510 valid+30 errors, no-argument/no-thread-override59 valid+4 errors, public/actual defaults and all29 source/config/ELF checks. Both ELF identities differ from original; no false binary-equality or new native compilation claim. Actual221 K20.682353/65.779997 and224 K18.287870/63.108157 lose23.033578/68.118071. Both full changes removed and original C263/default12 restored. These results do not establish a causal profile/denominator timing explanation. [Six actual identity](round221-scored-source-match.json), [eight actual identity](round224-scored-source-match.json).
+
+222 current exact A and D native binary worker6/8/10 versus12 screens use11 rotating full-public hashes. A paired1.146641/1.042992/0.990991; D1.094294/1.038710/1.001226. Six/eight slower, ten flat; keep12. Native RSS/time is not target cgroup/K. No new default/strict/race/GCC/image/actual proof claimed. [A](round222-a-workers-screen.json), [D](round222-d-workers-screen.json).
+
+226 current original compact-table C batch128/256/1024 versus512 has paired1.049064/1.000470/0.995618 at12 workers and1.011321/1.004029/1.017199 at8. Slower/flat, with1024 extra RSS; keep512. No new capacity/lifetime/cancel/strict/race/GCC/PGO/image/actual proof claimed. [Screen](round226-c-batch-screen.json).
+
+227 A keeps only a per-worker last8-byte timestamp key and recomputes the original hour formula whenever it changes; the existing28-byte guard/range check stay. This isolated current-input parser-work reuse has full-public hashes but paired1.009866/RSS flat loses. Root A never changed. No new shuffled-key/truncation/guard/strict/race/GCC/image/actual proof; no precomputed/cached output or seed catalogue. [Screen](round227-hour-key-screen.json), [exact patch](prototype-patches/round227-hour-key-main.cpp.patch).
+
+[228 C digit-prefix plan](round228-c-digit-prefix-plan.json) is design only. Consider the fresh own A163 bounded8-byte reducer for C integer/dollar parts in isolated integer-only/amount-only/both screens. Keep original scalar tails and checks, charge the copied helper normally, and require new C unsigned64/cents/guard/strict/race/reference/image/actual proof before promotion. Earlier C4-digit and from_chars losses are not this new helper/context. No implementation, compiler/training job or runtime candidate started.
+
+[223 primary research](round223-primary-research.json) rereads official GCC profile specialization and frozen event machine/PGO rules. Web rendering of the organizer Markdown context is unsupported; one ordinary GET returned403 and was stopped, with no retry/identity/access workaround or new transcript/playback claim. This does not block the accessible official rules or board.
 
 Hourly local continuation remains active while Mac/app are available. Finish exact pending documentation-head records before new runtime pushes. No new reactions; emojis do not change machine ranking. Stop runtime edits at **2 November2026 15:00UTC/20:30IST** and preserve the last passing recorded source. The owner explicitly approved **only motionetcs/speed-demon-red-jones becoming public under MIT during15:00–16:00UTC/20:30–21:30IST**, after freeze preservation and final secret/privacy recheck. [Authorization](PUBLICATION-AUTHORIZATION.json) and the accepted automation update resolve the earlier missing-approval condition. Keep private before that window; no grants/credential changes or rejection bypass. Publication has not happened. Verify public MIT source by16:00UTC, pause heartbeat after deadline and report verified status. After freeze no runtime edits.
 
-[Complete feed](round217-confirmed-board.json) · [Feed integrity](round217-feed-proof.json) · [Leader comparison](round217-confirmed-comparison.json) · [Entry audit](ENTRY-AUDIT.md) · [Live board](https://speeddemon.dev/board/#red-jones-00c4a7)
+[Complete feed](round225-confirmed-board.json) · [Feed integrity](round225-feed-proof.json) · [Leader comparison](round225-confirmed-comparison.json) · [Entry audit](ENTRY-AUDIT.md) · [Live board](https://speeddemon.dev/board/#red-jones-00c4a7)

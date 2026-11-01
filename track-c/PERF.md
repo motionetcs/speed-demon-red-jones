@@ -613,3 +613,6 @@ Fresh native and pinned GCC-native strict offset/index std::set models cover ful
 
 
 226 current original low32/8-byte-table batch128/256/1024 versus512,11 rotating full-public native hashes at12 workers paired1.049064/1.000470/0.995618; at8 paired1.011321/1.004029/1.017199. Keep512: slower/flat,1024 adds RSS. No targetK/cgroup claim or new batch-boundary/strict/race/GCC/image/actual proof for rejected constants. Raw ../docs/round226-c-batch-screen.json.
+
+
+225/2d71679 run-eaf5b50e30e8 all five actual restoration gates pass: T0.062347s/M12673024/S672/K22.688472/67.790263 points. Full original217/187 runtime restored after221/224 matched6/8 PGO losses. All29 inputs/file sets/Make match scored/current best sources, round225-final-source-match.json. Fresh original C510+30 image references, actual no-argument/no-worker-override59+4 and native/Linux default12/public checks pass. Source-identical221 strict/race/GCC177+30 retained; original A81/D996 immutable proofs remain, no new A/D whole-bank replay. Native executables/images reused, no225 compilation/training claimed. Best/latest/variation separate. Raw ../docs/board-round225-selected-confirmation.json.
