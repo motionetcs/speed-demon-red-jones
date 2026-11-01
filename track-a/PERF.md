@@ -528,3 +528,9 @@ Pinned offline allowlisted A build/public1/6/12 passes, followed by81 exact-imag
 
 
 229/c47cf0b run-5f8e0dfd6c53 all five actual gates pass, unchanged225 runtime: T0.044326s/M21196800/S497/K31.165034/74.683380 points. Lower repeats, not new gains; bests separate. Raw ../docs/board-round229-evidence-head.json.
+
+
+230/f7b2913 run-431a24a03674 all five real gates pass: T0.042573s/M21266432/S497/K31.779341/75.107244 points. C amount prefix loses21.858223 versus23.033578; source699 versus672 grows, native3.56% screen did not produce supported target totalK gain. Fully restore original C main/Docker/README/Make and remove C decimal.hpp. A/D unchanged lower repeats. Fresh numeric/guard/strict/race/GCC216+50/image630+50/default72+9/source proof stays historical to230, not original scalar model proof. No target phase/cause claim. Raw ../docs/board-round230-amount-prefix.json.
+
+
+231 isolated bounded std::memchr for method delimiter loses paired1.014461 despite slightly lower global median/RSS flat; reject before broad new proof or board run.233 unscored native joined-phase diagnostics have full output/control hashes; parse23.112ms, aggregate/selection/publication9.401ms and finish7.656ms are instrumented local medians, not Intel/causal timings.235 read-only public/full2221/full1951 profiles find1065/1063/1057 contiguous same-hour spans across3.1M records: raw index8520/8504/8456B versus12.4MB compact-record payload, estimated4KiB mapped index348160B. Not charged peak/time/K; motivates isolated236 indexed-hour memory layout before any generic/strict/race/image/actual claim. Runtime A unchanged.

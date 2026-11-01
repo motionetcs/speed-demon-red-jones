@@ -1,0 +1,249 @@
+{
+  "observed_at_utc": "2026-11-01T05:09:57.574005+00:00",
+  "official_score": false,
+  "scope": "UNSCORED local native diagnostics only: isolated original225 A/D source instrumented with a few steady-clock intervals at joined phase boundaries and stderr labels. No runtime/host/harness/timer/counter settings altered, no organizer phase measurements. Whole-output hashes checked on warmup+5 alternating control/profile runs. Compiler/register-layout/printing perturbation is possible; these intervals motivate hypotheses only, not causal speed/Intel/cgroup/K claims. Instrumentation never enters root or submission images. A aggregation interval includes overlapped in-worker output publication.",
+  "tracks": {
+    "a": {
+      "compile": [
+        "clang++",
+        "-std=c++20",
+        "-O3",
+        "-DNDEBUG",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-pthread",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round233/source-a/track-a/main.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round233/native-a/track-a"
+      ],
+      "original_main_sha256": "02661f93bc65fc35d359c80e19d82578968ab68725e8b325e48c630c3e27310c",
+      "instrumented_main_sha256": "446ee6f0ec549f8603f3d1b08d10f9fceaa21ae457d93bfead5fe54e74d614fc",
+      "patch_sha256": "618d6502e9f1caa7eee65f69b9288324ae13ac6accc0a4cd757bed186b1edab2",
+      "median_phase_seconds": {
+        "open_partition": 0.0018405,
+        "parse": 0.023112208,
+        "dictionary_sort": 0.00016875,
+        "aggregate_select_format_publish": 0.009400958,
+        "finish": 0.007655666
+      },
+      "instrumented_runs": [
+        {
+          "phases_seconds": {
+            "open_partition": 0.0018405,
+            "parse": 0.024861417,
+            "dictionary_sort": 0.000160708,
+            "aggregate_select_format_publish": 0.009194167,
+            "finish": 0.007992875
+          },
+          "wall_seconds_including_launch": 0.04897987500000012,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3",
+          "stderr": "SD_PHASE open_partition 0.001840500\nSD_PHASE parse 0.024861417\nSD_PHASE dictionary_sort 0.000160708\nSD_PHASE aggregate_select_format_publish 0.009194167\nSD_PHASE finish 0.007992875\n"
+        },
+        {
+          "phases_seconds": {
+            "open_partition": 0.001780791,
+            "parse": 0.020558542,
+            "dictionary_sort": 0.000176875,
+            "aggregate_select_format_publish": 0.009400958,
+            "finish": 0.007739459
+          },
+          "wall_seconds_including_launch": 0.04432958300000012,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3",
+          "stderr": "SD_PHASE open_partition 0.001780791\nSD_PHASE parse 0.020558542\nSD_PHASE dictionary_sort 0.000176875\nSD_PHASE aggregate_select_format_publish 0.009400958\nSD_PHASE finish 0.007739459\n"
+        },
+        {
+          "phases_seconds": {
+            "open_partition": 0.001852292,
+            "parse": 0.023112208,
+            "dictionary_sort": 0.000168834,
+            "aggregate_select_format_publish": 0.008721083,
+            "finish": 0.007532833
+          },
+          "wall_seconds_including_launch": 0.045910625000000316,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3",
+          "stderr": "SD_PHASE open_partition 0.001852292\nSD_PHASE parse 0.023112208\nSD_PHASE dictionary_sort 0.000168834\nSD_PHASE aggregate_select_format_publish 0.008721083\nSD_PHASE finish 0.007532833\n"
+        },
+        {
+          "phases_seconds": {
+            "open_partition": 0.001727666,
+            "parse": 0.026314959,
+            "dictionary_sort": 0.00016875,
+            "aggregate_select_format_publish": 0.010098958,
+            "finish": 0.0076245
+          },
+          "wall_seconds_including_launch": 0.05066145799999999,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3",
+          "stderr": "SD_PHASE open_partition 0.001727666\nSD_PHASE parse 0.026314959\nSD_PHASE dictionary_sort 0.000168750\nSD_PHASE aggregate_select_format_publish 0.010098958\nSD_PHASE finish 0.007624500\n"
+        },
+        {
+          "phases_seconds": {
+            "open_partition": 0.001855958,
+            "parse": 0.022107417,
+            "dictionary_sort": 0.000161333,
+            "aggregate_select_format_publish": 0.009739709,
+            "finish": 0.007655666
+          },
+          "wall_seconds_including_launch": 0.046639125000000003,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3",
+          "stderr": "SD_PHASE open_partition 0.001855958\nSD_PHASE parse 0.022107417\nSD_PHASE dictionary_sort 0.000161333\nSD_PHASE aggregate_select_format_publish 0.009739709\nSD_PHASE finish 0.007655666\n"
+        }
+      ],
+      "unchanged_control_runs": [
+        {
+          "wall_seconds_including_launch": 0.04740841600000012,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "wall_seconds_including_launch": 0.04533549999999975,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "wall_seconds_including_launch": 0.04759233399999996,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "wall_seconds_including_launch": 0.045045790999999724,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        },
+        {
+          "wall_seconds_including_launch": 0.0484588330000002,
+          "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+        }
+      ],
+      "instrumented_median_wall_seconds": 0.046639125000000003,
+      "control_median_wall_seconds": 0.04740841600000012,
+      "instrumented_over_control_wall_ratio": 0.9837731131957643
+    },
+    "d": {
+      "compile": [
+        "clang++",
+        "-std=c++20",
+        "-O3",
+        "-DNDEBUG",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-pthread",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round233/source-d/track-d/main.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round233/native-d/track-d"
+      ],
+      "original_main_sha256": "6ae66971d7a6fd1f6bb75741daa522c681eae20e200f426547f8c537161327cc",
+      "instrumented_main_sha256": "494f147feccb1f43b3d87a368c85603092ac498626bf713c1717e47a430cf30b",
+      "patch_sha256": "d3d1576cb5a13f3d3d529fba411a7106b0d85dc96bd96a0c251b1e5ee97c2e51",
+      "median_phase_seconds": {
+        "open_partition_degree_alloc": 0.000987875,
+        "parse_degrees": 0.053354333,
+        "prefix_cursor_edge_alloc": 0.007557583,
+        "parse_scatter": 0.059265583,
+        "wide_merge_release": 0.000278042,
+        "query_setup": 4.1625e-05,
+        "queries": 0.1640005,
+        "write": 0.00045975
+      },
+      "instrumented_runs": [
+        {
+          "phases_seconds": {
+            "open_partition_degree_alloc": 0.000987875,
+            "parse_degrees": 0.056789167,
+            "prefix_cursor_edge_alloc": 0.007754041,
+            "parse_scatter": 0.068958167,
+            "wide_merge_release": 0.000278042,
+            "query_setup": 4.075e-05,
+            "queries": 0.162520958,
+            "write": 0.000578208
+          },
+          "wall_seconds_including_launch": 0.3038870420000004,
+          "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e",
+          "stderr": "SD_PHASE open_partition_degree_alloc 0.000987875\nSD_PHASE parse_degrees 0.056789167\nSD_PHASE prefix_cursor_edge_alloc 0.007754041\nSD_PHASE parse_scatter 0.068958167\nSD_PHASE wide_merge_release 0.000278042\nSD_PHASE query_setup 0.000040750\nSD_PHASE queries 0.162520958\nSD_PHASE write 0.000578208\n"
+        },
+        {
+          "phases_seconds": {
+            "open_partition_degree_alloc": 0.000966916,
+            "parse_degrees": 0.052993792,
+            "prefix_cursor_edge_alloc": 0.007398042,
+            "parse_scatter": 0.057159791,
+            "wide_merge_release": 0.000251084,
+            "query_setup": 4.4583e-05,
+            "queries": 0.173559292,
+            "write": 0.00045975
+          },
+          "wall_seconds_including_launch": 0.2981167090000003,
+          "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e",
+          "stderr": "SD_PHASE open_partition_degree_alloc 0.000966916\nSD_PHASE parse_degrees 0.052993792\nSD_PHASE prefix_cursor_edge_alloc 0.007398042\nSD_PHASE parse_scatter 0.057159791\nSD_PHASE wide_merge_release 0.000251084\nSD_PHASE query_setup 0.000044583\nSD_PHASE queries 0.173559292\nSD_PHASE write 0.000459750\n"
+        },
+        {
+          "phases_seconds": {
+            "open_partition_degree_alloc": 0.001020458,
+            "parse_degrees": 0.055627834,
+            "prefix_cursor_edge_alloc": 0.007369958,
+            "parse_scatter": 0.059265583,
+            "wide_merge_release": 0.000291417,
+            "query_setup": 4.1333e-05,
+            "queries": 0.167193959,
+            "write": 0.000657208
+          },
+          "wall_seconds_including_launch": 0.2970503329999996,
+          "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e",
+          "stderr": "SD_PHASE open_partition_degree_alloc 0.001020458\nSD_PHASE parse_degrees 0.055627834\nSD_PHASE prefix_cursor_edge_alloc 0.007369958\nSD_PHASE parse_scatter 0.059265583\nSD_PHASE wide_merge_release 0.000291417\nSD_PHASE query_setup 0.000041333\nSD_PHASE queries 0.167193959\nSD_PHASE write 0.000657208\n"
+        },
+        {
+          "phases_seconds": {
+            "open_partition_degree_alloc": 0.000918542,
+            "parse_degrees": 0.053232792,
+            "prefix_cursor_edge_alloc": 0.007557583,
+            "parse_scatter": 0.06275075,
+            "wide_merge_release": 0.000279792,
+            "query_setup": 4.525e-05,
+            "queries": 0.1640005,
+            "write": 0.000374791
+          },
+          "wall_seconds_including_launch": 0.2938647080000001,
+          "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e",
+          "stderr": "SD_PHASE open_partition_degree_alloc 0.000918542\nSD_PHASE parse_degrees 0.053232792\nSD_PHASE prefix_cursor_edge_alloc 0.007557583\nSD_PHASE parse_scatter 0.062750750\nSD_PHASE wide_merge_release 0.000279792\nSD_PHASE query_setup 0.000045250\nSD_PHASE queries 0.164000500\nSD_PHASE write 0.000374791\n"
+        },
+        {
+          "phases_seconds": {
+            "open_partition_degree_alloc": 0.001113292,
+            "parse_degrees": 0.053354333,
+            "prefix_cursor_edge_alloc": 0.00809825,
+            "parse_scatter": 0.058636459,
+            "wide_merge_release": 0.000250625,
+            "query_setup": 4.1625e-05,
+            "queries": 0.159649041,
+            "write": 0.000436875
+          },
+          "wall_seconds_including_launch": 0.2872545830000002,
+          "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e",
+          "stderr": "SD_PHASE open_partition_degree_alloc 0.001113292\nSD_PHASE parse_degrees 0.053354333\nSD_PHASE prefix_cursor_edge_alloc 0.008098250\nSD_PHASE parse_scatter 0.058636459\nSD_PHASE wide_merge_release 0.000250625\nSD_PHASE query_setup 0.000041625\nSD_PHASE queries 0.159649041\nSD_PHASE write 0.000436875\n"
+        }
+      ],
+      "unchanged_control_runs": [
+        {
+          "wall_seconds_including_launch": 0.27740729200000036,
+          "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+        },
+        {
+          "wall_seconds_including_launch": 0.2927700410000007,
+          "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+        },
+        {
+          "wall_seconds_including_launch": 0.2922500000000001,
+          "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+        },
+        {
+          "wall_seconds_including_launch": 0.3106660829999992,
+          "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+        },
+        {
+          "wall_seconds_including_launch": 0.3043363750000001,
+          "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+        }
+      ],
+      "instrumented_median_wall_seconds": 0.2970503329999996,
+      "control_median_wall_seconds": 0.2927700410000007,
+      "instrumented_over_control_wall_ratio": 1.014619979508077
+    }
+  }
+}

@@ -42,5 +42,11 @@
     ".build/round230/source/track-c/decimal.hpp": "e6a53e983c0475fe3e49ffe2630a8603f96298b7866e0f4ef3b2ed0f165cb94e",
     "tools/test_decimal_prefix.cpp": "045496a36a9ed2966539218365e4253b65fd641bee8ae9a736a727f404623202",
     "tools/test_csv_numeric.cpp": "158de7377ab8fd19fb5761d7e175b22ce0fae71bdfcc37be9c9ef54cd8f0c6af"
+  },
+  "wrapper_generation": {
+    "source_commit": "f7b291395af6cb59d23606bbee36fea3eb9d80a1",
+    "frozen_source_path": ".build/round230/source/track-c/main.cpp",
+    "model_header_path": ".build/round230/models/production_csv.hpp",
+    "recipe": "Copy the exact source slice from struct Field { up to (excluding) // A singleton quote into the model header, prefixed with #include \"../source/track-c/io.hpp\", #include \"../source/track-c/decimal.hpp\", #include \"../source/track-c/quote_scan.hpp\" and newlines. Verify production_class_sha256/wrapper_sha256 before executing recorded compile commands. This is test scaffolding, not a reimplemented parser or runtime include."
   }
 }

@@ -524,3 +524,9 @@ Eleven rotating public hashes pass, but retained0.183108542s/RSS179421184 versus
 
 
 229/c47cf0b run-aede8c0513bc all five actual gates pass, unchanged225 runtime: T0.258998s/M77451264/S827/K17.532663/62.192395 points. Lower repeats, not new gains; bests separate. Raw ../docs/board-round229-evidence-head.json.
+
+
+230/f7b2913 run-2b3f336240f8 all five real gates pass: T0.224331s/M77889536/S827/K18.817474/63.728067 points. C amount prefix loses21.858223 versus23.033578; source699 versus672 grows, native3.56% screen did not produce supported target totalK gain. Fully restore original C main/Docker/README/Make and remove C decimal.hpp. A/D unchanged lower repeats. Fresh numeric/guard/strict/race/GCC216+50/image630+50/default72+9/source proof stays historical to230, not original scalar model proof. No target phase/cause claim. Raw ../docs/board-round230-amount-prefix.json.
+
+
+232 read-only public/full1823/sample1777 delta histograms show only0.01364%/0.01348%/0.0404% coverage by zero plus7 symmetric numeric neighbor differences; almost all edges need full fallback. Reject learned delta compression BEFORE implementation/model/image/actual work; graph-distance-local queries do not imply numeric-label locality.233 isolated unscored native diagnostics suggest degree53.354ms/scatter59.266ms/query164.000ms on that host, with paired controls and complete hashes; these are not Intel phase/cgroup/causal evidence. Runtime unchanged. Other authorized chat now owns isolated C/D preparation, with serialized measurement lane and this chat sole submission writer.

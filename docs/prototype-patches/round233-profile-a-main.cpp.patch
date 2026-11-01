@@ -1,0 +1,46 @@
+--- selected225/track-a/main.cpp
++++ unscored233-profile/track-a/main.cpp
+@@ -1,3 +1,4 @@
++#include <chrono>
+ #include "io.hpp"
+ #include "mapped_allocator.hpp"
+ #include "decimal.hpp"
+@@ -14,6 +15,8 @@
+ 
+ int main(int argc, char** argv) {
+     try {
++        auto phase_last=std::chrono::steady_clock::now();
++        auto phase=[&](const char* name){auto now=std::chrono::steady_clock::now();std::fprintf(stderr,"SD_PHASE %s %.9f\n",name,std::chrono::duration<double>(now-phase_last).count());phase_last=now;};
+         Paths run_paths(argc, argv);
+         MappedFile file(run_paths.data / "requests.log");
+         if (file.size > UINT32_MAX) throw std::runtime_error("input exceeds uint32 capacity");
+@@ -36,6 +39,7 @@
+             Chunk() { first.fill(UINT32_MAX); }
+         };
+         std::vector<Chunk> chunks(threads);
++        phase("open_partition");
+         parallel(threads, [&](unsigned worker) {
+             const char* p = boundaries[worker]; const char* limit = boundaries[worker + 1];
+             auto& chunk = chunks[worker];
+@@ -66,10 +70,12 @@
+                 if (latency >= latency_escape) chunk.wide[hour].push_back(static_cast<uint32_t>(latency));
+             }
+         });
++        phase("parse");
+         std::vector<std::string_view> paths(endpoints.canonical.begin(),endpoints.canonical.begin()+endpoints.used.load());
+         endpoints.entries.reset(); // Path views borrow the still-mapped input.
+         std::vector<uint16_t> order(paths.size()); std::iota(order.begin(), order.end(), 0);
+         std::sort(order.begin(), order.end(), [&](uint16_t a, uint16_t b) { return paths[a] < paths[b]; });
++        phase("dictionary_sort");
+         OrderedOutput writer(run_paths.out / "summary.txt");
+         std::atomic<unsigned> next_hour{0};
+         parallel(threads, [&](unsigned) {
+@@ -116,6 +122,8 @@
+                 writer.publish(hour);
+             }
+         });
++        phase("aggregate_select_format_publish");
+         writer.finish();
++        phase("finish");
+     } catch (const std::exception& e) { std::fprintf(stderr,"track-a: %s\n",e.what()); return 1; }
+ }

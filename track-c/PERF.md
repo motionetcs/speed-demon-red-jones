@@ -622,3 +622,6 @@ Fresh native and pinned GCC-native strict offset/index std::set models cover ful
 
 
 229/c47cf0b run-4edb20dfd38f all five actual gates pass, unchanged225 runtime: T0.063404s/M12406784/S672/K22.594301/67.699946 points. Lower repeats, not new gains; bests separate. Raw ../docs/board-round229-evidence-head.json.
+
+
+230/f7b2913 run-be2350fd8541 all five real gates pass: T0.065553s/M13078528/S699/K21.858223/66.980742 points. C amount prefix loses21.858223 versus23.033578; source699 versus672 grows, native3.56% screen did not produce supported target totalK gain. Fully restore original C main/Docker/README/Make and remove C decimal.hpp. A/D unchanged lower repeats. Fresh numeric/guard/strict/race/GCC216+50/image630+50/default72+9/source proof stays historical to230, not original scalar model proof. No target phase/cause claim. Raw ../docs/board-round230-amount-prefix.json.
