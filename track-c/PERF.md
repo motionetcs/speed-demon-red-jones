@@ -595,3 +595,9 @@ Fresh native and pinned GCC-native strict offset/index std::set models cover ful
 
 
 217/3f3cff4 run-4d745e414ae8 all five real restoration gates pass: T0.063535s/M12296192/S672/K22.611452/67.716422 points. Full original selected206/187 runtime restored after unused-A method removal and C6/C8 default-worker losses. All29 root/frozen/scored/best inputs and complete file sets match, round217-final-source-match.json. Fresh combined public1/6/12 and native/Linux actual default12 pass; exact206 native executables reused, immutable A81/C501/D996 image/strict/race references retained by source/binary identity, no fresh whole-bank217 replay or compilation claimed. Best/latest and variation separate. Raw ../docs/board-round217-selected-confirmation.json.
+
+
+221 candidate: match six-worker build-time PGO to final image runtime6, keeping original complete C++/headers, flags, official generator1000003/full and130363/sample. Own local218 ELF owner4 fast branch/cold alternate division motivates this test, not an asserted cause or gain. Native210 six-worker loss and real212/213 runtime-only6/8 losses remain evidence. Accept only real all-gates C K>23.033578; restore otherwise.
+
+
+220/0e5f1aa unchanged selected217 runtime, run-2c593768268e, all five actual gates pass: T0.079011s/M12619776/S672/K20.171351/65.236749 points. Lower unchanged repeats, not new gains; bests separate. Raw ../docs/board-round220-evidence-head.json.

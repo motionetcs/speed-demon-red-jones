@@ -507,3 +507,6 @@ Pinned offline allowlisted A build/public1/6/12 passes, followed by81 exact-imag
 
 
 217/3f3cff4 run-fa996bb6e176 all five real restoration gates pass: T0.048738s/M21037056/S497/K29.765974/73.686005 points. Full original selected206/187 runtime restored after unused-A method removal and C6/C8 default-worker losses. All29 root/frozen/scored/best inputs and complete file sets match, round217-final-source-match.json. Fresh combined public1/6/12 and native/Linux actual default12 pass; exact206 native executables reused, immutable A81/C501/D996 image/strict/race references retained by source/binary identity, no fresh whole-bank217 replay or compilation claimed. Best/latest and variation separate. Raw ../docs/board-round217-selected-confirmation.json.
+
+
+220/0e5f1aa unchanged selected217 runtime, run-e3c66b946472, all five actual gates pass: T0.050295s/M21311488/S497/K29.225757/73.288289 points. Lower unchanged repeats, not new gains; bests separate. Raw ../docs/board-round220-evidence-head.json.
