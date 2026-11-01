@@ -12,7 +12,7 @@ This is the fresh local entry. Check actual external state before treating it as
 | Licence | MIT, official attribution retained |
 | Fresh repository | https://github.com/motionetcs/speed-demon-red-jones — private |
 | Submission branch | speed-demon |
-| Remote source | D257 aligned-label local proofs complete, exact29/Make/image binding; authorized commit/push and real all-track trial next. A/C original256 unchanged. Last passing256 retained for rollback; no new target gain or #1 claim. |
+| Remote source | 257 aligned D loses despite all real gates passing; original all29/Make restored as258. Fresh D public/default checks pass, A/C unchanged passing257 components retained. Authorized restoration commit/push and real258 confirmation next. |
 | Individual registration | Entrant confirmed already registered on 31 October 2026; not duplicated |
 | Team form | Submitted successfully for this fresh repository, A/C/D; Tally displayed “Form submitted” |
 | Board app access | Installed and verified on 31 October 2026; only the fresh repository selected; read-only code and metadata |

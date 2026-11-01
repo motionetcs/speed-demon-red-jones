@@ -655,3 +655,6 @@ Candidate249 selected local proof: original SCALAR Csv, PIPELINE_READERS8→7 pl
 
 
 256/da6f728 run-f06b18fa2090 all five real restoration gatesPASS: T0.062763s/M12333056/S672/K22.736473/67.836155 points. Full original29/Make restored after rejected255A/D, exact actual/Git/best/frozen/local-image proof ../docs/round256-final-source-match.json. Fresh A/D public/default replays use byte-identical original binaries/images; C unchanged passing component and original broad/source-specific strict/race/GCC/model proof retained, no new compiler/training/whole-bank replay. Lower unchanged repeats are variation. Raw ../docs/board-round256-selected-confirmation.json.
+
+
+257/8b0f263 run-796b3d76f22c all five real gatesPASS: T0.063207s/M12558336/S672/K22.574601/67.681004 points. Unchanged original source; lower repeat is variation, no algorithm regression/gain claimed. Exact29 actual/Git/frozen/local-image identity ../docs/round257-scored-source-match.json. New allocator/model/Linux proofs remain historical to rejected257, not relabeled as original. Raw ../docs/board-round257-aligned-labels.json.

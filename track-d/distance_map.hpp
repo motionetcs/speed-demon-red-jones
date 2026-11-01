@@ -10,8 +10,6 @@
 #include <atomic>
 #include <utility>
 #include <vector>
-#include <cstddef>
-#include <new>
 
 struct Distances {
     struct Label { uint32_t node = 0, epoch = 0; uint64_t distance = 0; };
@@ -61,27 +59,10 @@ struct Distances {
 #ifndef PACKED_BITS
 #define PACKED_BITS 10
 #endif
-// Keep every eight-word packed bucket inside one64-byte cache line.
-// Standard aligned allocation retains normal vector ownership and exceptions.
-template<class T> struct CacheLineAllocator {
-    using value_type=T;
-    static constexpr size_t alignment=alignof(T)>64?alignof(T):64;
-    CacheLineAllocator() noexcept=default;
-    template<class U> CacheLineAllocator(const CacheLineAllocator<U>&) noexcept {}
-    T* allocate(size_t count){
-        if(count>SIZE_MAX/sizeof(T))throw std::bad_array_new_length();
-        return static_cast<T*>(::operator new(count*sizeof(T),std::align_val_t(alignment)));
-    }
-    void deallocate(T* pointer,size_t) noexcept{
-        ::operator delete(pointer,std::align_val_t(alignment));
-    }
-    template<class U> bool operator==(const CacheLineAllocator<U>&)const noexcept{return true;}
-};
 struct FastDistances {
     static_assert(PACKED_BITS>=0 && PACKED_BITS<=20);
     unsigned bits=PACKED_BITS;
-    using PackedWords=std::vector<uint32_t,CacheLineAllocator<uint32_t>>;
-    PackedWords labels=PackedWords(size_t(8)<<PACKED_BITS);
+    std::vector<uint32_t> labels=std::vector<uint32_t>(size_t(8)<<PACKED_BITS);
     std::vector<uint32_t> touched;
     Distances wide;
     static constexpr uint32_t node_limit=1U<<21;

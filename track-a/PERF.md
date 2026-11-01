@@ -564,3 +564,6 @@ Candidate255 local proof, official trial pending. New isolated254 replaces old40
 
 
 256/da6f728 run-5c14540e890f all five real restoration gatesPASS: T0.043751s/M20836352/S497/K31.476947/74.899630 points. Full original29/Make restored after rejected255A/D, exact actual/Git/best/frozen/local-image proof ../docs/round256-final-source-match.json. Fresh A/D public/default replays use byte-identical original binaries/images; C unchanged passing component and original broad/source-specific strict/race/GCC/model proof retained, no new compiler/training/whole-bank replay. Lower unchanged repeats are variation. Raw ../docs/board-round256-selected-confirmation.json.
+
+
+257/8b0f263 run-ff8624471042 all five real gatesPASS: T0.048066s/M21319680/S497/K29.893434/73.778790 points. Unchanged original source; lower repeat is variation, no algorithm regression/gain claimed. Exact29 actual/Git/frozen/local-image identity ../docs/round257-scored-source-match.json. New allocator/model/Linux proofs remain historical to rejected257, not relabeled as original. Raw ../docs/board-round257-aligned-labels.json.

@@ -1,6 +1,6 @@
 # Results — 1 November 2026
 
-Complete ordinary public feed **2026-11-01T07:39:29Z**: Red Jones remains **rank 44 of 93**, best-three machine mean **69.436015**, leader Cause Of Death **82.949904**. Number one is unachieved. New255 span A/bucket-epoch D passes every real gate but BOTH total-K records lose; complete original256 restoration passes all real gates. Best/latest variation and final holdout/judging remain separate.
+Complete ordinary public feed **2026-11-01T07:39:29Z**: Red Jones remains **rank 44 of 93**, best-three machine mean **69.436015**, leader Cause Of Death **82.949904**. Number one is unachieved. New255 span A/bucket-epoch D and257 aligned-label D pass all real gates but lose totalK; original256 passes. Original258 is locally restored and awaiting exact-commit real confirmation. Best/latest variation and final holdout/judging remain separate.
 
 | Track | Best points | K | Rank | Leader |
 | --- | ---: | ---: | ---: | --- |
@@ -142,3 +142,6 @@ Hourly local continuation remains active while Mac/app are available. Finish exa
 
 
 255 exact A/D local models/native/GCC/PGO/default proofs pass but real A K29.472757/73.471038 loses31.974332/75.240074; real D K19.921170/64.965742 loses20.248361/65.319494. A S491 vs497 is a measured source reduction. D M73543680 vs best76922880 saves3379200B (4.39%), but T.202919 vs.194716 and S853 vs827 do not yield a best total-K gain. These are observed record comparisons, not precise causal timing estimates. C source unchanged, lower repeat is variation. Complete original A/D restored, README training prose corrected to actual1000003/full then130363/sample. Exact actual29/Git/frozen/local-image proof round255-scored-source-match.json; rejected span/bucket strict/race/GCC/image proofs remain historical, never relabeled as original. Fresh256 original native/image public1/6/12 and actualdefaults pass with immutable original binaries/images, no compiler/training or whole-bank replay. Real256 all-track restoration passes, exactsource/best identity in round256-final-source-match.json.
+
+
+257 aligned-label allocation all5 actual gatesPASS at8b0f263, D run-9d864400d7ec T0.206844s/M77074432/S849/K19.560860/64.569397 fails best20.248361/65.319494. Reject complete header/README change; preserve native/GCC/PGO/image/model proof as historical, not an accepted gain. A/C source unchanged, lower repeats are variation. Exact29 Git/frozen/image binding in round257-scored-source-match.json. Fresh original258 D public1/6/12/native/image/actual defaults pass using immutable original binaries/images; no compiler/training or broad replay. A/C unchanged passing257 components retained. Single real258 confirmation next. C258 prefix/block-integer and259 group8-name metadata screens lose or are flat; never selected or claimed as target gains.
