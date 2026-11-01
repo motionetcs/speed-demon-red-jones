@@ -1,5 +1,20 @@
 # Track C optimization log
 
+## Current retained result
+
+The retained implementation parses the full CSV grammar, uses exact integer cents, and transfers borrowed canonical name views from eight readers to four private hash owners at the default12 workers. Full key bytes resolve collisions; country membership is exact. Eight-byte table entries point into stable owned blocks, and queue events currently occupy32 bytes.
+
+The retained table change is actual128, run-5f755c073a9a (exact actual ID is preserved in the linked raw record). It trades slightly more source/time for lower charged memory. Later higher observations of the identical table are variation. Alternate parsers, hashes, owner counts, queue layouts and PGO worker counts are recorded as rejected or unselected experiments; none is claimed accepted merely from a native screen.
+
+| Record | Run ID | T seconds | Charged memory bytes | S | K | Machine points |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| Best observed | run-5faf38e26ef1 | 0.062531 | 11665408 | 672 | 23.033578 | 68.118071 |
+| Passing original258 | run-db01c551499e | 0.100887 | 11845632 | 672 | 18.078394 | 62.857992 |
+
+These are real public-board records, not final holdout or judging totals. All five gates pass for both rows. Local native timing/RSS and emulated Linux checks are labeled separately throughout this log. The observed best is not a promise of repeatable timing or victory. [Current source and decisions](../docs/RESULTS.md), [exact passing source proof](../docs/round258-final-source-match.json), [latest raw record](../docs/board-round258-selected-confirmation.json).
+
+## Historical experiments
+
 This fresh implementation uses a mapped, quote-aware byte parser, a direct region lookup, and exact per-name country membership bits. First scored board run: **run-bbda54bf2316**.
 
 The memory-layout hypothesis is that a few membership words per distinct name cost less than allocating a separate set node for every country/name combination. This is a structural design decision. No isolated before/after benchmark of a per-country set implementation was performed, so no measured speedup for that change is claimed.
@@ -658,3 +673,6 @@ Candidate249 selected local proof: original SCALAR Csv, PIPELINE_READERS8→7 pl
 
 
 257/8b0f263 run-796b3d76f22c all five real gatesPASS: T0.063207s/M12558336/S672/K22.574601/67.681004 points. Unchanged original source; lower repeat is variation, no algorithm regression/gain claimed. Exact29 actual/Git/frozen/local-image identity ../docs/round257-scored-source-match.json. New allocator/model/Linux proofs remain historical to rejected257, not relabeled as original. Raw ../docs/board-round257-aligned-labels.json.
+
+
+258/5871ce0 run-db01c551499e original source allfive real gatesPASS: T0.100887s/M11845632/S672/K18.078394/62.857992 points. Exact original best-source/Git/frozen/local-image proof ../docs/round258-final-source-match.json; lower identical-source repeats are variation, including C slow outlier, not a new source regression or gain. No new compiler/training/broad-bank replay or rejected aligned proof substitution. Raw ../docs/board-round258-selected-confirmation.json.

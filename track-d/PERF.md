@@ -1,5 +1,20 @@
 # Track D optimization log
 
+## Current retained result
+
+The retained implementation constructs both directed CSR graphs, keeps complete weights through exact inline/escape storage, and runs query-owned bidirectional search. Compact labels recover the full node ID; large labels use the full64-bit fallback. Conservative queue-band bounds and whole-batch stopping preserve exact answers, including zero weights.
+
+The retained32-entry query batch first improves the measured result in actual104, run-deabebbc1efe (exact actual ID is preserved in the linked raw record). The later best at identical D source is variation. Allocation alignment, bucket epochs, CSR reordering and other losing changes were restored completely. The new degree-two graph rewrite is now locally selected for a real trial; original258 remains the passing recorded rollback. No target gain is claimed before that record.
+
+| Record | Run ID | T seconds | Charged memory bytes | S | K | Machine points |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| Best observed | run-d86cb628f914 | 0.194716 | 76922880 | 827 | 20.248361 | 65.319494 |
+| Passing original258 | run-c59f84e71148 | 0.199252 | 76296192 | 827 | 20.049331 | 65.104994 |
+
+These are real public-board records, not final holdout or judging totals. All five gates pass for both rows. Local native timing/RSS and emulated Linux checks are labeled separately throughout this log. The observed best is not a promise of repeatable timing or victory. [Current source and decisions](../docs/RESULTS.md), [exact passing source proof](../docs/round258-final-source-match.json), [latest raw record](../docs/board-round258-selected-confirmation.json).
+
+## Historical experiments
+
 These are local macOS ARM whole-process measurements including launch, not official scores. Raw runs and source fingerprints are in `../docs/experiments-local.json` and `../docs/experiments-d-full.json`. First scored board run: **run-3e323bfac066**.
 
 | Experiment | Dataset / workers | Binary-heap median | Radix-heap median | Decision | Board run ID |
@@ -566,3 +581,9 @@ Candidate257 local proof, real trial pending: only packed-label vector allocatio
 
 
 257/8b0f263 run-9d864400d7ec all five real gatesPASS: T0.206844s/M77074432/S849/K19.560860/64.569397 points. Reject aligned allocation, K19.560860 below20.248361. Restore original touched-label vector/header/image; normal Linux alignment geometry alone did not predict an Intel gain. Exact29 actual/Git/frozen/local-image identity ../docs/round257-scored-source-match.json. New allocator/model/Linux proofs remain historical to rejected257, not relabeled as original. Raw ../docs/board-round257-aligned-labels.json.
+
+
+258/5871ce0 run-c59f84e71148 original source allfive real gatesPASS: T0.199252s/M76296192/S827/K20.049331/65.104994 points. Exact original best-source/Git/frozen/local-image proof ../docs/round258-final-source-match.json; lower identical-source repeats are variation, including C slow outlier, not a new source regression or gain. No new compiler/training/broad-bank replay or rejected aligned proof substitution. Raw ../docs/board-round258-selected-confirmation.json.
+
+
+Candidate262 local proof complete; official trial pending. Only main.cpp inserts a candidate-aware, nonadjacent, reciprocal degree-two bypass. Current query endpoints pinned; exact directed sums, inline-limit guard, read-only counterpart capture, joined disjoint writes, arbitrary IDs and original full64 search retained. Both native ASAN/UBSAN and TSAN exact extracted-block models execute primary106+supplement4 cases,377 topologies,231 active runs/590 eliminations/72 shared-hub runs/48 injected flag/collect failure joins per mode; actual unmodified main377 sparse-runtime calls per mode plus fresh tiny/sample/untrained full2699/public/full2633/repeated-query/error pipeline pass. Separate original C++ and Python Floyd oracles, weighted transpose/read-write disjointness/surviving-distance checks included. All-pairs cases are controls, never called active coverage. New pinned GCC strict model(one compile/two streams), main1217refs+12errors, exact PGO image1556+48 and actual noarg/nooverride defaults155+4 pass; actual MakeD/public1/6/12/native thread defaults and exact29/Make/image binding pass. Initial volatile Linux proof logs were lost after interruption; successful old tool records are retained as transcript-only and only missing Linux proof was recreated durably, with no native/profile duplication. Source/failed-attempt scope honest in ../docs/round262-d-proof-archive.json. Clean13-pair native ratios public.975167/full1823 .964124/full2633 .970115 with small/native RSS savings are a modest hypothesis, not Intel/K proof; initial screen had overlapping read-only audit and is not mislabeled clean. Native/source/image proof ../docs/round262-candidate-source-match.json. New local image sha256:15ffc0f1219b7fb356cff48bb41d69569af086cb72d5162a03d26573f572bdc7. Keep only supported real totalK above20.248361; otherwise restore complete original main/README/image. Primary concept: https://publikationen.bibliothek.kit.edu/1000015090 ; fresh restricted implementation, not full contraction hierarchies or imported library code.

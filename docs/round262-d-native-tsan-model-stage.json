@@ -1,0 +1,121 @@
+{
+  "started_at_utc": "2026-11-01T09:36:06.434879+00:00",
+  "official_score": false,
+  "mode": "tsan",
+  "source_sha256": {
+    "track-d/training_generator.py": "bbf37741159004149c5896265a98ae00b90e90a05ad48c2912ecf8bdce126d65",
+    "track-d/Dockerfile": "b894df9b62f1f82561cbcd594d8baa97fdbe91d03d8aea816d2355f8fcd90cbb",
+    "track-d/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+    "track-d/edge_store.hpp": "31db14bd58fb3bb45a90c963cf57397a50d5195782d01dc366b2a380d3b74ed6",
+    "track-d/README.md": "abf631f570e4eee1576e59ce1bfb6d3875081c87c234b96a261aa85f654baf95",
+    "track-d/PERF.md": "4e40659b54e82e0dec36c7cfa72e5d34c837cb387cf839739d3c7ab9e4e27ca4",
+    "track-d/load_cursors.hpp": "69bb855e76fdb729ce64856723a7e759f1844bcb34ffaaca2ad7776bdcafdf01",
+    "track-d/radix_heap.hpp": "7fb2052bb951ca391c5b1883d8e673f554a43ab3d06286e43597105c2d82b6e3",
+    "track-d/.speed-demon.toml": "6d6100843803548ba58c1c1eaf2d1dbaecb9a431fd5c9a8408d214580466465c",
+    "track-d/distance_map.hpp": "07b254af4e7a149bdae50e426c3355446e104333e6a8dcd43cd29181db4a8604",
+    "track-d/main.cpp": "106950108d93a7ddd7a5a3a442973dbd277e3dc913190ea5b6fe2213ea5e91e4",
+    "track-d/decimal.hpp": "aee2210ac5894050834ffd37903718b3b7bdc6673240559baa85b350bea9b581",
+    "track-d/parallel.hpp": "614e48333aabbd7a9d7b008119d41acc7f908e467769772d01e10d84c282bdab"
+  },
+  "model_sha256": {
+    "created_at_utc": "2026-11-01T09:35:01.355737+00:00",
+    "official_score": false,
+    "scope": "Exact frozen262productionblock extracted unchanged; observed copy addsONLYtwo test audit calls aftercollectjoin/beforeapply and afterapplyjoin/beforecleanup. Model macro routesparallel throughwrapper callingoriginalparallel; test-only worker-join failure injection usesown-per-worker flags, nointerworker extra synchronization. Actualfrozenmain integrations runseparately without hooks.",
+    "source_sha256": {
+      "track-d/training_generator.py": "bbf37741159004149c5896265a98ae00b90e90a05ad48c2912ecf8bdce126d65",
+      "track-d/Dockerfile": "b894df9b62f1f82561cbcd594d8baa97fdbe91d03d8aea816d2355f8fcd90cbb",
+      "track-d/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+      "track-d/edge_store.hpp": "31db14bd58fb3bb45a90c963cf57397a50d5195782d01dc366b2a380d3b74ed6",
+      "track-d/README.md": "abf631f570e4eee1576e59ce1bfb6d3875081c87c234b96a261aa85f654baf95",
+      "track-d/PERF.md": "4e40659b54e82e0dec36c7cfa72e5d34c837cb387cf839739d3c7ab9e4e27ca4",
+      "track-d/load_cursors.hpp": "69bb855e76fdb729ce64856723a7e759f1844bcb34ffaaca2ad7776bdcafdf01",
+      "track-d/radix_heap.hpp": "7fb2052bb951ca391c5b1883d8e673f554a43ab3d06286e43597105c2d82b6e3",
+      "track-d/.speed-demon.toml": "6d6100843803548ba58c1c1eaf2d1dbaecb9a431fd5c9a8408d214580466465c",
+      "track-d/distance_map.hpp": "07b254af4e7a149bdae50e426c3355446e104333e6a8dcd43cd29181db4a8604",
+      "track-d/main.cpp": "106950108d93a7ddd7a5a3a442973dbd277e3dc913190ea5b6fe2213ea5e91e4",
+      "track-d/decimal.hpp": "aee2210ac5894050834ffd37903718b3b7bdc6673240559baa85b350bea9b581",
+      "track-d/parallel.hpp": "614e48333aabbd7a9d7b008119d41acc7f908e467769772d01e10d84c282bdab"
+    },
+    "raw_block_sha256": "0b997ba4ef1d96be41021d2149c109978fd1c7d58db00ca58c10d71ed76cda5a",
+    "observed_block_sha256": "5c0e652d27625068e2e5a1f9e18cd485cee9d6c878fc0f840fc7ea5575317658",
+    "model_sha256": "33bd77871e8c7e2599dae80a4e3c6ccc7b1a1a11f70894fc3f7fee92e8192fdf",
+    "generator_sha256": "f482232ea856232f74cc3d3348724178bb36ca449d908cb2e4dac5cf55f37066",
+    "runtime_source_root": "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/candidate-d262-source",
+    "model_stage_driver_sha256": "b77f47734349958a6f8987df05cec7954d4622e05b7d16172fc0644e3f3d67dd"
+  },
+  "scope": "Exact extracted frozen262block with test-only observations; originalgraph independent Floyd oracle, activated sparse endpoint subsets, disjoint read/write/reciprocal/bounds/untouched-slot invariants and worker failure joins. Actualfrozenmain independently compiled/executed without hooks on same originalgraph oracle inputs. No performance/Intel/officialclaim.",
+  "steps": [
+    {
+      "label": "compile-bypass-model",
+      "argv": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-pthread",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-fno-sanitize-recover=all",
+        "-fno-omit-frame-pointer",
+        "-fsanitize=thread",
+        "-DEDGE_HEADER=\"/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/candidate-d262-source/track-d/edge_store.hpp\"",
+        "-DPARALLEL_HEADER=\"/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/candidate-d262-source/track-d/parallel.hpp\"",
+        "-DOBSERVED_BLOCK=\"/private/tmp/speed-demon-d262-native/model/block.observed.inc\"",
+        "/private/tmp/speed-demon-d262-native/model/model.cpp",
+        "-o",
+        "/private/tmp/speed-demon-d262-native/tsan/bypass-model"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "bypass-model",
+      "argv": [
+        "/private/tmp/speed-demon-d262-native/tsan/bypass-model",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/d262-subset-bank/cases.txt"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "compile-main",
+      "argv": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-pthread",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-fno-sanitize-recover=all",
+        "-fno-omit-frame-pointer",
+        "-fsanitize=thread",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/candidate-d262-source/track-d/main.cpp",
+        "-o",
+        "/private/tmp/speed-demon-d262-native/tsan/track-d"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "case_bank_sha256": "7dcee35c0751a67dc227885fc79c708e05192ff18231865cb07ef9fe498ec81c",
+  "case_stream_sha256": "df5bd4445736c34d06866a4979248b68258a77a0cd40ab1a4ac33399f64fd875",
+  "flags": [
+    "-std=c++20",
+    "-O1",
+    "-g",
+    "-pthread",
+    "-Wall",
+    "-Wextra",
+    "-Wpedantic",
+    "-Werror",
+    "-fno-sanitize-recover=all",
+    "-fno-omit-frame-pointer",
+    "-fsanitize=thread"
+  ],
+  "model_binary_sha256": "d8c2156f8d64635e2464a9ea0f94001a880151477a8f9fbd6b6d38b354ad630b",
+  "binary_sha256": "5bcd76700fffa7af3a9226a3515b55953ecc13461d2d9b9c591ed02e53e55fb6",
+  "passed": true,
+  "completed_at_utc": "2026-11-01T09:36:27.613551+00:00"
+}

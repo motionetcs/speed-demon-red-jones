@@ -1,0 +1,141 @@
+{
+  "started_at_utc": "2026-11-01T09:37:45.286077+00:00",
+  "official_score": false,
+  "mode": "asan",
+  "source_sha256": {
+    "track-d/training_generator.py": "bbf37741159004149c5896265a98ae00b90e90a05ad48c2912ecf8bdce126d65",
+    "track-d/Dockerfile": "b894df9b62f1f82561cbcd594d8baa97fdbe91d03d8aea816d2355f8fcd90cbb",
+    "track-d/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+    "track-d/edge_store.hpp": "31db14bd58fb3bb45a90c963cf57397a50d5195782d01dc366b2a380d3b74ed6",
+    "track-d/README.md": "abf631f570e4eee1576e59ce1bfb6d3875081c87c234b96a261aa85f654baf95",
+    "track-d/PERF.md": "4e40659b54e82e0dec36c7cfa72e5d34c837cb387cf839739d3c7ab9e4e27ca4",
+    "track-d/load_cursors.hpp": "69bb855e76fdb729ce64856723a7e759f1844bcb34ffaaca2ad7776bdcafdf01",
+    "track-d/radix_heap.hpp": "7fb2052bb951ca391c5b1883d8e673f554a43ab3d06286e43597105c2d82b6e3",
+    "track-d/.speed-demon.toml": "6d6100843803548ba58c1c1eaf2d1dbaecb9a431fd5c9a8408d214580466465c",
+    "track-d/distance_map.hpp": "07b254af4e7a149bdae50e426c3355446e104333e6a8dcd43cd29181db4a8604",
+    "track-d/main.cpp": "106950108d93a7ddd7a5a3a442973dbd277e3dc913190ea5b6fe2213ea5e91e4",
+    "track-d/decimal.hpp": "aee2210ac5894050834ffd37903718b3b7bdc6673240559baa85b350bea9b581",
+    "track-d/parallel.hpp": "614e48333aabbd7a9d7b008119d41acc7f908e467769772d01e10d84c282bdab"
+  },
+  "binary_sha256": "9d4ab76c0339995c6820a5bc62ee9093cadbbd95aa663658c7dbb643f293a773",
+  "model_stage_sha256": "84cbac57d0a4bf3975eacbea5b84f17291edec294dc16561409c1bd17bf11dca",
+  "scope": "Generic exact frozen262runtime integrations using same successful subset-proof binary, no recompile. Fresh official tiny/sample and untrained full2699 original reference, all-pinned independent Floyd controls, loader/errors, published and saved independent full/repeatedquery controls. These controls are not counted as active-contraction model coverage. No target performance/officialclaim.",
+  "steps": [
+    {
+      "label": "tiny-adversarial",
+      "argv": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/tools/verify.py",
+        "--binary-dir",
+        "/private/tmp/speed-demon-d262-native/asan",
+        "--source-root",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/candidate-d262-source",
+        "--run-id",
+        "d262-asan",
+        "--tracks",
+        "d",
+        "--scale",
+        "tiny",
+        "--seeds",
+        "2663",
+        "2671",
+        "--threads",
+        "1",
+        "6",
+        "12",
+        "--report",
+        "/private/tmp/speed-demon-d262-native/asan/tiny-adversarial.json"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "sample",
+      "argv": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/tools/verify.py",
+        "--binary-dir",
+        "/private/tmp/speed-demon-d262-native/asan",
+        "--source-root",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/candidate-d262-source",
+        "--run-id",
+        "d262-asan-sample",
+        "--tracks",
+        "d",
+        "--scale",
+        "sample",
+        "--seeds",
+        "2677",
+        "--threads",
+        "1",
+        "6",
+        "12",
+        "--skip-adversarial",
+        "--report",
+        "/private/tmp/speed-demon-d262-native/asan/sample.json"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "all-pinned-floyd-controls",
+      "argv": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/d262-independent-controls/independent_graphs.py",
+        "--binary",
+        "/private/tmp/speed-demon-d262-native/asan/track-d",
+        "--report",
+        "/private/tmp/speed-demon-d262-native/asan/floyd-controls.json",
+        "--count",
+        "64",
+        "--spread-ids",
+        "--threads",
+        "1",
+        "6",
+        "12"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "pipeline",
+      "argv": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/tools/test_graph_pipeline.py",
+        "--binary-dir",
+        "/private/tmp/speed-demon-d262-native/asan",
+        "--run-id",
+        "d262-asan-graph-pipeline",
+        "--report",
+        "/private/tmp/speed-demon-d262-native/asan/pipeline.json"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "fresh-full",
+      "argv": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/tools/verify.py",
+        "--binary-dir",
+        "/private/tmp/speed-demon-d262-native/asan",
+        "--source-root",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/candidate-d262-source",
+        "--run-id",
+        "d262-asan-full",
+        "--tracks",
+        "d",
+        "--scale",
+        "full",
+        "--seeds",
+        "2699",
+        "--threads",
+        "1",
+        "6",
+        "12",
+        "--skip-adversarial",
+        "--report",
+        "/private/tmp/speed-demon-d262-native/asan/fresh-full.json"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "passed": true,
+  "completed_at_utc": "2026-11-01T09:39:41.465651+00:00"
+}

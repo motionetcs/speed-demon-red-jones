@@ -1,5 +1,20 @@
 # Track A optimization log
 
+## Current retained result
+
+The retained implementation parses disjoint input ranges into four-byte records, compares complete endpoint names after hashing, computes exact nearest-rank percentiles, and publishes completed hours in output order. Wide latencies keep all32 bits. Mapped buffers are released when their hour is consumed.
+
+The two material retained layout changes are mapped records (real145, run-1fc76115f2d9) and ordered mapped output with bounded prefix8 decoding (real163, run-271fd6ddf3b9; exact actual ID is preserved in the linked raw record). The final full/sample PGO recipe is actual178. Each choice pays its measured source cost. Later better observations of identical source are kept separate from algorithm changes. Rejected spans, output windows, calendars and method dispatch remain in the historical log.
+
+| Record | Run ID | T seconds | Charged memory bytes | S | K | Machine points |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| Best observed | run-004bfb2aafff | 0.042474 | 20746240 | 497 | 31.974332 | 75.240074 |
+| Passing original258 | run-14201f55515d | 0.046470 | 21217280 | 497 | 30.431731 | 74.166333 |
+
+These are real public-board records, not final holdout or judging totals. All five gates pass for both rows. Local native timing/RSS and emulated Linux checks are labeled separately throughout this log. The observed best is not a promise of repeatable timing or victory. [Current source and decisions](../docs/RESULTS.md), [exact passing source proof](../docs/round258-final-source-match.json), [latest raw record](../docs/board-round258-selected-confirmation.json).
+
+## Historical experiments
+
 All numbers here are local macOS ARM development evidence, including process launch, not official scores. Raw runs, hashes, and source fingerprints are in `../docs/experiments-local.json`. First scored board run: **run-c76f845b747a**.
 
 | Experiment | Dataset | Baseline median | Candidate median | Decision | Board run ID |
@@ -567,3 +582,6 @@ Candidate255 local proof, official trial pending. New isolated254 replaces old40
 
 
 257/8b0f263 run-ff8624471042 all five real gatesPASS: T0.048066s/M21319680/S497/K29.893434/73.778790 points. Unchanged original source; lower repeat is variation, no algorithm regression/gain claimed. Exact29 actual/Git/frozen/local-image identity ../docs/round257-scored-source-match.json. New allocator/model/Linux proofs remain historical to rejected257, not relabeled as original. Raw ../docs/board-round257-aligned-labels.json.
+
+
+258/5871ce0 run-14201f55515d original source allfive real gatesPASS: T0.046470s/M21217280/S497/K30.431731/74.166333 points. Exact original best-source/Git/frozen/local-image proof ../docs/round258-final-source-match.json; lower identical-source repeats are variation, including C slow outlier, not a new source regression or gain. No new compiler/training/broad-bank replay or rejected aligned proof substitution. Raw ../docs/board-round258-selected-confirmation.json.

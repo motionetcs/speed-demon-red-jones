@@ -31,3 +31,10 @@ The narrow-counter loader passes all official gates and improves observed D to60
 Both loader passes use bounded16-row scratch batches to overlap degree/cursor/edge accesses. The final image caps process-local glibc arenas at2; no host setting is modified. Current exact run IDs and retention decisions are in PERF.md.
 
 Search extracts at most32 full-distance entries from one conservative64-distance band per batch; this changes scheduling and scratch only.
+
+
+## Candidate262: reciprocal degree-two bypass (official trial pending)
+
+After reading the current queries, protect all of their endpoints. A non-query vertex with exactly two distinct reciprocal neighbours can be replaced by two directed bypass edges, each carrying the exact sum of its two old edge weights. Returning to the same neighbour is a nonnegative cycle and cannot improve a shortest path. Apply this only when both sums fit the existing inline representation; other vertices keep the original graph.
+
+A joined flag pass identifies degree candidates. A local ID order chooses a nonadjacent subset, comparing only against other candidates; no locality or seed meaning is assumed for IDs. A read-only parallel phase captures every exact counterpart slot in private plans. After joining, another phase writes disjoint forward/reverse slots. Selected vertices' own read slots remain untouched, and none of the protected query endpoints is removed. All preprocessing and allocation costs count toward the run. Independent original-graph Floyd references and active shared-hub/race tests verify the transformation; source-specific reports and the real-trial decision are in PERF.md.

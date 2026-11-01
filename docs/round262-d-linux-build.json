@@ -1,0 +1,106 @@
+{
+  "started_at_utc": "2026-11-01T10:24:56.622374+00:00",
+  "official_score": false,
+  "track": "d",
+  "mode": "build",
+  "source_root": ".build/interactive-improve/candidate-d262-source",
+  "source_sha256": {
+    "track-d/training_generator.py": "bbf37741159004149c5896265a98ae00b90e90a05ad48c2912ecf8bdce126d65",
+    "track-d/Dockerfile": "b894df9b62f1f82561cbcd594d8baa97fdbe91d03d8aea816d2355f8fcd90cbb",
+    "track-d/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+    "track-d/edge_store.hpp": "31db14bd58fb3bb45a90c963cf57397a50d5195782d01dc366b2a380d3b74ed6",
+    "track-d/README.md": "abf631f570e4eee1576e59ce1bfb6d3875081c87c234b96a261aa85f654baf95",
+    "track-d/PERF.md": "4e40659b54e82e0dec36c7cfa72e5d34c837cb387cf839739d3c7ab9e4e27ca4",
+    "track-d/load_cursors.hpp": "69bb855e76fdb729ce64856723a7e759f1844bcb34ffaaca2ad7776bdcafdf01",
+    "track-d/radix_heap.hpp": "7fb2052bb951ca391c5b1883d8e673f554a43ab3d06286e43597105c2d82b6e3",
+    "track-d/.speed-demon.toml": "6d6100843803548ba58c1c1eaf2d1dbaecb9a431fd5c9a8408d214580466465c",
+    "track-d/distance_map.hpp": "07b254af4e7a149bdae50e426c3355446e104333e6a8dcd43cd29181db4a8604",
+    "track-d/main.cpp": "106950108d93a7ddd7a5a3a442973dbd277e3dc913190ea5b6fe2213ea5e91e4",
+    "track-d/decimal.hpp": "aee2210ac5894050834ffd37903718b3b7bdc6673240559baa85b350bea9b581",
+    "track-d/parallel.hpp": "614e48333aabbd7a9d7b008119d41acc7f908e467769772d01e10d84c282bdab"
+  },
+  "manifest_sha256": "54c4d8780465f7b6ba260dbb55772f1bf146ef1250b4c674f734b6b8002bdad8",
+  "native_index_sha256": "ecba5436a59dd561037c7734e4bf17185554e2d0f0225a2b7205ed0e2be54922",
+  "scope": "Exact candidate-aware nonadjacent degree-two bypass source; strict pinned offline emulated Linux/amd64 GCC or unique unchanged production PGO image. Reused input/reference content only, never prior source-specific correctness proof. Native screening is not organizer timing/cgroup/K evidence.",
+  "commands": [
+    {
+      "label": "build",
+      "argv": [
+        "docker",
+        "build",
+        "--platform",
+        "linux/amd64",
+        "--network=none",
+        "-t",
+        "speed-demon-fresh/track-d:round262-degree2",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/candidate-d262-source/track-d"
+      ],
+      "stdin": null
+    },
+    {
+      "label": "inspect",
+      "argv": [
+        "docker",
+        "image",
+        "inspect",
+        "speed-demon-fresh/track-d:round262-degree2"
+      ],
+      "stdin": null
+    },
+    {
+      "label": "original-config",
+      "argv": [
+        "docker",
+        "image",
+        "inspect",
+        "sha256:c4d3c407647521f82a295be8f0ebaa3de8d755d121a0439f7ddc5ea51968bb04"
+      ],
+      "stdin": null
+    },
+    {
+      "label": "elf",
+      "argv": [
+        "docker",
+        "run",
+        "--rm",
+        "--platform",
+        "linux/amd64",
+        "--network=none",
+        "--read-only",
+        "--memory=8g",
+        "--memory-swap=8g",
+        "--pids-limit=512",
+        "--cap-drop=ALL",
+        "--security-opt=no-new-privileges",
+        "--user",
+        "65534:65534",
+        "--tmpfs",
+        "/tmp:rw,exec,size=1g",
+        "-e",
+        "MALLOC_ARENA_MAX=2",
+        "--entrypoint",
+        "sha256sum",
+        "sha256:15ffc0f1219b7fb356cff48bb41d69569af086cb72d5162a03d26573f572bdc7",
+        "/app/solution"
+      ],
+      "stdin": null
+    }
+  ],
+  "passed": true,
+  "image_id": "sha256:15ffc0f1219b7fb356cff48bb41d69569af086cb72d5162a03d26573f572bdc7",
+  "image_tag": "speed-demon-fresh/track-d:round262-degree2",
+  "image_bytes": 30977291,
+  "elf_sha256": "43277e16b510dbef3313f380e9c1059e9ff18ea21af3eed43a9610bdda7549b8",
+  "image_config": {
+    "User": "65534:65534",
+    "Env": [
+      "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "MALLOC_ARENA_MAX=2"
+    ],
+    "Entrypoint": [
+      "/app/solution"
+    ]
+  },
+  "training": "Exact original official full1000003 then sample130363, default12; no publicseed1 training, extra runtime files or build changes.",
+  "completed_at_utc": "2026-11-01T10:26:18.564345+00:00"
+}

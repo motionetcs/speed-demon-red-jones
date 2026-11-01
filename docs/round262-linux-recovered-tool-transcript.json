@@ -1,0 +1,85 @@
+{
+  "thread_id": "01a18ffb-e004-7c92-8e54-2c2d1d913992",
+  "turn_id": "01a19678-a75f-7392-854b-a965eb51ecfe",
+  "records": [
+    {
+      "type": "commandExecution",
+      "id": "exec-bf2e2ee3-a304-4c1c-98b7-d3aa3b66858b",
+      "command": "/bin/zsh -lc \"python3 - <<'PY'\nfrom pathlib import Path\np=Path('/private/tmp/speed-demon-d257-linux.py');s=p.read_text().replace('d257-linux','d262-linux').replace('candidate-d257-aligned-source','candidate-d262-source').replace(\\\"index_path=r/'.build/interactive-improve/d257-native-proof-index.json'\\\",\\\"index_path=Path('/private/tmp/speed-demon-d262-linux/selection.json');index_path=Path(read(index_path)['native_index_path'])\\\")\ns=s.replace(\\\"geometry=r/'.build/interactive-improve/d257-arena2-preflight/report.json'\\\\nassert read(geometry)['passed']\\\\n\\\",'')\ns=s.replace(\\\"'arena2_geometry_report':str(geometry.relative_to(r)),'arena2_geometry_report_sha256':digest(geometry),\\\",'')\ns=s.replace('round257-aligned','round262-degree2').replace('Exact aligned packed-label vector source','Exact candidate-aware nonadjacent degree-two bypass source').replace('Geometry is not organizer cache/timing/K evidence.','Native screening is not organizer timing/cgroup/K evidence.').replace('RUN257','RUN262').replace('PASS257','PASS262')\na=s.index(\\\" if mode=='model':\\\");b=s.index(\\\" elif mode=='build':\\\",a)\nblock=''' if mode=='model':\n  models=Path('/private/tmp/speed-demon-d262-native/model');extraction=read(models/'extraction.json')\n  assert extraction['source_sha256']==manifest['sha256']\n  assets={'model.cpp':'model_sha256','block.raw.inc':'raw_block_sha256','block.observed.inc':'observed_block_sha256','generate_cases.py':'generator_sha256'}\n  for name,key in assets.items():assert digest(models/name)==extraction[key],name\n  raw=(models/'block.raw.inc').read_bytes();observed=(models/'block.observed.inc').read_bytes()\n  assert (source/'track-d/main.cpp').read_bytes().count(raw)==1\n  stripped=b''.join(line for line in observed.splitlines(keepends=True) if not line.lstrip().startswith((b'audit_plans(',b'audit_result(')))\n  assert stripped==raw and len(observed.splitlines())==len(raw.splitlines())+2\n  bank=r/'.build/interactive-improve/d262-subset-bank';cases=read(bank/'cases.json')\n  for row in cases['cases']:\n   data=Path(row['data_folder']);assert {p.name:digest(p) for p in data.iterdir() if p.is_file()}==row['inputs_sha256']\n   assert digest(row['expected_file'])==row['reference_sha256']\n  script=['set -eu','export ASAN_OPTIONS=halt_on_error=1','export UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1','g++ --version',flags+shlex.quote('-DEDGE_HEADER=\\\"/repo/'+str((source/'track-d/edge_store.hpp').relative_to(r))+'\\\"')+' '+shlex.quote('-DPARALLEL_HEADER=\\\"/repo/'+str((source/'track-d/parallel.hpp').relative_to(r))+'\\\"')+' '+shlex.quote('-DOBSERVED_BLOCK=\\\"/model/block.observed.inc\\\"')+' /model/model.cpp -o /tmp/bypass-model','/tmp/bypass-model /repo/'+str((bank/'cases.txt').relative_to(r))]\n  text=run([*common,'-i','--entrypoint','/bin/sh','-v',str(r)+':/repo:ro','-v',str(models)+':/model:ro','-v',str(out)+':/out:rw',gcc,'-s'],'bypass-model','\\\\\\\\n'.join(script)+'\\\\\\\\n',timeout=300)\n  assert 'PASS exact extracted bypass: 106 original-Floyd cases, 329 topology runs, 207 active runs, 530 eliminated vertices, 60 shared-hub runs, 24 injected collect/flag failures joined' in text\n  assert not (out/'bypass-model.stderr').read_bytes()\n  for name,key in assets.items():assert digest(models/name)==extraction[key],name\n  report.update(passed=True,compiler_image=gcc,strict_flags=flags,extraction=extraction,extraction_sha256=digest(models/'extraction.json'),case_bank_sha256=digest(bank/'cases.json'),case_stream_sha256=digest(bank/'cases.txt'),model_scope='Exact frozen production block plus two test-only observer calls; unmodified actual main separately compiled/replayed in GCC/image modes. Independent original-Floyd sparse endpoint subsets plus all-surviving-pair/reciprocal/disjoint-read-write/activation/shared-hub invariants; injected failures cover flag/collect joins. Original map/header unchanged and its historical source-specific models retained by identity, not falsely called new.')\n'''\ns=s[:a]+block+s[b:]\ns=s.replace(\\\"mode_name=item['mode'];label='d257-'+mode_name+'-graph-pipeline-d-pipeline-error-'+row['case']\\\",\\\"mode_name=item['mode'];label='d262-'+mode_name+'-graph-pipeline-d-pipeline-error-'+row['case']\\\")\ns=s.replace(\\\"# Every fresh non-Floyd edge/pipeline/tiny/sample/full/active/public input; independent Floyd entire bank in image mode.\\\",\\\"# Fresh sparse-subset and generic cases at actual defaults; all-pinned Floyd controls separately replayed in image mode.\\\")\ns=s.replace('Every fresh non-Floyd edge/pipeline/tiny/sample/full/4097-query and public input','Every fresh sparse-subset/non-Floyd edge/pipeline/tiny/sample/full/4097-query and public input')\nPath('/private/tmp/speed-demon-d262-linux.py').write_text(s)\nprint('Provisional262 Linux driver prepared only; native full-proof/index handoff required before execution.')\nPY\"",
+      "cwd": "/Volumes/Vault/Documents/codex/rough",
+      "status": "completed",
+      "exitCode": 0,
+      "durationMs": 0,
+      "output": {
+        "text": "Provisional262 Linux driver prepared only; native full-proof/index handoff required before execution.\n",
+        "truncated": false
+      }
+    },
+    {
+      "type": "commandExecution",
+      "id": "exec-2b2a8ad4-24fe-4f1c-8974-25378bd995b5",
+      "command": "/bin/zsh -lc \"python3 - <<'PY'\nfrom pathlib import Path\np=Path('/private/tmp/speed-demon-d262-linux.py');s=p.read_text().replace('Root-owned source-bound aligned-label proof.','Root-owned source-bound degree-two bypass proof.')\na=\\\"index_path=Path('/private/tmp/speed-demon-d262-linux/selection.json');index_path=Path(read(index_path)['native_index_path'])\\\\ndef read(p):return json.loads(Path(p).read_text())\\\"\nb=\\\"def read(p):return json.loads(Path(p).read_text())\\\\nindex_path=Path('/private/tmp/speed-demon-d262-linux/selection.json');index_path=Path(read(index_path)['native_index_path'])\\\"\nassert a in s;s=s.replace(a,b);p.write_text(s)\nprint('Prepared Linux driver dependency order corrected before first execution; frozen runtime untouched.')\nPY\"",
+      "cwd": "/Volumes/Vault/Documents/codex/rough",
+      "status": "completed",
+      "exitCode": 0,
+      "durationMs": 0,
+      "output": {
+        "text": "Prepared Linux driver dependency order corrected before first execution; frozen runtime untouched.\n",
+        "truncated": false
+      }
+    },
+    {
+      "type": "commandExecution",
+      "id": "exec-c8c00828-c501-4d8a-b806-f787b128733c",
+      "command": "/bin/zsh -lc \"python3 - <<'PY'\nfrom pathlib import Path\np=Path('/private/tmp/speed-demon-d262-linux.py');s=p.read_text()\na=\\\"  script=['set -eu','export ASAN_OPTIONS=halt_on_error=1'\\\"\nidx=s.index(a,s.index(\\\" if mode=='model':\\\"))\ninsert=\\\"\\\"\\\"  supplement=r/'.build/interactive-improve/d262-supplement-bank';supplement_report=read('/private/tmp/speed-demon-d262-native/asan/supplement-stage.json')\n  assert supplement_report['passed'] and digest(supplement/'cases.json')==supplement_report['case_bank_sha256'] and digest(supplement/'cases.txt')==supplement_report['case_stream_sha256']\n  for row in read(supplement/'cases.json')['cases']:\n   data=Path(row['data_folder']);assert {p.name:digest(p) for p in data.iterdir() if p.is_file()}==row['inputs_sha256']\n   assert digest(row['expected_file'])==row['reference_sha256']\n\\\"\\\"\\\"\ns=s[:idx]+insert+s[idx:]\ns=s.replace(\\\"'/tmp/bypass-model /repo/'+str((bank/'cases.txt').relative_to(r))]\\\",\\\"'/tmp/bypass-model /repo/'+str((bank/'cases.txt').relative_to(r)),'/tmp/bypass-model /repo/'+str((supplement/'cases.txt').relative_to(r))]\\\")\ns=s.replace(\\\"  assert not (out/'bypass-model.stderr').read_bytes()\\\",\\\"  assert 'PASS exact extracted bypass: 4 original-Floyd cases, 48 topology runs, 24 active runs, 60 eliminated vertices, 12 shared-hub runs, 24 injected collect/flag failures joined' in text\\\\n  assert not (out/'bypass-model.stderr').read_bytes()\\\",1)\ns=s.replace(\\\"case_stream_sha256=digest(bank/'cases.txt'),model_scope=\\\",\\\"case_stream_sha256=digest(bank/'cases.txt'),supplement_case_bank_sha256=digest(supplement/'cases.json'),supplement_case_stream_sha256=digest(supplement/'cases.txt'),model_scope=\\\")\np.write_text(s)\nprint('Linux model driver includes both frozen case streams with a single compilation; not executed before final native handoff.')\nPY\"",
+      "cwd": "/Volumes/Vault/Documents/codex/rough",
+      "status": "completed",
+      "exitCode": 0,
+      "durationMs": 0,
+      "output": {
+        "text": "Linux model driver includes both frozen case streams with a single compilation; not executed before final native handoff.\n",
+        "truncated": false
+      }
+    },
+    {
+      "type": "commandExecution",
+      "id": "exec-256d4423-6b05-4822-a225-6059cc23db65",
+      "command": "/bin/zsh -lc \"python3 - <<'PY'\nfrom pathlib import Path\nimport json\nw=Path('/private/tmp/speed-demon-d262-linux');w.mkdir(exist_ok=True);(w/'selection.json').write_text(json.dumps({'native_index_path':'/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/d262-native-proof-index.json','source_root':'.build/interactive-improve/candidate-d262-source'},indent=2)+'\\\\n')\np=Path('/private/tmp/speed-demon-d262-linux.py');s=p.read_text()\na=\\\"  for row in x.get('malformed',[]):\\\\n   mode_name=item['mode'];label='d262-'+mode_name+'-graph-pipeline-d-pipeline-error-'+row['case']\\\\n   add(label,None,row['threads'],origin=item['path'],error=True)\\\"\nb=\\\" for row in index['malformed']:\\\\n  add(row['case'],None,row['threads'],row['data_folder'],row['source_report'],row['inputs_sha256'],error=True)\\\"\nassert a in s;s=s.replace(a,b)\na=\\\"for row in index['models']:assert digest(r/row['path'])==row['sha256'],row\\\"\nb=a+\\\"\\\\nfor row in index['model_assets']:assert digest(r/row['path'])==row['sha256'],row\\\\nfor row in index['native_binaries']:assert digest(r/row['path'])==row['sha256'],row\\\\nfor row in index['case_streams']:\\\\n assert digest(r/row['path'])==row['sha256'] and digest(r/row['case_bank_path'])==row['case_bank_sha256'],row\\\"\ns=s.replace(a,b)\np.write_text(s)\nPY\npython3 /private/tmp/speed-demon-d262-linux.py inventory\"",
+      "cwd": "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh",
+      "status": "completed",
+      "exitCode": 0,
+      "durationMs": 1222,
+      "output": {
+        "text": "PASS262 D inventory 1556 48\n",
+        "truncated": false
+      }
+    },
+    {
+      "type": "commandExecution",
+      "id": "exec-5a121cad-112f-48c7-bc21-897703909f40",
+      "command": "/bin/zsh -lc 'python3 .build/interactive-improve/run_exclusive.py python3 /private/tmp/speed-demon-d262-linux.py model'",
+      "cwd": "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh",
+      "status": "completed",
+      "exitCode": 0,
+      "durationMs": 9487,
+      "output": {
+        "text": "Waiting for exclusive local measurement lock\nAcquired exclusive local measurement lock\nRUN262 model bypass-model\nPASS262 D model 0 0\nReleased exclusive local measurement lock\n",
+        "truncated": false
+      }
+    },
+    {
+      "type": "commandExecution",
+      "id": "exec-bd9d8585-6ae1-4040-b7dd-dce43d4ad028",
+      "command": "/bin/zsh -lc 'python3 .build/interactive-improve/run_exclusive.py python3 /private/tmp/speed-demon-d262-linux.py gcc'",
+      "cwd": "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh",
+      "status": "completed",
+      "exitCode": 0,
+      "durationMs": 196711,
+      "output": {
+        "text": "Waiting for exclusive local measurement lock\nAcquired exclusive local measurement lock\nRUN262 gcc matrix\nPASS262 D gcc 1217 12\nReleased exclusive local measurement lock\n",
+        "truncated": false
+      }
+    }
+  ],
+  "recovered_at_utc": "2026-11-01T10:20:05.211316+00:00"
+}

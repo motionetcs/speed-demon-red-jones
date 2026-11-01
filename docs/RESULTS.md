@@ -1,12 +1,12 @@
 # Results — 1 November 2026
 
-Complete ordinary public feed **2026-11-01T07:39:29Z**: Red Jones remains **rank 44 of 93**, best-three machine mean **69.436015**, leader Cause Of Death **82.949904**. Number one is unachieved. New255 span A/bucket-epoch D and257 aligned-label D pass all real gates but lose totalK; original256 passes. Original258 is locally restored and awaiting exact-commit real confirmation. Best/latest variation and final holdout/judging remain separate.
+Complete ordinary public feed **2026-11-01T09:17:54Z**: Red Jones **rank 44 of 94**, best-three machine mean **69.436015**, leader ALL STAR **83.035621**. Number one is unachieved. New257 aligned D loses despite all gates passing; complete original258 restoration passes all real gates. Best/latest variation and final holdout/judging remain separate.
 
 | Track | Best points | K | Rank | Leader |
 | --- | ---: | ---: | ---: | --- |
-| A | 75.240074 | 31.974332 | 49/113 | Cause Of Death 87.755998 |
-| C | 68.118071 | 23.033578 | 48/93 | NickTrapp 83.834454 |
-| D | 65.319494 | 20.248361 | 28/95 | Cause Of Death 73.369502 |
+| A | 75.240074 | 31.974332 | 50/114 | Cause Of Death 87.755998 |
+| C | 68.118071 | 23.033578 | 48/94 | NickTrapp 83.834454 |
+| D | 65.319494 | 20.248361 | 30/98 | SweetDreams 73.537079 |
 
 Four changes are retained:
 
@@ -19,15 +19,15 @@ A178 changes only the first build-time training104729/sample→1000003/full, kee
 
 A retains163 ordered mapped-output/prefix8/exact4096 cache. C is fully original std::hash/low32 offset/eight-reader/four-owner/512-event with original16-byte quote scan. A/C/D use full1000003/sample130363 offline PGO. D retains12 atomic degree/cursor workers, bidirectional CSR/band64/query32 and arena2. Every new native-ISA/CRC/AVX-quote/radix/weight-skip/query-order prototype is absent. OWNER-BRIEFING describes actual techniques without claiming personal understanding.
 
-All29 selected runtime/build/metadata inputs, full file sets and Make match real256 **da6f728a36a932270feff54a4573facf1e8e9cdb** and each current best-track source. Runtime is full original225/187 (A178/C175/D163), imagesB57/C263/c4 unchanged. [Exact final source/local-image proof](round256-final-source-match.json); local replayed images are distinguished from organizer binaries. Later documentation heads are not individually claimed scored.
+Candidate262 is locally selected for one real all-track trial: only D main.cpp adds reciprocal degree-two bypass, with complete native/strict/race/GCC/image/default/actual-Make proof and exact29/Make/image binding in [candidate proof](round262-candidate-source-match.json). A/C stay original and match their best sources. Last passing original258 **5871ce017f49bb33b37679de221350b09a3b7eb4** is preserved as rollback, [exact proof](round258-final-source-match.json). No new target gain is claimed before the real record; local images are distinct from organizer binaries.
 
-| Selected256 | Run | Time | Charged memory | S | K | Points |
+| Last passing258 | Run | Time | Charged memory | S | K | Points |
 | --- | --- | ---: | ---: | ---: | ---: | ---: |
-| A | run-5c14540e890f | 0.043751s | 20,836,352B | 497 | 31.476947 | 74.899630 |
-| C | run-f06b18fa2090 | 0.062763s | 12,333,056B | 672 | 22.736473 | 67.836155 |
-| D | run-216dcc84b896 | 0.201777s | 75,833,344B | 827 | 19.947751 | 64.994696 |
+| A | run-14201f55515d | 0.046470s | 21,217,280B | 497 | 30.431731 | 74.166333 |
+| C | run-db01c551499e | 0.100887s | 11,845,632B | 672 | 18.078394 | 62.857992 |
+| D | run-c59f84e71148 | 0.199252s | 76,296,192B | 827 | 20.049331 | 65.104994 |
 
-All check/build/correctness/timeout/sandbox gatesPASS. [Raw record](board-round256-selected-confirmation.json). No new algorithm gain; source is the preserved original.
+All check/build/correctness/timeout/sandbox gatesPASS. [Raw record](board-round258-selected-confirmation.json). No new algorithm gain; source is the preserved original. C's lower same-source repeat is a timing outlier, not a new source change.
 
 Fresh234 original C production **630+50 normal errors** and actual no-argument/no-thread-override **72+9** pass, including230 independent monetary boundaries and all1..12 topologies. Combined public1/6/12 and native/Linux default12 pass. Original-source221 native strict/race executables freshly run monetary cases; original221 GCC177+30 and127 primitives retained. Rejected230 helper/GCC216 proofs are not relabeled as original. Unchanged A81/D996 image/independent/Floyd/full64 proofs retained, no new234 A/D whole-bank replay. Exact native225 executables and immutable images reused; no234 compilation/training. [Production](round234-c-image-matrix.json), [actual defaults](round234-c-default-matrix.json), [public](round234-native-public.json), [defaults](round234-defaults.json).
 
@@ -138,10 +138,13 @@ A211/212 removes only unused Output.save. Native ELF is byte-identical; GCC/PGO 
 
 Hourly local continuation remains active while Mac/app are available. Finish exact pending documentation-head records before new runtime pushes. No new reactions; emojis do not change machine ranking. Stop runtime edits at **2 November2026 15:00UTC/20:30IST** and preserve the last passing recorded source. The owner explicitly approved **only motionetcs/speed-demon-red-jones becoming public under MIT during15:00–16:00UTC/20:30–21:30IST**, after freeze preservation and final secret/privacy recheck. [Authorization](PUBLICATION-AUTHORIZATION.json) and the accepted automation update resolve the earlier missing-approval condition. Keep private before that window; no grants/credential changes or rejection bypass. Publication has not happened. Verify public MIT source by16:00UTC, pause heartbeat after deadline and report verified status. After freeze no runtime edits.
 
-[Complete feed](round256-confirmed-board.json) · [Feed integrity](round256-feed-proof.json) · [Leader comparison](round256-confirmed-comparison.json) · [Entry audit](ENTRY-AUDIT.md) · [Live board](https://speeddemon.dev/board/#red-jones-00c4a7)
+[Complete feed](round258-confirmed-board.json) · [Feed integrity](round258-feed-proof.json) · [Leader comparison](round258-confirmed-comparison.json) · [Entry audit](ENTRY-AUDIT.md) · [Live board](https://speeddemon.dev/board/#red-jones-00c4a7)
 
 
 255 exact A/D local models/native/GCC/PGO/default proofs pass but real A K29.472757/73.471038 loses31.974332/75.240074; real D K19.921170/64.965742 loses20.248361/65.319494. A S491 vs497 is a measured source reduction. D M73543680 vs best76922880 saves3379200B (4.39%), but T.202919 vs.194716 and S853 vs827 do not yield a best total-K gain. These are observed record comparisons, not precise causal timing estimates. C source unchanged, lower repeat is variation. Complete original A/D restored, README training prose corrected to actual1000003/full then130363/sample. Exact actual29/Git/frozen/local-image proof round255-scored-source-match.json; rejected span/bucket strict/race/GCC/image proofs remain historical, never relabeled as original. Fresh256 original native/image public1/6/12 and actualdefaults pass with immutable original binaries/images, no compiler/training or whole-bank replay. Real256 all-track restoration passes, exactsource/best identity in round256-final-source-match.json.
 
 
 257 aligned-label allocation all5 actual gatesPASS at8b0f263, D run-9d864400d7ec T0.206844s/M77074432/S849/K19.560860/64.569397 fails best20.248361/65.319494. Reject complete header/README change; preserve native/GCC/PGO/image/model proof as historical, not an accepted gain. A/C source unchanged, lower repeats are variation. Exact29 Git/frozen/image binding in round257-scored-source-match.json. Fresh original258 D public1/6/12/native/image/actual defaults pass using immutable original binaries/images; no compiler/training or broad replay. A/C unchanged passing257 components retained. Single real258 confirmation next. C258 prefix/block-integer and259 group8-name metadata screens lose or are flat; never selected or claimed as target gains.
+
+
+258 real original restoration passes all five gates at5871ce017f49bb33b37679de221350b09a3b7eb4. Best scores unchanged, current full feed rank44/94. Larger fresh degree-two preprocessing260 and two-phase parallel independent-set261 both pass legal-input public/untrained reference screening but lose or are flat:260 paired1.097161/1.092828/1.118897;2611.003411/.991176/.997330. Reject before subset-activation/Floyd/strict/race/GCC/image/actual proof; no target gain or general correctness claim. Primary paper motivates the distance-preserving concept, not a timing prediction; no library/competitor solution imported. Exact patches/decisions preserved outside scored folders. Original all29/Make/images remain selected.
