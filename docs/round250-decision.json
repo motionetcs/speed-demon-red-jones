@@ -1,0 +1,46 @@
+{
+  "observed_at_utc": "2026-11-01T06:39:54.288893+00:00",
+  "official_score": false,
+  "decision": "REJECT D250 before broad validation or board; original D retained.",
+  "source_header_sha256": "49803eea553e5c2c82fa23fc3f3f0f3f753d94a8b4bf58d1c465a6def48c98d5",
+  "screen_sha256": "95db531f2dcd8fe26f77163fd63f27928f771e5eae8e1da401c122b493998d22",
+  "comparisons": [
+    {
+      "case": "public-full-seed1",
+      "pairs": 13,
+      "inputs_sha256": {
+        "graph.txt": "fe6471f2712d10b23c2ec58a4cbc7db1ea3e742daf6b6db62829e74d6c4a26c7",
+        "queries.txt": "160f1ef48378dcb567a8d9ddd2676ee777b044a5ede3ad4c7b42e812aa4b3a6f"
+      },
+      "expected_output_sha256": [
+        "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+      ],
+      "paired_median_ratio": 1.0325151688537553,
+      "wins": 3,
+      "max_rss_bytes": {
+        "original": 179339264,
+        "first-lane": 179847168
+      }
+    },
+    {
+      "case": "full-seed1823",
+      "pairs": 13,
+      "inputs_sha256": {
+        "graph.txt": "93b90d76a897ceb25e72e5b56ccadf351494f1bb98f51a4ffae838e979df1287",
+        "queries.txt": "950e5e75796498d0f2385abbed99f1e7d95f193252f05fea62346746bad5a2ae"
+      },
+      "expected_output_sha256": [
+        "d5ede1a4d936ea3b4bbaae08357d980ffb6c734141e2652cfdacc7c816738442"
+      ],
+      "paired_median_ratio": 1.097196945129757,
+      "wins": 5,
+      "max_rss_bytes": {
+        "original": 178405376,
+        "first-lane": 177160192
+      }
+    }
+  ],
+  "proof_scope": "86016 original SIMD versus candidate shortcut versus scalar-oracle arbitrary bucket equivalences, bits0..20, exact allocation-end ASAN guards; production packed-reference map growth/full-bucket/wide/reset model, all native full output hashes. No Linux/image/race/independent Floyd/official proof because timing rejected.",
+  "reason": "Both native datasets slower:1.0325 public(3/13wins),1.0972 independent1823(5/13). No gain justifies target trial. Native Apple timing not Intel proof.",
+  "selected_source_Git_image_tags_untouched": true
+}

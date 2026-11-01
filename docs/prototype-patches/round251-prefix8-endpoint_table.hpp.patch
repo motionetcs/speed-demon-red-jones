@@ -1,0 +1,32 @@
+--- selected247/track-a/endpoint_table.hpp
++++ isolated251-prefix8/track-a/endpoint_table.hpp
+@@ -55,3 +55,29 @@
+         slots[i]={shared.canonical[id].data(),hash,static_cast<uint16_t>(value.size()),id};return id;
+     }
+ };
++
++// Private current-input parsing work only. A full byte comparison and the
++// actual following delimiter validate every hint before it can be reused.
++template<unsigned Prefix> struct EndpointSpanCache {
++    static_assert(Prefix==8||Prefix==16);
++    struct Hint {uint64_t a=0,b=0;const char* data=nullptr;uint16_t size=0,id=UINT16_MAX;};
++    LocalEndpoints& names;std::array<Hint,512> hints{};
++    explicit EndpointSpanCache(LocalEndpoints& n):names(n){}
++    uint16_t read(const char*& p,const char* end){
++        const char* start=p;Hint* hint=nullptr;uint64_t a=0,b=0;
++        if(end-start>=Prefix){
++            std::memcpy(&a,start,8);
++            if constexpr(Prefix==16)std::memcpy(&b,start+8,8);
++            uint64_t h=(a^std::rotl(b,23))*0x9e3779b97f4a7c15ULL;h^=h>>32;
++            hint=&hints[h&(hints.size()-1)];
++            if(hint->id!=UINT16_MAX&&hint->a==a&&hint->b==b&&size_t(end-start)>hint->size&&start[hint->size]==' '&&std::memcmp(start,hint->data,hint->size)==0){
++                p=start+hint->size;return hint->id;
++            }
++        }
++        const char* separator=static_cast<const char*>(std::memchr(start,' ',size_t(end-start)));
++        if(!separator)throw std::runtime_error("missing endpoint/status");
++        std::string_view value(start,size_t(separator-start));uint16_t id=names.intern(value);
++        if(hint&&value.size()>=Prefix&&value.size()<=UINT16_MAX)*hint={a,b,names.shared.canonical[id].data(),uint16_t(value.size()),id};
++        p=separator;return id;
++    }
++};
