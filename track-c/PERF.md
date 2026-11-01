@@ -592,3 +592,6 @@ Fresh native and pinned GCC-native strict offset/index std::set models cover ful
 
 
 213/4e41c96 run-4afb857fd75f all five real gates pass: T0.090841s/M11931648/S673/K19.020029/63.960559 points. Reject C8:K19.020029/63.960559 loses23.033578/68.118071; T0.090841/M11931648/S673. Restore complete Docker/README to8ac/C263; native flat8 did not transfer, no target-phase causal explanation measured. Raw ../docs/board-round213-c8.json.
+
+
+217/3f3cff4 run-4d745e414ae8 all five real restoration gates pass: T0.063535s/M12296192/S672/K22.611452/67.716422 points. Full original selected206/187 runtime restored after unused-A method removal and C6/C8 default-worker losses. All29 root/frozen/scored/best inputs and complete file sets match, round217-final-source-match.json. Fresh combined public1/6/12 and native/Linux actual default12 pass; exact206 native executables reused, immutable A81/C501/D996 image/strict/race references retained by source/binary identity, no fresh whole-bank217 replay or compilation claimed. Best/latest and variation separate. Raw ../docs/board-round217-selected-confirmation.json.

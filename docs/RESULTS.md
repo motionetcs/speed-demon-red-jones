@@ -1,12 +1,12 @@
 # Results — 1 November 2026
 
-Complete ordinary public feed **2026-11-01T02:14:50Z**: Red Jones remains **41st of 90** with best-three machine mean **69.436015**. Leader Cause Of Death has **82.832135**. We are not number one. No supported new score gain this cycle: C204 shifted home passes every gate but K23.020854 loses23.033578. It is fully restored, and selected206 passes all three tracks. Public bests and final holdout/judging remain separate.
+Complete ordinary public feed **2026-11-01T03:57:49Z**: Red Jones is **rank 43 of 93** with best-three machine mean **69.436015**. Leader Cause Of Death has **82.949904**. We are not number one. No supported new gain: all-gates212 unused-A/C6 and213 C8 lose total K. Full original selected217 restoration passes all tracks. Best scores, unchanged-repeat variation and final holdout/judging remain separate.
 
 | Track | Best points | K | Rank | Leader |
 | --- | ---: | ---: | ---: | --- |
-| A | 75.240074 | 31.974332 | 43/107 | Cause Of Death 87.660386 |
-| C | 68.118071 | 23.033578 | 46/91 | NickTrapp 83.814878 |
-| D | 65.319494 | 20.248361 | 26/93 | Cause Of Death 73.226910 |
+| A | 75.240074 | 31.974332 | 45/110 | Cause Of Death 87.755998 |
+| C | 68.118071 | 23.033578 | 47/92 | NickTrapp 83.834454 |
+| D | 65.319494 | 20.248361 | 27/95 | Cause Of Death 73.226910 |
 
 Four changes are retained:
 
@@ -19,15 +19,15 @@ A178 changes only the first build-time training104729/sample→1000003/full, kee
 
 A retains163 ordered mapped-output/prefix8/exact4096 cache. C is fully original std::hash/low32 offset/eight-reader/four-owner/512-event with original16-byte quote scan. A/C/D use full1000003/sample130363 offline PGO. D retains12 atomic degree/cursor workers, bidirectional CSR/band64/query32 and arena2. Every new native-ISA/CRC/AVX-quote/radix/weight-skip/query-order prototype is absent. OWNER-BRIEFING describes actual techniques without claiming personal understanding.
 
-All29 inputs and complete runtime/build file sets match real all-gates selected206/e3140e077305a38dec3e5262047b4247c2f04e3e and current best sources(A178,C175,D163). [Final source/local-image proof](round206-final-source-match.json) distinguishes replayed local IDs from unexposed organizer IDs. Later documentation heads are not individually claimed scored.
+All29 inputs and complete runtime/build file sets match real all-gates selected217/3f3cff44ae6f723aec542bbd69676a10cf4ad44e and best sources(A178,C175,D163). [Final source/local-image proof](round217-final-source-match.json) distinguishes local replayed image IDs from unexposed organizer IDs. Later documentation heads are not individually claimed scored.
 
-| Selected206 | Run | Time | Charged memory | S | K | Points |
+| Selected217 | Run | Time | Charged memory | S | K | Points |
 | --- | --- | ---: | ---: | ---: | ---: | ---: |
-| A | run-0a6037d481be | 0.042878s | 21,123,072B | 497 | 31.708979 | 75.059113 |
-| C | run-5334e2cb1c9b | 0.062146s | 12,095,488B | 672 | 22.938120 | 68.027891 |
-| D | run-8aafc980cbd1 | 0.195398s | 76,959,744B | 827 | 20.211057 | 65.279451 |
+| A | run-fa996bb6e176 | 0.048738s | 21,037,056B | 497 | 29.765974 | 73.686005 |
+| C | run-4d745e414ae8 | 0.063535s | 12,296,192B | 672 | 22.611452 | 67.716422 |
+| D | run-866cc657d4fa | 0.261475s | 75,792,384B | 827 | 17.525144 | 62.183080 |
 
-All check/build/correctness/timeout/sandbox gates pass. [Raw selected record](board-round206-selected-confirmation.json). Latest points remain below bests. Earlier original-C1870.098959s/62.982725 outlier is preserved without an invented regression or target-phase explanation.
+All check/build/correctness/timeout/sandbox gates pass. [Raw selected record](board-round217-selected-confirmation.json). Latest points remain below historical bests. Earlier original-C1870.098959s/62.982725 outlier remains unexplained.
 
 | Actual batch / commit | A points | C points | D points | Decision |
 | --- | ---: | ---: | ---: | --- |
@@ -70,10 +70,14 @@ All check/build/correctness/timeout/sandbox gates pass. [Raw selected record](bo
 | [199 /d4027c9](board-round199-evidence-head.json) | 75.067694 | 67.869194 | 65.068289 | Lower unchanged repeats |
 | [204 /0112b33](board-round204-shifted-offset-home.json) | 74.476487 | 68.106072 | 65.196098 | Reject shifted home C on total K |
 | [206 /e3140e0](board-round206-selected-confirmation.json) | 75.059113 | 68.027891 | 65.279451 | Confirm complete original-source restoration |
+| [208 /8acb692](board-round208-evidence-head.json) | 74.633337 | 67.852650 | 64.915650 | Lower unchanged repeats |
+| [212 /e65b2b0](board-round212-unused-a-c6.json) | 74.961153 | 65.398398 | 64.829734 | Reject unused-A cleanup and C6 default on K |
+| [213 /4e41c96](board-round213-c8.json) | 74.803783 | 63.960559 | 65.157093 | Reject C8 default on K |
+| [217 /3f3cff4](board-round217-selected-confirmation.json) | 73.686005 | 67.716422 | 62.183080 | Confirm full original-source restoration |
 
 Every historical row passes all five gates. Unchanged tracks are repeated observations; higher repeats are variation. Exact time/memory/S/K/source/run IDs remain in JSON and PERF logs.
 
-Current selected local images have **A81/C501/D996=1,578** regular reference invocations, with overlapping semantics explicitly not independent timing samples. Original A81 independent194 references/full2221 remains exact. Restored original C freshly replays501 independent204 references/full2281/all requested workers+30 errors. Synthetic CRC-pair inputs do not activate CRC on std::hash. Original A163 output/prefix/cache/mapped-char, C127 offset/full-key/country/SPSC/quote strict/race and D104 band/Floyd/race/full64 proofs remain source-bound, with D175996 image cases. Older original-C193501/C135228+24/C15748 and D1080 cases remain valid, not extra independent timings. Fresh206 Make/public1/6/12 and actual native/Linux defaults pass. [Combined public](round206-make-public.json), [defaults](round206-defaults.json), [restored original C](round206-restored-c-image-matrix.json), [identity](round206-final-source-match.json).
+Current selected images retain **A81/C501/D996=1,578** regular reference invocations, with overlapping semantics explicitly not independent timing samples. Original A81 independent194/full2221, C501 independent204/full2281/all requested workers+30 errors, original A163 output/prefix/cache/mapped-char, C127 offset/full-key/country/SPSC/quote strict/race and D104 band/Floyd/race/full64/D175996 image proofs stay exact by source/binary identity. Synthetic CRC-pair inputs do not activate CRC on std::hash. Older C135228+24/C15748 and D1080 remain valid. Fresh217 full-public1/6/12 and actual native/Linux default12 pass; exact206 native executables reused, no new compilation or whole-bank217 replay claimed. [Public](round217-native-public.json), [defaults](round217-defaults.json), [identity](round217-final-source-match.json).
 
 Rejected190 C AVX2 quote search has fresh all-byte/logical-end/protected-page models on actual AVX2/SSE2/scalar and native NEON/scalar, strict/race/full2129/country/topology/pressure/errors,144 GCC valid+30 errors and405 exact-image valid+30 errors. Actual K22.928248 loses23.033578 despite T0.061274s versus0.062531s; memory12,419,072 versus11,665,408B and S682 versus672 contribute. These are observations, not a precise causal decomposition.
 
@@ -88,8 +92,16 @@ Research includes primary Clang/GCC intrinsic/ISA documentation, MIT's own radix
 
 200 read-only space-run key analysis saves only3400–3960 rounded bytes across independent samples/full2203, so no compression is implemented.201 bounded2/4/8 A cache probes paired1.005356/0.992900/0.994820 are flat;202 C event24 paired0.942004 is unselected;203 D from_chars1.154143/single-separator1.006474 lose. Public hashes pass but these source changes have no new broad generic/guard/strict/race/GCC/image/actual proof and remain absent. Single-separator may reject outside-grammar multiple whitespace and is not selected. Associativity research motivates examining conflicts, with no random-hash/LRU theorem claimed for the sampled cache.
 
-[207 design](round207-radix-csr-plan.json) proposes a substantial parse-once/parallel stable-radix D CSR construction replacing degree/cursor atomics. It is design only, not implemented or measured. A rough memory/time sketch is explicitly not cgroup/K evidence. Typed MIT radix notes and C++20 vector-capacity semantics were read; no video-playback or imported code claim. Current bidirectional D remains selected.
+[207 radix-CSR design](round207-radix-csr-plan.json) was implemented only as isolated209 native prototypes. Complete12-byte rows parsed once, stable parallel radix8/11/16 sorting both full32-bit endpoints, direct bidirectional CSR, exact queries and full weights retained. Eleven rotating native full-public runs have paired elapsed0.959897/0.953075/0.997666 and roughly173–177MB extra nativeRSS. All public hashes pass; reject the weak memory/time case before new generic prefix/write-coverage/CSR/lifetime/guard/overflow/strict/race/Floyd/full64/GCC/image/default/actual proof. Root D never changed. [Screen](round209-radix-csr-screen.json), [prototype identity](round209-prototype-index.json). This is not target K or broad correctness evidence.
+
+[210 native C worker screen](round210-c-workers-screen.json) uses the identical selected binary: four/six/eight versus twelve total workers paired1.550241/1.239685/1.001581. Target physical/SMT topology motivated explicitly separate runtime-image-only6/8 trials despite native6 loss and8 flat. C++/headers/training/compiler/PGO/ELF stayed exact; only final image ENV changed. Fresh56 unique no-argument/no-thread-override independent reference inputs plus4 normal errors pass for each candidate, along with combined public1/6/12/defaults and source/config/binary identity. Existing501 explicit-worker/strict/race proofs remain source-bound. Actual212 C6 T0.083071/M10,715,136/S673/K20.322071/65.398398 and213 C8 T0.090841/M11,931,648/S673/K19.020029/63.960559 both lose C bestK23.033578. Both full changes removed; default12 restored. These are complete valid results with no invented phase/timing cause. [C6 actual identity](round212-scored-source-match.json), [C8 actual identity](round213-scored-source-match.json).
+
+A211/212 removes only unused Output.save. Native ELF is byte-identical; GCC/PGO ELF differs, so the predeclared byte-identical-GCC source-cleanup acceptance branch is unavailable. Fresh output/prefix models under native/GCC strict and TSAN, GCC54 references+3 sink errors, exact image81+3, public/default/source proofs pass. Actual212 source497→490 but K31.566256/74.961153 loses31.974332/75.240074. Restore the complete original Aio/B57 image. No source hiding or scoring exemption. [Proof](round211-unused-output-proof.json). Verification helper's optional unset Docker Cmd KeyError was fixed before report, requiring the same explicit ENTRYPOINT/user/binary/environment; completed compiler/training work was reused, no measurement rewritten.
+
+[214 A mapped-record growth](round214-growth-screen.json) isolated1.5/4/8 reserve policies keep ordinary constructed vectors and existing lazy mmap allocator. Eleven rotating full-public paired elapsed1.037363/0.984085/1.013302 with flat nativeRSS rejects the weak case before new capacity/overflow/allocator/guard/strict/race/GCC/image/default/actual proof. Unused virtual capacity is not resident memory; no claimed large memory saving. Root A never changed. [Prototype identity](round214-prototype-index.json).
+
+[218 read-only local C ELF research](round218-local-profile-disassembly.json) finds an owner-count4 branch with an and3 path and alternate dynamic division in a cold unsigned-char path. Official GCC documents value-profile denominator specialization. Matching training worker count to runtime is an untested build hypothesis; no execution counts, causal explanation of C6/C8 slowdowns, new build or organizer ELF claim. [219 matched-profile plan](round219-matched-profile-plan.json) is design only; no new runtime candidate this cycle.
 
 Hourly local continuation remains active while Mac/app are available. Finish exact pending documentation-head records before new runtime pushes. No new reactions; emojis do not change machine ranking. Stop runtime edits at **2 November2026 15:00UTC/20:30IST** and preserve the last passing recorded source. The owner explicitly approved **only motionetcs/speed-demon-red-jones becoming public under MIT during15:00–16:00UTC/20:30–21:30IST**, after freeze preservation and final secret/privacy recheck. [Authorization](PUBLICATION-AUTHORIZATION.json) and the accepted automation update resolve the earlier missing-approval condition. Keep private before that window; no grants/credential changes or rejection bypass. Publication has not happened. Verify public MIT source by16:00UTC, pause heartbeat after deadline and report verified status. After freeze no runtime edits.
 
-[Complete feed](round206-confirmed-board.json) · [Feed integrity](round206-feed-proof.json) · [Leader comparison](round206-confirmed-comparison.json) · [Entry audit](ENTRY-AUDIT.md) · [Live board](https://speeddemon.dev/board/#red-jones-00c4a7)
+[Complete feed](round217-confirmed-board.json) · [Feed integrity](round217-feed-proof.json) · [Leader comparison](round217-confirmed-comparison.json) · [Entry audit](ENTRY-AUDIT.md) · [Live board](https://speeddemon.dev/board/#red-jones-00c4a7)

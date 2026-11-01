@@ -503,3 +503,6 @@ Eleven rotating public hashes pass, but retained0.183108542s/RSS179421184 versus
 
 
 213/4e41c96 run-790d56924609 all five real gates pass: T0.198328s/M76267520/S827/K20.097492/65.157093 points. Unchanged original selected206 source lower repeat; best separate. Raw ../docs/board-round213-c8.json.
+
+
+217/3f3cff4 run-866cc657d4fa all five real restoration gates pass: T0.261475s/M75792384/S827/K17.525144/62.183080 points. Full original selected206/187 runtime restored after unused-A method removal and C6/C8 default-worker losses. All29 root/frozen/scored/best inputs and complete file sets match, round217-final-source-match.json. Fresh combined public1/6/12 and native/Linux actual default12 pass; exact206 native executables reused, immutable A81/C501/D996 image/strict/race references retained by source/binary identity, no fresh whole-bank217 replay or compilation claimed. Best/latest and variation separate. Raw ../docs/board-round217-selected-confirmation.json.

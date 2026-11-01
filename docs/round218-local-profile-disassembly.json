@@ -1,7 +1,7 @@
 {
-  "observed_at_utc": "2026-11-01T03:52:55.423777+00:00",
+  "observed_at_utc": "2026-11-01T03:59:16.958685+00:00",
   "official_score": false,
-  "scope": "Read-only original local C263 static ELF disassembly under pinned GCC binutils. No runtime/host/harness/counters/affinity changed, no compilation/training or performance measurement. This is not an organizer binary and does not prove target phase/cycle causes. Potential profile/default-thread interaction is a hypothesis only.",
+  "scope": "Read-only original local C263 static ELF disassembly under pinned GCC binutils. No runtime/host/harness/counters/affinity changed, no compilation/training or performance measurement. This is not an organizer binary and does not prove target phase/cycle causes. Potential profile/default-thread interaction is a hypothesis only. Own-code assembly clips are evidence only of local emitted instructions, without frequency attribution.",
   "image_id": "sha256:263099fcbeecd9be03c762fc791651c246e2ec2ca2223f5940e186c13645dd63",
   "elf_sha256": "406fe1f9130ba9f98b612caa08f83a75b1299466b4a34ac10d659f928a7ecc83",
   "compiler_image": "gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce",
@@ -28,5 +28,11 @@
     "paraphrase": "Profile use enables value profiling and value-profile transformations; denominator feedback can specialize division."
   },
   "authoring_note": "Refined symbol filter before commit: substring main also matched libc _nl_load_domain. Now anchored to main symbols and clips bounded by their function start. No measurement affected.",
-  "finding": "Own local C ELF contains explicit alternate dynamic-division paths in main lambda instantiations, including cold unsigned-char path. This is consistent with profile-sensitive code generation; hot predecessor branches and their execution counts have not been measured. Matching training worker count to runtime is an untested build hypothesis, not an established cause of C6/C8 slowdowns."
+  "finding": "Own local C ELF contains a comparison against4 adjacent to an and3 residue path in a main lambda and alternate dynamic division, including cold unsigned-char code. Together with GCC value-profile denominator specialization docs, this motivates matching training/runtime worker count as an untested build hypothesis. No phase/cycle execution counts or causal explanation of real C6/C8 slowdowns measured; no organizer ELF observed.",
+  "main_lambda_owner_count_four_branch_clips": [
+    {
+      "function": "000000000040af80 <main::{lambda<typename $T0>(std::vector<$T0, std::allocator<$T0> > const&)#1}::operator()<unsigned char>(std::vector<unsigned char, std::allocator<unsigned char> > const&) const::{lambda(unsigned int)#1}::operator()(unsigned int) const>:",
+      "asm": "  40b69e:\tvextracti128 $0x1,%ymm0,0x20(%rbx)\n  40b6a5:\tcmp    %rsi,%rax\n  40b6a8:\tcmovl  %rsi,%rax\n  40b6ac:\tmov    0x10(%r13),%rsi\n  40b6b0:\tmov    %rax,0x30(%rbx)\n  40b6b4:\tmov    (%rsi),%edx\n  40b6b6:\ttest   %edx,%edx\n  40b6b8:\tje     40c611 <main::{lambda<typename $T0>(std::vector<$T0, std::allocator<$T0> > const&)#1}::operator()<unsigned char>(std::vector<unsigned char, std::allocator<unsigned char> > const&) const::{lambda(unsigned int)#1}::operator()(unsigned int) const+0x1691>\n  40b6be:\tcmp    $0x4,%edx\n  40b6c1:\tjne    402db8 <main::{lambda<typename $T0>(std::vector<$T0, std::allocator<$T0> > const&)#1}::operator()<unsigned char>(std::vector<unsigned char, std::allocator<unsigned char> > const&) const::{lambda(unsigned int)#1}::operator()(unsigned int) const [clone .cold]>\n  40b6c7:\tmov    0x70(%rsp),%rdi\n  40b6cc:\tmov    %r8,%rbx\n  40b6cf:\tand    $0x3,%ebx\n  40b6d2:\tlea    (%rbx,%rbx,2),%rax\n  40b6d6:\tlea    (%rdi,%rax,8),%r15\n  40b6da:\tmov    0x8(%r15),%rdx\n  40b6de:\tcmp    0x10(%r15),%rdx\n  40b6e2:\tje     40ba60 <main::{lambda<typename $T0>(std::vector<$T0, std::allocator<$T0> > const&)#1}::operator()<unsigned char>(std::vector<unsigned char, std::allocator<unsigned char> > const&) const::{lambda(unsigned int)#1}::operator()(unsigned int) const+0xae0>\n  40b6e8:\tmov    %r10,0xf0(%rsp)\n  40b6f0:\tadd    $0x20,%rdx\n  40b6f4:\tmov    %r11,0xf8(%rsp)\n  40b6fc:\tmov    %r8,0x100(%rsp)"
+    }
+  ]
 }
