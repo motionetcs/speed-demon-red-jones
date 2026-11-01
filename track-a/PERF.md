@@ -451,3 +451,6 @@ Pinned offline allowlisted A build/public1/6/12 passes, followed by81 exact-imag
 
 
 178/42c50ce run-004bfb2aafff all real gates pass: T0.042474s/M20746240/S497/K31.974332/75.240074 points. Changed first full-PGO build observed0.59% higher K versus prior31.786315/75.112009. Provisionally retain pending repeat; within historical variation, no precise causal or meaningful algorithm gain claimed. Raw ../docs/board-round178-full-pgo.json.
+
+
+181/95c75c7 run-e45f04177283 all real gates pass: T0.044236s/M20955136/S497/K31.268346/74.755246 points. A178 same-build repeat is lower:31.268346 vs first31.974332; do not infer a causal PGO improvement. Provisionally retained only through the next independent C trial, then decide with full record set. Raw ../docs/board-round181-inline-field.json.

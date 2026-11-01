@@ -11,3 +11,5 @@ No input seed or answer is recognized. All output is computed in the timed run. 
 Owner table entries use a32-bit rejection fingerprint and a32-bit stable-block word index. Full length/byte equality still decides names, including collisions; the complete64-bit hash routes owners.64KiB word blocks and dedicated oversized-key blocks retain exact name bytes/country words with checked index arithmetic.
 
 Candidate181 applies the compiler always-inline attribute to the existing exact Csv::field function. Every parser statement, canonical key byte, decoded length, numeric path, pipeline/owner and GCC PGO workload remains unchanged. Native screening is only a hypothesis; target total K decides retention.
+
+Candidate184 also always-inlines existing Csv::integer and Csv::amount after field inlining. Their body statements and all input/output rules remain unchanged. Only actual target total K can support retention.

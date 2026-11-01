@@ -441,3 +441,9 @@ Fresh sample1801/1811 strict ASAN/UBSAN,1819 TSAN, public1/6/12, all high-degree
 
 
 178/42c50ce run-cd96b6b98434 all real gates pass: T0.199137s/M76599296/S827/K20.039222/65.094043 points. Unchanged source lower variation; best kept separately. Raw ../docs/board-round178-full-pgo.json.
+
+
+181/95c75c7 run-6c17c88cb85b all real gates pass: T0.208795s/M77369344/S827/K19.531157/64.536399 points. Lower unchanged original D variation; retain best separately. Raw ../docs/board-round181-inline-field.json.
+
+
+183 independently screens degree64/scatter64/both32/both64/both128 staging on the current compact graph/D32-query layout. Eleven rotating full-public hashes pass; paired0.990132/0.998705/0.993385/0.994459/1.002234 are effectively flat or losing, so all are rejected before new partial-batch/strict/race/GCC/image/default/actual proof. This is separate from accepted query-work batching104. Original16-row degree/scatter bodies remain unchanged in184. Raw round183-loader-stage-screen.json and prototype patches/index.

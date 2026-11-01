@@ -50,7 +50,7 @@ struct Csv {
     void comma() {
         if (p == end || *p++ != ',') throw std::runtime_error("expected CSV comma");
     }
-    uint64_t integer() {
+    [[gnu::always_inline]] uint64_t integer() {
         const char* start = p;
         uint64_t value = 0;
         while (p < end && *p >= '0' && *p <= '9') value = value * 10 + *p++ - '0';
@@ -58,7 +58,7 @@ struct Csv {
         comma();
         return value;
     }
-    int64_t amount() {
+    [[gnu::always_inline]] int64_t amount() {
         bool negative = p < end && *p == '-';
         if (negative) ++p;
         const char* start = p;

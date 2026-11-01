@@ -1,0 +1,37 @@
+{
+  "observed_at_utc": "2026-10-31T23:55:52.750117+00:00",
+  "base": "95c75c72b80fea5da1105c5542b2d5a44d1d97d6",
+  "scope": "Native screen only: independently32/64/128 staging arrays for degree prefetch and atomic scatter over current compact/D32-query runtime. Same original atomic increments/cursors/full values/CSR/sentinels/queries/PGO; no new protocol or per-worker degree arrays. Earlier query-work32 batching is unrelated to these loader staging lengths. Needs exact source/new partial-batch/strict/race/independent/untrained/GCC/image/default/real K proof before any promotion.",
+  "patches": [
+    {
+      "patch": "round183-degree64-main.cpp.patch",
+      "path": "track-d/main.cpp",
+      "base_sha256": "6ae66971d7a6fd1f6bb75741daa522c681eae20e200f426547f8c537161327cc",
+      "candidate_sha256": "e7568fac58e4bce4cd96a60fd67134970aa986df0a1396647f3aa9ab75e0a931"
+    },
+    {
+      "patch": "round183-scatter64-main.cpp.patch",
+      "path": "track-d/main.cpp",
+      "base_sha256": "6ae66971d7a6fd1f6bb75741daa522c681eae20e200f426547f8c537161327cc",
+      "candidate_sha256": "524d8ca26eb59407c8a4ad3e9107c756a9b277d2fb5f1e645304ae4b8d5b353c"
+    },
+    {
+      "patch": "round183-both32-main.cpp.patch",
+      "path": "track-d/main.cpp",
+      "base_sha256": "6ae66971d7a6fd1f6bb75741daa522c681eae20e200f426547f8c537161327cc",
+      "candidate_sha256": "be0459e5d22dc1f2de3e86f3882e245e23f0dd8e45a337246772eb2951712aec"
+    },
+    {
+      "patch": "round183-both64-main.cpp.patch",
+      "path": "track-d/main.cpp",
+      "base_sha256": "6ae66971d7a6fd1f6bb75741daa522c681eae20e200f426547f8c537161327cc",
+      "candidate_sha256": "359d68b0b73e4dac32aab0ec66200a844c015de98e5a4518f3de3b577da5ce16"
+    },
+    {
+      "patch": "round183-both128-main.cpp.patch",
+      "path": "track-d/main.cpp",
+      "base_sha256": "6ae66971d7a6fd1f6bb75741daa522c681eae20e200f426547f8c537161327cc",
+      "candidate_sha256": "bf64f8ade729645b03c5f30320996bafa4ef1d961c3c193ba409d13c102f9aec"
+    }
+  ]
+}

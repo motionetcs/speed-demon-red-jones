@@ -1,0 +1,11 @@
+--- a/track-c/main.cpp
++++ b/track-c/main.cpp
+@@ -58,7 +58,7 @@
+         comma();
+         return value;
+     }
+-    int64_t amount() {
++    [[gnu::always_inline]] int64_t amount() {
+         bool negative = p < end && *p == '-';
+         if (negative) ++p;
+         const char* start = p;

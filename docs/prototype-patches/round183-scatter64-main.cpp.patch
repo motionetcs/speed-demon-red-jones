@@ -1,0 +1,11 @@
+--- a/track-d/main.cpp
++++ b/track-d/main.cpp
+@@ -92,7 +92,7 @@
+             auto& local = locals[worker];
+             Scanner input{boundaries[worker], boundaries[worker + 1]};
+             struct Row { uint32_t u, v, value, out, in; };
+-            std::array<Row, 16> batch;
++            std::array<Row, 64> batch;
+             while (input.more()) {
+                 size_t count = 0;
+                 while (count < batch.size() && input.more()) {
