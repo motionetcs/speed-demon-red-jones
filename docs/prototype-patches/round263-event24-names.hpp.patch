@@ -1,0 +1,19 @@
+--- retained263/track-c/names.hpp
++++ unscored263/event24/track-c/names.hpp
+@@ -68,9 +68,14 @@
+     }
+ };
+ struct NameEvent {
+-    std::string_view key;uint64_t hash;uint16_t country;
+-    std::string_view value()const{return key;}
++    const char* data;uint64_t hash;uint32_t length;uint16_t country;
++    NameEvent(std::string_view value,uint64_t h,uint16_t c):data(value.data()),hash(h),country(c){
++        if(value.size()>UINT32_MAX)throw std::runtime_error("name event length overflow");
++        length=static_cast<uint32_t>(value.size());
++    }
++    std::string_view value()const{return {data,length};}
+ };
++static_assert(sizeof(NameEvent)==24);
+ // One producer and one consumer transfer a vector through release/acquire.
+ // Every key borrows immutable input; the consumer copies each unique key.
+ struct NameQueue {

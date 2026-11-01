@@ -1,0 +1,46 @@
+--- retained263/track-a/main.cpp
++++ unscored266/phase-reuse/track-a/main.cpp
+@@ -36,7 +36,11 @@
+             Chunk() { first.fill(UINT32_MAX); }
+         };
+         std::vector<Chunk> chunks(threads);
+-        parallel(threads, [&](unsigned worker) {
++        std::vector<std::string_view> paths;
++        std::vector<uint16_t> order;
++        std::unique_ptr<OrderedOutput> output;
++        std::atomic<unsigned> next_hour{0};
++        parallel_phases(threads, [&](unsigned worker) {
+             const char* p = boundaries[worker]; const char* limit = boundaries[worker + 1];
+             auto& chunk = chunks[worker];
+             LocalEndpoints local_names(endpoints);
+@@ -65,14 +69,14 @@
+                 chunk.records[hour].push_back(std::min(uint32_t(latency), latency_escape) << 13 | uint32_t(error) << 12 | key);
+                 if (latency >= latency_escape) chunk.wide[hour].push_back(static_cast<uint32_t>(latency));
+             }
+-        });
+-        std::vector<std::string_view> paths(endpoints.canonical.begin(),endpoints.canonical.begin()+endpoints.used.load());
+-        endpoints.entries.reset(); // Path views borrow the still-mapped input.
+-        std::vector<uint16_t> order(paths.size()); std::iota(order.begin(), order.end(), 0);
+-        std::sort(order.begin(), order.end(), [&](uint16_t a, uint16_t b) { return paths[a] < paths[b]; });
+-        OrderedOutput writer(run_paths.out / "summary.txt");
+-        std::atomic<unsigned> next_hour{0};
+-        parallel(threads, [&](unsigned) {
++        }, [&] {
++            paths.assign(endpoints.canonical.begin(), endpoints.canonical.begin()+endpoints.used.load());
++            endpoints.entries.reset(); // All parsers returned; input views remain alive.
++            order.resize(paths.size()); std::iota(order.begin(), order.end(), 0);
++            std::sort(order.begin(), order.end(), [&](uint16_t a, uint16_t b) { return paths[a] < paths[b]; });
++            output=std::make_unique<OrderedOutput>(run_paths.out / "summary.txt");
++        }, [&](unsigned) {
++            auto& writer=*output;
+             std::vector<Count> groups(paths.size());
+             std::vector<uint32_t> offsets(paths.size()), cursor(paths.size()), latencies;
+             for (;;) {
+@@ -116,6 +120,6 @@
+                 writer.publish(hour);
+             }
+         });
+-        writer.finish();
++        output->finish();
+     } catch (const std::exception& e) { std::fprintf(stderr,"track-a: %s\n",e.what()); return 1; }
+ }

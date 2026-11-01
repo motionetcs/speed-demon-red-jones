@@ -9,9 +9,9 @@ The retained table change is actual128, run-5f755c073a9a (exact actual ID is pre
 | Record | Run ID | T seconds | Charged memory bytes | S | K | Machine points |
 | --- | --- | ---: | ---: | ---: | ---: | ---: |
 | Best observed | run-5faf38e26ef1 | 0.062531 | 11665408 | 672 | 23.033578 | 68.118071 |
-| Passing original258 | run-db01c551499e | 0.100887 | 11845632 | 672 | 18.078394 | 62.857992 |
+| Passing original263 | run-c793ed1a8a59 | 0.067873 | 12247040 | 672 | 21.894465 | 67.016717 |
 
-These are real public-board records, not final holdout or judging totals. All five gates pass for both rows. Local native timing/RSS and emulated Linux checks are labeled separately throughout this log. The observed best is not a promise of repeatable timing or victory. [Current source and decisions](../docs/RESULTS.md), [exact passing source proof](../docs/round258-final-source-match.json), [latest raw record](../docs/board-round258-selected-confirmation.json).
+These are real public-board records, not final holdout or judging totals. All five gates pass for both rows. Local native timing/RSS and emulated Linux checks are labeled separately throughout this log. The observed best is not a promise of repeatable timing or victory. [Current source and decisions](../docs/RESULTS.md), [exact passing source proof](../docs/round263-final-source-match.json), [latest raw record](../docs/board-round263-selected-confirmation.json).
 
 ## Historical experiments
 
@@ -675,7 +675,16 @@ Candidate249 selected local proof: original SCALAR Csv, PIPELINE_READERS8→7 pl
 257/8b0f263 run-796b3d76f22c all five real gatesPASS: T0.063207s/M12558336/S672/K22.574601/67.681004 points. Unchanged original source; lower repeat is variation, no algorithm regression/gain claimed. Exact29 actual/Git/frozen/local-image identity ../docs/round257-scored-source-match.json. New allocator/model/Linux proofs remain historical to rejected257, not relabeled as original. Raw ../docs/board-round257-aligned-labels.json.
 
 
-258/5871ce0 run-db01c551499e original source allfive real gatesPASS: T0.100887s/M11845632/S672/K18.078394/62.857992 points. Exact original best-source/Git/frozen/local-image proof ../docs/round258-final-source-match.json; lower identical-source repeats are variation, including C slow outlier, not a new source regression or gain. No new compiler/training/broad-bank replay or rejected aligned proof substitution. Raw ../docs/board-round258-selected-confirmation.json.
+258/5871ce0 run-db01c551499e original source allfive real gatesPASS: T0.100887s/M11845632/S672/K18.078394/62.857992 points. Exact original best-source/Git/frozen/local-image proof ../docs/round263-final-source-match.json; lower identical-source repeats are variation, including C slow outlier, not a new source regression or gain. No new compiler/training/broad-bank replay or rejected aligned proof substitution. Raw ../docs/board-round263-selected-confirmation.json.
 
 
 262/5198eaf run-30dbe3e153da all five real gatesPASS: T0.063480s/M12181504/S672/K22.663681/67.766522 points. Unchanged original source repeat; lower result is variation, not a new source regression or gain. Exact29 actual/Git/frozen/image proof ../docs/round262-scored-source-match.json. New degree-two models/GCC/PGO/image proofs remain historical to rejected code; never relabeled as original. Raw ../docs/board-round262-degree2-bypass.json.
+
+
+263/737b80f run-c793ed1a8a59 original allfive real gatesPASS: T0.067873s/M12247040/S672/K21.894465/67.016717 points. Exact original best-source/Git/frozen/local-image proof ../docs/round263-final-source-match.json. Lower identical-source repeats are variation; no new gain or rejected degree-two proof substitution. Fresh D-only original public/default checks used immutable binaries/images, no compilation/training/broad replay. Raw ../docs/board-round263-selected-confirmation.json.
+
+
+263 event24/newer8-byte-table isolated confirmation reuses exact202 optimized native ELF without recompilation/training. Public1/6/12 and13 rotating pairs on public/full2203/2309/2371 all hash/input-source checksPASS. Paired ratios.999016/1.021416/.987572/1.027951; wins7/4/8/3 of13, native RSS changes small. Earlier public-only.942004 does not reproduce consistently. REJECT before broader event/strict/race/GCC/image/default proof or actual board; no official gain. docs/round263-c-event24-confirmation.json retains full exact-source/ELF/input/run metrics. Original C remains selected.
+
+
+265 fresh isolated borrowed-owner metadata keeps the current8-byte owner index/32-byte event/private country words and replaces copied unique-key bytes with complete stable input pointers/lengths. Input mapping outlives joined owners; no scratch is borrowed. Existing263 native control reused, one optimized compile. Public1/6/12 and13 rotating pairs public/full2203/2309/2371 all hashes/input/source/ELF checksPASS, but paired1.116568/1.133715/1.103203/1.125427 with0/13 wins each, only0.59–0.72MB native RSS reduction. REJECT before new lifetime/strict/race/GCC/image/default/board proof. No target gain; original copied-key owner stays. docs/round265-c-borrowed-owner-screen.json, .build/c265-borrowed-owner/source.

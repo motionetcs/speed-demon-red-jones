@@ -110,8 +110,11 @@ int main(int argc, char** argv) {
                         }
                     }
                     out.text(label); out.text(" "); out.text(paths[key]);
-                    for (uint64_t value : {n, uint64_t(first[(50 * n + 99) / 100 - 1]), uint64_t(first[(95 * n + 99) / 100 - 1]), uint64_t(first[(99 * n + 99) / 100 - 1]), errors, errors * 1000000 / n}) { out.text(" "); out.number(static_cast<int64_t>(value)); }
-                    out.text("\n");
+                    char numbers[128];char* number=numbers;
+                    for (uint64_t value : {n, uint64_t(first[(50 * n + 99) / 100 - 1]), uint64_t(first[(95 * n + 99) / 100 - 1]), uint64_t(first[(99 * n + 99) / 100 - 1]), errors, errors * 1000000 / n}) {
+                        *number++=' ';number=std::to_chars(number,numbers+sizeof numbers,static_cast<int64_t>(value)).ptr;
+                    }
+                    *number++='\n';out.text({numbers,static_cast<size_t>(number-numbers)});
                 }
                 writer.publish(hour);
             }

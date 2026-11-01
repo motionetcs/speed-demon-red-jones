@@ -12,7 +12,7 @@ This is the fresh local entry. Check actual external state before treating it as
 | Licence | MIT, official attribution retained |
 | Fresh repository | https://github.com/motionetcs/speed-demon-red-jones — private |
 | Submission branch | speed-demon |
-| Remote source | 262 all gates pass but D63.262026 loses65.319494; original263 restored locally, fresh D public/default checksPASS. Restoration commit/push and exact all-track confirmation next; no new optimization gain or #1 claim. |
+| Remote source | Original263 737b80f273907c6afe749412a2ff44515e195b9d is on speed-demon and all A/C/D gates pass. New D26263.262026 rejected; restored latest D64.854041, best65.319494 unchanged. Exact29/Make/best/Git/image proof complete. Rank48/96; #1 remains unachieved. |
 | Individual registration | Entrant confirmed already registered on 31 October 2026; not duplicated |
 | Team form | Submitted successfully for this fresh repository, A/C/D; Tally displayed “Form submitted” |
 | Board app access | Installed and verified on 31 October 2026; only the fresh repository selected; read-only code and metadata |
@@ -34,3 +34,5 @@ The official GitHub app `Speed Demon Board` requests only `contents: read` and `
 The team form at https://tally.so/r/Ar7g9z was submitted through Brave Work on 31 October 2026 at approximately 03:55 UTC. It names this fresh repository and selects A, C, D. Tally visibly confirmed successful submission. Personal optional information was omitted. The entrant said individual registration was already complete, so no duplicate individual form was sent.
 
 The board registry accepted Red Jones and scored commit `788ae3b205928ca2bc3d60100703d5660123d0f0`. All selected tracks passed check, build, correctness, timeout, and sandbox gates. Actual run IDs: A `run-c76f845b747a`, C `run-bbda54bf2316`, D `run-3e323bfac066`. See https://speeddemon.dev/board/#red-jones-00c4a7 and `first-board-run.json`. Final holdout scoring and judging remain separate.
+
+A268 candidate is fully locally verified; only A/main changes. Pinned offline PGO image c0a2dbe305da73c80050cebe02b8f0693015f0ca9355fbfd7e644e649716a238 passes96 exact references+3 deferred sink errors/23 real defaults; root Make/all-track public/default controls pass. Official commit/run pending, no score gain claimed. Last actual passing original737b80f and immutable original A image remain available for rollback.

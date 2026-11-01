@@ -1,0 +1,78 @@
+--- retained263/track-d/main.cpp
++++ unscored267/stream4/track-d/main.cpp
+@@ -25,6 +25,22 @@
+         return static_cast<uint32_t>(value);
+     }
+ };
++template<size_t Streams>
++std::array<Scanner, Streams> row_streams(const char* begin, const char* end) {
++    std::array<const char*, Streams+1> cut;
++    cut.front()=begin;cut.back()=end;
++    for(size_t i=1;i<Streams;++i){
++        const char* p=begin+(end-begin)*i/Streams;
++        if(p>begin&&p[-1]!='\n'){
++            const char* newline=static_cast<const char*>(std::memchr(p,'\n',end-p));
++            p=newline?newline+1:end;
++        }
++        cut[i]=p;
++    }
++    std::array<Scanner,Streams> inputs;
++    for(size_t i=0;i<Streams;++i)inputs[i]=Scanner{cut[i],cut[i+1]};
++    return inputs;
++}
+ using Item = std::pair<uint64_t, uint32_t>;
+ 
+ int main(int argc, char** argv) {
+@@ -57,16 +73,22 @@
+         DegreeBytes degree(n), reverse_degree(n);
+         parallel(loaders, [&](unsigned worker) {
+             auto& local = locals[worker];
+-            Scanner input{boundaries[worker], boundaries[worker + 1]};
++            auto inputs=row_streams<4>(boundaries[worker],boundaries[worker+1]);
+             std::array<std::pair<uint32_t,uint32_t>, 16> batch;
+-            while (input.more()) {
++            for (;;) {
+                 size_t count = 0;
+-                while (count < batch.size() && input.more()) {
++                while (count < batch.size()) {
++                    size_t before=count;
++                    for(size_t stream=0;stream<inputs.size()&&count<batch.size();++stream){
++                        auto& input=inputs[stream];if(!input.more())continue;
+                     uint32_t u = input.number(), v = input.number(); input.number();
+                     if (u >= n || v >= n) throw std::runtime_error("node outside graph");
+                     __builtin_prefetch(&degree.values[u], 1, 1); __builtin_prefetch(&reverse_degree.values[v], 1, 1);
+                     batch[count++] = {u,v};
+-                }
++                    }
++                    if(count==before)break;
++                }
++                if(!count)break;
+                 local.count += count;
+                 for (size_t i=0;i<count;++i) { auto [u,v]=batch[i]; degree.add(u, local.out_spills); reverse_degree.add(v, local.in_spills); }
+             }
+@@ -90,15 +112,21 @@
+         auto scatter = [&]<bool Compact, bool WideCursors>() {
+             parallel(loaders, [&](unsigned worker) {
+             auto& local = locals[worker];
+-            Scanner input{boundaries[worker], boundaries[worker + 1]};
++            auto inputs=row_streams<4>(boundaries[worker],boundaries[worker+1]);
+             struct Row { uint32_t u, v, value, out, in; };
+             std::array<Row, 16> batch;
+-            while (input.more()) {
++            for (;;) {
+                 size_t count = 0;
+-                while (count < batch.size() && input.more()) {
++                while (count < batch.size()) {
++                    size_t before=count;
++                    for(size_t stream=0;stream<inputs.size()&&count<batch.size();++stream){
++                        auto& input=inputs[stream];if(!input.more())continue;
+                     auto& row = batch[count++]; row.u=input.number(); row.v=input.number(); row.value=input.number();
+                     cursor.template prefetch<WideCursors>(row.u); reverse_cursor.template prefetch<WideCursors>(row.v);
+-                }
++                    }
++                    if(count==before)break;
++                }
++                if(!count)break;
+                 for (size_t i=0;i<count;++i) {
+                     auto& row=batch[i]; row.out=cursor.template take<WideCursors>(row.u); row.in=reverse_cursor.template take<WideCursors>(row.v);
+                     edges.template prefetch<Compact,true>(row.out); reverse_edges.template prefetch<Compact,true>(row.in);

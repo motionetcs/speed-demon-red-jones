@@ -1,0 +1,44 @@
+--- retained263/track-a/parallel.hpp
++++ unscored266/phase-reuse/track-a/parallel.hpp
+@@ -1,5 +1,6 @@
+ #pragma once
+ #include <array>
++#include <barrier>
+ #include <cstdlib>
+ #include <exception>
+ #include <thread>
+@@ -14,13 +15,31 @@
+     return 12;
+ }
+ 
+-template<class Function> void parallel(unsigned count, Function function) {
++template<class First, class Middle, class Last>
++void parallel_phases(unsigned count, First first, Middle middle, Last last) {
+     std::array<std::exception_ptr, 12> errors;
++    bool ready = false;
++    auto between = [&]() noexcept {
++        for (unsigned i = 0; i < count; ++i) if (errors[i]) return;
++        try { middle(); ready = true; } catch (...) { errors[0] = std::current_exception(); }
++    };
++    std::barrier gate(static_cast<std::ptrdiff_t>(count), between);
+     auto run = [&](unsigned i) {
+-        try { function(i); } catch (...) { errors[i] = std::current_exception(); }
++        if (i != 0 || !errors[0]) {
++            try { first(i); } catch (...) { errors[i] = std::current_exception(); }
++        }
++        gate.arrive_and_wait();
++        if (ready) {
++            try { last(i); } catch (...) { errors[i] = std::current_exception(); }
++        }
+     };
+     std::vector<std::jthread> workers;
+-    for (unsigned i = 1; i < count; ++i) workers.emplace_back(run, i);
++    unsigned i = 1;
++    try { for (; i < count; ++i) workers.emplace_back(run, i); }
++    catch (...) {
++        errors[0] = std::current_exception();
++        for (; i < count; ++i) gate.arrive_and_drop();
++    }
+     run(0);
+     workers.clear();
+     for (unsigned i = 0; i < count; ++i) if (errors[i]) std::rethrow_exception(errors[i]);

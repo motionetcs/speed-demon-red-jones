@@ -1,0 +1,101 @@
+{
+  "started_at_utc": "2026-11-01T11:46:50.221352+00:00",
+  "official_score": false,
+  "track": "a",
+  "mode": "build",
+  "source_sha256": {
+    "track-a/.speed-demon.toml": "c9ae973186c14661797640f427009129e2a80d1aecefd5d4fa413ee7f3da44d8",
+    "track-a/Dockerfile": "c415bd88f27a18da83c33990744690358b9c158a8b1ea3dc60c289d123f4ff90",
+    "track-a/PERF.md": "ab25d56afb50d2f17b81f9babca0feae3cad01936e64ec4e8ee3d983053ab540",
+    "track-a/README.md": "42cdb7309530bef6c9d22f61bd694bc8085ba43bf10bae515e19bd1da29d7b46",
+    "track-a/decimal.hpp": "e6a53e983c0475fe3e49ffe2630a8603f96298b7866e0f4ef3b2ed0f165cb94e",
+    "track-a/endpoint_table.hpp": "913048b747b8f938cf1b438f29648a62d11434b2d71c3fb9a9b5f5aae31df745",
+    "track-a/io.hpp": "a8838c50064520b806fcd2032cda0e9f246e9d3b6869fb951e3555cd5e8dfead",
+    "track-a/main.cpp": "0e0d620424e32d81f2a1a77f9ab28210ea01ca7e91e9260a6f276db6857eb35f",
+    "track-a/mapped_allocator.hpp": "060bb6a0622338b9151e767d827cbf30c8e4d940cc7e170ad51757c4a6b0808b",
+    "track-a/ordered_output.hpp": "b6f0911f5d6396ca35ad657a1de6364aa3e52a5dd6a9275d95f768e54f4fd69d",
+    "track-a/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420",
+    "track-a/training_generator.py": "d82b43b8f617016808f85cbe9be86af1fee8466296a0848ab8e6908ee3c4b0b4"
+  },
+  "frozen_manifest_sha256": "424b98e839ad83de011f6c5e0188d8d510f8e0afd7be4daa8726564bf6d10ba0",
+  "native_proof_sha256": "632d6f983664110b09bff6c81aabde7c7ceb176c895f788999ad33725e7ef8e0",
+  "scope": "Fresh exact A268 buffered suffix source, restricted pinned offline Linux/amd64. Input/reference contents reused; every current compiler/image invocation is fresh. No old changed-source model/main proof substituted. Emulated time/RSS is not organizer scoring.",
+  "commands": [
+    {
+      "label": "build",
+      "argv": [
+        "docker",
+        "build",
+        "--platform",
+        "linux/amd64",
+        "--network=none",
+        "-t",
+        "speed-demon-fresh/track-a:round268-buffered-suffix",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round268/source/track-a"
+      ],
+      "stdin": null
+    },
+    {
+      "label": "inspect",
+      "argv": [
+        "docker",
+        "image",
+        "inspect",
+        "speed-demon-fresh/track-a:round268-buffered-suffix"
+      ],
+      "stdin": null
+    },
+    {
+      "label": "original-config",
+      "argv": [
+        "docker",
+        "image",
+        "inspect",
+        "sha256:b57c3ff9ccff3ea71b97c41e9d1c694afa00f6387485dccc3098f2bfcfd5cf91"
+      ],
+      "stdin": null
+    },
+    {
+      "label": "elf",
+      "argv": [
+        "docker",
+        "run",
+        "--rm",
+        "--platform",
+        "linux/amd64",
+        "--network=none",
+        "--read-only",
+        "--memory=8g",
+        "--memory-swap=8g",
+        "--pids-limit=512",
+        "--cap-drop=ALL",
+        "--security-opt=no-new-privileges",
+        "--user",
+        "65534:65534",
+        "--tmpfs",
+        "/tmp:rw,exec,size=1g",
+        "--entrypoint",
+        "sha256sum",
+        "sha256:c0a2dbe305da73c80050cebe02b8f0693015f0ca9355fbfd7e644e649716a238",
+        "/app/solution"
+      ],
+      "stdin": null
+    }
+  ],
+  "image_id": "sha256:c0a2dbe305da73c80050cebe02b8f0693015f0ca9355fbfd7e644e649716a238",
+  "image_tag": "speed-demon-fresh/track-a:round268-buffered-suffix",
+  "image_bytes": 30958271,
+  "elf_sha256": "d85323fad269663d384cedc7a70a019ae3e717b44f1b12b790a3b4baa18ef221",
+  "image_config": {
+    "User": "65534:65534",
+    "Env": [
+      "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+    ],
+    "Entrypoint": [
+      "/app/solution"
+    ]
+  },
+  "training": "Unchanged official1000003/full then130363/sample/default12/generic GCC; only executable in final image; no publicseed1 training.",
+  "passed": true,
+  "completed_at_utc": "2026-11-01T11:47:06.677915+00:00"
+}

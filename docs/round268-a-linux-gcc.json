@@ -1,0 +1,857 @@
+{
+  "started_at_utc": "2026-11-01T11:44:54.714735+00:00",
+  "official_score": false,
+  "track": "a",
+  "mode": "gcc",
+  "source_sha256": {
+    "track-a/.speed-demon.toml": "c9ae973186c14661797640f427009129e2a80d1aecefd5d4fa413ee7f3da44d8",
+    "track-a/Dockerfile": "c415bd88f27a18da83c33990744690358b9c158a8b1ea3dc60c289d123f4ff90",
+    "track-a/PERF.md": "ab25d56afb50d2f17b81f9babca0feae3cad01936e64ec4e8ee3d983053ab540",
+    "track-a/README.md": "42cdb7309530bef6c9d22f61bd694bc8085ba43bf10bae515e19bd1da29d7b46",
+    "track-a/decimal.hpp": "e6a53e983c0475fe3e49ffe2630a8603f96298b7866e0f4ef3b2ed0f165cb94e",
+    "track-a/endpoint_table.hpp": "913048b747b8f938cf1b438f29648a62d11434b2d71c3fb9a9b5f5aae31df745",
+    "track-a/io.hpp": "a8838c50064520b806fcd2032cda0e9f246e9d3b6869fb951e3555cd5e8dfead",
+    "track-a/main.cpp": "0e0d620424e32d81f2a1a77f9ab28210ea01ca7e91e9260a6f276db6857eb35f",
+    "track-a/mapped_allocator.hpp": "060bb6a0622338b9151e767d827cbf30c8e4d940cc7e170ad51757c4a6b0808b",
+    "track-a/ordered_output.hpp": "b6f0911f5d6396ca35ad657a1de6364aa3e52a5dd6a9275d95f768e54f4fd69d",
+    "track-a/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420",
+    "track-a/training_generator.py": "d82b43b8f617016808f85cbe9be86af1fee8466296a0848ab8e6908ee3c4b0b4"
+  },
+  "frozen_manifest_sha256": "424b98e839ad83de011f6c5e0188d8d510f8e0afd7be4daa8726564bf6d10ba0",
+  "native_proof_sha256": "632d6f983664110b09bff6c81aabde7c7ceb176c895f788999ad33725e7ef8e0",
+  "scope": "Fresh exact A268 buffered suffix source, restricted pinned offline Linux/amd64. Input/reference contents reused; every current compiler/image invocation is fresh. No old changed-source model/main proof substituted. Emulated time/RSS is not organizer scoring.",
+  "deduplication": "Input SHA plus worker count; reference bytes only reused, never old current-source execution proof.",
+  "inventory_rows": 96,
+  "image_id": "gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce",
+  "strict_flags": "g++ -std=c++20 -O1 -g -Wall -Wextra -Wpedantic -Werror -pthread -fsanitize=address,undefined -fno-sanitize-recover=all -fno-omit-frame-pointer ",
+  "commands": [
+    {
+      "label": "replay",
+      "argv": [
+        "docker",
+        "run",
+        "--rm",
+        "--platform",
+        "linux/amd64",
+        "--network=none",
+        "--read-only",
+        "--memory=8g",
+        "--memory-swap=8g",
+        "--pids-limit=512",
+        "--cap-drop=ALL",
+        "--security-opt=no-new-privileges",
+        "--user",
+        "65534:65534",
+        "--tmpfs",
+        "/tmp:rw,exec,size=1g",
+        "-i",
+        "--entrypoint",
+        "/bin/sh",
+        "-v",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh:/repo:ro",
+        "-v",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round268/linux-proof/gcc:/out:rw",
+        "gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce",
+        "-s"
+      ],
+      "stdin": "set -eu\nexport ASAN_OPTIONS=halt_on_error=1\nexport UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1\nmkdir -p /out/stdio\ng++ --version\ng++ -std=c++20 -O1 -g -Wall -Wextra -Wpedantic -Werror -pthread -fsanitize=address,undefined -fno-sanitize-recover=all -fno-omit-frame-pointer -I /repo/.build/round268/source/track-a /repo/.build/round268/native-proof/suffix_model.cpp -o /out/suffix-model\nsha256sum /out/suffix-model >/out/suffix-model.sha256.tmp\nmv /out/suffix-model.sha256.tmp /out/suffix-model.sha256\ng++ -std=c++20 -O1 -g -Wall -Wextra -Wpedantic -Werror -pthread -fsanitize=address,undefined -fno-sanitize-recover=all -fno-omit-frame-pointer -I /repo/.build/round268/source/track-a /repo/.build/round268/source/track-a/main.cpp -o /out/solution\nsha256sum /out/solution >/out/solution.sha256.tmp\nmv /out/solution.sha256.tmp /out/solution.sha256\n/out/suffix-model /repo/.build/round268/native-proof/suffix_cases.txt 1 >/out/model-1.out 2>/out/model-1.err\n/out/suffix-model /repo/.build/round268/native-proof/suffix_cases.txt 12 >/out/model-12.out 2>/out/model-12.err\nset +e\nSPEED_DEMON_THREADS=1 /out/solution --data /repo/.data/a/sample-seed2237 --out /out/valid-0 >/out/stdio/0.out 2>/out/stdio/0.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/0.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=6 /out/solution --data /repo/.data/a/sample-seed2237 --out /out/valid-1 >/out/stdio/1.out 2>/out/stdio/1.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/1.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=12 /out/solution --data /repo/.data/a/sample-seed2237 --out /out/valid-2 >/out/stdio/2.out 2>/out/stdio/2.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/2.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=1 /out/solution --data /repo/.data/a/sample-seed2243 --out /out/valid-3 >/out/stdio/3.out 2>/out/stdio/3.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/3.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=6 /out/solution --data /repo/.data/a/sample-seed2243 --out /out/valid-4 >/out/stdio/4.out 2>/out/stdio/4.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/4.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=12 /out/solution --data /repo/.data/a/sample-seed2243 --out /out/valid-5 >/out/stdio/5.out 2>/out/stdio/5.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/5.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=1 /out/solution --data /repo/.data/cases/round268-tsan-sample-a-worked --out /out/valid-6 >/out/stdio/6.out 2>/out/stdio/6.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/6.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=6 /out/solution --data /repo/.data/cases/round268-tsan-sample-a-worked --out /out/valid-7 >/out/stdio/7.out 2>/out/stdio/7.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/7.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=12 /out/solution --data /repo/.data/cases/round268-tsan-sample-a-worked --out /out/valid-8 >/out/stdio/8.out 2>/out/stdio/8.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/8.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=1 /out/solution --data /repo/.data/cases/round268-tsan-sample-a-official-edge-cases --out /out/valid-9 >/out/stdio/9.out 2>/out/stdio/9.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/9.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=6 /out/solution --data /repo/.data/cases/round268-tsan-sample-a-official-edge-cases --out /out/valid-10 >/out/stdio/10.out 2>/out/stdio/10.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/10.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=12 /out/solution --data /repo/.data/cases/round268-tsan-sample-a-official-edge-cases --out /out/valid-11 >/out/stdio/11.out 2>/out/stdio/11.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/11.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=1 /out/solution --data /repo/.data/cases/round268-tsan-sample-a-empty --out /out/valid-12 >/out/stdio/12.out 2>/out/stdio/12.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/12.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=6 /out/solution --data /repo/.data/cases/round268-tsan-sample-a-empty --out /out/valid-13 >/out/stdio/13.out 2>/out/stdio/13.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/13.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=12 /out/solution --data /repo/.data/cases/round268-tsan-sample-a-empty --out /out/valid-14 >/out/stdio/14.out 2>/out/stdio/14.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/14.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=1 /out/solution --data /repo/.data/cases/round268-tsan-sample-a-count-error-wrap-65535 --out /out/valid-15 >/out/stdio/15.out 2>/out/stdio/15.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/15.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=6 /out/solution --data /repo/.data/cases/round268-tsan-sample-a-count-error-wrap-65535 --out /out/valid-16 >/out/stdio/16.out 2>/out/stdio/16.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/16.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=12 /out/solution --data /repo/.data/cases/round268-tsan-sample-a-count-error-wrap-65535 --out /out/valid-17 >/out/stdio/17.out 2>/out/stdio/17.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/17.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=1 /out/solution --data /repo/.data/cases/round268-tsan-sample-a-count-error-wrap-65536 --out /out/valid-18 >/out/stdio/18.out 2>/out/stdio/18.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/18.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=6 /out/solution --data /repo/.data/cases/round268-tsan-sample-a-count-error-wrap-65536 --out /out/valid-19 >/out/stdio/19.out 2>/out/stdio/19.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/19.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=12 /out/solution --data /repo/.data/cases/round268-tsan-sample-a-count-error-wrap-65536 --out /out/valid-20 >/out/stdio/20.out 2>/out/stdio/20.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/20.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=1 /out/solution --data /repo/.data/cases/round268-tsan-sample-a-count-error-wrap-140000 --out /out/valid-21 >/out/stdio/21.out 2>/out/stdio/21.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/21.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=6 /out/solution --data /repo/.data/cases/round268-tsan-sample-a-count-error-wrap-140000 --out /out/valid-22 >/out/stdio/22.out 2>/out/stdio/22.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/22.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=12 /out/solution --data /repo/.data/cases/round268-tsan-sample-a-count-error-wrap-140000 --out /out/valid-23 >/out/stdio/23.out 2>/out/stdio/23.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/23.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=1 /out/solution --data /repo/.data/cases/round268-tsan-sample-a-nearest-rank-101 --out /out/valid-24 >/out/stdio/24.out 2>/out/stdio/24.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/24.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=6 /out/solution --data /repo/.data/cases/round268-tsan-sample-a-nearest-rank-101 --out /out/valid-25 >/out/stdio/25.out 2>/out/stdio/25.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/25.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=12 /out/solution --data /repo/.data/cases/round268-tsan-sample-a-nearest-rank-101 --out /out/valid-26 >/out/stdio/26.out 2>/out/stdio/26.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/26.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=1 /out/solution --data /repo/.data/cases/round268-tsan-sample-a-many-endpoints-partitions --out /out/valid-27 >/out/stdio/27.out 2>/out/stdio/27.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/27.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=6 /out/solution --data /repo/.data/cases/round268-tsan-sample-a-many-endpoints-partitions --out /out/valid-28 >/out/stdio/28.out 2>/out/stdio/28.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/28.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=12 /out/solution --data /repo/.data/cases/round268-tsan-sample-a-many-endpoints-partitions --out /out/valid-29 >/out/stdio/29.out 2>/out/stdio/29.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/29.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=1 /out/solution --data /repo/.data/a/full-seed2221 --out /out/valid-30 >/out/stdio/30.out 2>/out/stdio/30.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/30.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=6 /out/solution --data /repo/.data/a/full-seed2221 --out /out/valid-31 >/out/stdio/31.out 2>/out/stdio/31.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/31.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=12 /out/solution --data /repo/.data/a/full-seed2221 --out /out/valid-32 >/out/stdio/32.out 2>/out/stdio/32.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/32.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=1 /out/solution --data /repo/.data/a/sample-seed2249 --out /out/valid-33 >/out/stdio/33.out 2>/out/stdio/33.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/33.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=6 /out/solution --data /repo/.data/a/sample-seed2249 --out /out/valid-34 >/out/stdio/34.out 2>/out/stdio/34.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/34.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=12 /out/solution --data /repo/.data/a/sample-seed2249 --out /out/valid-35 >/out/stdio/35.out 2>/out/stdio/35.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/35.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=1 /out/solution --data /repo/.data/cases/round268-tsan-a-latency-escape-partitions --out /out/valid-36 >/out/stdio/36.out 2>/out/stdio/36.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/36.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=6 /out/solution --data /repo/.data/cases/round268-tsan-a-latency-escape-partitions --out /out/valid-37 >/out/stdio/37.out 2>/out/stdio/37.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/37.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=12 /out/solution --data /repo/.data/cases/round268-tsan-a-latency-escape-partitions --out /out/valid-38 >/out/stdio/38.out 2>/out/stdio/38.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/38.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=1 /out/solution --data /repo/.data/cases/round268-tsan-a-endpoint-id-4095 --out /out/valid-39 >/out/stdio/39.out 2>/out/stdio/39.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/39.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=6 /out/solution --data /repo/.data/cases/round268-tsan-a-endpoint-id-4095 --out /out/valid-40 >/out/stdio/40.out 2>/out/stdio/40.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/40.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=12 /out/solution --data /repo/.data/cases/round268-tsan-a-endpoint-id-4095 --out /out/valid-41 >/out/stdio/41.out 2>/out/stdio/41.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/41.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=1 /out/solution --data /repo/.data/cases/round268-tsan-a-method-hours-ordered --out /out/valid-42 >/out/stdio/42.out 2>/out/stdio/42.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/42.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=6 /out/solution --data /repo/.data/cases/round268-tsan-a-method-hours-ordered --out /out/valid-43 >/out/stdio/43.out 2>/out/stdio/43.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/43.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=12 /out/solution --data /repo/.data/cases/round268-tsan-a-method-hours-ordered --out /out/valid-44 >/out/stdio/44.out 2>/out/stdio/44.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/44.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=1 /out/solution --data /repo/.data/cases/round268-tsan-a-method-hours-shuffled --out /out/valid-45 >/out/stdio/45.out 2>/out/stdio/45.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/45.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=6 /out/solution --data /repo/.data/cases/round268-tsan-a-method-hours-shuffled --out /out/valid-46 >/out/stdio/46.out 2>/out/stdio/46.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/46.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=12 /out/solution --data /repo/.data/cases/round268-tsan-a-method-hours-shuffled --out /out/valid-47 >/out/stdio/47.out 2>/out/stdio/47.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/47.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=1 /out/solution --data /repo/.data/cases/round268-tsan-ordered-a-first-hour-lag --out /out/valid-48 >/out/stdio/48.out 2>/out/stdio/48.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/48.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=6 /out/solution --data /repo/.data/cases/round268-tsan-ordered-a-first-hour-lag --out /out/valid-49 >/out/stdio/49.out 2>/out/stdio/49.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/49.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=12 /out/solution --data /repo/.data/cases/round268-tsan-ordered-a-first-hour-lag --out /out/valid-50 >/out/stdio/50.out 2>/out/stdio/50.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/50.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=1 /out/solution --data /repo/.data/cases/round268-tsan-ordered-a-empty-prefix-and-holes --out /out/valid-51 >/out/stdio/51.out 2>/out/stdio/51.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/51.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=6 /out/solution --data /repo/.data/cases/round268-tsan-ordered-a-empty-prefix-and-holes --out /out/valid-52 >/out/stdio/52.out 2>/out/stdio/52.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/52.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=12 /out/solution --data /repo/.data/cases/round268-tsan-ordered-a-empty-prefix-and-holes --out /out/valid-53 >/out/stdio/53.out 2>/out/stdio/53.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/53.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=1 /out/solution --data /repo/.data/cases/round268-tsan-ordered-a-unordered-publish --out /out/valid-54 >/out/stdio/54.out 2>/out/stdio/54.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/54.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=6 /out/solution --data /repo/.data/cases/round268-tsan-ordered-a-unordered-publish --out /out/valid-55 >/out/stdio/55.out 2>/out/stdio/55.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/55.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=12 /out/solution --data /repo/.data/cases/round268-tsan-ordered-a-unordered-publish --out /out/valid-56 >/out/stdio/56.out 2>/out/stdio/56.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/56.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=1 /out/solution --data /repo/.data/a/sample-seed2767 --out /out/valid-57 >/out/stdio/57.out 2>/out/stdio/57.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/57.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=6 /out/solution --data /repo/.data/a/sample-seed2767 --out /out/valid-58 >/out/stdio/58.out 2>/out/stdio/58.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/58.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=12 /out/solution --data /repo/.data/a/sample-seed2767 --out /out/valid-59 >/out/stdio/59.out 2>/out/stdio/59.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/59.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=1 /out/solution --data /repo/.data/a/full-seed2777 --out /out/valid-60 >/out/stdio/60.out 2>/out/stdio/60.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/60.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=6 /out/solution --data /repo/.data/a/full-seed2777 --out /out/valid-61 >/out/stdio/61.out 2>/out/stdio/61.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/61.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=12 /out/solution --data /repo/.data/a/full-seed2777 --out /out/valid-62 >/out/stdio/62.out 2>/out/stdio/62.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/62.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=1 /out/solution --data /repo/.data/a/sample-seed2789 --out /out/valid-63 >/out/stdio/63.out 2>/out/stdio/63.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/63.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=6 /out/solution --data /repo/.data/a/sample-seed2789 --out /out/valid-64 >/out/stdio/64.out 2>/out/stdio/64.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/64.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=12 /out/solution --data /repo/.data/a/sample-seed2789 --out /out/valid-65 >/out/stdio/65.out 2>/out/stdio/65.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/65.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=1 /out/solution --data /repo/.data/a/public-full-seed1 --out /out/valid-66 >/out/stdio/66.out 2>/out/stdio/66.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/66.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=6 /out/solution --data /repo/.data/a/public-full-seed1 --out /out/valid-67 >/out/stdio/67.out 2>/out/stdio/67.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/67.code\ntest \"$code\" -eq 0\nset +e\nSPEED_DEMON_THREADS=12 /out/solution --data /repo/.data/a/public-full-seed1 --out /out/valid-68 >/out/stdio/68.out 2>/out/stdio/68.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/68.code\ntest \"$code\" -eq 0\nmkdir -p /out/sink-1\nln -sf /dev/full /out/sink-1/summary.txt\nset +e\nSPEED_DEMON_THREADS=1 /out/solution --data /repo/.data/cases/round268-tsan-ordered-a-first-hour-lag --out /out/sink-1 >/out/stdio/sink-1.out 2>/out/stdio/sink-1.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/sink-1.code\ntest \"$code\" -eq 1\nmkdir -p /out/sink-6\nln -sf /dev/full /out/sink-6/summary.txt\nset +e\nSPEED_DEMON_THREADS=6 /out/solution --data /repo/.data/cases/round268-tsan-ordered-a-first-hour-lag --out /out/sink-6 >/out/stdio/sink-6.out 2>/out/stdio/sink-6.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/sink-6.code\ntest \"$code\" -eq 1\nmkdir -p /out/sink-12\nln -sf /dev/full /out/sink-12/summary.txt\nset +e\nSPEED_DEMON_THREADS=12 /out/solution --data /repo/.data/cases/round268-tsan-ordered-a-first-hour-lag --out /out/sink-12 >/out/stdio/sink-12.out 2>/out/stdio/sink-12.err\ncode=$?\nset -e\necho \"$code\" >/out/stdio/sink-12.code\ntest \"$code\" -eq 1\n"
+    }
+  ],
+  "runs": [
+    {
+      "case": "sample-seed2237",
+      "data_folder": ".data/a/sample-seed2237",
+      "threads": 1,
+      "expected_sha256": "3b6c91baa825e8a964372c57a253d50a26c009aefc6e64c60a724bfca9a7e76d",
+      "inputs_sha256": {
+        "requests.log": "847c39f1ddcdeaa34ea691ecb1d255975f9cbc31ccea0ed094a323369c11b4fd"
+      },
+      "reference_source": "docs/round197-restored-a-image-cases.json",
+      "sha256": "3b6c91baa825e8a964372c57a253d50a26c009aefc6e64c60a724bfca9a7e76d"
+    },
+    {
+      "case": "sample-seed2237",
+      "data_folder": ".data/a/sample-seed2237",
+      "threads": 6,
+      "expected_sha256": "3b6c91baa825e8a964372c57a253d50a26c009aefc6e64c60a724bfca9a7e76d",
+      "inputs_sha256": {
+        "requests.log": "847c39f1ddcdeaa34ea691ecb1d255975f9cbc31ccea0ed094a323369c11b4fd"
+      },
+      "reference_source": "docs/round197-restored-a-image-cases.json",
+      "sha256": "3b6c91baa825e8a964372c57a253d50a26c009aefc6e64c60a724bfca9a7e76d"
+    },
+    {
+      "case": "sample-seed2237",
+      "data_folder": ".data/a/sample-seed2237",
+      "threads": 12,
+      "expected_sha256": "3b6c91baa825e8a964372c57a253d50a26c009aefc6e64c60a724bfca9a7e76d",
+      "inputs_sha256": {
+        "requests.log": "847c39f1ddcdeaa34ea691ecb1d255975f9cbc31ccea0ed094a323369c11b4fd"
+      },
+      "reference_source": "docs/round197-restored-a-image-cases.json",
+      "sha256": "3b6c91baa825e8a964372c57a253d50a26c009aefc6e64c60a724bfca9a7e76d"
+    },
+    {
+      "case": "sample-seed2243",
+      "data_folder": ".data/a/sample-seed2243",
+      "threads": 1,
+      "expected_sha256": "09a65e9421e9d54ef89fcb93be7350dc823d9bd1b957db4e0819032ac3ae8bdb",
+      "inputs_sha256": {
+        "requests.log": "bc759a179c384301c231e083165ed468a5fe6604c63975b218ff8bd3977c3dfe"
+      },
+      "reference_source": "docs/round197-restored-a-image-cases.json",
+      "sha256": "09a65e9421e9d54ef89fcb93be7350dc823d9bd1b957db4e0819032ac3ae8bdb"
+    },
+    {
+      "case": "sample-seed2243",
+      "data_folder": ".data/a/sample-seed2243",
+      "threads": 6,
+      "expected_sha256": "09a65e9421e9d54ef89fcb93be7350dc823d9bd1b957db4e0819032ac3ae8bdb",
+      "inputs_sha256": {
+        "requests.log": "bc759a179c384301c231e083165ed468a5fe6604c63975b218ff8bd3977c3dfe"
+      },
+      "reference_source": "docs/round197-restored-a-image-cases.json",
+      "sha256": "09a65e9421e9d54ef89fcb93be7350dc823d9bd1b957db4e0819032ac3ae8bdb"
+    },
+    {
+      "case": "sample-seed2243",
+      "data_folder": ".data/a/sample-seed2243",
+      "threads": 12,
+      "expected_sha256": "09a65e9421e9d54ef89fcb93be7350dc823d9bd1b957db4e0819032ac3ae8bdb",
+      "inputs_sha256": {
+        "requests.log": "bc759a179c384301c231e083165ed468a5fe6604c63975b218ff8bd3977c3dfe"
+      },
+      "reference_source": "docs/round197-restored-a-image-cases.json",
+      "sha256": "09a65e9421e9d54ef89fcb93be7350dc823d9bd1b957db4e0819032ac3ae8bdb"
+    },
+    {
+      "case": "round268-tsan-sample-a-worked",
+      "data_folder": ".data/cases/round268-tsan-sample-a-worked",
+      "threads": 1,
+      "expected_sha256": "0782f9b9a885bdbcdfadf330f6bea55accdc06018c0108f69ea43372d2fac692",
+      "inputs_sha256": {
+        "requests.log": "6a9acf26f676d7930132fd1d3a389c459d42c465954a42019f1288a3843d411c"
+      },
+      "reference_source": "docs/round268-a-tsan-sample.json",
+      "sha256": "0782f9b9a885bdbcdfadf330f6bea55accdc06018c0108f69ea43372d2fac692"
+    },
+    {
+      "case": "round268-tsan-sample-a-worked",
+      "data_folder": ".data/cases/round268-tsan-sample-a-worked",
+      "threads": 6,
+      "expected_sha256": "0782f9b9a885bdbcdfadf330f6bea55accdc06018c0108f69ea43372d2fac692",
+      "inputs_sha256": {
+        "requests.log": "6a9acf26f676d7930132fd1d3a389c459d42c465954a42019f1288a3843d411c"
+      },
+      "reference_source": "docs/round268-a-tsan-sample.json",
+      "sha256": "0782f9b9a885bdbcdfadf330f6bea55accdc06018c0108f69ea43372d2fac692"
+    },
+    {
+      "case": "round268-tsan-sample-a-worked",
+      "data_folder": ".data/cases/round268-tsan-sample-a-worked",
+      "threads": 12,
+      "expected_sha256": "0782f9b9a885bdbcdfadf330f6bea55accdc06018c0108f69ea43372d2fac692",
+      "inputs_sha256": {
+        "requests.log": "6a9acf26f676d7930132fd1d3a389c459d42c465954a42019f1288a3843d411c"
+      },
+      "reference_source": "docs/round268-a-tsan-sample.json",
+      "sha256": "0782f9b9a885bdbcdfadf330f6bea55accdc06018c0108f69ea43372d2fac692"
+    },
+    {
+      "case": "round268-tsan-sample-a-official-edge-cases",
+      "data_folder": ".data/cases/round268-tsan-sample-a-official-edge-cases",
+      "threads": 1,
+      "expected_sha256": "1f43d4bbd4b84dc66319a414138225ff5c2ab9f30aeb2398ec0e54b339011459",
+      "inputs_sha256": {
+        "requests.log": "cca76417b6276cef282c2826264d3821e8948f5f78989862f3948cda79d544bc"
+      },
+      "reference_source": "docs/round268-a-tsan-sample.json",
+      "sha256": "1f43d4bbd4b84dc66319a414138225ff5c2ab9f30aeb2398ec0e54b339011459"
+    },
+    {
+      "case": "round268-tsan-sample-a-official-edge-cases",
+      "data_folder": ".data/cases/round268-tsan-sample-a-official-edge-cases",
+      "threads": 6,
+      "expected_sha256": "1f43d4bbd4b84dc66319a414138225ff5c2ab9f30aeb2398ec0e54b339011459",
+      "inputs_sha256": {
+        "requests.log": "cca76417b6276cef282c2826264d3821e8948f5f78989862f3948cda79d544bc"
+      },
+      "reference_source": "docs/round268-a-tsan-sample.json",
+      "sha256": "1f43d4bbd4b84dc66319a414138225ff5c2ab9f30aeb2398ec0e54b339011459"
+    },
+    {
+      "case": "round268-tsan-sample-a-official-edge-cases",
+      "data_folder": ".data/cases/round268-tsan-sample-a-official-edge-cases",
+      "threads": 12,
+      "expected_sha256": "1f43d4bbd4b84dc66319a414138225ff5c2ab9f30aeb2398ec0e54b339011459",
+      "inputs_sha256": {
+        "requests.log": "cca76417b6276cef282c2826264d3821e8948f5f78989862f3948cda79d544bc"
+      },
+      "reference_source": "docs/round268-a-tsan-sample.json",
+      "sha256": "1f43d4bbd4b84dc66319a414138225ff5c2ab9f30aeb2398ec0e54b339011459"
+    },
+    {
+      "case": "round268-tsan-sample-a-empty",
+      "data_folder": ".data/cases/round268-tsan-sample-a-empty",
+      "threads": 1,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "inputs_sha256": {
+        "requests.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "reference_source": "docs/round268-a-tsan-sample.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "case": "round268-tsan-sample-a-empty",
+      "data_folder": ".data/cases/round268-tsan-sample-a-empty",
+      "threads": 6,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "inputs_sha256": {
+        "requests.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "reference_source": "docs/round268-a-tsan-sample.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "case": "round268-tsan-sample-a-empty",
+      "data_folder": ".data/cases/round268-tsan-sample-a-empty",
+      "threads": 12,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "inputs_sha256": {
+        "requests.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "reference_source": "docs/round268-a-tsan-sample.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "case": "round268-tsan-sample-a-count-error-wrap-65535",
+      "data_folder": ".data/cases/round268-tsan-sample-a-count-error-wrap-65535",
+      "threads": 1,
+      "expected_sha256": "21eea75d26c42f8dfc4776a5e5548591318d7147bb199ff54937921c60be6486",
+      "inputs_sha256": {
+        "requests.log": "8e147bc257a6c84aa3951abb1588afed1ddea995fa4b01e7f6b9a52bf72698ce"
+      },
+      "reference_source": "docs/round268-a-tsan-sample.json",
+      "sha256": "21eea75d26c42f8dfc4776a5e5548591318d7147bb199ff54937921c60be6486"
+    },
+    {
+      "case": "round268-tsan-sample-a-count-error-wrap-65535",
+      "data_folder": ".data/cases/round268-tsan-sample-a-count-error-wrap-65535",
+      "threads": 6,
+      "expected_sha256": "21eea75d26c42f8dfc4776a5e5548591318d7147bb199ff54937921c60be6486",
+      "inputs_sha256": {
+        "requests.log": "8e147bc257a6c84aa3951abb1588afed1ddea995fa4b01e7f6b9a52bf72698ce"
+      },
+      "reference_source": "docs/round268-a-tsan-sample.json",
+      "sha256": "21eea75d26c42f8dfc4776a5e5548591318d7147bb199ff54937921c60be6486"
+    },
+    {
+      "case": "round268-tsan-sample-a-count-error-wrap-65535",
+      "data_folder": ".data/cases/round268-tsan-sample-a-count-error-wrap-65535",
+      "threads": 12,
+      "expected_sha256": "21eea75d26c42f8dfc4776a5e5548591318d7147bb199ff54937921c60be6486",
+      "inputs_sha256": {
+        "requests.log": "8e147bc257a6c84aa3951abb1588afed1ddea995fa4b01e7f6b9a52bf72698ce"
+      },
+      "reference_source": "docs/round268-a-tsan-sample.json",
+      "sha256": "21eea75d26c42f8dfc4776a5e5548591318d7147bb199ff54937921c60be6486"
+    },
+    {
+      "case": "round268-tsan-sample-a-count-error-wrap-65536",
+      "data_folder": ".data/cases/round268-tsan-sample-a-count-error-wrap-65536",
+      "threads": 1,
+      "expected_sha256": "a99938d5c305bb3528d55eb96b41d7b5cfa320a279e98ef358c67b7cceca5be0",
+      "inputs_sha256": {
+        "requests.log": "a73ceb1f71d1efd6d2e1e274b05812bb0f44efb4c38e18f534c74d805c808929"
+      },
+      "reference_source": "docs/round268-a-tsan-sample.json",
+      "sha256": "a99938d5c305bb3528d55eb96b41d7b5cfa320a279e98ef358c67b7cceca5be0"
+    },
+    {
+      "case": "round268-tsan-sample-a-count-error-wrap-65536",
+      "data_folder": ".data/cases/round268-tsan-sample-a-count-error-wrap-65536",
+      "threads": 6,
+      "expected_sha256": "a99938d5c305bb3528d55eb96b41d7b5cfa320a279e98ef358c67b7cceca5be0",
+      "inputs_sha256": {
+        "requests.log": "a73ceb1f71d1efd6d2e1e274b05812bb0f44efb4c38e18f534c74d805c808929"
+      },
+      "reference_source": "docs/round268-a-tsan-sample.json",
+      "sha256": "a99938d5c305bb3528d55eb96b41d7b5cfa320a279e98ef358c67b7cceca5be0"
+    },
+    {
+      "case": "round268-tsan-sample-a-count-error-wrap-65536",
+      "data_folder": ".data/cases/round268-tsan-sample-a-count-error-wrap-65536",
+      "threads": 12,
+      "expected_sha256": "a99938d5c305bb3528d55eb96b41d7b5cfa320a279e98ef358c67b7cceca5be0",
+      "inputs_sha256": {
+        "requests.log": "a73ceb1f71d1efd6d2e1e274b05812bb0f44efb4c38e18f534c74d805c808929"
+      },
+      "reference_source": "docs/round268-a-tsan-sample.json",
+      "sha256": "a99938d5c305bb3528d55eb96b41d7b5cfa320a279e98ef358c67b7cceca5be0"
+    },
+    {
+      "case": "round268-tsan-sample-a-count-error-wrap-140000",
+      "data_folder": ".data/cases/round268-tsan-sample-a-count-error-wrap-140000",
+      "threads": 1,
+      "expected_sha256": "b84dc22963d5bb0b3a0982bd9d4b963060f00ae4503ed1c2bbda28254c9bb148",
+      "inputs_sha256": {
+        "requests.log": "bc6a02bd98bbfa343ca822a44714fff9358451200cc5120cc7cf377615c864f6"
+      },
+      "reference_source": "docs/round268-a-tsan-sample.json",
+      "sha256": "b84dc22963d5bb0b3a0982bd9d4b963060f00ae4503ed1c2bbda28254c9bb148"
+    },
+    {
+      "case": "round268-tsan-sample-a-count-error-wrap-140000",
+      "data_folder": ".data/cases/round268-tsan-sample-a-count-error-wrap-140000",
+      "threads": 6,
+      "expected_sha256": "b84dc22963d5bb0b3a0982bd9d4b963060f00ae4503ed1c2bbda28254c9bb148",
+      "inputs_sha256": {
+        "requests.log": "bc6a02bd98bbfa343ca822a44714fff9358451200cc5120cc7cf377615c864f6"
+      },
+      "reference_source": "docs/round268-a-tsan-sample.json",
+      "sha256": "b84dc22963d5bb0b3a0982bd9d4b963060f00ae4503ed1c2bbda28254c9bb148"
+    },
+    {
+      "case": "round268-tsan-sample-a-count-error-wrap-140000",
+      "data_folder": ".data/cases/round268-tsan-sample-a-count-error-wrap-140000",
+      "threads": 12,
+      "expected_sha256": "b84dc22963d5bb0b3a0982bd9d4b963060f00ae4503ed1c2bbda28254c9bb148",
+      "inputs_sha256": {
+        "requests.log": "bc6a02bd98bbfa343ca822a44714fff9358451200cc5120cc7cf377615c864f6"
+      },
+      "reference_source": "docs/round268-a-tsan-sample.json",
+      "sha256": "b84dc22963d5bb0b3a0982bd9d4b963060f00ae4503ed1c2bbda28254c9bb148"
+    },
+    {
+      "case": "round268-tsan-sample-a-nearest-rank-101",
+      "data_folder": ".data/cases/round268-tsan-sample-a-nearest-rank-101",
+      "threads": 1,
+      "expected_sha256": "d80768de7a334cbd5b8f82e085498a5c060db88cf066ae57311b1f9ef6730777",
+      "inputs_sha256": {
+        "requests.log": "85fc50f4693d8a2742df1bf9259fddd44cf9c9924084cff8bd3325c1bd87d36b"
+      },
+      "reference_source": "docs/round268-a-tsan-sample.json",
+      "sha256": "d80768de7a334cbd5b8f82e085498a5c060db88cf066ae57311b1f9ef6730777"
+    },
+    {
+      "case": "round268-tsan-sample-a-nearest-rank-101",
+      "data_folder": ".data/cases/round268-tsan-sample-a-nearest-rank-101",
+      "threads": 6,
+      "expected_sha256": "d80768de7a334cbd5b8f82e085498a5c060db88cf066ae57311b1f9ef6730777",
+      "inputs_sha256": {
+        "requests.log": "85fc50f4693d8a2742df1bf9259fddd44cf9c9924084cff8bd3325c1bd87d36b"
+      },
+      "reference_source": "docs/round268-a-tsan-sample.json",
+      "sha256": "d80768de7a334cbd5b8f82e085498a5c060db88cf066ae57311b1f9ef6730777"
+    },
+    {
+      "case": "round268-tsan-sample-a-nearest-rank-101",
+      "data_folder": ".data/cases/round268-tsan-sample-a-nearest-rank-101",
+      "threads": 12,
+      "expected_sha256": "d80768de7a334cbd5b8f82e085498a5c060db88cf066ae57311b1f9ef6730777",
+      "inputs_sha256": {
+        "requests.log": "85fc50f4693d8a2742df1bf9259fddd44cf9c9924084cff8bd3325c1bd87d36b"
+      },
+      "reference_source": "docs/round268-a-tsan-sample.json",
+      "sha256": "d80768de7a334cbd5b8f82e085498a5c060db88cf066ae57311b1f9ef6730777"
+    },
+    {
+      "case": "round268-tsan-sample-a-many-endpoints-partitions",
+      "data_folder": ".data/cases/round268-tsan-sample-a-many-endpoints-partitions",
+      "threads": 1,
+      "expected_sha256": "64f490464ec9b7b08cbd15abf7772043d2221767e8c9a84a16d2f6692ff129dd",
+      "inputs_sha256": {
+        "requests.log": "ad63d9c26a41a50e71d3dbe48058d596e0e29db0a1e8fbf684b69331121ec256"
+      },
+      "reference_source": "docs/round268-a-tsan-sample.json",
+      "sha256": "64f490464ec9b7b08cbd15abf7772043d2221767e8c9a84a16d2f6692ff129dd"
+    },
+    {
+      "case": "round268-tsan-sample-a-many-endpoints-partitions",
+      "data_folder": ".data/cases/round268-tsan-sample-a-many-endpoints-partitions",
+      "threads": 6,
+      "expected_sha256": "64f490464ec9b7b08cbd15abf7772043d2221767e8c9a84a16d2f6692ff129dd",
+      "inputs_sha256": {
+        "requests.log": "ad63d9c26a41a50e71d3dbe48058d596e0e29db0a1e8fbf684b69331121ec256"
+      },
+      "reference_source": "docs/round268-a-tsan-sample.json",
+      "sha256": "64f490464ec9b7b08cbd15abf7772043d2221767e8c9a84a16d2f6692ff129dd"
+    },
+    {
+      "case": "round268-tsan-sample-a-many-endpoints-partitions",
+      "data_folder": ".data/cases/round268-tsan-sample-a-many-endpoints-partitions",
+      "threads": 12,
+      "expected_sha256": "64f490464ec9b7b08cbd15abf7772043d2221767e8c9a84a16d2f6692ff129dd",
+      "inputs_sha256": {
+        "requests.log": "ad63d9c26a41a50e71d3dbe48058d596e0e29db0a1e8fbf684b69331121ec256"
+      },
+      "reference_source": "docs/round268-a-tsan-sample.json",
+      "sha256": "64f490464ec9b7b08cbd15abf7772043d2221767e8c9a84a16d2f6692ff129dd"
+    },
+    {
+      "case": "full-seed2221",
+      "data_folder": ".data/a/full-seed2221",
+      "threads": 1,
+      "expected_sha256": "ea635765c200e5a93b6206c35cee288527c17dd02836f05828aa2c92edbd7550",
+      "inputs_sha256": {
+        "requests.log": "24e7c7918e60b453eaa7cdd381c352e5898fdfbd3a311b9866dc8eb1ff2f9afa"
+      },
+      "reference_source": "docs/round197-restored-a-image-cases.json",
+      "sha256": "ea635765c200e5a93b6206c35cee288527c17dd02836f05828aa2c92edbd7550"
+    },
+    {
+      "case": "full-seed2221",
+      "data_folder": ".data/a/full-seed2221",
+      "threads": 6,
+      "expected_sha256": "ea635765c200e5a93b6206c35cee288527c17dd02836f05828aa2c92edbd7550",
+      "inputs_sha256": {
+        "requests.log": "24e7c7918e60b453eaa7cdd381c352e5898fdfbd3a311b9866dc8eb1ff2f9afa"
+      },
+      "reference_source": "docs/round197-restored-a-image-cases.json",
+      "sha256": "ea635765c200e5a93b6206c35cee288527c17dd02836f05828aa2c92edbd7550"
+    },
+    {
+      "case": "full-seed2221",
+      "data_folder": ".data/a/full-seed2221",
+      "threads": 12,
+      "expected_sha256": "ea635765c200e5a93b6206c35cee288527c17dd02836f05828aa2c92edbd7550",
+      "inputs_sha256": {
+        "requests.log": "24e7c7918e60b453eaa7cdd381c352e5898fdfbd3a311b9866dc8eb1ff2f9afa"
+      },
+      "reference_source": "docs/round197-restored-a-image-cases.json",
+      "sha256": "ea635765c200e5a93b6206c35cee288527c17dd02836f05828aa2c92edbd7550"
+    },
+    {
+      "case": "sample-seed2249",
+      "data_folder": ".data/a/sample-seed2249",
+      "threads": 1,
+      "expected_sha256": "d2d6b131c52fd4d6580e0edd6753469a3e7dae9fc9b1e979f1d9dae0e30c0f65",
+      "inputs_sha256": {
+        "requests.log": "a95f9530ab1369a8aea30fc1c7b365ed84c1d4c6884ecc6535a7ba4df680096d"
+      },
+      "reference_source": "docs/round197-restored-a-image-cases.json",
+      "sha256": "d2d6b131c52fd4d6580e0edd6753469a3e7dae9fc9b1e979f1d9dae0e30c0f65"
+    },
+    {
+      "case": "sample-seed2249",
+      "data_folder": ".data/a/sample-seed2249",
+      "threads": 6,
+      "expected_sha256": "d2d6b131c52fd4d6580e0edd6753469a3e7dae9fc9b1e979f1d9dae0e30c0f65",
+      "inputs_sha256": {
+        "requests.log": "a95f9530ab1369a8aea30fc1c7b365ed84c1d4c6884ecc6535a7ba4df680096d"
+      },
+      "reference_source": "docs/round197-restored-a-image-cases.json",
+      "sha256": "d2d6b131c52fd4d6580e0edd6753469a3e7dae9fc9b1e979f1d9dae0e30c0f65"
+    },
+    {
+      "case": "sample-seed2249",
+      "data_folder": ".data/a/sample-seed2249",
+      "threads": 12,
+      "expected_sha256": "d2d6b131c52fd4d6580e0edd6753469a3e7dae9fc9b1e979f1d9dae0e30c0f65",
+      "inputs_sha256": {
+        "requests.log": "a95f9530ab1369a8aea30fc1c7b365ed84c1d4c6884ecc6535a7ba4df680096d"
+      },
+      "reference_source": "docs/round197-restored-a-image-cases.json",
+      "sha256": "d2d6b131c52fd4d6580e0edd6753469a3e7dae9fc9b1e979f1d9dae0e30c0f65"
+    },
+    {
+      "case": "round268-tsan-a-latency-escape-partitions",
+      "data_folder": ".data/cases/round268-tsan-a-latency-escape-partitions",
+      "threads": 1,
+      "expected_sha256": "99be0d0cbbf65462541c1729e0b682c118bce9c3efd1d1936b6fc8f41f8f041d",
+      "inputs_sha256": {
+        "requests.log": "1c6f5a11ac7cdcd6c1cc3642fa4cfac8a0eb15c09b6faa807d55fe1171d7486f"
+      },
+      "reference_source": "docs/round268-a-tsan-compact_records.json",
+      "sha256": "99be0d0cbbf65462541c1729e0b682c118bce9c3efd1d1936b6fc8f41f8f041d"
+    },
+    {
+      "case": "round268-tsan-a-latency-escape-partitions",
+      "data_folder": ".data/cases/round268-tsan-a-latency-escape-partitions",
+      "threads": 6,
+      "expected_sha256": "99be0d0cbbf65462541c1729e0b682c118bce9c3efd1d1936b6fc8f41f8f041d",
+      "inputs_sha256": {
+        "requests.log": "1c6f5a11ac7cdcd6c1cc3642fa4cfac8a0eb15c09b6faa807d55fe1171d7486f"
+      },
+      "reference_source": "docs/round268-a-tsan-compact_records.json",
+      "sha256": "99be0d0cbbf65462541c1729e0b682c118bce9c3efd1d1936b6fc8f41f8f041d"
+    },
+    {
+      "case": "round268-tsan-a-latency-escape-partitions",
+      "data_folder": ".data/cases/round268-tsan-a-latency-escape-partitions",
+      "threads": 12,
+      "expected_sha256": "99be0d0cbbf65462541c1729e0b682c118bce9c3efd1d1936b6fc8f41f8f041d",
+      "inputs_sha256": {
+        "requests.log": "1c6f5a11ac7cdcd6c1cc3642fa4cfac8a0eb15c09b6faa807d55fe1171d7486f"
+      },
+      "reference_source": "docs/round268-a-tsan-compact_records.json",
+      "sha256": "99be0d0cbbf65462541c1729e0b682c118bce9c3efd1d1936b6fc8f41f8f041d"
+    },
+    {
+      "case": "round268-tsan-a-endpoint-id-4095",
+      "data_folder": ".data/cases/round268-tsan-a-endpoint-id-4095",
+      "threads": 1,
+      "expected_sha256": "87f786a27e82eb2a5063f2645bb79d1ba686aeb5e0616a206e1f97bc9d0266df",
+      "inputs_sha256": {
+        "requests.log": "aeb1b1498eb23042cc23d9d8e000e0237db137fbcd382ffb9a78781c984a6585"
+      },
+      "reference_source": "docs/round268-a-tsan-compact_records.json",
+      "sha256": "87f786a27e82eb2a5063f2645bb79d1ba686aeb5e0616a206e1f97bc9d0266df"
+    },
+    {
+      "case": "round268-tsan-a-endpoint-id-4095",
+      "data_folder": ".data/cases/round268-tsan-a-endpoint-id-4095",
+      "threads": 6,
+      "expected_sha256": "87f786a27e82eb2a5063f2645bb79d1ba686aeb5e0616a206e1f97bc9d0266df",
+      "inputs_sha256": {
+        "requests.log": "aeb1b1498eb23042cc23d9d8e000e0237db137fbcd382ffb9a78781c984a6585"
+      },
+      "reference_source": "docs/round268-a-tsan-compact_records.json",
+      "sha256": "87f786a27e82eb2a5063f2645bb79d1ba686aeb5e0616a206e1f97bc9d0266df"
+    },
+    {
+      "case": "round268-tsan-a-endpoint-id-4095",
+      "data_folder": ".data/cases/round268-tsan-a-endpoint-id-4095",
+      "threads": 12,
+      "expected_sha256": "87f786a27e82eb2a5063f2645bb79d1ba686aeb5e0616a206e1f97bc9d0266df",
+      "inputs_sha256": {
+        "requests.log": "aeb1b1498eb23042cc23d9d8e000e0237db137fbcd382ffb9a78781c984a6585"
+      },
+      "reference_source": "docs/round268-a-tsan-compact_records.json",
+      "sha256": "87f786a27e82eb2a5063f2645bb79d1ba686aeb5e0616a206e1f97bc9d0266df"
+    },
+    {
+      "case": "round268-tsan-a-method-hours-ordered",
+      "data_folder": ".data/cases/round268-tsan-a-method-hours-ordered",
+      "threads": 1,
+      "expected_sha256": "5e148f39ded086406d96d85240d30d6dccf32c9f854fb915943a036d517f7fb4",
+      "inputs_sha256": {
+        "requests.log": "d38145ea2121fe383295a8d54b3421b2f2deafaebdabed2e75c11ba093010a43"
+      },
+      "reference_source": "docs/round268-a-tsan-method_hours.json",
+      "sha256": "5e148f39ded086406d96d85240d30d6dccf32c9f854fb915943a036d517f7fb4"
+    },
+    {
+      "case": "round268-tsan-a-method-hours-ordered",
+      "data_folder": ".data/cases/round268-tsan-a-method-hours-ordered",
+      "threads": 6,
+      "expected_sha256": "5e148f39ded086406d96d85240d30d6dccf32c9f854fb915943a036d517f7fb4",
+      "inputs_sha256": {
+        "requests.log": "d38145ea2121fe383295a8d54b3421b2f2deafaebdabed2e75c11ba093010a43"
+      },
+      "reference_source": "docs/round268-a-tsan-method_hours.json",
+      "sha256": "5e148f39ded086406d96d85240d30d6dccf32c9f854fb915943a036d517f7fb4"
+    },
+    {
+      "case": "round268-tsan-a-method-hours-ordered",
+      "data_folder": ".data/cases/round268-tsan-a-method-hours-ordered",
+      "threads": 12,
+      "expected_sha256": "5e148f39ded086406d96d85240d30d6dccf32c9f854fb915943a036d517f7fb4",
+      "inputs_sha256": {
+        "requests.log": "d38145ea2121fe383295a8d54b3421b2f2deafaebdabed2e75c11ba093010a43"
+      },
+      "reference_source": "docs/round268-a-tsan-method_hours.json",
+      "sha256": "5e148f39ded086406d96d85240d30d6dccf32c9f854fb915943a036d517f7fb4"
+    },
+    {
+      "case": "round268-tsan-a-method-hours-shuffled",
+      "data_folder": ".data/cases/round268-tsan-a-method-hours-shuffled",
+      "threads": 1,
+      "expected_sha256": "5e148f39ded086406d96d85240d30d6dccf32c9f854fb915943a036d517f7fb4",
+      "inputs_sha256": {
+        "requests.log": "2149fd835ff3a7c61ab7c3bcb2f553b661ad3ed31d34edcdeb7c2a79614b42ad"
+      },
+      "reference_source": "docs/round268-a-tsan-method_hours.json",
+      "sha256": "5e148f39ded086406d96d85240d30d6dccf32c9f854fb915943a036d517f7fb4"
+    },
+    {
+      "case": "round268-tsan-a-method-hours-shuffled",
+      "data_folder": ".data/cases/round268-tsan-a-method-hours-shuffled",
+      "threads": 6,
+      "expected_sha256": "5e148f39ded086406d96d85240d30d6dccf32c9f854fb915943a036d517f7fb4",
+      "inputs_sha256": {
+        "requests.log": "2149fd835ff3a7c61ab7c3bcb2f553b661ad3ed31d34edcdeb7c2a79614b42ad"
+      },
+      "reference_source": "docs/round268-a-tsan-method_hours.json",
+      "sha256": "5e148f39ded086406d96d85240d30d6dccf32c9f854fb915943a036d517f7fb4"
+    },
+    {
+      "case": "round268-tsan-a-method-hours-shuffled",
+      "data_folder": ".data/cases/round268-tsan-a-method-hours-shuffled",
+      "threads": 12,
+      "expected_sha256": "5e148f39ded086406d96d85240d30d6dccf32c9f854fb915943a036d517f7fb4",
+      "inputs_sha256": {
+        "requests.log": "2149fd835ff3a7c61ab7c3bcb2f553b661ad3ed31d34edcdeb7c2a79614b42ad"
+      },
+      "reference_source": "docs/round268-a-tsan-method_hours.json",
+      "sha256": "5e148f39ded086406d96d85240d30d6dccf32c9f854fb915943a036d517f7fb4"
+    },
+    {
+      "case": "round268-tsan-ordered-a-first-hour-lag",
+      "data_folder": ".data/cases/round268-tsan-ordered-a-first-hour-lag",
+      "threads": 1,
+      "expected_sha256": "968c0135b31421516456af6a797d3b79d548fbd57a5a07981161c03e690da0c5",
+      "inputs_sha256": {
+        "requests.log": "d79db3fd6e2b47d218884fe1d5beef792ca4000716aab1a3761bbd20a4ffd137"
+      },
+      "reference_source": "docs/round268-a-tsan-ordered_hours.json",
+      "sha256": "968c0135b31421516456af6a797d3b79d548fbd57a5a07981161c03e690da0c5"
+    },
+    {
+      "case": "round268-tsan-ordered-a-first-hour-lag",
+      "data_folder": ".data/cases/round268-tsan-ordered-a-first-hour-lag",
+      "threads": 6,
+      "expected_sha256": "968c0135b31421516456af6a797d3b79d548fbd57a5a07981161c03e690da0c5",
+      "inputs_sha256": {
+        "requests.log": "d79db3fd6e2b47d218884fe1d5beef792ca4000716aab1a3761bbd20a4ffd137"
+      },
+      "reference_source": "docs/round268-a-tsan-ordered_hours.json",
+      "sha256": "968c0135b31421516456af6a797d3b79d548fbd57a5a07981161c03e690da0c5"
+    },
+    {
+      "case": "round268-tsan-ordered-a-first-hour-lag",
+      "data_folder": ".data/cases/round268-tsan-ordered-a-first-hour-lag",
+      "threads": 12,
+      "expected_sha256": "968c0135b31421516456af6a797d3b79d548fbd57a5a07981161c03e690da0c5",
+      "inputs_sha256": {
+        "requests.log": "d79db3fd6e2b47d218884fe1d5beef792ca4000716aab1a3761bbd20a4ffd137"
+      },
+      "reference_source": "docs/round268-a-tsan-ordered_hours.json",
+      "sha256": "968c0135b31421516456af6a797d3b79d548fbd57a5a07981161c03e690da0c5"
+    },
+    {
+      "case": "round268-tsan-ordered-a-empty-prefix-and-holes",
+      "data_folder": ".data/cases/round268-tsan-ordered-a-empty-prefix-and-holes",
+      "threads": 1,
+      "expected_sha256": "64626f6879971c72a600888fa8c46e7a43209a954fb4a45c4ae246dbf53b75f2",
+      "inputs_sha256": {
+        "requests.log": "bac08a6cc6333a5f413e7f97a1f01bf97afb1570f0e4ef22271b6f8a1fad7fbf"
+      },
+      "reference_source": "docs/round268-a-tsan-ordered_hours.json",
+      "sha256": "64626f6879971c72a600888fa8c46e7a43209a954fb4a45c4ae246dbf53b75f2"
+    },
+    {
+      "case": "round268-tsan-ordered-a-empty-prefix-and-holes",
+      "data_folder": ".data/cases/round268-tsan-ordered-a-empty-prefix-and-holes",
+      "threads": 6,
+      "expected_sha256": "64626f6879971c72a600888fa8c46e7a43209a954fb4a45c4ae246dbf53b75f2",
+      "inputs_sha256": {
+        "requests.log": "bac08a6cc6333a5f413e7f97a1f01bf97afb1570f0e4ef22271b6f8a1fad7fbf"
+      },
+      "reference_source": "docs/round268-a-tsan-ordered_hours.json",
+      "sha256": "64626f6879971c72a600888fa8c46e7a43209a954fb4a45c4ae246dbf53b75f2"
+    },
+    {
+      "case": "round268-tsan-ordered-a-empty-prefix-and-holes",
+      "data_folder": ".data/cases/round268-tsan-ordered-a-empty-prefix-and-holes",
+      "threads": 12,
+      "expected_sha256": "64626f6879971c72a600888fa8c46e7a43209a954fb4a45c4ae246dbf53b75f2",
+      "inputs_sha256": {
+        "requests.log": "bac08a6cc6333a5f413e7f97a1f01bf97afb1570f0e4ef22271b6f8a1fad7fbf"
+      },
+      "reference_source": "docs/round268-a-tsan-ordered_hours.json",
+      "sha256": "64626f6879971c72a600888fa8c46e7a43209a954fb4a45c4ae246dbf53b75f2"
+    },
+    {
+      "case": "round268-tsan-ordered-a-unordered-publish",
+      "data_folder": ".data/cases/round268-tsan-ordered-a-unordered-publish",
+      "threads": 1,
+      "expected_sha256": "4bf8966abc9afb4572697c442ba3ee38513cbf0cfe9ae60dfc7a197607f868d7",
+      "inputs_sha256": {
+        "requests.log": "c879e2be9d49463978b10c123173caf8eb01d5266debc60f18d11478884a88b0"
+      },
+      "reference_source": "docs/round268-a-tsan-ordered_hours.json",
+      "sha256": "4bf8966abc9afb4572697c442ba3ee38513cbf0cfe9ae60dfc7a197607f868d7"
+    },
+    {
+      "case": "round268-tsan-ordered-a-unordered-publish",
+      "data_folder": ".data/cases/round268-tsan-ordered-a-unordered-publish",
+      "threads": 6,
+      "expected_sha256": "4bf8966abc9afb4572697c442ba3ee38513cbf0cfe9ae60dfc7a197607f868d7",
+      "inputs_sha256": {
+        "requests.log": "c879e2be9d49463978b10c123173caf8eb01d5266debc60f18d11478884a88b0"
+      },
+      "reference_source": "docs/round268-a-tsan-ordered_hours.json",
+      "sha256": "4bf8966abc9afb4572697c442ba3ee38513cbf0cfe9ae60dfc7a197607f868d7"
+    },
+    {
+      "case": "round268-tsan-ordered-a-unordered-publish",
+      "data_folder": ".data/cases/round268-tsan-ordered-a-unordered-publish",
+      "threads": 12,
+      "expected_sha256": "4bf8966abc9afb4572697c442ba3ee38513cbf0cfe9ae60dfc7a197607f868d7",
+      "inputs_sha256": {
+        "requests.log": "c879e2be9d49463978b10c123173caf8eb01d5266debc60f18d11478884a88b0"
+      },
+      "reference_source": "docs/round268-a-tsan-ordered_hours.json",
+      "sha256": "4bf8966abc9afb4572697c442ba3ee38513cbf0cfe9ae60dfc7a197607f868d7"
+    },
+    {
+      "case": "sample-seed2767",
+      "data_folder": ".data/a/sample-seed2767",
+      "threads": 1,
+      "expected_sha256": "8580de728754cc6f43d04c3eb16bda5b461bdc4f1123e68bf52626cff26dca8a",
+      "inputs_sha256": {
+        "requests.log": "9713ae6eafc836e594419d6e9a951178c2a9104c8b392a9777c64e6f9bf65c3b"
+      },
+      "reference_source": "docs/round268-a-asan-sample.json",
+      "sha256": "8580de728754cc6f43d04c3eb16bda5b461bdc4f1123e68bf52626cff26dca8a"
+    },
+    {
+      "case": "sample-seed2767",
+      "data_folder": ".data/a/sample-seed2767",
+      "threads": 6,
+      "expected_sha256": "8580de728754cc6f43d04c3eb16bda5b461bdc4f1123e68bf52626cff26dca8a",
+      "inputs_sha256": {
+        "requests.log": "9713ae6eafc836e594419d6e9a951178c2a9104c8b392a9777c64e6f9bf65c3b"
+      },
+      "reference_source": "docs/round268-a-asan-sample.json",
+      "sha256": "8580de728754cc6f43d04c3eb16bda5b461bdc4f1123e68bf52626cff26dca8a"
+    },
+    {
+      "case": "sample-seed2767",
+      "data_folder": ".data/a/sample-seed2767",
+      "threads": 12,
+      "expected_sha256": "8580de728754cc6f43d04c3eb16bda5b461bdc4f1123e68bf52626cff26dca8a",
+      "inputs_sha256": {
+        "requests.log": "9713ae6eafc836e594419d6e9a951178c2a9104c8b392a9777c64e6f9bf65c3b"
+      },
+      "reference_source": "docs/round268-a-asan-sample.json",
+      "sha256": "8580de728754cc6f43d04c3eb16bda5b461bdc4f1123e68bf52626cff26dca8a"
+    },
+    {
+      "case": "full-seed2777",
+      "data_folder": ".data/a/full-seed2777",
+      "threads": 1,
+      "expected_sha256": "40209f4f82e27542198224f9acc68b52cf9ab38b619f3bf1319ccfc15ef6034c",
+      "inputs_sha256": {
+        "requests.log": "356184337e7873553d57177928d67fe06ed4469c2d0640e1a5f78aad3793a1c0"
+      },
+      "reference_source": "docs/round268-a-asan-full.json",
+      "sha256": "40209f4f82e27542198224f9acc68b52cf9ab38b619f3bf1319ccfc15ef6034c"
+    },
+    {
+      "case": "full-seed2777",
+      "data_folder": ".data/a/full-seed2777",
+      "threads": 6,
+      "expected_sha256": "40209f4f82e27542198224f9acc68b52cf9ab38b619f3bf1319ccfc15ef6034c",
+      "inputs_sha256": {
+        "requests.log": "356184337e7873553d57177928d67fe06ed4469c2d0640e1a5f78aad3793a1c0"
+      },
+      "reference_source": "docs/round268-a-asan-full.json",
+      "sha256": "40209f4f82e27542198224f9acc68b52cf9ab38b619f3bf1319ccfc15ef6034c"
+    },
+    {
+      "case": "full-seed2777",
+      "data_folder": ".data/a/full-seed2777",
+      "threads": 12,
+      "expected_sha256": "40209f4f82e27542198224f9acc68b52cf9ab38b619f3bf1319ccfc15ef6034c",
+      "inputs_sha256": {
+        "requests.log": "356184337e7873553d57177928d67fe06ed4469c2d0640e1a5f78aad3793a1c0"
+      },
+      "reference_source": "docs/round268-a-asan-full.json",
+      "sha256": "40209f4f82e27542198224f9acc68b52cf9ab38b619f3bf1319ccfc15ef6034c"
+    },
+    {
+      "case": "sample-seed2789",
+      "data_folder": ".data/a/sample-seed2789",
+      "threads": 1,
+      "expected_sha256": "72869ce9dd46f6dc4dc68b7d0ea234895d4e51c340f437106b57ca0477dda712",
+      "inputs_sha256": {
+        "requests.log": "73e2e0a6e8b4fff7b88a891749c4cf34c2339cecf1764e0ff0675339d9644784"
+      },
+      "reference_source": "docs/round268-a-tsan-sample.json",
+      "sha256": "72869ce9dd46f6dc4dc68b7d0ea234895d4e51c340f437106b57ca0477dda712"
+    },
+    {
+      "case": "sample-seed2789",
+      "data_folder": ".data/a/sample-seed2789",
+      "threads": 6,
+      "expected_sha256": "72869ce9dd46f6dc4dc68b7d0ea234895d4e51c340f437106b57ca0477dda712",
+      "inputs_sha256": {
+        "requests.log": "73e2e0a6e8b4fff7b88a891749c4cf34c2339cecf1764e0ff0675339d9644784"
+      },
+      "reference_source": "docs/round268-a-tsan-sample.json",
+      "sha256": "72869ce9dd46f6dc4dc68b7d0ea234895d4e51c340f437106b57ca0477dda712"
+    },
+    {
+      "case": "sample-seed2789",
+      "data_folder": ".data/a/sample-seed2789",
+      "threads": 12,
+      "expected_sha256": "72869ce9dd46f6dc4dc68b7d0ea234895d4e51c340f437106b57ca0477dda712",
+      "inputs_sha256": {
+        "requests.log": "73e2e0a6e8b4fff7b88a891749c4cf34c2339cecf1764e0ff0675339d9644784"
+      },
+      "reference_source": "docs/round268-a-tsan-sample.json",
+      "sha256": "72869ce9dd46f6dc4dc68b7d0ea234895d4e51c340f437106b57ca0477dda712"
+    },
+    {
+      "case": "public-full-seed1",
+      "data_folder": ".data/a/public-full-seed1",
+      "threads": 1,
+      "expected_sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3",
+      "inputs_sha256": {
+        "requests.log": "7ec80ba45bceef51ac7f79d3a14521fc6187b2dcb87b5e5542d08063fe5d962a"
+      },
+      "reference_source": "Published official full-public hashes",
+      "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+    },
+    {
+      "case": "public-full-seed1",
+      "data_folder": ".data/a/public-full-seed1",
+      "threads": 6,
+      "expected_sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3",
+      "inputs_sha256": {
+        "requests.log": "7ec80ba45bceef51ac7f79d3a14521fc6187b2dcb87b5e5542d08063fe5d962a"
+      },
+      "reference_source": "Published official full-public hashes",
+      "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+    },
+    {
+      "case": "public-full-seed1",
+      "data_folder": ".data/a/public-full-seed1",
+      "threads": 12,
+      "expected_sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3",
+      "inputs_sha256": {
+        "requests.log": "7ec80ba45bceef51ac7f79d3a14521fc6187b2dcb87b5e5542d08063fe5d962a"
+      },
+      "reference_source": "Published official full-public hashes",
+      "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+    }
+  ],
+  "expected_sink_failures": [
+    {
+      "threads": 1,
+      "returncode": 1,
+      "stderr": "track-a: cannot write summary.txt\n",
+      "kind": "Normal deferred /dev/full output failure; all workers joined"
+    },
+    {
+      "threads": 6,
+      "returncode": 1,
+      "stderr": "track-a: cannot write summary.txt\n",
+      "kind": "Normal deferred /dev/full output failure; all workers joined"
+    },
+    {
+      "threads": 12,
+      "returncode": 1,
+      "stderr": "track-a: cannot write summary.txt\n",
+      "kind": "Normal deferred /dev/full output failure; all workers joined"
+    }
+  ],
+  "model_runs": [
+    {
+      "threads": 1,
+      "stdout": "PASS 11722 1\n"
+    },
+    {
+      "threads": 12,
+      "stdout": "PASS 11722 12\n"
+    }
+  ],
+  "compiled_binary_sha256": {
+    "solution": "784732bef041560d8fd7a06c1be0e43f35ba2216bd5bca917734a929b8d356da",
+    "suffix-model": "00ceab3e038ae2ac8d4ea2097d07aa3f9cd3398458679dd044366a5f6e475c95"
+  },
+  "passed": true,
+  "completed_at_utc": "2026-11-01T11:45:12.502805+00:00"
+}

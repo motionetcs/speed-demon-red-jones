@@ -1,0 +1,278 @@
+{
+  "observed_at_utc": "2026-11-01T11:42:42.753652+00:00",
+  "official_score": false,
+  "passed": true,
+  "scope": "Independent complete official-reference bytes for40k-row lagging first hour, empty leading/interior hours and arbitrarily shuffled72-hour output with every latency digit width/fulluint32 and error rates, at all1..12 workers. Normal output-open errors at1/6/12 must return1 within30s. These supplement, not replace, public/untrained/parser/allocator/strict/race checks.",
+  "binary_sha256": "e0af64c7ba740000c2ab6acb71ba3270efe629958d6744c968bbc3d88f117ae8",
+  "checks": [
+    {
+      "track": "a",
+      "case": "round268-asan-ordered-a-first-hour-lag",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.016675541999999988,
+          "peak_process_rss_bytes": 23281664,
+          "requested_threads": 1,
+          "sha256": "968c0135b31421516456af6a797d3b79d548fbd57a5a07981161c03e690da0c5"
+        },
+        {
+          "wall_seconds_including_launch": 0.014070291999999984,
+          "peak_process_rss_bytes": 24985600,
+          "requested_threads": 2,
+          "sha256": "968c0135b31421516456af6a797d3b79d548fbd57a5a07981161c03e690da0c5"
+        },
+        {
+          "wall_seconds_including_launch": 0.013635249999999988,
+          "peak_process_rss_bytes": 26132480,
+          "requested_threads": 3,
+          "sha256": "968c0135b31421516456af6a797d3b79d548fbd57a5a07981161c03e690da0c5"
+        },
+        {
+          "wall_seconds_including_launch": 0.013307750000000007,
+          "peak_process_rss_bytes": 26836992,
+          "requested_threads": 4,
+          "sha256": "968c0135b31421516456af6a797d3b79d548fbd57a5a07981161c03e690da0c5"
+        },
+        {
+          "wall_seconds_including_launch": 0.013770791000000004,
+          "peak_process_rss_bytes": 27459584,
+          "requested_threads": 5,
+          "sha256": "968c0135b31421516456af6a797d3b79d548fbd57a5a07981161c03e690da0c5"
+        },
+        {
+          "wall_seconds_including_launch": 0.014329832999999959,
+          "peak_process_rss_bytes": 28016640,
+          "requested_threads": 6,
+          "sha256": "968c0135b31421516456af6a797d3b79d548fbd57a5a07981161c03e690da0c5"
+        },
+        {
+          "wall_seconds_including_launch": 0.013712916999999991,
+          "peak_process_rss_bytes": 28475392,
+          "requested_threads": 7,
+          "sha256": "968c0135b31421516456af6a797d3b79d548fbd57a5a07981161c03e690da0c5"
+        },
+        {
+          "wall_seconds_including_launch": 0.01344591700000003,
+          "peak_process_rss_bytes": 29114368,
+          "requested_threads": 8,
+          "sha256": "968c0135b31421516456af6a797d3b79d548fbd57a5a07981161c03e690da0c5"
+        },
+        {
+          "wall_seconds_including_launch": 0.013716791999999978,
+          "peak_process_rss_bytes": 29818880,
+          "requested_threads": 9,
+          "sha256": "968c0135b31421516456af6a797d3b79d548fbd57a5a07981161c03e690da0c5"
+        },
+        {
+          "wall_seconds_including_launch": 0.014114207999999961,
+          "peak_process_rss_bytes": 30064640,
+          "requested_threads": 10,
+          "sha256": "968c0135b31421516456af6a797d3b79d548fbd57a5a07981161c03e690da0c5"
+        },
+        {
+          "wall_seconds_including_launch": 0.013920125000000005,
+          "peak_process_rss_bytes": 30343168,
+          "requested_threads": 11,
+          "sha256": "968c0135b31421516456af6a797d3b79d548fbd57a5a07981161c03e690da0c5"
+        },
+        {
+          "wall_seconds_including_launch": 0.013634375000000032,
+          "peak_process_rss_bytes": 30998528,
+          "requested_threads": 12,
+          "sha256": "968c0135b31421516456af6a797d3b79d548fbd57a5a07981161c03e690da0c5"
+        }
+      ],
+      "reference_sha256": "968c0135b31421516456af6a797d3b79d548fbd57a5a07981161c03e690da0c5",
+      "inputs_sha256": {
+        "requests.log": "d79db3fd6e2b47d218884fe1d5beef792ca4000716aab1a3761bbd20a4ffd137"
+      }
+    },
+    {
+      "track": "a",
+      "case": "round268-asan-ordered-a-empty-prefix-and-holes",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.011640542000000031,
+          "peak_process_rss_bytes": 18071552,
+          "requested_threads": 1,
+          "sha256": "64626f6879971c72a600888fa8c46e7a43209a954fb4a45c4ae246dbf53b75f2"
+        },
+        {
+          "wall_seconds_including_launch": 0.011191208000000008,
+          "peak_process_rss_bytes": 18464768,
+          "requested_threads": 2,
+          "sha256": "64626f6879971c72a600888fa8c46e7a43209a954fb4a45c4ae246dbf53b75f2"
+        },
+        {
+          "wall_seconds_including_launch": 0.011403333999999987,
+          "peak_process_rss_bytes": 18825216,
+          "requested_threads": 3,
+          "sha256": "64626f6879971c72a600888fa8c46e7a43209a954fb4a45c4ae246dbf53b75f2"
+        },
+        {
+          "wall_seconds_including_launch": 0.01093333299999999,
+          "peak_process_rss_bytes": 19021824,
+          "requested_threads": 4,
+          "sha256": "64626f6879971c72a600888fa8c46e7a43209a954fb4a45c4ae246dbf53b75f2"
+        },
+        {
+          "wall_seconds_including_launch": 0.01129754200000005,
+          "peak_process_rss_bytes": 19333120,
+          "requested_threads": 5,
+          "sha256": "64626f6879971c72a600888fa8c46e7a43209a954fb4a45c4ae246dbf53b75f2"
+        },
+        {
+          "wall_seconds_including_launch": 0.011049541999999968,
+          "peak_process_rss_bytes": 19644416,
+          "requested_threads": 6,
+          "sha256": "64626f6879971c72a600888fa8c46e7a43209a954fb4a45c4ae246dbf53b75f2"
+        },
+        {
+          "wall_seconds_including_launch": 0.011496375000000003,
+          "peak_process_rss_bytes": 19726336,
+          "requested_threads": 7,
+          "sha256": "64626f6879971c72a600888fa8c46e7a43209a954fb4a45c4ae246dbf53b75f2"
+        },
+        {
+          "wall_seconds_including_launch": 0.011289042000000027,
+          "peak_process_rss_bytes": 19906560,
+          "requested_threads": 8,
+          "sha256": "64626f6879971c72a600888fa8c46e7a43209a954fb4a45c4ae246dbf53b75f2"
+        },
+        {
+          "wall_seconds_including_launch": 0.01135204099999998,
+          "peak_process_rss_bytes": 20021248,
+          "requested_threads": 9,
+          "sha256": "64626f6879971c72a600888fa8c46e7a43209a954fb4a45c4ae246dbf53b75f2"
+        },
+        {
+          "wall_seconds_including_launch": 0.01151733399999999,
+          "peak_process_rss_bytes": 20201472,
+          "requested_threads": 10,
+          "sha256": "64626f6879971c72a600888fa8c46e7a43209a954fb4a45c4ae246dbf53b75f2"
+        },
+        {
+          "wall_seconds_including_launch": 0.011175833000000024,
+          "peak_process_rss_bytes": 20365312,
+          "requested_threads": 11,
+          "sha256": "64626f6879971c72a600888fa8c46e7a43209a954fb4a45c4ae246dbf53b75f2"
+        },
+        {
+          "wall_seconds_including_launch": 0.011397541999999983,
+          "peak_process_rss_bytes": 20561920,
+          "requested_threads": 12,
+          "sha256": "64626f6879971c72a600888fa8c46e7a43209a954fb4a45c4ae246dbf53b75f2"
+        }
+      ],
+      "reference_sha256": "64626f6879971c72a600888fa8c46e7a43209a954fb4a45c4ae246dbf53b75f2",
+      "inputs_sha256": {
+        "requests.log": "bac08a6cc6333a5f413e7f97a1f01bf97afb1570f0e4ef22271b6f8a1fad7fbf"
+      }
+    },
+    {
+      "track": "a",
+      "case": "round268-asan-ordered-a-unordered-publish",
+      "runs": [
+        {
+          "wall_seconds_including_launch": 0.014500999999999986,
+          "peak_process_rss_bytes": 20660224,
+          "requested_threads": 1,
+          "sha256": "4bf8966abc9afb4572697c442ba3ee38513cbf0cfe9ae60dfc7a197607f868d7"
+        },
+        {
+          "wall_seconds_including_launch": 0.0132430830000001,
+          "peak_process_rss_bytes": 22757376,
+          "requested_threads": 2,
+          "sha256": "4bf8966abc9afb4572697c442ba3ee38513cbf0cfe9ae60dfc7a197607f868d7"
+        },
+        {
+          "wall_seconds_including_launch": 0.013412332999999999,
+          "peak_process_rss_bytes": 24363008,
+          "requested_threads": 3,
+          "sha256": "4bf8966abc9afb4572697c442ba3ee38513cbf0cfe9ae60dfc7a197607f868d7"
+        },
+        {
+          "wall_seconds_including_launch": 0.013851959000000025,
+          "peak_process_rss_bytes": 25985024,
+          "requested_threads": 4,
+          "sha256": "4bf8966abc9afb4572697c442ba3ee38513cbf0cfe9ae60dfc7a197607f868d7"
+        },
+        {
+          "wall_seconds_including_launch": 0.013651542000000072,
+          "peak_process_rss_bytes": 27934720,
+          "requested_threads": 5,
+          "sha256": "4bf8966abc9afb4572697c442ba3ee38513cbf0cfe9ae60dfc7a197607f868d7"
+        },
+        {
+          "wall_seconds_including_launch": 0.014224040999999965,
+          "peak_process_rss_bytes": 29720576,
+          "requested_threads": 6,
+          "sha256": "4bf8966abc9afb4572697c442ba3ee38513cbf0cfe9ae60dfc7a197607f868d7"
+        },
+        {
+          "wall_seconds_including_launch": 0.014463459000000012,
+          "peak_process_rss_bytes": 31326208,
+          "requested_threads": 7,
+          "sha256": "4bf8966abc9afb4572697c442ba3ee38513cbf0cfe9ae60dfc7a197607f868d7"
+        },
+        {
+          "wall_seconds_including_launch": 0.014372374999999993,
+          "peak_process_rss_bytes": 32931840,
+          "requested_threads": 8,
+          "sha256": "4bf8966abc9afb4572697c442ba3ee38513cbf0cfe9ae60dfc7a197607f868d7"
+        },
+        {
+          "wall_seconds_including_launch": 0.01499395800000003,
+          "peak_process_rss_bytes": 34373632,
+          "requested_threads": 9,
+          "sha256": "4bf8966abc9afb4572697c442ba3ee38513cbf0cfe9ae60dfc7a197607f868d7"
+        },
+        {
+          "wall_seconds_including_launch": 0.015551083999999937,
+          "peak_process_rss_bytes": 35995648,
+          "requested_threads": 10,
+          "sha256": "4bf8966abc9afb4572697c442ba3ee38513cbf0cfe9ae60dfc7a197607f868d7"
+        },
+        {
+          "wall_seconds_including_launch": 0.016123416999999973,
+          "peak_process_rss_bytes": 37601280,
+          "requested_threads": 11,
+          "sha256": "4bf8966abc9afb4572697c442ba3ee38513cbf0cfe9ae60dfc7a197607f868d7"
+        },
+        {
+          "wall_seconds_including_launch": 0.01617499999999994,
+          "peak_process_rss_bytes": 39174144,
+          "requested_threads": 12,
+          "sha256": "4bf8966abc9afb4572697c442ba3ee38513cbf0cfe9ae60dfc7a197607f868d7"
+        }
+      ],
+      "reference_sha256": "4bf8966abc9afb4572697c442ba3ee38513cbf0cfe9ae60dfc7a197607f868d7",
+      "inputs_sha256": {
+        "requests.log": "c879e2be9d49463978b10c123173caf8eb01d5266debc60f18d11478884a88b0"
+      }
+    }
+  ],
+  "expected_failures": [
+    {
+      "data_case": "round268-asan-ordered-a-empty-prefix-and-holes",
+      "threads": 1,
+      "returncode": 1,
+      "stderr": "track-a: cannot open summary.txt\n",
+      "kind": "normal output-open error, no waiting/hang"
+    },
+    {
+      "data_case": "round268-asan-ordered-a-empty-prefix-and-holes",
+      "threads": 6,
+      "returncode": 1,
+      "stderr": "track-a: cannot open summary.txt\n",
+      "kind": "normal output-open error, no waiting/hang"
+    },
+    {
+      "data_case": "round268-asan-ordered-a-empty-prefix-and-holes",
+      "threads": 12,
+      "returncode": 1,
+      "stderr": "track-a: cannot open summary.txt\n",
+      "kind": "normal output-open error, no waiting/hang"
+    }
+  ]
+}

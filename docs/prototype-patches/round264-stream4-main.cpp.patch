@@ -1,0 +1,54 @@
+--- retained263/track-a/main.cpp
++++ unscored264/stream4/track-a/main.cpp
+@@ -37,11 +37,26 @@
+         };
+         std::vector<Chunk> chunks(threads);
+         parallel(threads, [&](unsigned worker) {
+-            const char* p = boundaries[worker]; const char* limit = boundaries[worker + 1];
++            constexpr unsigned streams = 4;
++            const char* begin = boundaries[worker]; const char* end_chunk = boundaries[worker + 1];
++            std::array<const char*, streams + 1> cut;
++            cut.front() = begin; cut.back() = end_chunk;
++            for (unsigned i = 1; i < streams; ++i) {
++                const char* p = begin + (end_chunk - begin) * i / streams;
++                if (p > begin && p[-1] != '\n') {
++                    const char* newline = static_cast<const char*>(std::memchr(p, '\n', end_chunk - p));
++                    p = newline ? newline + 1 : end_chunk;
++                }
++                cut[i] = p;
++            }
++            std::array<const char*, streams> head;
++            std::copy_n(cut.begin(), streams, head.begin());
+             auto& chunk = chunks[worker];
+             LocalEndpoints local_names(endpoints);
+-            size_t reserve_hint = (limit - p) / (72 * 64);
+-            while (p < limit) {
++            size_t reserve_hint = (end_chunk - begin) / (72 * 64);
++            auto consume = [&](unsigned stream) {
++                const char*& p = head[stream]; const char* limit = cut[stream + 1];
++                if (p >= limit) return false;
+                 if (limit - p < 28) throw std::runtime_error("truncated timestamp");
+                 const char* line = p;
+                 int month = (p[5] - '0') * 10 + p[6] - '0', day = (p[8] - '0') * 10 + p[9] - '0';
+@@ -59,11 +74,20 @@
+                 ++p;
+                 uint16_t key = local_names.intern(endpoint);
+                 if (chunk.first[hour] == UINT32_MAX) {
+-                    chunk.first[hour] = static_cast<uint32_t>(line - file.data);
+                     chunk.records[hour].reserve(reserve_hint);
+                 }
++                chunk.first[hour] = std::min(chunk.first[hour], static_cast<uint32_t>(line - file.data));
+                 chunk.records[hour].push_back(std::min(uint32_t(latency), latency_escape) << 13 | uint32_t(error) << 12 | key);
+                 if (latency >= latency_escape) chunk.wide[hour].push_back(static_cast<uint32_t>(latency));
++                return true;
++            };
++            for (;;) {
++                bool active = false;
++                active |= consume(0);
++                active |= consume(1);
++                active |= consume(2);
++                active |= consume(3);
++                if (!active) break;
+             }
+         });
+         std::vector<std::string_view> paths(endpoints.canonical.begin(),endpoints.canonical.begin()+endpoints.used.load());
