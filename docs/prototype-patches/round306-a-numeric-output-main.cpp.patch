@@ -1,0 +1,88 @@
+--- track-a/main.cpp
++++ track-a/main.cpp
+@@ -11,6 +11,17 @@
+ static constexpr uint32_t latency_escape = (1U << 19) - 1;
+ using Records=std::vector<uint32_t,MappedAllocator<uint32_t>>;
+ struct Count { uint32_t count = 0, errors = 0; };
++struct Summary { uint32_t count=0, p50=0, p95=0, p99=0, errors=0; };
++
++static size_t decimal_width(uint64_t value) {
++    size_t width=1;
++    while(value>=10){value/=10;++width;}
++    return width;
++}
++static void add_size(size_t& total,size_t amount) {
++    if(amount>SIZE_MAX-total)throw std::runtime_error("summary size overflow");
++    total+=amount;
++}
+ 
+ int main(int argc, char** argv) {
+     try {
+@@ -70,7 +81,9 @@
+         endpoints.entries.reset(); // Path views borrow the still-mapped input.
+         std::vector<uint16_t> order(paths.size()); std::iota(order.begin(), order.end(), 0);
+         std::sort(order.begin(), order.end(), [&](uint16_t a, uint16_t b) { return paths[a] < paths[b]; });
+-        OrderedOutput writer(run_paths.out / "summary.txt");
++        std::array<std::vector<Summary>,72> summaries;
++        std::array<std::string,72> labels;
++        std::array<size_t,72> hour_bytes{};
+         std::atomic<unsigned> next_hour{0};
+         parallel(threads, [&](unsigned) {
+             std::vector<Count> groups(paths.size());
+@@ -83,7 +96,7 @@
+                     count += chunk.records[hour].size(); first_line = std::min(first_line, chunk.first[hour]);
+                     for (uint32_t record : chunk.records[hour]) { auto& group = groups[record & 4095]; ++group.count; group.errors += (record >> 12) & 1; }
+                 }
+-                if(!count){writer.publish(hour);continue;}
++                if(!count)continue;
+                 uint32_t offset = 0;
+                 for (uint16_t key : order) { cursor[key] = offsets[key] = offset; offset += groups[key].count; }
+                 latencies.resize(count);
+@@ -96,8 +109,8 @@
+                     }
+                     Records().swap(chunk.records[hour]); std::vector<uint32_t>().swap(chunk.wide[hour]);
+                 }
+-                std::string label = std::string(file.data + first_line, 13) + ":00:00Z";
+-                auto& out = writer.hours[hour]; out.bytes.reserve(order.size() * 100);
++                labels[hour] = std::string(file.data + first_line, 13) + ":00:00Z";
++                auto& rows=summaries[hour];rows.resize(paths.size());
+                 for (uint16_t key : order) {
+                     uint64_t n = groups[key].count, errors = groups[key].errors; if (!n) continue;
+                     auto first = latencies.begin() + offsets[key];
+@@ -109,13 +122,32 @@
+                             if (rank >= unselected) { std::nth_element(first + unselected, first + rank, first + n); unselected = rank + 1; }
+                         }
+                     }
+-                    out.text(label); out.text(" "); out.text(paths[key]);
+-                    for (uint64_t value : {n, uint64_t(first[(50 * n + 99) / 100 - 1]), uint64_t(first[(95 * n + 99) / 100 - 1]), uint64_t(first[(99 * n + 99) / 100 - 1]), errors, errors * 1000000 / n}) { out.text(" "); out.number(static_cast<int64_t>(value)); }
++                    rows[key]={static_cast<uint32_t>(n),first[(50*n+99)/100-1],first[(95*n+99)/100-1],first[(99*n+99)/100-1],static_cast<uint32_t>(errors)};
++                    size_t bytes=labels[hour].size();add_size(bytes,paths[key].size());add_size(bytes,8);
++                    for(uint64_t value:{n,uint64_t(rows[key].p50),uint64_t(rows[key].p95),uint64_t(rows[key].p99),errors,errors*1000000/n})add_size(bytes,decimal_width(value));
++                    add_size(hour_bytes[hour],bytes);
++                }
++
++            }
++        });
++        std::array<size_t,73> positions{};
++        for(size_t hour=0;hour<72;++hour){positions[hour+1]=positions[hour];add_size(positions[hour+1],hour_bytes[hour]);}
++        OutputMapping output(run_paths.out / "summary.txt",positions.back());
++        next_hour.store(0,std::memory_order_relaxed);
++        parallel(threads,[&](unsigned){
++            for(;;){
++                unsigned hour=next_hour.fetch_add(1,std::memory_order_relaxed);if(hour>=72)return;
++                if(positions[hour]==positions[hour+1])continue;
++                OutputSlice out{output.data+positions[hour],output.data+positions[hour+1]};
++                for(uint16_t key:order){
++                    const auto& row=summaries[hour][key];uint64_t n=row.count,errors=row.errors;if(!n)continue;
++                    out.text(labels[hour]);out.text(" ");out.text(paths[key]);
++                    for(uint64_t value:{n,uint64_t(row.p50),uint64_t(row.p95),uint64_t(row.p99),errors,errors*1000000/n}){out.text(" ");out.number(value);}
+                     out.text("\n");
+                 }
+-                writer.publish(hour);
++                if(out.current!=out.end)throw std::runtime_error("summary slice size mismatch");
+             }
+         });
+-        writer.finish();
++        output.finish();
+     } catch (const std::exception& e) { std::fprintf(stderr,"track-a: %s\n",e.what()); return 1; }
+ }

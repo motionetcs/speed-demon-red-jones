@@ -1,0 +1,34 @@
+{
+  "created_at_utc": "2026-11-01T18:36:00.468434+00:00",
+  "source_parent": "30d4105bd5655ba2862d181f76c600dc6237233c",
+  "official_score": false,
+  "selected_in_root": false,
+  "scope": "C301 fresh bounded8..32-byte noncryptographic rejection hash based on hardware AES round mixing.8..16 use two exact8-byte endpoint loads covering every byte;17..32 use first/last16-byte blocks covering every byte; length enters fixed data-independent seed. Two final diffusion rounds follow payload absorption, full64 folded result then existing0/1 adjustment. Other lengths or architectures retain original std::hash. ARM AESE+AESMC+XOR implements x86 AESENC round semantics; native macro checked, no new march flags. This is NOT AES encryption, authentication, cryptographic/universal hash guarantee or an imported library/competitor implementation. Full key length/every byte comparison remains final identity for all collisions; owner routing/private8-byte table/arena/countries/parser/events/PGO unchanged. Unlike271 scalar multiply/rotate and279 scalar short-word mix, new primitive uses nonlinear hardware rounds. Native public1/6/12/fourfull screen first; independent scalar AES-round/vector/all-byte/guard/collision/native-GCC-AES-fallback/main/untrained/race/image/default/actual proof before promotion.",
+  "source_sha256": {
+    "track-c/training_generator.py": "9e61672eb814fa4e1bc2e3cf30c8e7ca9629804191ce5ae60a66c8b61ba704f2",
+    "track-c/Dockerfile": "637e81c6fca4507f4c4e7368efde7b6904d07879ae9ec992c5e25175d50e1fae",
+    "track-c/names.hpp": "49d2810eb164389843887307494d835c0941e9dc9b9b6731b1a699bac606097a",
+    "track-c/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+    "track-c/quote_scan.hpp": "0b170a766254dee1bc14f9e9180cc1900da01d41f5d09053d5579e01a7fb9cfa",
+    "track-c/README.md": "6a64233dcbf8967678d87f403c99969067f468ee5066b0f172751f437cccb841",
+    "track-c/PERF.md": "6d714967e37198ddc4a161dee4a78ddafe98dbbfa7a18ef9974d2ffd0dcd9d0e",
+    "track-c/.speed-demon.toml": "3371600b8033a377bc373378e703191dfec36c1ae991b617650dfa480edc00b4",
+    "track-c/main.cpp": "8f1703c20ec7e17bb708abff7d7a88945e0dcd8b83acc00b137607a7ceee1b0d",
+    "track-c/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420"
+  },
+  "control_binary": "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round263/final-make/track-c",
+  "control_binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+  "root_main_sha256": "8f1703c20ec7e17bb708abff7d7a88945e0dcd8b83acc00b137607a7ceee1b0d",
+  "root_names_sha256": "f62a25fdb9f229575c42fc013220f7f38dd5a68ea5ac83aa1702d0589c15501b",
+  "root_Makefile_sha256": "fecf2c1e57f04816de9cf5f1afb04604014b060745c07a9d441609a0400bc60d",
+  "primary_sources": [
+    {
+      "url": "https://www.intel.com/content/www/us/en/developer/articles/technical/advanced-encryption-standard-instructions-aes-ni.html",
+      "scope": "AESENC single-round operation semantics only, no implementation copied; no full AES security claim."
+    },
+    {
+      "url": "https://arm-software.github.io/acle/neon_intrinsics/advsimd.html",
+      "scope": "ARM AES intrinsic types and operations, independent wrapper with final XOR to match x86 round; new scalar/reference tests still required."
+    }
+  ]
+}

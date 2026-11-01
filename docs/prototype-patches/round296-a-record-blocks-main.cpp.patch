@@ -1,0 +1,18 @@
+--- original/track-a/main.cpp
++++ screen296/track-a/main.cpp
+@@ -1,5 +1,6 @@
+ #include "io.hpp"
+ #include "mapped_allocator.hpp"
++#include "record_blocks.hpp"
+ #include "decimal.hpp"
+ #include "endpoint_table.hpp"
+ #include "parallel.hpp"
+@@ -9,7 +10,7 @@
+ #include "ordered_output.hpp"
+ 
+ static constexpr uint32_t latency_escape = (1U << 19) - 1;
+-using Records=std::vector<uint32_t,MappedAllocator<uint32_t>>;
++using Records=RecordBlocks;
+ struct Count { uint32_t count = 0, errors = 0; };
+ 
+ int main(int argc, char** argv) {

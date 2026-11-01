@@ -1,0 +1,25 @@
+--- a/track-d/main.cpp
++++ b/track-d/main.cpp
+@@ -142,11 +142,11 @@
+                 forward.reset(); backward.reset(); forward_heap.clear(); backward_heap.clear();
+                 forward.improve(source, 0); backward.improve(target, 0);
+                 forward_heap.push({0, source}); backward_heap.push({0, target});
+-                uint64_t best = infinity;
++                uint64_t best = infinity,forward_work=0,backward_work=0;
+                 while (!forward_heap.empty() && !backward_heap.empty()) {
+                     if (best != infinity && forward_heap.minimum() + backward_heap.minimum() >= best) break;
+-                    // Balance frontier work rather than absolute distances: no-in sources have huge initial weights.
+-                    bool from_source = forward_heap.count <= backward_heap.count;
++                    // Balance actual scanned edges at complete-batch boundaries.
++                    bool from_source = forward_work <= backward_work;
+                     auto& heap = from_source ? forward_heap : backward_heap;
+                     auto& own = from_source ? forward : backward;
+                     auto& other = from_source ? backward : forward;
+@@ -164,6 +164,7 @@
+                     for (size_t k = 0; k < count; ++k) {
+                         auto [d, u] = work[k];
+                         if (d != own.get(u)) continue; // Earlier items may improve this label within the band.
++                        (from_source?forward_work:backward_work)+=ranges[k].second-ranges[k].first;
+                         for (uint32_t i = ranges[k].first; i < ranges[k].second; ++i) {
+                             auto [destination, tag] = adjacency.template get<Compact>(i);
+                             uint32_t weight = tag == (Compact ? EdgeStore::small_limit : uint32_t(UINT16_MAX)) ? wide_weights.at(i * 2 + (from_source ? 0 : 1)) : tag;

@@ -9,3 +9,5 @@ An exact local synchronization proof selects true record boundaries. Reader work
 No input seed or answer is recognized. All output is computed in the timed run. See `PERF.md` for actual experiments, source/memory costs, independent tests and real board outcomes.
 
 Owner table entries use a32-bit rejection fingerprint and a32-bit stable-block word index. Full length/byte equality still decides names, including collisions; the complete64-bit hash routes owners.64KiB word blocks and dedicated oversized-key blocks retain exact name bytes/country words with checked index arithmetic.
+
+Name-owner lookup retains the exact matched or newly allocated stable slab pointer through the country-bit update. Full key equality and ordinary growing storage remain unchanged. This source change is under local verification; official performance is recorded only in PERF.md after a real board run.

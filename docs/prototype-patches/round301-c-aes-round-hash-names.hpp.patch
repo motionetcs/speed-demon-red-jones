@@ -1,0 +1,52 @@
+--- a/track-c/names.hpp
++++ b/track-c/names.hpp
+@@ -13,12 +13,48 @@
+ #include <string_view>
+ #include <vector>
+ 
++#include <bit>
++#if defined(__AES__) && __BYTE_ORDER__==__ORDER_LITTLE_ENDIAN__
++#include <immintrin.h>
++#elif defined(__ARM_FEATURE_AES) && __BYTE_ORDER__==__ORDER_LITTLE_ENDIAN__
++#include <arm_neon.h>
++#endif
++#if (defined(__AES__) || defined(__ARM_FEATURE_AES)) && __BYTE_ORDER__==__ORDER_LITTLE_ENDIAN__
++namespace NameRoundHash {
++#if defined(__AES__)
++    using Block=__m128i;
++    inline Block load(const void* p){return _mm_loadu_si128(static_cast<const __m128i*>(p));}
++    inline Block round(Block state,Block key){return _mm_aesenc_si128(state,key);}
++    inline void store(void* p,Block state){_mm_storeu_si128(static_cast<__m128i*>(p),state);}
++#else
++    using Block=uint8x16_t;
++    inline Block load(const void* p){return vld1q_u8(static_cast<const uint8_t*>(p));}
++    inline Block round(Block state,Block key){return veorq_u8(vaesmcq_u8(vaeseq_u8(state,vdupq_n_u8(0))),key);}
++    inline void store(void* p,Block state){vst1q_u8(static_cast<uint8_t*>(p),state);}
++#endif
++    inline uint64_t hash(std::string_view key){
++        uint64_t seed[2]={0x6a09e667f3bcc909ULL^key.size(),0xbb67ae8584caa73bULL};
++        Block salt=load(seed),state=salt;
++        if(key.size()<=16){uint64_t parts[2];std::memcpy(parts,key.data(),8);std::memcpy(parts+1,key.data()+key.size()-8,8);state=round(state,load(parts));}
++        else{state=round(state,load(key.data()));state=round(state,load(key.data()+key.size()-16));}
++        state=round(round(state,salt),salt);uint64_t result[2];store(result,state);
++        return result[0]^std::rotl(result[1],23);
++    }
++}
++#endif
+ // One owner owns the relocatable arena. Word indices survive every growth.
+ struct Names {
+     struct Entry {uint32_t hash=0,index=0;};
+     std::vector<Entry> entries;std::vector<std::unique_ptr<uint64_t[]>> storage;size_t words,used=0,next=0,remaining=0;
+     explicit Names(size_t countries):entries(16384),words((countries+63)/64){}
+-    static uint64_t hash_key(std::string_view key){uint64_t h=std::hash<std::string_view>{}(key);return h<2?h+2:h;}
++    static uint64_t hash_key(std::string_view key){
++        uint64_t h;
++#if (defined(__AES__) || defined(__ARM_FEATURE_AES)) && __BYTE_ORDER__==__ORDER_LITTLE_ENDIAN__
++        if(key.size()>=8&&key.size()<=32)h=NameRoundHash::hash(key);else
++#endif
++        h=std::hash<std::string_view>{}(key);
++        return h<2?h+2:h;
++    }
+     static uint32_t encode_index(size_t block,size_t word){
+         if(block>=(size_t(1)<<19)||word>=8192)throw std::runtime_error("name block/word index capacity");
+         uint32_t encoded=(static_cast<uint32_t>(block)<<13)|static_cast<uint32_t>(word);

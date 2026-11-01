@@ -1,0 +1,5 @@
+# Historical C301 native screen
+
+Exact executed wrapper retained with frozen source/hash manifest and patches in docs. It expects the recorded ignored .build/round301 source/data layout; a new checkout must create a fresh proof identity and hashes. Only published full1/6/12 and rotating13-pair independently referenced full-output screens were executed. Native ratios0.948–1.012 are mixed and source grows; public and2371 cross fast/slow host regimes in the run records. Within-pair evidence does not establish a robust large gain. Reject before new independent scalar AES-round/native-x86-ARM/fallback/byte/guard/collision/main/strict/race/GCC/image/default/actual proof. No cryptographic/universality claim and no AES encryption/library imported.
+
+Original295 runtime was never modified. No changed-source generic correctness, strict/race sanitizer, GCC, image, actual-default or real-board claim is made. Conceptual primary sources are recorded in preflight where applicable; no competitor implementation was imported. Native time/RSS does not establish official T/M/K.

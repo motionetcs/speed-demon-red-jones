@@ -1,0 +1,8 @@
+--- track-a/README.md
++++ track-a/README.md
+@@ -27,3 +27,5 @@
+ The retained163 design keeps all twelve aggregation workers. Finished hour output is published under one mutex; each publisher flushes only consecutive completed hours, then releases directly mapped output bytes. Empty hours also publish. No extra writer thread or assumption about input order is used. The bounded leading eight-digit decoder validates bytes and retains exact full-uint32/scalar tails.
+ 
+ Candidate178 changes only the first build-time PGO workload to independent seed1000003/full; second130363/sample and all C++ source, generic flags and runtime contracts remain unchanged. Published public seed1 is never used for training. Only the compiled executable enters the final image. This is an unconfirmed compiler-profile experiment.
++
++Isolated A306 replaces intermediate per-hour text with compact numeric summaries, computes checked exact hour lengths, then formats concurrently into disjoint slices of one ordinary shared output-file mapping. The original parser, full-width latency selection and actual input-derived labels remain. This prototype is prepared only; no correctness or performance result is claimed before execution.

@@ -1,0 +1,36 @@
+--- a/track-c/main.cpp
++++ b/track-c/main.cpp
+@@ -44,6 +44,21 @@
+                     : std::string_view(start, static_cast<size_t>(quote - start));
+                 return {value, bytes, escaped};
+             }
++        }
++        throw std::runtime_error("unterminated quoted field");
++    }
++    Field raw_field() {
++        const char* start=p;
++        if(p==end||*p!='"'){
++            while(p<end&&*p!=','&&*p!='\r'&&*p!='\n')++p;
++            return {{start,static_cast<size_t>(p-start)},static_cast<size_t>(p-start),false};
++        }
++        start=++p;size_t escapes=0;
++        while(p<end){
++            const char* quote=find_quote(p,end);
++            if(!quote)throw std::runtime_error("unterminated quoted field");
++            if(quote+1<end&&quote[1]=='"'){++escapes;p=quote+2;}
++            else{p=quote+1;size_t raw=static_cast<size_t>(quote-start);return {{start,raw},raw-escapes,escapes!=0};}
+         }
+         throw std::runtime_error("unterminated quoted field");
+     }
+@@ -184,9 +199,9 @@
+                         Csv csv{boundaries[worker],boundaries[worker+1]};std::string name_scratch,unused;
+                         while(csv.p<csv.end){
+                             if(canceled.load(std::memory_order_relaxed))throw std::runtime_error("name pipeline canceled");
+-                            csv.bom();uint64_t id=csv.integer();Field name=csv.field(name_scratch,false);csv.comma();
++                            csv.bom();uint64_t id=csv.integer();Field name=csv.raw_field();csv.comma();
+                             uint64_t hash=Names::hash_key(name.value);
+-                            Field note=csv.field(unused,false);csv.comma();uint64_t region=csv.integer();int64_t amount=csv.amount();csv.newline();
++                            Field note=csv.raw_field();csv.comma();uint64_t region=csv.integer();int64_t amount=csv.amount();csv.newline();
+                             size_t country=region<region_lookup.size()&&region_lookup[region]!=no_region?region_lookup[region]:unmatched;
+                             Group& group=local.groups[country];++group.count;group.ids+=static_cast<int64_t>(id);group.sum+=amount;
+                             group.minimum=std::min(group.minimum,amount);group.maximum=std::max(group.maximum,amount);

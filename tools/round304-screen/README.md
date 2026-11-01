@@ -1,0 +1,3 @@
+# A304 fixed local cache native screen
+
+Rejected native-only experiment. The exact executed driver was copied byte for byte from `.build/round304/screen.py`. It performs one optimized native compile, published full input at 1/6/12 workers, and 13 alternating pairs on each of three existing independent full input/reference packs. It does not generate inputs, compute new expected outputs, train PGO, edit selected source, or submit an official run. Preflight/source and exact raw measurements are in `docs/round304-preflight.json` and `docs/round304-a-fixed-cache-screen.json`; the one-line prototype patch is archived beside them. The original passing runtime stays selected.

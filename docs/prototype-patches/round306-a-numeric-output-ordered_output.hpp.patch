@@ -1,0 +1,67 @@
+--- track-a/ordered_output.hpp
++++ track-a/ordered_output.hpp
+@@ -1,26 +1,46 @@
+ #pragma once
+ #include "io.hpp"
+-#include <array>
+-#include <mutex>
+-#include <type_traits>
++#include <limits>
+ 
+-// A producer publishes only its completed hour; the mutex orders all writes.
+-struct OrderedOutput {
+-    std::array<Output,72> hours;
+-    std::array<bool,72> ready{};size_t next=0;std::mutex mutex;std::ofstream stream;
+-    explicit OrderedOutput(const std::filesystem::path& path):stream(path,std::ios::binary){
+-        if(!stream)throw std::runtime_error("cannot open summary.txt");
+-    }
+-    void publish(size_t hour){
+-        std::lock_guard guard(mutex);ready[hour]=true;
+-        while(next<72&&ready[next]){
+-            auto& bytes=hours[next].bytes;stream.write(bytes.data(),static_cast<std::streamsize>(bytes.size()));
+-            if(!stream)throw std::runtime_error("cannot write summary.txt");
+-            std::remove_reference_t<decltype(bytes)>().swap(bytes);++next;
++// A single ordinary file mapping receives disjoint exact-size hour slices.
++struct OutputMapping {
++    int fd=-1;
++    char* data=static_cast<char*>(MAP_FAILED);
++    size_t size;
++    OutputMapping(const std::filesystem::path& path,size_t length):size(length) {
++        if(length>static_cast<uintmax_t>(std::numeric_limits<off_t>::max()))throw std::runtime_error("summary file size overflow");
++        fd=open(path.c_str(),O_RDWR|O_CREAT|O_TRUNC,0666);
++        if(fd<0)throw std::runtime_error("cannot open summary.txt");
++        if(ftruncate(fd,static_cast<off_t>(size))!=0){close(fd);fd=-1;throw std::runtime_error("cannot size summary.txt");}
++        if(size){
++            void* address=mmap(nullptr,size,PROT_READ|PROT_WRITE,MAP_SHARED,fd,0);
++            if(address==MAP_FAILED){close(fd);fd=-1;throw std::runtime_error("cannot map summary.txt");}
++            data=static_cast<char*>(address);
+         }
+     }
++    OutputMapping(const OutputMapping&)=delete;
++    OutputMapping& operator=(const OutputMapping&)=delete;
++    ~OutputMapping(){if(data!=static_cast<char*>(MAP_FAILED))munmap(data,size);if(fd>=0)close(fd);}
+     void finish(){
+-        if(next!=72)throw std::runtime_error("incomplete summary.txt");
+-        stream.close();if(!stream)throw std::runtime_error("cannot write summary.txt");
++        bool failed=false;
++        if(data!=static_cast<char*>(MAP_FAILED)){
++            if(munmap(data,size)!=0)failed=true;else data=static_cast<char*>(MAP_FAILED);
++        }
++        if(fd>=0){int file=fd;fd=-1;if(close(file)!=0)failed=true;}
++        if(failed)throw std::runtime_error("cannot finish summary.txt");
+     }
+ };
++struct OutputSlice {
++    char* current;
++    char* end;
++    void text(std::string_view value){
++        if(value.size()>static_cast<size_t>(end-current))throw std::runtime_error("summary slice overflow");
++        if(!value.empty())std::memcpy(current,value.data(),value.size());
++        current+=value.size();
++    }
++    void number(uint64_t value){
++        auto result=std::to_chars(current,end,value);
++        if(result.ec!=std::errc{})throw std::runtime_error("summary number overflow");
++        current=result.ptr;
++    }
++};

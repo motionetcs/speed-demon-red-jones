@@ -1,0 +1,7 @@
+# A306 numeric summaries and mapped output native screen
+
+Rejected native-only experiment. The executed driver is copied byte for byte from `.build/round306/screen.py`; it compiles exactly once and uses only existing public/full1951/full2221 inputs and independent expected hashes. It checks public outputs at 1/6/12 workers, then 13 alternating pairs per full input with source/input/ELF/root integrity checks. No new input/reference/training data is generated and no official run is submitted.
+
+The preflight is the exact initial preparation record, so its `prepared_only` flag describes that earlier state. The later screen report records successful compilation and all 90 executions, followed by rejection. Exact code patches are under `docs/prototype-patches/round306-*`; preflight and native report are `docs/round306-preflight.json` and `docs/round306-a-numeric-output-screen.json`. The compile command/stdout/stderr record is copied here unchanged.
+
+The prototype leaves parsing, exact grouping/scatter/selection, path order and full-width values unchanged. It stores five uint32 results per group, computes checked exact text sizes, and formats into disjoint ordinary MAP_SHARED output slices. The existing source-bound phase report is round233; no duplicate profiling was done. Native timing and RSS are not official Intel timing/charged-memory/K evidence. No general sizing/decimal/RAII/IO/error/race/sanitizer/GCC/image/default proof is claimed. The passing original remains selected.

@@ -1,0 +1,5 @@
+# Historical A296 native screen
+
+This exact wrapper compares an isolated per-hour fixed64KiB mapped-block record container with the unchanged original263 native control. It expects the recorded ignored source/data/build layout; a new checkout must use a fresh proof identity and hashes. Published patches reconstruct the unselected source from original295. Only full-public1/6/12 and three-full13-pair hash screening is complete.
+
+The small/mixed native timing changes and inconsistent RSS do not justify new source/lifetime/iterator/allocator complexity, so the prototype is rejected before broader proof. Explicit default initialization of a trivial block leaves unused scalar entries uninitialized, as explained by primary C++20 draft dcl.init; only an initialized prefix may be read. The existing mapped vector likewise does not make all reserved capacity resident. No target charged-memory gain or generic correctness is inferred from the representation. No new model/GCC/image/PGO/default/official run is claimed. Selected295 runtime remains original.

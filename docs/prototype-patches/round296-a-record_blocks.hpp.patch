@@ -1,0 +1,76 @@
+--- /dev/null
++++ screen296/track-a/record_blocks.hpp
+@@ -0,0 +1,73 @@
++#pragma once
++#include "mapped_allocator.hpp"
++#include <array>
++#include <cstdint>
++#include <iterator>
++#include <memory>
++#include <new>
++#include <stdexcept>
++#include <type_traits>
++#include <utility>
++#include <vector>
++
++// Fixed-size owned blocks avoid copying or retaining geometric row capacity.
++class RecordBlocks {
++    static constexpr size_t block_size=16384;
++    struct Block { std::array<uint32_t,block_size> values; };
++    static_assert(std::is_trivially_default_constructible_v<Block>);
++    struct Release {
++        void operator()(Block* block)const noexcept {
++            if(block){std::destroy_at(block);MappedAllocator<Block>{}.deallocate(block,1);}
++        }
++    };
++    std::vector<std::unique_ptr<Block,Release>> blocks_;
++    size_t count_=0;
++public:
++    struct Iterator {
++        using value_type=uint32_t;
++        using difference_type=std::ptrdiff_t;
++        using reference=const uint32_t&;
++        using pointer=const uint32_t*;
++        using iterator_category=std::forward_iterator_tag;
++        const RecordBlocks* owner=nullptr;
++        size_t position=0;
++        const uint32_t* current=nullptr;
++        const uint32_t* limit=nullptr;
++        reference operator*()const noexcept{return *current;}
++        Iterator& operator++()noexcept {
++            if(++position<owner->count_){
++                ++current;
++                if(current==limit){current=owner->blocks_[position/block_size]->values.data();limit=current+block_size;}
++            }
++            return *this;
++        }
++        Iterator operator++(int)noexcept{auto previous=*this;++*this;return previous;}
++        friend bool operator==(const Iterator& left,const Iterator& right)noexcept{return left.owner==right.owner&&left.position==right.position;}
++    };
++    RecordBlocks()=default;
++    RecordBlocks(const RecordBlocks&)=delete;
++    RecordBlocks& operator=(const RecordBlocks&)=delete;
++    RecordBlocks(RecordBlocks&& other)noexcept:blocks_(std::move(other.blocks_)),count_(std::exchange(other.count_,0)){}
++    RecordBlocks& operator=(RecordBlocks&& other)noexcept {
++        if(this!=&other){RecordBlocks previous(std::move(other));swap(previous);}
++        return *this;
++    }
++    size_t size()const noexcept{return count_;}
++    void reserve(size_t hint){blocks_.reserve(hint/block_size+(hint%block_size!=0));}
++    void push_back(uint32_t value){
++        if(count_==SIZE_MAX)throw std::length_error("record count overflow");
++        if(count_%block_size==0){
++            auto* memory=MappedAllocator<Block>{}.allocate(1);
++            std::unique_ptr<Block,Release> block(::new(static_cast<void*>(memory)) Block);
++            blocks_.push_back(std::move(block));
++        }
++        blocks_.back()->values[count_%block_size]=value;
++        ++count_;
++    }
++    Iterator begin()const noexcept {
++        const uint32_t* first=count_?blocks_.front()->values.data():nullptr;
++        return {this,0,first,first?first+block_size:nullptr};
++    }
++    Iterator end()const noexcept{return {this,count_,nullptr,nullptr};}
++    void swap(RecordBlocks& other)noexcept{blocks_.swap(other.blocks_);std::swap(count_,other.count_);}
++};
