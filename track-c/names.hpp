@@ -54,20 +54,16 @@ struct Names {
     }
     bool first(std::string_view key,size_t country,uint64_t hash){
         uint32_t fingerprint=static_cast<uint32_t>(hash);size_t i=fingerprint&(entries.size()-1);
-        uint64_t* data;
         for(;;){
             auto& e=entries[i];
             if(!e.index){
                 if(used>=entries.size()*7/8){grow();i=fingerprint&(entries.size()-1);continue;}
-                uint32_t index=make(key);e={fingerprint,index};++used;data=at(index);break;
+                uint32_t index=make(key);e={fingerprint,index};++used;break;
             }
-            if(e.hash==fingerprint){
-                data=at(e.index);
-                if(std::string_view(reinterpret_cast<const char*>(data+1+words),static_cast<size_t>(data[0]))==key)break;
-            }
+            if(e.hash==fingerprint&&bytes(e.index)==key)break;
             i=(i+1)&(entries.size()-1);
         }
-        auto& bits=data[1+country/64];uint64_t bit=uint64_t(1)<<(country%64);
+        auto& bits=at(entries[i].index)[1+country/64];uint64_t bit=uint64_t(1)<<(country%64);
         bool fresh=!(bits&bit);bits|=bit;return fresh;
     }
 };
