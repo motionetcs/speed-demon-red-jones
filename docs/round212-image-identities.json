@@ -1,0 +1,48 @@
+{
+  "observed_at_utc": "2026-11-01T03:14:27.530380+00:00",
+  "official_score": false,
+  "passed": true,
+  "scope": "Read-only exact /app/solution SHA256 and Docker-config/root-filesystem comparison on local pinned images, not organizer images. C must retain exactly the original filesystem/ELF and only add runtime-default6 environment; no source/build/profile/affinity/harness change. A source-only unused method removal is allowed a separately rebuilt executable; equality is recorded rather than assumed and controls its source-only retention criterion.",
+  "authoring_note": "Initial inspection helper indexed an omitted optional Cmd key and stopped with KeyError before writing this proof or changing any runtime/build. Docker may omit an unset Cmd; compare missing/null as the same absence of default extra arguments, and separately require the exact /app/solution entrypoint/65534:65534 user. Completed builds and GCC integrations were not rerun; resumed only remaining checks. No measurement/data change.",
+  "runs": [
+    {
+      "track": "a",
+      "control_image_id": "sha256:b57c3ff9ccff3ea71b97c41e9d1c694afa00f6387485dccc3098f2bfcfd5cf91",
+      "candidate_image_id": "sha256:3b2a4a7d53bad5810d4826cc65e7f45f01e7b3e81512a287acd9765f1717f337",
+      "control_elf_sha256": "8dd0a2e5698b99e3d470e3b960035403e734dc3dbf3fafab31d0e075b9351fe9",
+      "candidate_elf_sha256": "cb50c6df5591ffa128b8d1681c9bcec59e5aaf48c285668a3dbb16ef55e04e5e",
+      "executables_identical": false,
+      "rootfs_layers_identical": false,
+      "control_environment": {
+        "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "candidate_environment": {
+        "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "entrypoint": [
+        "/app/solution"
+      ],
+      "user": "65534:65534"
+    },
+    {
+      "track": "c",
+      "control_image_id": "sha256:263099fcbeecd9be03c762fc791651c246e2ec2ca2223f5940e186c13645dd63",
+      "candidate_image_id": "sha256:cf98b869b6559125905fa2fb61cecc6ef0b0270087932861ccbd0f0d17b382f3",
+      "control_elf_sha256": "406fe1f9130ba9f98b612caa08f83a75b1299466b4a34ac10d659f928a7ecc83",
+      "candidate_elf_sha256": "406fe1f9130ba9f98b612caa08f83a75b1299466b4a34ac10d659f928a7ecc83",
+      "executables_identical": true,
+      "rootfs_layers_identical": true,
+      "control_environment": {
+        "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "candidate_environment": {
+        "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "SPEED_DEMON_THREADS": "6"
+      },
+      "entrypoint": [
+        "/app/solution"
+      ],
+      "user": "65534:65534"
+    }
+  ]
+}

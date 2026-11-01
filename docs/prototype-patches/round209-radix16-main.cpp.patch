@@ -1,0 +1,127 @@
+--- a/track-d/main.cpp
++++ b/track-d/main.cpp
+@@ -1,6 +1,6 @@
+ #include "radix_heap.hpp"
+ #include "edge_store.hpp"
+-#include "load_cursors.hpp"
++#include "radix_rows.hpp"
+ #include "io.hpp"
+ #include "decimal.hpp"
+ #include "distance_map.hpp"
+@@ -52,73 +52,55 @@
+             }
+             boundaries[i] = p;
+         }
+-        struct Local { size_t count = 0; DegreeBytes::Spills out_spills, in_spills; std::vector<std::pair<uint32_t, uint32_t>> wide; };
++        if(m>UINT32_MAX/2)throw std::runtime_error("graph edge-slot capacity");
++        struct Local {std::vector<GraphRow> rows;std::vector<std::pair<uint32_t,uint32_t>> wide;};
+         std::vector<Local> locals(loaders);
+-        DegreeBytes degree(n), reverse_degree(n);
+-        parallel(loaders, [&](unsigned worker) {
+-            auto& local = locals[worker];
+-            Scanner input{boundaries[worker], boundaries[worker + 1]};
+-            std::array<std::pair<uint32_t,uint32_t>, 16> batch;
+-            while (input.more()) {
+-                size_t count = 0;
+-                while (count < batch.size() && input.more()) {
+-                    uint32_t u = input.number(), v = input.number(); input.number();
+-                    if (u >= n || v >= n) throw std::runtime_error("node outside graph");
+-                    __builtin_prefetch(&degree.values[u], 1, 1); __builtin_prefetch(&reverse_degree.values[v], 1, 1);
+-                    batch[count++] = {u,v};
+-                }
+-                local.count += count;
+-                for (size_t i=0;i<count;++i) { auto [u,v]=batch[i]; degree.add(u, local.out_spills); reverse_degree.add(v, local.in_spills); }
++        parallel(loaders,[&](unsigned worker){
++            auto& rows=locals[worker].rows;
++            Scanner input{boundaries[worker],boundaries[worker+1]};
++            rows.reserve(std::min<size_t>(m,(input.end-input.p)/6+1));
++            while(input.more()){
++                uint32_t u=input.number(),v=input.number(),weight=input.number();
++                if(u>=n||v>=n)throw std::runtime_error("node outside graph");
++                rows.push_back({u,v,weight});
+             }
+         });
+-        size_t edge_count = 0;
+-        for (const auto& local : locals) edge_count += local.count;
+-        if (edge_count != m) throw std::runtime_error("edge count does not match header");
+-        std::vector<uint32_t> offsets(size_t(n) + 1), reverse_offsets(size_t(n) + 1);
+-        for (const auto& local : locals) {
+-            for (auto [node, count] : local.out_spills) offsets[size_t(node) + 1] += count;
+-            for (auto [node, count] : local.in_spills) reverse_offsets[size_t(node) + 1] += count;
++        size_t edge_count=0;for(const auto& local:locals)edge_count+=local.rows.size();
++        if(edge_count!=m)throw std::runtime_error("edge count does not match header");
++        std::vector<GraphRow> rows(m),scratch;
++        size_t row_offset=0;
++        for(auto& local:locals){
++            std::copy(local.rows.begin(),local.rows.end(),rows.begin()+row_offset);
++            row_offset+=local.rows.size();std::vector<GraphRow>().swap(local.rows);
+         }
+-        for (size_t i = 1; i <= n; ++i) {
+-            offsets[i] += offsets[i - 1] + degree.values[i - 1];
+-            reverse_offsets[i] += reverse_offsets[i - 1] + reverse_degree.values[i - 1];
+-        }
+-        degree.release(); reverse_degree.release();
+-        SharedCursor cursor(offsets), reverse_cursor(reverse_offsets);
+-        bool wide_cursors = cursor.wide_blocks || reverse_cursor.wide_blocks;
+-        EdgeStore edges(m, n), reverse_edges(m, n);
+-        auto scatter = [&]<bool Compact, bool WideCursors>() {
+-            parallel(loaders, [&](unsigned worker) {
+-            auto& local = locals[worker];
+-            Scanner input{boundaries[worker], boundaries[worker + 1]};
+-            struct Row { uint32_t u, v, value, out, in; };
+-            std::array<Row, 16> batch;
+-            while (input.more()) {
+-                size_t count = 0;
+-                while (count < batch.size() && input.more()) {
+-                    auto& row = batch[count++]; row.u=input.number(); row.v=input.number(); row.value=input.number();
+-                    cursor.template prefetch<WideCursors>(row.u); reverse_cursor.template prefetch<WideCursors>(row.v);
++        std::vector<uint32_t> offsets(size_t(n)+1),reverse_offsets(size_t(n)+1);
++        EdgeStore edges(m,n),reverse_edges(m,n);
++        auto construct=[&]<bool Compact,bool Reverse>(std::vector<uint32_t>& starts,EdgeStore& adjacency){
++            auto key=[](const GraphRow& row){if constexpr(Reverse)return row.v;else return row.u;};
++            radix_rows<csr_radix_bits>(rows,scratch,loaders,key);
++            size_t position=0;
++            for(size_t node=0;node<n;++node){
++                starts[node]=static_cast<uint32_t>(position);
++                while(position<rows.size()&&key(rows[position])==node)++position;
++            }
++            starts[n]=static_cast<uint32_t>(position);
++            if(position!=rows.size())throw std::logic_error("sorted graph node range");
++            parallel(loaders,[&](unsigned worker){
++                auto& wide=locals[worker].wide;
++                size_t begin=rows.size()*worker/loaders,end=rows.size()*(worker+1)/loaders;
++                for(size_t i=begin;i<end;++i){
++                    const auto& row=rows[i];uint32_t index=static_cast<uint32_t>(i);
++                    uint32_t limit=Compact?EdgeStore::small_limit:uint32_t(UINT16_MAX);
++                    adjacency.template set<Compact>(index,Reverse?row.u:row.v,std::min(row.weight,limit));
++                    if(row.weight>=limit)wide.emplace_back(index*2+unsigned(Reverse),row.weight);
+                 }
+-                for (size_t i=0;i<count;++i) {
+-                    auto& row=batch[i]; row.out=cursor.template take<WideCursors>(row.u); row.in=reverse_cursor.template take<WideCursors>(row.v);
+-                    edges.template prefetch<Compact,true>(row.out); reverse_edges.template prefetch<Compact,true>(row.in);
+-                }
+-                for (size_t i=0;i<count;++i) {
+-                    auto& row=batch[i]; uint32_t weight=std::min(row.value, Compact ? EdgeStore::small_limit : uint32_t(UINT16_MAX));
+-                    edges.set<Compact>(row.out,row.v,weight); reverse_edges.set<Compact>(row.in,row.u,weight);
+-                    if(row.value >= (Compact ? EdgeStore::small_limit : uint32_t(UINT16_MAX))) { local.wide.emplace_back(row.out*2,row.value); local.wide.emplace_back(row.in*2+1,row.value); }
+-                }
+-            }
+-        });
++            });
+         };
+-        if (edges.compact) {
+-            if (wide_cursors) scatter.template operator()<true,true>(); else scatter.template operator()<true,false>();
+-        } else {
+-            if (wide_cursors) scatter.template operator()<false,true>(); else scatter.template operator()<false,false>();
+-        }
+-        std::unordered_map<uint32_t, uint32_t> wide_weights;
+-        for (const auto& local : locals) for (auto [index, weight] : local.wide) wide_weights.emplace(index, weight);
+-        locals.clear(); cursor.release(); reverse_cursor.release();
++        if(edges.compact){construct.template operator()<true,false>(offsets,edges);construct.template operator()<true,true>(reverse_offsets,reverse_edges);}
++        else{construct.template operator()<false,false>(offsets,edges);construct.template operator()<false,true>(reverse_offsets,reverse_edges);}
++        std::unordered_map<uint32_t,uint32_t> wide_weights;
++        for(const auto& local:locals)for(auto [index,weight]:local.wide)wide_weights.emplace(index,weight);
++        locals.clear();std::vector<GraphRow>().swap(rows);std::vector<GraphRow>().swap(scratch);
+         Scanner qscan{queries_file.data, queries_file.data + queries_file.size};
+         std::vector<std::pair<uint32_t, uint32_t>> queries;
+         while (qscan.more()) {

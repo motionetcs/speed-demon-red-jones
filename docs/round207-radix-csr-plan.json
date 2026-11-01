@@ -1,6 +1,6 @@
 {
   "observed_at_utc": "2026-11-01T02:16:11.406816+00:00",
-  "status": "Design only; no code, compilation, benchmark, generic correctness or score proof yet. Finish206 evidence/audit/privacy before next runtime push.",
+  "status": "Implemented only in isolated209 native prototypes and rejected before promotion:8/11/16bit paired0.959897/0.953075/0.997666 with roughly173\u2013177MB extra native RSS; all full-public hashes pass, no broad generic/strict/race/Floyd/GCC/image/actual proof. Current selected D remains exact.",
   "hypothesis": "Substantial D loader alternative: parse complete uint32(u,v,w) once, parallel stable LSD radix-sort rows by u and build forward CSR without shared atomic degree/cursor updates, then sort same rows by v and build reverse CSR. Keep current bidirectional query, exact full weights/escape map, packed/wide adjacency, band64/D32/arena2 and PGO. This is distinct from old staged tuples that kept atomic scatter and from rejected private-degree counters.",
   "initial_representation": "Start with ordinary12-byte Row{uint32 u,v,w} and standard initialized vectors, not compressed/wide-tag row assumptions or overwrite arrays. Every input row is retained, including duplicate/parallel/zero/self-loop/reverse edges. No geometry/seed/catalogue/query answer shortcut.",
   "proposed_steps": [
@@ -32,5 +32,6 @@
   "other_next_options": [
     "C: separately screen/consider total default6 workers (4 readers/2 owners) on current compact offset pipeline, guided by target6 physical P-cores/12 SMT. Older shared-table six-worker native losses are not this current pipeline;72 role ratio tests kept12 total. Never claim Mac measures Intel SMT. All1..12 paths already exist but fresh actual-default/GCC/PGO/image/full/real-K source proof still required. No code/screen yet.",
     "A: review162 isolated ordinary/mapped writer with/without prefix8 screens before any ablation of combined163 on full-PGO178. Current Output.save is unused by OrderedOutput; legitimate removal may reduce source but is a small gain and needs actual source/S/binary/run proof. Do not call it an algorithm speedup or prioritize it over supported substantial hypotheses."
-  ]
+  ],
+  "screen_report": "round209-radix-csr-screen.json"
 }

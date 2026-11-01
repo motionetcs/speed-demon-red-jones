@@ -1,0 +1,45 @@
+--- /dev/null
++++ b/track-d/radix_rows.hpp
+@@ -0,0 +1,42 @@
++#pragma once
++#include "parallel.hpp"
++#include <algorithm>
++#include <cstdint>
++#include <stdexcept>
++#include <vector>
++
++struct GraphRow {uint32_t u,v,weight;};
++static_assert(sizeof(GraphRow)==12);
++inline constexpr unsigned csr_radix_bits=8;
++
++// Stable worker-ordered bucket ranges are disjoint and cover every row.
++template<unsigned Bits,class Key>
++void radix_rows(std::vector<GraphRow>& rows,std::vector<GraphRow>& scratch,unsigned threads,Key key){
++    static_assert(Bits>0&&Bits<=16);
++    if(!threads||threads>12||&rows==&scratch||rows.size()>UINT32_MAX)throw std::runtime_error("radix row capacity");
++    if(rows.empty())return;
++    constexpr size_t radix=size_t(1)<<Bits;
++    constexpr uint32_t mask=static_cast<uint32_t>(radix-1);
++    scratch.resize(rows.size());
++    std::vector<uint32_t> counts(size_t(threads)*radix);
++    for(unsigned shift=0;shift<32;shift+=Bits){
++        std::fill(counts.begin(),counts.end(),0);
++        parallel(threads,[&](unsigned worker){
++            auto* local=counts.data()+size_t(worker)*radix;
++            size_t begin=rows.size()*worker/threads,end=rows.size()*(worker+1)/threads;
++            for(size_t i=begin;i<end;++i)++local[(key(rows[i])>>shift)&mask];
++        });
++        uint64_t next=0;
++        for(size_t digit=0;digit<radix;++digit)for(unsigned worker=0;worker<threads;++worker){
++            auto& position=counts[size_t(worker)*radix+digit];
++            uint32_t size=position;position=static_cast<uint32_t>(next);next+=size;
++        }
++        if(next!=rows.size())throw std::logic_error("radix row coverage");
++        parallel(threads,[&](unsigned worker){
++            auto* local=counts.data()+size_t(worker)*radix;
++            size_t begin=rows.size()*worker/threads,end=rows.size()*(worker+1)/threads;
++            for(size_t i=begin;i<end;++i)scratch[local[(key(rows[i])>>shift)&mask]++]=rows[i];
++        });
++        rows.swap(scratch);
++    }
++}

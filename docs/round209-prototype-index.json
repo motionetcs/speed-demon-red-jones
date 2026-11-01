@@ -1,0 +1,86 @@
+{
+  "observed_at_utc": "2026-11-01T02:55:17.504940+00:00",
+  "base": "8acb692c9447e59dd8b426fd1899010e90d20abd",
+  "scope": "Native screening only of207 substantial loader design: parse complete12-byte rows once, join and concatenate constructed vectors, stable parallel LSD bucket/worker prefixes, sorted forward then reverse CSR with disjoint adjacency writes. No atomic degree/cursor updates or second text parse. Full uint32 nodes/weights, exact parallel/duplicate/zero/self edges, original wide escapes and entire query body unchanged. Row buffers released before queries. m>UINT32_MAX/2 rejected before slot-direction key overflow; row count/header/node checks retained. reserve is capacity only, every read is within constructed vector size. New prefix/write-coverage/stability/CSR equivalence/lifetime/guard/overflow/race/Floyd/full64/untrained/native-GCC/image/default/actual-total-K proofs required before promotion. Public hashes are not generic correctness proof.",
+  "controls": "Root selected runtime untouched. Old58 staged kept shared atomic scatter;155 private degree and188 one-way differed. Native RSS/elapsed are not Intel cgroup/time/K. Larger temporary memory may erase faster runtime.",
+  "unchanged_query_body_sha256": "e207bd8701f297b8bf03f860f059158134887a9ba125a04f7ff193bfe79ded7d",
+  "primary_sources": [
+    "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/bf7d79105762bf79bbc0925438e1468a_MIT6_006F11_lec07.pdf",
+    "https://timsong-cpp.github.io/cppwp/n4861/vector.capacity"
+  ],
+  "patches": [
+    {
+      "patch": "round209-radix8-main.cpp.patch",
+      "path": "track-d/main.cpp",
+      "base_sha256": "6ae66971d7a6fd1f6bb75741daa522c681eae20e200f426547f8c537161327cc",
+      "candidate_sha256": "61707ba7d7e0f45fa117b60697f8f674aeb191d76fe71ce22315187700946f88"
+    },
+    {
+      "patch": "round209-radix8-radix_rows.hpp.patch",
+      "path": "track-d/radix_rows.hpp",
+      "base_sha256": null,
+      "candidate_sha256": "7e0abeb86526ba54918bd9ff2fbbd37fa65f34fcd1a8726b45eca3f8115ecb86"
+    },
+    {
+      "patch": "round209-radix8-load_cursors.hpp.patch",
+      "path": "track-d/load_cursors.hpp",
+      "base_sha256": "69bb855e76fdb729ce64856723a7e759f1844bcb34ffaaca2ad7776bdcafdf01",
+      "candidate_sha256": null
+    },
+    {
+      "patch": "round209-radix8-Dockerfile.patch",
+      "path": "track-d/Dockerfile",
+      "base_sha256": "b894df9b62f1f82561cbcd594d8baa97fdbe91d03d8aea816d2355f8fcd90cbb",
+      "candidate_sha256": "3dce6b52216143c90d758ebe4a791e1569cf23d226efd66b14b37268356e4cc5"
+    },
+    {
+      "patch": "round209-radix11-main.cpp.patch",
+      "path": "track-d/main.cpp",
+      "base_sha256": "6ae66971d7a6fd1f6bb75741daa522c681eae20e200f426547f8c537161327cc",
+      "candidate_sha256": "61707ba7d7e0f45fa117b60697f8f674aeb191d76fe71ce22315187700946f88"
+    },
+    {
+      "patch": "round209-radix11-radix_rows.hpp.patch",
+      "path": "track-d/radix_rows.hpp",
+      "base_sha256": null,
+      "candidate_sha256": "9cdb53f4625fbe441254182a0ac68adf32eff4c214d33825415850a8c4ae9f02"
+    },
+    {
+      "patch": "round209-radix11-load_cursors.hpp.patch",
+      "path": "track-d/load_cursors.hpp",
+      "base_sha256": "69bb855e76fdb729ce64856723a7e759f1844bcb34ffaaca2ad7776bdcafdf01",
+      "candidate_sha256": null
+    },
+    {
+      "patch": "round209-radix11-Dockerfile.patch",
+      "path": "track-d/Dockerfile",
+      "base_sha256": "b894df9b62f1f82561cbcd594d8baa97fdbe91d03d8aea816d2355f8fcd90cbb",
+      "candidate_sha256": "3dce6b52216143c90d758ebe4a791e1569cf23d226efd66b14b37268356e4cc5"
+    },
+    {
+      "patch": "round209-radix16-main.cpp.patch",
+      "path": "track-d/main.cpp",
+      "base_sha256": "6ae66971d7a6fd1f6bb75741daa522c681eae20e200f426547f8c537161327cc",
+      "candidate_sha256": "61707ba7d7e0f45fa117b60697f8f674aeb191d76fe71ce22315187700946f88"
+    },
+    {
+      "patch": "round209-radix16-radix_rows.hpp.patch",
+      "path": "track-d/radix_rows.hpp",
+      "base_sha256": null,
+      "candidate_sha256": "5116860f7d6941f77df2f8e83d29d898856d27cd51d8f0e8ff7fa46f35597e12"
+    },
+    {
+      "patch": "round209-radix16-load_cursors.hpp.patch",
+      "path": "track-d/load_cursors.hpp",
+      "base_sha256": "69bb855e76fdb729ce64856723a7e759f1844bcb34ffaaca2ad7776bdcafdf01",
+      "candidate_sha256": null
+    },
+    {
+      "patch": "round209-radix16-Dockerfile.patch",
+      "path": "track-d/Dockerfile",
+      "base_sha256": "b894df9b62f1f82561cbcd594d8baa97fdbe91d03d8aea816d2355f8fcd90cbb",
+      "candidate_sha256": "3dce6b52216143c90d758ebe4a791e1569cf23d226efd66b14b37268356e4cc5"
+    }
+  ],
+  "decision": "Reject all209 variants before broad proof. Native paired8/11/16 bits0.959897/0.953075/0.997666 saves at most4.7% elapsed for about173\u2013177MB MORE native RSS (baseline179159040B, candidates351928320\u2013356024320B). No supported total-K case. Root D unchanged; old atomic/CSR proof not transferred to new radix protocol."
+}

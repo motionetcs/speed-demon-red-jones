@@ -1,0 +1,638 @@
+{
+  "observed_at_utc": "2026-11-01T03:11:30.156346+00:00",
+  "official_score": false,
+  "passed": true,
+  "scope": "Exact212 A source after removing only unused nonvirtual Output.save, compiled under pinned GCC15 strict ASAN/UBSAN. Independent untrained/adversarial/method-hour/ID4095/escape/ordered-output-lag+holes inputs at1/6/12 workers; exact reference bytes and input hashes. A deferred/dev/full output failure also returns normal1 at1/6/12 without sanitizer errors or waiters. Offline/read-only/unprivileged8GiB/pids512.",
+  "compiler_image": "gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce",
+  "script": [
+    "set -eu",
+    "export ASAN_OPTIONS=halt_on_error=1",
+    "export UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1",
+    "g++ -std=c++20 -O1 -g -pthread -fsanitize=address,undefined -fno-sanitize-recover=all -fno-omit-frame-pointer /repo/.build/round212/source/track-a/main.cpp -o /tmp/a",
+    "SPEED_DEMON_THREADS=1 /tmp/a --data /repo/.data/a/sample-seed2237 --out /out/a-sample-seed2237-1",
+    "SPEED_DEMON_THREADS=6 /tmp/a --data /repo/.data/a/sample-seed2237 --out /out/a-sample-seed2237-6",
+    "SPEED_DEMON_THREADS=12 /tmp/a --data /repo/.data/a/sample-seed2237 --out /out/a-sample-seed2237-12",
+    "SPEED_DEMON_THREADS=1 /tmp/a --data /repo/.data/a/sample-seed2243 --out /out/a-sample-seed2243-1",
+    "SPEED_DEMON_THREADS=6 /tmp/a --data /repo/.data/a/sample-seed2243 --out /out/a-sample-seed2243-6",
+    "SPEED_DEMON_THREADS=12 /tmp/a --data /repo/.data/a/sample-seed2243 --out /out/a-sample-seed2243-12",
+    "SPEED_DEMON_THREADS=1 /tmp/a --data /repo/.data/cases/round194-sanitize-sample-a-worked --out /out/a-round194-sanitize-sample-a-worked-1",
+    "SPEED_DEMON_THREADS=6 /tmp/a --data /repo/.data/cases/round194-sanitize-sample-a-worked --out /out/a-round194-sanitize-sample-a-worked-6",
+    "SPEED_DEMON_THREADS=12 /tmp/a --data /repo/.data/cases/round194-sanitize-sample-a-worked --out /out/a-round194-sanitize-sample-a-worked-12",
+    "SPEED_DEMON_THREADS=1 /tmp/a --data /repo/.data/cases/round194-sanitize-sample-a-official-edge-cases --out /out/a-round194-sanitize-sample-a-official-edge-cases-1",
+    "SPEED_DEMON_THREADS=6 /tmp/a --data /repo/.data/cases/round194-sanitize-sample-a-official-edge-cases --out /out/a-round194-sanitize-sample-a-official-edge-cases-6",
+    "SPEED_DEMON_THREADS=12 /tmp/a --data /repo/.data/cases/round194-sanitize-sample-a-official-edge-cases --out /out/a-round194-sanitize-sample-a-official-edge-cases-12",
+    "SPEED_DEMON_THREADS=1 /tmp/a --data /repo/.data/cases/round194-sanitize-sample-a-empty --out /out/a-round194-sanitize-sample-a-empty-1",
+    "SPEED_DEMON_THREADS=6 /tmp/a --data /repo/.data/cases/round194-sanitize-sample-a-empty --out /out/a-round194-sanitize-sample-a-empty-6",
+    "SPEED_DEMON_THREADS=12 /tmp/a --data /repo/.data/cases/round194-sanitize-sample-a-empty --out /out/a-round194-sanitize-sample-a-empty-12",
+    "SPEED_DEMON_THREADS=1 /tmp/a --data /repo/.data/cases/round194-sanitize-sample-a-count-error-wrap-65535 --out /out/a-round194-sanitize-sample-a-count-error-wrap-65535-1",
+    "SPEED_DEMON_THREADS=6 /tmp/a --data /repo/.data/cases/round194-sanitize-sample-a-count-error-wrap-65535 --out /out/a-round194-sanitize-sample-a-count-error-wrap-65535-6",
+    "SPEED_DEMON_THREADS=12 /tmp/a --data /repo/.data/cases/round194-sanitize-sample-a-count-error-wrap-65535 --out /out/a-round194-sanitize-sample-a-count-error-wrap-65535-12",
+    "SPEED_DEMON_THREADS=1 /tmp/a --data /repo/.data/cases/round194-sanitize-sample-a-count-error-wrap-65536 --out /out/a-round194-sanitize-sample-a-count-error-wrap-65536-1",
+    "SPEED_DEMON_THREADS=6 /tmp/a --data /repo/.data/cases/round194-sanitize-sample-a-count-error-wrap-65536 --out /out/a-round194-sanitize-sample-a-count-error-wrap-65536-6",
+    "SPEED_DEMON_THREADS=12 /tmp/a --data /repo/.data/cases/round194-sanitize-sample-a-count-error-wrap-65536 --out /out/a-round194-sanitize-sample-a-count-error-wrap-65536-12",
+    "SPEED_DEMON_THREADS=1 /tmp/a --data /repo/.data/cases/round194-sanitize-sample-a-count-error-wrap-140000 --out /out/a-round194-sanitize-sample-a-count-error-wrap-140000-1",
+    "SPEED_DEMON_THREADS=6 /tmp/a --data /repo/.data/cases/round194-sanitize-sample-a-count-error-wrap-140000 --out /out/a-round194-sanitize-sample-a-count-error-wrap-140000-6",
+    "SPEED_DEMON_THREADS=12 /tmp/a --data /repo/.data/cases/round194-sanitize-sample-a-count-error-wrap-140000 --out /out/a-round194-sanitize-sample-a-count-error-wrap-140000-12",
+    "SPEED_DEMON_THREADS=1 /tmp/a --data /repo/.data/cases/round194-sanitize-sample-a-nearest-rank-101 --out /out/a-round194-sanitize-sample-a-nearest-rank-101-1",
+    "SPEED_DEMON_THREADS=6 /tmp/a --data /repo/.data/cases/round194-sanitize-sample-a-nearest-rank-101 --out /out/a-round194-sanitize-sample-a-nearest-rank-101-6",
+    "SPEED_DEMON_THREADS=12 /tmp/a --data /repo/.data/cases/round194-sanitize-sample-a-nearest-rank-101 --out /out/a-round194-sanitize-sample-a-nearest-rank-101-12",
+    "SPEED_DEMON_THREADS=1 /tmp/a --data /repo/.data/cases/round194-sanitize-sample-a-many-endpoints-partitions --out /out/a-round194-sanitize-sample-a-many-endpoints-partitions-1",
+    "SPEED_DEMON_THREADS=6 /tmp/a --data /repo/.data/cases/round194-sanitize-sample-a-many-endpoints-partitions --out /out/a-round194-sanitize-sample-a-many-endpoints-partitions-6",
+    "SPEED_DEMON_THREADS=12 /tmp/a --data /repo/.data/cases/round194-sanitize-sample-a-many-endpoints-partitions --out /out/a-round194-sanitize-sample-a-many-endpoints-partitions-12",
+    "SPEED_DEMON_THREADS=1 /tmp/a --data /repo/.data/a/full-seed2221 --out /out/a-full-seed2221-1",
+    "SPEED_DEMON_THREADS=6 /tmp/a --data /repo/.data/a/full-seed2221 --out /out/a-full-seed2221-6",
+    "SPEED_DEMON_THREADS=12 /tmp/a --data /repo/.data/a/full-seed2221 --out /out/a-full-seed2221-12",
+    "SPEED_DEMON_THREADS=1 /tmp/a --data /repo/.data/cases/a-latency-escape-partitions --out /out/a-a-latency-escape-partitions-1",
+    "SPEED_DEMON_THREADS=6 /tmp/a --data /repo/.data/cases/a-latency-escape-partitions --out /out/a-a-latency-escape-partitions-6",
+    "SPEED_DEMON_THREADS=12 /tmp/a --data /repo/.data/cases/a-latency-escape-partitions --out /out/a-a-latency-escape-partitions-12",
+    "SPEED_DEMON_THREADS=1 /tmp/a --data /repo/.data/cases/a-endpoint-id-4095 --out /out/a-a-endpoint-id-4095-1",
+    "SPEED_DEMON_THREADS=6 /tmp/a --data /repo/.data/cases/a-endpoint-id-4095 --out /out/a-a-endpoint-id-4095-6",
+    "SPEED_DEMON_THREADS=12 /tmp/a --data /repo/.data/cases/a-endpoint-id-4095 --out /out/a-a-endpoint-id-4095-12",
+    "SPEED_DEMON_THREADS=1 /tmp/a --data /repo/.data/cases/a-method-hours-ordered --out /out/a-a-method-hours-ordered-1",
+    "SPEED_DEMON_THREADS=6 /tmp/a --data /repo/.data/cases/a-method-hours-ordered --out /out/a-a-method-hours-ordered-6",
+    "SPEED_DEMON_THREADS=12 /tmp/a --data /repo/.data/cases/a-method-hours-ordered --out /out/a-a-method-hours-ordered-12",
+    "SPEED_DEMON_THREADS=1 /tmp/a --data /repo/.data/cases/a-method-hours-shuffled --out /out/a-a-method-hours-shuffled-1",
+    "SPEED_DEMON_THREADS=6 /tmp/a --data /repo/.data/cases/a-method-hours-shuffled --out /out/a-a-method-hours-shuffled-6",
+    "SPEED_DEMON_THREADS=12 /tmp/a --data /repo/.data/cases/a-method-hours-shuffled --out /out/a-a-method-hours-shuffled-12",
+    "SPEED_DEMON_THREADS=1 /tmp/a --data /repo/.data/cases/round163-ordered-asan-a-first-hour-lag --out /out/a-round163-ordered-asan-a-first-hour-lag-1",
+    "SPEED_DEMON_THREADS=6 /tmp/a --data /repo/.data/cases/round163-ordered-asan-a-first-hour-lag --out /out/a-round163-ordered-asan-a-first-hour-lag-6",
+    "SPEED_DEMON_THREADS=12 /tmp/a --data /repo/.data/cases/round163-ordered-asan-a-first-hour-lag --out /out/a-round163-ordered-asan-a-first-hour-lag-12",
+    "SPEED_DEMON_THREADS=1 /tmp/a --data /repo/.data/cases/round163-ordered-asan-a-empty-prefix-and-holes --out /out/a-round163-ordered-asan-a-empty-prefix-and-holes-1",
+    "SPEED_DEMON_THREADS=6 /tmp/a --data /repo/.data/cases/round163-ordered-asan-a-empty-prefix-and-holes --out /out/a-round163-ordered-asan-a-empty-prefix-and-holes-6",
+    "SPEED_DEMON_THREADS=12 /tmp/a --data /repo/.data/cases/round163-ordered-asan-a-empty-prefix-and-holes --out /out/a-round163-ordered-asan-a-empty-prefix-and-holes-12",
+    "SPEED_DEMON_THREADS=1 /tmp/a --data /repo/.data/cases/round163-ordered-asan-a-unordered-publish --out /out/a-round163-ordered-asan-a-unordered-publish-1",
+    "SPEED_DEMON_THREADS=6 /tmp/a --data /repo/.data/cases/round163-ordered-asan-a-unordered-publish --out /out/a-round163-ordered-asan-a-unordered-publish-6",
+    "SPEED_DEMON_THREADS=12 /tmp/a --data /repo/.data/cases/round163-ordered-asan-a-unordered-publish --out /out/a-round163-ordered-asan-a-unordered-publish-12",
+    "mkdir -p /out/fail-1",
+    "ln -sf /dev/full /out/fail-1/summary.txt",
+    "set +e",
+    "SPEED_DEMON_THREADS=1 /tmp/a --data /repo/.data/cases/round163-ordered-asan-a-first-hour-lag --out /out/fail-1 > /tmp/fail.out 2> /tmp/fail.err",
+    "code=$?",
+    "set -e",
+    "test \"$code\" -eq 1",
+    "cat /tmp/fail.err",
+    "mkdir -p /out/fail-6",
+    "ln -sf /dev/full /out/fail-6/summary.txt",
+    "set +e",
+    "SPEED_DEMON_THREADS=6 /tmp/a --data /repo/.data/cases/round163-ordered-asan-a-first-hour-lag --out /out/fail-6 > /tmp/fail.out 2> /tmp/fail.err",
+    "code=$?",
+    "set -e",
+    "test \"$code\" -eq 1",
+    "cat /tmp/fail.err",
+    "mkdir -p /out/fail-12",
+    "ln -sf /dev/full /out/fail-12/summary.txt",
+    "set +e",
+    "SPEED_DEMON_THREADS=12 /tmp/a --data /repo/.data/cases/round163-ordered-asan-a-first-hour-lag --out /out/fail-12 > /tmp/fail.out 2> /tmp/fail.err",
+    "code=$?",
+    "set -e",
+    "test \"$code\" -eq 1",
+    "cat /tmp/fail.err"
+  ],
+  "stdout": "track-a: cannot write summary.txt\ntrack-a: cannot write summary.txt\ntrack-a: cannot write summary.txt\n",
+  "stderr": "",
+  "runs": [
+    {
+      "track": "a",
+      "case": "sample-seed2237",
+      "threads": 1,
+      "expected_sha256": "3b6c91baa825e8a964372c57a253d50a26c009aefc6e64c60a724bfca9a7e76d",
+      "inputs_sha256": {
+        "requests.log": "847c39f1ddcdeaa34ea691ecb1d255975f9cbc31ccea0ed094a323369c11b4fd"
+      },
+      "sha256": "3b6c91baa825e8a964372c57a253d50a26c009aefc6e64c60a724bfca9a7e76d"
+    },
+    {
+      "track": "a",
+      "case": "sample-seed2237",
+      "threads": 6,
+      "expected_sha256": "3b6c91baa825e8a964372c57a253d50a26c009aefc6e64c60a724bfca9a7e76d",
+      "inputs_sha256": {
+        "requests.log": "847c39f1ddcdeaa34ea691ecb1d255975f9cbc31ccea0ed094a323369c11b4fd"
+      },
+      "sha256": "3b6c91baa825e8a964372c57a253d50a26c009aefc6e64c60a724bfca9a7e76d"
+    },
+    {
+      "track": "a",
+      "case": "sample-seed2237",
+      "threads": 12,
+      "expected_sha256": "3b6c91baa825e8a964372c57a253d50a26c009aefc6e64c60a724bfca9a7e76d",
+      "inputs_sha256": {
+        "requests.log": "847c39f1ddcdeaa34ea691ecb1d255975f9cbc31ccea0ed094a323369c11b4fd"
+      },
+      "sha256": "3b6c91baa825e8a964372c57a253d50a26c009aefc6e64c60a724bfca9a7e76d"
+    },
+    {
+      "track": "a",
+      "case": "sample-seed2243",
+      "threads": 1,
+      "expected_sha256": "09a65e9421e9d54ef89fcb93be7350dc823d9bd1b957db4e0819032ac3ae8bdb",
+      "inputs_sha256": {
+        "requests.log": "bc759a179c384301c231e083165ed468a5fe6604c63975b218ff8bd3977c3dfe"
+      },
+      "sha256": "09a65e9421e9d54ef89fcb93be7350dc823d9bd1b957db4e0819032ac3ae8bdb"
+    },
+    {
+      "track": "a",
+      "case": "sample-seed2243",
+      "threads": 6,
+      "expected_sha256": "09a65e9421e9d54ef89fcb93be7350dc823d9bd1b957db4e0819032ac3ae8bdb",
+      "inputs_sha256": {
+        "requests.log": "bc759a179c384301c231e083165ed468a5fe6604c63975b218ff8bd3977c3dfe"
+      },
+      "sha256": "09a65e9421e9d54ef89fcb93be7350dc823d9bd1b957db4e0819032ac3ae8bdb"
+    },
+    {
+      "track": "a",
+      "case": "sample-seed2243",
+      "threads": 12,
+      "expected_sha256": "09a65e9421e9d54ef89fcb93be7350dc823d9bd1b957db4e0819032ac3ae8bdb",
+      "inputs_sha256": {
+        "requests.log": "bc759a179c384301c231e083165ed468a5fe6604c63975b218ff8bd3977c3dfe"
+      },
+      "sha256": "09a65e9421e9d54ef89fcb93be7350dc823d9bd1b957db4e0819032ac3ae8bdb"
+    },
+    {
+      "track": "a",
+      "case": "round194-sanitize-sample-a-worked",
+      "threads": 1,
+      "expected_sha256": "0782f9b9a885bdbcdfadf330f6bea55accdc06018c0108f69ea43372d2fac692",
+      "inputs_sha256": {
+        "requests.log": "6a9acf26f676d7930132fd1d3a389c459d42c465954a42019f1288a3843d411c"
+      },
+      "sha256": "0782f9b9a885bdbcdfadf330f6bea55accdc06018c0108f69ea43372d2fac692"
+    },
+    {
+      "track": "a",
+      "case": "round194-sanitize-sample-a-worked",
+      "threads": 6,
+      "expected_sha256": "0782f9b9a885bdbcdfadf330f6bea55accdc06018c0108f69ea43372d2fac692",
+      "inputs_sha256": {
+        "requests.log": "6a9acf26f676d7930132fd1d3a389c459d42c465954a42019f1288a3843d411c"
+      },
+      "sha256": "0782f9b9a885bdbcdfadf330f6bea55accdc06018c0108f69ea43372d2fac692"
+    },
+    {
+      "track": "a",
+      "case": "round194-sanitize-sample-a-worked",
+      "threads": 12,
+      "expected_sha256": "0782f9b9a885bdbcdfadf330f6bea55accdc06018c0108f69ea43372d2fac692",
+      "inputs_sha256": {
+        "requests.log": "6a9acf26f676d7930132fd1d3a389c459d42c465954a42019f1288a3843d411c"
+      },
+      "sha256": "0782f9b9a885bdbcdfadf330f6bea55accdc06018c0108f69ea43372d2fac692"
+    },
+    {
+      "track": "a",
+      "case": "round194-sanitize-sample-a-official-edge-cases",
+      "threads": 1,
+      "expected_sha256": "1f43d4bbd4b84dc66319a414138225ff5c2ab9f30aeb2398ec0e54b339011459",
+      "inputs_sha256": {
+        "requests.log": "cca76417b6276cef282c2826264d3821e8948f5f78989862f3948cda79d544bc"
+      },
+      "sha256": "1f43d4bbd4b84dc66319a414138225ff5c2ab9f30aeb2398ec0e54b339011459"
+    },
+    {
+      "track": "a",
+      "case": "round194-sanitize-sample-a-official-edge-cases",
+      "threads": 6,
+      "expected_sha256": "1f43d4bbd4b84dc66319a414138225ff5c2ab9f30aeb2398ec0e54b339011459",
+      "inputs_sha256": {
+        "requests.log": "cca76417b6276cef282c2826264d3821e8948f5f78989862f3948cda79d544bc"
+      },
+      "sha256": "1f43d4bbd4b84dc66319a414138225ff5c2ab9f30aeb2398ec0e54b339011459"
+    },
+    {
+      "track": "a",
+      "case": "round194-sanitize-sample-a-official-edge-cases",
+      "threads": 12,
+      "expected_sha256": "1f43d4bbd4b84dc66319a414138225ff5c2ab9f30aeb2398ec0e54b339011459",
+      "inputs_sha256": {
+        "requests.log": "cca76417b6276cef282c2826264d3821e8948f5f78989862f3948cda79d544bc"
+      },
+      "sha256": "1f43d4bbd4b84dc66319a414138225ff5c2ab9f30aeb2398ec0e54b339011459"
+    },
+    {
+      "track": "a",
+      "case": "round194-sanitize-sample-a-empty",
+      "threads": 1,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "inputs_sha256": {
+        "requests.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "track": "a",
+      "case": "round194-sanitize-sample-a-empty",
+      "threads": 6,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "inputs_sha256": {
+        "requests.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "track": "a",
+      "case": "round194-sanitize-sample-a-empty",
+      "threads": 12,
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "inputs_sha256": {
+        "requests.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "track": "a",
+      "case": "round194-sanitize-sample-a-count-error-wrap-65535",
+      "threads": 1,
+      "expected_sha256": "21eea75d26c42f8dfc4776a5e5548591318d7147bb199ff54937921c60be6486",
+      "inputs_sha256": {
+        "requests.log": "8e147bc257a6c84aa3951abb1588afed1ddea995fa4b01e7f6b9a52bf72698ce"
+      },
+      "sha256": "21eea75d26c42f8dfc4776a5e5548591318d7147bb199ff54937921c60be6486"
+    },
+    {
+      "track": "a",
+      "case": "round194-sanitize-sample-a-count-error-wrap-65535",
+      "threads": 6,
+      "expected_sha256": "21eea75d26c42f8dfc4776a5e5548591318d7147bb199ff54937921c60be6486",
+      "inputs_sha256": {
+        "requests.log": "8e147bc257a6c84aa3951abb1588afed1ddea995fa4b01e7f6b9a52bf72698ce"
+      },
+      "sha256": "21eea75d26c42f8dfc4776a5e5548591318d7147bb199ff54937921c60be6486"
+    },
+    {
+      "track": "a",
+      "case": "round194-sanitize-sample-a-count-error-wrap-65535",
+      "threads": 12,
+      "expected_sha256": "21eea75d26c42f8dfc4776a5e5548591318d7147bb199ff54937921c60be6486",
+      "inputs_sha256": {
+        "requests.log": "8e147bc257a6c84aa3951abb1588afed1ddea995fa4b01e7f6b9a52bf72698ce"
+      },
+      "sha256": "21eea75d26c42f8dfc4776a5e5548591318d7147bb199ff54937921c60be6486"
+    },
+    {
+      "track": "a",
+      "case": "round194-sanitize-sample-a-count-error-wrap-65536",
+      "threads": 1,
+      "expected_sha256": "a99938d5c305bb3528d55eb96b41d7b5cfa320a279e98ef358c67b7cceca5be0",
+      "inputs_sha256": {
+        "requests.log": "a73ceb1f71d1efd6d2e1e274b05812bb0f44efb4c38e18f534c74d805c808929"
+      },
+      "sha256": "a99938d5c305bb3528d55eb96b41d7b5cfa320a279e98ef358c67b7cceca5be0"
+    },
+    {
+      "track": "a",
+      "case": "round194-sanitize-sample-a-count-error-wrap-65536",
+      "threads": 6,
+      "expected_sha256": "a99938d5c305bb3528d55eb96b41d7b5cfa320a279e98ef358c67b7cceca5be0",
+      "inputs_sha256": {
+        "requests.log": "a73ceb1f71d1efd6d2e1e274b05812bb0f44efb4c38e18f534c74d805c808929"
+      },
+      "sha256": "a99938d5c305bb3528d55eb96b41d7b5cfa320a279e98ef358c67b7cceca5be0"
+    },
+    {
+      "track": "a",
+      "case": "round194-sanitize-sample-a-count-error-wrap-65536",
+      "threads": 12,
+      "expected_sha256": "a99938d5c305bb3528d55eb96b41d7b5cfa320a279e98ef358c67b7cceca5be0",
+      "inputs_sha256": {
+        "requests.log": "a73ceb1f71d1efd6d2e1e274b05812bb0f44efb4c38e18f534c74d805c808929"
+      },
+      "sha256": "a99938d5c305bb3528d55eb96b41d7b5cfa320a279e98ef358c67b7cceca5be0"
+    },
+    {
+      "track": "a",
+      "case": "round194-sanitize-sample-a-count-error-wrap-140000",
+      "threads": 1,
+      "expected_sha256": "b84dc22963d5bb0b3a0982bd9d4b963060f00ae4503ed1c2bbda28254c9bb148",
+      "inputs_sha256": {
+        "requests.log": "bc6a02bd98bbfa343ca822a44714fff9358451200cc5120cc7cf377615c864f6"
+      },
+      "sha256": "b84dc22963d5bb0b3a0982bd9d4b963060f00ae4503ed1c2bbda28254c9bb148"
+    },
+    {
+      "track": "a",
+      "case": "round194-sanitize-sample-a-count-error-wrap-140000",
+      "threads": 6,
+      "expected_sha256": "b84dc22963d5bb0b3a0982bd9d4b963060f00ae4503ed1c2bbda28254c9bb148",
+      "inputs_sha256": {
+        "requests.log": "bc6a02bd98bbfa343ca822a44714fff9358451200cc5120cc7cf377615c864f6"
+      },
+      "sha256": "b84dc22963d5bb0b3a0982bd9d4b963060f00ae4503ed1c2bbda28254c9bb148"
+    },
+    {
+      "track": "a",
+      "case": "round194-sanitize-sample-a-count-error-wrap-140000",
+      "threads": 12,
+      "expected_sha256": "b84dc22963d5bb0b3a0982bd9d4b963060f00ae4503ed1c2bbda28254c9bb148",
+      "inputs_sha256": {
+        "requests.log": "bc6a02bd98bbfa343ca822a44714fff9358451200cc5120cc7cf377615c864f6"
+      },
+      "sha256": "b84dc22963d5bb0b3a0982bd9d4b963060f00ae4503ed1c2bbda28254c9bb148"
+    },
+    {
+      "track": "a",
+      "case": "round194-sanitize-sample-a-nearest-rank-101",
+      "threads": 1,
+      "expected_sha256": "d80768de7a334cbd5b8f82e085498a5c060db88cf066ae57311b1f9ef6730777",
+      "inputs_sha256": {
+        "requests.log": "85fc50f4693d8a2742df1bf9259fddd44cf9c9924084cff8bd3325c1bd87d36b"
+      },
+      "sha256": "d80768de7a334cbd5b8f82e085498a5c060db88cf066ae57311b1f9ef6730777"
+    },
+    {
+      "track": "a",
+      "case": "round194-sanitize-sample-a-nearest-rank-101",
+      "threads": 6,
+      "expected_sha256": "d80768de7a334cbd5b8f82e085498a5c060db88cf066ae57311b1f9ef6730777",
+      "inputs_sha256": {
+        "requests.log": "85fc50f4693d8a2742df1bf9259fddd44cf9c9924084cff8bd3325c1bd87d36b"
+      },
+      "sha256": "d80768de7a334cbd5b8f82e085498a5c060db88cf066ae57311b1f9ef6730777"
+    },
+    {
+      "track": "a",
+      "case": "round194-sanitize-sample-a-nearest-rank-101",
+      "threads": 12,
+      "expected_sha256": "d80768de7a334cbd5b8f82e085498a5c060db88cf066ae57311b1f9ef6730777",
+      "inputs_sha256": {
+        "requests.log": "85fc50f4693d8a2742df1bf9259fddd44cf9c9924084cff8bd3325c1bd87d36b"
+      },
+      "sha256": "d80768de7a334cbd5b8f82e085498a5c060db88cf066ae57311b1f9ef6730777"
+    },
+    {
+      "track": "a",
+      "case": "round194-sanitize-sample-a-many-endpoints-partitions",
+      "threads": 1,
+      "expected_sha256": "64f490464ec9b7b08cbd15abf7772043d2221767e8c9a84a16d2f6692ff129dd",
+      "inputs_sha256": {
+        "requests.log": "ad63d9c26a41a50e71d3dbe48058d596e0e29db0a1e8fbf684b69331121ec256"
+      },
+      "sha256": "64f490464ec9b7b08cbd15abf7772043d2221767e8c9a84a16d2f6692ff129dd"
+    },
+    {
+      "track": "a",
+      "case": "round194-sanitize-sample-a-many-endpoints-partitions",
+      "threads": 6,
+      "expected_sha256": "64f490464ec9b7b08cbd15abf7772043d2221767e8c9a84a16d2f6692ff129dd",
+      "inputs_sha256": {
+        "requests.log": "ad63d9c26a41a50e71d3dbe48058d596e0e29db0a1e8fbf684b69331121ec256"
+      },
+      "sha256": "64f490464ec9b7b08cbd15abf7772043d2221767e8c9a84a16d2f6692ff129dd"
+    },
+    {
+      "track": "a",
+      "case": "round194-sanitize-sample-a-many-endpoints-partitions",
+      "threads": 12,
+      "expected_sha256": "64f490464ec9b7b08cbd15abf7772043d2221767e8c9a84a16d2f6692ff129dd",
+      "inputs_sha256": {
+        "requests.log": "ad63d9c26a41a50e71d3dbe48058d596e0e29db0a1e8fbf684b69331121ec256"
+      },
+      "sha256": "64f490464ec9b7b08cbd15abf7772043d2221767e8c9a84a16d2f6692ff129dd"
+    },
+    {
+      "track": "a",
+      "case": "full-seed2221",
+      "threads": 1,
+      "expected_sha256": "ea635765c200e5a93b6206c35cee288527c17dd02836f05828aa2c92edbd7550",
+      "inputs_sha256": {
+        "requests.log": "24e7c7918e60b453eaa7cdd381c352e5898fdfbd3a311b9866dc8eb1ff2f9afa"
+      },
+      "sha256": "ea635765c200e5a93b6206c35cee288527c17dd02836f05828aa2c92edbd7550"
+    },
+    {
+      "track": "a",
+      "case": "full-seed2221",
+      "threads": 6,
+      "expected_sha256": "ea635765c200e5a93b6206c35cee288527c17dd02836f05828aa2c92edbd7550",
+      "inputs_sha256": {
+        "requests.log": "24e7c7918e60b453eaa7cdd381c352e5898fdfbd3a311b9866dc8eb1ff2f9afa"
+      },
+      "sha256": "ea635765c200e5a93b6206c35cee288527c17dd02836f05828aa2c92edbd7550"
+    },
+    {
+      "track": "a",
+      "case": "full-seed2221",
+      "threads": 12,
+      "expected_sha256": "ea635765c200e5a93b6206c35cee288527c17dd02836f05828aa2c92edbd7550",
+      "inputs_sha256": {
+        "requests.log": "24e7c7918e60b453eaa7cdd381c352e5898fdfbd3a311b9866dc8eb1ff2f9afa"
+      },
+      "sha256": "ea635765c200e5a93b6206c35cee288527c17dd02836f05828aa2c92edbd7550"
+    },
+    {
+      "track": "a",
+      "case": "a-latency-escape-partitions",
+      "threads": 1,
+      "expected_sha256": "99be0d0cbbf65462541c1729e0b682c118bce9c3efd1d1936b6fc8f41f8f041d",
+      "inputs_sha256": {
+        "requests.log": "1c6f5a11ac7cdcd6c1cc3642fa4cfac8a0eb15c09b6faa807d55fe1171d7486f"
+      },
+      "sha256": "99be0d0cbbf65462541c1729e0b682c118bce9c3efd1d1936b6fc8f41f8f041d"
+    },
+    {
+      "track": "a",
+      "case": "a-latency-escape-partitions",
+      "threads": 6,
+      "expected_sha256": "99be0d0cbbf65462541c1729e0b682c118bce9c3efd1d1936b6fc8f41f8f041d",
+      "inputs_sha256": {
+        "requests.log": "1c6f5a11ac7cdcd6c1cc3642fa4cfac8a0eb15c09b6faa807d55fe1171d7486f"
+      },
+      "sha256": "99be0d0cbbf65462541c1729e0b682c118bce9c3efd1d1936b6fc8f41f8f041d"
+    },
+    {
+      "track": "a",
+      "case": "a-latency-escape-partitions",
+      "threads": 12,
+      "expected_sha256": "99be0d0cbbf65462541c1729e0b682c118bce9c3efd1d1936b6fc8f41f8f041d",
+      "inputs_sha256": {
+        "requests.log": "1c6f5a11ac7cdcd6c1cc3642fa4cfac8a0eb15c09b6faa807d55fe1171d7486f"
+      },
+      "sha256": "99be0d0cbbf65462541c1729e0b682c118bce9c3efd1d1936b6fc8f41f8f041d"
+    },
+    {
+      "track": "a",
+      "case": "a-endpoint-id-4095",
+      "threads": 1,
+      "expected_sha256": "87f786a27e82eb2a5063f2645bb79d1ba686aeb5e0616a206e1f97bc9d0266df",
+      "inputs_sha256": {
+        "requests.log": "aeb1b1498eb23042cc23d9d8e000e0237db137fbcd382ffb9a78781c984a6585"
+      },
+      "sha256": "87f786a27e82eb2a5063f2645bb79d1ba686aeb5e0616a206e1f97bc9d0266df"
+    },
+    {
+      "track": "a",
+      "case": "a-endpoint-id-4095",
+      "threads": 6,
+      "expected_sha256": "87f786a27e82eb2a5063f2645bb79d1ba686aeb5e0616a206e1f97bc9d0266df",
+      "inputs_sha256": {
+        "requests.log": "aeb1b1498eb23042cc23d9d8e000e0237db137fbcd382ffb9a78781c984a6585"
+      },
+      "sha256": "87f786a27e82eb2a5063f2645bb79d1ba686aeb5e0616a206e1f97bc9d0266df"
+    },
+    {
+      "track": "a",
+      "case": "a-endpoint-id-4095",
+      "threads": 12,
+      "expected_sha256": "87f786a27e82eb2a5063f2645bb79d1ba686aeb5e0616a206e1f97bc9d0266df",
+      "inputs_sha256": {
+        "requests.log": "aeb1b1498eb23042cc23d9d8e000e0237db137fbcd382ffb9a78781c984a6585"
+      },
+      "sha256": "87f786a27e82eb2a5063f2645bb79d1ba686aeb5e0616a206e1f97bc9d0266df"
+    },
+    {
+      "track": "a",
+      "case": "a-method-hours-ordered",
+      "threads": 1,
+      "expected_sha256": "5e148f39ded086406d96d85240d30d6dccf32c9f854fb915943a036d517f7fb4",
+      "inputs_sha256": {
+        "requests.log": "d38145ea2121fe383295a8d54b3421b2f2deafaebdabed2e75c11ba093010a43"
+      },
+      "sha256": "5e148f39ded086406d96d85240d30d6dccf32c9f854fb915943a036d517f7fb4"
+    },
+    {
+      "track": "a",
+      "case": "a-method-hours-ordered",
+      "threads": 6,
+      "expected_sha256": "5e148f39ded086406d96d85240d30d6dccf32c9f854fb915943a036d517f7fb4",
+      "inputs_sha256": {
+        "requests.log": "d38145ea2121fe383295a8d54b3421b2f2deafaebdabed2e75c11ba093010a43"
+      },
+      "sha256": "5e148f39ded086406d96d85240d30d6dccf32c9f854fb915943a036d517f7fb4"
+    },
+    {
+      "track": "a",
+      "case": "a-method-hours-ordered",
+      "threads": 12,
+      "expected_sha256": "5e148f39ded086406d96d85240d30d6dccf32c9f854fb915943a036d517f7fb4",
+      "inputs_sha256": {
+        "requests.log": "d38145ea2121fe383295a8d54b3421b2f2deafaebdabed2e75c11ba093010a43"
+      },
+      "sha256": "5e148f39ded086406d96d85240d30d6dccf32c9f854fb915943a036d517f7fb4"
+    },
+    {
+      "track": "a",
+      "case": "a-method-hours-shuffled",
+      "threads": 1,
+      "expected_sha256": "5e148f39ded086406d96d85240d30d6dccf32c9f854fb915943a036d517f7fb4",
+      "inputs_sha256": {
+        "requests.log": "2149fd835ff3a7c61ab7c3bcb2f553b661ad3ed31d34edcdeb7c2a79614b42ad"
+      },
+      "sha256": "5e148f39ded086406d96d85240d30d6dccf32c9f854fb915943a036d517f7fb4"
+    },
+    {
+      "track": "a",
+      "case": "a-method-hours-shuffled",
+      "threads": 6,
+      "expected_sha256": "5e148f39ded086406d96d85240d30d6dccf32c9f854fb915943a036d517f7fb4",
+      "inputs_sha256": {
+        "requests.log": "2149fd835ff3a7c61ab7c3bcb2f553b661ad3ed31d34edcdeb7c2a79614b42ad"
+      },
+      "sha256": "5e148f39ded086406d96d85240d30d6dccf32c9f854fb915943a036d517f7fb4"
+    },
+    {
+      "track": "a",
+      "case": "a-method-hours-shuffled",
+      "threads": 12,
+      "expected_sha256": "5e148f39ded086406d96d85240d30d6dccf32c9f854fb915943a036d517f7fb4",
+      "inputs_sha256": {
+        "requests.log": "2149fd835ff3a7c61ab7c3bcb2f553b661ad3ed31d34edcdeb7c2a79614b42ad"
+      },
+      "sha256": "5e148f39ded086406d96d85240d30d6dccf32c9f854fb915943a036d517f7fb4"
+    },
+    {
+      "track": "a",
+      "case": "round163-ordered-asan-a-first-hour-lag",
+      "threads": 1,
+      "expected_sha256": "968c0135b31421516456af6a797d3b79d548fbd57a5a07981161c03e690da0c5",
+      "inputs_sha256": {
+        "requests.log": "d79db3fd6e2b47d218884fe1d5beef792ca4000716aab1a3761bbd20a4ffd137"
+      },
+      "sha256": "968c0135b31421516456af6a797d3b79d548fbd57a5a07981161c03e690da0c5"
+    },
+    {
+      "track": "a",
+      "case": "round163-ordered-asan-a-first-hour-lag",
+      "threads": 6,
+      "expected_sha256": "968c0135b31421516456af6a797d3b79d548fbd57a5a07981161c03e690da0c5",
+      "inputs_sha256": {
+        "requests.log": "d79db3fd6e2b47d218884fe1d5beef792ca4000716aab1a3761bbd20a4ffd137"
+      },
+      "sha256": "968c0135b31421516456af6a797d3b79d548fbd57a5a07981161c03e690da0c5"
+    },
+    {
+      "track": "a",
+      "case": "round163-ordered-asan-a-first-hour-lag",
+      "threads": 12,
+      "expected_sha256": "968c0135b31421516456af6a797d3b79d548fbd57a5a07981161c03e690da0c5",
+      "inputs_sha256": {
+        "requests.log": "d79db3fd6e2b47d218884fe1d5beef792ca4000716aab1a3761bbd20a4ffd137"
+      },
+      "sha256": "968c0135b31421516456af6a797d3b79d548fbd57a5a07981161c03e690da0c5"
+    },
+    {
+      "track": "a",
+      "case": "round163-ordered-asan-a-empty-prefix-and-holes",
+      "threads": 1,
+      "expected_sha256": "64626f6879971c72a600888fa8c46e7a43209a954fb4a45c4ae246dbf53b75f2",
+      "inputs_sha256": {
+        "requests.log": "bac08a6cc6333a5f413e7f97a1f01bf97afb1570f0e4ef22271b6f8a1fad7fbf"
+      },
+      "sha256": "64626f6879971c72a600888fa8c46e7a43209a954fb4a45c4ae246dbf53b75f2"
+    },
+    {
+      "track": "a",
+      "case": "round163-ordered-asan-a-empty-prefix-and-holes",
+      "threads": 6,
+      "expected_sha256": "64626f6879971c72a600888fa8c46e7a43209a954fb4a45c4ae246dbf53b75f2",
+      "inputs_sha256": {
+        "requests.log": "bac08a6cc6333a5f413e7f97a1f01bf97afb1570f0e4ef22271b6f8a1fad7fbf"
+      },
+      "sha256": "64626f6879971c72a600888fa8c46e7a43209a954fb4a45c4ae246dbf53b75f2"
+    },
+    {
+      "track": "a",
+      "case": "round163-ordered-asan-a-empty-prefix-and-holes",
+      "threads": 12,
+      "expected_sha256": "64626f6879971c72a600888fa8c46e7a43209a954fb4a45c4ae246dbf53b75f2",
+      "inputs_sha256": {
+        "requests.log": "bac08a6cc6333a5f413e7f97a1f01bf97afb1570f0e4ef22271b6f8a1fad7fbf"
+      },
+      "sha256": "64626f6879971c72a600888fa8c46e7a43209a954fb4a45c4ae246dbf53b75f2"
+    },
+    {
+      "track": "a",
+      "case": "round163-ordered-asan-a-unordered-publish",
+      "threads": 1,
+      "expected_sha256": "4bf8966abc9afb4572697c442ba3ee38513cbf0cfe9ae60dfc7a197607f868d7",
+      "inputs_sha256": {
+        "requests.log": "c879e2be9d49463978b10c123173caf8eb01d5266debc60f18d11478884a88b0"
+      },
+      "sha256": "4bf8966abc9afb4572697c442ba3ee38513cbf0cfe9ae60dfc7a197607f868d7"
+    },
+    {
+      "track": "a",
+      "case": "round163-ordered-asan-a-unordered-publish",
+      "threads": 6,
+      "expected_sha256": "4bf8966abc9afb4572697c442ba3ee38513cbf0cfe9ae60dfc7a197607f868d7",
+      "inputs_sha256": {
+        "requests.log": "c879e2be9d49463978b10c123173caf8eb01d5266debc60f18d11478884a88b0"
+      },
+      "sha256": "4bf8966abc9afb4572697c442ba3ee38513cbf0cfe9ae60dfc7a197607f868d7"
+    },
+    {
+      "track": "a",
+      "case": "round163-ordered-asan-a-unordered-publish",
+      "threads": 12,
+      "expected_sha256": "4bf8966abc9afb4572697c442ba3ee38513cbf0cfe9ae60dfc7a197607f868d7",
+      "inputs_sha256": {
+        "requests.log": "c879e2be9d49463978b10c123173caf8eb01d5266debc60f18d11478884a88b0"
+      },
+      "sha256": "4bf8966abc9afb4572697c442ba3ee38513cbf0cfe9ae60dfc7a197607f868d7"
+    }
+  ],
+  "expected_sink_failures": 3,
+  "source_scope": "Every used method/data member/main/other header remains byte-identical to selected206; only unused nonvirtual Output.save is absent. Fresh current-header output strict/race and generic GCC prefix/output models plus pinned generic strict production integrations. Independent untrained reference bank includes full2221; no new runtime protocol or speed claim.",
+  "authoring_note": "Copied report caption originally retained unrelated country/pipeline wording from an older composite harness. This run executes A only as listed in unchanged script/run records; caption corrected without changing any executed command, hash or result."
+}

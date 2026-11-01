@@ -491,3 +491,9 @@ Eleven rotating public hashes pass, but retained0.183108542s/RSS179421184 versus
 
 
 206/e3140e0 run-8aafc980cbd1 all five real restoration gates pass: T0.195398s/M76959744/S827/K20.211057/65.279451 points. Original selected197/187 runtime restored; lower unchanged repeat, historical best separate. All29 inputs/full file sets match selected and current best-track sources, round206-final-source-match.json. Fresh original C501 independent204 references/full2281/all workers+30 errors and combined Make/public/defaults pass. Raw ../docs/board-round206-selected-confirmation.json.
+
+
+208/8acb692 run-e67e71d82b31 all five real gates pass on unchanged selected206 source: T0.202194s/M76828672/S827/K19.875268/64.915650 points. Lower repeat variation; historical best separate. Raw ../docs/board-round208-evidence-head.json.
+
+
+209 implements207's larger alternative only in isolated native copies: parse full12-byte rows once, stable parallel8/11/16-bit LSD sort by u then v, direct sorted forward/reverse CSR replacing shared degree/cursor atomics, original full-weight escape map and entire query tail unchanged. No graph geometry/seed assumption; constructed vectors only, m>UINT32_MAX/2 rejected before direction-key overflow. All11 rotating full-public hashes pass. Native retained0.199703875s/RSS179159040B versus radix8/11/16=0.192582667/0.189562500/0.200713334 and352878592/351928320/356024320B; paired0.959897/0.953075/0.997666. About173–177MB more RSS erases a plausible total-K case for at most4.7% local elapsed saving. Reject before new stable-prefix/write-coverage/CSR-equivalence/lifetime/guard/overflow/race/Floyd/full64/GCC/image/default/actual proof; old atomic models do not prove the discarded sort protocol. Original D remains.207 is now tried/rejected, not an unimplemented priority. Typed MIT notes motivate stable radix only; implementation fresh, no imported code or played-video claim. Patches/index/report preserve exact source/limits.

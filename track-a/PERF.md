@@ -489,3 +489,9 @@ Pinned offline allowlisted A build/public1/6/12 passes, followed by81 exact-imag
 
 
 206/e3140e0 run-0a6037d481be all five real restoration gates pass: T0.042878s/M21123072/S497/K31.708979/75.059113 points. Original selected197/187 runtime restored; lower unchanged repeat, historical best separate. All29 inputs/full file sets match selected and current best-track sources, round206-final-source-match.json. Fresh original C501 independent204 references/full2281/all workers+30 errors and combined Make/public/defaults pass. Raw ../docs/board-round206-selected-confirmation.json.
+
+
+208/8acb692 run-0ff50ccc1a86 all five real gates pass on unchanged selected206 source: T0.044548s/M21176320/S497/K31.093294/74.633337 points. Lower repeat variation; historical best separate. Raw ../docs/board-round208-evidence-head.json.
+
+
+211/212 remove only unused nonvirtual Output.save; actual A main/OrderedOutput never calls it. Every data member and used function/algorithm/header/build/PGO statement remains exact206. No minification, source hiding or exemption change. Both isolated211 and exact212 native Make binaries are byte-identical to selected206; this is not assumed for Intel/GCC. Fresh current-output mapped-char/ordered sink models pass native ASAN/UBSAN/TSAN and generic pinned GCC, with unchanged prefix all-byte/guard models freshly re-executed on GCC. Generic strict production54 reference runs+3 deferred sink errors, exact new PGO image81 references+3 sink errors, full-public1/6/12/combined Make and actual defaults pass. Independently rebuilt local GCC executable is NOT byte-identical to B57; do not infer runtime identity or a speed gain from native proof. Thus the predeclared source-only identical-GCC retention branch is unavailable: retain A only if real K>31.974332/75.240074, else restore complete io.hpp and B57 image. All29 inputs/images in round212-candidate-source-match.json; real S/K pending. No new runtime protocol.

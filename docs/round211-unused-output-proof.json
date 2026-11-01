@@ -1,0 +1,23 @@
+{
+  "observed_at_utc": "2026-11-01T03:02:57.475229+00:00",
+  "scope": "Isolated removal of unused nonvirtual Output::save only. Actual A main/OrderedOutput never calls it; every data member and every used function/body/header/build flag stays exact. Legitimate unused-source cleanup, no source hiding/minification/exemptions or speed claim. Native binary identity is observed, not assumed to prove a later independently built GCC/PGO image. New pinned image/source/default/reference proof and real S/K still required before retention.",
+  "compile": [
+    "clang++",
+    "-std=c++20",
+    "-O3",
+    "-DNDEBUG",
+    "-Wall",
+    "-Wextra",
+    "-Wpedantic",
+    "-pthread",
+    "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round211/track-a/main.cpp",
+    "-o",
+    "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round211/bin/track-a"
+  ],
+  "base_binary_sha256": "75db96e1b101aa09555e5576b201ef5c1a365b52b51339cce5763182e4d09b27",
+  "candidate_binary_sha256": "75db96e1b101aa09555e5576b201ef5c1a365b52b51339cce5763182e4d09b27",
+  "native_binaries_identical": true,
+  "base_io_sha256": "a8838c50064520b806fcd2032cda0e9f246e9d3b6869fb951e3555cd5e8dfead",
+  "candidate_io_sha256": "3d809d2f9abadfb57d0a986af20516a1fa8ce1202782b2efa92670f768543e44",
+  "patch": "round211-unused-output-save.patch"
+}

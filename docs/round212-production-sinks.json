@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "official_score": false,
+  "expected_sink_failures": [
+    {
+      "threads": 1,
+      "image_id": "sha256:3b2a4a7d53bad5810d4826cc65e7f45f01e7b3e81512a287acd9765f1717f337",
+      "returncode": 1,
+      "stderr": "track-a: cannot write summary.txt\n",
+      "scope": "Exact PGO production image, actual default paths; normal deferred sink failure."
+    },
+    {
+      "threads": 6,
+      "image_id": "sha256:3b2a4a7d53bad5810d4826cc65e7f45f01e7b3e81512a287acd9765f1717f337",
+      "returncode": 1,
+      "stderr": "track-a: cannot write summary.txt\n",
+      "scope": "Exact PGO production image, actual default paths; normal deferred sink failure."
+    },
+    {
+      "threads": 12,
+      "image_id": "sha256:3b2a4a7d53bad5810d4826cc65e7f45f01e7b3e81512a287acd9765f1717f337",
+      "returncode": 1,
+      "stderr": "track-a: cannot write summary.txt\n",
+      "scope": "Exact PGO production image, actual default paths; normal deferred sink failure."
+    }
+  ]
+}
