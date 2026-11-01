@@ -1,0 +1,18 @@
+--- selected225/track-c/main.cpp
++++ isolated228-integer/track-c/main.cpp
+@@ -1,4 +1,5 @@
+ #include "io.hpp"
++#include "decimal.hpp"
+ #include "quote_scan.hpp"
+ #include "parallel.hpp"
+ #include <atomic>
+@@ -52,8 +53,7 @@
+     }
+     uint64_t integer() {
+         const char* start = p;
+-        uint64_t value = 0;
+-        while (p < end && *p >= '0' && *p <= '9') value = value * 10 + *p++ - '0';
++        uint64_t value = decimal_digits(p, end);
+         if (p == start) throw std::runtime_error("missing CSV integer");
+         comma();
+         return value;

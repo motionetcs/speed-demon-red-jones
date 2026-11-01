@@ -9,3 +9,6 @@ An exact local synchronization proof selects true record boundaries. Reader work
 No input seed or answer is recognized. All output is computed in the timed run. See `PERF.md` for actual experiments, source/memory costs, independent tests and real board outcomes.
 
 Owner table entries use a32-bit rejection fingerprint and a32-bit stable-block word index. Full length/byte equality still decides names, including collisions; the complete64-bit hash routes owners.64KiB word blocks and dedicated oversized-key blocks retain exact name bytes/country words with checked index arithmetic.
+
+
+Candidate230 uses the fresh entry’s existing bounded8-byte decimal reducer only for the amount’s dollar digits. It retains the scalar continuation and every sign/missing-digit/dot/two-cent-digit/terminator check; integer IDs/regions remain scalar. The helper is copied into track-c and charged normally. Original12-worker runtime/full1000003+sample130363 PGO/hash/queue/country behavior stays unchanged. Native screen is a hypothesis; real total K must improve.

@@ -525,3 +525,6 @@ Pinned offline allowlisted A build/public1/6/12 passes, followed by81 exact-imag
 
 
 225/2d71679 run-507737200352 all five actual restoration gates pass: T0.042640s/M20922368/S497/K31.858122/75.161009 points. Full original217/187 runtime restored after221/224 matched6/8 PGO losses. All29 inputs/file sets/Make match scored/current best sources, round225-final-source-match.json. Fresh original C510+30 image references, actual no-argument/no-worker-override59+4 and native/Linux default12/public checks pass. Source-identical221 strict/race/GCC177+30 retained; original A81/D996 immutable proofs remain, no new A/D whole-bank replay. Native executables/images reused, no225 compilation/training claimed. Best/latest/variation separate. Raw ../docs/board-round225-selected-confirmation.json.
+
+
+229/c47cf0b run-5f8e0dfd6c53 all five actual gates pass, unchanged225 runtime: T0.044326s/M21196800/S497/K31.165034/74.683380 points. Lower repeats, not new gains; bests separate. Raw ../docs/board-round229-evidence-head.json.

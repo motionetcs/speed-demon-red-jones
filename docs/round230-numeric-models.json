@@ -1,0 +1,46 @@
+{
+  "observed_at_utc": "2026-11-01T05:03:08.383448+00:00",
+  "official_score": false,
+  "passed": true,
+  "scope": "Fresh230 production Field/Csv class extracted byte-exactly from frozen main into an ignored wrapper with original headers; direct numeric methods executed, not reimplemented. Native/GCC strict ASAN/UBSAN, all warnings enabled with clean compiler/runtime stderr. Independent from_chars uint64 and mathematical cents,402810 CSV checks per compiler, every byte/fraction/truncation/signed bound/guard pages. Native/GCC helper byte/reference/guard models completed on initial attempt and are retained explicitly without duplicate runs; failed initial wrapper is recorded separately. No sanitizer/warning suppression or runtime source change.",
+  "initial_attempt_record": "round230-model-initial-attempt.json",
+  "unchanged_prefix_models_reused": true,
+  "production_class_sha256": "a660d9120afd1b201dc5157471b852c0638e21f4b58bbb39f4849bd040277c0d",
+  "wrapper_sha256": "22c7493fbc1a29f17ebbd1b3091ca1dcc823c2d4c9fcbc79b580b4c955d9100c",
+  "native_compile": [
+    "clang++",
+    "-std=c++20",
+    "-O1",
+    "-g",
+    "-Wall",
+    "-Wextra",
+    "-Wpedantic",
+    "-pthread",
+    "-fsanitize=address,undefined",
+    "-fno-sanitize-recover=all",
+    "-fno-omit-frame-pointer",
+    "-DCSV_MODEL_HEADER=\"/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round230/models/production_csv.hpp\"",
+    "tools/test_csv_numeric.cpp",
+    "-o",
+    "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round230/models/csv-clean"
+  ],
+  "native_binary_sha256": "5bb8dcc776ffd694e48c6a95490fcfd5ff7aeaac303f357fe6bf1a4181a37b80",
+  "native_stdout": "PASS production CSV numeric independent integer/cents/error/guard model 402810 checks\n",
+  "native_stderr": "",
+  "compiler_image": "gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce",
+  "gcc_script": [
+    "set -eu",
+    "export ASAN_OPTIONS=halt_on_error=1",
+    "export UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1",
+    "g++ -std=c++20 -O1 -g -Wall -Wextra -Wpedantic -march=native -pthread -fsanitize=address,undefined -fno-sanitize-recover=all -fno-omit-frame-pointer '-DCSV_MODEL_HEADER=\"/repo/.build/round230/models/production_csv.hpp\"' /repo/tools/test_csv_numeric.cpp -o /tmp/csv",
+    "/tmp/csv"
+  ],
+  "gcc_stdout": "PASS production CSV numeric independent integer/cents/error/guard model 402810 checks\n",
+  "gcc_stderr": "",
+  "source_sha256": {
+    ".build/round230/source/track-c/main.cpp": "08bffbc93643bdbdf57a038ced656225b7d50019fe43fa3ec533f185e01e9a7c",
+    ".build/round230/source/track-c/decimal.hpp": "e6a53e983c0475fe3e49ffe2630a8603f96298b7866e0f4ef3b2ed0f165cb94e",
+    "tools/test_decimal_prefix.cpp": "045496a36a9ed2966539218365e4253b65fd641bee8ae9a736a727f404623202",
+    "tools/test_csv_numeric.cpp": "158de7377ab8fd19fb5761d7e175b22ce0fae71bdfcc37be9c9ef54cd8f0c6af"
+  }
+}

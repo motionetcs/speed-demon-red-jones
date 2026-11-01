@@ -616,3 +616,9 @@ Fresh native and pinned GCC-native strict offset/index std::set models cover ful
 
 
 225/2d71679 run-eaf5b50e30e8 all five actual restoration gates pass: T0.062347s/M12673024/S672/K22.688472/67.790263 points. Full original217/187 runtime restored after221/224 matched6/8 PGO losses. All29 inputs/file sets/Make match scored/current best sources, round225-final-source-match.json. Fresh original C510+30 image references, actual no-argument/no-worker-override59+4 and native/Linux default12/public checks pass. Source-identical221 strict/race/GCC177+30 retained; original A81/D996 immutable proofs remain, no new A/D whole-bank replay. Native executables/images reused, no225 compilation/training claimed. Best/latest/variation separate. Raw ../docs/board-round225-selected-confirmation.json.
+
+
+230 amount-only bounded8-byte digits:228 native11 rotating full-public hashes show paired0.964362 versus scalar, nativeRSS flat; integer-only0.997675 and both0.981323 are unselected. Use only own fresh A163 decimal.hpp byte-identically and charge it normally. Keep every original sign/start/dot/two-fraction-digit/EOF/country/name/queue behavior,12 workers/compiler flags/PGO. Need fresh direct CSV numeric/full64/guard models, strict/race/untrained integration/GCC/exact-image/default/source proof and actual C K>23.033578 before retention. No target speedup claimed from Mac.
+
+
+229/c47cf0b run-4edb20dfd38f all five actual gates pass, unchanged225 runtime: T0.063404s/M12406784/S672/K22.594301/67.699946 points. Lower repeats, not new gains; bests separate. Raw ../docs/board-round229-evidence-head.json.

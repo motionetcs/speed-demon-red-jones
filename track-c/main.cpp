@@ -1,4 +1,5 @@
 #include "io.hpp"
+#include "decimal.hpp"
 #include "quote_scan.hpp"
 #include "parallel.hpp"
 #include <atomic>
@@ -62,8 +63,7 @@ struct Csv {
         bool negative = p < end && *p == '-';
         if (negative) ++p;
         const char* start = p;
-        uint64_t value = 0;
-        while (p < end && *p >= '0' && *p <= '9') value = value * 10 + *p++ - '0';
+        uint64_t value = decimal_digits(p, end);
         if (p == start || p == end || *p++ != '.' || end - p < 2 || p[0] < '0' || p[0] > '9' || p[1] < '0' || p[1] > '9')
             throw std::runtime_error("invalid money");
         value = value * 100 + (p[0] - '0') * 10 + p[1] - '0'; p += 2;
