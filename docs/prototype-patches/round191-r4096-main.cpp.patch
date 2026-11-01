@@ -1,0 +1,32 @@
+--- a/track-a/main.cpp
++++ b/track-a/main.cpp
+@@ -7,6 +7,7 @@
+ #include <memory>
+ #include <numeric>
+ #include "ordered_output.hpp"
++#include "radix_quantiles.hpp"
+ 
+ static constexpr uint32_t latency_escape = (1U << 19) - 1;
+ using Records=std::vector<uint32_t,MappedAllocator<uint32_t>>;
+@@ -101,6 +102,9 @@
+                 for (uint16_t key : order) {
+                     uint64_t n = groups[key].count, errors = groups[key].errors; if (!n) continue;
+                     auto first = latencies.begin() + offsets[key];
++                    std::array<uint32_t,3> quantiles;
++                    if(n >= 4096)quantiles=radix_percentiles(&*first,static_cast<size_t>(n));
++                    else{
+                     if (n < 32) std::sort(first, first + n);
+                     else {
+                         size_t unselected = 0;
+@@ -109,8 +113,10 @@
+                             if (rank >= unselected) { std::nth_element(first + unselected, first + rank, first + n); unselected = rank + 1; }
+                         }
+                     }
++                        quantiles={first[(50*n+99)/100-1],first[(95*n+99)/100-1],first[(99*n+99)/100-1]};
++                    }
+                     out.text(label); out.text(" "); out.text(paths[key]);
+-                    for (uint64_t value : {n, uint64_t(first[(50 * n + 99) / 100 - 1]), uint64_t(first[(95 * n + 99) / 100 - 1]), uint64_t(first[(99 * n + 99) / 100 - 1]), errors, errors * 1000000 / n}) { out.text(" "); out.number(static_cast<int64_t>(value)); }
++                    for (uint64_t value : {n, uint64_t(quantiles[0]), uint64_t(quantiles[1]), uint64_t(quantiles[2]), errors, errors * 1000000 / n}) { out.text(" "); out.number(static_cast<int64_t>(value)); }
+                     out.text("\n");
+                 }
+                 writer.publish(hour);

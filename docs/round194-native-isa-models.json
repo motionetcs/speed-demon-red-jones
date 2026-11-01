@@ -1,0 +1,33 @@
+{
+  "observed_at_utc": "2026-11-01T01:15:39.815026+00:00",
+  "official_score": false,
+  "passed": true,
+  "scope": "Exact unchanged A163 prefix8 and ordered/mapped output source freshly compiled/executed under pinned GCC15-march=native strict ASAN/UBSAN. Fulluint64/from_chars/modulo/all-byte/invalid suffix/guard cases, ordered/reversed/shuffled/empty/lag publication across1..12 producers, mapped char/string lifetime/NUL/direct cross-thread release and normal sink errors. Original nativeTSAN protocol evidence remains byte-bound; fresh A194 native strict/race integration separately executes. No emulated timing gain claim.",
+  "compiler_image": "gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce",
+  "script": [
+    "set -eu",
+    "export ASAN_OPTIONS=halt_on_error=1",
+    "export UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1",
+    "g++ -std=c++20 -O1 -g -march=native -pthread -fsanitize=address,undefined -fno-sanitize-recover=all -fno-omit-frame-pointer '-DDECIMAL_HEADER=\"/repo/.build/round194/source/track-a/decimal.hpp\"' /repo/tools/test_decimal_prefix.cpp -o /tmp/decimal",
+    "/tmp/decimal",
+    "g++ -std=c++20 -O1 -g -march=native -pthread -fsanitize=address,undefined -fno-sanitize-recover=all -fno-omit-frame-pointer '-DORDERED_OUTPUT_HEADER=\"/repo/.build/round194/source/track-a/ordered_output.hpp\"' /repo/tools/test_ordered_output.cpp -o /tmp/ordered",
+    "/tmp/ordered /tmp/ordered-cases",
+    "g++ -march=native -dM -E -x c++ /dev/null > /out/compiler-macros.txt"
+  ],
+  "stdout": "PASS leading decimal byte/reference/guard-page model\nPASS mapped char growth/NUL/terminator/direct cross-thread release; all1..12 producers ordered/reverse/random/empty/lag output and normal sink failures\n",
+  "stderr": "",
+  "march_native_features": [
+    "#define __SSE4_2__ 1",
+    "#define __BMI__ 1",
+    "#define __AVX2__ 1",
+    "#define __BMI2__ 1"
+  ],
+  "source_sha256": {
+    "tools/test_decimal_prefix.cpp": "045496a36a9ed2966539218365e4253b65fd641bee8ae9a736a727f404623202",
+    "tools/test_ordered_output.cpp": "1b292e55b35150bd035f66c6d35143eb7112b1823979f3bcd049f6db9d946801",
+    ".build/round194/source/track-a/decimal.hpp": "e6a53e983c0475fe3e49ffe2630a8603f96298b7866e0f4ef3b2ed0f165cb94e",
+    ".build/round194/source/track-a/ordered_output.hpp": "b6f0911f5d6396ca35ad657a1de6364aa3e52a5dd6a9275d95f768e54f4fd69d",
+    ".build/round194/source/track-a/io.hpp": "a8838c50064520b806fcd2032cda0e9f246e9d3b6869fb951e3555cd5e8dfead",
+    ".build/round194/source/track-a/mapped_allocator.hpp": "060bb6a0622338b9151e767d827cbf30c8e4d940cc7e170ad51757c4a6b0808b"
+  }
+}

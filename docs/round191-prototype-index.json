@@ -1,0 +1,65 @@
+{
+  "observed_at_utc": "2026-11-01T00:54:10.471674+00:00",
+  "base": "1cd2a7b7a47ffc2cb4e32224114bec2b8671eb74",
+  "scope": "Native screen only of exact unsigned32 nearest-rank multi-selection for large groups, thresholds512/1024/4096. Shared-prefix byte histograms refine all three order statistics, retaining rank offsets inside selected buckets. Common high bytes skip only bits equal in every input. No input reordering/allocation/approximation, full0/MAX latencies retained; small groups preserve original sort/nth. New helper requires independent full-sort/all-byte/prefix/rank/overflow/guard/native-GCC strict plus changed integration/race/untrained/full/image/default/actual K proof before promotion. No new algorithm assumed generically correct from public hashes.",
+  "primary_sources": [
+    "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/resources/lecture-7-counting-sort-radix-sort-lower-bounds-for-sorting/",
+    "https://timsong-cpp.github.io/cppwp/n4861/bit.count"
+  ],
+  "patches": [
+    {
+      "patch": "round191-r512-main.cpp.patch",
+      "path": "track-a/main.cpp",
+      "base_sha256": "02661f93bc65fc35d359c80e19d82578968ab68725e8b325e48c630c3e27310c",
+      "candidate_sha256": "8034d110700b0734cb77f4f5f590aaae93a060cfd15d4a4e904fedf225047c93"
+    },
+    {
+      "patch": "round191-r512-Dockerfile.patch",
+      "path": "track-a/Dockerfile",
+      "base_sha256": "c415bd88f27a18da83c33990744690358b9c158a8b1ea3dc60c289d123f4ff90",
+      "candidate_sha256": "3b52456685d90180b00eafea99e0218538086e77d3a3ff15fd81aeea67531cb4"
+    },
+    {
+      "patch": "round191-r512-radix_quantiles.hpp.patch",
+      "path": "track-a/radix_quantiles.hpp",
+      "base_sha256": null,
+      "candidate_sha256": "f695ca931d68f126488a313102ab3d8a038f41949e48508f8727b9d39f655ab9"
+    },
+    {
+      "patch": "round191-r1024-main.cpp.patch",
+      "path": "track-a/main.cpp",
+      "base_sha256": "02661f93bc65fc35d359c80e19d82578968ab68725e8b325e48c630c3e27310c",
+      "candidate_sha256": "9a7861315090254b025d334e6d31978f4736d745167bbb5d4a407edd8ddeff66"
+    },
+    {
+      "patch": "round191-r1024-Dockerfile.patch",
+      "path": "track-a/Dockerfile",
+      "base_sha256": "c415bd88f27a18da83c33990744690358b9c158a8b1ea3dc60c289d123f4ff90",
+      "candidate_sha256": "3b52456685d90180b00eafea99e0218538086e77d3a3ff15fd81aeea67531cb4"
+    },
+    {
+      "patch": "round191-r1024-radix_quantiles.hpp.patch",
+      "path": "track-a/radix_quantiles.hpp",
+      "base_sha256": null,
+      "candidate_sha256": "f695ca931d68f126488a313102ab3d8a038f41949e48508f8727b9d39f655ab9"
+    },
+    {
+      "patch": "round191-r4096-main.cpp.patch",
+      "path": "track-a/main.cpp",
+      "base_sha256": "02661f93bc65fc35d359c80e19d82578968ab68725e8b325e48c630c3e27310c",
+      "candidate_sha256": "c4eed824ec40f36f7f4645a2110cc541b482196a84dcba0731415379df01fdfa"
+    },
+    {
+      "patch": "round191-r4096-Dockerfile.patch",
+      "path": "track-a/Dockerfile",
+      "base_sha256": "c415bd88f27a18da83c33990744690358b9c158a8b1ea3dc60c289d123f4ff90",
+      "candidate_sha256": "3b52456685d90180b00eafea99e0218538086e77d3a3ff15fd81aeea67531cb4"
+    },
+    {
+      "patch": "round191-r4096-radix_quantiles.hpp.patch",
+      "path": "track-a/radix_quantiles.hpp",
+      "base_sha256": null,
+      "candidate_sha256": "f695ca931d68f126488a313102ab3d8a038f41949e48508f8727b9d39f655ab9"
+    }
+  ]
+}

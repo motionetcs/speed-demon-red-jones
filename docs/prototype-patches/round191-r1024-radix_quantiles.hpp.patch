@@ -1,0 +1,39 @@
+--- /dev/null
++++ b/track-a/radix_quantiles.hpp
+@@ -0,0 +1,36 @@
++#pragma once
++#include <array>
++#include <bit>
++#include <cstddef>
++#include <cstdint>
++
++// Exact nearest-rank values; shared prefix histograms avoid reordering input.
++inline std::array<uint32_t,3> radix_percentiles(const uint32_t* values,size_t n){
++    if(!n)return {};
++    uint32_t any=0,all=UINT32_MAX;
++    for(size_t i=0;i<n;++i){any|=values[i];all&=values[i];}
++    uint32_t different=any^all;if(!different)return {all,all,all};
++    int shift=((31-std::countl_zero(different))/8)*8;
++    uint32_t mask=shift==24?0U:UINT32_MAX<<unsigned(shift+8);
++    std::array<uint32_t,3> prefix{all&mask,all&mask,all&mask};
++    std::array<size_t,3> rank{(50*n+99)/100-1,(95*n+99)/100-1,(99*n+99)/100-1};
++    for(;shift>=0;shift-=8){
++        std::array<uint32_t,3> group{};std::array<size_t,3> owner{};size_t groups=0;
++        for(size_t q=0;q<3;++q){
++            size_t g=0;while(g<groups&&group[g]!=prefix[q])++g;
++            if(g==groups)group[groups++]=prefix[q];owner[q]=g;
++        }
++        std::array<std::array<size_t,256>,3> counts{};
++        for(size_t i=0;i<n;++i){
++            uint32_t value=values[i],upper=value&mask;
++            for(size_t g=0;g<groups;++g)if(upper==group[g]){++counts[g][(value>>shift)&255U];break;}
++        }
++        for(size_t q=0;q<3;++q){
++            uint32_t digit=0;auto& histogram=counts[owner[q]];
++            while(rank[q]>=histogram[digit]){rank[q]-=histogram[digit];++digit;}
++            prefix[q]|=digit<<shift;
++        }
++        mask|=uint32_t(255)<<shift;
++    }
++    return prefix;
++}

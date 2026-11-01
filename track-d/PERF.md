@@ -464,3 +464,9 @@ Eleven rotating public hashes pass, but retained0.183108542s/RSS179421184 versus
 
 
 189/ceb78f8 run-5e01e6895a08 passes all five real gates on unchanged selected187 runtime: T0.196251s/M77217792/S827/K20.153588/65.217619 points. Lower same-source variation; C0.061886s here versus1870.098959s is not a new algorithm gain or causal explanation. Raw ../docs/board-round189-evidence-head.json.
+
+
+190/1cd2a7b run-e289ab2a3515 all real gates pass: T0.206028s/M77447168/S827/K19.657920/64.676878 points. Lower unchanged selected187 source variation; best separate. Raw ../docs/board-round190-avx2-quote.json.
+
+
+192 distance-sorts or reverses each exact private32-item popped batch BEFORE computing/prefetching vertex ranges, retaining original stale checks/weights/conservative stop. Eleven rotating public hashes pass but paired1.053645/1.002301 loses/flat. Reject before new independent/Floyd/full64/partial-batch/strict/race/GCC/image/default/actual proof; no ordering code enters195.196 first-pass unused-weight lexical skip is only prepared, not yet timed/proved/selected. All real weights must still be decoded/range-checked on pass2; never bypass validation.

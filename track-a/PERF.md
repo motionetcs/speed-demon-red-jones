@@ -463,3 +463,11 @@ Pinned offline allowlisted A build/public1/6/12 passes, followed by81 exact-imag
 
 
 189/ceb78f8 run-9c865e71a863 passes all five real gates on unchanged selected187 runtime: T0.043933s/M20951040/S497/K31.377215/74.830719 points. Lower same-source variation; C0.061886s here versus1870.098959s is not a new algorithm gain or causal explanation. Raw ../docs/board-round189-evidence-head.json.
+
+
+190/1cd2a7b run-f7a75967a6e6 all real gates pass: T0.043922s/M21118976/S497/K31.331076/74.798766 points. Lower unchanged selected187 source variation; best separate. Raw ../docs/board-round190-avx2-quote.json.
+
+
+191 shared-prefix radix multi-selection for large groups512/1024/4096 is rejected before promotion. Each byte pass refines exact nearest-rank offsets, sharing identical prefixes; all values including fulluint32 are read. Public hashes pass, but paired1.003608/0.994278/0.999865 is flat and cannot justify added helper/source. No independent full-sort/rank/prefix/overflow/guard/strict/GCC/image/default/actual proof is claimed for those prototypes; original sort/nth_element stays. Exact patches/index/report preserve scope.
+
+194 changes only both GCC PGO passes to-march=native, retaining full1000003/sample130363 and every C++/header. Losing111 used pre163 output/prefix and sample-only training; current163 bounded prefix8/ordered mapped output and178 full training materially alter compiler context, so this is not a blind unchanged repeat. Defined count-zero/rotate operations may compile differently; no ARM/emulated speed claim. New2237/2243 strict ASAN/UBSAN/full2221 and2249 TSAN pass. Fresh pinned GCC-native prefix/output all-byte/from_chars/guard/ordered/mapped-lifetime models and54 production strict+3 sinks pass. New exact ISA/PGO image81 references+3 sinks, public1/6/12 and composite195 actual defaults pass. All30 composite source/context/images are bound. Keep only if actual A K>31.974332/75.240074; otherwise restore Dockerfile/README exactlyceb78f8 and imageb57c3ff9..., preserving independent C choice. Official native build routing is used; no host/harness feature or identity override.

@@ -1,0 +1,83 @@
+{
+  "observed_at_utc": "2026-11-01T01:02:17.425211+00:00",
+  "official_score": false,
+  "passed": true,
+  "scope": "Fresh193 current-hash primitive strict ASAN/UBSAN: bit-polynomial CRC32C oracle all256 bytes0..257 lengths,20000 random binary keys,1MiB/long keys and both protected pages; native fallback and GCC SSE4.2 hardware/fallback. Fresh exact offset std::set models execute native/GCC CRC+fallback: full-key/low32 collisions0/1, all country words, table/block growth, long NUL/UTF8, capacity/overflow. Additional genuine CRC collision is found through production hash and both distinct keys remain distinct across countries. No parser/pipeline/race/performance claim from models alone.",
+  "native_runs": [
+    {
+      "mode": "native-hash-fallback",
+      "compile": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-pthread",
+        "-fsanitize=address,undefined",
+        "-fno-sanitize-recover=all",
+        "-fno-omit-frame-pointer",
+        "-DNAME_HASH_HEADER=\"/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round193/source/track-c/name_hash.hpp\"",
+        "-DEXPECT_NAME_CRC=0",
+        "-DPADDED_NAME_REFERENCE=0",
+        "tools/test_whole_name_hash.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round193/models/hash-fallback"
+      ],
+      "stdout": "PASS whole-key hash scalar bit-polynomial/fallback oracle; all bytes, tails, random/1MiB and both protected-page boundaries; hardware=0 padded=0\n",
+      "stderr": "",
+      "binary_sha256": "6f8f0d1dcb67632732b20e1b16386c395d4759b863eab0e7cf174cbab51d55af"
+    },
+    {
+      "mode": "native-offset-names",
+      "compile": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-pthread",
+        "-fsanitize=address,undefined",
+        "-fno-sanitize-recover=all",
+        "-fno-omit-frame-pointer",
+        "-DNAMES_HEADER=\"/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round193/source/track-c/names.hpp\"",
+        "tools/test_offset_names.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round193/models/offset-names"
+      ],
+      "stdout": "PASS offset-name independent std::set, low32 fingerprint collisions including0/1, full-key collisions, all-country words, table/block growth, exact full/partial/oversized blocks, long NUL/UTF8 keys, encoded-index boundaries and overflow guards\n",
+      "stderr": "",
+      "binary_sha256": "71faa7a80c24d3ef7557a676a2b41cb1e21e69d8ceae33ea20fe113c6d806a5a"
+    }
+  ],
+  "compiler_image": "gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce",
+  "gcc_script": [
+    "set -eu",
+    "export ASAN_OPTIONS=halt_on_error=1",
+    "export UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1",
+    "g++ -std=c++20 -O1 -g -pthread -fsanitize=address,undefined -fno-sanitize-recover=all -fno-omit-frame-pointer -msse4.2 '-DNAME_HASH_HEADER=\"/repo/.build/round193/source/track-c/name_hash.hpp\"' -DEXPECT_NAME_CRC=1 -DPADDED_NAME_REFERENCE=0 /repo/tools/test_whole_name_hash.cpp -o /tmp/crc",
+    "/tmp/crc",
+    "g++ -std=c++20 -O1 -g -pthread -fsanitize=address,undefined -fno-sanitize-recover=all -fno-omit-frame-pointer -msse4.2 '-DNAMES_HEADER=\"/repo/.build/round193/source/track-c/names.hpp\"' /repo/tools/test_offset_names.cpp -o /tmp/offset-crc",
+    "/tmp/offset-crc",
+    "g++ -std=c++20 -O1 -g -pthread -fsanitize=address,undefined -fno-sanitize-recover=all -fno-omit-frame-pointer -msse2 -mno-sse4.2 -mno-avx2 '-DNAME_HASH_HEADER=\"/repo/.build/round193/source/track-c/name_hash.hpp\"' -DEXPECT_NAME_CRC=0 -DPADDED_NAME_REFERENCE=0 /repo/tools/test_whole_name_hash.cpp -o /tmp/fallback",
+    "/tmp/fallback",
+    "g++ -std=c++20 -O1 -g -pthread -fsanitize=address,undefined -fno-sanitize-recover=all -fno-omit-frame-pointer -msse2 -mno-sse4.2 -mno-avx2 '-DNAMES_HEADER=\"/repo/.build/round193/source/track-c/names.hpp\"' /repo/tools/test_offset_names.cpp -o /tmp/offset-fallback",
+    "/tmp/offset-fallback",
+    "g++ -std=c++20 -O1 -g -pthread -fsanitize=address,undefined -fno-sanitize-recover=all -fno-omit-frame-pointer -msse4.2 '-DNAMES_HEADER=\"/repo/.build/round193/source/track-c/names.hpp\"' /repo/tools/test_name_hash_collision.cpp -o /tmp/actual-collision",
+    "/tmp/actual-collision"
+  ],
+  "gcc_stdout": "PASS whole-key hash scalar bit-polynomial/fallback oracle; all bytes, tails, random/1MiB and both protected-page boundaries; hardware=1 padded=0\nPASS offset-name independent std::set, low32 fingerprint collisions including0/1, full-key collisions, all-country words, table/block growth, exact full/partial/oversized blocks, long NUL/UTF8 keys, encoded-index boundaries and overflow guards\nPASS whole-key hash scalar bit-polynomial/fallback oracle; all bytes, tails, random/1MiB and both protected-page boundaries; hardware=0 padded=0\nPASS offset-name independent std::set, low32 fingerprint collisions including0/1, full-key collisions, all-country words, table/block growth, exact full/partial/oversized blocks, long NUL/UTF8 keys, encoded-index boundaries and overflow guards\nPASS genuine CRC full-hash collision, exact distinct keys/countries and repeated membership\nCOLLISION\tcollision legpgogfopidpbck\tcollision mphmpnichgbdmkbo\t1350570212035544575\n",
+  "gcc_stderr": "",
+  "actual_collision": {
+    "left": "collision legpgogfopidpbck",
+    "right": "collision mphmpnichgbdmkbo",
+    "hash": 1350570212035544575,
+    "source": "Actual production Names::hash_key on GCC SSE4.2; no forced/injected hash. Both distinct keys checked every country at widths1/64/65/257/17577."
+  },
+  "source_sha256": {
+    ".build/round193/source/track-c/name_hash.hpp": "4bd3181164f077e9cd4887b9ee47d4560cf68c18dee2b7ea61743e40de93ec5f",
+    ".build/round193/source/track-c/names.hpp": "53ea60115e0c46e303742aefa6889df7dccf632cfa65892248118bbd72c21240",
+    "tools/test_whole_name_hash.cpp": "4b078aa72595037eca48fa3ad231511aa7f4d59e60e86e0cda90c36dfc0693c0",
+    "tools/test_offset_names.cpp": "bcf06dd08cf3c07b2a6fef432db80f6d8b1584be76b8bbf58bb345f9e6bd771f",
+    "tools/offset_names_model.hpp": "80082d9d37052c2f8ba3612c15c5ad3386f672e2b5ead83d2dd3f64e6794842e",
+    "tools/test_name_hash_collision.cpp": "843298de34715027195ce187707b29abbe07eba6b27b3177ba7b8903d2b88a62"
+  },
+  "primary_source": "https://clang.llvm.org/doxygen/crc32intrin_8h.html"
+}
