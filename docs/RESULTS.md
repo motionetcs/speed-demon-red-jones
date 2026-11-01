@@ -1,10 +1,10 @@
 # Results — 1 November 2026
 
-Complete ordinary public feed **2026-11-01T06:48:03Z**: Red Jones is **rank 44 of 93**, best-three machine mean **69.436015**, leader Cause Of Death **82.949904**. Number one remains unachieved. Real241 and C-only249 passed all gates but lost total K; complete original253 restoration passes all gates. Best/latest variation and final holdout/judging remain separate.
+Complete ordinary public feed **2026-11-01T07:33:26Z**: Red Jones remains **rank 44 of 93**, best-three machine mean **69.436015**, leader Cause Of Death **82.949904**. Number one is unachieved. New255 span A/bucket-epoch D passes every real gate but BOTH total-K records lose; complete original256 restoration is locally verified and real confirmation is next. Best/latest variation and final holdout/judging remain separate.
 
 | Track | Best points | K | Rank | Leader |
 | --- | ---: | ---: | ---: | --- |
-| A | 75.240074 | 31.974332 | 48/112 | Cause Of Death 87.755998 |
+| A | 75.240074 | 31.974332 | 49/113 | Cause Of Death 87.755998 |
 | C | 68.118071 | 23.033578 | 48/93 | NickTrapp 83.834454 |
 | D | 65.319494 | 20.248361 | 28/95 | Cause Of Death 73.369502 |
 
@@ -88,6 +88,7 @@ Fresh234 original C production **630+50 normal errors** and actual no-argument/n
 | [247 /b25a92f](board-round247-selected-confirmation.json) | 75.125726 | 67.686510 | 64.755752 | Confirm full original29 restoration |
 | [249 /5f75ecf](board-round249-c-seven-readers.json) | 74.523970 | 66.258026 | 64.951813 | Reject C7readers/5owners on totalK |
 | [253 /ccf938b](board-round253-selected-confirmation.json) | 70.721921 | 67.316035 | 64.224908 | Confirm original29 restoration after C249 loss |
+| [255 /94f9df9](board-round255-spans-bucket-epochs.json) | 73.471038 | 67.453753 | 64.965742 | Reject A span2048 and D bucket epochs; restore original29 |
 
 Every historical row passes all five gates. Unchanged tracks are repeated observations; higher repeats are variation. Exact time/memory/S/K/source/run IDs remain in JSON and PERF logs.
 
@@ -136,4 +137,7 @@ A211/212 removes only unused Output.save. Native ELF is byte-identical; GCC/PGO 
 
 Hourly local continuation remains active while Mac/app are available. Finish exact pending documentation-head records before new runtime pushes. No new reactions; emojis do not change machine ranking. Stop runtime edits at **2 November2026 15:00UTC/20:30IST** and preserve the last passing recorded source. The owner explicitly approved **only motionetcs/speed-demon-red-jones becoming public under MIT during15:00–16:00UTC/20:30–21:30IST**, after freeze preservation and final secret/privacy recheck. [Authorization](PUBLICATION-AUTHORIZATION.json) and the accepted automation update resolve the earlier missing-approval condition. Keep private before that window; no grants/credential changes or rejection bypass. Publication has not happened. Verify public MIT source by16:00UTC, pause heartbeat after deadline and report verified status. After freeze no runtime edits.
 
-[Complete feed](round253-confirmed-board.json) · [Feed integrity](round253-feed-proof.json) · [Leader comparison](round253-confirmed-comparison.json) · [Entry audit](ENTRY-AUDIT.md) · [Live board](https://speeddemon.dev/board/#red-jones-00c4a7)
+[Complete feed](round255-confirmed-board.json) · [Feed integrity](round255-feed-proof.json) · [Leader comparison](round255-confirmed-comparison.json) · [Entry audit](ENTRY-AUDIT.md) · [Live board](https://speeddemon.dev/board/#red-jones-00c4a7)
+
+
+255 exact A/D local models/native/GCC/PGO/default proofs pass but real A K29.472757/73.471038 loses31.974332/75.240074; real D K19.921170/64.965742 loses20.248361/65.319494. A S491 vs497 is a measured source reduction. D M73543680 vs best76922880 saves3379200B (4.39%), but T.202919 vs.194716 and S853 vs827 do not yield a best total-K gain. These are observed record comparisons, not precise causal timing estimates. C source unchanged, lower repeat is variation. Complete original A/D restored, README training prose corrected to actual1000003/full then130363/sample. Exact actual29/Git/frozen/local-image proof round255-scored-source-match.json; rejected span/bucket strict/race/GCC/image proofs remain historical, never relabeled as original. Fresh256 original native/image public1/6/12 and actualdefaults pass with immutable original binaries/images, no compiler/training or whole-bank replay. Real256 restoration next.

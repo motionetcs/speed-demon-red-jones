@@ -649,3 +649,6 @@ Candidate249 selected local proof: original SCALAR Csv, PIPELINE_READERS8→7 pl
 
 
 253/ccf938b run-d2d2e4b8f360 all five real gates pass: T0.064706s/M12881920/S672/K22.198350/67.316035 points. Full original29 inputs/file sets/Make match saved best sources after rejected C249. Exact actual/Git/best/local-image proof ../docs/round253-final-source-match.json. C-only fresh native/image public1/6/12 and native/actual-image defaults pass; immutable original image/native binary reused, no new compiler/training or whole-bank replay. A/D unchanged earlier source-bound proofs retained; no rejected candidate proof substitution. Lower unchanged repeats are variation, not an established causal regression or gain. Raw ../docs/board-round253-selected-confirmation.json.
+
+
+255/94f9df9 run-943b1e41bb8b all five real gatesPASS: T0.063150s/M13262848/S672/K22.339582/67.453753 points. Unchanged original C repeat; lower score is variation, no new parser or source regression/gain claimed. Exact29 actual/Git/frozen/local-image proof ../docs/round255-scored-source-match.json. New span/bucket model/GCC/PGO proofs remain historical to rejected code, never substituted for original. Native hypotheses did not establish a supported target gain; no precise causal or holdout claim. Raw ../docs/board-round255-spans-bucket-epochs.json.

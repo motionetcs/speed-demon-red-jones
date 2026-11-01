@@ -20,9 +20,9 @@ With another24 hours: obtain legitimate Intel profiles, measure parse/selection/
 
 Specification: https://github.com/hackathon-raptors/speed-demon-2026/blob/main/specs/a-ingest.md
 
-Each parser has a2048-slot parsing-hint table learned only from the current input. The first16 in-range bytes choose a slot; a hit requires the complete learned endpoint bytes and the actual following space within bounds. It reuses only the learned endpoint ID and delimiter position. Misses use a bounded delimiter scan and the original full-key global interner. Short/long fields, collisions and aliases retain exact fallback behavior; every row still parses status/latency and is counted. Canonical views borrow the immutable input mapping. Real total-score acceptance is recorded separately in PERF.md.
+Per-worker exact direct caches point at globally published immutable views. Sampling only indexes the cache; full names still decide equality, and misses use the original global interner. Actual total-score acceptance is recorded in PERF.md.
 
-Compact record vectors use a stateless mapped allocator; after an hour has been fully scattered, its record storage returns directly to the operating system. The parsing hints retain borrowed immutable input views. Wide latency escapes and all quantiles remain exact.
+Compact record vectors use a stateless mapped allocator; after an hour has been fully scattered, its record storage returns directly to the operating system. The unchanged cache retains borrowed input views. Wide latency escapes and all quantiles remain exact.
 
 The retained163 design keeps all twelve aggregation workers. Finished hour output is published under one mutex; each publisher flushes only consecutive completed hours, then releases directly mapped output bytes. Empty hours also publish. No extra writer thread or assumption about input order is used. The bounded leading eight-digit decoder validates bytes and retains exact full-uint32/scalar tails.
 

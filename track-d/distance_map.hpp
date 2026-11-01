@@ -1,5 +1,4 @@
 #pragma once
-#include <algorithm>
 #include <cstdint>
 #include <bit>
 #include <stdexcept>
@@ -57,8 +56,6 @@ struct Distances {
 // A bucket supplies a node's low bits; its packed tag stores every remaining
 // bit of a21-bit node ID. Low distance bits store distance+1 (zero means empty).
 // Nodes/ranges that do not fit, and full buckets, use the exact64-bit map.
-// Per-bucket query stamps reject stale reads; the first write clears a bucket.
-// Generation wrap clears the stamp array without interpreting stale words.
 #ifndef PACKED_BITS
 #define PACKED_BITS 10
 #endif
@@ -66,10 +63,7 @@ struct FastDistances {
     static_assert(PACKED_BITS>=0 && PACKED_BITS<=20);
     unsigned bits=PACKED_BITS;
     std::vector<uint32_t> labels=std::vector<uint32_t>(size_t(8)<<PACKED_BITS);
-    std::vector<uint8_t> stamps=std::vector<uint8_t>(size_t(1)<<PACKED_BITS);
-    static constexpr uint32_t epoch_mask=255;
-    uint32_t epoch=1;
-    size_t used=0;
+    std::vector<uint32_t> touched;
     Distances wide;
     static constexpr uint32_t node_limit=1U<<21;
     uint32_t distance_mask()const{return (uint32_t(1)<<(11+bits))-1;}
@@ -96,44 +90,28 @@ struct FastDistances {
     }
     void grow(){
         unsigned old_bits=bits,old_shift=11+bits;uint32_t old_mask=distance_mask();
-        auto previous=std::move(labels);auto old_stamps=std::move(stamps);
-        ++bits;labels.assign(previous.size()*2,0);stamps.assign(size_t(1)<<bits,0);
-        for(size_t index=0;index<previous.size();++index){
-            uint32_t value=previous[index];
-            if(old_stamps[index>>3]!=epoch||!value)continue;
-            uint32_t node=((value>>old_shift)<<old_bits)|uint32_t(index>>3);
+        auto previous=std::move(labels);++bits;labels.assign(previous.size()*2,0);
+        for(auto& index:touched){
+            uint32_t value=previous[index];uint32_t node=((value>>old_shift)<<old_bits)|(index>>3);
             size_t next=slot(node);if(next==labels.size())throw std::logic_error("packed rehash overflow");
-            labels[next]=((node>>bits)<<(11+bits))|(value&old_mask);stamps[next>>3]=static_cast<uint8_t>(epoch);
+            index=static_cast<uint32_t>(next);labels[next]=((node>>bits)<<(11+bits))|(value&old_mask);
         }
     }
-    void reset(){
-        if(++epoch>epoch_mask){std::fill(stamps.begin(),stamps.end(),0);epoch=1;}
-        used=0;wide.reset();
-    }
+    void reset(){for(uint32_t index:touched)labels[index]=0;touched.clear();wide.reset();}
     uint64_t get(uint32_t node)const{
-        if(node>=node_limit||!used)return wide.get(node);
-        size_t bucket=node&((1U<<bits)-1);
-        if(stamps[bucket]!=epoch)return wide.get(node);
+        if(node>=node_limit||touched.empty())return wide.get(node);
         size_t index=slot(node);uint32_t value=index<labels.size()?labels[index]:0;
         return value?uint64_t((value&distance_mask())-1):wide.get(node);
     }
     bool improve(uint32_t node,uint64_t distance){
         if(node>=node_limit)return wide.improve(node,distance);
-        if(used*2>=labels.size()&&bits<20)grow();
-        size_t bucket=node&((1U<<bits)-1);
-        if(stamps[bucket]!=epoch){
-            if(distance>=wide.get(node))return false;
-            if(distance>=distance_mask())return wide.improve(node,distance);
-            size_t start=bucket*8;std::fill_n(labels.data()+start,8,uint32_t(0));
-            stamps[bucket]=static_cast<uint8_t>(epoch);++used;
-            labels[start]=((node>>bits)<<(11+bits))|static_cast<uint32_t>(distance+1);return true;
-        }
+        if(touched.size()*2>=labels.size()&&bits<20)grow();
         size_t index=slot(node);
         if(index==labels.size())return wide.improve(node,distance);
         uint32_t value=labels[index];uint64_t previous=value?uint64_t((value&distance_mask())-1):wide.get(node);
         if(distance>=previous)return false;
         if(distance>=distance_mask())return wide.improve(node,distance);
-        used+=!value;
+        if(!value)touched.push_back(static_cast<uint32_t>(index));
         labels[index]=((node>>bits)<<(11+bits))|static_cast<uint32_t>(distance+1);return true;
     }
 };
