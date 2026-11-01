@@ -572,3 +572,6 @@ Fresh native and pinned GCC-native strict offset/index std::set models cover ful
 
 
 204/0112b33 run-9de1df726683 all five real gates pass: T0.061410s/M12238848/S672/K23.020854/68.106072 points. Reject shifted home:K23.020854/68.106072 loses23.033578/68.118071 despite lowerT0.061410 versus0.062531s; M12238848 versus11665408 grows, S672 unchanged. Restore names/README exactlyd4027c9 and original C263 image. No precise causal decomposition or target gain claimed. Raw ../docs/board-round204-shifted-offset-home.json.
+
+
+206/e3140e0 run-5334e2cb1c9b all five real restoration gates pass: T0.062146s/M12095488/S672/K22.938120/68.027891 points. Original selected197/187 runtime restored; lower unchanged repeat, historical best separate. All29 inputs/full file sets match selected and current best-track sources, round206-final-source-match.json. Fresh original C501 independent204 references/full2281/all workers+30 errors and combined Make/public/defaults pass. Raw ../docs/board-round206-selected-confirmation.json.

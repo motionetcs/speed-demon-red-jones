@@ -488,3 +488,6 @@ Eleven rotating public hashes pass, but retained0.183108542s/RSS179421184 versus
 
 
 204/0112b33 run-c2468e07339d all five real gates pass: T0.196428s/M77426688/S827/K20.133625/65.196098 points. Unchanged selected197 source lower repeat; historical best separate. Raw ../docs/board-round204-shifted-offset-home.json.
+
+
+206/e3140e0 run-8aafc980cbd1 all five real restoration gates pass: T0.195398s/M76959744/S827/K20.211057/65.279451 points. Original selected197/187 runtime restored; lower unchanged repeat, historical best separate. All29 inputs/full file sets match selected and current best-track sources, round206-final-source-match.json. Fresh original C501 independent204 references/full2281/all workers+30 errors and combined Make/public/defaults pass. Raw ../docs/board-round206-selected-confirmation.json.
