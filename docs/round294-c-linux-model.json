@@ -1,0 +1,67 @@
+{
+  "started_at_utc": "2026-11-01T17:36:00.709011+00:00",
+  "official_score": false,
+  "mode": "model",
+  "track": "c",
+  "source_sha256": {
+    "track-c/training_generator.py": "9e61672eb814fa4e1bc2e3cf30c8e7ca9629804191ce5ae60a66c8b61ba704f2",
+    "track-c/Dockerfile": "637e81c6fca4507f4c4e7368efde7b6904d07879ae9ec992c5e25175d50e1fae",
+    "track-c/names.hpp": "01dd37c3cc5c1115f397021a347bf2e7eee65d4ba6459bc5bc2760dbf2d960e0",
+    "track-c/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+    "track-c/quote_scan.hpp": "0b170a766254dee1bc14f9e9180cc1900da01d41f5d09053d5579e01a7fb9cfa",
+    "track-c/README.md": "3a2642afb4f0a6d666bbe0922cead2aa917d8ccf141a2a8e88b44627f089aeb9",
+    "track-c/PERF.md": "4e24a3b26cd1c452c4630e77930a951ab59f54f0150daaf85370dc5cab553642",
+    "track-c/.speed-demon.toml": "3371600b8033a377bc373378e703191dfec36c1ae991b617650dfa480edc00b4",
+    "track-c/main.cpp": "08ff83e5eab7d03c2221f37064f5fb698a2d14f7e79e9e355e19b5e7bdf96e92",
+    "track-c/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420"
+  },
+  "manifest_sha256": "9c520678654e881d2975373fde1e4042197fdbbef5b5176d1a0903c1ab2b8875",
+  "native_proof_sha256": "ebbf41b44b242a2220cc141742f78cc88875934015f9b4df395af5e30b55e999",
+  "scope": "Fresh exact C294 packed short-length/full-length escape and56-bit country header under pinned offline Linux/amd64 strict GCC and unique unchanged allowed-PGO image. New full-key/metadata/index/growth/overflow/country/long-boundary independent model and changed main execute; old name-layout passes are not substituted. Native/emulated timing and memory are not organizer K/ELF proof.",
+  "commands": [
+    {
+      "label": "model",
+      "argv": [
+        "docker",
+        "run",
+        "--rm",
+        "--pull=never",
+        "--platform",
+        "linux/amd64",
+        "--network=none",
+        "--read-only",
+        "--memory=8g",
+        "--memory-swap=8g",
+        "--pids-limit=512",
+        "--cap-drop=ALL",
+        "--security-opt=no-new-privileges",
+        "--user",
+        "65534:65534",
+        "--tmpfs",
+        "/tmp:rw,exec,size=1g",
+        "-i",
+        "--entrypoint",
+        "/bin/sh",
+        "-v",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh:/repo:ro",
+        "-v",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round294/linux-proof/model:/out:rw",
+        "gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce",
+        "-s"
+      ],
+      "stdin": "set -eu\nexport ASAN_OPTIONS=halt_on_error=1\nexport UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1\ng++ -std=c++20 -O1 -g -march=native -Wall -Wextra -Wpedantic -Werror -pthread -fsanitize=address,undefined -fno-sanitize-recover=all -fno-omit-frame-pointer /repo/.build/round294/packed_names_model.cpp -o /out/packed-names-model\nsha256sum /out/packed-names-model >/out/model.sha256.tmp\nmv /out/model.sha256.tmp /out/model.sha256\n/out/packed-names-model >/out/model.out 2>/out/model.err\n"
+    }
+  ],
+  "model_files_sha256": {
+    "packed_names_model.hpp": "b2d28099997247f9286fbbc715dcdcad534d9f3d2e9bc807ed653d849c2c3c36",
+    "packed_names_model.cpp": "fcdd7420c869e9d769a58f376fad2539f0d4ff95e3d393c975c8b7396a7b88d6",
+    "test_country_codes.py": "2a759c97a4fc35580ab70f297b6a70b88d76880c88da6d24d97b230cb56f0820"
+  },
+  "binary_sha256": "c75d3204911ffdda023f2ee7cdbd670ae69496d81aad5072f5588c898d5bf2fb",
+  "stdout": "PASS offset-name independent std::set, low32 fingerprint collisions including0/1, full-key collisions, all-country words, table/block growth, exact full/partial/oversized blocks, long NUL/UTF8 keys, encoded-index boundaries and overflow guards\n",
+  "stderr": "",
+  "native_gcc_pair_reports": [],
+  "model_scope": "Fresh independent exact full-key/membership std::set oracle, full/low32/zero/one hash collisions, all56/64 country seams, short254/escape255/long256/1MiB lengths, all-ones packed header, stable/slab/oversized/index/grow/overflow checks. Original hash/owner protocol is unchanged; old actual collision input references remain data only.",
+  "passed": true,
+  "completed_at_utc": "2026-11-01T17:36:08.725284+00:00"
+}

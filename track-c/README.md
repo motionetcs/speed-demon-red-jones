@@ -9,3 +9,5 @@ An exact local synchronization proof selects true record boundaries. Reader work
 No input seed or answer is recognized. All output is computed in the timed run. See `PERF.md` for actual experiments, source/memory costs, independent tests and real board outcomes.
 
 Owner table entries use a32-bit rejection fingerprint and a32-bit stable-block word index. Full length/byte equality still decides names, including collisions; the complete64-bit hash routes owners.64KiB word blocks and dedicated oversized-key blocks retain exact name bytes/country words with checked index arithmetic.
+
+Candidate exact metadata packing: an8-bit short-key length or255 escape shares one uint64 header with the first56 country flags. Keys of length255 or greater store a complete extra length word; remaining countries use complete64-bit spill words. No key or country is truncated. The actual group count determines spill capacity; full/sample have240 countries plus unmatched. This is a source-specific memory tradeoff awaiting real-board evaluation, not a claimed target gain.

@@ -1,0 +1,517 @@
+{
+  "started_at_utc": "2026-11-01T17:29:16.131843+00:00",
+  "official_score": false,
+  "selected_in_root": false,
+  "scope": "Fresh exact C294 packed short-length/full-length escape and56-bit membership header. Independent std::set/full-key/index/block/growth/overflow/layout/boundary models and current main strict ASAN/UBSAN/TSAN execute. New country and key-length seams exercised in actual main; parser/queue/quote primitives unchanged by bytes only. Native hypothesis is time/memory tradeoff, no target K/M/ELF/general correctness guarantee.",
+  "source_sha256": {
+    "track-c/training_generator.py": "9e61672eb814fa4e1bc2e3cf30c8e7ca9629804191ce5ae60a66c8b61ba704f2",
+    "track-c/Dockerfile": "637e81c6fca4507f4c4e7368efde7b6904d07879ae9ec992c5e25175d50e1fae",
+    "track-c/names.hpp": "01dd37c3cc5c1115f397021a347bf2e7eee65d4ba6459bc5bc2760dbf2d960e0",
+    "track-c/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+    "track-c/quote_scan.hpp": "0b170a766254dee1bc14f9e9180cc1900da01d41f5d09053d5579e01a7fb9cfa",
+    "track-c/README.md": "3a2642afb4f0a6d666bbe0922cead2aa917d8ccf141a2a8e88b44627f089aeb9",
+    "track-c/PERF.md": "4e24a3b26cd1c452c4630e77930a951ab59f54f0150daaf85370dc5cab553642",
+    "track-c/.speed-demon.toml": "3371600b8033a377bc373378e703191dfec36c1ae991b617650dfa480edc00b4",
+    "track-c/main.cpp": "08ff83e5eab7d03c2221f37064f5fb698a2d14f7e79e9e355e19b5e7bdf96e92",
+    "track-c/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420"
+  },
+  "model_files_sha256": {
+    "packed_names_model.hpp": "b2d28099997247f9286fbbc715dcdcad534d9f3d2e9bc807ed653d849c2c3c36",
+    "packed_names_model.cpp": "fcdd7420c869e9d769a58f376fad2539f0d4ff95e3d393c975c8b7396a7b88d6",
+    "test_country_codes.py": "2a759c97a4fc35580ab70f297b6a70b88d76880c88da6d24d97b230cb56f0820"
+  },
+  "compiles": [
+    {
+      "unit": "asan-model",
+      "command": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-pthread",
+        "-fno-omit-frame-pointer",
+        "-fsanitize=address,undefined",
+        "-fno-sanitize-recover=all",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round294/packed_names_model.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round294/native-proof/asan/packed-names-model"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "binary_sha256": "640873417bee1243c5494bbb839136e5d5cdba86ec84532297aa67e12d34a6ae"
+    },
+    {
+      "unit": "asan-main",
+      "command": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-pthread",
+        "-fno-omit-frame-pointer",
+        "-fsanitize=address,undefined",
+        "-fno-sanitize-recover=all",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round294/source/track-c/main.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round294/native-proof/asan/track-c"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "binary_sha256": "12bea06f92cba306264ef88a17be7ed6d85b241cdc6892ec011712864b6b885b"
+    },
+    {
+      "unit": "tsan-model",
+      "command": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-pthread",
+        "-fno-omit-frame-pointer",
+        "-fsanitize=thread",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round294/packed_names_model.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round294/native-proof/tsan/packed-names-model"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "binary_sha256": "f94164a7d6e2df43b42fb4750f09ebaf2843a5002b68820f8fe3d7984e3fc763"
+    },
+    {
+      "unit": "tsan-main",
+      "command": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-pthread",
+        "-fno-omit-frame-pointer",
+        "-fsanitize=thread",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round294/source/track-c/main.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round294/native-proof/tsan/track-c"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "binary_sha256": "fa8df648bae4a885be593fc8e52b3f3a45c12638d05990889f5eeaeb786b5c0d"
+    }
+  ],
+  "models": [
+    {
+      "mode": "asan",
+      "returncode": 0,
+      "stdout": "PASS offset-name independent std::set, low32 fingerprint collisions including0/1, full-key collisions, all-country words, table/block growth, exact full/partial/oversized blocks, long NUL/UTF8 keys, encoded-index boundaries and overflow guards\n",
+      "stderr": "",
+      "binary_sha256": "640873417bee1243c5494bbb839136e5d5cdba86ec84532297aa67e12d34a6ae",
+      "model_files_sha256": {
+        "packed_names_model.hpp": "b2d28099997247f9286fbbc715dcdcad534d9f3d2e9bc807ed653d849c2c3c36",
+        "packed_names_model.cpp": "fcdd7420c869e9d769a58f376fad2539f0d4ff95e3d393c975c8b7396a7b88d6",
+        "test_country_codes.py": "2a759c97a4fc35580ab70f297b6a70b88d76880c88da6d24d97b230cb56f0820"
+      },
+      "passed": true
+    },
+    {
+      "mode": "tsan",
+      "returncode": 0,
+      "stdout": "PASS offset-name independent std::set, low32 fingerprint collisions including0/1, full-key collisions, all-country words, table/block growth, exact full/partial/oversized blocks, long NUL/UTF8 keys, encoded-index boundaries and overflow guards\n",
+      "stderr": "",
+      "binary_sha256": "f94164a7d6e2df43b42fb4750f09ebaf2843a5002b68820f8fe3d7984e3fc763",
+      "model_files_sha256": {
+        "packed_names_model.hpp": "b2d28099997247f9286fbbc715dcdcad534d9f3d2e9bc807ed653d849c2c3c36",
+        "packed_names_model.cpp": "fcdd7420c869e9d769a58f376fad2539f0d4ff95e3d393c975c8b7396a7b88d6",
+        "test_country_codes.py": "2a759c97a4fc35580ab70f297b6a70b88d76880c88da6d24d97b230cb56f0820"
+      },
+      "passed": true
+    }
+  ],
+  "runs": [
+    {
+      "suite": "asan-sample",
+      "command": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "tools/verify.py",
+        "--run-id",
+        "round294-asan-sample",
+        "--source-root",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round294/source",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round294/native-proof/asan",
+        "--tracks",
+        "c",
+        "--threads",
+        "1",
+        "6",
+        "12",
+        "--scale",
+        "sample",
+        "--seeds",
+        "3241",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/docs/round294-c-asan-sample.json"
+      ],
+      "report": "docs/round294-c-asan-sample.json",
+      "returncode": 0
+    },
+    {
+      "suite": "asan-countries",
+      "command": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "-c",
+        "import sys;sys.path.insert(0,'tools');import verify;verify.RUN_ID='round294-asan';import importlib.util;spec=importlib.util.spec_from_file_location('packed_countries','.build/round294/test_country_codes.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m);m.main()",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round294/native-proof/asan",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/docs/round294-c-asan-countries.json"
+      ],
+      "report": "docs/round294-c-asan-countries.json",
+      "returncode": 0
+    },
+    {
+      "suite": "asan-pipeline",
+      "command": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "tools/test_name_pipeline.py",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round294/native-proof/asan",
+        "--run-id",
+        "round294-asan-pipeline",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/docs/round294-c-asan-pipeline.json"
+      ],
+      "report": "docs/round294-c-asan-pipeline.json",
+      "returncode": 0
+    },
+    {
+      "suite": "asan-topology",
+      "command": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "tools/test_cooperative_pipeline.py",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round294/native-proof/asan",
+        "--run-id",
+        "round294-asan-topology",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/docs/round294-c-asan-topology.json"
+      ],
+      "report": "docs/round294-c-asan-topology.json",
+      "returncode": 0
+    },
+    {
+      "suite": "asan-pressure",
+      "command": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "tools/test_name_ring_pressure.py",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round294/native-proof/asan",
+        "--run-id",
+        "round294-asan-pressure",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/docs/round294-c-asan-pressure.json"
+      ],
+      "report": "docs/round294-c-asan-pressure.json",
+      "returncode": 0
+    },
+    {
+      "suite": "tsan-sample",
+      "command": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "tools/verify.py",
+        "--run-id",
+        "round294-tsan-sample",
+        "--source-root",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round294/source",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round294/native-proof/tsan",
+        "--tracks",
+        "c",
+        "--threads",
+        "1",
+        "6",
+        "12",
+        "--scale",
+        "sample",
+        "--seeds",
+        "3251",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/docs/round294-c-tsan-sample.json"
+      ],
+      "report": "docs/round294-c-tsan-sample.json",
+      "returncode": 0
+    },
+    {
+      "suite": "tsan-countries",
+      "command": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "-c",
+        "import sys;sys.path.insert(0,'tools');import verify;verify.RUN_ID='round294-tsan';import importlib.util;spec=importlib.util.spec_from_file_location('packed_countries','.build/round294/test_country_codes.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m);m.main()",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round294/native-proof/tsan",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/docs/round294-c-tsan-countries.json"
+      ],
+      "report": "docs/round294-c-tsan-countries.json",
+      "returncode": 0
+    },
+    {
+      "suite": "tsan-pipeline",
+      "command": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "tools/test_name_pipeline.py",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round294/native-proof/tsan",
+        "--run-id",
+        "round294-tsan-pipeline",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/docs/round294-c-tsan-pipeline.json"
+      ],
+      "report": "docs/round294-c-tsan-pipeline.json",
+      "returncode": 0
+    },
+    {
+      "suite": "tsan-topology",
+      "command": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "tools/test_cooperative_pipeline.py",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round294/native-proof/tsan",
+        "--run-id",
+        "round294-tsan-topology",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/docs/round294-c-tsan-topology.json"
+      ],
+      "report": "docs/round294-c-tsan-topology.json",
+      "returncode": 0
+    },
+    {
+      "suite": "tsan-pressure",
+      "command": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "tools/test_name_ring_pressure.py",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round294/native-proof/tsan",
+        "--run-id",
+        "round294-tsan-pressure",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/docs/round294-c-tsan-pressure.json"
+      ],
+      "report": "docs/round294-c-tsan-pressure.json",
+      "returncode": 0
+    }
+  ],
+  "full_public_untrained_runs": [
+    {
+      "case": "public-full-seed1",
+      "data_folder": "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.data/c/public-full-seed1",
+      "expected_sha256": "d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536",
+      "inputs_sha256": {
+        "regions.csv": "414c57c4f3ec968f9bce28c59eebfdf57a9425322b468db7ee964c18c4852fe1",
+        "records.csv": "36166f4ac44101a22ebf25b4f949436a681a2698cb0f2ae1f7f6853010259f48"
+      },
+      "reference_source": "Published official full-public hashes",
+      "threads": 1,
+      "sha256": "d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536",
+      "binary_sha256": "12bea06f92cba306264ef88a17be7ed6d85b241cdc6892ec011712864b6b885b"
+    },
+    {
+      "case": "public-full-seed1",
+      "data_folder": "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.data/c/public-full-seed1",
+      "expected_sha256": "d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536",
+      "inputs_sha256": {
+        "regions.csv": "414c57c4f3ec968f9bce28c59eebfdf57a9425322b468db7ee964c18c4852fe1",
+        "records.csv": "36166f4ac44101a22ebf25b4f949436a681a2698cb0f2ae1f7f6853010259f48"
+      },
+      "reference_source": "Published official full-public hashes",
+      "threads": 6,
+      "sha256": "d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536",
+      "binary_sha256": "12bea06f92cba306264ef88a17be7ed6d85b241cdc6892ec011712864b6b885b"
+    },
+    {
+      "case": "public-full-seed1",
+      "data_folder": "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.data/c/public-full-seed1",
+      "expected_sha256": "d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536",
+      "inputs_sha256": {
+        "regions.csv": "414c57c4f3ec968f9bce28c59eebfdf57a9425322b468db7ee964c18c4852fe1",
+        "records.csv": "36166f4ac44101a22ebf25b4f949436a681a2698cb0f2ae1f7f6853010259f48"
+      },
+      "reference_source": "Published official full-public hashes",
+      "threads": 12,
+      "sha256": "d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536",
+      "binary_sha256": "12bea06f92cba306264ef88a17be7ed6d85b241cdc6892ec011712864b6b885b"
+    },
+    {
+      "case": "full-seed2203",
+      "data_folder": "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.data/c/full-seed2203",
+      "expected_sha256": "2778d89810ab63e1bd11510397114abfe2c520ca1b4c707989ff39dec5aafb92",
+      "inputs_sha256": {
+        "regions.csv": "b10babc48a7df6f63c3ed69207cbba8f54320865806f9901b9163c18dc121b1b",
+        "records.csv": "4867fad678af7b9375175c4b5fe84444feafab7fdc3f30472681b6459bf6aef4"
+      },
+      "reference_source": "docs/round193-image-matrix.json",
+      "threads": 1,
+      "sha256": "2778d89810ab63e1bd11510397114abfe2c520ca1b4c707989ff39dec5aafb92",
+      "binary_sha256": "12bea06f92cba306264ef88a17be7ed6d85b241cdc6892ec011712864b6b885b"
+    },
+    {
+      "case": "full-seed2203",
+      "data_folder": "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.data/c/full-seed2203",
+      "expected_sha256": "2778d89810ab63e1bd11510397114abfe2c520ca1b4c707989ff39dec5aafb92",
+      "inputs_sha256": {
+        "regions.csv": "b10babc48a7df6f63c3ed69207cbba8f54320865806f9901b9163c18dc121b1b",
+        "records.csv": "4867fad678af7b9375175c4b5fe84444feafab7fdc3f30472681b6459bf6aef4"
+      },
+      "reference_source": "docs/round193-image-matrix.json",
+      "threads": 6,
+      "sha256": "2778d89810ab63e1bd11510397114abfe2c520ca1b4c707989ff39dec5aafb92",
+      "binary_sha256": "12bea06f92cba306264ef88a17be7ed6d85b241cdc6892ec011712864b6b885b"
+    },
+    {
+      "case": "full-seed2203",
+      "data_folder": "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.data/c/full-seed2203",
+      "expected_sha256": "2778d89810ab63e1bd11510397114abfe2c520ca1b4c707989ff39dec5aafb92",
+      "inputs_sha256": {
+        "regions.csv": "b10babc48a7df6f63c3ed69207cbba8f54320865806f9901b9163c18dc121b1b",
+        "records.csv": "4867fad678af7b9375175c4b5fe84444feafab7fdc3f30472681b6459bf6aef4"
+      },
+      "reference_source": "docs/round193-image-matrix.json",
+      "threads": 12,
+      "sha256": "2778d89810ab63e1bd11510397114abfe2c520ca1b4c707989ff39dec5aafb92",
+      "binary_sha256": "12bea06f92cba306264ef88a17be7ed6d85b241cdc6892ec011712864b6b885b"
+    },
+    {
+      "case": "full-seed2309",
+      "data_folder": "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.data/c/full-seed2309",
+      "expected_sha256": "a972eb671f50c4788aeeaf8b832d3cfd1ff6cff6b5d58eda64627a5b505518a8",
+      "inputs_sha256": {
+        "regions.csv": "4df78d8e0d97c033bb657c48f445f26f73d13dfcc6bf63538d177998791e1076",
+        "records.csv": "47682093d79971222c10c06f68c09dd81c4b6514f3d57cd0160a852664df485f"
+      },
+      "reference_source": "docs/round234-c-image-matrix.json",
+      "threads": 1,
+      "sha256": "a972eb671f50c4788aeeaf8b832d3cfd1ff6cff6b5d58eda64627a5b505518a8",
+      "binary_sha256": "12bea06f92cba306264ef88a17be7ed6d85b241cdc6892ec011712864b6b885b"
+    },
+    {
+      "case": "full-seed2309",
+      "data_folder": "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.data/c/full-seed2309",
+      "expected_sha256": "a972eb671f50c4788aeeaf8b832d3cfd1ff6cff6b5d58eda64627a5b505518a8",
+      "inputs_sha256": {
+        "regions.csv": "4df78d8e0d97c033bb657c48f445f26f73d13dfcc6bf63538d177998791e1076",
+        "records.csv": "47682093d79971222c10c06f68c09dd81c4b6514f3d57cd0160a852664df485f"
+      },
+      "reference_source": "docs/round234-c-image-matrix.json",
+      "threads": 6,
+      "sha256": "a972eb671f50c4788aeeaf8b832d3cfd1ff6cff6b5d58eda64627a5b505518a8",
+      "binary_sha256": "12bea06f92cba306264ef88a17be7ed6d85b241cdc6892ec011712864b6b885b"
+    },
+    {
+      "case": "full-seed2309",
+      "data_folder": "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.data/c/full-seed2309",
+      "expected_sha256": "a972eb671f50c4788aeeaf8b832d3cfd1ff6cff6b5d58eda64627a5b505518a8",
+      "inputs_sha256": {
+        "regions.csv": "4df78d8e0d97c033bb657c48f445f26f73d13dfcc6bf63538d177998791e1076",
+        "records.csv": "47682093d79971222c10c06f68c09dd81c4b6514f3d57cd0160a852664df485f"
+      },
+      "reference_source": "docs/round234-c-image-matrix.json",
+      "threads": 12,
+      "sha256": "a972eb671f50c4788aeeaf8b832d3cfd1ff6cff6b5d58eda64627a5b505518a8",
+      "binary_sha256": "12bea06f92cba306264ef88a17be7ed6d85b241cdc6892ec011712864b6b885b"
+    },
+    {
+      "case": "full-seed2371",
+      "data_folder": "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.data/c/full-seed2371",
+      "expected_sha256": "b07c46afc736e74da7169f1c2040f0aa30e4fe56dba70c93a77598bb9cd0d9c5",
+      "inputs_sha256": {
+        "regions.csv": "4741e6fececc41aaeef35db364ad5c3953e59f77adf9d99f34b7ee97de65a919",
+        "records.csv": "ca3d491d1dfaf0a7ddf93efef2026a6bce53f07085464155588684872a7d3847"
+      },
+      "reference_source": "docs/round234-c-image-matrix.json",
+      "threads": 1,
+      "sha256": "b07c46afc736e74da7169f1c2040f0aa30e4fe56dba70c93a77598bb9cd0d9c5",
+      "binary_sha256": "12bea06f92cba306264ef88a17be7ed6d85b241cdc6892ec011712864b6b885b"
+    },
+    {
+      "case": "full-seed2371",
+      "data_folder": "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.data/c/full-seed2371",
+      "expected_sha256": "b07c46afc736e74da7169f1c2040f0aa30e4fe56dba70c93a77598bb9cd0d9c5",
+      "inputs_sha256": {
+        "regions.csv": "4741e6fececc41aaeef35db364ad5c3953e59f77adf9d99f34b7ee97de65a919",
+        "records.csv": "ca3d491d1dfaf0a7ddf93efef2026a6bce53f07085464155588684872a7d3847"
+      },
+      "reference_source": "docs/round234-c-image-matrix.json",
+      "threads": 6,
+      "sha256": "b07c46afc736e74da7169f1c2040f0aa30e4fe56dba70c93a77598bb9cd0d9c5",
+      "binary_sha256": "12bea06f92cba306264ef88a17be7ed6d85b241cdc6892ec011712864b6b885b"
+    },
+    {
+      "case": "full-seed2371",
+      "data_folder": "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.data/c/full-seed2371",
+      "expected_sha256": "b07c46afc736e74da7169f1c2040f0aa30e4fe56dba70c93a77598bb9cd0d9c5",
+      "inputs_sha256": {
+        "regions.csv": "4741e6fececc41aaeef35db364ad5c3953e59f77adf9d99f34b7ee97de65a919",
+        "records.csv": "ca3d491d1dfaf0a7ddf93efef2026a6bce53f07085464155588684872a7d3847"
+      },
+      "reference_source": "docs/round234-c-image-matrix.json",
+      "threads": 12,
+      "sha256": "b07c46afc736e74da7169f1c2040f0aa30e4fe56dba70c93a77598bb9cd0d9c5",
+      "binary_sha256": "12bea06f92cba306264ef88a17be7ed6d85b241cdc6892ec011712864b6b885b"
+    },
+    {
+      "case": "full-seed3187",
+      "data_folder": "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.data/c/full-seed3187",
+      "inputs_sha256": {
+        "regions.csv": "07104c75371bba728f10af38ceda74608724d20d169941f59f257022b451ea70",
+        "records.csv": "d6ac2fa666c270fc49ba8b33bc4f11a9dee0294e4ad137ecfd4928a68bc89e7d"
+      },
+      "expected_sha256": "ca272f826db6bd1e07ed58e5994113c8b187640e85c95eced781aa8e7abe8a11",
+      "threads": 1,
+      "sha256": "ca272f826db6bd1e07ed58e5994113c8b187640e85c95eced781aa8e7abe8a11",
+      "binary_sha256": "12bea06f92cba306264ef88a17be7ed6d85b241cdc6892ec011712864b6b885b"
+    },
+    {
+      "case": "full-seed3187",
+      "data_folder": "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.data/c/full-seed3187",
+      "inputs_sha256": {
+        "regions.csv": "07104c75371bba728f10af38ceda74608724d20d169941f59f257022b451ea70",
+        "records.csv": "d6ac2fa666c270fc49ba8b33bc4f11a9dee0294e4ad137ecfd4928a68bc89e7d"
+      },
+      "expected_sha256": "ca272f826db6bd1e07ed58e5994113c8b187640e85c95eced781aa8e7abe8a11",
+      "threads": 6,
+      "sha256": "ca272f826db6bd1e07ed58e5994113c8b187640e85c95eced781aa8e7abe8a11",
+      "binary_sha256": "12bea06f92cba306264ef88a17be7ed6d85b241cdc6892ec011712864b6b885b"
+    },
+    {
+      "case": "full-seed3187",
+      "data_folder": "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.data/c/full-seed3187",
+      "inputs_sha256": {
+        "regions.csv": "07104c75371bba728f10af38ceda74608724d20d169941f59f257022b451ea70",
+        "records.csv": "d6ac2fa666c270fc49ba8b33bc4f11a9dee0294e4ad137ecfd4928a68bc89e7d"
+      },
+      "expected_sha256": "ca272f826db6bd1e07ed58e5994113c8b187640e85c95eced781aa8e7abe8a11",
+      "threads": 12,
+      "sha256": "ca272f826db6bd1e07ed58e5994113c8b187640e85c95eced781aa8e7abe8a11",
+      "binary_sha256": "12bea06f92cba306264ef88a17be7ed6d85b241cdc6892ec011712864b6b885b"
+    }
+  ],
+  "passed": true,
+  "completed_at_utc": "2026-11-01T17:30:18.511271+00:00"
+}
