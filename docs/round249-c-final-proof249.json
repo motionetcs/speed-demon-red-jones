@@ -1,0 +1,87 @@
+{
+  "observed_at_utc": "2026-11-01T06:30:32.218060+00:00",
+  "passed": true,
+  "official_score": false,
+  "scope": "C249-only authoritative local proof; source remains isolated pending owner integration and exact real board trial. No A/D proof or source changes. Native timing is Apple; emulated Linux proves output/build/default behavior, not Intel performance.",
+  "manifest_sha256": "6b3afb6ad5b99b0af6cec8eaaf1cdd992d00e8da2ec792a0822d4d7719f0b564",
+  "source_sha256": {
+    "track-c/.speed-demon.toml": "3371600b8033a377bc373378e703191dfec36c1ae991b617650dfa480edc00b4",
+    "track-c/Dockerfile": "637e81c6fca4507f4c4e7368efde7b6904d07879ae9ec992c5e25175d50e1fae",
+    "track-c/PERF.md": "c619faf1fe44aaa19b8e787f03026fe28d53154ea747f078ad3bd22b59287da9",
+    "track-c/README.md": "6a64233dcbf8967678d87f403c99969067f468ee5066b0f172751f437cccb841",
+    "track-c/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+    "track-c/main.cpp": "065573427164032c135163540f4c668e06c5699f9a197fa668f94e6b5af5e4ce",
+    "track-c/names.hpp": "f62a25fdb9f229575c42fc013220f7f38dd5a68ea5ac83aa1702d0589c15501b",
+    "track-c/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420",
+    "track-c/quote_scan.hpp": "0b170a766254dee1bc14f9e9180cc1900da01d41f5d09053d5579e01a7fb9cfa",
+    "track-c/training_generator.py": "9e61672eb814fa4e1bc2e3cf30c8e7ca9629804191ce5ae60a66c8b61ba704f2"
+  },
+  "source_change": "Original scalar Csv; PIPELINE_READERS8to7 plus two canonical statement line splits only. Every other source/build/training/metadata file byteidentical original baseline.",
+  "original_main_sha256": "8f1703c20ec7e17bb708abff7d7a88945e0dcd8b83acc00b137607a7ceee1b0d",
+  "scalar_Csv_extract_sha256": "3b3884ff0a70d3ecf5114fa1081a77d702d624ffab13f043ee8776e70475be5e",
+  "scalar_Csv_matches_original": true,
+  "model_source_sha256": {
+    ".build/interactive-improve/queue_model249.cpp": "637332fef1c0e956e8aa736736842defba50bd12926d8a76de62c85275c1bb58",
+    ".build/interactive-improve/csv_scalar_model249.cpp": "7e1f6a8cfd7d9c21d8f5b2954e406992964852f5a4d8805e8f9b7a494bc15071",
+    ".build/interactive-improve/frozen-csv249.hpp": "8ac8740f8f1a21530a9f3bd428054be3252fca7aea3e7fb26d29c8742744571a",
+    "tools/test_name_store.cpp": "56d328be33772761f2b017c27c9415594ef6367298ff8ae919d5c93f384b0183",
+    "tools/offset_names_model.hpp": "80082d9d37052c2f8ba3612c15c5ad3386f672e2b5ead83d2dd3f64e6794842e",
+    "tools/test_name_event.cpp": "52511d5a6e3fc050b0f0f5e839af59c7a0c6a151b1fb1f671a4257a26e739f65",
+    "tools/test_csv_numeric.cpp": "158de7377ab8fd19fb5761d7e175b22ce0fae71bdfcc37be9c9ef54cd8f0c6af"
+  },
+  "reports": {
+    "proof249-asan/stage.json": {
+      "sha256": "4a398912a843b48faaf69d1ae75198a1ccc89b359471a9b90d33f79aff61acdb",
+      "passed": true
+    },
+    "proof249-tsan/stage.json": {
+      "sha256": "e227fb89abd6ead0c55b88317ae111af6d8bfa3722f8a99c23d356b22faa1c47",
+      "passed": true
+    },
+    "linux249-c-gcc/report.json": {
+      "sha256": "b6c5bb86ea5870eb50d71b79c169f0b53de978ba551763448608869938a071ba",
+      "passed": true
+    },
+    "linux249-c-build/report.json": {
+      "sha256": "9269b7c8068ed66997f9ce6f3e0d73e4d21c15a48b103d9b5927004aa461cec7",
+      "passed": true
+    },
+    "linux249-c-image/report.json": {
+      "sha256": "d8aa23106bfc5cb3eaed3f37ebf6d7412828c660596b2fdc67fce4360ffb0953",
+      "passed": true
+    },
+    "linux249-c-defaults/report.json": {
+      "sha256": "e471b5ce26561f1926195210ae01198e900c486177be61a97e914aa3baf96a97",
+      "passed": true
+    }
+  },
+  "image_id": "sha256:ef3465afb8cb02f927e3478a0e4f7a24c32461a24d01d9f3ea3d4d1055f408e0",
+  "elf_sha256": "0e277b067900062fd091d8bed2a7e326e244c3fc71e0ac04687713564717f8dc",
+  "unique_image_tag": "speed-demon-interactive/track-c:249-065573427164",
+  "configuration_matches_original": {
+    "Env": [
+      "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+    ],
+    "User": "65534:65534",
+    "Entrypoint": [
+      "/app/solution"
+    ],
+    "Cmd": null,
+    "WorkingDir": null
+  },
+  "configured_default_cap": 12,
+  "default_source": "Unchanged worker_count code fallback, no image environment override.",
+  "gcc_valid_invocations": 231,
+  "gcc_expected_errors": 25,
+  "production_valid_invocations": 645,
+  "production_expected_errors": 50,
+  "actual_default_valid_invocations": 75,
+  "actual_default_expected_errors": 9,
+  "documentation_scope": "Owner README/PERF edits are outside runtime identity; core source/build/metadata must match this frozen manifest.",
+  "performance_limit": "Five native full datasets mixed: four medians faster,2371slightlyslower; no target totalK gain claimed until exact source board run. Training unchanged official full1000003/sample130363 only.",
+  "initial_metadata_check_failure": {
+    "report": "linux249-c-build-attempt1/failure.json",
+    "sha256": "d34c7237877464b46ee9e79fa70c922d3f89b1e6a25a4c492b1c1e1242ec7175",
+    "scope": "Build succeeded, optional Cmd lookup failed afterward. Finalizer corrected, exact same image reused without compiler/training rerun; source unchanged."
+  }
+}

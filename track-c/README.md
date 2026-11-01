@@ -9,3 +9,5 @@ An exact local synchronization proof selects true record boundaries. Reader work
 No input seed or answer is recognized. All output is computed in the timed run. See `PERF.md` for actual experiments, source/memory costs, independent tests and real board outcomes.
 
 Owner table entries use a32-bit rejection fingerprint and a32-bit stable-block word index. Full length/byte equality still decides names, including collisions; the complete64-bit hash routes owners.64KiB word blocks and dedicated oversized-key blocks retain exact name bytes/country words with checked index arithmetic.
+
+Candidate249 changes only the generic reader ratio from8/12 to7/12 (clamped for every1..12 requested threads). At the unchanged default12 this is7 CSV readers and5 private name owners. Every original scalar CSV/numeric/full-key/country/queue/EOF/cancel behavior and normal full/sample PGO remains. Two pre-existing queue clauses are separated on new lines for strict compiler warnings, with no expression/order/atomic change. More owners also change routing hash%4 to%5, so performance is not attributed to balance alone.

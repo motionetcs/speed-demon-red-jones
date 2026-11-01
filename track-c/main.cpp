@@ -159,7 +159,7 @@ int main(int argc, char** argv) {
         }
         unsigned threads = worker_count();
 #ifndef PIPELINE_READERS
-#define PIPELINE_READERS 8
+#define PIPELINE_READERS 7
 #endif
 #ifndef NAME_BATCH
 #define NAME_BATCH 512
@@ -204,8 +204,10 @@ int main(int argc, char** argv) {
                             if(canceled.load(std::memory_order_relaxed))throw std::runtime_error("name pipeline canceled");
                             bool progress=false;
                             for(unsigned reader=0;reader<readers;++reader){
-                                if(finished[reader])continue;auto& queue=queues[size_t(reader)*owners+owner];
-                                if(!queue.ready.load(std::memory_order_acquire))continue;progress=true;
+                                if(finished[reader])continue;
+                                auto& queue=queues[size_t(reader)*owners+owner];
+                                if(!queue.ready.load(std::memory_order_acquire))continue;
+                                progress=true;
                                 if(queue.rows.empty()){finished[reader]=true;--remaining;}
                                 else for(const auto& e:queue.rows)distinct[owner][e.country]+=names.first(e.value(),e.country,e.hash);
                                 queue.rows.clear();queue.ready.store(false,std::memory_order_release);

@@ -1,0 +1,329 @@
+{
+  "started_at_utc": "2026-11-01T06:24:55.857265+00:00",
+  "official_score": false,
+  "mode": "tsan",
+  "source_sha256": {
+    "track-c/.speed-demon.toml": "3371600b8033a377bc373378e703191dfec36c1ae991b617650dfa480edc00b4",
+    "track-c/Dockerfile": "637e81c6fca4507f4c4e7368efde7b6904d07879ae9ec992c5e25175d50e1fae",
+    "track-c/PERF.md": "c619faf1fe44aaa19b8e787f03026fe28d53154ea747f078ad3bd22b59287da9",
+    "track-c/README.md": "6a64233dcbf8967678d87f403c99969067f468ee5066b0f172751f437cccb841",
+    "track-c/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+    "track-c/main.cpp": "065573427164032c135163540f4c668e06c5699f9a197fa668f94e6b5af5e4ce",
+    "track-c/names.hpp": "f62a25fdb9f229575c42fc013220f7f38dd5a68ea5ac83aa1702d0589c15501b",
+    "track-c/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420",
+    "track-c/quote_scan.hpp": "0b170a766254dee1bc14f9e9180cc1900da01d41f5d09053d5579e01a7fb9cfa",
+    "track-c/training_generator.py": "9e61672eb814fa4e1bc2e3cf30c8e7ca9629804191ce5ae60a66c8b61ba704f2"
+  },
+  "scope": "C249 scalar original parser,7/5 at12; new role partition under fresh sanitizer/race, original exact primitives. No241 CountOnly source or model API.",
+  "steps": [
+    {
+      "label": "compile-c",
+      "command": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-pthread",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-fno-sanitize-recover=all",
+        "-fno-omit-frame-pointer",
+        "-fsanitize=thread",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/candidate249-source/track-c/main.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/proof249-tsan/track-c"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "compile-names",
+      "command": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-pthread",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-fno-sanitize-recover=all",
+        "-fno-omit-frame-pointer",
+        "-fsanitize=thread",
+        "-DNAMES_HEADER=\"/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/candidate249-source/track-c/names.hpp\"",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/tools/test_name_store.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/proof249-tsan/names"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "names",
+      "command": [
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/proof249-tsan/names"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "compile-events",
+      "command": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-pthread",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-fno-sanitize-recover=all",
+        "-fno-omit-frame-pointer",
+        "-fsanitize=thread",
+        "-DNAMES_HEADER=\"/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/candidate249-source/track-c/names.hpp\"",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/tools/test_name_event.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/proof249-tsan/events"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "events",
+      "command": [
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/proof249-tsan/events"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "compile-queue",
+      "command": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-pthread",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-fno-sanitize-recover=all",
+        "-fno-omit-frame-pointer",
+        "-fsanitize=thread",
+        "-DNAMES_HEADER=\"/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/candidate249-source/track-c/names.hpp\"",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/queue_model249.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/proof249-tsan/queue"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "queue",
+      "command": [
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/proof249-tsan/queue"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "tiny-adversarial",
+      "command": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/tools/verify.py",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/proof249-tsan",
+        "--source-root",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/candidate249-source",
+        "--run-id",
+        "interactive249-tsan",
+        "--tracks",
+        "c",
+        "--scale",
+        "tiny",
+        "--seeds",
+        "2491",
+        "2503",
+        "--threads",
+        "1",
+        "6",
+        "12",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/proof249-tsan/tiny-adversarial.json"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "sample",
+      "command": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/tools/verify.py",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/proof249-tsan",
+        "--source-root",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/candidate249-source",
+        "--run-id",
+        "interactive249-tsan-sample",
+        "--tracks",
+        "c",
+        "--scale",
+        "sample",
+        "--seeds",
+        "2521",
+        "--threads",
+        "1",
+        "6",
+        "12",
+        "--skip-adversarial",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/proof249-tsan/sample.json"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "countries",
+      "command": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/tools/test_country_codes.py",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/proof249-tsan",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/proof249-tsan/countries.json"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "name-pipeline",
+      "command": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/tools/test_name_pipeline.py",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/proof249-tsan",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/proof249-tsan/name-pipeline.json",
+        "--run-id",
+        "interactive249-tsan-name-pipeline"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "topology",
+      "command": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/tools/test_cooperative_pipeline.py",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/proof249-tsan",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/proof249-tsan/topology.json",
+        "--run-id",
+        "interactive249-tsan-topology"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "pressure",
+      "command": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/tools/test_name_ring_pressure.py",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/proof249-tsan",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/proof249-tsan/pressure.json",
+        "--run-id",
+        "interactive249-tsan-pressure"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "amounts",
+      "command": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/tools/test_c_amounts.py",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/proof249-tsan",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/proof249-tsan/amounts.json",
+        "--run-id",
+        "interactive249-tsan-amounts"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "full_reference_runs": [
+    {
+      "case": "full-seed2309",
+      "data_folder": "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.data/c/full-seed2309",
+      "threads": 1,
+      "inputs_sha256": {
+        "regions.csv": "4df78d8e0d97c033bb657c48f445f26f73d13dfcc6bf63538d177998791e1076",
+        "records.csv": "47682093d79971222c10c06f68c09dd81c4b6514f3d57cd0160a852664df485f"
+      },
+      "expected_sha256": "a972eb671f50c4788aeeaf8b832d3cfd1ff6cff6b5d58eda64627a5b505518a8",
+      "sha256": "a972eb671f50c4788aeeaf8b832d3cfd1ff6cff6b5d58eda64627a5b505518a8"
+    },
+    {
+      "case": "full-seed2309",
+      "data_folder": "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.data/c/full-seed2309",
+      "threads": 6,
+      "inputs_sha256": {
+        "regions.csv": "4df78d8e0d97c033bb657c48f445f26f73d13dfcc6bf63538d177998791e1076",
+        "records.csv": "47682093d79971222c10c06f68c09dd81c4b6514f3d57cd0160a852664df485f"
+      },
+      "expected_sha256": "a972eb671f50c4788aeeaf8b832d3cfd1ff6cff6b5d58eda64627a5b505518a8",
+      "sha256": "a972eb671f50c4788aeeaf8b832d3cfd1ff6cff6b5d58eda64627a5b505518a8"
+    },
+    {
+      "case": "full-seed2309",
+      "data_folder": "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.data/c/full-seed2309",
+      "threads": 12,
+      "inputs_sha256": {
+        "regions.csv": "4df78d8e0d97c033bb657c48f445f26f73d13dfcc6bf63538d177998791e1076",
+        "records.csv": "47682093d79971222c10c06f68c09dd81c4b6514f3d57cd0160a852664df485f"
+      },
+      "expected_sha256": "a972eb671f50c4788aeeaf8b832d3cfd1ff6cff6b5d58eda64627a5b505518a8",
+      "sha256": "a972eb671f50c4788aeeaf8b832d3cfd1ff6cff6b5d58eda64627a5b505518a8"
+    },
+    {
+      "case": "full-seed2371",
+      "data_folder": "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.data/c/full-seed2371",
+      "threads": 1,
+      "inputs_sha256": {
+        "regions.csv": "4741e6fececc41aaeef35db364ad5c3953e59f77adf9d99f34b7ee97de65a919",
+        "records.csv": "ca3d491d1dfaf0a7ddf93efef2026a6bce53f07085464155588684872a7d3847"
+      },
+      "expected_sha256": "b07c46afc736e74da7169f1c2040f0aa30e4fe56dba70c93a77598bb9cd0d9c5",
+      "sha256": "b07c46afc736e74da7169f1c2040f0aa30e4fe56dba70c93a77598bb9cd0d9c5"
+    },
+    {
+      "case": "full-seed2371",
+      "data_folder": "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.data/c/full-seed2371",
+      "threads": 6,
+      "inputs_sha256": {
+        "regions.csv": "4741e6fececc41aaeef35db364ad5c3953e59f77adf9d99f34b7ee97de65a919",
+        "records.csv": "ca3d491d1dfaf0a7ddf93efef2026a6bce53f07085464155588684872a7d3847"
+      },
+      "expected_sha256": "b07c46afc736e74da7169f1c2040f0aa30e4fe56dba70c93a77598bb9cd0d9c5",
+      "sha256": "b07c46afc736e74da7169f1c2040f0aa30e4fe56dba70c93a77598bb9cd0d9c5"
+    },
+    {
+      "case": "full-seed2371",
+      "data_folder": "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.data/c/full-seed2371",
+      "threads": 12,
+      "inputs_sha256": {
+        "regions.csv": "4741e6fececc41aaeef35db364ad5c3953e59f77adf9d99f34b7ee97de65a919",
+        "records.csv": "ca3d491d1dfaf0a7ddf93efef2026a6bce53f07085464155588684872a7d3847"
+      },
+      "expected_sha256": "b07c46afc736e74da7169f1c2040f0aa30e4fe56dba70c93a77598bb9cd0d9c5",
+      "sha256": "b07c46afc736e74da7169f1c2040f0aa30e4fe56dba70c93a77598bb9cd0d9c5"
+    }
+  ],
+  "binary_sha256": "57a4f53e5e4139e6feaad655ce3f35dc0771e32e9d07d220a86270af9bf0c595",
+  "csv_extract_sha256": "8ac8740f8f1a21530a9f3bd428054be3252fca7aea3e7fb26d29c8742744571a",
+  "model_source_sha256": {
+    "queue_model249.cpp": "637332fef1c0e956e8aa736736842defba50bd12926d8a76de62c85275c1bb58",
+    "csv_scalar_model249.cpp": "7e1f6a8cfd7d9c21d8f5b2954e406992964852f5a4d8805e8f9b7a494bc15071",
+    "test_name_store.cpp": "56d328be33772761f2b017c27c9415594ef6367298ff8ae919d5c93f384b0183",
+    "test_name_event.cpp": "52511d5a6e3fc050b0f0f5e839af59c7a0c6a151b1fb1f671a4257a26e739f65",
+    "test_csv_numeric.cpp": "158de7377ab8fd19fb5761d7e175b22ce0fae71bdfcc37be9c9ef54cd8f0c6af"
+  },
+  "passed": true,
+  "completed_at_utc": "2026-11-01T06:26:00.850055+00:00"
+}
