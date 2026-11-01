@@ -180,9 +180,8 @@ int main(int argc, char** argv) {
             }
         };
         if (threads) {
-            unsigned query_workers=std::min(threads,6U);
-            if (edges.compact) parallel(query_workers, [&](unsigned) { worker.template operator()<true>(); });
-            else parallel(query_workers, [&](unsigned) { worker.template operator()<false>(); });
+            if (edges.compact) parallel(threads, [&](unsigned) { worker.template operator()<true>(); });
+            else parallel(threads, [&](unsigned) { worker.template operator()<false>(); });
         }
         Output output;
         for (int64_t answer : answers) { output.number(answer); output.text("\n"); }

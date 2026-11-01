@@ -1,3 +1,13 @@
+# Original D restored after real286 loss;287 confirmation pending
+
+286/f6422676c73d4619ad0649301591c952c26879ff passes every actual gate, D run-2a87b5f5faeb T0.278446s/M67182592/S828/K17.394071/62.020062 loses best20.248361/65.319494. Compared with best, memory is9740288B lower (12.66%), but observed time43.001% higher and source+1; totalK loses14.10%. These are record comparisons, not precise causal estimates. REJECT full query-worker cap6, restore original281 D main/README/image. Fresh immutable original native/image public1/6/12/default8 controlsPASS, no compiler/model/PGO duplicate. A/C unchanged lower repeats are variation; no new best. Historical new-main ASAN/TSAN/Floyd/GCC1320+12/image1950+48/default425+4 proof is bound only to rejected286. Exact docs/round286-scored-source-match.json; one cooled287 all-track confirmation required.
+
+HEAD/origin f6422676c73d4619ad0649301591c952c26879ff is rejected286; local runtime exact original281 with all29/file sets/README/Make/image proof docs/round287-restored-public-defaults.json. No live watcher/compiler/benchmark/training. Sole watcher32539 TERMINALexit0.286dispatch2026-11-01T16:12:17Z; do not push287 before16:17:17Z. Keep PRIVATE/MIT, no visibility/grants/credentials changes. Commit restored candidate and evidence only after cooldown and normal diff/privacy checks, then sole full-commit watcher. No new candidate before287 actual confirmation.
+
+# D286 pushed; sole exact-commit real watcher running
+
+Pushed f6422676c73d4619ad0649301591c952c26879ff to existing private speed-demon branch. Watcher32539 is sole board watcher; report docs/board-round286-query6.json. All29/root/Git/local-image binding docs/round286-committed-source-match.json. No compilation/model/training work running. Preserve source while pending; only D K>20.248361/65.319494 permits retention, else restore exact original D and capture287 after>=300s cooldown. Earlier candidate and rollback details follow.
+
 # D286 fully locally verified; authorized real trial ready
 
 Read README.md, STATE.md, RESULTS.md, Git status and UTC first. HEAD/origin17965626c38f4318ed55e33c24c68bbe68bdc88c is last real-passing original281. Local root D286 changes only D main/README after fresh full proof; A/C/runtime headers/build/metadata/Make unchanged. Root sole writer, other chat HOLD, no agents. No live watcher/compiler/model/training/benchmark work; native3865, Linux68897 and integration34696 TERMINALexit0.
