@@ -1,0 +1,1624 @@
+{
+  "official_score": false,
+  "oracle_csv_field_size_limit_bytes": 4194304,
+  "scope": "Official reference source unchanged; test wrapper raises Python CSV field capacity for synthetic1MiB keys. Independent official-reference output, all requested1..12 worker topologies,64/128/256/512 batch seams and EOF, highly skewed names,30000 distinct names,1MiB quoted records, BOM/UTF8/embedded-newline/CRLF/optional EOF/money/unmatched groups;30s progress bound per invocation, normal cancellation before data and after pressure. No implementation internal state is used by the oracle.",
+  "checks": [
+    {
+      "track": "c",
+      "case": "round315-tsan-topology-c-coop-mixed-0",
+      "inputs_sha256": {
+        "records.csv": "bcf474b6f445797910ccc71c886797bdb5f4de8c3b42900f079d05b6725cb573",
+        "regions.csv": "f86ea1654ef07ed40123030876ddd95ebb1adbe3f773dc7a803e41d825f6d2c4"
+      },
+      "reference_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "runs": [
+        {
+          "requested_threads": 1,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 2,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 3,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 4,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 5,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 6,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 7,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 8,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 9,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 10,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 11,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 12,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "returncode": 0
+        }
+      ]
+    },
+    {
+      "track": "c",
+      "case": "round315-tsan-topology-c-coop-mixed-1",
+      "inputs_sha256": {
+        "records.csv": "97375940235f9bcc5279cc6d5da21be8d9516d279836ff0616cfe12d6ddaa811",
+        "regions.csv": "f86ea1654ef07ed40123030876ddd95ebb1adbe3f773dc7a803e41d825f6d2c4"
+      },
+      "reference_sha256": "455b7f62770e5cfaac27a284385d606ec6d82c0fe366bf00843ce4fc00d12705",
+      "runs": [
+        {
+          "requested_threads": 1,
+          "sha256": "455b7f62770e5cfaac27a284385d606ec6d82c0fe366bf00843ce4fc00d12705",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 2,
+          "sha256": "455b7f62770e5cfaac27a284385d606ec6d82c0fe366bf00843ce4fc00d12705",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 3,
+          "sha256": "455b7f62770e5cfaac27a284385d606ec6d82c0fe366bf00843ce4fc00d12705",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 4,
+          "sha256": "455b7f62770e5cfaac27a284385d606ec6d82c0fe366bf00843ce4fc00d12705",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 5,
+          "sha256": "455b7f62770e5cfaac27a284385d606ec6d82c0fe366bf00843ce4fc00d12705",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 6,
+          "sha256": "455b7f62770e5cfaac27a284385d606ec6d82c0fe366bf00843ce4fc00d12705",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 7,
+          "sha256": "455b7f62770e5cfaac27a284385d606ec6d82c0fe366bf00843ce4fc00d12705",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 8,
+          "sha256": "455b7f62770e5cfaac27a284385d606ec6d82c0fe366bf00843ce4fc00d12705",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 9,
+          "sha256": "455b7f62770e5cfaac27a284385d606ec6d82c0fe366bf00843ce4fc00d12705",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 10,
+          "sha256": "455b7f62770e5cfaac27a284385d606ec6d82c0fe366bf00843ce4fc00d12705",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 11,
+          "sha256": "455b7f62770e5cfaac27a284385d606ec6d82c0fe366bf00843ce4fc00d12705",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 12,
+          "sha256": "455b7f62770e5cfaac27a284385d606ec6d82c0fe366bf00843ce4fc00d12705",
+          "returncode": 0
+        }
+      ]
+    },
+    {
+      "track": "c",
+      "case": "round315-tsan-topology-c-coop-mixed-63",
+      "inputs_sha256": {
+        "records.csv": "f0ea26d52e8572f089d967855aad52f50cfda1a4c00ea239c13eca08aa7d9a0f",
+        "regions.csv": "f86ea1654ef07ed40123030876ddd95ebb1adbe3f773dc7a803e41d825f6d2c4"
+      },
+      "reference_sha256": "cea8b462d0ee998a5b10d0ff185f4f7a2909da836fd4ce3b58e10d389278cd05",
+      "runs": [
+        {
+          "requested_threads": 1,
+          "sha256": "cea8b462d0ee998a5b10d0ff185f4f7a2909da836fd4ce3b58e10d389278cd05",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 2,
+          "sha256": "cea8b462d0ee998a5b10d0ff185f4f7a2909da836fd4ce3b58e10d389278cd05",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 3,
+          "sha256": "cea8b462d0ee998a5b10d0ff185f4f7a2909da836fd4ce3b58e10d389278cd05",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 4,
+          "sha256": "cea8b462d0ee998a5b10d0ff185f4f7a2909da836fd4ce3b58e10d389278cd05",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 5,
+          "sha256": "cea8b462d0ee998a5b10d0ff185f4f7a2909da836fd4ce3b58e10d389278cd05",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 6,
+          "sha256": "cea8b462d0ee998a5b10d0ff185f4f7a2909da836fd4ce3b58e10d389278cd05",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 7,
+          "sha256": "cea8b462d0ee998a5b10d0ff185f4f7a2909da836fd4ce3b58e10d389278cd05",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 8,
+          "sha256": "cea8b462d0ee998a5b10d0ff185f4f7a2909da836fd4ce3b58e10d389278cd05",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 9,
+          "sha256": "cea8b462d0ee998a5b10d0ff185f4f7a2909da836fd4ce3b58e10d389278cd05",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 10,
+          "sha256": "cea8b462d0ee998a5b10d0ff185f4f7a2909da836fd4ce3b58e10d389278cd05",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 11,
+          "sha256": "cea8b462d0ee998a5b10d0ff185f4f7a2909da836fd4ce3b58e10d389278cd05",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 12,
+          "sha256": "cea8b462d0ee998a5b10d0ff185f4f7a2909da836fd4ce3b58e10d389278cd05",
+          "returncode": 0
+        }
+      ]
+    },
+    {
+      "track": "c",
+      "case": "round315-tsan-topology-c-coop-mixed-64",
+      "inputs_sha256": {
+        "records.csv": "ddb770d15d0ce06d2d01a3a23334b27c641fb5044eb8b729d058d71f7dee664a",
+        "regions.csv": "f86ea1654ef07ed40123030876ddd95ebb1adbe3f773dc7a803e41d825f6d2c4"
+      },
+      "reference_sha256": "cb1e1c2b0d33c8c1aba2787370958d5aef4ce3d077054c38c526dc4fe191b89c",
+      "runs": [
+        {
+          "requested_threads": 1,
+          "sha256": "cb1e1c2b0d33c8c1aba2787370958d5aef4ce3d077054c38c526dc4fe191b89c",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 2,
+          "sha256": "cb1e1c2b0d33c8c1aba2787370958d5aef4ce3d077054c38c526dc4fe191b89c",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 3,
+          "sha256": "cb1e1c2b0d33c8c1aba2787370958d5aef4ce3d077054c38c526dc4fe191b89c",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 4,
+          "sha256": "cb1e1c2b0d33c8c1aba2787370958d5aef4ce3d077054c38c526dc4fe191b89c",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 5,
+          "sha256": "cb1e1c2b0d33c8c1aba2787370958d5aef4ce3d077054c38c526dc4fe191b89c",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 6,
+          "sha256": "cb1e1c2b0d33c8c1aba2787370958d5aef4ce3d077054c38c526dc4fe191b89c",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 7,
+          "sha256": "cb1e1c2b0d33c8c1aba2787370958d5aef4ce3d077054c38c526dc4fe191b89c",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 8,
+          "sha256": "cb1e1c2b0d33c8c1aba2787370958d5aef4ce3d077054c38c526dc4fe191b89c",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 9,
+          "sha256": "cb1e1c2b0d33c8c1aba2787370958d5aef4ce3d077054c38c526dc4fe191b89c",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 10,
+          "sha256": "cb1e1c2b0d33c8c1aba2787370958d5aef4ce3d077054c38c526dc4fe191b89c",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 11,
+          "sha256": "cb1e1c2b0d33c8c1aba2787370958d5aef4ce3d077054c38c526dc4fe191b89c",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 12,
+          "sha256": "cb1e1c2b0d33c8c1aba2787370958d5aef4ce3d077054c38c526dc4fe191b89c",
+          "returncode": 0
+        }
+      ]
+    },
+    {
+      "track": "c",
+      "case": "round315-tsan-topology-c-coop-mixed-65",
+      "inputs_sha256": {
+        "records.csv": "3246a8abd90580891b792eb9c4b6b97eac3ea6aea7dad011b2402feec8ee6b51",
+        "regions.csv": "f86ea1654ef07ed40123030876ddd95ebb1adbe3f773dc7a803e41d825f6d2c4"
+      },
+      "reference_sha256": "b28d581d1f7b6c2f83871dc2e89d9851ba2e9e07eede63389cd13a9fa7ff4b51",
+      "runs": [
+        {
+          "requested_threads": 1,
+          "sha256": "b28d581d1f7b6c2f83871dc2e89d9851ba2e9e07eede63389cd13a9fa7ff4b51",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 2,
+          "sha256": "b28d581d1f7b6c2f83871dc2e89d9851ba2e9e07eede63389cd13a9fa7ff4b51",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 3,
+          "sha256": "b28d581d1f7b6c2f83871dc2e89d9851ba2e9e07eede63389cd13a9fa7ff4b51",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 4,
+          "sha256": "b28d581d1f7b6c2f83871dc2e89d9851ba2e9e07eede63389cd13a9fa7ff4b51",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 5,
+          "sha256": "b28d581d1f7b6c2f83871dc2e89d9851ba2e9e07eede63389cd13a9fa7ff4b51",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 6,
+          "sha256": "b28d581d1f7b6c2f83871dc2e89d9851ba2e9e07eede63389cd13a9fa7ff4b51",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 7,
+          "sha256": "b28d581d1f7b6c2f83871dc2e89d9851ba2e9e07eede63389cd13a9fa7ff4b51",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 8,
+          "sha256": "b28d581d1f7b6c2f83871dc2e89d9851ba2e9e07eede63389cd13a9fa7ff4b51",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 9,
+          "sha256": "b28d581d1f7b6c2f83871dc2e89d9851ba2e9e07eede63389cd13a9fa7ff4b51",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 10,
+          "sha256": "b28d581d1f7b6c2f83871dc2e89d9851ba2e9e07eede63389cd13a9fa7ff4b51",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 11,
+          "sha256": "b28d581d1f7b6c2f83871dc2e89d9851ba2e9e07eede63389cd13a9fa7ff4b51",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 12,
+          "sha256": "b28d581d1f7b6c2f83871dc2e89d9851ba2e9e07eede63389cd13a9fa7ff4b51",
+          "returncode": 0
+        }
+      ]
+    },
+    {
+      "track": "c",
+      "case": "round315-tsan-topology-c-coop-mixed-127",
+      "inputs_sha256": {
+        "records.csv": "2badacf530c9da80cf56ad8abdd87f22904d520926be5924a8285278dea87b07",
+        "regions.csv": "f86ea1654ef07ed40123030876ddd95ebb1adbe3f773dc7a803e41d825f6d2c4"
+      },
+      "reference_sha256": "bf7477f57170dfa03c74f5d8192a7cdd1ea8b0bd4e18473c0e1ffa0e5fbbdee0",
+      "runs": [
+        {
+          "requested_threads": 1,
+          "sha256": "bf7477f57170dfa03c74f5d8192a7cdd1ea8b0bd4e18473c0e1ffa0e5fbbdee0",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 2,
+          "sha256": "bf7477f57170dfa03c74f5d8192a7cdd1ea8b0bd4e18473c0e1ffa0e5fbbdee0",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 3,
+          "sha256": "bf7477f57170dfa03c74f5d8192a7cdd1ea8b0bd4e18473c0e1ffa0e5fbbdee0",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 4,
+          "sha256": "bf7477f57170dfa03c74f5d8192a7cdd1ea8b0bd4e18473c0e1ffa0e5fbbdee0",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 5,
+          "sha256": "bf7477f57170dfa03c74f5d8192a7cdd1ea8b0bd4e18473c0e1ffa0e5fbbdee0",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 6,
+          "sha256": "bf7477f57170dfa03c74f5d8192a7cdd1ea8b0bd4e18473c0e1ffa0e5fbbdee0",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 7,
+          "sha256": "bf7477f57170dfa03c74f5d8192a7cdd1ea8b0bd4e18473c0e1ffa0e5fbbdee0",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 8,
+          "sha256": "bf7477f57170dfa03c74f5d8192a7cdd1ea8b0bd4e18473c0e1ffa0e5fbbdee0",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 9,
+          "sha256": "bf7477f57170dfa03c74f5d8192a7cdd1ea8b0bd4e18473c0e1ffa0e5fbbdee0",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 10,
+          "sha256": "bf7477f57170dfa03c74f5d8192a7cdd1ea8b0bd4e18473c0e1ffa0e5fbbdee0",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 11,
+          "sha256": "bf7477f57170dfa03c74f5d8192a7cdd1ea8b0bd4e18473c0e1ffa0e5fbbdee0",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 12,
+          "sha256": "bf7477f57170dfa03c74f5d8192a7cdd1ea8b0bd4e18473c0e1ffa0e5fbbdee0",
+          "returncode": 0
+        }
+      ]
+    },
+    {
+      "track": "c",
+      "case": "round315-tsan-topology-c-coop-mixed-128",
+      "inputs_sha256": {
+        "records.csv": "171703da29c3a5042b9111b07b63f95bb7ca8d608f804878ce703a95ed38fd4d",
+        "regions.csv": "f86ea1654ef07ed40123030876ddd95ebb1adbe3f773dc7a803e41d825f6d2c4"
+      },
+      "reference_sha256": "efbf4c643a54456833302e8293a8fa195a416544a54e441cfb769cd6df67eec5",
+      "runs": [
+        {
+          "requested_threads": 1,
+          "sha256": "efbf4c643a54456833302e8293a8fa195a416544a54e441cfb769cd6df67eec5",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 2,
+          "sha256": "efbf4c643a54456833302e8293a8fa195a416544a54e441cfb769cd6df67eec5",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 3,
+          "sha256": "efbf4c643a54456833302e8293a8fa195a416544a54e441cfb769cd6df67eec5",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 4,
+          "sha256": "efbf4c643a54456833302e8293a8fa195a416544a54e441cfb769cd6df67eec5",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 5,
+          "sha256": "efbf4c643a54456833302e8293a8fa195a416544a54e441cfb769cd6df67eec5",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 6,
+          "sha256": "efbf4c643a54456833302e8293a8fa195a416544a54e441cfb769cd6df67eec5",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 7,
+          "sha256": "efbf4c643a54456833302e8293a8fa195a416544a54e441cfb769cd6df67eec5",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 8,
+          "sha256": "efbf4c643a54456833302e8293a8fa195a416544a54e441cfb769cd6df67eec5",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 9,
+          "sha256": "efbf4c643a54456833302e8293a8fa195a416544a54e441cfb769cd6df67eec5",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 10,
+          "sha256": "efbf4c643a54456833302e8293a8fa195a416544a54e441cfb769cd6df67eec5",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 11,
+          "sha256": "efbf4c643a54456833302e8293a8fa195a416544a54e441cfb769cd6df67eec5",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 12,
+          "sha256": "efbf4c643a54456833302e8293a8fa195a416544a54e441cfb769cd6df67eec5",
+          "returncode": 0
+        }
+      ]
+    },
+    {
+      "track": "c",
+      "case": "round315-tsan-topology-c-coop-mixed-129",
+      "inputs_sha256": {
+        "records.csv": "297ab8c42ba72a0beacdd9db0c8daa2188905a079527821387552a8c6c6b4875",
+        "regions.csv": "f86ea1654ef07ed40123030876ddd95ebb1adbe3f773dc7a803e41d825f6d2c4"
+      },
+      "reference_sha256": "32e54df2ecf9591f060cda917584591e35985c26d9dbad42a68f2dec45d2da84",
+      "runs": [
+        {
+          "requested_threads": 1,
+          "sha256": "32e54df2ecf9591f060cda917584591e35985c26d9dbad42a68f2dec45d2da84",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 2,
+          "sha256": "32e54df2ecf9591f060cda917584591e35985c26d9dbad42a68f2dec45d2da84",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 3,
+          "sha256": "32e54df2ecf9591f060cda917584591e35985c26d9dbad42a68f2dec45d2da84",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 4,
+          "sha256": "32e54df2ecf9591f060cda917584591e35985c26d9dbad42a68f2dec45d2da84",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 5,
+          "sha256": "32e54df2ecf9591f060cda917584591e35985c26d9dbad42a68f2dec45d2da84",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 6,
+          "sha256": "32e54df2ecf9591f060cda917584591e35985c26d9dbad42a68f2dec45d2da84",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 7,
+          "sha256": "32e54df2ecf9591f060cda917584591e35985c26d9dbad42a68f2dec45d2da84",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 8,
+          "sha256": "32e54df2ecf9591f060cda917584591e35985c26d9dbad42a68f2dec45d2da84",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 9,
+          "sha256": "32e54df2ecf9591f060cda917584591e35985c26d9dbad42a68f2dec45d2da84",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 10,
+          "sha256": "32e54df2ecf9591f060cda917584591e35985c26d9dbad42a68f2dec45d2da84",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 11,
+          "sha256": "32e54df2ecf9591f060cda917584591e35985c26d9dbad42a68f2dec45d2da84",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 12,
+          "sha256": "32e54df2ecf9591f060cda917584591e35985c26d9dbad42a68f2dec45d2da84",
+          "returncode": 0
+        }
+      ]
+    },
+    {
+      "track": "c",
+      "case": "round315-tsan-topology-c-coop-mixed-255",
+      "inputs_sha256": {
+        "records.csv": "b359c39aa455f0b29aa671b4440037351c9048dbb7f222438821f44f2d04dc6f",
+        "regions.csv": "f86ea1654ef07ed40123030876ddd95ebb1adbe3f773dc7a803e41d825f6d2c4"
+      },
+      "reference_sha256": "49c5c53db4555e221e0eec0e699983eec219f22ec33b06e691a084401a96ce64",
+      "runs": [
+        {
+          "requested_threads": 1,
+          "sha256": "49c5c53db4555e221e0eec0e699983eec219f22ec33b06e691a084401a96ce64",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 2,
+          "sha256": "49c5c53db4555e221e0eec0e699983eec219f22ec33b06e691a084401a96ce64",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 3,
+          "sha256": "49c5c53db4555e221e0eec0e699983eec219f22ec33b06e691a084401a96ce64",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 4,
+          "sha256": "49c5c53db4555e221e0eec0e699983eec219f22ec33b06e691a084401a96ce64",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 5,
+          "sha256": "49c5c53db4555e221e0eec0e699983eec219f22ec33b06e691a084401a96ce64",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 6,
+          "sha256": "49c5c53db4555e221e0eec0e699983eec219f22ec33b06e691a084401a96ce64",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 7,
+          "sha256": "49c5c53db4555e221e0eec0e699983eec219f22ec33b06e691a084401a96ce64",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 8,
+          "sha256": "49c5c53db4555e221e0eec0e699983eec219f22ec33b06e691a084401a96ce64",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 9,
+          "sha256": "49c5c53db4555e221e0eec0e699983eec219f22ec33b06e691a084401a96ce64",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 10,
+          "sha256": "49c5c53db4555e221e0eec0e699983eec219f22ec33b06e691a084401a96ce64",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 11,
+          "sha256": "49c5c53db4555e221e0eec0e699983eec219f22ec33b06e691a084401a96ce64",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 12,
+          "sha256": "49c5c53db4555e221e0eec0e699983eec219f22ec33b06e691a084401a96ce64",
+          "returncode": 0
+        }
+      ]
+    },
+    {
+      "track": "c",
+      "case": "round315-tsan-topology-c-coop-mixed-256",
+      "inputs_sha256": {
+        "records.csv": "5cbf6d9c94979c1bcefae25636049495c11ba274d11a5cce7770c0420f157ad2",
+        "regions.csv": "f86ea1654ef07ed40123030876ddd95ebb1adbe3f773dc7a803e41d825f6d2c4"
+      },
+      "reference_sha256": "486a7ddd9a41d244c9977fc870c49766340202533012989ad7e880b8271155e5",
+      "runs": [
+        {
+          "requested_threads": 1,
+          "sha256": "486a7ddd9a41d244c9977fc870c49766340202533012989ad7e880b8271155e5",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 2,
+          "sha256": "486a7ddd9a41d244c9977fc870c49766340202533012989ad7e880b8271155e5",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 3,
+          "sha256": "486a7ddd9a41d244c9977fc870c49766340202533012989ad7e880b8271155e5",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 4,
+          "sha256": "486a7ddd9a41d244c9977fc870c49766340202533012989ad7e880b8271155e5",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 5,
+          "sha256": "486a7ddd9a41d244c9977fc870c49766340202533012989ad7e880b8271155e5",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 6,
+          "sha256": "486a7ddd9a41d244c9977fc870c49766340202533012989ad7e880b8271155e5",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 7,
+          "sha256": "486a7ddd9a41d244c9977fc870c49766340202533012989ad7e880b8271155e5",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 8,
+          "sha256": "486a7ddd9a41d244c9977fc870c49766340202533012989ad7e880b8271155e5",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 9,
+          "sha256": "486a7ddd9a41d244c9977fc870c49766340202533012989ad7e880b8271155e5",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 10,
+          "sha256": "486a7ddd9a41d244c9977fc870c49766340202533012989ad7e880b8271155e5",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 11,
+          "sha256": "486a7ddd9a41d244c9977fc870c49766340202533012989ad7e880b8271155e5",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 12,
+          "sha256": "486a7ddd9a41d244c9977fc870c49766340202533012989ad7e880b8271155e5",
+          "returncode": 0
+        }
+      ]
+    },
+    {
+      "track": "c",
+      "case": "round315-tsan-topology-c-coop-mixed-257",
+      "inputs_sha256": {
+        "records.csv": "9f0b59c7c54272efc4cdc04324107648e2657fa442bdc3213cde4a008670d11b",
+        "regions.csv": "f86ea1654ef07ed40123030876ddd95ebb1adbe3f773dc7a803e41d825f6d2c4"
+      },
+      "reference_sha256": "7ff6ebf039b5b31da551465f02d14246fbf5e22bbe80acb94c53886be060cd52",
+      "runs": [
+        {
+          "requested_threads": 1,
+          "sha256": "7ff6ebf039b5b31da551465f02d14246fbf5e22bbe80acb94c53886be060cd52",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 2,
+          "sha256": "7ff6ebf039b5b31da551465f02d14246fbf5e22bbe80acb94c53886be060cd52",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 3,
+          "sha256": "7ff6ebf039b5b31da551465f02d14246fbf5e22bbe80acb94c53886be060cd52",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 4,
+          "sha256": "7ff6ebf039b5b31da551465f02d14246fbf5e22bbe80acb94c53886be060cd52",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 5,
+          "sha256": "7ff6ebf039b5b31da551465f02d14246fbf5e22bbe80acb94c53886be060cd52",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 6,
+          "sha256": "7ff6ebf039b5b31da551465f02d14246fbf5e22bbe80acb94c53886be060cd52",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 7,
+          "sha256": "7ff6ebf039b5b31da551465f02d14246fbf5e22bbe80acb94c53886be060cd52",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 8,
+          "sha256": "7ff6ebf039b5b31da551465f02d14246fbf5e22bbe80acb94c53886be060cd52",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 9,
+          "sha256": "7ff6ebf039b5b31da551465f02d14246fbf5e22bbe80acb94c53886be060cd52",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 10,
+          "sha256": "7ff6ebf039b5b31da551465f02d14246fbf5e22bbe80acb94c53886be060cd52",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 11,
+          "sha256": "7ff6ebf039b5b31da551465f02d14246fbf5e22bbe80acb94c53886be060cd52",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 12,
+          "sha256": "7ff6ebf039b5b31da551465f02d14246fbf5e22bbe80acb94c53886be060cd52",
+          "returncode": 0
+        }
+      ]
+    },
+    {
+      "track": "c",
+      "case": "round315-tsan-topology-c-coop-mixed-511",
+      "inputs_sha256": {
+        "records.csv": "a8c1861a7da0dc06964f42a867cc523de8dacb86fa5b6b17ddad6eff208a80ba",
+        "regions.csv": "f86ea1654ef07ed40123030876ddd95ebb1adbe3f773dc7a803e41d825f6d2c4"
+      },
+      "reference_sha256": "1abd7f55e08b96b9811f045533223d134d642a7cfd755e10f56bc66057451cb6",
+      "runs": [
+        {
+          "requested_threads": 1,
+          "sha256": "1abd7f55e08b96b9811f045533223d134d642a7cfd755e10f56bc66057451cb6",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 2,
+          "sha256": "1abd7f55e08b96b9811f045533223d134d642a7cfd755e10f56bc66057451cb6",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 3,
+          "sha256": "1abd7f55e08b96b9811f045533223d134d642a7cfd755e10f56bc66057451cb6",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 4,
+          "sha256": "1abd7f55e08b96b9811f045533223d134d642a7cfd755e10f56bc66057451cb6",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 5,
+          "sha256": "1abd7f55e08b96b9811f045533223d134d642a7cfd755e10f56bc66057451cb6",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 6,
+          "sha256": "1abd7f55e08b96b9811f045533223d134d642a7cfd755e10f56bc66057451cb6",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 7,
+          "sha256": "1abd7f55e08b96b9811f045533223d134d642a7cfd755e10f56bc66057451cb6",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 8,
+          "sha256": "1abd7f55e08b96b9811f045533223d134d642a7cfd755e10f56bc66057451cb6",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 9,
+          "sha256": "1abd7f55e08b96b9811f045533223d134d642a7cfd755e10f56bc66057451cb6",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 10,
+          "sha256": "1abd7f55e08b96b9811f045533223d134d642a7cfd755e10f56bc66057451cb6",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 11,
+          "sha256": "1abd7f55e08b96b9811f045533223d134d642a7cfd755e10f56bc66057451cb6",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 12,
+          "sha256": "1abd7f55e08b96b9811f045533223d134d642a7cfd755e10f56bc66057451cb6",
+          "returncode": 0
+        }
+      ]
+    },
+    {
+      "track": "c",
+      "case": "round315-tsan-topology-c-coop-mixed-512",
+      "inputs_sha256": {
+        "records.csv": "c0d2eb0429c224ae0e758c2905c8fa270d25c1d58bc05b26cae6f3e4950169d9",
+        "regions.csv": "f86ea1654ef07ed40123030876ddd95ebb1adbe3f773dc7a803e41d825f6d2c4"
+      },
+      "reference_sha256": "44e9d6020335d08b463f0cf608bfa1187204a74d9313454443cd25b678e977e2",
+      "runs": [
+        {
+          "requested_threads": 1,
+          "sha256": "44e9d6020335d08b463f0cf608bfa1187204a74d9313454443cd25b678e977e2",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 2,
+          "sha256": "44e9d6020335d08b463f0cf608bfa1187204a74d9313454443cd25b678e977e2",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 3,
+          "sha256": "44e9d6020335d08b463f0cf608bfa1187204a74d9313454443cd25b678e977e2",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 4,
+          "sha256": "44e9d6020335d08b463f0cf608bfa1187204a74d9313454443cd25b678e977e2",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 5,
+          "sha256": "44e9d6020335d08b463f0cf608bfa1187204a74d9313454443cd25b678e977e2",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 6,
+          "sha256": "44e9d6020335d08b463f0cf608bfa1187204a74d9313454443cd25b678e977e2",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 7,
+          "sha256": "44e9d6020335d08b463f0cf608bfa1187204a74d9313454443cd25b678e977e2",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 8,
+          "sha256": "44e9d6020335d08b463f0cf608bfa1187204a74d9313454443cd25b678e977e2",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 9,
+          "sha256": "44e9d6020335d08b463f0cf608bfa1187204a74d9313454443cd25b678e977e2",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 10,
+          "sha256": "44e9d6020335d08b463f0cf608bfa1187204a74d9313454443cd25b678e977e2",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 11,
+          "sha256": "44e9d6020335d08b463f0cf608bfa1187204a74d9313454443cd25b678e977e2",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 12,
+          "sha256": "44e9d6020335d08b463f0cf608bfa1187204a74d9313454443cd25b678e977e2",
+          "returncode": 0
+        }
+      ]
+    },
+    {
+      "track": "c",
+      "case": "round315-tsan-topology-c-coop-mixed-513",
+      "inputs_sha256": {
+        "records.csv": "3e8b61ff8b37b03368ca5046f61cacfc3ecc7af45dc8181cd6aec5d9a695d61c",
+        "regions.csv": "f86ea1654ef07ed40123030876ddd95ebb1adbe3f773dc7a803e41d825f6d2c4"
+      },
+      "reference_sha256": "70216c8b4e036e744997b766056f4ad968ab10416d05d59c335cb40e3dc84070",
+      "runs": [
+        {
+          "requested_threads": 1,
+          "sha256": "70216c8b4e036e744997b766056f4ad968ab10416d05d59c335cb40e3dc84070",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 2,
+          "sha256": "70216c8b4e036e744997b766056f4ad968ab10416d05d59c335cb40e3dc84070",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 3,
+          "sha256": "70216c8b4e036e744997b766056f4ad968ab10416d05d59c335cb40e3dc84070",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 4,
+          "sha256": "70216c8b4e036e744997b766056f4ad968ab10416d05d59c335cb40e3dc84070",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 5,
+          "sha256": "70216c8b4e036e744997b766056f4ad968ab10416d05d59c335cb40e3dc84070",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 6,
+          "sha256": "70216c8b4e036e744997b766056f4ad968ab10416d05d59c335cb40e3dc84070",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 7,
+          "sha256": "70216c8b4e036e744997b766056f4ad968ab10416d05d59c335cb40e3dc84070",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 8,
+          "sha256": "70216c8b4e036e744997b766056f4ad968ab10416d05d59c335cb40e3dc84070",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 9,
+          "sha256": "70216c8b4e036e744997b766056f4ad968ab10416d05d59c335cb40e3dc84070",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 10,
+          "sha256": "70216c8b4e036e744997b766056f4ad968ab10416d05d59c335cb40e3dc84070",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 11,
+          "sha256": "70216c8b4e036e744997b766056f4ad968ab10416d05d59c335cb40e3dc84070",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 12,
+          "sha256": "70216c8b4e036e744997b766056f4ad968ab10416d05d59c335cb40e3dc84070",
+          "returncode": 0
+        }
+      ]
+    },
+    {
+      "track": "c",
+      "case": "round315-tsan-topology-c-coop-mixed-1025",
+      "inputs_sha256": {
+        "records.csv": "935603a4ef4a8bdd61d9b3822c249830aaadaaa6b1afe03ae127ff08180d4f96",
+        "regions.csv": "f86ea1654ef07ed40123030876ddd95ebb1adbe3f773dc7a803e41d825f6d2c4"
+      },
+      "reference_sha256": "a3e6d8d0c841559e8e24883d1a7bcce3cc664d79170db02fbc294c21dbf99881",
+      "runs": [
+        {
+          "requested_threads": 1,
+          "sha256": "a3e6d8d0c841559e8e24883d1a7bcce3cc664d79170db02fbc294c21dbf99881",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 2,
+          "sha256": "a3e6d8d0c841559e8e24883d1a7bcce3cc664d79170db02fbc294c21dbf99881",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 3,
+          "sha256": "a3e6d8d0c841559e8e24883d1a7bcce3cc664d79170db02fbc294c21dbf99881",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 4,
+          "sha256": "a3e6d8d0c841559e8e24883d1a7bcce3cc664d79170db02fbc294c21dbf99881",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 5,
+          "sha256": "a3e6d8d0c841559e8e24883d1a7bcce3cc664d79170db02fbc294c21dbf99881",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 6,
+          "sha256": "a3e6d8d0c841559e8e24883d1a7bcce3cc664d79170db02fbc294c21dbf99881",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 7,
+          "sha256": "a3e6d8d0c841559e8e24883d1a7bcce3cc664d79170db02fbc294c21dbf99881",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 8,
+          "sha256": "a3e6d8d0c841559e8e24883d1a7bcce3cc664d79170db02fbc294c21dbf99881",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 9,
+          "sha256": "a3e6d8d0c841559e8e24883d1a7bcce3cc664d79170db02fbc294c21dbf99881",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 10,
+          "sha256": "a3e6d8d0c841559e8e24883d1a7bcce3cc664d79170db02fbc294c21dbf99881",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 11,
+          "sha256": "a3e6d8d0c841559e8e24883d1a7bcce3cc664d79170db02fbc294c21dbf99881",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 12,
+          "sha256": "a3e6d8d0c841559e8e24883d1a7bcce3cc664d79170db02fbc294c21dbf99881",
+          "returncode": 0
+        }
+      ]
+    },
+    {
+      "track": "c",
+      "case": "round315-tsan-topology-c-coop-mixed-8193",
+      "inputs_sha256": {
+        "records.csv": "0a9898207ab0ed08815791d69295a4b08c5d9a8b624a0942c226a338a126e32f",
+        "regions.csv": "f86ea1654ef07ed40123030876ddd95ebb1adbe3f773dc7a803e41d825f6d2c4"
+      },
+      "reference_sha256": "4d0863624f3dbe7a74c5efb4c13ac79d291b526e256baf21f7158c90cc7cf367",
+      "runs": [
+        {
+          "requested_threads": 1,
+          "sha256": "4d0863624f3dbe7a74c5efb4c13ac79d291b526e256baf21f7158c90cc7cf367",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 2,
+          "sha256": "4d0863624f3dbe7a74c5efb4c13ac79d291b526e256baf21f7158c90cc7cf367",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 3,
+          "sha256": "4d0863624f3dbe7a74c5efb4c13ac79d291b526e256baf21f7158c90cc7cf367",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 4,
+          "sha256": "4d0863624f3dbe7a74c5efb4c13ac79d291b526e256baf21f7158c90cc7cf367",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 5,
+          "sha256": "4d0863624f3dbe7a74c5efb4c13ac79d291b526e256baf21f7158c90cc7cf367",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 6,
+          "sha256": "4d0863624f3dbe7a74c5efb4c13ac79d291b526e256baf21f7158c90cc7cf367",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 7,
+          "sha256": "4d0863624f3dbe7a74c5efb4c13ac79d291b526e256baf21f7158c90cc7cf367",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 8,
+          "sha256": "4d0863624f3dbe7a74c5efb4c13ac79d291b526e256baf21f7158c90cc7cf367",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 9,
+          "sha256": "4d0863624f3dbe7a74c5efb4c13ac79d291b526e256baf21f7158c90cc7cf367",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 10,
+          "sha256": "4d0863624f3dbe7a74c5efb4c13ac79d291b526e256baf21f7158c90cc7cf367",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 11,
+          "sha256": "4d0863624f3dbe7a74c5efb4c13ac79d291b526e256baf21f7158c90cc7cf367",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 12,
+          "sha256": "4d0863624f3dbe7a74c5efb4c13ac79d291b526e256baf21f7158c90cc7cf367",
+          "returncode": 0
+        }
+      ]
+    },
+    {
+      "track": "c",
+      "case": "round315-tsan-topology-c-coop-skew-pressure",
+      "inputs_sha256": {
+        "records.csv": "5381ee3ec175ef76d90cb8fc94c07eca66af46312b16d20f9ccf5a65d480abfc",
+        "regions.csv": "f86ea1654ef07ed40123030876ddd95ebb1adbe3f773dc7a803e41d825f6d2c4"
+      },
+      "reference_sha256": "affcdcb220fe6302efb1818d4d432fd73bdee3ae5ab5a72e6aac427758968755",
+      "runs": [
+        {
+          "requested_threads": 1,
+          "sha256": "affcdcb220fe6302efb1818d4d432fd73bdee3ae5ab5a72e6aac427758968755",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 2,
+          "sha256": "affcdcb220fe6302efb1818d4d432fd73bdee3ae5ab5a72e6aac427758968755",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 3,
+          "sha256": "affcdcb220fe6302efb1818d4d432fd73bdee3ae5ab5a72e6aac427758968755",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 4,
+          "sha256": "affcdcb220fe6302efb1818d4d432fd73bdee3ae5ab5a72e6aac427758968755",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 5,
+          "sha256": "affcdcb220fe6302efb1818d4d432fd73bdee3ae5ab5a72e6aac427758968755",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 6,
+          "sha256": "affcdcb220fe6302efb1818d4d432fd73bdee3ae5ab5a72e6aac427758968755",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 7,
+          "sha256": "affcdcb220fe6302efb1818d4d432fd73bdee3ae5ab5a72e6aac427758968755",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 8,
+          "sha256": "affcdcb220fe6302efb1818d4d432fd73bdee3ae5ab5a72e6aac427758968755",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 9,
+          "sha256": "affcdcb220fe6302efb1818d4d432fd73bdee3ae5ab5a72e6aac427758968755",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 10,
+          "sha256": "affcdcb220fe6302efb1818d4d432fd73bdee3ae5ab5a72e6aac427758968755",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 11,
+          "sha256": "affcdcb220fe6302efb1818d4d432fd73bdee3ae5ab5a72e6aac427758968755",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 12,
+          "sha256": "affcdcb220fe6302efb1818d4d432fd73bdee3ae5ab5a72e6aac427758968755",
+          "returncode": 0
+        }
+      ]
+    },
+    {
+      "track": "c",
+      "case": "round315-tsan-topology-c-coop-diverse-pressure",
+      "inputs_sha256": {
+        "records.csv": "6dec554453f10372d9299c1bf6d4eee468a50273250cc68090b4f74a59be7ad5",
+        "regions.csv": "f86ea1654ef07ed40123030876ddd95ebb1adbe3f773dc7a803e41d825f6d2c4"
+      },
+      "reference_sha256": "d8d30e1dbab7551954b01567d914ff1313a8ebafddbbd41f8396505310866ab6",
+      "runs": [
+        {
+          "requested_threads": 1,
+          "sha256": "d8d30e1dbab7551954b01567d914ff1313a8ebafddbbd41f8396505310866ab6",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 2,
+          "sha256": "d8d30e1dbab7551954b01567d914ff1313a8ebafddbbd41f8396505310866ab6",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 3,
+          "sha256": "d8d30e1dbab7551954b01567d914ff1313a8ebafddbbd41f8396505310866ab6",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 4,
+          "sha256": "d8d30e1dbab7551954b01567d914ff1313a8ebafddbbd41f8396505310866ab6",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 5,
+          "sha256": "d8d30e1dbab7551954b01567d914ff1313a8ebafddbbd41f8396505310866ab6",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 6,
+          "sha256": "d8d30e1dbab7551954b01567d914ff1313a8ebafddbbd41f8396505310866ab6",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 7,
+          "sha256": "d8d30e1dbab7551954b01567d914ff1313a8ebafddbbd41f8396505310866ab6",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 8,
+          "sha256": "d8d30e1dbab7551954b01567d914ff1313a8ebafddbbd41f8396505310866ab6",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 9,
+          "sha256": "d8d30e1dbab7551954b01567d914ff1313a8ebafddbbd41f8396505310866ab6",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 10,
+          "sha256": "d8d30e1dbab7551954b01567d914ff1313a8ebafddbbd41f8396505310866ab6",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 11,
+          "sha256": "d8d30e1dbab7551954b01567d914ff1313a8ebafddbbd41f8396505310866ab6",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 12,
+          "sha256": "d8d30e1dbab7551954b01567d914ff1313a8ebafddbbd41f8396505310866ab6",
+          "returncode": 0
+        }
+      ]
+    },
+    {
+      "track": "c",
+      "case": "round315-tsan-topology-c-coop-long-record",
+      "inputs_sha256": {
+        "records.csv": "0e9132a2c051f2033fb59184d9ba90a7d4e5098565ada5ca1501812d6c9de6b9",
+        "regions.csv": "f86ea1654ef07ed40123030876ddd95ebb1adbe3f773dc7a803e41d825f6d2c4"
+      },
+      "reference_sha256": "91e7cc3cb2515034c519d3af6c2df3b82c5a1cdd01ac35f72c5588a1372bc4f1",
+      "runs": [
+        {
+          "requested_threads": 1,
+          "sha256": "91e7cc3cb2515034c519d3af6c2df3b82c5a1cdd01ac35f72c5588a1372bc4f1",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 2,
+          "sha256": "91e7cc3cb2515034c519d3af6c2df3b82c5a1cdd01ac35f72c5588a1372bc4f1",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 3,
+          "sha256": "91e7cc3cb2515034c519d3af6c2df3b82c5a1cdd01ac35f72c5588a1372bc4f1",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 4,
+          "sha256": "91e7cc3cb2515034c519d3af6c2df3b82c5a1cdd01ac35f72c5588a1372bc4f1",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 5,
+          "sha256": "91e7cc3cb2515034c519d3af6c2df3b82c5a1cdd01ac35f72c5588a1372bc4f1",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 6,
+          "sha256": "91e7cc3cb2515034c519d3af6c2df3b82c5a1cdd01ac35f72c5588a1372bc4f1",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 7,
+          "sha256": "91e7cc3cb2515034c519d3af6c2df3b82c5a1cdd01ac35f72c5588a1372bc4f1",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 8,
+          "sha256": "91e7cc3cb2515034c519d3af6c2df3b82c5a1cdd01ac35f72c5588a1372bc4f1",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 9,
+          "sha256": "91e7cc3cb2515034c519d3af6c2df3b82c5a1cdd01ac35f72c5588a1372bc4f1",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 10,
+          "sha256": "91e7cc3cb2515034c519d3af6c2df3b82c5a1cdd01ac35f72c5588a1372bc4f1",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 11,
+          "sha256": "91e7cc3cb2515034c519d3af6c2df3b82c5a1cdd01ac35f72c5588a1372bc4f1",
+          "returncode": 0
+        },
+        {
+          "requested_threads": 12,
+          "sha256": "91e7cc3cb2515034c519d3af6c2df3b82c5a1cdd01ac35f72c5588a1372bc4f1",
+          "returncode": 0
+        }
+      ]
+    }
+  ],
+  "expected_failures": [
+    {
+      "case": "bad-first-id",
+      "data_case": "round315-tsan-topology-bad-first-id",
+      "inputs_sha256": {
+        "records.csv": "40a6782e268cfd2f9c850aecbccb04d131addf12d43879b1ee77db55ce74444e",
+        "regions.csv": "f86ea1654ef07ed40123030876ddd95ebb1adbe3f773dc7a803e41d825f6d2c4"
+      },
+      "threads": 1,
+      "returncode": 1,
+      "stderr": "track-c: missing CSV integer\n"
+    },
+    {
+      "case": "bad-first-id",
+      "data_case": "round315-tsan-topology-bad-first-id",
+      "inputs_sha256": {
+        "records.csv": "40a6782e268cfd2f9c850aecbccb04d131addf12d43879b1ee77db55ce74444e",
+        "regions.csv": "f86ea1654ef07ed40123030876ddd95ebb1adbe3f773dc7a803e41d825f6d2c4"
+      },
+      "threads": 2,
+      "returncode": 1,
+      "stderr": "track-c: missing CSV integer\n"
+    },
+    {
+      "case": "bad-first-id",
+      "data_case": "round315-tsan-topology-bad-first-id",
+      "inputs_sha256": {
+        "records.csv": "40a6782e268cfd2f9c850aecbccb04d131addf12d43879b1ee77db55ce74444e",
+        "regions.csv": "f86ea1654ef07ed40123030876ddd95ebb1adbe3f773dc7a803e41d825f6d2c4"
+      },
+      "threads": 3,
+      "returncode": 1,
+      "stderr": "track-c: missing CSV integer\n"
+    },
+    {
+      "case": "bad-first-id",
+      "data_case": "round315-tsan-topology-bad-first-id",
+      "inputs_sha256": {
+        "records.csv": "40a6782e268cfd2f9c850aecbccb04d131addf12d43879b1ee77db55ce74444e",
+        "regions.csv": "f86ea1654ef07ed40123030876ddd95ebb1adbe3f773dc7a803e41d825f6d2c4"
+      },
+      "threads": 4,
+      "returncode": 1,
+      "stderr": "track-c: missing CSV integer\n"
+    },
+    {
+      "case": "bad-first-id",
+      "data_case": "round315-tsan-topology-bad-first-id",
+      "inputs_sha256": {
+        "records.csv": "40a6782e268cfd2f9c850aecbccb04d131addf12d43879b1ee77db55ce74444e",
+        "regions.csv": "f86ea1654ef07ed40123030876ddd95ebb1adbe3f773dc7a803e41d825f6d2c4"
+      },
+      "threads": 5,
+      "returncode": 1,
+      "stderr": "track-c: missing CSV integer\n"
+    },
+    {
+      "case": "bad-first-id",
+      "data_case": "round315-tsan-topology-bad-first-id",
+      "inputs_sha256": {
+        "records.csv": "40a6782e268cfd2f9c850aecbccb04d131addf12d43879b1ee77db55ce74444e",
+        "regions.csv": "f86ea1654ef07ed40123030876ddd95ebb1adbe3f773dc7a803e41d825f6d2c4"
+      },
+      "threads": 6,
+      "returncode": 1,
+      "stderr": "track-c: missing CSV integer\n"
+    },
+    {
+      "case": "bad-first-id",
+      "data_case": "round315-tsan-topology-bad-first-id",
+      "inputs_sha256": {
+        "records.csv": "40a6782e268cfd2f9c850aecbccb04d131addf12d43879b1ee77db55ce74444e",
+        "regions.csv": "f86ea1654ef07ed40123030876ddd95ebb1adbe3f773dc7a803e41d825f6d2c4"
+      },
+      "threads": 7,
+      "returncode": 1,
+      "stderr": "track-c: missing CSV integer\n"
+    },
+    {
+      "case": "bad-first-id",
+      "data_case": "round315-tsan-topology-bad-first-id",
+      "inputs_sha256": {
+        "records.csv": "40a6782e268cfd2f9c850aecbccb04d131addf12d43879b1ee77db55ce74444e",
+        "regions.csv": "f86ea1654ef07ed40123030876ddd95ebb1adbe3f773dc7a803e41d825f6d2c4"
+      },
+      "threads": 8,
+      "returncode": 1,
+      "stderr": "track-c: missing CSV integer\n"
+    },
+    {
+      "case": "bad-first-id",
+      "data_case": "round315-tsan-topology-bad-first-id",
+      "inputs_sha256": {
+        "records.csv": "40a6782e268cfd2f9c850aecbccb04d131addf12d43879b1ee77db55ce74444e",
+        "regions.csv": "f86ea1654ef07ed40123030876ddd95ebb1adbe3f773dc7a803e41d825f6d2c4"
+      },
+      "threads": 9,
+      "returncode": 1,
+      "stderr": "track-c: missing CSV integer\n"
+    },
+    {
+      "case": "bad-first-id",
+      "data_case": "round315-tsan-topology-bad-first-id",
+      "inputs_sha256": {
+        "records.csv": "40a6782e268cfd2f9c850aecbccb04d131addf12d43879b1ee77db55ce74444e",
+        "regions.csv": "f86ea1654ef07ed40123030876ddd95ebb1adbe3f773dc7a803e41d825f6d2c4"
+      },
+      "threads": 10,
+      "returncode": 1,
+      "stderr": "track-c: missing CSV integer\n"
+    },
+    {
+      "case": "bad-first-id",
+      "data_case": "round315-tsan-topology-bad-first-id",
+      "inputs_sha256": {
+        "records.csv": "40a6782e268cfd2f9c850aecbccb04d131addf12d43879b1ee77db55ce74444e",
+        "regions.csv": "f86ea1654ef07ed40123030876ddd95ebb1adbe3f773dc7a803e41d825f6d2c4"
+      },
+      "threads": 11,
+      "returncode": 1,
+      "stderr": "track-c: missing CSV integer\n"
+    },
+    {
+      "case": "bad-first-id",
+      "data_case": "round315-tsan-topology-bad-first-id",
+      "inputs_sha256": {
+        "records.csv": "40a6782e268cfd2f9c850aecbccb04d131addf12d43879b1ee77db55ce74444e",
+        "regions.csv": "f86ea1654ef07ed40123030876ddd95ebb1adbe3f773dc7a803e41d825f6d2c4"
+      },
+      "threads": 12,
+      "returncode": 1,
+      "stderr": "track-c: missing CSV integer\n"
+    },
+    {
+      "case": "bad-late-money",
+      "data_case": "round315-tsan-topology-bad-late-money",
+      "inputs_sha256": {
+        "records.csv": "4ef107c725189e532ed7149d52a8a81c34d27fbf8efbcc76b13c0ca8bf05f37d",
+        "regions.csv": "f86ea1654ef07ed40123030876ddd95ebb1adbe3f773dc7a803e41d825f6d2c4"
+      },
+      "threads": 1,
+      "returncode": 1,
+      "stderr": "track-c: invalid money\n"
+    },
+    {
+      "case": "bad-late-money",
+      "data_case": "round315-tsan-topology-bad-late-money",
+      "inputs_sha256": {
+        "records.csv": "4ef107c725189e532ed7149d52a8a81c34d27fbf8efbcc76b13c0ca8bf05f37d",
+        "regions.csv": "f86ea1654ef07ed40123030876ddd95ebb1adbe3f773dc7a803e41d825f6d2c4"
+      },
+      "threads": 2,
+      "returncode": 1,
+      "stderr": "track-c: invalid money\n"
+    },
+    {
+      "case": "bad-late-money",
+      "data_case": "round315-tsan-topology-bad-late-money",
+      "inputs_sha256": {
+        "records.csv": "4ef107c725189e532ed7149d52a8a81c34d27fbf8efbcc76b13c0ca8bf05f37d",
+        "regions.csv": "f86ea1654ef07ed40123030876ddd95ebb1adbe3f773dc7a803e41d825f6d2c4"
+      },
+      "threads": 3,
+      "returncode": 1,
+      "stderr": "track-c: invalid money\n"
+    },
+    {
+      "case": "bad-late-money",
+      "data_case": "round315-tsan-topology-bad-late-money",
+      "inputs_sha256": {
+        "records.csv": "4ef107c725189e532ed7149d52a8a81c34d27fbf8efbcc76b13c0ca8bf05f37d",
+        "regions.csv": "f86ea1654ef07ed40123030876ddd95ebb1adbe3f773dc7a803e41d825f6d2c4"
+      },
+      "threads": 4,
+      "returncode": 1,
+      "stderr": "track-c: invalid money\n"
+    },
+    {
+      "case": "bad-late-money",
+      "data_case": "round315-tsan-topology-bad-late-money",
+      "inputs_sha256": {
+        "records.csv": "4ef107c725189e532ed7149d52a8a81c34d27fbf8efbcc76b13c0ca8bf05f37d",
+        "regions.csv": "f86ea1654ef07ed40123030876ddd95ebb1adbe3f773dc7a803e41d825f6d2c4"
+      },
+      "threads": 5,
+      "returncode": 1,
+      "stderr": "track-c: invalid money\n"
+    },
+    {
+      "case": "bad-late-money",
+      "data_case": "round315-tsan-topology-bad-late-money",
+      "inputs_sha256": {
+        "records.csv": "4ef107c725189e532ed7149d52a8a81c34d27fbf8efbcc76b13c0ca8bf05f37d",
+        "regions.csv": "f86ea1654ef07ed40123030876ddd95ebb1adbe3f773dc7a803e41d825f6d2c4"
+      },
+      "threads": 6,
+      "returncode": 1,
+      "stderr": "track-c: invalid money\n"
+    },
+    {
+      "case": "bad-late-money",
+      "data_case": "round315-tsan-topology-bad-late-money",
+      "inputs_sha256": {
+        "records.csv": "4ef107c725189e532ed7149d52a8a81c34d27fbf8efbcc76b13c0ca8bf05f37d",
+        "regions.csv": "f86ea1654ef07ed40123030876ddd95ebb1adbe3f773dc7a803e41d825f6d2c4"
+      },
+      "threads": 7,
+      "returncode": 1,
+      "stderr": "track-c: invalid money\n"
+    },
+    {
+      "case": "bad-late-money",
+      "data_case": "round315-tsan-topology-bad-late-money",
+      "inputs_sha256": {
+        "records.csv": "4ef107c725189e532ed7149d52a8a81c34d27fbf8efbcc76b13c0ca8bf05f37d",
+        "regions.csv": "f86ea1654ef07ed40123030876ddd95ebb1adbe3f773dc7a803e41d825f6d2c4"
+      },
+      "threads": 8,
+      "returncode": 1,
+      "stderr": "track-c: invalid money\n"
+    },
+    {
+      "case": "bad-late-money",
+      "data_case": "round315-tsan-topology-bad-late-money",
+      "inputs_sha256": {
+        "records.csv": "4ef107c725189e532ed7149d52a8a81c34d27fbf8efbcc76b13c0ca8bf05f37d",
+        "regions.csv": "f86ea1654ef07ed40123030876ddd95ebb1adbe3f773dc7a803e41d825f6d2c4"
+      },
+      "threads": 9,
+      "returncode": 1,
+      "stderr": "track-c: invalid money\n"
+    },
+    {
+      "case": "bad-late-money",
+      "data_case": "round315-tsan-topology-bad-late-money",
+      "inputs_sha256": {
+        "records.csv": "4ef107c725189e532ed7149d52a8a81c34d27fbf8efbcc76b13c0ca8bf05f37d",
+        "regions.csv": "f86ea1654ef07ed40123030876ddd95ebb1adbe3f773dc7a803e41d825f6d2c4"
+      },
+      "threads": 10,
+      "returncode": 1,
+      "stderr": "track-c: invalid money\n"
+    },
+    {
+      "case": "bad-late-money",
+      "data_case": "round315-tsan-topology-bad-late-money",
+      "inputs_sha256": {
+        "records.csv": "4ef107c725189e532ed7149d52a8a81c34d27fbf8efbcc76b13c0ca8bf05f37d",
+        "regions.csv": "f86ea1654ef07ed40123030876ddd95ebb1adbe3f773dc7a803e41d825f6d2c4"
+      },
+      "threads": 11,
+      "returncode": 1,
+      "stderr": "track-c: invalid money\n"
+    },
+    {
+      "case": "bad-late-money",
+      "data_case": "round315-tsan-topology-bad-late-money",
+      "inputs_sha256": {
+        "records.csv": "4ef107c725189e532ed7149d52a8a81c34d27fbf8efbcc76b13c0ca8bf05f37d",
+        "regions.csv": "f86ea1654ef07ed40123030876ddd95ebb1adbe3f773dc7a803e41d825f6d2c4"
+      },
+      "threads": 12,
+      "returncode": 1,
+      "stderr": "track-c: invalid money\n"
+    }
+  ],
+  "binary_sha256": "8e4adaf643d2337d60d9c353bcfb921e8a877195570223129fd0a81515a32b9f",
+  "passed": true
+}

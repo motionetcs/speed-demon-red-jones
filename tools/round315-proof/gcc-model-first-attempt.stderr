@@ -1,0 +1,15 @@
+/repo/.build/round315/shared_index_model.cpp: In lambda function:
+/repo/.build/round315/shared_index_model.cpp:74:21: error: this 'if' clause does not guard... [-Werror=misleading-indentation]
+   74 |                     if(fresh)++result.fresh[job.country];++result.completed;
+      |                     ^~
+/repo/.build/round315/shared_index_model.cpp:74:58: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+   74 |                     if(fresh)++result.fresh[job.country];++result.completed;
+      |                                                          ^~
+/repo/.build/round315/shared_index_model.cpp: In function 'void {anonymous}::guarded_owned_keys()':
+/repo/.build/round315/shared_index_model.cpp:160:9: error: this 'if' clause does not guard... [-Werror=misleading-indentation]
+  160 |         if(length)std::memset(input.start,0x5a,length);input.release();saved.push_back({std::move(key),hash});
+      |         ^~
+/repo/.build/round315/shared_index_model.cpp:160:56: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+  160 |         if(length)std::memset(input.start,0x5a,length);input.release();saved.push_back({std::move(key),hash});
+      |                                                        ^~~~~
+cc1plus: all warnings being treated as errors

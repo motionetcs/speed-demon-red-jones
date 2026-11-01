@@ -1,0 +1,43 @@
+{
+  "observed_at_utc": "2026-11-01T20:08:04.234788+00:00",
+  "official_score": false,
+  "scope": "Read-only source/path inspection of own existing original local GNU PGO disassembly; no new compiler/profile/model/target execution. Static instructions do not measure frequency, phase time or organizer ELF.",
+  "original_local_elf_sha256": "406fe1f9130ba9f98b612caa08f83a75b1299466b4a34ac10d659f928a7ecc83",
+  "disassembly_path": ".build/c-original-abi/disassembly.txt",
+  "disassembly_sha256": "0694720ed7e841485d0c0203facba00d4e888aae0c4e5608cf40c31944124321",
+  "first_definitions": [
+    {
+      "line": 12174,
+      "symbol": "000000000040ca80 <Names::first(std::basic_string_view<char, std::char_traits<char> >, unsigned long, unsigned long)>:"
+    }
+  ],
+  "all_first_static_calls": [
+    {
+      "line": 1863,
+      "caller": "main::{lambda<typename $T0>(std::vector<$T0, std::allocator<$T0> > const&)#1}::operator()<unsigned char>(std::vector<unsigned char, std::allocator<unsigned char> > const&) const::{lambda(unsigned int)#1}::operator()(unsigned int) const [clone .cold]",
+      "instruction": "  4030c5:\tcall   40ca80 <Names::first(std::basic_string_view<char, std::char_traits<char> >, unsigned long, unsigned long)>",
+      "context": "  40309f:\tmov    %r11,%rbx\n  4030a2:\tjmp    40b958 <main::{lambda<typename $T0>(std::vector<$T0, std::allocator<$T0> > const&)#1}::operator()<unsigned char>(std::vector<unsigned char, std::allocator<unsigned char> > const&) const::{lambda(unsigned int)#1}::operator()(unsigned int) const+0x9d8>\n  4030a7:\tmov    0x60(%rsp),%rdi\n  4030ac:\tmov    %r10,0xf0(%rsp)\n  4030b4:\tmov    %r10,%rsi\n  4030b7:\tmov    %r11,%rdx\n  4030ba:\tmov    %r11,0xf8(%rsp)\n  4030c2:\tvzeroupper\n  4030c5:\tcall   40ca80 <Names::first(std::basic_string_view<char, std::char_traits<char> >, unsigned long, unsigned long)>\n  4030ca:\tmovzbl %al,%eax\n  4030cd:\tvmovdqa 0x19d66b(%rip),%xmm3        # 5a0740 <vtable for std::thread::_State_impl<std::thread::_Invoker<std::tuple<parallel<main::{lambda<typename $T0>(std::vector<$T0, std::allocator<$T0> > const&)#1}::operator()<unsigned char>(std::vector<unsigned char, std::allocator<unsigned char> > const&) const::{lambda(unsigned int)#1}>(unsigned int, main::{lambda<typename $T0>(std::vector<$T0, std::allocator<$T0> > const&)#1}::operator()<unsigned char>(std::vector<unsigned char, std::allocator<unsigned char> > const&) const::{lambda(unsigned int)#1})::{lambda(unsigned int)#1}, unsigned int> > >+0xf0>\n  4030d5:\tadd    %rax,0x38(%rbx)\n  4030d9:\tjmp    40b095 <main::{lambda<typename $T0>(std::vector<$T0, std::allocator<$T0> > const&)#1}::operator()<unsigned char>(std::vector<unsigned char, std::allocator<unsigned char> > const&) const::{lambda(unsigned int)#1}::operator()(unsigned int) const+0x115>\n  4030de:\tmov    $0x10,%edi\n  4030e3:\tcall   40f450 <__cxa_allocate_exception>"
+    },
+    {
+      "line": 2569,
+      "caller": "main::{lambda<typename $T0>(std::vector<$T0, std::allocator<$T0> > const&)#1}::operator()<unsigned short>(std::vector<unsigned short, std::allocator<unsigned short> > const&) const::{lambda(unsigned int)#1}::operator()(unsigned int) const",
+      "instruction": "  403ba2:\tcall   40ca80 <Names::first(std::basic_string_view<char, std::char_traits<char> >, unsigned long, unsigned long)>",
+      "context": "  403b83:\tmov    (%rax),%edx\n  403b85:\ttest   %edx,%edx\n  403b87:\tjne    403bb3 <main::{lambda<typename $T0>(std::vector<$T0, std::allocator<$T0> > const&)#1}::operator()<unsigned short>(std::vector<unsigned short, std::allocator<unsigned short> > const&) const::{lambda(unsigned int)#1}::operator()(unsigned int) const+0x34b>\n  403b89:\tmov    0xb0(%rsp),%rsi\n  403b91:\tmov    %r12,%r8\n  403b94:\tmov    %r13,%rdi\n  403b97:\tmov    0xb8(%rsp),%rdx\n  403b9f:\tvzeroupper\n  403ba2:\tcall   40ca80 <Names::first(std::basic_string_view<char, std::char_traits<char> >, unsigned long, unsigned long)>\n  403ba7:\tmovzbl %al,%eax\n  403baa:\tadd    %rax,0x38(%r15)\n  403bae:\tjmp    4039ab <main::{lambda<typename $T0>(std::vector<$T0, std::allocator<$T0> > const&)#1}::operator()<unsigned short>(std::vector<unsigned short, std::allocator<unsigned short> > const&) const::{lambda(unsigned int)#1}::operator()(unsigned int) const+0x143>\n  403bb3:\tmov    %edx,%esi\n  403bb5:\tmov    %r12,%rax\n  403bb8:\txor    %edx,%edx"
+    },
+    {
+      "line": 2751,
+      "caller": "main::{lambda<typename $T0>(std::vector<$T0, std::allocator<$T0> > const&)#1}::operator()<unsigned short>(std::vector<unsigned short, std::allocator<unsigned short> > const&) const::{lambda(unsigned int)#1}::operator()(unsigned int) const",
+      "instruction": "  403ed8:\tcall   40ca80 <Names::first(std::basic_string_view<char, std::char_traits<char> >, unsigned long, unsigned long)>",
+      "context": "  403eb6:\tmov    %r11,0x18(%rsp)\n  403ebb:\tmov    0x8(%r9),%r13\n  403ebf:\tmov    %r10d,0x20(%rsp)\n  403ec4:\tmovzwl 0x18(%r9),%ecx\n  403ec9:\tmov    %r9,0x28(%rsp)\n  403ece:\tmov    0x10(%r9),%r8\n  403ed2:\tmov    %r12,%rsi\n  403ed5:\tmov    %r13,%rdx\n  403ed8:\tcall   40ca80 <Names::first(std::basic_string_view<char, std::char_traits<char> >, unsigned long, unsigned long)>\n  403edd:\tmov    0x48(%rbx),%rdx\n  403ee1:\tmovzbl %al,%eax\n  403ee4:\tmov    0x28(%rsp),%r9\n  403ee9:\tmov    0x30(%rsp),%rsi\n  403eee:\tmov    0x18(%rsp),%r11\n  403ef3:\tmov    (%rdx),%rdx"
+    }
+  ],
+  "narrow_hot_direct_grow_calls": [
+    {
+      "line": 11775,
+      "caller": "main::{lambda<typename $T0>(std::vector<$T0, std::allocator<$T0> > const&)#1}::operator()<unsigned char>(std::vector<unsigned char, std::allocator<unsigned char> > const&) const::{lambda(unsigned int)#1}::operator()(unsigned int) const",
+      "instruction": "  40c49b:\tcall   40d000 <Names::grow()>"
+    }
+  ],
+  "conclusion": "The sole narrow unsigned-char first() call is in the cold worker clone and returns into Group.names at offset0x38, matching the serial !owners reader branch. The other two first() calls are in wide unsigned-short paths. The narrow hot worker contains direct grow() logic and no first() call/cloned first symbol, supporting that first() is already inline in the normal12-worker full-public narrow-owner path. Full/sample240 countries plus unmatched use that narrow type. Six pushes on the standalone symbol alone did not establish default per-row call overhead. Only one direct narrow-hot grow call was observed; no separate make-call count is claimed.",
+  "qualification": "An attribute can still perturb code layout or non-default paths; no byte-identical-code or universal zero-effect theorem is claimed. Flat/mixed native results plus absent claimed default-path mechanism do not justify broad proof or a board trial."
+}

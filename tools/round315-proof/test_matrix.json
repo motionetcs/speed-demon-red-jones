@@ -1,0 +1,59 @@
+{
+  "prepared_at_utc": "2026-11-01T20:53:11.222217+00:00",
+  "execution_status": "PREPARED_ONLY; no source compiled or executed by this chat",
+  "production_include": "#include names.hpp resolved only with -I to the frozen .build/round315/source/track-c; no source hooks or replacement header",
+  "production_names_sha256": "4ce721f61e586b7a30dde5e83a2b32e8f07eca86bec510e30fb6cdd58f358a5b",
+  "production_main_sha256": "de645aaf38e1835826b497ed7b78a4bdcb116d356553f055619b177b33fa445b",
+  "units": [
+    {
+      "source": "shared_index_model.cpp",
+      "recommended_modes": [
+        "strict ASAN+UBSAN with no recovery",
+        "strict TSAN"
+      ],
+      "allocator_overrides": false,
+      "scope": [
+        "Independent std::set full-key/country expected memberships and aggregate exactly-once freshness; consistent-hash precondition",
+        "Full hashes0/1/MAX, equal upper fingerprints/different homes and different fingerprints/same homes, wrap, binary keys",
+        "Every1..12 worker topology and a launch gate that orders only test startup, not later source publications",
+        "All country counts1/2/63/64/65/127/128/129/255/256/257/1024/17577, direct/spill seams and unused upper bits",
+        "Dense id0/4095/4096, partial and multiple2048-key lazy blocks, successful full capacity and helper-level canceled attempt discarded before a fresh attempt",
+        "Guarded input ending at inaccessible page, lengths0..24/25 through65534/65535/65536/1MiB; caller poisoning/unmap and later arena growth",
+        "Constructor arithmetic-invalid capacities/groups and out-of-range country rejection before reserving id"
+      ],
+      "preconditions": [
+        "All equal key values receive consistent hashes inside a table",
+        "Per-worker arenas live in an outer vector through all joined access and snapshot checks",
+        "Models require nonempty country universes for generated job matrices; zero-group API is not used there",
+        "No fabricated pointer is dereferenced; guard mappings and real allocator objects only"
+      ]
+    },
+    {
+      "source": "allocation_failure_model.cpp",
+      "recommended_modes": [
+        "Separate strict plain C++20 executable without sanitizer flags"
+      ],
+      "allocator_overrides": true,
+      "scope": [
+        "Real source aligned Key[] allocation delayed in block0 owner while peers reserve other indices and same-key callers cannot complete",
+        "Forced bad_alloc in that block owner, all peers joined via cancellation and no ready descriptor exposed",
+        "Second ordinary allocation in KeyArena copy forced to fail after character allocation, verifying local unique_ptr cleanup and successful retry"
+      ],
+      "preconditions": [
+        "Standard over-aligned new[] interception must be observed; if absent, test fails instead of claiming coverage",
+        "Gate deadlines5seconds and cancellation/release cleanup are outside the dependent peer calls",
+        "Allocator hooks use malloc/posix_memalign/free and no dynamic containers; thread-local activation limits interception to intended calls",
+        "This unit explicitly rejects sanitizer compilation; no no_sanitize attributes or sanitizer suppression are used",
+        "Direct arena failure test is for a long key and assumes the frozen315 allocation order char[] then vector insertion; it fails clearly if that precondition changes"
+      ]
+    }
+  ],
+  "remaining_gaps": [
+    "No model has yet been compiled, run, or accepted; root must review warnings, instrumentation behavior and actual results before claims",
+    "Plain allocation interposition coverage is separate from sanitizer coverage; it is not a sanitized allocator-failure pass",
+    "Helper retry simulation does not replace real-main capacity-pressure/reparse/late-error/no-partial-output references; root reports such tests separately",
+    "No whole-program CSV/cents/boundary/CLI/output/PGO/image/default/official-score proof follows from these unit sources",
+    "The model exercises schedules and invariants; it is not an exhaustive interleaving, formal liveness or verifier certificate",
+    "No new data files, oracle execution, model run, compiler, benchmark, profile or training occurred during preparation"
+  ]
+}

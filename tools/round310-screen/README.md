@@ -1,0 +1,7 @@
+# A310 parser-private endpoint IDs native screen
+
+Rejected native-only experiment. The exact executed driver and compile command/output record are copied here unchanged. The initial preflight describes preparation; the later native report records one compilation and90 successful exact-output invocations on existing public/full1951/full2221 data and independent references. No data/oracle/training generation or official run occurred.
+
+The prototype replaces the shared-published interner and direct cache with parser-private exact sampled-hash tables. After parser join it merges small dictionaries with a standard exact map, builds local-to-global translations, releases private descriptor buffers, and rewrites only low12 record-ID bits in the existing hour count pass. All other record fields and scatter/selection/output remain original. Source-specific adversarial collision/progress, local/global4096 limits, mapped allocator types, lifetime, remap/upper-bit and race models were not run. The existing full-hash fallback was removed by the prototype; long sampled-collision chains would require evaluation before any promotion.
+
+All three native paired times and RSS medians lose. Exact source/preflight/patches and raw run data are retained; original passing source is untouched. Reports: `docs/round310-a-private-endpoint-screen.json`, `docs/round310-preflight.json`; patches: `docs/prototype-patches/round310-a-private-endpoint-*`. No official time, charged-memory, K, general correctness or prize claim follows from this screen.

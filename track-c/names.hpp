@@ -1,86 +1,82 @@
 #pragma once
-#define SPEED_DEMON_OFFSET_NAMES 1
 #include <algorithm>
+#include <array>
 #include <atomic>
-#include <thread>
 #include <cstdint>
 #include <cstring>
 #include <functional>
 #include <memory>
-#include <new>
 #include <stdexcept>
-#include <string>
 #include <string_view>
 #include <vector>
+#include <utility>
 
-// One owner owns the relocatable arena. Word indices survive every growth.
-struct Names {
-    struct Entry {uint32_t hash=0,index=0;};
-    std::vector<Entry> entries;std::vector<std::unique_ptr<uint64_t[]>> storage;size_t words,used=0,next=0,remaining=0;
-    explicit Names(size_t countries):entries(16384),words((countries+63)/64){}
+struct SharedCanceled {};
+struct KeyArena {
+    std::vector<std::unique_ptr<char[]>> blocks;char* next=nullptr;size_t remaining=0;
+    const char* copy(std::string_view value){
+        if(value.size()>remaining){size_t bytes=std::max<size_t>(65536,value.size());std::unique_ptr<char[]> owned(new char[bytes]);blocks.push_back(std::move(owned));next=blocks.back().get();remaining=bytes;}
+        char* result=next;std::memcpy(result,value.data(),value.size());next+=value.size();remaining-=value.size();return result;
+    }
+};
+struct SharedNames {
+    //24 payload bytes plus full length and4 atomic words fill one64-byte key.
+    struct alignas(64) Key {std::array<uint64_t,3> payload{};size_t length=0;std::array<std::atomic<uint64_t>,4> flags{};};
+    static_assert(sizeof(Key)==64&&sizeof(const char*)<=sizeof(std::array<uint64_t,3>));
+    static_assert(std::atomic<uint64_t>::is_always_lock_free&&std::atomic<Key*>::is_always_lock_free);
+    static constexpr size_t block_size=2048;
+    size_t capacity,words,countries;
+    std::unique_ptr<std::atomic<uint64_t>[]> slots,spill;
+    std::unique_ptr<std::atomic<Key*>[]> published;
+    std::vector<std::unique_ptr<Key[]>> blocks;
+    std::atomic<size_t> used{0};std::atomic<bool> canceled{false},too_small{false};
+    SharedNames(size_t count,size_t groups):capacity(count),words(0),countries(groups){
+        if(!count||(count&(count-1))||count>UINT32_MAX-2||count>SIZE_MAX/2/sizeof(std::atomic<uint64_t>)||count>SIZE_MAX/sizeof(Key)||groups>SIZE_MAX-63)
+            throw std::runtime_error("shared name table size overflow");
+        words=(groups+63)/64;
+        if(words>4&&count>SIZE_MAX/(words-4)/sizeof(std::atomic<uint64_t>))throw std::runtime_error("shared country storage overflow");
+        slots=std::make_unique<std::atomic<uint64_t>[]>(count*2);
+        size_t block_count=count/block_size+bool(count%block_size);blocks.resize(block_count);published=std::make_unique<std::atomic<Key*>[]>(block_count);
+        if(words>4)spill=std::make_unique<std::atomic<uint64_t>[]>(count*(words-4));
+    }
     static uint64_t hash_key(std::string_view key){uint64_t h=std::hash<std::string_view>{}(key);return h<2?h+2:h;}
-    static uint32_t encode_index(size_t block,size_t word){
-        if(block>=(size_t(1)<<19)||word>=8192)throw std::runtime_error("name block/word index capacity");
-        uint32_t encoded=(static_cast<uint32_t>(block)<<13)|static_cast<uint32_t>(word);
-        if(encoded==UINT32_MAX)throw std::runtime_error("name word index capacity");
-        return encoded+1;
+    Key& at(size_t id)const{return published[id/block_size].load(std::memory_order_acquire)[id%block_size];}
+    std::string_view bytes(size_t id)const{
+        const auto& key=at(id);const char* data=reinterpret_cast<const char*>(key.payload.data());
+        if(key.length>sizeof(key.payload))std::memcpy(&data,key.payload.data(),sizeof(data));
+        return {data,key.length};
     }
-    uint32_t make(std::string_view value){
-        if(value.size()>UINT32_MAX||words>SIZE_MAX-1-(value.size()+7)/8)throw std::runtime_error("name storage overflow");
-        size_t extra=1+words+(value.size()+7)/8;
-        if(extra>SIZE_MAX/sizeof(uint64_t))throw std::runtime_error("name allocation overflow");
-        if(extra>remaining){
-            if(storage.size()>=size_t(1)<<19)throw std::runtime_error("name block index capacity");
-            size_t capacity=std::max<size_t>(8192,extra);storage.emplace_back(new uint64_t[capacity]);next=0;remaining=capacity;
-        }
-        // Oversized keys use a dedicated block with a representable zero offset.
-        if(next>=8192||next+extra>8192){
-            if(next!=0){remaining=0;return make(value);}
-        }
-        uint32_t index=encode_index(storage.size()-1,next);
-        auto* data=storage.back().get()+next;std::fill_n(data,1+words,uint64_t(0));data[0]=value.size();
-        if(!value.empty())std::memcpy(reinterpret_cast<char*>(data+1+words),value.data(),value.size());
-        next+=extra;remaining=next<8192?8192-next:0;return index;
+    void store(size_t id,std::string_view value,KeyArena& arena){
+        size_t block=id/block_size,offset=id%block_size;Key* data;
+        if(!offset){blocks[block]=std::make_unique<Key[]>(std::min(block_size,capacity-id));data=blocks[block].get();published[block].store(data,std::memory_order_release);}
+        else while(!(data=published[block].load(std::memory_order_acquire))){if(canceled.load(std::memory_order_relaxed))throw SharedCanceled{};}
+        auto& key=data[offset];
+        if(value.size()<=sizeof(key.payload)){if(!value.empty())std::memcpy(key.payload.data(),value.data(),value.size());}
+        else{const char* pointer=arena.copy(value);std::memcpy(key.payload.data(),&pointer,sizeof(pointer));}
+        key.length=value.size();
     }
-    uint64_t* at(uint32_t index)const{uint32_t encoded=index-1;return storage[encoded>>13].get()+(encoded&8191);}
-    std::string_view bytes(uint32_t index)const{
-        auto* data=at(index);return {reinterpret_cast<const char*>(data+1+words),static_cast<size_t>(data[0])};
+    bool mark(size_t id,size_t country){
+        size_t word=country/64;uint64_t bit=uint64_t(1)<<(country%64);
+        auto& field=word<4?at(id).flags[word]:spill[id*(words-4)+word-4];
+        return !(field.fetch_or(bit,std::memory_order_relaxed)&bit);
     }
-    void grow(){
-        if(entries.size()>SIZE_MAX/2/sizeof(Entry))throw std::runtime_error("name table overflow");
-        std::vector<Entry> larger(entries.size()*2);
-        for(auto e:entries)if(e.index){size_t i=e.hash&(larger.size()-1);while(larger[i].index)i=(i+1)&(larger.size()-1);larger[i]=e;}
-        entries.swap(larger);
-    }
-    bool first(std::string_view key,size_t country,uint64_t hash){
-        uint32_t fingerprint=static_cast<uint32_t>(hash);size_t i=fingerprint&(entries.size()-1);
-        for(;;){
-            auto& e=entries[i];
-            if(!e.index){
-                if(used>=entries.size()*7/8){grow();i=fingerprint&(entries.size()-1);continue;}
-                uint32_t index=make(key);e={fingerprint,index};++used;break;
+    bool first(std::string_view value,size_t country,uint64_t hash,KeyArena& arena){
+        if(country>=countries)throw std::runtime_error("country outside shared table");
+        if(canceled.load(std::memory_order_relaxed))throw SharedCanceled{};
+        const uint64_t fingerprint=hash&0xffffffff00000000ULL;size_t position=hash&(capacity*2-1);
+        for(size_t probes=0;probes<capacity*2;++probes){
+            auto& slot=slots[position];uint64_t state=slot.load(std::memory_order_acquire);
+            if(!state&&slot.compare_exchange_strong(state,1,std::memory_order_acq_rel)){
+                size_t id=used.fetch_add(1,std::memory_order_relaxed);
+                if(id>=capacity){too_small.store(true,std::memory_order_relaxed);canceled.store(true,std::memory_order_relaxed);slot.store(0,std::memory_order_release);throw SharedCanceled{};}
+                try{store(id,value,arena);}catch(...){canceled.store(true,std::memory_order_relaxed);slot.store(0,std::memory_order_release);throw;}
+                slot.store(fingerprint|uint64_t(id+2),std::memory_order_release);return mark(id,country);
             }
-            if(e.hash==fingerprint&&bytes(e.index)==key)break;
-            i=(i+1)&(entries.size()-1);
+            while(state==1){if(canceled.load(std::memory_order_relaxed))throw SharedCanceled{};state=slot.load(std::memory_order_acquire);}
+            if(state>1&&(state&0xffffffff00000000ULL)==fingerprint){size_t id=uint32_t(state)-2;if(bytes(id)==value)return mark(id,country);}
+            if(canceled.load(std::memory_order_relaxed))throw SharedCanceled{};
+            position=(position+1)&(capacity*2-1);
         }
-        auto& bits=at(entries[i].index)[1+country/64];uint64_t bit=uint64_t(1)<<(country%64);
-        bool fresh=!(bits&bit);bits|=bit;return fresh;
-    }
-};
-struct NameEvent {
-    std::string_view key;uint64_t hash;uint16_t country;
-    std::string_view value()const{return key;}
-};
-// One producer and one consumer transfer a vector through release/acquire.
-// Every key borrows immutable input; the consumer copies each unique key.
-struct NameQueue {
-    alignas(64) std::atomic<bool> ready{false};std::vector<NameEvent> rows;
-    void send(std::vector<NameEvent>& batch,const std::atomic<bool>& canceled){
-        while(ready.load(std::memory_order_acquire)){
-            if(canceled.load(std::memory_order_relaxed))throw std::runtime_error("name pipeline canceled");
-            std::this_thread::yield();
-        }
-        if(canceled.load(std::memory_order_relaxed))throw std::runtime_error("name pipeline canceled");
-        rows.swap(batch);ready.store(true,std::memory_order_release);
+        throw std::runtime_error("shared name slots full");
     }
 };

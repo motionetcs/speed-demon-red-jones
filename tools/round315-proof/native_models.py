@@ -1,0 +1,19 @@
+from pathlib import Path
+import datetime,hashlib,json,os,subprocess
+r=Path.cwd();w=r/'.build/round315';s=w/'source';o=w/'native-models';o.mkdir(exist_ok=True);read=lambda p:json.loads(Path(p).read_text());sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest();pre=read(w/'preflight.json');assert read(w/'native-main/report.json')['passed'];report={'started_at_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'official_score':False,'source_sha256':pre['source_sha256'],'model_files_sha256':pre['model_files_sha256'],'scope':'Exact315 shared_index_model runs under strict native ASAN/UBSAN(no recovery) andTSAN, no allocator overrides. Separate allocation_failure_model uses plain full-warning compiler and explicit test-only allocation interposition, no sanitizer claim for that unit. It supplements strict successful-storage/lifetime/publication checks without changing production source or sanitizer settings. Independent model exact coverage is in model source/matrix; actual main/retry/CSV/full refs separately source-bound.','compiles':[],'models':[]};env=dict(os.environ,ASAN_OPTIONS='halt_on_error=1',UBSAN_OPTIONS='halt_on_error=1:print_stacktrace=1',TSAN_OPTIONS='halt_on_error=1')
+def save():(o/'partial.json').write_text(json.dumps(report,indent=2)+'\n')
+for rel,h in pre['source_sha256'].items():assert sha(s/rel)==h
+for rel,h in pre['model_files_sha256'].items():assert sha(w/rel)==h
+for unit,mode,flags in [('shared_index_model','asan',['-fsanitize=address,undefined','-fno-sanitize-recover=all']),('shared_index_model','tsan',['-fsanitize=thread']),('allocation_failure_model','plain',[])]:
+ folder=o/mode;folder.mkdir(exist_ok=True);binary=folder/unit;cmd=['clang++','-std=c++20','-O1','-g','-Wall','-Wextra','-Wpedantic','-Werror','-pthread','-fno-omit-frame-pointer',*flags,'-I',str(s/'track-c'),str(w/(unit+'.cpp')),'-o',str(binary)];marker=folder/(unit+'.compile.json')
+ if marker.exists():d=read(marker);assert d['command']==cmd and d['returncode']==0 and d['binary_sha256']==sha(binary)
+ else:
+  q=subprocess.run(cmd,capture_output=True,text=True,timeout=240);d={'command':cmd,'returncode':q.returncode,'stdout':q.stdout,'stderr':q.stderr};(folder/(unit+'.compile-attempt.json')).write_text(json.dumps(d,indent=2)+'\n');assert q.returncode==0 and not q.stdout and not q.stderr,(unit,mode,q.returncode,q.stderr);d['binary_sha256']=sha(binary);marker.write_text(json.dumps(d,indent=2)+'\n')
+ report['compiles'].append(d);save();marker=folder/(unit+'.json')
+ if marker.exists():d=read(marker);assert d['passed'] and d['binary_sha256']==sha(binary)
+ else:
+  print('RUN315 model',unit,mode,flush=True);q=subprocess.run([str(binary)],capture_output=True,text=True,env=env,timeout=300);d={'unit':unit,'mode':mode,'sanitizers':mode if mode!='plain' else 'None: separate allocation-interposition fault behavior only','returncode':q.returncode,'stdout':q.stdout,'stderr':q.stderr,'binary_sha256':sha(binary),'model_files_sha256':pre['model_files_sha256']};(folder/(unit+'.attempt.json')).write_text(json.dumps(d,indent=2)+'\n');assert q.returncode==0 and q.stdout.startswith('PASS shared') and not q.stderr,(unit,mode,q.returncode,q.stdout[-1800:],q.stderr[-2500:]);d['passed']=True;marker.write_text(json.dumps(d,indent=2)+'\n')
+ report['models'].append(d);save();print('PASS315 model',unit,mode,flush=True)
+for rel,h in pre['source_sha256'].items():assert sha(s/rel)==h
+for rel,h in pre['model_files_sha256'].items():assert sha(w/rel)==h
+report.update(passed=True,completed_at_utc=datetime.datetime.now(datetime.timezone.utc).isoformat());(o/'report.json').write_text(json.dumps(report,indent=2)+'\n');(r/'docs/round315-c-native-models.json').write_text(json.dumps(report,indent=2)+'\n');print('PASS315 exact shared index/isolated fault models; selected source unchanged',flush=True)

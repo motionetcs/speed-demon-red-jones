@@ -1,0 +1,37 @@
+{
+  "observed_at_utc": "2026-11-01T20:05:48.654057+00:00",
+  "official_score": false,
+  "source_commit": "b53e5bb2665e001f5c752a7a00a6a50a087ae7be",
+  "original_local_image_id": "sha256:263099fcbeecd9be03c762fc791651c246e2ec2ca2223f5940e186c13645dd63",
+  "original_local_elf_sha256": "406fe1f9130ba9f98b612caa08f83a75b1299466b4a34ac10d659f928a7ecc83",
+  "existing_disassembly_sha256": "0694720ed7e841485d0c0203facba00d4e888aae0c4e5608cf40c31944124321",
+  "first_definitions": [
+    "000000000040ca80 <Names::first(std::basic_string_view<char, std::char_traits<char> >, unsigned long, unsigned long)>:"
+  ],
+  "first_direct_call_sites": [
+    {
+      "function": "0000000000402db8 <main::{lambda<typename $T0>(std::vector<$T0, std::allocator<$T0> > const&)#1}::operator()<unsigned char>(std::vector<unsigned char, std::allocator<unsigned char> > const&) const::{lambda(unsigned int)#1}::operator()(unsigned int) const [clone .cold]>:",
+      "call": "  4030c5:\tcall   40ca80 <Names::first(std::basic_string_view<char, std::char_traits<char> >, unsigned long, unsigned long)>",
+      "clip": "  4030a2:\tjmp    40b958 <main::{lambda<typename $T0>(std::vector<$T0, std::allocator<$T0> > const&)#1}::operator()<unsigned char>(std::vector<unsigned char, std::allocator<unsigned char> > const&) const::{lambda(unsigned int)#1}::operator()(unsigned int) const+0x9d8>\n  4030a7:\tmov    0x60(%rsp),%rdi\n  4030ac:\tmov    %r10,0xf0(%rsp)\n  4030b4:\tmov    %r10,%rsi\n  4030b7:\tmov    %r11,%rdx\n  4030ba:\tmov    %r11,0xf8(%rsp)\n  4030c2:\tvzeroupper\n  4030c5:\tcall   40ca80 <Names::first(std::basic_string_view<char, std::char_traits<char> >, unsigned long, unsigned long)>\n  4030ca:\tmovzbl %al,%eax\n  4030cd:\tvmovdqa 0x19d66b(%rip),%xmm3        # 5a0740 <vtable for std::thread::_State_impl<std::thread::_Invoker<std::tuple<parallel<main::{lambda<typename $T0>(std::vector<$T0, std::allocator<$T0> > const&)#1}::operator()<unsigned char>(std::vector<unsigned char, std::allocator<unsigned char> > const&) const::{lambda(unsigned int)#1}>(unsigned int, main::{lambda<typename $T0>(std::vector<$T0, std::allocator<$T0> > const&)#1}::operator()<unsigned char>(std::vector<unsigned char, std::allocator<unsigned char> > const&) const::{lambda(unsigned int)#1})::{lambda(unsigned int)#1}, unsigned int> > >+0xf0>\n  4030d5:\tadd    %rax,0x38(%rbx)\n  4030d9:\tjmp    40b095 <main::{lambda<typename $T0>(std::vector<$T0, std::allocator<$T0> > const&)#1}::operator()<unsigned char>(std::vector<unsigned char, std::allocator<unsigned char> > const&) const::{lambda(unsigned int)#1}::operator()(unsigned int) const+0x115>\n  4030de:\tmov    $0x10,%edi\n  4030e3:\tcall   40f450 <__cxa_allocate_exception>\n  4030e8:\tmov    $0x598275,%esi\n  4030ed:\tmov    %rax,%rdi"
+    },
+    {
+      "function": "0000000000403868 <main::{lambda<typename $T0>(std::vector<$T0, std::allocator<$T0> > const&)#1}::operator()<unsigned short>(std::vector<unsigned short, std::allocator<unsigned short> > const&) const::{lambda(unsigned int)#1}::operator()(unsigned int) const>:",
+      "call": "  403ba2:\tcall   40ca80 <Names::first(std::basic_string_view<char, std::char_traits<char> >, unsigned long, unsigned long)>",
+      "clip": "  403b85:\ttest   %edx,%edx\n  403b87:\tjne    403bb3 <main::{lambda<typename $T0>(std::vector<$T0, std::allocator<$T0> > const&)#1}::operator()<unsigned short>(std::vector<unsigned short, std::allocator<unsigned short> > const&) const::{lambda(unsigned int)#1}::operator()(unsigned int) const+0x34b>\n  403b89:\tmov    0xb0(%rsp),%rsi\n  403b91:\tmov    %r12,%r8\n  403b94:\tmov    %r13,%rdi\n  403b97:\tmov    0xb8(%rsp),%rdx\n  403b9f:\tvzeroupper\n  403ba2:\tcall   40ca80 <Names::first(std::basic_string_view<char, std::char_traits<char> >, unsigned long, unsigned long)>\n  403ba7:\tmovzbl %al,%eax\n  403baa:\tadd    %rax,0x38(%r15)\n  403bae:\tjmp    4039ab <main::{lambda<typename $T0>(std::vector<$T0, std::allocator<$T0> > const&)#1}::operator()<unsigned short>(std::vector<unsigned short, std::allocator<unsigned short> > const&) const::{lambda(unsigned int)#1}::operator()(unsigned int) const+0x143>\n  403bb3:\tmov    %edx,%esi\n  403bb5:\tmov    %r12,%rax\n  403bb8:\txor    %edx,%edx\n  403bba:\tdiv    %rsi\n  403bbd:\timul   $0x18,%rdx,%r14"
+    },
+    {
+      "function": "0000000000403868 <main::{lambda<typename $T0>(std::vector<$T0, std::allocator<$T0> > const&)#1}::operator()<unsigned short>(std::vector<unsigned short, std::allocator<unsigned short> > const&) const::{lambda(unsigned int)#1}::operator()(unsigned int) const>:",
+      "call": "  403ed8:\tcall   40ca80 <Names::first(std::basic_string_view<char, std::char_traits<char> >, unsigned long, unsigned long)>",
+      "clip": "  403ebb:\tmov    0x8(%r9),%r13\n  403ebf:\tmov    %r10d,0x20(%rsp)\n  403ec4:\tmovzwl 0x18(%r9),%ecx\n  403ec9:\tmov    %r9,0x28(%rsp)\n  403ece:\tmov    0x10(%r9),%r8\n  403ed2:\tmov    %r12,%rsi\n  403ed5:\tmov    %r13,%rdx\n  403ed8:\tcall   40ca80 <Names::first(std::basic_string_view<char, std::char_traits<char> >, unsigned long, unsigned long)>\n  403edd:\tmov    0x48(%rbx),%rdx\n  403ee1:\tmovzbl %al,%eax\n  403ee4:\tmov    0x28(%rsp),%r9\n  403ee9:\tmov    0x30(%rsp),%rsi\n  403eee:\tmov    0x18(%rsp),%r11\n  403ef3:\tmov    (%rdx),%rdx\n  403ef6:\tmovzwl 0x18(%r9),%ecx\n  403efb:\tadd    $0x20,%r9"
+    }
+  ],
+  "narrow_non_cold_direct_make_grow": [
+    {
+      "function": "000000000040af80 <main::{lambda<typename $T0>(std::vector<$T0, std::allocator<$T0> > const&)#1}::operator()<unsigned char>(std::vector<unsigned char, std::allocator<unsigned char> > const&) const::{lambda(unsigned int)#1}::operator()(unsigned int) const>:",
+      "call": "  40c49b:\tcall   40d000 <Names::grow()>"
+    }
+  ],
+  "scope": "Read-only static source/own local GCC PGO assembly mapping, no compilation/profile/benchmark/training or organizer ELF inspection. Full/sample241 groups select unsigned-char lookup and default12 workers have8readers/4owners. Original first() direct calls occur only in narrow cold serial and unsigned-short paths; default narrow owner emitted body has direct make/grow and no first() call. This strongly supports first already inlined there; no dynamic call frequency or precise target timing is measured.",
+  "correction": "A six-push out-of-line Names::first symbol and redundant metadata address reconstruction do not establish those costs in the scored default-narrow owner loop. Earlier305 diagnostic always disclaimed frequency/causal timing; the working target-mechanism hypothesis is now narrowed accordingly. Actual305 still real-lost and fully restored.",
+  "decision": "REJECT C308 before broader strict/GCC/image/default/actual proof: native flat/mixed and its claimed default hot-call-removal mechanism is unsupported by path-specific emitted evidence. Frozen native/preflight reports remain untouched. No root/runtime/Git/board change or official gain."
+}

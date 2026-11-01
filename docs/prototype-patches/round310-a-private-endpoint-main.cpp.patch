@@ -1,0 +1,74 @@
+--- track-a/main.cpp
++++ track-a/main.cpp
+@@ -6,6 +6,7 @@
+ #include <atomic>
+ #include <memory>
+ #include <numeric>
++#include <unordered_map>
+ #include "ordered_output.hpp"
+ 
+ static constexpr uint32_t latency_escape = (1U << 19) - 1;
+@@ -28,18 +29,20 @@
+             }
+             boundaries[i] = p;
+         }
+-        Endpoints endpoints;
+         struct Chunk {
+             std::array<Records, 72> records;
+             std::array<std::vector<uint32_t>, 72> wide;
+             std::array<uint32_t, 72> first;
++            std::unique_ptr<LocalEndpoints> names;
++            std::vector<uint16_t> remap;
+             Chunk() { first.fill(UINT32_MAX); }
+         };
+         std::vector<Chunk> chunks(threads);
+         parallel(threads, [&](unsigned worker) {
+             const char* p = boundaries[worker]; const char* limit = boundaries[worker + 1];
+             auto& chunk = chunks[worker];
+-            LocalEndpoints local_names(endpoints);
++            chunk.names=std::make_unique<LocalEndpoints>();
++            auto& local_names=*chunk.names;
+             size_t reserve_hint = (limit - p) / (72 * 64);
+             while (p < limit) {
+                 if (limit - p < 28) throw std::runtime_error("truncated timestamp");
+@@ -66,8 +69,22 @@
+                 if (latency >= latency_escape) chunk.wide[hour].push_back(static_cast<uint32_t>(latency));
+             }
+         });
+-        std::vector<std::string_view> paths(endpoints.canonical.begin(),endpoints.canonical.begin()+endpoints.used.load());
+-        endpoints.entries.reset(); // Path views borrow the still-mapped input.
++        std::vector<std::string_view> paths;paths.reserve(4096);
++        {
++            std::unordered_map<std::string_view,uint16_t> ids;ids.reserve(4096);
++            for(auto& chunk:chunks){
++                chunk.remap.reserve(chunk.names->canonical.size());
++                for(auto value:chunk.names->canonical){
++                    auto found=ids.find(value);uint16_t key;
++                    if(found==ids.end()){
++                        if(paths.size()>=4096)throw std::runtime_error("endpoint limit exceeded");
++                        key=static_cast<uint16_t>(paths.size());ids.emplace(value,key);paths.push_back(value);
++                    }else key=found->second;
++                    chunk.remap.push_back(key);
++                }
++                chunk.names.reset(); // Descriptor buffers release; input bytes stay mapped.
++            }
++        }
+         std::vector<uint16_t> order(paths.size()); std::iota(order.begin(), order.end(), 0);
+         std::sort(order.begin(), order.end(), [&](uint16_t a, uint16_t b) { return paths[a] < paths[b]; });
+         OrderedOutput writer(run_paths.out / "summary.txt");
+@@ -79,9 +96,13 @@
+                 unsigned hour = next_hour.fetch_add(1, std::memory_order_relaxed); if (hour >= 72) return;
+                 std::fill(groups.begin(), groups.end(), Count{});
+                 size_t count = 0; uint32_t first_line = UINT32_MAX;
+-                for (const auto& chunk : chunks) {
++                for (auto& chunk : chunks) {
+                     count += chunk.records[hour].size(); first_line = std::min(first_line, chunk.first[hour]);
+-                    for (uint32_t record : chunk.records[hour]) { auto& group = groups[record & 4095]; ++group.count; group.errors += (record >> 12) & 1; }
++                    for(uint32_t& record:chunk.records[hour]){
++                        uint32_t key=chunk.remap[record&4095];
++                        record=(record&~uint32_t(4095))|key;
++                        auto& group=groups[key];++group.count;group.errors+=(record>>12)&1;
++                    }
+                 }
+                 if(!count){writer.publish(hour);continue;}
+                 uint32_t offset = 0;
