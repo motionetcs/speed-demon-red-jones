@@ -1,0 +1,29 @@
+{
+  "observed_at_utc": "2026-11-01T03:27:26.596354+00:00",
+  "official_score": false,
+  "passed": true,
+  "scope": "Read-only exact /app/solution SHA256 and Docker-config/root-filesystem comparison on local pinned images, not organizer images. C must retain exactly the original filesystem/ELF and only add runtime-default8 environment; no source/build/profile/affinity/harness change. A has been fully restored to8acb692/B57 with prior exact source/image proof; only C default8 is a new image.",
+  "authoring_note": "Optional unset Docker Cmd is compared as missing/null, with exact entrypoint/user separately required; this method was corrected in prior212. No213 inspection retry or runtime modification occurred.",
+  "runs": [
+    {
+      "track": "c",
+      "control_image_id": "sha256:263099fcbeecd9be03c762fc791651c246e2ec2ca2223f5940e186c13645dd63",
+      "candidate_image_id": "sha256:72c8481ea7288672dfccb981fcad0be97366eb0d44b404c829ee9929216d3a28",
+      "control_elf_sha256": "406fe1f9130ba9f98b612caa08f83a75b1299466b4a34ac10d659f928a7ecc83",
+      "candidate_elf_sha256": "406fe1f9130ba9f98b612caa08f83a75b1299466b4a34ac10d659f928a7ecc83",
+      "executables_identical": true,
+      "rootfs_layers_identical": true,
+      "control_environment": {
+        "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "candidate_environment": {
+        "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "SPEED_DEMON_THREADS": "8"
+      },
+      "entrypoint": [
+        "/app/solution"
+      ],
+      "user": "65534:65534"
+    }
+  ]
+}

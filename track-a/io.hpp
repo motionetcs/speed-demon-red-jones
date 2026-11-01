@@ -69,4 +69,10 @@ struct Output {
         auto r = std::to_chars(b, b + sizeof b, n);
         bytes.append(b, r.ptr);
     }
+    void save(const std::filesystem::path& file) {
+        std::ofstream stream(file, std::ios::binary);
+        stream.write(bytes.data(), static_cast<std::streamsize>(bytes.size()));
+        stream.close();
+        if (!stream) throw std::runtime_error("cannot write " + file.string());
+    }
 };
