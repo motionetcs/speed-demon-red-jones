@@ -1,0 +1,196 @@
+{
+  "started_at_utc": "2026-11-01T08:40:21.586263+00:00",
+  "official_score": false,
+  "mode": "tsan",
+  "source_sha256": {
+    "track-d/.speed-demon.toml": "6d6100843803548ba58c1c1eaf2d1dbaecb9a431fd5c9a8408d214580466465c",
+    "track-d/Dockerfile": "b894df9b62f1f82561cbcd594d8baa97fdbe91d03d8aea816d2355f8fcd90cbb",
+    "track-d/PERF.md": "8ba0def352f9340717ae594688d71b6cd8fbabf4dad65108fcf6676094c0d062",
+    "track-d/README.md": "abf631f570e4eee1576e59ce1bfb6d3875081c87c234b96a261aa85f654baf95",
+    "track-d/decimal.hpp": "aee2210ac5894050834ffd37903718b3b7bdc6673240559baa85b350bea9b581",
+    "track-d/distance_map.hpp": "5d164faf4b33028111d350aa26c622357b2646f10b27127c5c624608b693f059",
+    "track-d/edge_store.hpp": "31db14bd58fb3bb45a90c963cf57397a50d5195782d01dc366b2a380d3b74ed6",
+    "track-d/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+    "track-d/load_cursors.hpp": "69bb855e76fdb729ce64856723a7e759f1844bcb34ffaaca2ad7776bdcafdf01",
+    "track-d/main.cpp": "6ae66971d7a6fd1f6bb75741daa522c681eae20e200f426547f8c537161327cc",
+    "track-d/parallel.hpp": "614e48333aabbd7a9d7b008119d41acc7f908e467769772d01e10d84c282bdab",
+    "track-d/radix_heap.hpp": "7fb2052bb951ca391c5b1883d8e673f554a43ab3d06286e43597105c2d82b6e3",
+    "track-d/training_generator.py": "bbf37741159004149c5896265a98ae00b90e90a05ad48c2912ecf8bdce126d65"
+  },
+  "model_source_sha256": {
+    "aligned": "b07e949919502dbe28f66126a9bfaaf9bda6438c1d5bd0e4061e20c0dea77d28",
+    "packed": "45a0c4e861189c1ccf91e092685630daa068f6216be06852741179aaeea79ed4"
+  },
+  "scope": "Fresh exact aligned-label source with native strict memory/UB or race model/runtime proof. Independent allocator/vector/alignment/overflow/lifetime model plus original full-key map oracle, new tiny/sample official references, isolated independent Floyd bank, loader/error and saved full/public/compact-wide active query outputs. Reused inputs/oracles are checked by SHA before/after, no previous binary proof substitution. No target timing/K claim.",
+  "steps": [
+    {
+      "label": "compile-main",
+      "argv": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-pthread",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-fno-sanitize-recover=all",
+        "-fno-omit-frame-pointer",
+        "-fsanitize=thread",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/candidate-d257-aligned-source/track-d/main.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/d257-native-tsan/track-d"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "compile-aligned-model",
+      "argv": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-pthread",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-fno-sanitize-recover=all",
+        "-fno-omit-frame-pointer",
+        "-fsanitize=thread",
+        "-DDISTANCE_MAP_HEADER=\"/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/candidate-d257-aligned-source/track-d/distance_map.hpp\"",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/d257_aligned_model.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/d257-native-tsan/aligned-model"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "aligned-model",
+      "argv": [
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/d257-native-tsan/aligned-model"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "compile-packed-model",
+      "argv": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-pthread",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-fno-sanitize-recover=all",
+        "-fno-omit-frame-pointer",
+        "-fsanitize=thread",
+        "-DDISTANCE_MAP_HEADER=\"/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/candidate-d257-aligned-source/track-d/distance_map.hpp\"",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/tools/test_packed_distances.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/d257-native-tsan/packed-model"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "packed-model",
+      "argv": [
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/d257-native-tsan/packed-model"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "tiny-adversarial",
+      "argv": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/tools/verify.py",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/d257-native-tsan",
+        "--source-root",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/candidate-d257-aligned-source",
+        "--run-id",
+        "d257-tsan",
+        "--tracks",
+        "d",
+        "--scale",
+        "tiny",
+        "--seeds",
+        "2641",
+        "2643",
+        "--threads",
+        "1",
+        "6",
+        "12",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/d257-native-tsan/tiny-adversarial.json"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "sample",
+      "argv": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/tools/verify.py",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/d257-native-tsan",
+        "--source-root",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/candidate-d257-aligned-source",
+        "--run-id",
+        "d257-tsan-sample",
+        "--tracks",
+        "d",
+        "--scale",
+        "sample",
+        "--seeds",
+        "2657",
+        "--threads",
+        "1",
+        "6",
+        "12",
+        "--skip-adversarial",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/d257-native-tsan/sample.json"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "floyd",
+      "argv": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/d257-independent/independent_graphs.py",
+        "--binary",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/d257-native-tsan/track-d",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/d257-native-tsan/floyd.json",
+        "--count",
+        "64",
+        "--spread-ids",
+        "--threads",
+        "1",
+        "6",
+        "12"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "pipeline",
+      "argv": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/tools/test_graph_pipeline.py",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/d257-native-tsan",
+        "--run-id",
+        "d257-tsan-graph-pipeline",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/d257-native-tsan/pipeline.json"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "binary_sha256": "da23d7b3b5400a76b8364535d83ebcda5c2f45b0e6d09fd06b521f7fd6642175",
+  "passed": true,
+  "completed_at_utc": "2026-11-01T08:41:35.740764+00:00"
+}

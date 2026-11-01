@@ -1,0 +1,90 @@
+{
+  "started_at_utc": "2026-11-01T08:55:29.896256+00:00",
+  "official_score": false,
+  "track": "d",
+  "mode": "model",
+  "source_root": ".build/interactive-improve/candidate-d257-aligned-source",
+  "source_sha256": {
+    "track-d/.speed-demon.toml": "6d6100843803548ba58c1c1eaf2d1dbaecb9a431fd5c9a8408d214580466465c",
+    "track-d/Dockerfile": "b894df9b62f1f82561cbcd594d8baa97fdbe91d03d8aea816d2355f8fcd90cbb",
+    "track-d/PERF.md": "8ba0def352f9340717ae594688d71b6cd8fbabf4dad65108fcf6676094c0d062",
+    "track-d/README.md": "abf631f570e4eee1576e59ce1bfb6d3875081c87c234b96a261aa85f654baf95",
+    "track-d/decimal.hpp": "aee2210ac5894050834ffd37903718b3b7bdc6673240559baa85b350bea9b581",
+    "track-d/distance_map.hpp": "5d164faf4b33028111d350aa26c622357b2646f10b27127c5c624608b693f059",
+    "track-d/edge_store.hpp": "31db14bd58fb3bb45a90c963cf57397a50d5195782d01dc366b2a380d3b74ed6",
+    "track-d/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+    "track-d/load_cursors.hpp": "69bb855e76fdb729ce64856723a7e759f1844bcb34ffaaca2ad7776bdcafdf01",
+    "track-d/main.cpp": "6ae66971d7a6fd1f6bb75741daa522c681eae20e200f426547f8c537161327cc",
+    "track-d/parallel.hpp": "614e48333aabbd7a9d7b008119d41acc7f908e467769772d01e10d84c282bdab",
+    "track-d/radix_heap.hpp": "7fb2052bb951ca391c5b1883d8e673f554a43ab3d06286e43597105c2d82b6e3",
+    "track-d/training_generator.py": "bbf37741159004149c5896265a98ae00b90e90a05ad48c2912ecf8bdce126d65"
+  },
+  "manifest_sha256": "2e81c2f9dc424c17146549ccdc6b2b7e109f0521ec3f52ec345c00f2dab6711f",
+  "native_index_sha256": "ed33e121d34a16d7faaaa1f6e6ff3bc92ccfd22cd5c8e30a264960b87182ab3a",
+  "arena2_geometry_report": ".build/interactive-improve/d257-arena2-preflight/report.json",
+  "arena2_geometry_report_sha256": "e2eb384657f9e9b379fc962636f962d8a07c4fddea0b08c2f89f3696a140cb65",
+  "scope": "Exact aligned packed-label vector source; strict pinned offline emulated Linux/amd64 GCC or unique unchanged production PGO image. Reused input/reference content only, never prior source-specific correctness proof. Geometry is not organizer cache/timing/K evidence.",
+  "commands": [
+    {
+      "label": "packed-model",
+      "argv": [
+        "docker",
+        "run",
+        "--rm",
+        "--platform",
+        "linux/amd64",
+        "--network=none",
+        "--read-only",
+        "--memory=8g",
+        "--memory-swap=8g",
+        "--pids-limit=512",
+        "--cap-drop=ALL",
+        "--security-opt=no-new-privileges",
+        "--user",
+        "65534:65534",
+        "--tmpfs",
+        "/tmp:rw,exec,size=1g",
+        "-e",
+        "MALLOC_ARENA_MAX=2",
+        "-i",
+        "--entrypoint",
+        "/bin/sh",
+        "-v",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh:/repo:ro",
+        "-v",
+        "/private/tmp/speed-demon-d257-linux/model:/out:rw",
+        "gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce",
+        "-s"
+      ],
+      "stdin": "set -eu\nexport ASAN_OPTIONS=halt_on_error=1\nexport UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1\ng++ --version\ng++ -std=c++20 -O1 -g -march=native -Wall -Wextra -Wpedantic -Werror -pthread -fsanitize=address,undefined -fno-sanitize-recover=all -fno-omit-frame-pointer '-DDISTANCE_MAP_HEADER=\"/repo/.build/interactive-improve/candidate-d257-aligned-source/track-d/distance_map.hpp\"' -DREQUIRE_PACKED_LABELS /out/packed-model-whitespace.cpp -o /tmp/packed-model\n/tmp/packed-model\n"
+    }
+  ],
+  "passed": true,
+  "compiler_image": "gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce",
+  "models": [
+    {
+      "path": ".build/interactive-improve/d257_aligned_model.cpp",
+      "sha256": "b07e949919502dbe28f66126a9bfaaf9bda6438c1d5bd0e4061e20c0dea77d28"
+    },
+    {
+      "path": "tools/test_packed_distances.cpp",
+      "sha256": "45a0c4e861189c1ccf91e092685630daa068f6216be06852741179aaeea79ed4"
+    }
+  ],
+  "strict_flags": "g++ -std=c++20 -O1 -g -march=native -Wall -Wextra -Wpedantic -Werror -pthread -fsanitize=address,undefined -fno-sanitize-recover=all -fno-omit-frame-pointer ",
+  "packed_copy_sha256": "8c7e654ddcff4d2726a21b9d92f95df2c668c95b3163c2dafb9861d604f7b7bd",
+  "packed_copy_semantics": "Only two statement-separating line breaks/indentation added to private copy; all non-whitespace bytes identical, all assertions retained. No frozen model/runtime edits or warning suppression.",
+  "reused_allocator_step": {
+    "driver": ".build/interactive-improve/d257_gcc_models.py",
+    "driver_sha256": "92c948c72a905bb3dba93803db74e105375e844ac7034e9f46d55fea9796fcd9",
+    "stdout_path": ".build/interactive-improve/d257-gcc-models/models.stdout",
+    "stdout_sha256": "b3877ab0a5a6288c08d8d83e8808e4842008443c0fb43ae6e4df3866d9821669",
+    "stderr_path": ".build/interactive-improve/d257-gcc-models/models.stderr",
+    "stderr_sha256": "50c0ebe7c6da69fac945d8a5f8b8d7eca6f337e8751ed933479dce4d3c636cbc",
+    "full_batch_passed": false,
+    "allocator_substep_passed": true,
+    "compiler_actual_version": "g++ (GCC) 15.3.0",
+    "subsequent_failure": "Original packed model compilation Werror misleading indentation before its execution; private whitespace-only correction above."
+  },
+  "completed_at_utc": "2026-11-01T08:55:32.849478+00:00"
+}

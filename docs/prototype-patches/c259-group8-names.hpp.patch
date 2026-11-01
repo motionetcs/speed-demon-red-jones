@@ -1,0 +1,77 @@
+--- selected256/track-c/names.hpp
++++ isolated-c259/track-c/names.hpp
+@@ -1,4 +1,5 @@
+ #pragma once
++#include <bit>
+ #define SPEED_DEMON_OFFSET_NAMES 1
+ #include <algorithm>
+ #include <atomic>
+@@ -16,8 +17,8 @@
+ // One owner owns the relocatable arena. Word indices survive every growth.
+ struct Names {
+     struct Entry {uint32_t hash=0,index=0;};
+-    std::vector<Entry> entries;std::vector<std::unique_ptr<uint64_t[]>> storage;size_t words,used=0,next=0,remaining=0;
+-    explicit Names(size_t countries):entries(16384),words((countries+63)/64){}
++    std::vector<Entry> entries;std::vector<uint8_t> controls;std::vector<std::unique_ptr<uint64_t[]>> storage;size_t words,used=0,next=0,remaining=0;
++    explicit Names(size_t countries):entries(16384),controls(16384,128),words((countries+63)/64){}
+     static uint64_t hash_key(std::string_view key){uint64_t h=std::hash<std::string_view>{}(key);return h<2?h+2:h;}
+     static uint32_t encode_index(size_t block,size_t word){
+         if(block>=(size_t(1)<<19)||word>=8192)throw std::runtime_error("name block/word index capacity");
+@@ -46,26 +47,46 @@
+     std::string_view bytes(uint32_t index)const{
+         auto* data=at(index);return {reinterpret_cast<const char*>(data+1+words),static_cast<size_t>(data[0])};
+     }
++    static constexpr uint64_t high=0x8080808080808080ULL;
++    static uint8_t tag(uint32_t h){return uint8_t(h>>25);}
++    static size_t home(uint32_t h,size_t size){return size_t((h>>2)&(size/8-1))*8;}
++    static uint64_t control_word(const std::vector<uint8_t>& c,size_t at){uint64_t w;std::memcpy(&w,c.data()+at,8);return w;}
++    // A byte prefilter may produce extra candidates; full hash/key equality decides.
++    static uint64_t matches(uint64_t word,uint8_t t){uint64_t x=word^(uint64_t(t)*0x0101010101010101ULL);return (x-0x0101010101010101ULL)&~x&high;}
++    static unsigned lane(uint64_t mask){unsigned n=std::countr_zero(mask)/8;if constexpr(std::endian::native==std::endian::big)return 7-n;return n;}
+     void grow(){
+         if(entries.size()>SIZE_MAX/2/sizeof(Entry))throw std::runtime_error("name table overflow");
+-        std::vector<Entry> larger(entries.size()*2);
+-        for(auto e:entries)if(e.index){size_t i=e.hash&(larger.size()-1);while(larger[i].index)i=(i+1)&(larger.size()-1);larger[i]=e;}
+-        entries.swap(larger);
++        std::vector<Entry> larger(entries.size()*2);std::vector<uint8_t> flags(larger.size(),128);
++        for(auto e:entries)if(e.index){
++            size_t i=home(e.hash,larger.size());
++            for(;;){uint64_t empty=control_word(flags,i)&high;
++                if(empty){i+=lane(empty);larger[i]=e;flags[i]=tag(e.hash);break;}
++                i=(i+8)&(larger.size()-1);
++            }
++        }
++        entries.swap(larger);controls.swap(flags);
+     }
+     bool first(std::string_view key,size_t country,uint64_t hash){
+-        uint32_t fingerprint=static_cast<uint32_t>(hash);size_t i=fingerprint&(entries.size()-1);
++        uint32_t fingerprint=static_cast<uint32_t>(hash),selected=0;size_t i=home(fingerprint,entries.size());
+         for(;;){
+-            auto& e=entries[i];
+-            if(!e.index){
+-                if(used>=entries.size()*7/8){grow();i=fingerprint&(entries.size()-1);continue;}
+-                uint32_t index=make(key);e={fingerprint,index};++used;break;
++            uint64_t word=control_word(controls,i),candidates=matches(word,tag(fingerprint));
++            while(candidates){
++                const auto& e=entries[i+lane(candidates)];
++                if(e.hash==fingerprint&&bytes(e.index)==key){selected=e.index;break;}
++                candidates&=candidates-1;
+             }
+-            if(e.hash==fingerprint&&bytes(e.index)==key)break;
+-            i=(i+1)&(entries.size()-1);
++            if(selected)break;
++            uint64_t empty=word&high;
++            if(empty){
++                if(used>=entries.size()*7/8){grow();i=home(fingerprint,entries.size());continue;}
++                i+=lane(empty);selected=make(key);entries[i]={fingerprint,selected};controls[i]=tag(fingerprint);++used;break;
++            }
++            i=(i+8)&(entries.size()-1);
+         }
+-        auto& bits=at(entries[i].index)[1+country/64];uint64_t bit=uint64_t(1)<<(country%64);
++        auto& bits=at(selected)[1+country/64];uint64_t bit=uint64_t(1)<<(country%64);
+         bool fresh=!(bits&bit);bits|=bit;return fresh;
+     }
++
+ };
+ struct NameEvent {
+     std::string_view key;uint64_t hash;uint16_t country;

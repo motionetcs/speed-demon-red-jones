@@ -1,6 +1,6 @@
 # Results — 1 November 2026
 
-Complete ordinary public feed **2026-11-01T07:33:26Z**: Red Jones remains **rank 44 of 93**, best-three machine mean **69.436015**, leader Cause Of Death **82.949904**. Number one is unachieved. New255 span A/bucket-epoch D passes every real gate but BOTH total-K records lose; complete original256 restoration is locally verified and real confirmation is next. Best/latest variation and final holdout/judging remain separate.
+Complete ordinary public feed **2026-11-01T07:39:29Z**: Red Jones remains **rank 44 of 93**, best-three machine mean **69.436015**, leader Cause Of Death **82.949904**. Number one is unachieved. New255 span A/bucket-epoch D passes every real gate but BOTH total-K records lose; complete original256 restoration passes all real gates. Best/latest variation and final holdout/judging remain separate.
 
 | Track | Best points | K | Rank | Leader |
 | --- | ---: | ---: | ---: | --- |
@@ -19,15 +19,15 @@ A178 changes only the first build-time training104729/sample→1000003/full, kee
 
 A retains163 ordered mapped-output/prefix8/exact4096 cache. C is fully original std::hash/low32 offset/eight-reader/four-owner/512-event with original16-byte quote scan. A/C/D use full1000003/sample130363 offline PGO. D retains12 atomic degree/cursor workers, bidirectional CSR/band64/query32 and arena2. Every new native-ISA/CRC/AVX-quote/radix/weight-skip/query-order prototype is absent. OWNER-BRIEFING describes actual techniques without claiming personal understanding.
 
-All29 selected runtime/build/metadata inputs, complete file sets and Make match real253 **ccf938b0a3b1e9eecdd53dc559ad29d71266f8da** and current best sources. Runtime is original225/187 (A178/C175/D163), local images B57/C263/c4 unchanged. [Exact final source/local-image proof](round253-final-source-match.json) distinguishes local replayed images from organizer binaries. Later documentation heads are not individually claimed scored.
+All29 selected runtime/build/metadata inputs, full file sets and Make match real256 **da6f728a36a932270feff54a4573facf1e8e9cdb** and each current best-track source. Runtime is full original225/187 (A178/C175/D163), imagesB57/C263/c4 unchanged. [Exact final source/local-image proof](round256-final-source-match.json); local replayed images are distinguished from organizer binaries. Later documentation heads are not individually claimed scored.
 
-| Selected253 | Run | Time | Charged memory | S | K | Points |
+| Selected256 | Run | Time | Charged memory | S | K | Points |
 | --- | --- | ---: | ---: | ---: | ---: | ---: |
-| A | run-2d64eeeea0a6 | 0.063888s | 21,159,936B | 497 | 25.967995 | 70.721921 |
-| C | run-d2d2e4b8f360 | 0.064706s | 12,881,920B | 672 | 22.198350 | 67.316035 |
-| D | run-17de14aba547 | 0.215141s | 77,127,680B | 827 | 19.252989 | 64.224908 |
+| A | run-5c14540e890f | 0.043751s | 20,836,352B | 497 | 31.476947 | 74.899630 |
+| C | run-f06b18fa2090 | 0.062763s | 12,333,056B | 672 | 22.736473 | 67.836155 |
+| D | run-216dcc84b896 | 0.201777s | 75,833,344B | 827 | 19.947751 | 64.994696 |
 
-All check/build/correctness/timeout/sandbox gates pass. [Raw selected record](board-round253-selected-confirmation.json). Lower unchanged repeats do not establish a causal source regression. Earlier original-C187 outlier remains unexplained.
+All check/build/correctness/timeout/sandbox gatesPASS. [Raw record](board-round256-selected-confirmation.json). No new algorithm gain; source is the preserved original.
 
 Fresh234 original C production **630+50 normal errors** and actual no-argument/no-thread-override **72+9** pass, including230 independent monetary boundaries and all1..12 topologies. Combined public1/6/12 and native/Linux default12 pass. Original-source221 native strict/race executables freshly run monetary cases; original221 GCC177+30 and127 primitives retained. Rejected230 helper/GCC216 proofs are not relabeled as original. Unchanged A81/D996 image/independent/Floyd/full64 proofs retained, no new234 A/D whole-bank replay. Exact native225 executables and immutable images reused; no234 compilation/training. [Production](round234-c-image-matrix.json), [actual defaults](round234-c-default-matrix.json), [public](round234-native-public.json), [defaults](round234-defaults.json).
 
@@ -89,6 +89,7 @@ Fresh234 original C production **630+50 normal errors** and actual no-argument/n
 | [249 /5f75ecf](board-round249-c-seven-readers.json) | 74.523970 | 66.258026 | 64.951813 | Reject C7readers/5owners on totalK |
 | [253 /ccf938b](board-round253-selected-confirmation.json) | 70.721921 | 67.316035 | 64.224908 | Confirm original29 restoration after C249 loss |
 | [255 /94f9df9](board-round255-spans-bucket-epochs.json) | 73.471038 | 67.453753 | 64.965742 | Reject A span2048 and D bucket epochs; restore original29 |
+| [256 /da6f728](board-round256-selected-confirmation.json) | 74.899630 | 67.836155 | 64.994696 | Confirm full original29 restoration |
 
 Every historical row passes all five gates. Unchanged tracks are repeated observations; higher repeats are variation. Exact time/memory/S/K/source/run IDs remain in JSON and PERF logs.
 
@@ -137,7 +138,7 @@ A211/212 removes only unused Output.save. Native ELF is byte-identical; GCC/PGO 
 
 Hourly local continuation remains active while Mac/app are available. Finish exact pending documentation-head records before new runtime pushes. No new reactions; emojis do not change machine ranking. Stop runtime edits at **2 November2026 15:00UTC/20:30IST** and preserve the last passing recorded source. The owner explicitly approved **only motionetcs/speed-demon-red-jones becoming public under MIT during15:00–16:00UTC/20:30–21:30IST**, after freeze preservation and final secret/privacy recheck. [Authorization](PUBLICATION-AUTHORIZATION.json) and the accepted automation update resolve the earlier missing-approval condition. Keep private before that window; no grants/credential changes or rejection bypass. Publication has not happened. Verify public MIT source by16:00UTC, pause heartbeat after deadline and report verified status. After freeze no runtime edits.
 
-[Complete feed](round255-confirmed-board.json) · [Feed integrity](round255-feed-proof.json) · [Leader comparison](round255-confirmed-comparison.json) · [Entry audit](ENTRY-AUDIT.md) · [Live board](https://speeddemon.dev/board/#red-jones-00c4a7)
+[Complete feed](round256-confirmed-board.json) · [Feed integrity](round256-feed-proof.json) · [Leader comparison](round256-confirmed-comparison.json) · [Entry audit](ENTRY-AUDIT.md) · [Live board](https://speeddemon.dev/board/#red-jones-00c4a7)
 
 
-255 exact A/D local models/native/GCC/PGO/default proofs pass but real A K29.472757/73.471038 loses31.974332/75.240074; real D K19.921170/64.965742 loses20.248361/65.319494. A S491 vs497 is a measured source reduction. D M73543680 vs best76922880 saves3379200B (4.39%), but T.202919 vs.194716 and S853 vs827 do not yield a best total-K gain. These are observed record comparisons, not precise causal timing estimates. C source unchanged, lower repeat is variation. Complete original A/D restored, README training prose corrected to actual1000003/full then130363/sample. Exact actual29/Git/frozen/local-image proof round255-scored-source-match.json; rejected span/bucket strict/race/GCC/image proofs remain historical, never relabeled as original. Fresh256 original native/image public1/6/12 and actualdefaults pass with immutable original binaries/images, no compiler/training or whole-bank replay. Real256 restoration next.
+255 exact A/D local models/native/GCC/PGO/default proofs pass but real A K29.472757/73.471038 loses31.974332/75.240074; real D K19.921170/64.965742 loses20.248361/65.319494. A S491 vs497 is a measured source reduction. D M73543680 vs best76922880 saves3379200B (4.39%), but T.202919 vs.194716 and S853 vs827 do not yield a best total-K gain. These are observed record comparisons, not precise causal timing estimates. C source unchanged, lower repeat is variation. Complete original A/D restored, README training prose corrected to actual1000003/full then130363/sample. Exact actual29/Git/frozen/local-image proof round255-scored-source-match.json; rejected span/bucket strict/race/GCC/image proofs remain historical, never relabeled as original. Fresh256 original native/image public1/6/12 and actualdefaults pass with immutable original binaries/images, no compiler/training or whole-bank replay. Real256 all-track restoration passes, exactsource/best identity in round256-final-source-match.json.

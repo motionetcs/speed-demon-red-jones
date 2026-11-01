@@ -1,0 +1,207 @@
+{
+  "observed_at_utc": "2026-11-01T08:48:38.086404+00:00",
+  "passed": true,
+  "official_score": false,
+  "scope": "Matched normal non-sanitized static pinned GCC15 Linux/amd64 source-controlled allocation-geometry probe with actual production MALLOC_ARENA_MAX=2, nativeISA flags/default12 worker pairs/16 lifetimes/width10..16. Original and aligned source constructors/growth allocation patterns, source/header/probe hashes preserved. This confirms local allocation geometry only, not organizer Intel cache misses/timing/K. A32-byte bucket may straddle64-byte lines when base%32!=0; aligned vector excludes this geometry.",
+  "compiler_image": "gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce",
+  "environment": {
+    "MALLOC_ARENA_MAX": "2"
+  },
+  "probe_sha256": "de94a92965e22b2b511b2304c2a172be23be91f3e8d7f8f61a91ed766a63f903",
+  "header_sha256": {
+    "original": "07b254af4e7a149bdae50e426c3355446e104333e6a8dcd43cd29181db4a8604",
+    "aligned": "5d164faf4b33028111d350aa26c622357b2646f10b27127c5c624608b693f059"
+  },
+  "commands": {
+    "original": [
+      "docker",
+      "run",
+      "--rm",
+      "--platform",
+      "linux/amd64",
+      "--network=none",
+      "--read-only",
+      "--memory=8g",
+      "--memory-swap=8g",
+      "--pids-limit=512",
+      "--cap-drop=ALL",
+      "--security-opt=no-new-privileges",
+      "--user",
+      "65534:65534",
+      "--tmpfs",
+      "/tmp:rw,exec,size=1g",
+      "-e",
+      "MALLOC_ARENA_MAX=2",
+      "-v",
+      "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh:/repo:ro",
+      "--entrypoint",
+      "/bin/sh",
+      "gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce",
+      "-c",
+      "set -eu\ng++ -std=c++20 -O3 -march=native -DNDEBUG -pthread -static -Wall -Wextra -Wpedantic -Werror '-DDISTANCE_MAP_HEADER=\"/repo/track-d/distance_map.hpp\"' /repo/.build/interactive-improve/d257-label-alignment/probe.cpp -o /tmp/probe\n/tmp/probe\n"
+    ],
+    "aligned": [
+      "docker",
+      "run",
+      "--rm",
+      "--platform",
+      "linux/amd64",
+      "--network=none",
+      "--read-only",
+      "--memory=8g",
+      "--memory-swap=8g",
+      "--pids-limit=512",
+      "--cap-drop=ALL",
+      "--security-opt=no-new-privileges",
+      "--user",
+      "65534:65534",
+      "--tmpfs",
+      "/tmp:rw,exec,size=1g",
+      "-e",
+      "MALLOC_ARENA_MAX=2",
+      "-v",
+      "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh:/repo:ro",
+      "--entrypoint",
+      "/bin/sh",
+      "gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce",
+      "-c",
+      "set -eu\ng++ -std=c++20 -O3 -march=native -DNDEBUG -pthread -static -Wall -Wextra -Wpedantic -Werror '-DDISTANCE_MAP_HEADER=\"/repo/.build/interactive-improve/candidate-d257-aligned-source/track-d/distance_map.hpp\"' /repo/.build/interactive-improve/d257-label-alignment/probe.cpp -o /tmp/probe\n/tmp/probe\n"
+    ]
+  },
+  "results": {
+    "original": {
+      "bits": [
+        {
+          "width": 10,
+          "pointer_mod64_counts": {
+            "0": 49,
+            "16": 148,
+            "32": 60,
+            "48": 127
+          }
+        },
+        {
+          "width": 11,
+          "pointer_mod64_counts": {
+            "0": 90,
+            "16": 97,
+            "32": 71,
+            "48": 126
+          }
+        },
+        {
+          "width": 12,
+          "pointer_mod64_counts": {
+            "0": 85,
+            "16": 104,
+            "32": 98,
+            "48": 97
+          }
+        },
+        {
+          "width": 13,
+          "pointer_mod64_counts": {
+            "0": 38,
+            "16": 82,
+            "32": 59,
+            "48": 205
+          }
+        },
+        {
+          "width": 14,
+          "pointer_mod64_counts": {
+            "0": 76,
+            "16": 114,
+            "32": 97,
+            "48": 97
+          }
+        },
+        {
+          "width": 15,
+          "pointer_mod64_counts": {
+            "0": 79,
+            "16": 108,
+            "32": 114,
+            "48": 83
+          }
+        },
+        {
+          "width": 16,
+          "pointer_mod64_counts": {
+            "0": 109,
+            "16": 105,
+            "32": 74,
+            "48": 96
+          }
+        }
+      ]
+    },
+    "aligned": {
+      "bits": [
+        {
+          "width": 10,
+          "pointer_mod64_counts": {
+            "0": 384
+          }
+        },
+        {
+          "width": 11,
+          "pointer_mod64_counts": {
+            "0": 384
+          }
+        },
+        {
+          "width": 12,
+          "pointer_mod64_counts": {
+            "0": 384
+          }
+        },
+        {
+          "width": 13,
+          "pointer_mod64_counts": {
+            "0": 384
+          }
+        },
+        {
+          "width": 14,
+          "pointer_mod64_counts": {
+            "0": 384
+          }
+        },
+        {
+          "width": 15,
+          "pointer_mod64_counts": {
+            "0": 384
+          }
+        },
+        {
+          "width": 16,
+          "pointer_mod64_counts": {
+            "0": 384
+          }
+        }
+      ]
+    }
+  },
+  "potential_straddling_base_samples": {
+    "original": {
+      "10": 275,
+      "11": 223,
+      "12": 201,
+      "13": 287,
+      "14": 211,
+      "15": 191,
+      "16": 201
+    },
+    "aligned": {
+      "10": 0,
+      "11": 0,
+      "12": 0,
+      "13": 0,
+      "14": 0,
+      "15": 0,
+      "16": 0
+    }
+  },
+  "target_trial_hypothesis_supported": true
+}

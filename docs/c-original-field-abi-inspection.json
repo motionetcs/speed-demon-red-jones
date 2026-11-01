@@ -1,0 +1,131 @@
+{
+  "observed_at_utc": "2026-11-01T07:43:06.825579+00:00",
+  "official_score": false,
+  "scope": "Static symbol/call-site inspection of the exact local original C production image, using pinned offline GNU tools. No source/runtime/flags modified, no compiler/training/benchmark executed. Local compiled code is not claimed to be the unexposed organizer binary, and call-site presence alone does not prove hotness or a performance gain.",
+  "original_image_id": "sha256:263099fcbeecd9be03c762fc791651c246e2ec2ca2223f5940e186c13645dd63",
+  "elf_sha256": "406fe1f9130ba9f98b612caa08f83a75b1299466b4a34ac10d659f928a7ecc83",
+  "original_main_sha256": "8f1703c20ec7e17bb708abff7d7a88945e0dcd8b83acc00b137607a7ceee1b0d",
+  "tools_image": "gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce",
+  "commands": {
+    "nm": [
+      "docker",
+      "run",
+      "--rm",
+      "--platform",
+      "linux/amd64",
+      "--network=none",
+      "--read-only",
+      "--cap-drop=ALL",
+      "--security-opt=no-new-privileges",
+      "--user",
+      "65534:65534",
+      "--memory=8g",
+      "--pids-limit=512",
+      "--tmpfs",
+      "/tmp:rw,exec,size=1g",
+      "-v",
+      "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/c-original-abi:/bank:ro",
+      "--entrypoint",
+      "nm",
+      "gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce",
+      "-S",
+      "-C",
+      "--defined-only",
+      "/bank/solution"
+    ],
+    "disassembly": [
+      "docker",
+      "run",
+      "--rm",
+      "--platform",
+      "linux/amd64",
+      "--network=none",
+      "--read-only",
+      "--cap-drop=ALL",
+      "--security-opt=no-new-privileges",
+      "--user",
+      "65534:65534",
+      "--memory=8g",
+      "--pids-limit=512",
+      "--tmpfs",
+      "/tmp:rw,exec,size=1g",
+      "-v",
+      "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/c-original-abi:/bank:ro",
+      "--entrypoint",
+      "objdump",
+      "gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce",
+      "-Cd",
+      "--no-show-raw-insn",
+      "/bank/solution"
+    ]
+  },
+  "field_symbols": [
+    "000000000040aa70 00000000000002e7 W Csv::field(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, bool)"
+  ],
+  "field_call_sites": [
+    {
+      "caller": "main.cold",
+      "instruction": "40185f:\tcall   40aa70 <Csv::field(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, bool)>"
+    },
+    {
+      "caller": "main::{lambda<typename $T0>(std::vector<$T0, std::allocator<$T0> > const&)#1}::operator()<unsigned short>(std::vector<unsigned short, std::allocator<unsigned short> > const&) const::{lambda(unsigned int)#1}::operator()(unsigned int) const",
+      "instruction": "403a30:\tcall   40aa70 <Csv::field(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, bool)>"
+    },
+    {
+      "caller": "main::{lambda<typename $T0>(std::vector<$T0, std::allocator<$T0> > const&)#1}::operator()<unsigned short>(std::vector<unsigned short, std::allocator<unsigned short> > const&) const::{lambda(unsigned int)#1}::operator()(unsigned int) const",
+      "instruction": "403a91:\tcall   40aa70 <Csv::field(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, bool)>"
+    },
+    {
+      "caller": "main",
+      "instruction": "40a003:\tcall   40aa70 <Csv::field(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, bool)>"
+    },
+    {
+      "caller": "main",
+      "instruction": "40a02f:\tcall   40aa70 <Csv::field(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, bool)>"
+    },
+    {
+      "caller": "record_boundaries(char const*, char const*, unsigned int)",
+      "instruction": "40d39f:\tcall   40aa70 <Csv::field(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, bool)>"
+    }
+  ],
+  "field_function_first35_lines": {
+    "Csv::field(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, bool)": [
+      "  40aa70:\tpush   %r14",
+      "  40aa72:\tmov    %rdi,%r11",
+      "  40aa75:\tpush   %r13",
+      "  40aa77:\tpush   %r12",
+      "  40aa79:\tmov    %ecx,%r12d",
+      "  40aa7c:\tpush   %rbp",
+      "  40aa7d:\tpush   %rbx",
+      "  40aa7e:\tmov    %rsi,%rbx",
+      "  40aa81:\tsub    $0x20,%rsp",
+      "  40aa85:\tmov    (%rsi),%r10",
+      "  40aa88:\tmov    0x8(%rsi),%rcx",
+      "  40aa8c:\tcmp    %r10,%rcx",
+      "  40aa8f:\tje     40abb5 <Csv::field(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, bool)+0x145>",
+      "  40aa95:\tcmpb   $0x22,(%r10)",
+      "  40aa99:\tjne    40ab53 <Csv::field(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, bool)+0xe3>",
+      "  40aa9f:\tvmovdqa 0x195c99(%rip),%xmm1        # 5a0740 <vtable for std::thread::_State_impl<std::thread::_Invoker<std::tuple<parallel<main::{lambda<typename $T0>(std::vector<$T0, std::allocator<$T0> > const&)#1}::operator()<unsigned char>(std::vector<unsigned char, std::allocator<unsigned char> > const&) const::{lambda(unsigned int)#1}>(unsigned int, main::{lambda<typename $T0>(std::vector<$T0, std::allocator<$T0> > const&)#1}::operator()<unsigned char>(std::vector<unsigned char, std::allocator<unsigned char> > const&) const::{lambda(unsigned int)#1})::{lambda(unsigned int)#1}, unsigned int> > >+0xf0>",
+      "  40aaa7:\tmov    %rdx,%r14",
+      "  40aaaa:\txor    %r8d,%r8d",
+      "  40aaad:\txor    %ebp,%ebp",
+      "  40aaaf:\tadd    $0x1,%r10",
+      "  40aab3:\tmov    %r10,%r13",
+      "  40aab6:\tmov    %r13,(%rbx)",
+      "  40aab9:\tcmp    %rcx,%r13",
+      "  40aabc:\tjae    40ac1e <Csv::field(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, bool)+0x1ae>",
+      "  40aac2:\tmov    %r13,%r9",
+      "  40aac5:\tmov    %rcx,%rdx",
+      "  40aac8:\tsub    %r9,%rdx",
+      "  40aacb:\tcmp    $0xf,%rdx",
+      "  40aacf:\tjle    40abba <Csv::field(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, bool)+0x14a>",
+      "  40aad5:\tvpcmpeqb (%r9),%xmm1,%xmm0",
+      "  40aada:\tvpmovmskb %xmm0,%eax",
+      "  40aade:\ttest   %eax,%eax",
+      "  40aae0:\tje     40ab31 <Csv::field(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, bool)+0xc1>",
+      "  40aae2:\ttzcnt  %eax,%eax",
+      "  40aae6:\tadd    %rax,%r9"
+    ]
+  },
+  "disassembly_sha256": "0694720ed7e841485d0c0203facba00d4e888aae0c4e5608cf40c31944124321"
+}

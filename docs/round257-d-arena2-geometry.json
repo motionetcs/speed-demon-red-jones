@@ -1,0 +1,210 @@
+{
+  "official_score": false,
+  "started_at_utc": "2026-11-01T08:46:57.431285+00:00",
+  "scope": "Normal UNSANITIZED static pinnedGCC15 Linux/amd64 allocationgeometry ONLY, explicitproductionarena2. No performance/cachemiss/harness/compilerbinaryidentity claim. Sameimmutableprobe12simultaneousworkerpairs/16lifetimes/baseandgrowbits10..16 for original/alignedheader.",
+  "compiler_image": "gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce",
+  "environment": {
+    "MALLOC_ARENA_MAX": "2"
+  },
+  "probe_sha256": "de94a92965e22b2b511b2304c2a172be23be91f3e8d7f8f61a91ed766a63f903",
+  "source_sha256": {
+    "original": "07b254af4e7a149bdae50e426c3355446e104333e6a8dcd43cd29181db4a8604",
+    "aligned": "5d164faf4b33028111d350aa26c622357b2646f10b27127c5c624608b693f059"
+  },
+  "steps": [
+    {
+      "label": "original",
+      "argv": [
+        "docker",
+        "run",
+        "--rm",
+        "--platform",
+        "linux/amd64",
+        "--network=none",
+        "--read-only",
+        "--memory=8g",
+        "--memory-swap=8g",
+        "--pids-limit=512",
+        "--cap-drop=ALL",
+        "--security-opt=no-new-privileges",
+        "--user",
+        "65534:65534",
+        "--tmpfs",
+        "/tmp:rw,exec,size=1g",
+        "-e",
+        "MALLOC_ARENA_MAX=2",
+        "-v",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh:/repo:ro",
+        "--entrypoint",
+        "/bin/sh",
+        "gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce",
+        "-c",
+        "g++ -std=c++20 -O3 -march=native -DNDEBUG -pthread -static -Wall -Wextra -Wpedantic -Werror '-DDISTANCE_MAP_HEADER=\"/repo/.build/interactive-improve/baseline/track-d/distance_map.hpp\"' /repo/.build/interactive-improve/d257-label-alignment/probe.cpp -o /tmp/probe && /tmp/probe"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "aligned",
+      "argv": [
+        "docker",
+        "run",
+        "--rm",
+        "--platform",
+        "linux/amd64",
+        "--network=none",
+        "--read-only",
+        "--memory=8g",
+        "--memory-swap=8g",
+        "--pids-limit=512",
+        "--cap-drop=ALL",
+        "--security-opt=no-new-privileges",
+        "--user",
+        "65534:65534",
+        "--tmpfs",
+        "/tmp:rw,exec,size=1g",
+        "-e",
+        "MALLOC_ARENA_MAX=2",
+        "-v",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh:/repo:ro",
+        "--entrypoint",
+        "/bin/sh",
+        "gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce",
+        "-c",
+        "g++ -std=c++20 -O3 -march=native -DNDEBUG -pthread -static -Wall -Wextra -Wpedantic -Werror '-DDISTANCE_MAP_HEADER=\"/repo/.build/interactive-improve/candidate-d257-aligned-source/track-d/distance_map.hpp\"' /repo/.build/interactive-improve/d257-label-alignment/probe.cpp -o /tmp/probe && /tmp/probe"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "observations": {
+    "original": {
+      "bits": [
+        {
+          "width": 10,
+          "pointer_mod64_counts": {
+            "0": 57,
+            "16": 128,
+            "32": 62,
+            "48": 137
+          },
+          "straddling_bucket_base_allocations": 265
+        },
+        {
+          "width": 11,
+          "pointer_mod64_counts": {
+            "0": 82,
+            "16": 115,
+            "32": 80,
+            "48": 107
+          },
+          "straddling_bucket_base_allocations": 222
+        },
+        {
+          "width": 12,
+          "pointer_mod64_counts": {
+            "0": 88,
+            "16": 111,
+            "32": 94,
+            "48": 91
+          },
+          "straddling_bucket_base_allocations": 202
+        },
+        {
+          "width": 13,
+          "pointer_mod64_counts": {
+            "0": 50,
+            "16": 133,
+            "32": 47,
+            "48": 154
+          },
+          "straddling_bucket_base_allocations": 287
+        },
+        {
+          "width": 14,
+          "pointer_mod64_counts": {
+            "0": 107,
+            "16": 107,
+            "32": 85,
+            "48": 85
+          },
+          "straddling_bucket_base_allocations": 192
+        },
+        {
+          "width": 15,
+          "pointer_mod64_counts": {
+            "0": 69,
+            "16": 87,
+            "32": 116,
+            "48": 112
+          },
+          "straddling_bucket_base_allocations": 199
+        },
+        {
+          "width": 16,
+          "pointer_mod64_counts": {
+            "0": 98,
+            "16": 96,
+            "32": 73,
+            "48": 117
+          },
+          "straddling_bucket_base_allocations": 213
+        }
+      ]
+    },
+    "aligned": {
+      "bits": [
+        {
+          "width": 10,
+          "pointer_mod64_counts": {
+            "0": 384
+          },
+          "straddling_bucket_base_allocations": 0
+        },
+        {
+          "width": 11,
+          "pointer_mod64_counts": {
+            "0": 384
+          },
+          "straddling_bucket_base_allocations": 0
+        },
+        {
+          "width": 12,
+          "pointer_mod64_counts": {
+            "0": 384
+          },
+          "straddling_bucket_base_allocations": 0
+        },
+        {
+          "width": 13,
+          "pointer_mod64_counts": {
+            "0": 384
+          },
+          "straddling_bucket_base_allocations": 0
+        },
+        {
+          "width": 14,
+          "pointer_mod64_counts": {
+            "0": 384
+          },
+          "straddling_bucket_base_allocations": 0
+        },
+        {
+          "width": 15,
+          "pointer_mod64_counts": {
+            "0": 384
+          },
+          "straddling_bucket_base_allocations": 0
+        },
+        {
+          "width": 16,
+          "pointer_mod64_counts": {
+            "0": 384
+          },
+          "straddling_bucket_base_allocations": 0
+        }
+      ]
+    }
+  },
+  "passed": true,
+  "geometry_hypothesis_supported": true,
+  "completed_at_utc": "2026-11-01T08:47:01.238096+00:00"
+}

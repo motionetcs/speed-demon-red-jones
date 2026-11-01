@@ -1,0 +1,21 @@
+from pathlib import Path
+import datetime,hashlib,json,shlex,subprocess
+ROOT=Path.cwd();WORK=ROOT/'.build/interactive-improve';OUT=WORK/'d257-gcc-models';SOURCE=WORK/'candidate-d257-aligned-source';digest=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+m=json.loads((WORK/'candidate-d257-aligned-source.json').read_text());index=json.loads((WORK/'d257-native-proof-index.json').read_text());assert index['passed']
+for name,sha in m['sha256'].items():assert digest(SOURCE/name)==sha
+models={'aligned':WORK/'d257_aligned_model.cpp','packed':ROOT/'tools/test_packed_distances.cpp'}
+assert digest(models['aligned'])==m['allocator_model_sha256'] and digest(models['packed'])==m['packed_map_model_sha256']
+gcc='gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce'
+header='/repo/'+str((SOURCE/'track-d/distance_map.hpp').relative_to(ROOT))
+lines=['set -eu','export ASAN_OPTIONS=halt_on_error=1','export UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1','g++ --version']
+flags=['g++','-std=c++20','-O1','-g','-march=native','-pthread','-Wall','-Wextra','-Wpedantic','-Werror','-fsanitize=address,undefined','-fno-sanitize-recover=all','-fno-omit-frame-pointer','-DDISTANCE_MAP_HEADER="'+header+'"']
+for name,model in models.items():
+    lines.append(' '.join(shlex.quote(x) for x in [*flags,'/repo/'+str(model.relative_to(ROOT)),'-o','/tmp/'+name+'-model']));lines.append('/tmp/'+name+'-model')
+args=['docker','run','--rm','--pull=never','--platform','linux/amd64','--network=none','--read-only','--memory=8g','--memory-swap=8g','--pids-limit=512','--cap-drop=ALL','--security-opt=no-new-privileges','--user','65534:65534','--tmpfs','/tmp:rw,exec,size=1g','-e','MALLOC_ARENA_MAX=2','-v',str(ROOT)+':/repo:ro','-i','--entrypoint','/bin/sh',gcc,'-s']
+r={'started_at_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'official_score':False,'scope':'Fresh strictGNUx86GCC15ASAN/UBSAN alignedallocator/vector andoriginalpacked-map reference models underpinnedofflinecontainer/arena2. NotIntelperformanceororganizerbinaryidentity. No compiled main/runtime/PGO/production/defaultproof claimedhere.','source_sha256':m['sha256'],'model_source_sha256':{k:digest(v) for k,v in models.items()},'compiler_image':gcc,'argv':args,'stdin_script':'\n'.join(lines)+'\n','flags':flags,'environment':{'MALLOC_ARENA_MAX':'2','ASAN_OPTIONS':'halt_on_error=1','UBSAN_OPTIONS':'halt_on_error=1:print_stacktrace=1'}}
+q=subprocess.run(args,input=r['stdin_script'].encode(),capture_output=True,timeout=240);(OUT/'models.stdout').write_bytes(q.stdout);(OUT/'models.stderr').write_bytes(q.stderr);r['exit_code']=q.returncode
+assert q.returncode==0 and not q.stderr,(q.returncode,q.stderr.decode(errors='replace'))
+text=q.stdout.decode();assert 'PASS aligned labels: 225543' in text and 'PASS exact distance reference' in text
+for name,sha in m['sha256'].items():assert digest(SOURCE/name)==sha
+assert r['model_source_sha256']=={k:digest(v) for k,v in models.items()}
+r['passed']=True;r['completed_at_utc']=datetime.datetime.now(datetime.timezone.utc).isoformat();(OUT/'report.json').write_text(json.dumps(r,indent=2)+'\n');print(text,flush=True)

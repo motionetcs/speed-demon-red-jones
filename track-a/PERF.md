@@ -561,3 +561,6 @@ Candidate255 local proof, official trial pending. New isolated254 replaces old40
 
 
 255/94f9df9 run-6ba280806e01 all five real gatesPASS: T0.050070s/M20852736/S491/K29.472757/73.471038 points. Reject new span2048: K29.472757 below31.974332; restore complete original A source. OfficialS491 confirms source reduction, but totalK loses. Exact29 actual/Git/frozen/local-image proof ../docs/round255-scored-source-match.json. New span/bucket model/GCC/PGO proofs remain historical to rejected code, never substituted for original. Native hypotheses did not establish a supported target gain; no precise causal or holdout claim. Raw ../docs/board-round255-spans-bucket-epochs.json.
+
+
+256/da6f728 run-5c14540e890f all five real restoration gatesPASS: T0.043751s/M20836352/S497/K31.476947/74.899630 points. Full original29/Make restored after rejected255A/D, exact actual/Git/best/frozen/local-image proof ../docs/round256-final-source-match.json. Fresh A/D public/default replays use byte-identical original binaries/images; C unchanged passing component and original broad/source-specific strict/race/GCC/model proof retained, no new compiler/training/whole-bank replay. Lower unchanged repeats are variation. Raw ../docs/board-round256-selected-confirmation.json.

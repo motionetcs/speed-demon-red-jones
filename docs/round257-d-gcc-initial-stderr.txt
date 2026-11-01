@@ -1,0 +1,14 @@
+/repo/tools/test_packed_distances.cpp: In function 'void run_model()':
+/repo/tools/test_packed_distances.cpp:32:5: error: this 'for' clause does not guard... [-Werror=misleading-indentation]
+   32 |     for(auto [node,distance]:reference)assert(map.get(node)==distance);representation(map,reference);
+      |     ^~~
+/repo/tools/test_packed_distances.cpp:32:72: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'for'
+   32 |     for(auto [node,distance]:reference)assert(map.get(node)==distance);representation(map,reference);
+      |                                                                        ^~~~~~~~~~~~~~
+/repo/tools/test_packed_distances.cpp:56:9: error: this 'for' clause does not guard... [-Werror=misleading-indentation]
+   56 |         for(auto [node,distance]:reference)assert(map.get(node)==distance);representation(map,reference);
+      |         ^~~
+/repo/tools/test_packed_distances.cpp:56:76: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'for'
+   56 |         for(auto [node,distance]:reference)assert(map.get(node)==distance);representation(map,reference);
+      |                                                                            ^~~~~~~~~~~~~~
+cc1plus: all warnings being treated as errors

@@ -1,0 +1,46 @@
+--- selected256/track-c/main.cpp
++++ isolated-c258-prefix8/track-c/main.cpp
+@@ -1,4 +1,5 @@
+ #include "io.hpp"
++#include <bit>
+ #include "quote_scan.hpp"
+ #include "parallel.hpp"
+ #include <atomic>
+@@ -6,6 +7,27 @@
+ #include <array>
+ #include <numeric>
+ #include <vector>
++
++inline uint64_t decimal_digits(const char*& p, const char* end) {
++    uint64_t value = 0;
++    if constexpr (std::endian::native == std::endian::little) {
++        if (end - p >= 8) {
++            uint64_t bytes; std::memcpy(&bytes,p,8);
++            uint64_t invalid=((bytes+0x4646464646464646ULL)|(bytes-0x3030303030303030ULL))&0x8080808080808080ULL;
++            unsigned count=invalid?std::countr_zero(invalid)/8:8;
++            if(count) {
++                uint64_t digits=(bytes^0x3030303030303030ULL)<<((8-count)*8);
++                uint64_t pairs=(digits&0x00ff00ff00ff00ffULL)*10+((digits>>8)&0x00ff00ff00ff00ffULL);
++                uint64_t quads=(pairs&0x0000ffff0000ffffULL)*100+((pairs>>16)&0x0000ffff0000ffffULL);
++                value=(quads&0xffffffffULL)*10000+(quads>>32);p+=count;
++                if(count<8)return value;
++            }
++        }
++
++    }
++    while (p < end && *p >= '0' && *p <= '9') value = value * 10 + *p++ - '0';
++    return value;
++}
+ 
+ struct Field { std::string_view value; size_t bytes; bool escaped; };
+ struct Csv {
+@@ -52,8 +74,7 @@
+     }
+     uint64_t integer() {
+         const char* start = p;
+-        uint64_t value = 0;
+-        while (p < end && *p >= '0' && *p <= '9') value = value * 10 + *p++ - '0';
++        uint64_t value = decimal_digits(p, end);
+         if (p == start) throw std::runtime_error("missing CSV integer");
+         comma();
+         return value;
