@@ -1,0 +1,5371 @@
+{
+  "official_score": false,
+  "started_at_utc": "2026-11-01T06:17:14.535929+00:00",
+  "scope": "Scratch-only native Apple coarse pipeline profile; clocks only at worker entry/exit, send-call boundaries, consumed batch boundaries and owner idle transitions. Uninstrumented source controls compiled identically. No per-row clocks, no source/board/image edits.",
+  "flags": [
+    "-std=c++20",
+    "-O3",
+    "-DNDEBUG",
+    "-Wall",
+    "-Wextra",
+    "-Wpedantic",
+    "-Werror",
+    "-pthread"
+  ],
+  "sources": {
+    "original-control": {
+      "base_main_sha256": "8f1703c20ec7e17bb708abff7d7a88945e0dcd8b83acc00b137607a7ceee1b0d",
+      "files_sha256": {
+        ".speed-demon.toml": "3371600b8033a377bc373378e703191dfec36c1ae991b617650dfa480edc00b4",
+        "Dockerfile": "637e81c6fca4507f4c4e7368efde7b6904d07879ae9ec992c5e25175d50e1fae",
+        "PERF.md": "c619faf1fe44aaa19b8e787f03026fe28d53154ea747f078ad3bd22b59287da9",
+        "README.md": "6a64233dcbf8967678d87f403c99969067f468ee5066b0f172751f437cccb841",
+        "io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+        "main.cpp": "08ff83e5eab7d03c2221f37064f5fb698a2d14f7e79e9e355e19b5e7bdf96e92",
+        "names.hpp": "f62a25fdb9f229575c42fc013220f7f38dd5a68ea5ac83aa1702d0589c15501b",
+        "parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420",
+        "quote_scan.hpp": "0b170a766254dee1bc14f9e9180cc1900da01d41f5d09053d5579e01a7fb9cfa",
+        "training_generator.py": "9e61672eb814fa4e1bc2e3cf30c8e7ca9629804191ce5ae60a66c8b61ba704f2"
+      },
+      "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+      "compile_command": [
+        "clang++",
+        "-std=c++20",
+        "-O3",
+        "-DNDEBUG",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-pthread",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/c-profile/original-control/track-c/main.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/c-profile/original-control/bin/track-c"
+      ]
+    },
+    "original-profile": {
+      "base_main_sha256": "8f1703c20ec7e17bb708abff7d7a88945e0dcd8b83acc00b137607a7ceee1b0d",
+      "files_sha256": {
+        ".speed-demon.toml": "3371600b8033a377bc373378e703191dfec36c1ae991b617650dfa480edc00b4",
+        "Dockerfile": "637e81c6fca4507f4c4e7368efde7b6904d07879ae9ec992c5e25175d50e1fae",
+        "PERF.md": "c619faf1fe44aaa19b8e787f03026fe28d53154ea747f078ad3bd22b59287da9",
+        "README.md": "6a64233dcbf8967678d87f403c99969067f468ee5066b0f172751f437cccb841",
+        "io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+        "main.cpp": "a29bc6ea4d7ed652f488187d0f95d97bf28236ed4dcd08f133ba385ad92ee457",
+        "names.hpp": "959efdebdc8be5205f418529234119bbd25b8a5640b9285841e83d45bf5a0590",
+        "parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420",
+        "phase_profile.hpp": "eeb0a6f6308a02f3fe55379e0e749c551521b5488c6d7ac644094d5887f5d54f",
+        "quote_scan.hpp": "0b170a766254dee1bc14f9e9180cc1900da01d41f5d09053d5579e01a7fb9cfa",
+        "training_generator.py": "9e61672eb814fa4e1bc2e3cf30c8e7ca9629804191ce5ae60a66c8b61ba704f2"
+      },
+      "binary_sha256": "b5ff84f9f4129615e3a229111e7a45675427ea466927a2a65095371f357b1882",
+      "compile_command": [
+        "clang++",
+        "-std=c++20",
+        "-O3",
+        "-DNDEBUG",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-pthread",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/c-profile/original-profile/track-c/main.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/c-profile/original-profile/bin/track-c"
+      ]
+    },
+    "candidate241-control": {
+      "base_main_sha256": "aed296ba88ded415aca0f33545b51e222bf3a7d6104df55afe0d523f6c0981ba",
+      "files_sha256": {
+        ".speed-demon.toml": "3371600b8033a377bc373378e703191dfec36c1ae991b617650dfa480edc00b4",
+        "Dockerfile": "637e81c6fca4507f4c4e7368efde7b6904d07879ae9ec992c5e25175d50e1fae",
+        "PERF.md": "c619faf1fe44aaa19b8e787f03026fe28d53154ea747f078ad3bd22b59287da9",
+        "README.md": "6a64233dcbf8967678d87f403c99969067f468ee5066b0f172751f437cccb841",
+        "io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+        "main.cpp": "aed296ba88ded415aca0f33545b51e222bf3a7d6104df55afe0d523f6c0981ba",
+        "names.hpp": "f62a25fdb9f229575c42fc013220f7f38dd5a68ea5ac83aa1702d0589c15501b",
+        "parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420",
+        "quote_scan.hpp": "0b170a766254dee1bc14f9e9180cc1900da01d41f5d09053d5579e01a7fb9cfa",
+        "training_generator.py": "9e61672eb814fa4e1bc2e3cf30c8e7ca9629804191ce5ae60a66c8b61ba704f2"
+      },
+      "binary_sha256": "5c210568b5cb9a47acc21581682a2539176f691666827eb4261cc00a567ada09",
+      "compile_command": [
+        "clang++",
+        "-std=c++20",
+        "-O3",
+        "-DNDEBUG",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-pthread",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/c-profile/candidate241-control/track-c/main.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/c-profile/candidate241-control/bin/track-c"
+      ]
+    },
+    "candidate241-profile": {
+      "base_main_sha256": "aed296ba88ded415aca0f33545b51e222bf3a7d6104df55afe0d523f6c0981ba",
+      "files_sha256": {
+        ".speed-demon.toml": "3371600b8033a377bc373378e703191dfec36c1ae991b617650dfa480edc00b4",
+        "Dockerfile": "637e81c6fca4507f4c4e7368efde7b6904d07879ae9ec992c5e25175d50e1fae",
+        "PERF.md": "c619faf1fe44aaa19b8e787f03026fe28d53154ea747f078ad3bd22b59287da9",
+        "README.md": "6a64233dcbf8967678d87f403c99969067f468ee5066b0f172751f437cccb841",
+        "io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+        "main.cpp": "bb7b36759b70e7288d5559b451899f4623cb09f1e9dd54144dfd4a2a16ff1233",
+        "names.hpp": "959efdebdc8be5205f418529234119bbd25b8a5640b9285841e83d45bf5a0590",
+        "parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420",
+        "phase_profile.hpp": "eeb0a6f6308a02f3fe55379e0e749c551521b5488c6d7ac644094d5887f5d54f",
+        "quote_scan.hpp": "0b170a766254dee1bc14f9e9180cc1900da01d41f5d09053d5579e01a7fb9cfa",
+        "training_generator.py": "9e61672eb814fa4e1bc2e3cf30c8e7ca9629804191ce5ae60a66c8b61ba704f2"
+      },
+      "binary_sha256": "9a2d76b0525247f637a43a9e162283dbdc98a122cd20e47f83056dcca4e5e3a1",
+      "compile_command": [
+        "clang++",
+        "-std=c++20",
+        "-O3",
+        "-DNDEBUG",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-pthread",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/c-profile/candidate241-profile/track-c/main.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/interactive-improve/c-profile/candidate241-profile/bin/track-c"
+      ]
+    }
+  },
+  "comparisons": [
+    {
+      "base": "original",
+      "case": "public-full-seed1",
+      "pairs": 7,
+      "profile_to_control_median_ratio": 1.0312511589407227,
+      "ratios": [
+        0.9401850523853583,
+        0.911088598639615,
+        1.0312511589407227,
+        1.048041305298842,
+        0.9172514944439064,
+        1.0491503317892812,
+        1.1599393631076371
+      ],
+      "expected_output_sha256": [
+        "d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536"
+      ],
+      "runs": {
+        "control": [
+          {
+            "wall_seconds_including_launch": 0.0855729580000002,
+            "sha256": "d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536",
+            "profile": null
+          },
+          {
+            "wall_seconds_including_launch": 0.08339575000000021,
+            "sha256": "d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536",
+            "profile": null
+          },
+          {
+            "wall_seconds_including_launch": 0.06236837500000014,
+            "sha256": "d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536",
+            "profile": null
+          },
+          {
+            "wall_seconds_including_launch": 0.0632840839999993,
+            "sha256": "d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536",
+            "profile": null
+          },
+          {
+            "wall_seconds_including_launch": 0.07664991600000004,
+            "sha256": "d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536",
+            "profile": null
+          },
+          {
+            "wall_seconds_including_launch": 0.06373729099999981,
+            "sha256": "d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536",
+            "profile": null
+          },
+          {
+            "wall_seconds_including_launch": 0.06585099999999944,
+            "sha256": "d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536",
+            "profile": null
+          }
+        ],
+        "profile": [
+          {
+            "wall_seconds_including_launch": 0.08045441600000025,
+            "sha256": "d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536",
+            "profile": {
+              "setup_ns": 3121000,
+              "pipeline_ns": 72071000,
+              "final_ns": 286000,
+              "readers": 8,
+              "owners": 4,
+              "workers": [
+                {
+                  "worker": 0,
+                  "wall_ns": 63724000,
+                  "cpu_ns": 40844542,
+                  "send_wall_ns": 27236000,
+                  "send_calls": 829,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 421397
+                },
+                {
+                  "worker": 1,
+                  "wall_ns": 65022000,
+                  "cpu_ns": 41305833,
+                  "send_wall_ns": 25832000,
+                  "send_calls": 821,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 417255
+                },
+                {
+                  "worker": 2,
+                  "wall_ns": 65671000,
+                  "cpu_ns": 42056625,
+                  "send_wall_ns": 26738000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413754
+                },
+                {
+                  "worker": 3,
+                  "wall_ns": 66768000,
+                  "cpu_ns": 42427833,
+                  "send_wall_ns": 28132000,
+                  "send_calls": 815,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413635
+                },
+                {
+                  "worker": 4,
+                  "wall_ns": 68402000,
+                  "cpu_ns": 42585625,
+                  "send_wall_ns": 30482000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413463
+                },
+                {
+                  "worker": 5,
+                  "wall_ns": 69954000,
+                  "cpu_ns": 43335667,
+                  "send_wall_ns": 28350000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413592
+                },
+                {
+                  "worker": 6,
+                  "wall_ns": 70159000,
+                  "cpu_ns": 43052333,
+                  "send_wall_ns": 30737000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413311
+                },
+                {
+                  "worker": 7,
+                  "wall_ns": 71958000,
+                  "cpu_ns": 43487917,
+                  "send_wall_ns": 33718000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413593
+                },
+                {
+                  "worker": 8,
+                  "wall_ns": 71918000,
+                  "cpu_ns": 50918042,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 46195000,
+                  "owner_idle_ns": 25547000,
+                  "batches": 1610,
+                  "events": 817828,
+                  "rows": 0
+                },
+                {
+                  "worker": 9,
+                  "wall_ns": 71658000,
+                  "cpu_ns": 52050042,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 47249000,
+                  "owner_idle_ns": 24257000,
+                  "batches": 1625,
+                  "events": 825799,
+                  "rows": 0
+                },
+                {
+                  "worker": 10,
+                  "wall_ns": 71622000,
+                  "cpu_ns": 50614250,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 45004000,
+                  "owner_idle_ns": 26455000,
+                  "batches": 1611,
+                  "events": 818159,
+                  "rows": 0
+                },
+                {
+                  "worker": 11,
+                  "wall_ns": 71592000,
+                  "cpu_ns": 51651000,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 47103000,
+                  "owner_idle_ns": 24336000,
+                  "batches": 1688,
+                  "events": 858214,
+                  "rows": 0
+                }
+              ]
+            }
+          },
+          {
+            "wall_seconds_including_launch": 0.07598091699999987,
+            "sha256": "d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536",
+            "profile": {
+              "setup_ns": 2995000,
+              "pipeline_ns": 67940000,
+              "final_ns": 305000,
+              "readers": 8,
+              "owners": 4,
+              "workers": [
+                {
+                  "worker": 0,
+                  "wall_ns": 58890000,
+                  "cpu_ns": 39489250,
+                  "send_wall_ns": 23154000,
+                  "send_calls": 829,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 421397
+                },
+                {
+                  "worker": 1,
+                  "wall_ns": 59099000,
+                  "cpu_ns": 40935375,
+                  "send_wall_ns": 19683000,
+                  "send_calls": 821,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 417255
+                },
+                {
+                  "worker": 2,
+                  "wall_ns": 59014000,
+                  "cpu_ns": 40167000,
+                  "send_wall_ns": 21355000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413754
+                },
+                {
+                  "worker": 3,
+                  "wall_ns": 63101000,
+                  "cpu_ns": 41158875,
+                  "send_wall_ns": 24696000,
+                  "send_calls": 815,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413635
+                },
+                {
+                  "worker": 4,
+                  "wall_ns": 63533000,
+                  "cpu_ns": 39675875,
+                  "send_wall_ns": 25558000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413463
+                },
+                {
+                  "worker": 5,
+                  "wall_ns": 64846000,
+                  "cpu_ns": 41328250,
+                  "send_wall_ns": 25164000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413592
+                },
+                {
+                  "worker": 6,
+                  "wall_ns": 64712000,
+                  "cpu_ns": 40295334,
+                  "send_wall_ns": 28306000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413311
+                },
+                {
+                  "worker": 7,
+                  "wall_ns": 67844000,
+                  "cpu_ns": 42149000,
+                  "send_wall_ns": 31115000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413593
+                },
+                {
+                  "worker": 8,
+                  "wall_ns": 67792000,
+                  "cpu_ns": 49779250,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 45753000,
+                  "owner_idle_ns": 21878000,
+                  "batches": 1610,
+                  "events": 817828,
+                  "rows": 0
+                },
+                {
+                  "worker": 9,
+                  "wall_ns": 67791000,
+                  "cpu_ns": 49771375,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 45202000,
+                  "owner_idle_ns": 22437000,
+                  "batches": 1625,
+                  "events": 825799,
+                  "rows": 0
+                },
+                {
+                  "worker": 10,
+                  "wall_ns": 67770000,
+                  "cpu_ns": 49575792,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 42664000,
+                  "owner_idle_ns": 24921000,
+                  "batches": 1611,
+                  "events": 818159,
+                  "rows": 0
+                },
+                {
+                  "worker": 11,
+                  "wall_ns": 67707000,
+                  "cpu_ns": 49752292,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 45100000,
+                  "owner_idle_ns": 22463000,
+                  "batches": 1688,
+                  "events": 858214,
+                  "rows": 0
+                }
+              ]
+            }
+          },
+          {
+            "wall_seconds_including_launch": 0.06431745899999974,
+            "sha256": "d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536",
+            "profile": {
+              "setup_ns": 2536000,
+              "pipeline_ns": 57419000,
+              "final_ns": 366000,
+              "readers": 8,
+              "owners": 4,
+              "workers": [
+                {
+                  "worker": 0,
+                  "wall_ns": 55569000,
+                  "cpu_ns": 36510208,
+                  "send_wall_ns": 15056000,
+                  "send_calls": 829,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 421397
+                },
+                {
+                  "worker": 1,
+                  "wall_ns": 54751000,
+                  "cpu_ns": 33574708,
+                  "send_wall_ns": 18112000,
+                  "send_calls": 821,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 417255
+                },
+                {
+                  "worker": 2,
+                  "wall_ns": 54486000,
+                  "cpu_ns": 35657458,
+                  "send_wall_ns": 14808000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413754
+                },
+                {
+                  "worker": 3,
+                  "wall_ns": 53221000,
+                  "cpu_ns": 34209750,
+                  "send_wall_ns": 16660000,
+                  "send_calls": 815,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413635
+                },
+                {
+                  "worker": 4,
+                  "wall_ns": 54704000,
+                  "cpu_ns": 36067042,
+                  "send_wall_ns": 15883000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413463
+                },
+                {
+                  "worker": 5,
+                  "wall_ns": 55794000,
+                  "cpu_ns": 34869583,
+                  "send_wall_ns": 17854000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413592
+                },
+                {
+                  "worker": 6,
+                  "wall_ns": 56618000,
+                  "cpu_ns": 35787333,
+                  "send_wall_ns": 17972000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413311
+                },
+                {
+                  "worker": 7,
+                  "wall_ns": 56622000,
+                  "cpu_ns": 34684667,
+                  "send_wall_ns": 19535000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413593
+                },
+                {
+                  "worker": 8,
+                  "wall_ns": 56466000,
+                  "cpu_ns": 35802292,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 38691000,
+                  "owner_idle_ns": 17639000,
+                  "batches": 1610,
+                  "events": 817828,
+                  "rows": 0
+                },
+                {
+                  "worker": 9,
+                  "wall_ns": 56482000,
+                  "cpu_ns": 41459125,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 43504000,
+                  "owner_idle_ns": 12830000,
+                  "batches": 1625,
+                  "events": 825799,
+                  "rows": 0
+                },
+                {
+                  "worker": 10,
+                  "wall_ns": 56195000,
+                  "cpu_ns": 38548542,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 41202000,
+                  "owner_idle_ns": 14861000,
+                  "batches": 1611,
+                  "events": 818159,
+                  "rows": 0
+                },
+                {
+                  "worker": 11,
+                  "wall_ns": 56192000,
+                  "cpu_ns": 40301333,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 42084000,
+                  "owner_idle_ns": 13973000,
+                  "batches": 1688,
+                  "events": 858214,
+                  "rows": 0
+                }
+              ]
+            }
+          },
+          {
+            "wall_seconds_including_launch": 0.06632433400000082,
+            "sha256": "d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536",
+            "profile": {
+              "setup_ns": 2706000,
+              "pipeline_ns": 58737000,
+              "final_ns": 363000,
+              "readers": 8,
+              "owners": 4,
+              "workers": [
+                {
+                  "worker": 0,
+                  "wall_ns": 55769000,
+                  "cpu_ns": 33576167,
+                  "send_wall_ns": 20979000,
+                  "send_calls": 829,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 421397
+                },
+                {
+                  "worker": 1,
+                  "wall_ns": 55331000,
+                  "cpu_ns": 33935166,
+                  "send_wall_ns": 19682000,
+                  "send_calls": 821,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 417255
+                },
+                {
+                  "worker": 2,
+                  "wall_ns": 56405000,
+                  "cpu_ns": 33985042,
+                  "send_wall_ns": 20519000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413754
+                },
+                {
+                  "worker": 3,
+                  "wall_ns": 55350000,
+                  "cpu_ns": 33569458,
+                  "send_wall_ns": 20198000,
+                  "send_calls": 815,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413635
+                },
+                {
+                  "worker": 4,
+                  "wall_ns": 56595000,
+                  "cpu_ns": 33575916,
+                  "send_wall_ns": 23371000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413463
+                },
+                {
+                  "worker": 5,
+                  "wall_ns": 57682000,
+                  "cpu_ns": 35753208,
+                  "send_wall_ns": 21238000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413592
+                },
+                {
+                  "worker": 6,
+                  "wall_ns": 58043000,
+                  "cpu_ns": 35265625,
+                  "send_wall_ns": 20631000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413311
+                },
+                {
+                  "worker": 7,
+                  "wall_ns": 58639000,
+                  "cpu_ns": 37412875,
+                  "send_wall_ns": 20557000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413593
+                },
+                {
+                  "worker": 8,
+                  "wall_ns": 58581000,
+                  "cpu_ns": 40535709,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 42216000,
+                  "owner_idle_ns": 16095000,
+                  "batches": 1610,
+                  "events": 817828,
+                  "rows": 0
+                },
+                {
+                  "worker": 9,
+                  "wall_ns": 58584000,
+                  "cpu_ns": 40327916,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 42694000,
+                  "owner_idle_ns": 15723000,
+                  "batches": 1625,
+                  "events": 825799,
+                  "rows": 0
+                },
+                {
+                  "worker": 10,
+                  "wall_ns": 58574000,
+                  "cpu_ns": 38723541,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 40324000,
+                  "owner_idle_ns": 18092000,
+                  "batches": 1611,
+                  "events": 818159,
+                  "rows": 0
+                },
+                {
+                  "worker": 11,
+                  "wall_ns": 58596000,
+                  "cpu_ns": 40573750,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 42611000,
+                  "owner_idle_ns": 15827000,
+                  "batches": 1688,
+                  "events": 858214,
+                  "rows": 0
+                }
+              ]
+            }
+          },
+          {
+            "wall_seconds_including_launch": 0.07030724999999993,
+            "sha256": "d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536",
+            "profile": {
+              "setup_ns": 3302000,
+              "pipeline_ns": 62162000,
+              "final_ns": 321000,
+              "readers": 8,
+              "owners": 4,
+              "workers": [
+                {
+                  "worker": 0,
+                  "wall_ns": 58776000,
+                  "cpu_ns": 36068584,
+                  "send_wall_ns": 20029000,
+                  "send_calls": 829,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 421397
+                },
+                {
+                  "worker": 1,
+                  "wall_ns": 57503000,
+                  "cpu_ns": 33994750,
+                  "send_wall_ns": 20386000,
+                  "send_calls": 821,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 417255
+                },
+                {
+                  "worker": 2,
+                  "wall_ns": 57979000,
+                  "cpu_ns": 36428167,
+                  "send_wall_ns": 21104000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413754
+                },
+                {
+                  "worker": 3,
+                  "wall_ns": 58718000,
+                  "cpu_ns": 34658250,
+                  "send_wall_ns": 22193000,
+                  "send_calls": 815,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413635
+                },
+                {
+                  "worker": 4,
+                  "wall_ns": 60434000,
+                  "cpu_ns": 36679875,
+                  "send_wall_ns": 23382000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413463
+                },
+                {
+                  "worker": 5,
+                  "wall_ns": 61182000,
+                  "cpu_ns": 35749250,
+                  "send_wall_ns": 23040000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413592
+                },
+                {
+                  "worker": 6,
+                  "wall_ns": 61495000,
+                  "cpu_ns": 36041750,
+                  "send_wall_ns": 23620000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413311
+                },
+                {
+                  "worker": 7,
+                  "wall_ns": 62047000,
+                  "cpu_ns": 37181833,
+                  "send_wall_ns": 24692000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413593
+                },
+                {
+                  "worker": 8,
+                  "wall_ns": 62004000,
+                  "cpu_ns": 39959167,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 43206000,
+                  "owner_idle_ns": 18614000,
+                  "batches": 1610,
+                  "events": 817828,
+                  "rows": 0
+                },
+                {
+                  "worker": 9,
+                  "wall_ns": 62028000,
+                  "cpu_ns": 40773250,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 42791000,
+                  "owner_idle_ns": 19061000,
+                  "batches": 1625,
+                  "events": 825799,
+                  "rows": 0
+                },
+                {
+                  "worker": 10,
+                  "wall_ns": 62011000,
+                  "cpu_ns": 41488542,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 43121000,
+                  "owner_idle_ns": 18726000,
+                  "batches": 1611,
+                  "events": 818159,
+                  "rows": 0
+                },
+                {
+                  "worker": 11,
+                  "wall_ns": 61980000,
+                  "cpu_ns": 38946416,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 42375000,
+                  "owner_idle_ns": 19469000,
+                  "batches": 1688,
+                  "events": 858214,
+                  "rows": 0
+                }
+              ]
+            }
+          },
+          {
+            "wall_seconds_including_launch": 0.06686999999999976,
+            "sha256": "d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536",
+            "profile": {
+              "setup_ns": 2786000,
+              "pipeline_ns": 58957000,
+              "final_ns": 793000,
+              "readers": 8,
+              "owners": 4,
+              "workers": [
+                {
+                  "worker": 0,
+                  "wall_ns": 55181000,
+                  "cpu_ns": 35132542,
+                  "send_wall_ns": 17337000,
+                  "send_calls": 829,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 421397
+                },
+                {
+                  "worker": 1,
+                  "wall_ns": 56311000,
+                  "cpu_ns": 34542833,
+                  "send_wall_ns": 16877000,
+                  "send_calls": 821,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 417255
+                },
+                {
+                  "worker": 2,
+                  "wall_ns": 55617000,
+                  "cpu_ns": 32709625,
+                  "send_wall_ns": 18293000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413754
+                },
+                {
+                  "worker": 3,
+                  "wall_ns": 56447000,
+                  "cpu_ns": 35985458,
+                  "send_wall_ns": 19151000,
+                  "send_calls": 815,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413635
+                },
+                {
+                  "worker": 4,
+                  "wall_ns": 57395000,
+                  "cpu_ns": 36799667,
+                  "send_wall_ns": 18666000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413463
+                },
+                {
+                  "worker": 5,
+                  "wall_ns": 57375000,
+                  "cpu_ns": 35764208,
+                  "send_wall_ns": 20688000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413592
+                },
+                {
+                  "worker": 6,
+                  "wall_ns": 57137000,
+                  "cpu_ns": 36817167,
+                  "send_wall_ns": 19021000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413311
+                },
+                {
+                  "worker": 7,
+                  "wall_ns": 58850000,
+                  "cpu_ns": 35826333,
+                  "send_wall_ns": 21905000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413593
+                },
+                {
+                  "worker": 8,
+                  "wall_ns": 58812000,
+                  "cpu_ns": 40859750,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 42970000,
+                  "owner_idle_ns": 15671000,
+                  "batches": 1610,
+                  "events": 817828,
+                  "rows": 0
+                },
+                {
+                  "worker": 9,
+                  "wall_ns": 58818000,
+                  "cpu_ns": 39109292,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 41217000,
+                  "owner_idle_ns": 17455000,
+                  "batches": 1625,
+                  "events": 825799,
+                  "rows": 0
+                },
+                {
+                  "worker": 10,
+                  "wall_ns": 58796000,
+                  "cpu_ns": 40694625,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 43334000,
+                  "owner_idle_ns": 15311000,
+                  "batches": 1611,
+                  "events": 818159,
+                  "rows": 0
+                },
+                {
+                  "worker": 11,
+                  "wall_ns": 58806000,
+                  "cpu_ns": 39993500,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 43100000,
+                  "owner_idle_ns": 15395000,
+                  "batches": 1688,
+                  "events": 858214,
+                  "rows": 0
+                }
+              ]
+            }
+          },
+          {
+            "wall_seconds_including_launch": 0.07638316700000036,
+            "sha256": "d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536",
+            "profile": {
+              "setup_ns": 3272000,
+              "pipeline_ns": 68098000,
+              "final_ns": 296000,
+              "readers": 8,
+              "owners": 4,
+              "workers": [
+                {
+                  "worker": 0,
+                  "wall_ns": 58558000,
+                  "cpu_ns": 40607792,
+                  "send_wall_ns": 19718000,
+                  "send_calls": 829,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 421397
+                },
+                {
+                  "worker": 1,
+                  "wall_ns": 58599000,
+                  "cpu_ns": 41683125,
+                  "send_wall_ns": 22925000,
+                  "send_calls": 821,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 417255
+                },
+                {
+                  "worker": 2,
+                  "wall_ns": 60799000,
+                  "cpu_ns": 40998375,
+                  "send_wall_ns": 23179000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413754
+                },
+                {
+                  "worker": 3,
+                  "wall_ns": 63471000,
+                  "cpu_ns": 40879750,
+                  "send_wall_ns": 26342000,
+                  "send_calls": 815,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413635
+                },
+                {
+                  "worker": 4,
+                  "wall_ns": 64723000,
+                  "cpu_ns": 43706750,
+                  "send_wall_ns": 27440000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413463
+                },
+                {
+                  "worker": 5,
+                  "wall_ns": 66412000,
+                  "cpu_ns": 42944125,
+                  "send_wall_ns": 28441000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413592
+                },
+                {
+                  "worker": 6,
+                  "wall_ns": 66138000,
+                  "cpu_ns": 42292583,
+                  "send_wall_ns": 29605000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413311
+                },
+                {
+                  "worker": 7,
+                  "wall_ns": 67960000,
+                  "cpu_ns": 41957500,
+                  "send_wall_ns": 30556000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413593
+                },
+                {
+                  "worker": 8,
+                  "wall_ns": 67847000,
+                  "cpu_ns": 49646291,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 44026000,
+                  "owner_idle_ns": 23577000,
+                  "batches": 1610,
+                  "events": 817828,
+                  "rows": 0
+                },
+                {
+                  "worker": 9,
+                  "wall_ns": 67611000,
+                  "cpu_ns": 49404709,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 42594000,
+                  "owner_idle_ns": 24854000,
+                  "batches": 1625,
+                  "events": 825799,
+                  "rows": 0
+                },
+                {
+                  "worker": 10,
+                  "wall_ns": 67481000,
+                  "cpu_ns": 49542500,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 43105000,
+                  "owner_idle_ns": 24197000,
+                  "batches": 1611,
+                  "events": 818159,
+                  "rows": 0
+                },
+                {
+                  "worker": 11,
+                  "wall_ns": 67481000,
+                  "cpu_ns": 50540375,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 44490000,
+                  "owner_idle_ns": 22799000,
+                  "batches": 1688,
+                  "events": 858214,
+                  "rows": 0
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "median_setup_ns": 2995000,
+      "median_pipeline_ns": 62162000,
+      "median_final_ns": 321000,
+      "worker_medians": [
+        {
+          "worker": 0,
+          "wall_ns": 58558000,
+          "cpu_ns": 36510208,
+          "send_wall_ns": 20029000,
+          "send_calls": 829,
+          "owner_busy_ns": 0,
+          "owner_idle_ns": 0,
+          "batches": 0,
+          "events": 0,
+          "rows": 421397
+        },
+        {
+          "worker": 1,
+          "wall_ns": 57503000,
+          "cpu_ns": 34542833,
+          "send_wall_ns": 19683000,
+          "send_calls": 821,
+          "owner_busy_ns": 0,
+          "owner_idle_ns": 0,
+          "batches": 0,
+          "events": 0,
+          "rows": 417255
+        },
+        {
+          "worker": 2,
+          "wall_ns": 57979000,
+          "cpu_ns": 36428167,
+          "send_wall_ns": 21104000,
+          "send_calls": 814,
+          "owner_busy_ns": 0,
+          "owner_idle_ns": 0,
+          "batches": 0,
+          "events": 0,
+          "rows": 413754
+        },
+        {
+          "worker": 3,
+          "wall_ns": 58718000,
+          "cpu_ns": 35985458,
+          "send_wall_ns": 22193000,
+          "send_calls": 815,
+          "owner_busy_ns": 0,
+          "owner_idle_ns": 0,
+          "batches": 0,
+          "events": 0,
+          "rows": 413635
+        },
+        {
+          "worker": 4,
+          "wall_ns": 60434000,
+          "cpu_ns": 36799667,
+          "send_wall_ns": 23382000,
+          "send_calls": 814,
+          "owner_busy_ns": 0,
+          "owner_idle_ns": 0,
+          "batches": 0,
+          "events": 0,
+          "rows": 413463
+        },
+        {
+          "worker": 5,
+          "wall_ns": 61182000,
+          "cpu_ns": 35764208,
+          "send_wall_ns": 23040000,
+          "send_calls": 814,
+          "owner_busy_ns": 0,
+          "owner_idle_ns": 0,
+          "batches": 0,
+          "events": 0,
+          "rows": 413592
+        },
+        {
+          "worker": 6,
+          "wall_ns": 61495000,
+          "cpu_ns": 36817167,
+          "send_wall_ns": 23620000,
+          "send_calls": 813,
+          "owner_busy_ns": 0,
+          "owner_idle_ns": 0,
+          "batches": 0,
+          "events": 0,
+          "rows": 413311
+        },
+        {
+          "worker": 7,
+          "wall_ns": 62047000,
+          "cpu_ns": 37412875,
+          "send_wall_ns": 24692000,
+          "send_calls": 814,
+          "owner_busy_ns": 0,
+          "owner_idle_ns": 0,
+          "batches": 0,
+          "events": 0,
+          "rows": 413593
+        },
+        {
+          "worker": 8,
+          "wall_ns": 62004000,
+          "cpu_ns": 40859750,
+          "send_wall_ns": 0,
+          "send_calls": 0,
+          "owner_busy_ns": 43206000,
+          "owner_idle_ns": 18614000,
+          "batches": 1610,
+          "events": 817828,
+          "rows": 0
+        },
+        {
+          "worker": 9,
+          "wall_ns": 62028000,
+          "cpu_ns": 41459125,
+          "send_wall_ns": 0,
+          "send_calls": 0,
+          "owner_busy_ns": 42791000,
+          "owner_idle_ns": 19061000,
+          "batches": 1625,
+          "events": 825799,
+          "rows": 0
+        },
+        {
+          "worker": 10,
+          "wall_ns": 62011000,
+          "cpu_ns": 41488542,
+          "send_wall_ns": 0,
+          "send_calls": 0,
+          "owner_busy_ns": 43105000,
+          "owner_idle_ns": 18726000,
+          "batches": 1611,
+          "events": 818159,
+          "rows": 0
+        },
+        {
+          "worker": 11,
+          "wall_ns": 61980000,
+          "cpu_ns": 40573750,
+          "send_wall_ns": 0,
+          "send_calls": 0,
+          "owner_busy_ns": 43100000,
+          "owner_idle_ns": 19469000,
+          "batches": 1688,
+          "events": 858214,
+          "rows": 0
+        }
+      ]
+    },
+    {
+      "base": "candidate241",
+      "case": "public-full-seed1",
+      "pairs": 7,
+      "profile_to_control_median_ratio": 0.999782331144609,
+      "ratios": [
+        0.9135463621783854,
+        0.855895864643675,
+        0.8505777160508554,
+        1.1175977268570005,
+        0.999782331144609,
+        1.1389675089034332,
+        1.1187460025009874
+      ],
+      "expected_output_sha256": [
+        "d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536"
+      ],
+      "runs": {
+        "control": [
+          {
+            "wall_seconds_including_launch": 0.07199716700000014,
+            "sha256": "d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536",
+            "profile": null
+          },
+          {
+            "wall_seconds_including_launch": 0.07583491599999981,
+            "sha256": "d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536",
+            "profile": null
+          },
+          {
+            "wall_seconds_including_launch": 0.07308175000000006,
+            "sha256": "d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536",
+            "profile": null
+          },
+          {
+            "wall_seconds_including_launch": 0.07336133300000025,
+            "sha256": "d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536",
+            "profile": null
+          },
+          {
+            "wall_seconds_including_launch": 0.07790733299999975,
+            "sha256": "d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536",
+            "profile": null
+          },
+          {
+            "wall_seconds_including_launch": 0.06665287499999906,
+            "sha256": "d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536",
+            "profile": null
+          },
+          {
+            "wall_seconds_including_launch": 0.08066762500000024,
+            "sha256": "d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536",
+            "profile": null
+          }
+        ],
+        "profile": [
+          {
+            "wall_seconds_including_launch": 0.06577274999999982,
+            "sha256": "d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536",
+            "profile": {
+              "setup_ns": 2748000,
+              "pipeline_ns": 57341000,
+              "final_ns": 1352000,
+              "readers": 8,
+              "owners": 4,
+              "workers": [
+                {
+                  "worker": 0,
+                  "wall_ns": 53429000,
+                  "cpu_ns": 34940208,
+                  "send_wall_ns": 17904000,
+                  "send_calls": 829,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 421397
+                },
+                {
+                  "worker": 1,
+                  "wall_ns": 54151000,
+                  "cpu_ns": 34013875,
+                  "send_wall_ns": 18394000,
+                  "send_calls": 821,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 417255
+                },
+                {
+                  "worker": 2,
+                  "wall_ns": 54570000,
+                  "cpu_ns": 36673750,
+                  "send_wall_ns": 17089000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413754
+                },
+                {
+                  "worker": 3,
+                  "wall_ns": 55724000,
+                  "cpu_ns": 36162833,
+                  "send_wall_ns": 19958000,
+                  "send_calls": 815,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413635
+                },
+                {
+                  "worker": 4,
+                  "wall_ns": 56034000,
+                  "cpu_ns": 36469000,
+                  "send_wall_ns": 18389000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413463
+                },
+                {
+                  "worker": 5,
+                  "wall_ns": 56208000,
+                  "cpu_ns": 36613291,
+                  "send_wall_ns": 19197000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413592
+                },
+                {
+                  "worker": 6,
+                  "wall_ns": 56539000,
+                  "cpu_ns": 35343042,
+                  "send_wall_ns": 19828000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413311
+                },
+                {
+                  "worker": 7,
+                  "wall_ns": 57160000,
+                  "cpu_ns": 37901792,
+                  "send_wall_ns": 20489000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413593
+                },
+                {
+                  "worker": 8,
+                  "wall_ns": 56866000,
+                  "cpu_ns": 38990292,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 40264000,
+                  "owner_idle_ns": 16411000,
+                  "batches": 1610,
+                  "events": 817828,
+                  "rows": 0
+                },
+                {
+                  "worker": 9,
+                  "wall_ns": 56897000,
+                  "cpu_ns": 40434583,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 43019000,
+                  "owner_idle_ns": 13695000,
+                  "batches": 1625,
+                  "events": 825799,
+                  "rows": 0
+                },
+                {
+                  "worker": 10,
+                  "wall_ns": 56903000,
+                  "cpu_ns": 39730708,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 39469000,
+                  "owner_idle_ns": 17261000,
+                  "batches": 1611,
+                  "events": 818159,
+                  "rows": 0
+                },
+                {
+                  "worker": 11,
+                  "wall_ns": 56858000,
+                  "cpu_ns": 40076750,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 41133000,
+                  "owner_idle_ns": 15580000,
+                  "batches": 1688,
+                  "events": 858214,
+                  "rows": 0
+                }
+              ]
+            }
+          },
+          {
+            "wall_seconds_including_launch": 0.0649067910000003,
+            "sha256": "d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536",
+            "profile": {
+              "setup_ns": 2914000,
+              "pipeline_ns": 57552000,
+              "final_ns": 317000,
+              "readers": 8,
+              "owners": 4,
+              "workers": [
+                {
+                  "worker": 0,
+                  "wall_ns": 55194000,
+                  "cpu_ns": 34121208,
+                  "send_wall_ns": 20570000,
+                  "send_calls": 829,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 421397
+                },
+                {
+                  "worker": 1,
+                  "wall_ns": 53688000,
+                  "cpu_ns": 35360833,
+                  "send_wall_ns": 18334000,
+                  "send_calls": 821,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 417255
+                },
+                {
+                  "worker": 2,
+                  "wall_ns": 55237000,
+                  "cpu_ns": 33913500,
+                  "send_wall_ns": 20112000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413754
+                },
+                {
+                  "worker": 3,
+                  "wall_ns": 55077000,
+                  "cpu_ns": 33862792,
+                  "send_wall_ns": 19553000,
+                  "send_calls": 815,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413635
+                },
+                {
+                  "worker": 4,
+                  "wall_ns": 56014000,
+                  "cpu_ns": 34135458,
+                  "send_wall_ns": 20282000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413463
+                },
+                {
+                  "worker": 5,
+                  "wall_ns": 55858000,
+                  "cpu_ns": 32910916,
+                  "send_wall_ns": 22941000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413592
+                },
+                {
+                  "worker": 6,
+                  "wall_ns": 56796000,
+                  "cpu_ns": 35028834,
+                  "send_wall_ns": 22777000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413311
+                },
+                {
+                  "worker": 7,
+                  "wall_ns": 57370000,
+                  "cpu_ns": 35492416,
+                  "send_wall_ns": 21845000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413593
+                },
+                {
+                  "worker": 8,
+                  "wall_ns": 57318000,
+                  "cpu_ns": 37888167,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 39415000,
+                  "owner_idle_ns": 17758000,
+                  "batches": 1610,
+                  "events": 817828,
+                  "rows": 0
+                },
+                {
+                  "worker": 9,
+                  "wall_ns": 57085000,
+                  "cpu_ns": 39578916,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 41477000,
+                  "owner_idle_ns": 15447000,
+                  "batches": 1625,
+                  "events": 825799,
+                  "rows": 0
+                },
+                {
+                  "worker": 10,
+                  "wall_ns": 57071000,
+                  "cpu_ns": 40314500,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 42751000,
+                  "owner_idle_ns": 14169000,
+                  "batches": 1611,
+                  "events": 818159,
+                  "rows": 0
+                },
+                {
+                  "worker": 11,
+                  "wall_ns": 57285000,
+                  "cpu_ns": 39173916,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 40827000,
+                  "owner_idle_ns": 15957000,
+                  "batches": 1688,
+                  "events": 858214,
+                  "rows": 0
+                }
+              ]
+            }
+          },
+          {
+            "wall_seconds_including_launch": 0.06216170799999965,
+            "sha256": "d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536",
+            "profile": {
+              "setup_ns": 2390000,
+              "pipeline_ns": 55060000,
+              "final_ns": 330000,
+              "readers": 8,
+              "owners": 4,
+              "workers": [
+                {
+                  "worker": 0,
+                  "wall_ns": 51828000,
+                  "cpu_ns": 35585416,
+                  "send_wall_ns": 13618000,
+                  "send_calls": 829,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 421397
+                },
+                {
+                  "worker": 1,
+                  "wall_ns": 52036000,
+                  "cpu_ns": 34057416,
+                  "send_wall_ns": 15170000,
+                  "send_calls": 821,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 417255
+                },
+                {
+                  "worker": 2,
+                  "wall_ns": 53171000,
+                  "cpu_ns": 35219666,
+                  "send_wall_ns": 15389000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413754
+                },
+                {
+                  "worker": 3,
+                  "wall_ns": 52071000,
+                  "cpu_ns": 32498750,
+                  "send_wall_ns": 18190000,
+                  "send_calls": 815,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413635
+                },
+                {
+                  "worker": 4,
+                  "wall_ns": 52877000,
+                  "cpu_ns": 34062458,
+                  "send_wall_ns": 17058000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413463
+                },
+                {
+                  "worker": 5,
+                  "wall_ns": 53327000,
+                  "cpu_ns": 33476958,
+                  "send_wall_ns": 18821000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413592
+                },
+                {
+                  "worker": 6,
+                  "wall_ns": 54273000,
+                  "cpu_ns": 33285417,
+                  "send_wall_ns": 19830000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413311
+                },
+                {
+                  "worker": 7,
+                  "wall_ns": 54963000,
+                  "cpu_ns": 34538250,
+                  "send_wall_ns": 20167000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413593
+                },
+                {
+                  "worker": 8,
+                  "wall_ns": 54904000,
+                  "cpu_ns": 38976959,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 39457000,
+                  "owner_idle_ns": 15299000,
+                  "batches": 1610,
+                  "events": 817828,
+                  "rows": 0
+                },
+                {
+                  "worker": 9,
+                  "wall_ns": 54885000,
+                  "cpu_ns": 38652750,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 40838000,
+                  "owner_idle_ns": 13907000,
+                  "batches": 1625,
+                  "events": 825799,
+                  "rows": 0
+                },
+                {
+                  "worker": 10,
+                  "wall_ns": 54876000,
+                  "cpu_ns": 38766000,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 41296000,
+                  "owner_idle_ns": 13427000,
+                  "batches": 1611,
+                  "events": 818159,
+                  "rows": 0
+                },
+                {
+                  "worker": 11,
+                  "wall_ns": 54586000,
+                  "cpu_ns": 39118417,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 40620000,
+                  "owner_idle_ns": 13815000,
+                  "batches": 1688,
+                  "events": 858214,
+                  "rows": 0
+                }
+              ]
+            }
+          },
+          {
+            "wall_seconds_including_launch": 0.08198845899999974,
+            "sha256": "d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536",
+            "profile": {
+              "setup_ns": 2956000,
+              "pipeline_ns": 73961000,
+              "final_ns": 329000,
+              "readers": 8,
+              "owners": 4,
+              "workers": [
+                {
+                  "worker": 0,
+                  "wall_ns": 66379000,
+                  "cpu_ns": 41494959,
+                  "send_wall_ns": 28659000,
+                  "send_calls": 829,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 421397
+                },
+                {
+                  "worker": 1,
+                  "wall_ns": 64461000,
+                  "cpu_ns": 40844791,
+                  "send_wall_ns": 30097000,
+                  "send_calls": 821,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 417255
+                },
+                {
+                  "worker": 2,
+                  "wall_ns": 67477000,
+                  "cpu_ns": 39635708,
+                  "send_wall_ns": 31149000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413754
+                },
+                {
+                  "worker": 3,
+                  "wall_ns": 68607000,
+                  "cpu_ns": 42306375,
+                  "send_wall_ns": 32077000,
+                  "send_calls": 815,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413635
+                },
+                {
+                  "worker": 4,
+                  "wall_ns": 70387000,
+                  "cpu_ns": 41703667,
+                  "send_wall_ns": 34943000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413463
+                },
+                {
+                  "worker": 5,
+                  "wall_ns": 71896000,
+                  "cpu_ns": 40538959,
+                  "send_wall_ns": 36248000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413592
+                },
+                {
+                  "worker": 6,
+                  "wall_ns": 73864000,
+                  "cpu_ns": 41144084,
+                  "send_wall_ns": 37571000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413311
+                },
+                {
+                  "worker": 7,
+                  "wall_ns": 73750000,
+                  "cpu_ns": 41634917,
+                  "send_wall_ns": 37394000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413593
+                },
+                {
+                  "worker": 8,
+                  "wall_ns": 73805000,
+                  "cpu_ns": 49183584,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 42172000,
+                  "owner_idle_ns": 31389000,
+                  "batches": 1610,
+                  "events": 817828,
+                  "rows": 0
+                },
+                {
+                  "worker": 9,
+                  "wall_ns": 73815000,
+                  "cpu_ns": 49072125,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 42901000,
+                  "owner_idle_ns": 30680000,
+                  "batches": 1625,
+                  "events": 825799,
+                  "rows": 0
+                },
+                {
+                  "worker": 10,
+                  "wall_ns": 73789000,
+                  "cpu_ns": 50220667,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 44571000,
+                  "owner_idle_ns": 29077000,
+                  "batches": 1611,
+                  "events": 818159,
+                  "rows": 0
+                },
+                {
+                  "worker": 11,
+                  "wall_ns": 73810000,
+                  "cpu_ns": 50129791,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 45133000,
+                  "owner_idle_ns": 28510000,
+                  "batches": 1688,
+                  "events": 858214,
+                  "rows": 0
+                }
+              ]
+            }
+          },
+          {
+            "wall_seconds_including_launch": 0.07789037499999907,
+            "sha256": "d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536",
+            "profile": {
+              "setup_ns": 2817000,
+              "pipeline_ns": 70482000,
+              "final_ns": 324000,
+              "readers": 8,
+              "owners": 4,
+              "workers": [
+                {
+                  "worker": 0,
+                  "wall_ns": 63133000,
+                  "cpu_ns": 35501292,
+                  "send_wall_ns": 28371000,
+                  "send_calls": 829,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 421397
+                },
+                {
+                  "worker": 1,
+                  "wall_ns": 67053000,
+                  "cpu_ns": 36862125,
+                  "send_wall_ns": 25427000,
+                  "send_calls": 821,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 417255
+                },
+                {
+                  "worker": 2,
+                  "wall_ns": 66435000,
+                  "cpu_ns": 36564542,
+                  "send_wall_ns": 28916000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413754
+                },
+                {
+                  "worker": 3,
+                  "wall_ns": 67094000,
+                  "cpu_ns": 35899667,
+                  "send_wall_ns": 27053000,
+                  "send_calls": 815,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413635
+                },
+                {
+                  "worker": 4,
+                  "wall_ns": 67766000,
+                  "cpu_ns": 35860666,
+                  "send_wall_ns": 31429000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413463
+                },
+                {
+                  "worker": 5,
+                  "wall_ns": 69186000,
+                  "cpu_ns": 36849083,
+                  "send_wall_ns": 28958000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413592
+                },
+                {
+                  "worker": 6,
+                  "wall_ns": 68600000,
+                  "cpu_ns": 37534125,
+                  "send_wall_ns": 29845000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413311
+                },
+                {
+                  "worker": 7,
+                  "wall_ns": 69483000,
+                  "cpu_ns": 36199166,
+                  "send_wall_ns": 29539000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413593
+                },
+                {
+                  "worker": 8,
+                  "wall_ns": 69194000,
+                  "cpu_ns": 41202292,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 44548000,
+                  "owner_idle_ns": 24474000,
+                  "batches": 1610,
+                  "events": 817828,
+                  "rows": 0
+                },
+                {
+                  "worker": 9,
+                  "wall_ns": 69218000,
+                  "cpu_ns": 41089958,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 45508000,
+                  "owner_idle_ns": 23473000,
+                  "batches": 1625,
+                  "events": 825799,
+                  "rows": 0
+                },
+                {
+                  "worker": 10,
+                  "wall_ns": 69200000,
+                  "cpu_ns": 42951416,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 43226000,
+                  "owner_idle_ns": 25777000,
+                  "batches": 1611,
+                  "events": 818159,
+                  "rows": 0
+                },
+                {
+                  "worker": 11,
+                  "wall_ns": 69189000,
+                  "cpu_ns": 39100542,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 41762000,
+                  "owner_idle_ns": 27285000,
+                  "batches": 1688,
+                  "events": 858214,
+                  "rows": 0
+                }
+              ]
+            }
+          },
+          {
+            "wall_seconds_including_launch": 0.07591545900000085,
+            "sha256": "d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536",
+            "profile": {
+              "setup_ns": 2639000,
+              "pipeline_ns": 68162000,
+              "final_ns": 1032000,
+              "readers": 8,
+              "owners": 4,
+              "workers": [
+                {
+                  "worker": 0,
+                  "wall_ns": 58242000,
+                  "cpu_ns": 39004667,
+                  "send_wall_ns": 23675000,
+                  "send_calls": 829,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 421397
+                },
+                {
+                  "worker": 1,
+                  "wall_ns": 59472000,
+                  "cpu_ns": 41256208,
+                  "send_wall_ns": 23600000,
+                  "send_calls": 821,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 417255
+                },
+                {
+                  "worker": 2,
+                  "wall_ns": 59489000,
+                  "cpu_ns": 40235083,
+                  "send_wall_ns": 24049000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413754
+                },
+                {
+                  "worker": 3,
+                  "wall_ns": 63973000,
+                  "cpu_ns": 41932417,
+                  "send_wall_ns": 25846000,
+                  "send_calls": 815,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413635
+                },
+                {
+                  "worker": 4,
+                  "wall_ns": 63583000,
+                  "cpu_ns": 42157167,
+                  "send_wall_ns": 28147000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413463
+                },
+                {
+                  "worker": 5,
+                  "wall_ns": 65416000,
+                  "cpu_ns": 42608042,
+                  "send_wall_ns": 28643000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413592
+                },
+                {
+                  "worker": 6,
+                  "wall_ns": 66770000,
+                  "cpu_ns": 41611209,
+                  "send_wall_ns": 31394000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413311
+                },
+                {
+                  "worker": 7,
+                  "wall_ns": 68029000,
+                  "cpu_ns": 39611292,
+                  "send_wall_ns": 32906000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413593
+                },
+                {
+                  "worker": 8,
+                  "wall_ns": 67982000,
+                  "cpu_ns": 48100917,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 40527000,
+                  "owner_idle_ns": 27316000,
+                  "batches": 1610,
+                  "events": 817828,
+                  "rows": 0
+                },
+                {
+                  "worker": 9,
+                  "wall_ns": 67970000,
+                  "cpu_ns": 48944208,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 41511000,
+                  "owner_idle_ns": 26280000,
+                  "batches": 1625,
+                  "events": 825799,
+                  "rows": 0
+                },
+                {
+                  "worker": 10,
+                  "wall_ns": 67882000,
+                  "cpu_ns": 47721416,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 43407000,
+                  "owner_idle_ns": 24315000,
+                  "batches": 1611,
+                  "events": 818159,
+                  "rows": 0
+                },
+                {
+                  "worker": 11,
+                  "wall_ns": 67796000,
+                  "cpu_ns": 49649209,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 44271000,
+                  "owner_idle_ns": 23338000,
+                  "batches": 1688,
+                  "events": 858214,
+                  "rows": 0
+                }
+              ]
+            }
+          },
+          {
+            "wall_seconds_including_launch": 0.09024658299999899,
+            "sha256": "d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536",
+            "profile": {
+              "setup_ns": 2869000,
+              "pipeline_ns": 81824000,
+              "final_ns": 715000,
+              "readers": 8,
+              "owners": 4,
+              "workers": [
+                {
+                  "worker": 0,
+                  "wall_ns": 71898000,
+                  "cpu_ns": 42889833,
+                  "send_wall_ns": 35384000,
+                  "send_calls": 829,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 421397
+                },
+                {
+                  "worker": 1,
+                  "wall_ns": 73922000,
+                  "cpu_ns": 43102416,
+                  "send_wall_ns": 37848000,
+                  "send_calls": 821,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 417255
+                },
+                {
+                  "worker": 2,
+                  "wall_ns": 74339000,
+                  "cpu_ns": 44115292,
+                  "send_wall_ns": 37628000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413754
+                },
+                {
+                  "worker": 3,
+                  "wall_ns": 77130000,
+                  "cpu_ns": 43273667,
+                  "send_wall_ns": 41410000,
+                  "send_calls": 815,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413635
+                },
+                {
+                  "worker": 4,
+                  "wall_ns": 78000000,
+                  "cpu_ns": 44002167,
+                  "send_wall_ns": 40749000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413463
+                },
+                {
+                  "worker": 5,
+                  "wall_ns": 78387000,
+                  "cpu_ns": 46291416,
+                  "send_wall_ns": 41430000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413592
+                },
+                {
+                  "worker": 6,
+                  "wall_ns": 80841000,
+                  "cpu_ns": 43267125,
+                  "send_wall_ns": 44570000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413311
+                },
+                {
+                  "worker": 7,
+                  "wall_ns": 81709000,
+                  "cpu_ns": 43136042,
+                  "send_wall_ns": 46273000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413593
+                },
+                {
+                  "worker": 8,
+                  "wall_ns": 81618000,
+                  "cpu_ns": 52977167,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 44755000,
+                  "owner_idle_ns": 36694000,
+                  "batches": 1610,
+                  "events": 817828,
+                  "rows": 0
+                },
+                {
+                  "worker": 9,
+                  "wall_ns": 81626000,
+                  "cpu_ns": 52915958,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 44173000,
+                  "owner_idle_ns": 37278000,
+                  "batches": 1625,
+                  "events": 825799,
+                  "rows": 0
+                },
+                {
+                  "worker": 10,
+                  "wall_ns": 81324000,
+                  "cpu_ns": 51278666,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 43808000,
+                  "owner_idle_ns": 37328000,
+                  "batches": 1611,
+                  "events": 818159,
+                  "rows": 0
+                },
+                {
+                  "worker": 11,
+                  "wall_ns": 81190000,
+                  "cpu_ns": 52879333,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 45852000,
+                  "owner_idle_ns": 35193000,
+                  "batches": 1688,
+                  "events": 858214,
+                  "rows": 0
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "median_setup_ns": 2817000,
+      "median_pipeline_ns": 68162000,
+      "median_final_ns": 330000,
+      "worker_medians": [
+        {
+          "worker": 0,
+          "wall_ns": 58242000,
+          "cpu_ns": 35585416,
+          "send_wall_ns": 23675000,
+          "send_calls": 829,
+          "owner_busy_ns": 0,
+          "owner_idle_ns": 0,
+          "batches": 0,
+          "events": 0,
+          "rows": 421397
+        },
+        {
+          "worker": 1,
+          "wall_ns": 59472000,
+          "cpu_ns": 36862125,
+          "send_wall_ns": 23600000,
+          "send_calls": 821,
+          "owner_busy_ns": 0,
+          "owner_idle_ns": 0,
+          "batches": 0,
+          "events": 0,
+          "rows": 417255
+        },
+        {
+          "worker": 2,
+          "wall_ns": 59489000,
+          "cpu_ns": 36673750,
+          "send_wall_ns": 24049000,
+          "send_calls": 814,
+          "owner_busy_ns": 0,
+          "owner_idle_ns": 0,
+          "batches": 0,
+          "events": 0,
+          "rows": 413754
+        },
+        {
+          "worker": 3,
+          "wall_ns": 63973000,
+          "cpu_ns": 36162833,
+          "send_wall_ns": 25846000,
+          "send_calls": 815,
+          "owner_busy_ns": 0,
+          "owner_idle_ns": 0,
+          "batches": 0,
+          "events": 0,
+          "rows": 413635
+        },
+        {
+          "worker": 4,
+          "wall_ns": 63583000,
+          "cpu_ns": 36469000,
+          "send_wall_ns": 28147000,
+          "send_calls": 814,
+          "owner_busy_ns": 0,
+          "owner_idle_ns": 0,
+          "batches": 0,
+          "events": 0,
+          "rows": 413463
+        },
+        {
+          "worker": 5,
+          "wall_ns": 65416000,
+          "cpu_ns": 36849083,
+          "send_wall_ns": 28643000,
+          "send_calls": 814,
+          "owner_busy_ns": 0,
+          "owner_idle_ns": 0,
+          "batches": 0,
+          "events": 0,
+          "rows": 413592
+        },
+        {
+          "worker": 6,
+          "wall_ns": 66770000,
+          "cpu_ns": 37534125,
+          "send_wall_ns": 29845000,
+          "send_calls": 813,
+          "owner_busy_ns": 0,
+          "owner_idle_ns": 0,
+          "batches": 0,
+          "events": 0,
+          "rows": 413311
+        },
+        {
+          "worker": 7,
+          "wall_ns": 68029000,
+          "cpu_ns": 37901792,
+          "send_wall_ns": 29539000,
+          "send_calls": 814,
+          "owner_busy_ns": 0,
+          "owner_idle_ns": 0,
+          "batches": 0,
+          "events": 0,
+          "rows": 413593
+        },
+        {
+          "worker": 8,
+          "wall_ns": 67982000,
+          "cpu_ns": 41202292,
+          "send_wall_ns": 0,
+          "send_calls": 0,
+          "owner_busy_ns": 40527000,
+          "owner_idle_ns": 24474000,
+          "batches": 1610,
+          "events": 817828,
+          "rows": 0
+        },
+        {
+          "worker": 9,
+          "wall_ns": 67970000,
+          "cpu_ns": 41089958,
+          "send_wall_ns": 0,
+          "send_calls": 0,
+          "owner_busy_ns": 42901000,
+          "owner_idle_ns": 23473000,
+          "batches": 1625,
+          "events": 825799,
+          "rows": 0
+        },
+        {
+          "worker": 10,
+          "wall_ns": 67882000,
+          "cpu_ns": 42951416,
+          "send_wall_ns": 0,
+          "send_calls": 0,
+          "owner_busy_ns": 43226000,
+          "owner_idle_ns": 24315000,
+          "batches": 1611,
+          "events": 818159,
+          "rows": 0
+        },
+        {
+          "worker": 11,
+          "wall_ns": 67796000,
+          "cpu_ns": 40076750,
+          "send_wall_ns": 0,
+          "send_calls": 0,
+          "owner_busy_ns": 41762000,
+          "owner_idle_ns": 23338000,
+          "batches": 1688,
+          "events": 858214,
+          "rows": 0
+        }
+      ]
+    },
+    {
+      "base": "original",
+      "case": "full-seed2203",
+      "pairs": 7,
+      "profile_to_control_median_ratio": 1.0902231557257627,
+      "ratios": [
+        0.9653853825250331,
+        1.113152276019622,
+        0.7933756493806399,
+        1.0902231557257627,
+        0.9980804674045543,
+        1.132226995608727,
+        2.3413070065166655
+      ],
+      "expected_output_sha256": [
+        "2778d89810ab63e1bd11510397114abfe2c520ca1b4c707989ff39dec5aafb92"
+      ],
+      "runs": {
+        "control": [
+          {
+            "wall_seconds_including_launch": 0.06496654200000052,
+            "sha256": "2778d89810ab63e1bd11510397114abfe2c520ca1b4c707989ff39dec5aafb92",
+            "profile": null
+          },
+          {
+            "wall_seconds_including_launch": 0.0755018750000005,
+            "sha256": "2778d89810ab63e1bd11510397114abfe2c520ca1b4c707989ff39dec5aafb92",
+            "profile": null
+          },
+          {
+            "wall_seconds_including_launch": 0.09122654199999936,
+            "sha256": "2778d89810ab63e1bd11510397114abfe2c520ca1b4c707989ff39dec5aafb92",
+            "profile": null
+          },
+          {
+            "wall_seconds_including_launch": 0.07561620899999966,
+            "sha256": "2778d89810ab63e1bd11510397114abfe2c520ca1b4c707989ff39dec5aafb92",
+            "profile": null
+          },
+          {
+            "wall_seconds_including_launch": 0.0712845410000007,
+            "sha256": "2778d89810ab63e1bd11510397114abfe2c520ca1b4c707989ff39dec5aafb92",
+            "profile": null
+          },
+          {
+            "wall_seconds_including_launch": 0.07036699999999918,
+            "sha256": "2778d89810ab63e1bd11510397114abfe2c520ca1b4c707989ff39dec5aafb92",
+            "profile": null
+          },
+          {
+            "wall_seconds_including_launch": 0.06920700000000046,
+            "sha256": "2778d89810ab63e1bd11510397114abfe2c520ca1b4c707989ff39dec5aafb92",
+            "profile": null
+          }
+        ],
+        "profile": [
+          {
+            "wall_seconds_including_launch": 0.06271774999999913,
+            "sha256": "2778d89810ab63e1bd11510397114abfe2c520ca1b4c707989ff39dec5aafb92",
+            "profile": {
+              "setup_ns": 2672000,
+              "pipeline_ns": 54919000,
+              "final_ns": 438000,
+              "readers": 8,
+              "owners": 4,
+              "workers": [
+                {
+                  "worker": 0,
+                  "wall_ns": 51693000,
+                  "cpu_ns": 34334292,
+                  "send_wall_ns": 15949000,
+                  "send_calls": 830,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 421541
+                },
+                {
+                  "worker": 1,
+                  "wall_ns": 51608000,
+                  "cpu_ns": 32982167,
+                  "send_wall_ns": 16588000,
+                  "send_calls": 821,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 417113
+                },
+                {
+                  "worker": 2,
+                  "wall_ns": 51213000,
+                  "cpu_ns": 34754666,
+                  "send_wall_ns": 15519000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413754
+                },
+                {
+                  "worker": 3,
+                  "wall_ns": 51670000,
+                  "cpu_ns": 34581083,
+                  "send_wall_ns": 15848000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413484
+                },
+                {
+                  "worker": 4,
+                  "wall_ns": 52204000,
+                  "cpu_ns": 35099542,
+                  "send_wall_ns": 16061000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413593
+                },
+                {
+                  "worker": 5,
+                  "wall_ns": 53506000,
+                  "cpu_ns": 35113959,
+                  "send_wall_ns": 15719000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413702
+                },
+                {
+                  "worker": 6,
+                  "wall_ns": 54700000,
+                  "cpu_ns": 35530125,
+                  "send_wall_ns": 18544000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413433
+                },
+                {
+                  "worker": 7,
+                  "wall_ns": 53706000,
+                  "cpu_ns": 33694000,
+                  "send_wall_ns": 18552000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413380
+                },
+                {
+                  "worker": 8,
+                  "wall_ns": 54474000,
+                  "cpu_ns": 36688459,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 36821000,
+                  "owner_idle_ns": 17507000,
+                  "batches": 1595,
+                  "events": 810580,
+                  "rows": 0
+                },
+                {
+                  "worker": 9,
+                  "wall_ns": 54464000,
+                  "cpu_ns": 38517584,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 39788000,
+                  "owner_idle_ns": 14500000,
+                  "batches": 1628,
+                  "events": 827340,
+                  "rows": 0
+                },
+                {
+                  "worker": 10,
+                  "wall_ns": 54458000,
+                  "cpu_ns": 37592042,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 38103000,
+                  "owner_idle_ns": 15558000,
+                  "batches": 1640,
+                  "events": 833605,
+                  "rows": 0
+                },
+                {
+                  "worker": 11,
+                  "wall_ns": 53839000,
+                  "cpu_ns": 38110291,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 39560000,
+                  "owner_idle_ns": 14127000,
+                  "batches": 1669,
+                  "events": 848475,
+                  "rows": 0
+                }
+              ]
+            }
+          },
+          {
+            "wall_seconds_including_launch": 0.08404508399999955,
+            "sha256": "2778d89810ab63e1bd11510397114abfe2c520ca1b4c707989ff39dec5aafb92",
+            "profile": {
+              "setup_ns": 2810000,
+              "pipeline_ns": 76062000,
+              "final_ns": 382000,
+              "readers": 8,
+              "owners": 4,
+              "workers": [
+                {
+                  "worker": 0,
+                  "wall_ns": 70425000,
+                  "cpu_ns": 39393000,
+                  "send_wall_ns": 28671000,
+                  "send_calls": 830,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 421541
+                },
+                {
+                  "worker": 1,
+                  "wall_ns": 70496000,
+                  "cpu_ns": 36609541,
+                  "send_wall_ns": 29612000,
+                  "send_calls": 821,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 417113
+                },
+                {
+                  "worker": 2,
+                  "wall_ns": 71013000,
+                  "cpu_ns": 38525250,
+                  "send_wall_ns": 25347000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413754
+                },
+                {
+                  "worker": 3,
+                  "wall_ns": 72413000,
+                  "cpu_ns": 36224375,
+                  "send_wall_ns": 30987000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413484
+                },
+                {
+                  "worker": 4,
+                  "wall_ns": 72196000,
+                  "cpu_ns": 36382083,
+                  "send_wall_ns": 31777000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413593
+                },
+                {
+                  "worker": 5,
+                  "wall_ns": 73337000,
+                  "cpu_ns": 37237042,
+                  "send_wall_ns": 32358000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413702
+                },
+                {
+                  "worker": 6,
+                  "wall_ns": 73634000,
+                  "cpu_ns": 37271542,
+                  "send_wall_ns": 32342000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413433
+                },
+                {
+                  "worker": 7,
+                  "wall_ns": 75883000,
+                  "cpu_ns": 37654042,
+                  "send_wall_ns": 32407000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413380
+                },
+                {
+                  "worker": 8,
+                  "wall_ns": 75893000,
+                  "cpu_ns": 46194500,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 50283000,
+                  "owner_idle_ns": 25435000,
+                  "batches": 1595,
+                  "events": 810580,
+                  "rows": 0
+                },
+                {
+                  "worker": 9,
+                  "wall_ns": 75861000,
+                  "cpu_ns": 48306958,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 50899000,
+                  "owner_idle_ns": 24768000,
+                  "batches": 1628,
+                  "events": 827340,
+                  "rows": 0
+                },
+                {
+                  "worker": 10,
+                  "wall_ns": 75865000,
+                  "cpu_ns": 43970916,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 48672000,
+                  "owner_idle_ns": 27006000,
+                  "batches": 1640,
+                  "events": 833605,
+                  "rows": 0
+                },
+                {
+                  "worker": 11,
+                  "wall_ns": 75823000,
+                  "cpu_ns": 45766541,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 52086000,
+                  "owner_idle_ns": 23536000,
+                  "batches": 1669,
+                  "events": 848475,
+                  "rows": 0
+                }
+              ]
+            }
+          },
+          {
+            "wall_seconds_including_launch": 0.07237691699999971,
+            "sha256": "2778d89810ab63e1bd11510397114abfe2c520ca1b4c707989ff39dec5aafb92",
+            "profile": {
+              "setup_ns": 2945000,
+              "pipeline_ns": 64173000,
+              "final_ns": 886000,
+              "readers": 8,
+              "owners": 4,
+              "workers": [
+                {
+                  "worker": 0,
+                  "wall_ns": 61094000,
+                  "cpu_ns": 35009792,
+                  "send_wall_ns": 18258000,
+                  "send_calls": 830,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 421541
+                },
+                {
+                  "worker": 1,
+                  "wall_ns": 58404000,
+                  "cpu_ns": 36747500,
+                  "send_wall_ns": 18114000,
+                  "send_calls": 821,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 417113
+                },
+                {
+                  "worker": 2,
+                  "wall_ns": 57983000,
+                  "cpu_ns": 35635292,
+                  "send_wall_ns": 19996000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413754
+                },
+                {
+                  "worker": 3,
+                  "wall_ns": 60965000,
+                  "cpu_ns": 37442458,
+                  "send_wall_ns": 18895000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413484
+                },
+                {
+                  "worker": 4,
+                  "wall_ns": 61302000,
+                  "cpu_ns": 35528584,
+                  "send_wall_ns": 23033000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413593
+                },
+                {
+                  "worker": 5,
+                  "wall_ns": 62194000,
+                  "cpu_ns": 38176708,
+                  "send_wall_ns": 20411000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413702
+                },
+                {
+                  "worker": 6,
+                  "wall_ns": 62819000,
+                  "cpu_ns": 37354667,
+                  "send_wall_ns": 22549000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413433
+                },
+                {
+                  "worker": 7,
+                  "wall_ns": 64040000,
+                  "cpu_ns": 35990375,
+                  "send_wall_ns": 22741000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413380
+                },
+                {
+                  "worker": 8,
+                  "wall_ns": 63826000,
+                  "cpu_ns": 42637750,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 46534000,
+                  "owner_idle_ns": 17123000,
+                  "batches": 1595,
+                  "events": 810580,
+                  "rows": 0
+                },
+                {
+                  "worker": 9,
+                  "wall_ns": 63841000,
+                  "cpu_ns": 43337417,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 47422000,
+                  "owner_idle_ns": 15957000,
+                  "batches": 1628,
+                  "events": 827340,
+                  "rows": 0
+                },
+                {
+                  "worker": 10,
+                  "wall_ns": 63758000,
+                  "cpu_ns": 42523042,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 45104000,
+                  "owner_idle_ns": 18484000,
+                  "batches": 1640,
+                  "events": 833605,
+                  "rows": 0
+                },
+                {
+                  "worker": 11,
+                  "wall_ns": 63605000,
+                  "cpu_ns": 42556000,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 47701000,
+                  "owner_idle_ns": 15724000,
+                  "batches": 1669,
+                  "events": 848475,
+                  "rows": 0
+                }
+              ]
+            }
+          },
+          {
+            "wall_seconds_including_launch": 0.08243854199999845,
+            "sha256": "2778d89810ab63e1bd11510397114abfe2c520ca1b4c707989ff39dec5aafb92",
+            "profile": {
+              "setup_ns": 3152000,
+              "pipeline_ns": 73947000,
+              "final_ns": 920000,
+              "readers": 8,
+              "owners": 4,
+              "workers": [
+                {
+                  "worker": 0,
+                  "wall_ns": 67593000,
+                  "cpu_ns": 37590417,
+                  "send_wall_ns": 22402000,
+                  "send_calls": 830,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 421541
+                },
+                {
+                  "worker": 1,
+                  "wall_ns": 68046000,
+                  "cpu_ns": 40143500,
+                  "send_wall_ns": 23640000,
+                  "send_calls": 821,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 417113
+                },
+                {
+                  "worker": 2,
+                  "wall_ns": 69530000,
+                  "cpu_ns": 39540334,
+                  "send_wall_ns": 23724000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413754
+                },
+                {
+                  "worker": 3,
+                  "wall_ns": 69630000,
+                  "cpu_ns": 39638875,
+                  "send_wall_ns": 29787000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413484
+                },
+                {
+                  "worker": 4,
+                  "wall_ns": 71408000,
+                  "cpu_ns": 39135083,
+                  "send_wall_ns": 23351000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413593
+                },
+                {
+                  "worker": 5,
+                  "wall_ns": 71323000,
+                  "cpu_ns": 40440625,
+                  "send_wall_ns": 26816000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413702
+                },
+                {
+                  "worker": 6,
+                  "wall_ns": 73838000,
+                  "cpu_ns": 40285500,
+                  "send_wall_ns": 29870000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413433
+                },
+                {
+                  "worker": 7,
+                  "wall_ns": 73183000,
+                  "cpu_ns": 40256916,
+                  "send_wall_ns": 26531000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413380
+                },
+                {
+                  "worker": 8,
+                  "wall_ns": 73465000,
+                  "cpu_ns": 47267625,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 51455000,
+                  "owner_idle_ns": 21812000,
+                  "batches": 1595,
+                  "events": 810580,
+                  "rows": 0
+                },
+                {
+                  "worker": 9,
+                  "wall_ns": 73366000,
+                  "cpu_ns": 48787125,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 50234000,
+                  "owner_idle_ns": 22986000,
+                  "batches": 1628,
+                  "events": 827340,
+                  "rows": 0
+                },
+                {
+                  "worker": 10,
+                  "wall_ns": 73375000,
+                  "cpu_ns": 47738291,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 49284000,
+                  "owner_idle_ns": 23923000,
+                  "batches": 1640,
+                  "events": 833605,
+                  "rows": 0
+                },
+                {
+                  "worker": 11,
+                  "wall_ns": 73380000,
+                  "cpu_ns": 47227084,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 51240000,
+                  "owner_idle_ns": 21950000,
+                  "batches": 1669,
+                  "events": 848475,
+                  "rows": 0
+                }
+              ]
+            }
+          },
+          {
+            "wall_seconds_including_launch": 0.07114770799999981,
+            "sha256": "2778d89810ab63e1bd11510397114abfe2c520ca1b4c707989ff39dec5aafb92",
+            "profile": {
+              "setup_ns": 2859000,
+              "pipeline_ns": 61938000,
+              "final_ns": 1349000,
+              "readers": 8,
+              "owners": 4,
+              "workers": [
+                {
+                  "worker": 0,
+                  "wall_ns": 59643000,
+                  "cpu_ns": 36645625,
+                  "send_wall_ns": 18030000,
+                  "send_calls": 830,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 421541
+                },
+                {
+                  "worker": 1,
+                  "wall_ns": 57750000,
+                  "cpu_ns": 34150250,
+                  "send_wall_ns": 20652000,
+                  "send_calls": 821,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 417113
+                },
+                {
+                  "worker": 2,
+                  "wall_ns": 60597000,
+                  "cpu_ns": 34270875,
+                  "send_wall_ns": 22552000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413754
+                },
+                {
+                  "worker": 3,
+                  "wall_ns": 58806000,
+                  "cpu_ns": 36562292,
+                  "send_wall_ns": 19364000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413484
+                },
+                {
+                  "worker": 4,
+                  "wall_ns": 58929000,
+                  "cpu_ns": 34031416,
+                  "send_wall_ns": 21303000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413593
+                },
+                {
+                  "worker": 5,
+                  "wall_ns": 60456000,
+                  "cpu_ns": 37033500,
+                  "send_wall_ns": 20332000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413702
+                },
+                {
+                  "worker": 6,
+                  "wall_ns": 61733000,
+                  "cpu_ns": 36001125,
+                  "send_wall_ns": 24121000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413433
+                },
+                {
+                  "worker": 7,
+                  "wall_ns": 61019000,
+                  "cpu_ns": 35780041,
+                  "send_wall_ns": 22941000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413380
+                },
+                {
+                  "worker": 8,
+                  "wall_ns": 61707000,
+                  "cpu_ns": 42510084,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 45363000,
+                  "owner_idle_ns": 16179000,
+                  "batches": 1595,
+                  "events": 810580,
+                  "rows": 0
+                },
+                {
+                  "worker": 9,
+                  "wall_ns": 61692000,
+                  "cpu_ns": 44816792,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 47632000,
+                  "owner_idle_ns": 13871000,
+                  "batches": 1628,
+                  "events": 827340,
+                  "rows": 0
+                },
+                {
+                  "worker": 10,
+                  "wall_ns": 61619000,
+                  "cpu_ns": 41188917,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 44602000,
+                  "owner_idle_ns": 16764000,
+                  "batches": 1640,
+                  "events": 833605,
+                  "rows": 0
+                },
+                {
+                  "worker": 11,
+                  "wall_ns": 61552000,
+                  "cpu_ns": 44484166,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 48380000,
+                  "owner_idle_ns": 13029000,
+                  "batches": 1669,
+                  "events": 848475,
+                  "rows": 0
+                }
+              ]
+            }
+          },
+          {
+            "wall_seconds_including_launch": 0.07967141699999836,
+            "sha256": "2778d89810ab63e1bd11510397114abfe2c520ca1b4c707989ff39dec5aafb92",
+            "profile": {
+              "setup_ns": 2680000,
+              "pipeline_ns": 72608000,
+              "final_ns": 314000,
+              "readers": 8,
+              "owners": 4,
+              "workers": [
+                {
+                  "worker": 0,
+                  "wall_ns": 64969000,
+                  "cpu_ns": 43005042,
+                  "send_wall_ns": 26701000,
+                  "send_calls": 830,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 421541
+                },
+                {
+                  "worker": 1,
+                  "wall_ns": 65404000,
+                  "cpu_ns": 41769916,
+                  "send_wall_ns": 30313000,
+                  "send_calls": 821,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 417113
+                },
+                {
+                  "worker": 2,
+                  "wall_ns": 67134000,
+                  "cpu_ns": 42063125,
+                  "send_wall_ns": 29945000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413754
+                },
+                {
+                  "worker": 3,
+                  "wall_ns": 68501000,
+                  "cpu_ns": 42377375,
+                  "send_wall_ns": 31771000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413484
+                },
+                {
+                  "worker": 4,
+                  "wall_ns": 70495000,
+                  "cpu_ns": 42497542,
+                  "send_wall_ns": 31979000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413593
+                },
+                {
+                  "worker": 5,
+                  "wall_ns": 71664000,
+                  "cpu_ns": 41962500,
+                  "send_wall_ns": 35248000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413702
+                },
+                {
+                  "worker": 6,
+                  "wall_ns": 71247000,
+                  "cpu_ns": 41512500,
+                  "send_wall_ns": 35507000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413433
+                },
+                {
+                  "worker": 7,
+                  "wall_ns": 72477000,
+                  "cpu_ns": 39662250,
+                  "send_wall_ns": 37199000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413380
+                },
+                {
+                  "worker": 8,
+                  "wall_ns": 72340000,
+                  "cpu_ns": 49313625,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 43419000,
+                  "owner_idle_ns": 28755000,
+                  "batches": 1595,
+                  "events": 810580,
+                  "rows": 0
+                },
+                {
+                  "worker": 9,
+                  "wall_ns": 72086000,
+                  "cpu_ns": 49443875,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 42377000,
+                  "owner_idle_ns": 29509000,
+                  "batches": 1628,
+                  "events": 827340,
+                  "rows": 0
+                },
+                {
+                  "worker": 10,
+                  "wall_ns": 72063000,
+                  "cpu_ns": 48751584,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 43251000,
+                  "owner_idle_ns": 28609000,
+                  "batches": 1640,
+                  "events": 833605,
+                  "rows": 0
+                },
+                {
+                  "worker": 11,
+                  "wall_ns": 72058000,
+                  "cpu_ns": 48169208,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 41276000,
+                  "owner_idle_ns": 30605000,
+                  "batches": 1669,
+                  "events": 848475,
+                  "rows": 0
+                }
+              ]
+            }
+          },
+          {
+            "wall_seconds_including_launch": 0.16203483399999996,
+            "sha256": "2778d89810ab63e1bd11510397114abfe2c520ca1b4c707989ff39dec5aafb92",
+            "profile": {
+              "setup_ns": 3374000,
+              "pipeline_ns": 152501000,
+              "final_ns": 578000,
+              "readers": 8,
+              "owners": 4,
+              "workers": [
+                {
+                  "worker": 0,
+                  "wall_ns": 148652000,
+                  "cpu_ns": 41541291,
+                  "send_wall_ns": 77988000,
+                  "send_calls": 830,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 421541
+                },
+                {
+                  "worker": 1,
+                  "wall_ns": 148215000,
+                  "cpu_ns": 42358125,
+                  "send_wall_ns": 81509000,
+                  "send_calls": 821,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 417113
+                },
+                {
+                  "worker": 2,
+                  "wall_ns": 148795000,
+                  "cpu_ns": 41719041,
+                  "send_wall_ns": 96470000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413754
+                },
+                {
+                  "worker": 3,
+                  "wall_ns": 149855000,
+                  "cpu_ns": 39459084,
+                  "send_wall_ns": 62619000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413484
+                },
+                {
+                  "worker": 4,
+                  "wall_ns": 149958000,
+                  "cpu_ns": 40260834,
+                  "send_wall_ns": 80835000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413593
+                },
+                {
+                  "worker": 5,
+                  "wall_ns": 150740000,
+                  "cpu_ns": 39951542,
+                  "send_wall_ns": 76190000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413702
+                },
+                {
+                  "worker": 6,
+                  "wall_ns": 152253000,
+                  "cpu_ns": 43016042,
+                  "send_wall_ns": 80403000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413433
+                },
+                {
+                  "worker": 7,
+                  "wall_ns": 151328000,
+                  "cpu_ns": 39914000,
+                  "send_wall_ns": 88319000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413380
+                },
+                {
+                  "worker": 8,
+                  "wall_ns": 152128000,
+                  "cpu_ns": 48494083,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 95404000,
+                  "owner_idle_ns": 56482000,
+                  "batches": 1595,
+                  "events": 810580,
+                  "rows": 0
+                },
+                {
+                  "worker": 9,
+                  "wall_ns": 152038000,
+                  "cpu_ns": 44980708,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 86386000,
+                  "owner_idle_ns": 65473000,
+                  "batches": 1628,
+                  "events": 827340,
+                  "rows": 0
+                },
+                {
+                  "worker": 10,
+                  "wall_ns": 151720000,
+                  "cpu_ns": 47614084,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 89946000,
+                  "owner_idle_ns": 61627000,
+                  "batches": 1640,
+                  "events": 833605,
+                  "rows": 0
+                },
+                {
+                  "worker": 11,
+                  "wall_ns": 151783000,
+                  "cpu_ns": 43891708,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 93413000,
+                  "owner_idle_ns": 58204000,
+                  "batches": 1669,
+                  "events": 848475,
+                  "rows": 0
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "median_setup_ns": 2859000,
+      "median_pipeline_ns": 72608000,
+      "median_final_ns": 578000,
+      "worker_medians": [
+        {
+          "worker": 0,
+          "wall_ns": 64969000,
+          "cpu_ns": 37590417,
+          "send_wall_ns": 22402000,
+          "send_calls": 830,
+          "owner_busy_ns": 0,
+          "owner_idle_ns": 0,
+          "batches": 0,
+          "events": 0,
+          "rows": 421541
+        },
+        {
+          "worker": 1,
+          "wall_ns": 65404000,
+          "cpu_ns": 36747500,
+          "send_wall_ns": 23640000,
+          "send_calls": 821,
+          "owner_busy_ns": 0,
+          "owner_idle_ns": 0,
+          "batches": 0,
+          "events": 0,
+          "rows": 417113
+        },
+        {
+          "worker": 2,
+          "wall_ns": 67134000,
+          "cpu_ns": 38525250,
+          "send_wall_ns": 23724000,
+          "send_calls": 813,
+          "owner_busy_ns": 0,
+          "owner_idle_ns": 0,
+          "batches": 0,
+          "events": 0,
+          "rows": 413754
+        },
+        {
+          "worker": 3,
+          "wall_ns": 68501000,
+          "cpu_ns": 37442458,
+          "send_wall_ns": 29787000,
+          "send_calls": 814,
+          "owner_busy_ns": 0,
+          "owner_idle_ns": 0,
+          "batches": 0,
+          "events": 0,
+          "rows": 413484
+        },
+        {
+          "worker": 4,
+          "wall_ns": 70495000,
+          "cpu_ns": 36382083,
+          "send_wall_ns": 23351000,
+          "send_calls": 813,
+          "owner_busy_ns": 0,
+          "owner_idle_ns": 0,
+          "batches": 0,
+          "events": 0,
+          "rows": 413593
+        },
+        {
+          "worker": 5,
+          "wall_ns": 71323000,
+          "cpu_ns": 38176708,
+          "send_wall_ns": 26816000,
+          "send_calls": 814,
+          "owner_busy_ns": 0,
+          "owner_idle_ns": 0,
+          "batches": 0,
+          "events": 0,
+          "rows": 413702
+        },
+        {
+          "worker": 6,
+          "wall_ns": 71247000,
+          "cpu_ns": 37354667,
+          "send_wall_ns": 29870000,
+          "send_calls": 814,
+          "owner_busy_ns": 0,
+          "owner_idle_ns": 0,
+          "batches": 0,
+          "events": 0,
+          "rows": 413433
+        },
+        {
+          "worker": 7,
+          "wall_ns": 72477000,
+          "cpu_ns": 37654042,
+          "send_wall_ns": 26531000,
+          "send_calls": 813,
+          "owner_busy_ns": 0,
+          "owner_idle_ns": 0,
+          "batches": 0,
+          "events": 0,
+          "rows": 413380
+        },
+        {
+          "worker": 8,
+          "wall_ns": 72340000,
+          "cpu_ns": 46194500,
+          "send_wall_ns": 0,
+          "send_calls": 0,
+          "owner_busy_ns": 46534000,
+          "owner_idle_ns": 21812000,
+          "batches": 1595,
+          "events": 810580,
+          "rows": 0
+        },
+        {
+          "worker": 9,
+          "wall_ns": 72086000,
+          "cpu_ns": 44980708,
+          "send_wall_ns": 0,
+          "send_calls": 0,
+          "owner_busy_ns": 47632000,
+          "owner_idle_ns": 22986000,
+          "batches": 1628,
+          "events": 827340,
+          "rows": 0
+        },
+        {
+          "worker": 10,
+          "wall_ns": 72063000,
+          "cpu_ns": 43970916,
+          "send_wall_ns": 0,
+          "send_calls": 0,
+          "owner_busy_ns": 45104000,
+          "owner_idle_ns": 23923000,
+          "batches": 1640,
+          "events": 833605,
+          "rows": 0
+        },
+        {
+          "worker": 11,
+          "wall_ns": 72058000,
+          "cpu_ns": 44484166,
+          "send_wall_ns": 0,
+          "send_calls": 0,
+          "owner_busy_ns": 48380000,
+          "owner_idle_ns": 21950000,
+          "batches": 1669,
+          "events": 848475,
+          "rows": 0
+        }
+      ]
+    },
+    {
+      "base": "candidate241",
+      "case": "full-seed2203",
+      "pairs": 7,
+      "profile_to_control_median_ratio": 0.9615341850613035,
+      "ratios": [
+        0.967646524888796,
+        1.1539382821211848,
+        0.4127979333528548,
+        1.0404361374202242,
+        0.9615341850613035,
+        0.7563966290103116,
+        0.27291910367099226
+      ],
+      "expected_output_sha256": [
+        "2778d89810ab63e1bd11510397114abfe2c520ca1b4c707989ff39dec5aafb92"
+      ],
+      "runs": {
+        "control": [
+          {
+            "wall_seconds_including_launch": 0.07235958400000086,
+            "sha256": "2778d89810ab63e1bd11510397114abfe2c520ca1b4c707989ff39dec5aafb92",
+            "profile": null
+          },
+          {
+            "wall_seconds_including_launch": 0.06266012500000073,
+            "sha256": "2778d89810ab63e1bd11510397114abfe2c520ca1b4c707989ff39dec5aafb92",
+            "profile": null
+          },
+          {
+            "wall_seconds_including_launch": 0.2824199580000002,
+            "sha256": "2778d89810ab63e1bd11510397114abfe2c520ca1b4c707989ff39dec5aafb92",
+            "profile": null
+          },
+          {
+            "wall_seconds_including_launch": 0.06703162500000026,
+            "sha256": "2778d89810ab63e1bd11510397114abfe2c520ca1b4c707989ff39dec5aafb92",
+            "profile": null
+          },
+          {
+            "wall_seconds_including_launch": 0.07127541700000073,
+            "sha256": "2778d89810ab63e1bd11510397114abfe2c520ca1b4c707989ff39dec5aafb92",
+            "profile": null
+          },
+          {
+            "wall_seconds_including_launch": 0.10577012500000116,
+            "sha256": "2778d89810ab63e1bd11510397114abfe2c520ca1b4c707989ff39dec5aafb92",
+            "profile": null
+          },
+          {
+            "wall_seconds_including_launch": 0.2626602499999997,
+            "sha256": "2778d89810ab63e1bd11510397114abfe2c520ca1b4c707989ff39dec5aafb92",
+            "profile": null
+          }
+        ],
+        "profile": [
+          {
+            "wall_seconds_including_launch": 0.07001849999999976,
+            "sha256": "2778d89810ab63e1bd11510397114abfe2c520ca1b4c707989ff39dec5aafb92",
+            "profile": {
+              "setup_ns": 3086000,
+              "pipeline_ns": 62300000,
+              "final_ns": 340000,
+              "readers": 8,
+              "owners": 4,
+              "workers": [
+                {
+                  "worker": 0,
+                  "wall_ns": 59848000,
+                  "cpu_ns": 37193042,
+                  "send_wall_ns": 18466000,
+                  "send_calls": 830,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 421541
+                },
+                {
+                  "worker": 1,
+                  "wall_ns": 59791000,
+                  "cpu_ns": 37383375,
+                  "send_wall_ns": 20530000,
+                  "send_calls": 821,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 417113
+                },
+                {
+                  "worker": 2,
+                  "wall_ns": 60004000,
+                  "cpu_ns": 37944375,
+                  "send_wall_ns": 20881000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413754
+                },
+                {
+                  "worker": 3,
+                  "wall_ns": 60009000,
+                  "cpu_ns": 37042416,
+                  "send_wall_ns": 19728000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413484
+                },
+                {
+                  "worker": 4,
+                  "wall_ns": 61326000,
+                  "cpu_ns": 37274291,
+                  "send_wall_ns": 21361000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413593
+                },
+                {
+                  "worker": 5,
+                  "wall_ns": 62067000,
+                  "cpu_ns": 37626291,
+                  "send_wall_ns": 22199000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413702
+                },
+                {
+                  "worker": 6,
+                  "wall_ns": 61837000,
+                  "cpu_ns": 36221209,
+                  "send_wall_ns": 21874000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413433
+                },
+                {
+                  "worker": 7,
+                  "wall_ns": 62159000,
+                  "cpu_ns": 38946750,
+                  "send_wall_ns": 21644000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413380
+                },
+                {
+                  "worker": 8,
+                  "wall_ns": 62106000,
+                  "cpu_ns": 42172625,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 46397000,
+                  "owner_idle_ns": 15555000,
+                  "batches": 1595,
+                  "events": 810580,
+                  "rows": 0
+                },
+                {
+                  "worker": 9,
+                  "wall_ns": 62078000,
+                  "cpu_ns": 41616625,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 44233000,
+                  "owner_idle_ns": 17629000,
+                  "batches": 1628,
+                  "events": 827340,
+                  "rows": 0
+                },
+                {
+                  "worker": 10,
+                  "wall_ns": 61990000,
+                  "cpu_ns": 41127000,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 46230000,
+                  "owner_idle_ns": 15501000,
+                  "batches": 1640,
+                  "events": 833605,
+                  "rows": 0
+                },
+                {
+                  "worker": 11,
+                  "wall_ns": 61966000,
+                  "cpu_ns": 44670667,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 50267000,
+                  "owner_idle_ns": 11540000,
+                  "batches": 1669,
+                  "events": 848475,
+                  "rows": 0
+                }
+              ]
+            }
+          },
+          {
+            "wall_seconds_including_launch": 0.07230591699999955,
+            "sha256": "2778d89810ab63e1bd11510397114abfe2c520ca1b4c707989ff39dec5aafb92",
+            "profile": {
+              "setup_ns": 3085000,
+              "pipeline_ns": 63085000,
+              "final_ns": 822000,
+              "readers": 8,
+              "owners": 4,
+              "workers": [
+                {
+                  "worker": 0,
+                  "wall_ns": 59536000,
+                  "cpu_ns": 36116500,
+                  "send_wall_ns": 20878000,
+                  "send_calls": 830,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 421541
+                },
+                {
+                  "worker": 1,
+                  "wall_ns": 61493000,
+                  "cpu_ns": 35835209,
+                  "send_wall_ns": 19747000,
+                  "send_calls": 821,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 417113
+                },
+                {
+                  "worker": 2,
+                  "wall_ns": 60469000,
+                  "cpu_ns": 36444208,
+                  "send_wall_ns": 22656000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413754
+                },
+                {
+                  "worker": 3,
+                  "wall_ns": 60739000,
+                  "cpu_ns": 37674917,
+                  "send_wall_ns": 20378000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413484
+                },
+                {
+                  "worker": 4,
+                  "wall_ns": 60592000,
+                  "cpu_ns": 38352541,
+                  "send_wall_ns": 20241000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413593
+                },
+                {
+                  "worker": 5,
+                  "wall_ns": 62016000,
+                  "cpu_ns": 37086291,
+                  "send_wall_ns": 20526000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413702
+                },
+                {
+                  "worker": 6,
+                  "wall_ns": 62745000,
+                  "cpu_ns": 36620542,
+                  "send_wall_ns": 22802000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413433
+                },
+                {
+                  "worker": 7,
+                  "wall_ns": 62954000,
+                  "cpu_ns": 36764917,
+                  "send_wall_ns": 23819000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413380
+                },
+                {
+                  "worker": 8,
+                  "wall_ns": 62911000,
+                  "cpu_ns": 41082208,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 42584000,
+                  "owner_idle_ns": 20165000,
+                  "batches": 1595,
+                  "events": 810580,
+                  "rows": 0
+                },
+                {
+                  "worker": 9,
+                  "wall_ns": 62910000,
+                  "cpu_ns": 42853083,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 47303000,
+                  "owner_idle_ns": 15412000,
+                  "batches": 1628,
+                  "events": 827340,
+                  "rows": 0
+                },
+                {
+                  "worker": 10,
+                  "wall_ns": 62900000,
+                  "cpu_ns": 43100042,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 45093000,
+                  "owner_idle_ns": 17597000,
+                  "batches": 1640,
+                  "events": 833605,
+                  "rows": 0
+                },
+                {
+                  "worker": 11,
+                  "wall_ns": 62883000,
+                  "cpu_ns": 41188166,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 44360000,
+                  "owner_idle_ns": 18357000,
+                  "batches": 1669,
+                  "events": 848475,
+                  "rows": 0
+                }
+              ]
+            }
+          },
+          {
+            "wall_seconds_including_launch": 0.11658237500000013,
+            "sha256": "2778d89810ab63e1bd11510397114abfe2c520ca1b4c707989ff39dec5aafb92",
+            "profile": {
+              "setup_ns": 3827000,
+              "pipeline_ns": 105819000,
+              "final_ns": 827000,
+              "readers": 8,
+              "owners": 4,
+              "workers": [
+                {
+                  "worker": 0,
+                  "wall_ns": 100720000,
+                  "cpu_ns": 40936042,
+                  "send_wall_ns": 48087000,
+                  "send_calls": 830,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 421541
+                },
+                {
+                  "worker": 1,
+                  "wall_ns": 101122000,
+                  "cpu_ns": 41280375,
+                  "send_wall_ns": 52363000,
+                  "send_calls": 821,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 417113
+                },
+                {
+                  "worker": 2,
+                  "wall_ns": 100963000,
+                  "cpu_ns": 39314333,
+                  "send_wall_ns": 49161000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413754
+                },
+                {
+                  "worker": 3,
+                  "wall_ns": 102434000,
+                  "cpu_ns": 39824584,
+                  "send_wall_ns": 51886000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413484
+                },
+                {
+                  "worker": 4,
+                  "wall_ns": 102152000,
+                  "cpu_ns": 40236750,
+                  "send_wall_ns": 54167000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413593
+                },
+                {
+                  "worker": 5,
+                  "wall_ns": 105216000,
+                  "cpu_ns": 40732375,
+                  "send_wall_ns": 52350000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413702
+                },
+                {
+                  "worker": 6,
+                  "wall_ns": 105648000,
+                  "cpu_ns": 38222083,
+                  "send_wall_ns": 54980000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413433
+                },
+                {
+                  "worker": 7,
+                  "wall_ns": 105513000,
+                  "cpu_ns": 40948958,
+                  "send_wall_ns": 55723000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413380
+                },
+                {
+                  "worker": 8,
+                  "wall_ns": 105647000,
+                  "cpu_ns": 51975958,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 63415000,
+                  "owner_idle_ns": 42024000,
+                  "batches": 1595,
+                  "events": 810580,
+                  "rows": 0
+                },
+                {
+                  "worker": 9,
+                  "wall_ns": 105641000,
+                  "cpu_ns": 55725500,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 66804000,
+                  "owner_idle_ns": 38641000,
+                  "batches": 1628,
+                  "events": 827340,
+                  "rows": 0
+                },
+                {
+                  "worker": 10,
+                  "wall_ns": 105609000,
+                  "cpu_ns": 53309750,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 68156000,
+                  "owner_idle_ns": 37103000,
+                  "batches": 1640,
+                  "events": 833605,
+                  "rows": 0
+                },
+                {
+                  "worker": 11,
+                  "wall_ns": 105615000,
+                  "cpu_ns": 55239208,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 70424000,
+                  "owner_idle_ns": 34819000,
+                  "batches": 1669,
+                  "events": 848475,
+                  "rows": 0
+                }
+              ]
+            }
+          },
+          {
+            "wall_seconds_including_launch": 0.06974212500000121,
+            "sha256": "2778d89810ab63e1bd11510397114abfe2c520ca1b4c707989ff39dec5aafb92",
+            "profile": {
+              "setup_ns": 2979000,
+              "pipeline_ns": 61089000,
+              "final_ns": 358000,
+              "readers": 8,
+              "owners": 4,
+              "workers": [
+                {
+                  "worker": 0,
+                  "wall_ns": 57594000,
+                  "cpu_ns": 35931584,
+                  "send_wall_ns": 20737000,
+                  "send_calls": 830,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 421541
+                },
+                {
+                  "worker": 1,
+                  "wall_ns": 58136000,
+                  "cpu_ns": 36507417,
+                  "send_wall_ns": 18823000,
+                  "send_calls": 821,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 417113
+                },
+                {
+                  "worker": 2,
+                  "wall_ns": 58196000,
+                  "cpu_ns": 37457875,
+                  "send_wall_ns": 20826000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413754
+                },
+                {
+                  "worker": 3,
+                  "wall_ns": 58619000,
+                  "cpu_ns": 35670750,
+                  "send_wall_ns": 22226000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413484
+                },
+                {
+                  "worker": 4,
+                  "wall_ns": 59200000,
+                  "cpu_ns": 34731500,
+                  "send_wall_ns": 25119000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413593
+                },
+                {
+                  "worker": 5,
+                  "wall_ns": 60212000,
+                  "cpu_ns": 38172958,
+                  "send_wall_ns": 20636000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413702
+                },
+                {
+                  "worker": 6,
+                  "wall_ns": 60968000,
+                  "cpu_ns": 35217042,
+                  "send_wall_ns": 24763000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413433
+                },
+                {
+                  "worker": 7,
+                  "wall_ns": 60976000,
+                  "cpu_ns": 37299875,
+                  "send_wall_ns": 23787000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413380
+                },
+                {
+                  "worker": 8,
+                  "wall_ns": 60871000,
+                  "cpu_ns": 41111958,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 44052000,
+                  "owner_idle_ns": 16656000,
+                  "batches": 1595,
+                  "events": 810580,
+                  "rows": 0
+                },
+                {
+                  "worker": 9,
+                  "wall_ns": 60887000,
+                  "cpu_ns": 43551458,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 45583000,
+                  "owner_idle_ns": 15170000,
+                  "batches": 1628,
+                  "events": 827340,
+                  "rows": 0
+                },
+                {
+                  "worker": 10,
+                  "wall_ns": 60887000,
+                  "cpu_ns": 41157083,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 43460000,
+                  "owner_idle_ns": 17298000,
+                  "batches": 1640,
+                  "events": 833605,
+                  "rows": 0
+                },
+                {
+                  "worker": 11,
+                  "wall_ns": 60910000,
+                  "cpu_ns": 42083250,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 45113000,
+                  "owner_idle_ns": 15564000,
+                  "batches": 1669,
+                  "events": 848475,
+                  "rows": 0
+                }
+              ]
+            }
+          },
+          {
+            "wall_seconds_including_launch": 0.06853375000000028,
+            "sha256": "2778d89810ab63e1bd11510397114abfe2c520ca1b4c707989ff39dec5aafb92",
+            "profile": {
+              "setup_ns": 2814000,
+              "pipeline_ns": 60724000,
+              "final_ns": 319000,
+              "readers": 8,
+              "owners": 4,
+              "workers": [
+                {
+                  "worker": 0,
+                  "wall_ns": 56466000,
+                  "cpu_ns": 36092042,
+                  "send_wall_ns": 17032000,
+                  "send_calls": 830,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 421541
+                },
+                {
+                  "worker": 1,
+                  "wall_ns": 56952000,
+                  "cpu_ns": 36842500,
+                  "send_wall_ns": 17356000,
+                  "send_calls": 821,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 417113
+                },
+                {
+                  "worker": 2,
+                  "wall_ns": 55797000,
+                  "cpu_ns": 36495084,
+                  "send_wall_ns": 17374000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413754
+                },
+                {
+                  "worker": 3,
+                  "wall_ns": 57334000,
+                  "cpu_ns": 35279042,
+                  "send_wall_ns": 19986000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413484
+                },
+                {
+                  "worker": 4,
+                  "wall_ns": 57855000,
+                  "cpu_ns": 35974209,
+                  "send_wall_ns": 18465000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413593
+                },
+                {
+                  "worker": 5,
+                  "wall_ns": 59245000,
+                  "cpu_ns": 36237583,
+                  "send_wall_ns": 21312000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413702
+                },
+                {
+                  "worker": 6,
+                  "wall_ns": 60606000,
+                  "cpu_ns": 34986625,
+                  "send_wall_ns": 22161000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413433
+                },
+                {
+                  "worker": 7,
+                  "wall_ns": 60588000,
+                  "cpu_ns": 37179875,
+                  "send_wall_ns": 21560000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413380
+                },
+                {
+                  "worker": 8,
+                  "wall_ns": 60503000,
+                  "cpu_ns": 39396292,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 41788000,
+                  "owner_idle_ns": 18548000,
+                  "batches": 1595,
+                  "events": 810580,
+                  "rows": 0
+                },
+                {
+                  "worker": 9,
+                  "wall_ns": 60544000,
+                  "cpu_ns": 41050291,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 46184000,
+                  "owner_idle_ns": 14201000,
+                  "batches": 1628,
+                  "events": 827340,
+                  "rows": 0
+                },
+                {
+                  "worker": 10,
+                  "wall_ns": 60540000,
+                  "cpu_ns": 41679625,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 45591000,
+                  "owner_idle_ns": 14772000,
+                  "batches": 1640,
+                  "events": 833605,
+                  "rows": 0
+                },
+                {
+                  "worker": 11,
+                  "wall_ns": 60539000,
+                  "cpu_ns": 43068500,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 47994000,
+                  "owner_idle_ns": 12416000,
+                  "batches": 1669,
+                  "events": 848475,
+                  "rows": 0
+                }
+              ]
+            }
+          },
+          {
+            "wall_seconds_including_launch": 0.08000416600000015,
+            "sha256": "2778d89810ab63e1bd11510397114abfe2c520ca1b4c707989ff39dec5aafb92",
+            "profile": {
+              "setup_ns": 2967000,
+              "pipeline_ns": 71540000,
+              "final_ns": 350000,
+              "readers": 8,
+              "owners": 4,
+              "workers": [
+                {
+                  "worker": 0,
+                  "wall_ns": 67940000,
+                  "cpu_ns": 37201959,
+                  "send_wall_ns": 25421000,
+                  "send_calls": 830,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 421541
+                },
+                {
+                  "worker": 1,
+                  "wall_ns": 66839000,
+                  "cpu_ns": 37068459,
+                  "send_wall_ns": 26411000,
+                  "send_calls": 821,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 417113
+                },
+                {
+                  "worker": 2,
+                  "wall_ns": 67432000,
+                  "cpu_ns": 36966458,
+                  "send_wall_ns": 26367000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413754
+                },
+                {
+                  "worker": 3,
+                  "wall_ns": 68189000,
+                  "cpu_ns": 36617250,
+                  "send_wall_ns": 26695000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413484
+                },
+                {
+                  "worker": 4,
+                  "wall_ns": 69925000,
+                  "cpu_ns": 37680291,
+                  "send_wall_ns": 27942000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413593
+                },
+                {
+                  "worker": 5,
+                  "wall_ns": 69850000,
+                  "cpu_ns": 37609875,
+                  "send_wall_ns": 29590000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413702
+                },
+                {
+                  "worker": 6,
+                  "wall_ns": 70511000,
+                  "cpu_ns": 39812917,
+                  "send_wall_ns": 27916000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413433
+                },
+                {
+                  "worker": 7,
+                  "wall_ns": 71385000,
+                  "cpu_ns": 37071458,
+                  "send_wall_ns": 33900000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413380
+                },
+                {
+                  "worker": 8,
+                  "wall_ns": 71280000,
+                  "cpu_ns": 45863459,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 49024000,
+                  "owner_idle_ns": 22087000,
+                  "batches": 1595,
+                  "events": 810580,
+                  "rows": 0
+                },
+                {
+                  "worker": 9,
+                  "wall_ns": 71295000,
+                  "cpu_ns": 44904084,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 50224000,
+                  "owner_idle_ns": 20914000,
+                  "batches": 1628,
+                  "events": 827340,
+                  "rows": 0
+                },
+                {
+                  "worker": 10,
+                  "wall_ns": 71290000,
+                  "cpu_ns": 44907042,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 48375000,
+                  "owner_idle_ns": 22489000,
+                  "batches": 1640,
+                  "events": 833605,
+                  "rows": 0
+                },
+                {
+                  "worker": 11,
+                  "wall_ns": 71324000,
+                  "cpu_ns": 43769042,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 47347000,
+                  "owner_idle_ns": 23816000,
+                  "batches": 1669,
+                  "events": 848475,
+                  "rows": 0
+                }
+              ]
+            }
+          },
+          {
+            "wall_seconds_including_launch": 0.07168499999999867,
+            "sha256": "2778d89810ab63e1bd11510397114abfe2c520ca1b4c707989ff39dec5aafb92",
+            "profile": {
+              "setup_ns": 3236000,
+              "pipeline_ns": 63472000,
+              "final_ns": 327000,
+              "readers": 8,
+              "owners": 4,
+              "workers": [
+                {
+                  "worker": 0,
+                  "wall_ns": 59620000,
+                  "cpu_ns": 34445500,
+                  "send_wall_ns": 24875000,
+                  "send_calls": 830,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 421541
+                },
+                {
+                  "worker": 1,
+                  "wall_ns": 60344000,
+                  "cpu_ns": 35086666,
+                  "send_wall_ns": 24993000,
+                  "send_calls": 821,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 417113
+                },
+                {
+                  "worker": 2,
+                  "wall_ns": 60372000,
+                  "cpu_ns": 32181667,
+                  "send_wall_ns": 26570000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413754
+                },
+                {
+                  "worker": 3,
+                  "wall_ns": 61017000,
+                  "cpu_ns": 34607583,
+                  "send_wall_ns": 25569000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413484
+                },
+                {
+                  "worker": 4,
+                  "wall_ns": 61280000,
+                  "cpu_ns": 33197833,
+                  "send_wall_ns": 27435000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413593
+                },
+                {
+                  "worker": 5,
+                  "wall_ns": 61522000,
+                  "cpu_ns": 34410792,
+                  "send_wall_ns": 27660000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413702
+                },
+                {
+                  "worker": 6,
+                  "wall_ns": 61995000,
+                  "cpu_ns": 34244250,
+                  "send_wall_ns": 28546000,
+                  "send_calls": 814,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413433
+                },
+                {
+                  "worker": 7,
+                  "wall_ns": 63332000,
+                  "cpu_ns": 33450500,
+                  "send_wall_ns": 28966000,
+                  "send_calls": 813,
+                  "owner_busy_ns": 0,
+                  "owner_idle_ns": 0,
+                  "batches": 0,
+                  "events": 0,
+                  "rows": 413380
+                },
+                {
+                  "worker": 8,
+                  "wall_ns": 63251000,
+                  "cpu_ns": 40620167,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 41980000,
+                  "owner_idle_ns": 21012000,
+                  "batches": 1595,
+                  "events": 810580,
+                  "rows": 0
+                },
+                {
+                  "worker": 9,
+                  "wall_ns": 63058000,
+                  "cpu_ns": 38894833,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 39729000,
+                  "owner_idle_ns": 23188000,
+                  "batches": 1628,
+                  "events": 827340,
+                  "rows": 0
+                },
+                {
+                  "worker": 10,
+                  "wall_ns": 63050000,
+                  "cpu_ns": 41833625,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 42537000,
+                  "owner_idle_ns": 20384000,
+                  "batches": 1640,
+                  "events": 833605,
+                  "rows": 0
+                },
+                {
+                  "worker": 11,
+                  "wall_ns": 63031000,
+                  "cpu_ns": 41452125,
+                  "send_wall_ns": 0,
+                  "send_calls": 0,
+                  "owner_busy_ns": 42892000,
+                  "owner_idle_ns": 20019000,
+                  "batches": 1669,
+                  "events": 848475,
+                  "rows": 0
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "median_setup_ns": 3085000,
+      "median_pipeline_ns": 63085000,
+      "median_final_ns": 350000,
+      "worker_medians": [
+        {
+          "worker": 0,
+          "wall_ns": 59620000,
+          "cpu_ns": 36116500,
+          "send_wall_ns": 20878000,
+          "send_calls": 830,
+          "owner_busy_ns": 0,
+          "owner_idle_ns": 0,
+          "batches": 0,
+          "events": 0,
+          "rows": 421541
+        },
+        {
+          "worker": 1,
+          "wall_ns": 60344000,
+          "cpu_ns": 36842500,
+          "send_wall_ns": 20530000,
+          "send_calls": 821,
+          "owner_busy_ns": 0,
+          "owner_idle_ns": 0,
+          "batches": 0,
+          "events": 0,
+          "rows": 417113
+        },
+        {
+          "worker": 2,
+          "wall_ns": 60372000,
+          "cpu_ns": 36966458,
+          "send_wall_ns": 22656000,
+          "send_calls": 813,
+          "owner_busy_ns": 0,
+          "owner_idle_ns": 0,
+          "batches": 0,
+          "events": 0,
+          "rows": 413754
+        },
+        {
+          "worker": 3,
+          "wall_ns": 60739000,
+          "cpu_ns": 36617250,
+          "send_wall_ns": 22226000,
+          "send_calls": 814,
+          "owner_busy_ns": 0,
+          "owner_idle_ns": 0,
+          "batches": 0,
+          "events": 0,
+          "rows": 413484
+        },
+        {
+          "worker": 4,
+          "wall_ns": 61280000,
+          "cpu_ns": 37274291,
+          "send_wall_ns": 25119000,
+          "send_calls": 813,
+          "owner_busy_ns": 0,
+          "owner_idle_ns": 0,
+          "batches": 0,
+          "events": 0,
+          "rows": 413593
+        },
+        {
+          "worker": 5,
+          "wall_ns": 62016000,
+          "cpu_ns": 37609875,
+          "send_wall_ns": 22199000,
+          "send_calls": 814,
+          "owner_busy_ns": 0,
+          "owner_idle_ns": 0,
+          "batches": 0,
+          "events": 0,
+          "rows": 413702
+        },
+        {
+          "worker": 6,
+          "wall_ns": 61995000,
+          "cpu_ns": 36221209,
+          "send_wall_ns": 24763000,
+          "send_calls": 814,
+          "owner_busy_ns": 0,
+          "owner_idle_ns": 0,
+          "batches": 0,
+          "events": 0,
+          "rows": 413433
+        },
+        {
+          "worker": 7,
+          "wall_ns": 62954000,
+          "cpu_ns": 37179875,
+          "send_wall_ns": 23819000,
+          "send_calls": 813,
+          "owner_busy_ns": 0,
+          "owner_idle_ns": 0,
+          "batches": 0,
+          "events": 0,
+          "rows": 413380
+        },
+        {
+          "worker": 8,
+          "wall_ns": 62911000,
+          "cpu_ns": 41111958,
+          "send_wall_ns": 0,
+          "send_calls": 0,
+          "owner_busy_ns": 44052000,
+          "owner_idle_ns": 20165000,
+          "batches": 1595,
+          "events": 810580,
+          "rows": 0
+        },
+        {
+          "worker": 9,
+          "wall_ns": 62910000,
+          "cpu_ns": 42853083,
+          "send_wall_ns": 0,
+          "send_calls": 0,
+          "owner_busy_ns": 46184000,
+          "owner_idle_ns": 17629000,
+          "batches": 1628,
+          "events": 827340,
+          "rows": 0
+        },
+        {
+          "worker": 10,
+          "wall_ns": 62900000,
+          "cpu_ns": 41833625,
+          "send_wall_ns": 0,
+          "send_calls": 0,
+          "owner_busy_ns": 45591000,
+          "owner_idle_ns": 17597000,
+          "batches": 1640,
+          "events": 833605,
+          "rows": 0
+        },
+        {
+          "worker": 11,
+          "wall_ns": 62883000,
+          "cpu_ns": 43068500,
+          "send_wall_ns": 0,
+          "send_calls": 0,
+          "owner_busy_ns": 47347000,
+          "owner_idle_ns": 18357000,
+          "batches": 1669,
+          "events": 848475,
+          "rows": 0
+        }
+      ]
+    }
+  ],
+  "passed": true,
+  "completed_at_utc": "2026-11-01T06:17:25.918323+00:00"
+}

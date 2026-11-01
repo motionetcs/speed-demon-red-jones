@@ -11,14 +11,13 @@ struct OrderedOutput {
     explicit OrderedOutput(const std::filesystem::path& path):stream(path,std::ios::binary){
         if(!stream)throw std::runtime_error("cannot open summary.txt");
     }
-    size_t publish(size_t hour){
-        std::lock_guard guard(mutex);ready[hour]=true;size_t flushed=0;
+    void publish(size_t hour){
+        std::lock_guard guard(mutex);ready[hour]=true;
         while(next<72&&ready[next]){
             auto& bytes=hours[next].bytes;stream.write(bytes.data(),static_cast<std::streamsize>(bytes.size()));
             if(!stream)throw std::runtime_error("cannot write summary.txt");
-            std::remove_reference_t<decltype(bytes)>().swap(bytes);++next;++flushed;
+            std::remove_reference_t<decltype(bytes)>().swap(bytes);++next;
         }
-        return flushed;
     }
     void finish(){
         if(next!=72)throw std::runtime_error("incomplete summary.txt");

@@ -168,7 +168,6 @@ int main(int argc, char** argv) {
                             auto [destination, tag] = adjacency.template get<Compact>(i);
                             uint32_t weight = tag == (Compact ? EdgeStore::small_limit : uint32_t(UINT16_MAX)) ? wide_weights.at(i * 2 + (from_source ? 0 : 1)) : tag;
                             uint64_t candidate = d + weight;
-                            if (candidate >= best) continue;
                             if (own.improve(destination, candidate)) {
                                 heap.push({candidate, destination});
                                 uint64_t opposite = other.get(destination);

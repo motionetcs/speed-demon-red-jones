@@ -1,0 +1,82 @@
+{
+  "observed_at_utc": "2026-11-01T06:17:51.360276+00:00",
+  "passed": true,
+  "official_score": false,
+  "report_sha256": "047ed1489afbc77da34a0e71ef45b595dd4f0f880b693175addd57333a0933cf",
+  "summary": [
+    {
+      "base": "original",
+      "case": "public-full-seed1",
+      "profile_to_control_median_ratio": 1.0312511589407227,
+      "setup_ms": 2.995,
+      "pipeline_ms": 62.162,
+      "final_ms": 0.321,
+      "reader_cpu_median_ms": 36.4691875,
+      "reader_send_median_ms": 22.6165,
+      "owner_cpu_median_ms": 41.1594375,
+      "owner_busy_median_ms": 43.1025,
+      "owner_idle_median_ms": 18.8935,
+      "reader_rows": 3320000,
+      "owner_events": 3320000
+    },
+    {
+      "base": "candidate241",
+      "case": "public-full-seed1",
+      "profile_to_control_median_ratio": 0.999782331144609,
+      "setup_ms": 2.817,
+      "pipeline_ms": 68.162,
+      "final_ms": 0.33,
+      "reader_cpu_median_ms": 36.7614165,
+      "reader_send_median_ms": 26.9965,
+      "owner_cpu_median_ms": 41.146125,
+      "owner_busy_median_ms": 42.3315,
+      "owner_idle_median_ms": 23.894,
+      "reader_rows": 3320000,
+      "owner_events": 3320000
+    },
+    {
+      "base": "original",
+      "case": "full-seed2203",
+      "profile_to_control_median_ratio": 1.0902231557257627,
+      "setup_ms": 2.859,
+      "pipeline_ms": 72.608,
+      "final_ms": 0.578,
+      "reader_cpu_median_ms": 37.5164375,
+      "reader_send_median_ms": 25.1275,
+      "owner_cpu_median_ms": 44.732437,
+      "owner_busy_median_ms": 47.083,
+      "owner_idle_median_ms": 22.468,
+      "reader_rows": 3320000,
+      "owner_events": 3320000
+    },
+    {
+      "base": "candidate241",
+      "case": "full-seed2203",
+      "profile_to_control_median_ratio": 0.9615341850613035,
+      "setup_ms": 3.085,
+      "pipeline_ms": 63.085,
+      "final_ms": 0.35,
+      "reader_cpu_median_ms": 36.904479,
+      "reader_send_median_ms": 22.441,
+      "owner_cpu_median_ms": 42.343354,
+      "owner_busy_median_ms": 45.8875,
+      "owner_idle_median_ms": 17.993,
+      "reader_rows": 3320000,
+      "owner_events": 3320000
+    }
+  ],
+  "findings": [
+    "Pipeline dominates native in-process measured time:63-73ms vs setup2.8-3.1ms and final0.3-0.6ms.",
+    "Readers spend about20-30ms inside batch send calls; owner threads spend18-24ms in idle intervals while their batch processing totals41-48ms wall. Wait values overlap, not additive CPU savings.",
+    "Owners show about41-46ms thread CPU each vs readers35-38ms. This suggests owner work and single-slot producer/consumer coupling deserve inspection, but native host scheduling and profiling perturbation prevent asserting the target bottleneck or guaranteed savings.",
+    "Instrumentation/control median ratios vary .9615-1.0902 across source/data groups, so these are coarse phase diagnostics, not evidence of241 speedup. Sources were not compared in directly paired source-versus-source order.",
+    "Avoid another quote scanner before measuring owner service and queue coupling; possible bounded double buffering or batched ownership improvement needs native control and broad correctness proof before promotion."
+  ],
+  "limitations": [
+    "Apple native host, no Intel/cgroup timing assertion.",
+    "Thread CPU entry/exit totals include busy yield calls; send and owner batch/idle are wall time including preemption.",
+    "No per-row clocks; per-batch clocks can perturb scheduling.7 matched AB/BA pairs per source/data show perturbation.",
+    "Nonempty names/notes quoted by contract; unquoted fast paths not implied high value.",
+    "Only profiling copies emit stderr; selected runtime and production images untouched."
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "observed_at_utc": "2026-11-01T06:14:44.260942+00:00",
+  "decision": "Reject246; preserve original and exact241 upper-bound controls. No promotion, selected-source/Git/image changes or board submission from246.",
+  "official_score": false,
+  "screen_report_sha256": "adbb292cc76132b35d55d707a22c5cff77f5f764b73029fe87861b528cbbf490",
+  "screen_report": "screen.json",
+  "passed": true,
+  "model_executions": 384,
+  "runtime_query_answers": 98304,
+  "model_scope": "64 newly designed potential-specific graphs, each2 candidates at1/6/12; source-loop/inbound-cycle/reverse orientation, multiple/parallel exits, degree0/1/2/3/7/8/9, threshold/MAX/zero, unreachable isolated vertex, repeated/self queries, alternating narrow/spread IDs; independent Floyd and all-source algebra model. Native optimized runtime only; no sanitizer/Linux/production proof because timing rejected.",
+  "comparisons": [
+    {
+      "case": "public-full-seed1",
+      "candidate": "potential-original",
+      "control": "original",
+      "expected_output_sha256": [
+        "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+      ],
+      "pairs": 13,
+      "paired_median_ratio": 1.0760376528422264,
+      "wins": 4
+    },
+    {
+      "case": "public-full-seed1",
+      "candidate": "potential-upper",
+      "control": "upper",
+      "expected_output_sha256": [
+        "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+      ],
+      "pairs": 13,
+      "paired_median_ratio": 1.0004743185259186,
+      "wins": 6
+    },
+    {
+      "case": "public-full-seed1",
+      "candidate": "potential-upper",
+      "control": "original",
+      "expected_output_sha256": [
+        "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+      ],
+      "pairs": 13,
+      "paired_median_ratio": 0.9825526843104118,
+      "wins": 7
+    },
+    {
+      "case": "full-seed1823",
+      "candidate": "potential-original",
+      "control": "original",
+      "expected_output_sha256": [
+        "d5ede1a4d936ea3b4bbaae08357d980ffb6c734141e2652cfdacc7c816738442"
+      ],
+      "pairs": 13,
+      "paired_median_ratio": 1.0573458002338432,
+      "wins": 2
+    },
+    {
+      "case": "full-seed1823",
+      "candidate": "potential-upper",
+      "control": "upper",
+      "expected_output_sha256": [
+        "d5ede1a4d936ea3b4bbaae08357d980ffb6c734141e2652cfdacc7c816738442"
+      ],
+      "pairs": 13,
+      "paired_median_ratio": 0.9898190102680953,
+      "wins": 8
+    },
+    {
+      "case": "full-seed1823",
+      "candidate": "potential-upper",
+      "control": "original",
+      "expected_output_sha256": [
+        "d5ede1a4d936ea3b4bbaae08357d980ffb6c734141e2652cfdacc7c816738442"
+      ],
+      "pairs": 13,
+      "paired_median_ratio": 1.0291705188027058,
+      "wins": 6
+    }
+  ],
+  "reason": "Potential-original slower public1.0760 and independent1.0573 with4/13 and2/13 wins; potential-upper flat vs241 public1.0005 and modest independent0.9898, but vs original mixed0.9826/1.0292. No consistent gain justifies more source/image proof or board trial.",
+  "shared_lane": "Complete batch ended; lock released."
+}
