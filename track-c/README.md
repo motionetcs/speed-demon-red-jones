@@ -9,5 +9,3 @@ An exact local synchronization proof selects true record boundaries. Reader work
 No input seed or answer is recognized. All output is computed in the timed run. See `PERF.md` for actual experiments, source/memory costs, independent tests and real board outcomes.
 
 Owner table entries use a32-bit rejection fingerprint and a32-bit stable-block word index. Full length/byte equality still decides names, including collisions; the complete64-bit hash routes owners.64KiB word blocks and dedicated oversized-key blocks retain exact name bytes/country words with checked index arithmetic.
-
-Candidate193 uses whole-key CRC32C only on little-endian x86-64/SSE4.2. Length-seeded8/4/2/1-byte updates read every byte and mix the32-bit state into a64-bit routing value; this remains32 bits of entropy, never cryptographic or probabilistic equality. All other targets retain original std::hash, and every key/country equality remains complete. Own event-written148 algorithm is reused with a new Intel-only dispatch, requiring fresh source-specific collision/strict/pipeline/image/actual proof. Original quote helper is restored; no AVX2-quote combination.

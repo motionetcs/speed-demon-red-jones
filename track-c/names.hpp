@@ -6,7 +6,6 @@
 #include <cstdint>
 #include <cstring>
 #include <functional>
-#include "name_hash.hpp"
 #include <memory>
 #include <new>
 #include <stdexcept>
@@ -19,7 +18,7 @@ struct Names {
     struct Entry {uint32_t hash=0,index=0;};
     std::vector<Entry> entries;std::vector<std::unique_ptr<uint64_t[]>> storage;size_t words,used=0,next=0,remaining=0;
     explicit Names(size_t countries):entries(16384),words((countries+63)/64){}
-    static uint64_t hash_key(std::string_view key){return whole_name_hash(key);}
+    static uint64_t hash_key(std::string_view key){uint64_t h=std::hash<std::string_view>{}(key);return h<2?h+2:h;}
     static uint32_t encode_index(size_t block,size_t word){
         if(block>=(size_t(1)<<19)||word>=8192)throw std::runtime_error("name block/word index capacity");
         uint32_t encoded=(static_cast<uint32_t>(block)<<13)|static_cast<uint32_t>(word);

@@ -1,0 +1,22 @@
+--- a/track-d/main.cpp
++++ b/track-d/main.cpp
+@@ -18,6 +18,10 @@
+     const char* p;
+     const char* end;
+     bool more() { while (p < end && *p <= ' ') ++p; return p < end; }
++    void skip_number() {
++        if (!more() || *p < '0' || *p > '9') throw std::runtime_error("missing graph number");
++        do { ++p; } while (p < end && *p >= '0' && *p <= '9');
++    }
+     uint32_t number() {
+         if (!more() || *p < '0' || *p > '9') throw std::runtime_error("missing graph number");
+         uint64_t value = decimal_digits(p, end);
+@@ -62,7 +66,7 @@
+             while (input.more()) {
+                 size_t count = 0;
+                 while (count < batch.size() && input.more()) {
+-                    uint32_t u = input.number(), v = input.number(); input.number();
++                    uint32_t u = input.number(), v = input.number(); input.skip_number();
+                     if (u >= n || v >= n) throw std::runtime_error("node outside graph");
+                     __builtin_prefetch(&degree.values[u], 1, 1); __builtin_prefetch(&reverse_degree.values[v], 1, 1);
+                     batch[count++] = {u,v};

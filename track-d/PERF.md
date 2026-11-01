@@ -470,3 +470,9 @@ Eleven rotating public hashes pass, but retained0.183108542s/RSS179421184 versus
 
 
 192 distance-sorts or reverses each exact private32-item popped batch BEFORE computing/prefetching vertex ranges, retaining original stale checks/weights/conservative stop. Eleven rotating public hashes pass but paired1.053645/1.002301 loses/flat. Reject before new independent/Floyd/full64/partial-batch/strict/race/GCC/image/default/actual proof; no ordering code enters195.196 first-pass unused-weight lexical skip is only prepared, not yet timed/proved/selected. All real weights must still be decoded/range-checked on pass2; never bypass validation.
+
+
+195/10e3ade run-6708a84b0117 all five real gates pass: T0.197615s/M77287424/S827/K20.080295/65.138504 points. Lower unchanged original D variation; best stays separate. Raw ../docs/board-round195-native-a-crc-c.json.
+
+
+196 skips numeric accumulation for first-pass weights only; the original scatter still decodes/range-checks every actual weight before queries/output. It keeps generic whitespace/token endpoints and node checks, not fixed-line or seed assumptions. Native full hashes pass but paired1.003300 is flat/losing (raw0.182325959/0.182167875), so reject before new lexical/deferred-invalid/guard/strict/race/Floyd/full/GCC/image/actual proof. No skip method enters runtime; both original weight parses remain.

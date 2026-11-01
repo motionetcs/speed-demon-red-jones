@@ -1,0 +1,13 @@
+{
+  "observed_at_utc": "2026-11-01T01:24:42.016972+00:00",
+  "base": "10e3ade436408103a8fd2f040b6d8cd9caa38821",
+  "scope": "Native screen only. Degree-counting first pass advances over the unused weight token lexically without numeric accumulation/range check. Every edge weight is still decoded/range-checked by original Scanner::number in second scatter pass BEFORE any query/output. Non-digit/missing token still fails; all whitespace/token endpoints preserved, no fixed-line or ordering assumption. Outgoing/incoming nodes still parsed/validated before atomics. Same full weights/CSR/labels/queues/PGO. Needs fresh lexical endpoint/guard/deferred-invalid/partial-batch/strict/race/independent/Floyd/untrained/full/GCC/image/default/actual K proof before any selection. No general correctness proof from public hash.",
+  "patches": [
+    {
+      "patch": "round196-skip-weight-main.cpp.patch",
+      "path": "track-d/main.cpp",
+      "base_sha256": "6ae66971d7a6fd1f6bb75741daa522c681eae20e200f426547f8c537161327cc",
+      "candidate_sha256": "7b1f57ed1b182b8248f6ceb1715c96d1ff36e5b91f13da88f373c43db40e0610"
+    }
+  ]
+}

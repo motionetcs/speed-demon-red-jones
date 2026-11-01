@@ -12,12 +12,12 @@ This is the fresh local entry. Check actual external state before treating it as
 | Licence | MIT, official attribution retained |
 | Fresh repository | https://github.com/motionetcs/speed-demon-red-jones — private |
 | Submission branch | speed-demon |
-| Remote source | Composite195 verified: A194 native-ISA/full PGO + C193 Intel-only whole-key CRC/original quote + original D.30 exact inputs/images/models/public/default checks pass; actual A/C K pending. |
+| Remote source | Selected197 exactly restores passing187/best-track runtime.29 inputs/images and fresh A81/C501+30 refs, combined public/defaults pass; exact all-track197 confirmation pending. |
 | Individual registration | Entrant confirmed already registered on 31 October 2026; not duplicated |
 | Team form | Submitted successfully for this fresh repository, A/C/D; Tally displayed “Form submitted” |
 | Board app access | Installed and verified on 31 October 2026; only the fresh repository selected; read-only code and metadata |
 | Official scored runs | A/C/D first scored at03:57 UTC on31 October2026; every subsequent candidate has its own exact-commit report, linked from RESULTS.md and PERF.md |
-| Public-source publication | Not performed |
+| Public-source publication | Owner approved only2 November2026 15:00–16:00UTC/20:30–21:30IST after frozen-source preservation and final secret/privacy recheck; private now, not performed. See PUBLICATION-AUTHORIZATION.json. |
 
 ## External steps
 
@@ -27,7 +27,7 @@ This is the fresh local entry. Check actual external state before treating it as
 4. Push the intended passing commit to `speed-demon`; inspect a real scored result for every track. Update `PERF.md` with the actual run IDs and measurements.
 5. Keep the final passing commit on the required branch by **2 November 2026, 8:30 PM IST**. Make that source public under the required licence by **9:30 PM IST**.
 
-Hourly optimization continuation is active in the local chat. It does not authorize or schedule publication: automatic approval review rejected the future-publication clause. Explicit publication approval is still required.
+Hourly local continuation remains active. On1 November the owner explicitly approved the named-repository publication window and disclosed exposure. Normal automation_update accepted it, resolving the earlier missing-approval condition. Keep private before the window; freeze/passing-source and final secret/privacy conditions remain mandatory, with no grant or credential changes.
 
 The official GitHub app `Speed Demon Board` requests only `contents: read` and `metadata: read`. Installation `177100099` was verified in the signed-in owner's Brave Work profile. Its saved settings show **Selected 1 repository: motionetcs/speed-demon-red-jones**. The entrant authorized that exact scope.
 
