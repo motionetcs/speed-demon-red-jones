@@ -38,3 +38,5 @@ The board registry accepted Red Jones and scored commit `788ae3b205928ca2bc3d601
 A268 candidate is fully locally verified; only A/main changes. Pinned offline PGO image c0a2dbe305da73c80050cebe02b8f0693015f0ca9355fbfd7e644e649716a238 passes96 exact references+3 deferred sink errors/23 real defaults; root Make/all-track public/default controls pass. Official commit/run pending, no score gain claimed. Last actual passing original737b80f and immutable original A image remain available for rollback.
 
 268/97e58d7 real all-track gatesPASS, but A K31.952782 narrowly misses best31.974332.269 completes only its obsolete scalar-member removal, with fresh exact-source native/GCC/image/default/root controls. A separate normally cooled real trial is ready; no gain/eligibility guarantee claimed.
+
+269/17443e4 real all-track gatesPASS but A31.926607 misses best31.974332. Both268+269 changes are rejected; full original A main/io/README and immutable B57 image restored, all29/Make/file sets and fresh native/image public/default checks pass. One cooled real270 restoration confirmation pending. No victory/eligibility claim.

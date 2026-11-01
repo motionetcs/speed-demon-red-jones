@@ -64,6 +64,11 @@ inline uint64_t unsigned_number(std::string_view text) {
 struct Output {
     std::basic_string<char,std::char_traits<char>,MappedAllocator<char>> bytes;
     void text(std::string_view s) { bytes.append(s); }
+    void number(int64_t n) {
+        char b[32];
+        auto r = std::to_chars(b, b + sizeof b, n);
+        bytes.append(b, r.ptr);
+    }
     void save(const std::filesystem::path& file) {
         std::ofstream stream(file, std::ios::binary);
         stream.write(bytes.data(), static_cast<std::streamsize>(bytes.size()));

@@ -26,8 +26,4 @@ Compact record vectors use a stateless mapped allocator; after an hour has been 
 
 The retained163 design keeps all twelve aggregation workers. Finished hour output is published under one mutex; each publisher flushes only consecutive completed hours, then releases directly mapped output bytes. Empty hours also publish. No extra writer thread or assumption about input order is used. The bounded leading eight-digit decoder validates bytes and retains exact full-uint32/scalar tails.
 
-Candidate178 changes only the first build-time PGO workload to independent seed1000003/full; second130363/sample and all C++ source, generic flags and runtime contracts remain unchanged. Published public seed1 is never used for training. Only the compiled executable enters the final image. The retained best public build is recorded in PERF.md; identical-source repeats remain separate from algorithm gains.
-
-Candidate269 formats the same six output numbers into one 128-byte stack suffix before appending it. Six full signed64 decimal strings, their leading spaces and the final LF need at most127 bytes. Labels, endpoints, exact nearest-rank values, errors and output order are unchanged. Fresh strict/reference/image/default checks pass; real total K decides retention.
-
-The obsolete scalar Output::number method is removed because row formatting now uses the buffered suffix.
+Candidate178 changes only the first build-time PGO workload to independent seed1000003/full; second130363/sample and all C++ source, generic flags and runtime contracts remain unchanged. Published public seed1 is never used for training. Only the compiled executable enters the final image. This is an unconfirmed compiler-profile experiment.
