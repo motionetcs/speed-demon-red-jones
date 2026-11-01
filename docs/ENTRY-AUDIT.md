@@ -1,5 +1,8 @@
 # Entry audit — 1 November 2026
 
+Latest294: every actual gatePASS but C K17.959484/62.714693 loses23.033578/68.118071. No official memory gain observed over historical best; source/header/main style/README/image completely restored to original291. Fresh unchanged-original public/default8 and all29/Make/README/full-file-set proofPASS without compiler/training duplication. One cooled295 all-track confirmation pending. Rejected packed-layout proof remains historical, no new gain or eligibility certificate.
+
+
 Candidate294 is fully locally verified for one real C memory-tradeoff trial. Exact short8-bit length/full-length escape +56-country header/complete spill words, no truncation/catalogue/seed logic. Native times are flat/slower with lower RSS, not a speed or target K gain. Fresh independent metadata/index/growth/full-key/country/long-boundary native strict/race/GCC models/current main, GCC300+25/image714+50/default100+9, actual rootMake/all-track12 and all29/source/README/Make/local-image proofs PASS. Original291 is complete real-passing rollback; A/D unchanged. Retain only actual C K>23.033578/68.118071. Public MIT source remains scheduled only for the approved Nov2 window; PRIVATE now.
 
 
