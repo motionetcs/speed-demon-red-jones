@@ -1,0 +1,90 @@
+{
+  "round": 356,
+  "source_parent": "781f2ea889c110b470720000729c7eedfadc67af",
+  "official_score": false,
+  "selected_in_root_for_trial_only": false,
+  "decision": "SUPERSEDED_BEFORE_GNU_IMAGE_OR_BOARD: native strict/race/full/untrained proofs complete, fresh3623 weaker variable timing; revised357 to direct uint32 GNU wait word with independent bounded-ABA review.",
+  "scope": "C354 standardC++20 wait/notify ONLY at boundedSPSC batch boundaries. Producers wait on fullstate1; owners captureperowneruint64epoch BEFORE cancellationcheck/queue scans and waitonunchangedepoch onlyafterallchannelsidle. Publishsignalsowner; retirementnotifiesproducer. Queue states0empty/1full/2STICKYcancel, publicationCAS0->1 andretireCAS1->0 canNEVERoverwrite2. Cancelrelease setsglobaltrue, cancelsALLqueues withvaluechange+notifyall, then incrementsALLownerepochs; no reset-to-empty cancellation race/lostwake. Onlyoneproducer/consumer ofeachvector; no produceraccess afterobserving2, currentconsumer mayfinishbatchbeforejoining. ExistingexactNames/512batch/EOF/order/readers8+owners4/default12/serial1/parser/country/fullwidth/PGO/flags stay. Runtimewakeepochs are ordinarysyncstate, not board/harnesscounters. Hypothesis reduceOSyieldpolling/SMTresourcecontention atpossibleblocking/extraCAS/notifycost; nativeApple stdlib differsfromLinux, no targetgainclaim. Fullfreshmodel requiredforpostcheck/prepublish/prewait/activeconsume/cancel/EOF/failures/everytopology/epochwrap/ordering/ownership/race/failfaststrict/untrained/pinnedGCC/exactimage/default/Make beforepromotion. No seed/catalogue/outputcache/harness/host/affinity/counter/tunable/defaultbudget/exemption changes. FINAL356 additionally C-onlyparallel takesnoexceptcancellationcallback, catches vector/jthreadlaunch exceptions BEFOREworkers vectorunwinds/joins, thenrethrowsoriginal startupfailure. ActualCmain passes exactstickycancelallqueues/epochs lambda; sourceNames/queuescheduling same354 exceptnoexceptspecifications. Pre-existing originalparallel startupgap was identifiedstatically, not yetreproduced. This source revision needs its OWN nativebinary/screen, new actualqueue/cancellation/launchfailure strict/race/untrained/GCC/image/defaultproof; old354screen mustnotberelabeled356.",
+  "screen_summary": {
+    "public-full-seed1": {
+      "paired_median_ratio": 0.837603012089462,
+      "paired_wins": 10,
+      "native_rss_delta_bytes": -393216
+    },
+    "full-seed2203": {
+      "paired_median_ratio": 0.8320190952716976,
+      "paired_wins": 9,
+      "native_rss_delta_bytes": -360448
+    },
+    "full-seed2309": {
+      "paired_median_ratio": 0.8009926432756715,
+      "paired_wins": 13,
+      "native_rss_delta_bytes": -753664
+    },
+    "full-seed2371": {
+      "paired_median_ratio": 0.8280413039984286,
+      "paired_wins": 11,
+      "native_rss_delta_bytes": -32768
+    }
+  },
+  "screen_call_count": 118,
+  "patches": [
+    {
+      "path": "docs/prototype-patches/round356-main.cpp.patch",
+      "sha256": "629f14873a4080ec5d8e95db7ed3dd50265f3f12d6ee399a8d2b719b48173b09"
+    },
+    {
+      "path": "docs/prototype-patches/round356-names.hpp.patch",
+      "sha256": "dae5b4b5eac9c19a689852a7dd3970163e6dcf82076a7589a0aa94f04c64ed07"
+    },
+    {
+      "path": "docs/prototype-patches/round356-parallel.hpp.patch",
+      "sha256": "0947e9512aa9dbb357a6fda41b2caa0d46c1e2c80797591e7f1a485669e026df"
+    }
+  ],
+  "reconstruction": {
+    "passed": true,
+    "all_frozen_files_match": true,
+    "file_count": 10
+  },
+  "archive_files_sha256": {
+    "tools/round356-proof/screen.py": "705cc09c4d7e646b3a29f41c1011d4210941e1eb079865414e18ff5aff793faa",
+    "tools/round356-proof/startup_failure_model.cpp": "021ab392d198a35900b2f3eeaa0117655759439cc19cb48ed8f40b3097bf0f2e",
+    "tools/round356-proof/fresh-confirmation.json": "b51fba6ec962ca084d8a908ad986cdfcc21fd5772ccc9958d4703118d147e624",
+    "tools/round356-proof/README.md": "3d9054223da817268fd83bc99693c22617cecbe7f560d7247622c03210ab8d83",
+    "tools/round356-proof/cancel_body.inc": "c0c73e8c6e55c718893885c3ac2ed412406734262a51fadc8fa7ace3e267f437",
+    "tools/round356-proof/base-c-PERF.md": "8f02889524feb40625b5c95f3814da4b16ca531612fc62ad4f474791b25e6ca6",
+    "tools/round356-proof/native_proof.py": "302fcdf65ea3c74adbdf537de6c78dc5f81d4cfd429d18ff45a8d5146a4de5ee",
+    "tools/round356-proof/confirm_fresh.py": "2ef4813b9c63ac3e4a81ae046c80933d82f45394a43934973ab1abd61474ecae",
+    "tools/round356-proof/native-proof.json": "d738d38520047e270384612ce789dbf33a5cd7b69dab46c20e5e9d497c9b3dad",
+    "tools/round356-proof/proof-manifest.json": "08752a8db337d9f201ffa10b32de0080b640fc97dc4868235b75fc6c02d4a106",
+    "tools/round356-proof/preflight.json": "b184c4b964fb53a76fbfd10f79c9b631dc20c2e577a0e2579a95b142bede9b6b",
+    "tools/round356-proof/prepare.py": "8872fefeb698d636351579df38f5df91cafc300fcb3c18692dff95f86aef8102",
+    "tools/round356-proof/screen-report.json": "df4bcb0b5b48b5b4585efb6a04fb5c5352a5a0f2b0d7e62e4018ededb0d6b3b5",
+    "tools/round356-proof/queue_model.cpp": "f27457e3f354fc893c7e26e3e38c820a2b60109d53f732686bd35d3ee1f71924",
+    "tools/round356-proof/compile.json": "971ff6217579edc5e4cde56d7eac1c28093e74a2d39aa1acc910ac4388271dd1",
+    "tools/round356-proof/native-raw/asan-countries.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tools/round356-proof/native-raw/tsan-topology.stdout": "43e51304eee1cb8b844dd3bf619d15682ba3b539e0b9931ba01a7ca47a1b3a5b",
+    "tools/round356-proof/native-raw/tsan-countries.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tools/round356-proof/native-raw/tsan-pipeline.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tools/round356-proof/native-raw/tsan-pressure.stdout": "0563d27938242612ccc571c90759d0a3ee61310d1c1ba8e161af92604c87862b",
+    "tools/round356-proof/native-raw/tsan-pipeline.stdout": "0b7b52b9d8d247f34f4f124401fb5c274c6088ee3d9d32d9ba3730ce9e1c6c0a",
+    "tools/round356-proof/native-raw/tsan-pressure.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tools/round356-proof/native-raw/tsan-countries.stdout": "f7304ccfa05b62acf297298a1a3c75e8029999473f526ac69140322b95d6321b",
+    "tools/round356-proof/native-raw/tsan-topology.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tools/round356-proof/native-raw/asan-countries.stdout": "9b5cf3b9caa4bb22b3753d1a04648211e92b35f9c0921fa8d3b642b7d9ed26fe",
+    "tools/round356-proof/native-raw/asan-fresh-full.stdout": "ba9b0826348696f4b735050c986b6fe615b314a5fbd77db80c6567c98a395708",
+    "tools/round356-proof/native-raw/tsan-sample.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tools/round356-proof/native-raw/asan-pipeline.stdout": "6707c01649f902990ae345ed2246c0098d21c2feff04af9f9091adc1e2708064",
+    "tools/round356-proof/native-raw/asan-pressure.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tools/round356-proof/native-raw/asan-sample.stdout": "6bc117dfd91ff2c55edc3fac1afd5996762ba6d523bc36e82a84ec06bdc755fa",
+    "tools/round356-proof/native-raw/asan-topology.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tools/round356-proof/native-raw/asan-topology.stdout": "66656af2f29bb22acf7b3554bd19b46cb2b6a3010c268c24984feac048c4d3d4",
+    "tools/round356-proof/native-raw/asan-sample.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tools/round356-proof/native-raw/asan-pipeline.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tools/round356-proof/native-raw/tsan-sample.stdout": "786ba28b169351904b8edd31a52f8f839b9bb93f88c63745ff31e62955ec181c",
+    "tools/round356-proof/native-raw/asan-pressure.stdout": "780ff8ce9ff211a28dd49b9936d4864cf64f8ef39c440dcae098f78faa57df38",
+    "tools/round356-proof/native-raw/asan-fresh-full.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "limitations": "Native Apple timings/RSS and emulated Linux correctness are not Intel timing, charged memory, organizer ELF, causal improvement, eligibility or final holdout guarantees. Saved data/reference bytes reused only by hash; no cached production answers. No host/harness/counter/identity manipulation."
+}

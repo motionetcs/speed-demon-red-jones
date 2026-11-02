@@ -1,0 +1,51 @@
+from pathlib import Path
+import datetime,hashlib,json,os,subprocess
+r=Path.cwd();w=r/'.build/round357';s=w/'source';out=w/'native-proof';out.mkdir(exist_ok=True)
+def read(p):return json.loads(Path(p).read_text())
+def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def dump(p,x):p.write_text(json.dumps(x,indent=2)+'\n')
+pre=read(w/'preflight.json');screen=read(w/'confirmation/report.json');old=read(r/'.build/round356/native-proof/report.json');assert screen['passed']and old['passed'];assert not(out/'report.json').exists()
+files={name:sha(w/name)for name in ['queue_model.cpp','cancel_body.inc','startup_failure_model.cpp']};manifest={'created_at_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'preflight_sha256':sha(w/'preflight.json'),'source_sha256':pre['source_sha256'],'model_files_sha256':files,'scope':'Fresh357uint32epoch actualqueue model with all44topologies initialized nearUINT32MAX, directwrapseam/publication/cancel/wait/ownership/EOF/fullpartial tests; newnative failfastASAN/UBSAN+TSAN model/main. Existing356 generatedinputs/referencebytes REPLAYED, never regenerated/oracled. Parallel/io/startupmodelbytesexact356, so nativeplainallocationfailureproof retainedONLYforunchangeddependencyclosure; no newplainfaultmodel execution claimed. GNUdirectword/oldlaunchcontrol/image/actualstillpending.'};dump(w/'proof-manifest.json',manifest)
+for name in ['source/track-c/parallel.hpp','source/track-c/io.hpp','startup_failure_model.cpp']:assert sha(w/name)==sha(r/'.build/round356'/name)
+retained=next(x for x in old['models']if x['mode']=='plain-allocation-failures');assert retained['passed']
+for p,h in pre['source_sha256'].items():assert sha(s/p)==h,p
+for p,h in pre['root_selected_bindings'].items():assert sha(r/p)==h,p
+report={'started_at_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'official_score':False,'selected_in_root':False,'scope':manifest['scope'],'source_sha256':pre['source_sha256'],'model_files_sha256':files,'retained_plain_startup_fault_proof':{'report':'.build/round356/native-proof/report.json','report_sha256':sha(r/'.build/round356/native-proof/report.json'),'mode':retained,'dependency_closure_sha256':{name:sha(w/name)for name in ['source/track-c/parallel.hpp','source/track-c/io.hpp','startup_failure_model.cpp']}},'compiles':[],'models':[],'matrices':[]};env=dict(os.environ,ASAN_OPTIONS='halt_on_error=1',UBSAN_OPTIONS='halt_on_error=1:print_stacktrace=1',TSAN_OPTIONS='halt_on_error=1')
+def save():dump(out/'partial.json',report)
+def compile(label,unit,binary,flags):
+ assert not binary.exists();argv=['clang++','-std=c++20','-O1','-g','-Wall','-Wextra','-Wpedantic','-Werror','-pthread','-fno-omit-frame-pointer',*flags,str(unit),'-o',str(binary)];q=subprocess.run(argv,capture_output=True,text=True,timeout=240);row={'label':label,'command':argv,'returncode':q.returncode,'stdout':q.stdout,'stderr':q.stderr};dump(binary.with_suffix('.compile-attempt.json'),row);assert q.returncode==0 and not q.stdout and not q.stderr,(label,q.returncode,q.stderr[-2500:]);row['binary_sha256']=sha(binary);dump(binary.with_suffix('.compile.json'),row);report['compiles'].append(row);save()
+def inventory(mode):
+ jobs={};errors={};folders={};expected_by_content={}
+ def add(label,expected,threads,origin,explicit=None,recorded=None,error=False):
+  data=Path(explicit)if explicit else next(p for p in[r/'.data/cases'/label,r/'.data/c'/label]if p.is_dir());data=data if data.is_absolute()else r/data;data=data.resolve();data.relative_to(r);hashes={p.name:sha(p)for p in data.iterdir()if p.is_file()};assert set(hashes)=={'records.csv','regions.csv'}
+  if recorded:assert hashes==recorded,(label,'inputchanged')
+  folders[str(data)]=hashes;content=tuple(sorted(hashes.items()));row={'case':label,'data_folder':str(data.relative_to(r)),'threads':int(threads),'inputs_sha256':hashes,'reference_source':origin}
+  if error:row['returncode']=1;errors[(content,int(threads))]=row
+  else:
+   assert expected
+   if content in expected_by_content:assert expected_by_content[content]==expected
+   expected_by_content[content]=expected;row['expected_sha256']=expected;jobs[(content,int(threads))]=row
+ for item in old['runs']:
+  if not(item['suite'].startswith(mode+'-')):continue
+  x=read(r/item['report']);assert x['passed'];argv=item['command'];prefix=argv[argv.index('--run-id')+1]if '--run-id'in argv else None
+  for row in x.get('checks',[]):
+   assert row.get('track','c')=='c'
+   for trial in row['runs']:add(row['case'],row.get('reference_sha256')or trial['sha256'],trial.get('requested_threads',trial.get('threads')),item['report']+' input/referenceONLY',row.get('data_folder'),row.get('inputs_sha256'))
+  for row in x.get('expected_failures',[]):
+   label=row.get('data_case')or(prefix+'-'+row['case']if prefix else row['case']);add(label,None,row['threads'],item['report']+' inputONLY',row.get('data_folder'),row.get('inputs_sha256'),error=True)
+ if mode=='asan':
+  for row in old['full_public_untrained_runs']:add(row['case'],row['expected_sha256'],row['threads'],'356savedfullreferencebytesONLY',row['data_folder'],row['inputs_sha256'])
+ return list(jobs.values()),list(errors.values()),folders
+for mode,flags in [('asan',['-fsanitize=address,undefined','-fno-sanitize-recover=all']),('tsan',['-fsanitize=thread'])]:
+ folder=out/mode;folder.mkdir(exist_ok=True);binary=folder/'queue-model';compile(mode+'-queue-model',w/'queue_model.cpp',binary,flags);q=subprocess.run([str(binary)],capture_output=True,text=True,env=env,timeout=300);row={'mode':mode,'returncode':q.returncode,'stdout':q.stdout,'stderr':q.stderr,'binary_sha256':sha(binary)};dump(folder/'model-attempt.json',row);assert q.returncode==0 and q.stdout.startswith('PASS357')and not q.stderr,(mode,q.returncode,q.stdout,q.stderr[-2500:]);row['passed']=True;dump(folder/'model.json',row);report['models'].append(row);save();print('PASS357',mode,'actual32bit queue model',flush=True)
+ binary=folder/'track-c';compile(mode+'-main',s/'track-c/main.cpp',binary,flags);jobs,errors,folders=inventory(mode);matrix={'mode':mode,'binary_sha256':sha(binary),'runs':[],'expected_failures':[],'scope':'NEW357exactsource executions on356saved independentreference/data bytes only, deduplicatedcontent+thread. No generator/oracle repeat or356sourceproofsubstitution.'}
+ for n,row in enumerate(jobs):
+  dest=folder/'outputs'/('valid-'+str(n));dest.mkdir(parents=True);q=subprocess.run([str(binary),'--data',str(r/row['data_folder']),'--out',str(dest)],capture_output=True,text=True,env=dict(env,SPEED_DEMON_THREADS=str(row['threads'])),timeout=180);assert q.returncode==0 and not q.stdout and not q.stderr,(mode,row['case'],row['threads'],q.returncode,q.stderr[-2000:]);assert[p.name for p in dest.iterdir()]==['aggregates.txt'];row['sha256']=sha(dest/'aggregates.txt');assert row['sha256']==row['expected_sha256'];matrix['runs'].append(row);dump(folder/'matrix-partial.json',matrix)
+ for n,row in enumerate(errors):
+  dest=folder/'outputs'/('error-'+str(n));dest.mkdir(parents=True);q=subprocess.run([str(binary),'--data',str(r/row['data_folder']),'--out',str(dest)],capture_output=True,text=True,env=dict(env,SPEED_DEMON_THREADS=str(row['threads'])),timeout=30);assert q.returncode==1 and not q.stdout and q.stderr.startswith('track-c:')and not any(t in q.stderr for t in['Sanitizer','runtime error:','DEADLYSIGNAL']),(mode,row['case'],q.returncode,q.stderr[-2000:]);row['stderr']=q.stderr;matrix['expected_failures'].append(row);dump(folder/'matrix-partial.json',matrix)
+ for data,hashes in folders.items():assert{p.name:sha(p)for p in Path(data).iterdir()if p.is_file()}==hashes
+ matrix.update(passed=True);dump(folder/'matrix.json',matrix);dump(r/f'docs/round357-c-native-{mode}-matrix.json',matrix);report['matrices'].append({'mode':mode,'path':str((folder/'matrix.json').relative_to(r)),'sha256':sha(folder/'matrix.json'),'valid_calls':len(matrix['runs']),'normal_errors':len(matrix['expected_failures'])});save();print('PASS357',mode,'main',len(matrix['runs']),len(matrix['expected_failures']),flush=True)
+for p,h in pre['source_sha256'].items():assert sha(s/p)==h,p
+for p,h in files.items():assert sha(w/p)==h,p
+for p,h in pre['root_selected_bindings'].items():assert sha(r/p)==h,p
+report.update(passed=True,completed_at_utc=datetime.datetime.now(datetime.timezone.utc).isoformat());dump(out/'report.json',report);dump(r/'docs/round357-c-native-proof.json',report);print('PASS357 new32bit exactmodel/main strict proof; independentABA/GCC/image/actual pending',flush=True)

@@ -1,0 +1,173 @@
+{
+  "started_at_utc": "2026-11-02T05:53:43.443005+00:00",
+  "official_score": false,
+  "selected_in_root": false,
+  "scope": "Fresh357uint32epoch actualqueue model with all44topologies initialized nearUINT32MAX, directwrapseam/publication/cancel/wait/ownership/EOF/fullpartial tests; newnative failfastASAN/UBSAN+TSAN model/main. Existing356 generatedinputs/referencebytes REPLAYED, never regenerated/oracled. Parallel/io/startupmodelbytesexact356, so nativeplainallocationfailureproof retainedONLYforunchangeddependencyclosure; no newplainfaultmodel execution claimed. GNUdirectword/oldlaunchcontrol/image/actualstillpending.",
+  "source_sha256": {
+    "track-c/.speed-demon.toml": "3371600b8033a377bc373378e703191dfec36c1ae991b617650dfa480edc00b4",
+    "track-c/Dockerfile": "637e81c6fca4507f4c4e7368efde7b6904d07879ae9ec992c5e25175d50e1fae",
+    "track-c/PERF.md": "8f02889524feb40625b5c95f3814da4b16ca531612fc62ad4f474791b25e6ca6",
+    "track-c/README.md": "6a64233dcbf8967678d87f403c99969067f468ee5066b0f172751f437cccb841",
+    "track-c/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+    "track-c/main.cpp": "2f65c0de24b9a1451c9b05a129b6cd68afbfafb2e6ad9fb2598c071490c9bd24",
+    "track-c/names.hpp": "75c2223ae1498d5a2e3e7819c2c30f8f221ef1a57f95f288f579c418afc27417",
+    "track-c/parallel.hpp": "58856be72eb455db43f2538015a7c9c9de070fe6d87d5e6738e233ff2e90c228",
+    "track-c/quote_scan.hpp": "0b170a766254dee1bc14f9e9180cc1900da01d41f5d09053d5579e01a7fb9cfa",
+    "track-c/training_generator.py": "9e61672eb814fa4e1bc2e3cf30c8e7ca9629804191ce5ae60a66c8b61ba704f2"
+  },
+  "model_files_sha256": {
+    "queue_model.cpp": "d1704ec09bc9e214ba219f4975c87c9f9a087e6e1c16db8ba9e09ab33db94f24",
+    "cancel_body.inc": "c0c73e8c6e55c718893885c3ac2ed412406734262a51fadc8fa7ace3e267f437",
+    "startup_failure_model.cpp": "021ab392d198a35900b2f3eeaa0117655759439cc19cb48ed8f40b3097bf0f2e"
+  },
+  "retained_plain_startup_fault_proof": {
+    "report": ".build/round356/native-proof/report.json",
+    "report_sha256": "d738d38520047e270384612ce789dbf33a5cd7b69dab46c20e5e9d497c9b3dad",
+    "mode": {
+      "mode": "plain-allocation-failures",
+      "returncode": 0,
+      "stdout": "PASS356 actual parallel allocation/thread startup cancellation before join 72 cases allocation_failures=53; test-only fault interposition, never production image\n",
+      "stderr": "",
+      "binary_sha256": "b3fd3a64090d1292405c3ff6672ef7beac7fb6a145803bc410c019581e9f5eb3",
+      "scope": "ActualC-onlyparallel helper; globaloperatornew faultinjection onlyinthismodel. No sanitizer/failurecertificate or productionhook.",
+      "passed": true
+    },
+    "dependency_closure_sha256": {
+      "source/track-c/parallel.hpp": "58856be72eb455db43f2538015a7c9c9de070fe6d87d5e6738e233ff2e90c228",
+      "source/track-c/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+      "startup_failure_model.cpp": "021ab392d198a35900b2f3eeaa0117655759439cc19cb48ed8f40b3097bf0f2e"
+    }
+  },
+  "compiles": [
+    {
+      "label": "asan-queue-model",
+      "command": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-pthread",
+        "-fno-omit-frame-pointer",
+        "-fsanitize=address,undefined",
+        "-fno-sanitize-recover=all",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round357/queue_model.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round357/native-proof/asan/queue-model"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "binary_sha256": "6785833806a8c1b42a362d057c298357ad9662bc3b11fe823682b18d1d5b1dd4"
+    },
+    {
+      "label": "asan-main",
+      "command": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-pthread",
+        "-fno-omit-frame-pointer",
+        "-fsanitize=address,undefined",
+        "-fno-sanitize-recover=all",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round357/source/track-c/main.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round357/native-proof/asan/track-c"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "binary_sha256": "ba6b090c2e223953b3bf85f68bad8694678260759c0ff0f3162e0165a9d97c0e"
+    },
+    {
+      "label": "tsan-queue-model",
+      "command": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-pthread",
+        "-fno-omit-frame-pointer",
+        "-fsanitize=thread",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round357/queue_model.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round357/native-proof/tsan/queue-model"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "binary_sha256": "74769b3cc39a796203e3045770a9c8d953ccee26b6aa2e7acb152782e553ba78"
+    },
+    {
+      "label": "tsan-main",
+      "command": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-pthread",
+        "-fno-omit-frame-pointer",
+        "-fsanitize=thread",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round357/source/track-c/main.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round357/native-proof/tsan/track-c"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "binary_sha256": "9a6f0e76da8e658999d605052039bbcdb45a23faa5e84e09e4ed6782c10684d5"
+    }
+  ],
+  "models": [
+    {
+      "mode": "asan",
+      "returncode": 0,
+      "stdout": "PASS357 actual queue/owner epoch/extracted cancellation, ordered batch EOF/all2..12 roles, blocked producer, sticky terminal CAS, active consumer, simultaneous cancel, before/after stamp, uint64 wrap seam and actual send/cancel races 2919 checks\n",
+      "stderr": "",
+      "binary_sha256": "6785833806a8c1b42a362d057c298357ad9662bc3b11fe823682b18d1d5b1dd4",
+      "passed": true
+    },
+    {
+      "mode": "tsan",
+      "returncode": 0,
+      "stdout": "PASS357 actual queue/owner epoch/extracted cancellation, ordered batch EOF/all2..12 roles, blocked producer, sticky terminal CAS, active consumer, simultaneous cancel, before/after stamp, uint64 wrap seam and actual send/cancel races 2919 checks\n",
+      "stderr": "",
+      "binary_sha256": "74769b3cc39a796203e3045770a9c8d953ccee26b6aa2e7acb152782e553ba78",
+      "passed": true
+    }
+  ],
+  "matrices": [
+    {
+      "mode": "asan",
+      "path": ".build/round357/native-proof/asan/matrix.json",
+      "sha256": "0e4d84c4369b7f812c49bc36dd1ef5d738b85b9f6f237c8b07097740d01e8acf",
+      "valid_calls": 411,
+      "normal_errors": 30
+    },
+    {
+      "mode": "tsan",
+      "path": ".build/round357/native-proof/tsan/matrix.json",
+      "sha256": "8b62ed58639869cc06af902c8ffbbd3cfbda2ff7aee68e6a0e01c736135545da",
+      "valid_calls": 396,
+      "normal_errors": 30
+    }
+  ],
+  "passed": true,
+  "completed_at_utc": "2026-11-02T05:54:24.899524+00:00"
+}

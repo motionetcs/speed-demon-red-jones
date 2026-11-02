@@ -171,7 +171,12 @@ int main(int argc, char** argv) {
         std::vector<Local> locals(readers);for(auto& local:locals)local.groups=groups;
         std::vector<std::vector<uint64_t>> distinct(owners,std::vector<uint64_t>(groups.size()));
         auto queues=std::make_unique<NameQueue[]>(size_t(readers)*owners);
-        std::atomic<bool> canceled{false};
+        std::atomic<bool> canceled{false};auto wakes=std::make_unique<NameWake[]>(owners);
+        auto cancel_pipeline=[&]() noexcept {
+            canceled.store(true,std::memory_order_release);
+            for(size_t i=0;i<size_t(readers)*owners;++i)queues[i].cancel();
+            for(unsigned i=0;i<owners;++i)wakes[i].signal();
+        };
         auto consume=[&]<typename Code>(const std::vector<Code>& region_lookup){
             constexpr Code no_region=std::numeric_limits<Code>::max();
             parallel(threads,[&](unsigned worker){
@@ -194,27 +199,32 @@ int main(int argc, char** argv) {
                             if(!owners){group.names+=serial->first(name.value,country,hash);continue;}
                             unsigned owner=hash%owners;NameEvent event{name.value,hash,static_cast<uint16_t>(country)};
                             auto& batch=batches[owner];batch.push_back(std::move(event));
-                            if(batch.size()==NAME_BATCH)queues[size_t(worker)*owners+owner].send(batch,canceled);
+                            if(batch.size()==NAME_BATCH)queues[size_t(worker)*owners+owner].send(batch,canceled,wakes[owner]);
                         }
                         // An empty published batch is the ordered end-of-stream marker.
-                        for(unsigned owner=0;owner<owners;++owner){auto& batch=batches[owner];auto& queue=queues[size_t(worker)*owners+owner];if(!batch.empty())queue.send(batch,canceled);queue.send(batch,canceled);}
+                        for(unsigned owner=0;owner<owners;++owner){auto& batch=batches[owner];auto& queue=queues[size_t(worker)*owners+owner];if(!batch.empty())queue.send(batch,canceled,wakes[owner]);queue.send(batch,canceled,wakes[owner]);}
                     }else{
                         unsigned owner=worker-readers;Names names(groups.size());std::array<bool,12> finished{};unsigned remaining=readers;
                         while(remaining){
-                            if(canceled.load(std::memory_order_relaxed))throw std::runtime_error("name pipeline canceled");
+                            uint32_t stamp=wakes[owner].epoch.load(std::memory_order_acquire);
+                            if(canceled.load(std::memory_order_acquire))throw std::runtime_error("name pipeline canceled");
                             bool progress=false;
                             for(unsigned reader=0;reader<readers;++reader){
-                                if(finished[reader])continue;auto& queue=queues[size_t(reader)*owners+owner];
-                                if(!queue.ready.load(std::memory_order_acquire))continue;progress=true;
+                                if(finished[reader])continue;
+                                auto& queue=queues[size_t(reader)*owners+owner];
+                                unsigned state=queue.state.load(std::memory_order_acquire);
+                                if(state==2)throw std::runtime_error("name pipeline canceled");
+                                if(state!=1)continue;
+                                progress=true;
                                 if(queue.rows.empty()){finished[reader]=true;--remaining;}
                                 else for(const auto& e:queue.rows)distinct[owner][e.country]+=names.first(e.value(),e.country,e.hash);
-                                queue.rows.clear();queue.ready.store(false,std::memory_order_release);
+                                queue.rows.clear();queue.retire();
                             }
-                            if(!progress)std::this_thread::yield();
+                            if(!progress&&remaining)wakes[owner].epoch.wait(stamp,std::memory_order_acquire);
                         }
                     }
-                }catch(...){canceled.store(true,std::memory_order_relaxed);throw;}
-            });
+                }catch(...){cancel_pipeline();throw;}
+            },cancel_pipeline);
         };
         if(narrow_lookup.empty())consume(lookup);else consume(narrow_lookup);
         for(const auto& local:locals)for(size_t i=0;i<groups.size();++i){auto& group=groups[i];const auto& value=local.groups[i];group.count+=value.count;group.ids+=value.ids;group.sum+=value.sum;group.minimum=std::min(group.minimum,value.minimum);group.maximum=std::max(group.maximum,value.maximum);group.names+=value.names;group.name_bytes+=value.name_bytes;group.note_bytes+=value.note_bytes;}

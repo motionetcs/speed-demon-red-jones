@@ -1,0 +1,18 @@
+from pathlib import Path
+import datetime,hashlib,json,os,re,statistics,subprocess,time
+r=Path.cwd();w=r/'.build/round356';out=w/'fresh-confirmation';assert not out.exists();out.mkdir()
+def read(p):return json.loads(Path(p).read_text())
+def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def dump(p,x):p.write_text(json.dumps(x,indent=2)+'\n')
+pre=read(w/'preflight.json');screen=read(w/'confirmation/report.json');native=read(w/'native-proof/report.json');ref=read(r/'docs/round356-c-asan-fresh-full.json');assert screen['passed']and native['passed']and ref['passed'];row=next(x for x in ref['checks']if x['case']=='full-seed3623');data=r/'.data/c/full-seed3623';inputs={p.name:sha(p)for p in data.iterdir()if p.is_file()};expected=row['reference_sha256'];bins={'control':Path(pre['control_binary']),'candidate':w/'track-c-bin'};assert{k:sha(p)for k,p in bins.items()}==screen['binary_sha256'];report={'started_at_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'official_score':False,'selected_in_root':False,'scope':'Fresh independentlygenerated/officialreference full3623 confirmation of exact356optimizedsource, existingbinary/control only, no recompilation/generation/oracle/PGO repetition. NativeApple wall/RSS notIntel or chargedM/score.','case':'full-seed3623','data_folder':str(data.relative_to(r)),'inputs_sha256':inputs,'expected_sha256':expected,'binary_sha256':screen['binary_sha256'],'source_sha256':pre['source_sha256'],'runs':[]}
+def run(label,threads,n):
+ dest=out/f'{label}-{threads}-{n}';dest.mkdir();metrics=dest/'time.txt';start=time.perf_counter();q=subprocess.run(['/usr/bin/time','-l','-o',str(metrics),str(bins[label]),'--data',str(data),'--out',str(dest)],capture_output=True,text=True,env=dict(os.environ,SPEED_DEMON_THREADS=str(threads)),timeout=180);elapsed=time.perf_counter()-start;assert q.returncode==0 and not q.stdout and not q.stderr,(label,q.returncode,q.stderr);assert sorted(p.name for p in dest.iterdir())==['aggregates.txt','time.txt'];actual=sha(dest/'aggregates.txt');assert actual==expected;row={'variant':label,'threads':threads,'round':n,'elapsed_seconds_including_launch_and_time':elapsed,'native_process_rss_bytes':int(re.search(r'(\d+)\s+maximum resident set size',metrics.read_text())[1]),'sha256':actual};report['runs'].append(row);dump(out/'partial.json',report);return row
+for t in [1,6,12]:
+ for label in bins:run(label,t,-2)
+for label in bins:run(label,12,-1)
+ratios=[]
+for n in range(13):
+ order=['control','candidate']if n%2==0 else['candidate','control'];pair={label:run(label,12,n)for label in order};ratios.append(pair['candidate']['elapsed_seconds_including_launch_and_time']/pair['control']['elapsed_seconds_including_launch_and_time'])
+for p,h in pre['source_sha256'].items():assert sha(w/'source'/p)==h,p
+for p,h in pre['root_selected_bindings'].items():assert sha(r/p)==h,p
+assert inputs=={p.name:sha(p)for p in data.iterdir()if p.is_file()}and{k:sha(p)for k,p in bins.items()}==screen['binary_sha256'];summary={'paired_median_ratio':statistics.median(ratios),'paired_wins':sum(x<1 for x in ratios),'variants':{label:{'median_elapsed_seconds':statistics.median(x['elapsed_seconds_including_launch_and_time']for x in report['runs']if x['variant']==label and x['round']>=0),'median_native_rss_bytes':statistics.median(x['native_process_rss_bytes']for x in report['runs']if x['variant']==label and x['round']>=0)}for label in bins}};report.update(passed=True,completed_at_utc=datetime.datetime.now(datetime.timezone.utc).isoformat(),summary=summary);dump(out/'report.json',report);dump(r/'docs/round356-c-fresh-confirmation.json',report);print('PASS356 freshfull3623',json.dumps(summary),flush=True)

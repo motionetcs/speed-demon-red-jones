@@ -1,0 +1,63 @@
+{
+  "round": 354,
+  "source_parent": "781f2ea889c110b470720000729c7eedfadc67af",
+  "official_score": false,
+  "selected_in_root_for_trial_only": false,
+  "decision": "SUPERSEDED_BEFORE_STRICT_GNU_IMAGE_OR_BOARD: initial64epoch prototype had preexisting startup-join gap; revised356 before model compilation.",
+  "scope": "C354 standardC++20 wait/notify ONLY at boundedSPSC batch boundaries. Producers wait on fullstate1; owners captureperowneruint64epoch BEFORE cancellationcheck/queue scans and waitonunchangedepoch onlyafterallchannelsidle. Publishsignalsowner; retirementnotifiesproducer. Queue states0empty/1full/2STICKYcancel, publicationCAS0->1 andretireCAS1->0 canNEVERoverwrite2. Cancelrelease setsglobaltrue, cancelsALLqueues withvaluechange+notifyall, then incrementsALLownerepochs; no reset-to-empty cancellation race/lostwake. Onlyoneproducer/consumer ofeachvector; no produceraccess afterobserving2, currentconsumer mayfinishbatchbeforejoining. ExistingexactNames/512batch/EOF/order/readers8+owners4/default12/serial1/parser/country/fullwidth/PGO/flags stay. Runtimewakeepochs are ordinarysyncstate, not board/harnesscounters. Hypothesis reduceOSyieldpolling/SMTresourcecontention atpossibleblocking/extraCAS/notifycost; nativeApple stdlib differsfromLinux, no targetgainclaim. Fullfreshmodel requiredforpostcheck/prepublish/prewait/activeconsume/cancel/EOF/failures/everytopology/epochwrap/ordering/ownership/race/failfaststrict/untrained/pinnedGCC/exactimage/default/Make beforepromotion. No seed/catalogue/outputcache/harness/host/affinity/counter/tunable/defaultbudget/exemption changes.",
+  "screen_summary": {
+    "public-full-seed1": {
+      "paired_median_ratio": 0.8403576422147389,
+      "paired_wins": 9,
+      "native_rss_delta_bytes": -16384
+    },
+    "full-seed2203": {
+      "paired_median_ratio": 0.8879015159373987,
+      "paired_wins": 8,
+      "native_rss_delta_bytes": -49152
+    },
+    "full-seed2309": {
+      "paired_median_ratio": 0.8392994084923505,
+      "paired_wins": 13,
+      "native_rss_delta_bytes": 16384
+    },
+    "full-seed2371": {
+      "paired_median_ratio": 0.8886072979295652,
+      "paired_wins": 8,
+      "native_rss_delta_bytes": 0
+    }
+  },
+  "screen_call_count": 118,
+  "patches": [
+    {
+      "path": "docs/prototype-patches/round354-main.cpp.patch",
+      "sha256": "631b633ec51754f4a08592f79756de523dcf44a40645c4efbb03b116b12a76ff"
+    },
+    {
+      "path": "docs/prototype-patches/round354-names.hpp.patch",
+      "sha256": "f2d56c4a75d9eca3030f26c16db085f6a4992234399868b1b9a827cca297b1b7"
+    }
+  ],
+  "reconstruction": {
+    "passed": true,
+    "all_frozen_files_match": true,
+    "file_count": 10
+  },
+  "archive_files_sha256": {
+    "tools/round354-proof/screen.py": "4663a009ecbbf4eff5024267ae36ea1c4d1e24f69043ef76fa1afffa5a443745",
+    "tools/round354-proof/prepare-recovery.json": "16aff4c1fc918a841c60ec121587cbc184d65c7a2ca760e7f59421c237cebd4f",
+    "tools/round354-proof/README.md": "1c34d2bec84a6c41964b0ad7a04093241a189699888a45908f1ab459a4a342c5",
+    "tools/round354-proof/cancel_body.inc": "a84e90d8865f3615164512f9bb474b3a0a0b1425b2cc10601d9da7316d017ee2",
+    "tools/round354-proof/base-c-PERF.md": "8f02889524feb40625b5c95f3814da4b16ca531612fc62ad4f474791b25e6ca6",
+    "tools/round354-proof/proof-manifest.json": "e203572724468f215a0f31fda914842f7cc0cdabb873183c54fab2b2f22171cd",
+    "tools/round354-proof/preflight.json": "9e074e410bbd6dd7bc5313de9362634cf18c2e9fdf38777e1bda5a6f0179677f",
+    "tools/round354-proof/prepare.py": "f4e6d0343e866e500e83a6f3439bca2b7ac3ce3e925885ab21d3b65bb7818d71",
+    "tools/round354-proof/screen-report.json": "29b5b1419ef114ca4a8f2ec500a19290e5514296673f679f759191658abee1df",
+    "tools/round354-proof/queue_model.cpp": "35c00286e1d962c8109da3817c7a9c0f97dea692cb516a4b23d08ae85ac92925",
+    "tools/round354-proof/compile.json": "d3d30ed02b7b0b06382b8f8bd024048882b6d068abd9088c20c4d7bc89c69867",
+    "tools/round354-proof/prepare_proof.py": "5aef53bfcff15481522100ebf199babf2921133aa15c440521518fa84946c12b",
+    "tools/round354-proof/initial-prepare-failed/executed-prepare.py": "1b48a7ed014628374c0f31a8f5866155939ebf675985f99fc5f66dfdc1fc1cf9",
+    "tools/round354-proof/initial-prepare-failed/failure.json": "16aff4c1fc918a841c60ec121587cbc184d65c7a2ca760e7f59421c237cebd4f"
+  },
+  "limitations": "Native Apple timings/RSS and emulated Linux correctness are not Intel timing, charged memory, organizer ELF, causal improvement, eligibility or final holdout guarantees. Saved data/reference bytes reused only by hash; no cached production answers. No host/harness/counter/identity manipulation."
+}

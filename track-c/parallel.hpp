@@ -14,13 +14,15 @@ inline unsigned worker_count() {
     return 12;
 }
 
-template<class Function> void parallel(unsigned count, Function function) {
+template<class Function,class Cancel> void parallel(unsigned count, Function function,Cancel cancel) {
+    static_assert(noexcept(cancel()),"parallel cancellation must not throw");
     std::array<std::exception_ptr, 12> errors;
     auto run = [&](unsigned i) {
         try { function(i); } catch (...) { errors[i] = std::current_exception(); }
     };
     std::vector<std::jthread> workers;
-    for (unsigned i = 1; i < count; ++i) workers.emplace_back(run, i);
+    try { for (unsigned i = 1; i < count; ++i) workers.emplace_back(run, i); }
+    catch (...) { cancel(); throw; }
     run(0);
     workers.clear();
     for (unsigned i = 0; i < count; ++i) if (errors[i]) std::rethrow_exception(errors[i]);

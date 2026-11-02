@@ -1,0 +1,94 @@
+--- a/track-a/main.cpp
++++ b/track-a/main.cpp
+@@ -11,6 +11,19 @@
+ static constexpr uint32_t latency_escape = (1U << 19) - 1;
+ using Records=std::vector<uint32_t,MappedAllocator<uint32_t>>;
+ struct Count { uint32_t count = 0, errors = 0; };
++
++// The high twelve bits select the endpoint; the low nineteen order exact tags.
++static void radix_hour(std::vector<uint32_t>& values, std::vector<uint32_t>& scratch) {
++    scratch.resize(values.size());
++    for (unsigned shift : {0U, 11U, 22U}) {
++        std::array<uint32_t, 2048> positions{};
++        for (uint32_t value : values) ++positions[(value >> shift) & 2047];
++        uint32_t prefix = 0;
++        for (auto& position : positions) { uint32_t count = position; position = prefix; prefix += count; }
++        for (uint32_t value : values) scratch[positions[(value >> shift) & 2047]++] = value;
++        values.swap(scratch);
++    }
++}
+ 
+ int main(int argc, char** argv) {
+     try {
+@@ -74,43 +87,52 @@
+         std::atomic<unsigned> next_hour{0};
+         parallel(threads, [&](unsigned) {
+             std::vector<Count> groups(paths.size());
+-            std::vector<uint32_t> offsets(paths.size()), cursor(paths.size()), latencies;
++            std::vector<uint32_t> offsets(paths.size()), wide_counts(paths.size()), wide_offsets(paths.size()), keys, scratch;
++            std::vector<uint64_t> escapes;
+             for (;;) {
+                 unsigned hour = next_hour.fetch_add(1, std::memory_order_relaxed); if (hour >= 72) return;
+                 std::fill(groups.begin(), groups.end(), Count{});
++                std::fill(wide_counts.begin(), wide_counts.end(), uint32_t(0));
++                escapes.clear();
+                 size_t count = 0; uint32_t first_line = UINT32_MAX;
+                 for (const auto& chunk : chunks) {
+                     count += chunk.records[hour].size(); first_line = std::min(first_line, chunk.first[hour]);
+-                    for (uint32_t record : chunk.records[hour]) { auto& group = groups[record & 4095]; ++group.count; group.errors += (record >> 12) & 1; }
+                 }
+-                if(!count){writer.publish(hour);continue;}
+-                uint32_t offset = 0;
+-                for (uint16_t key : order) { cursor[key] = offsets[key] = offset; offset += groups[key].count; }
+-                latencies.resize(count);
++                if (!count) { writer.publish(hour); continue; }
++                keys.resize(count); size_t next = 0;
+                 for (auto& chunk : chunks) {
+                     size_t wide = 0;
+                     for (uint32_t record : chunk.records[hour]) {
+-                        uint32_t latency = record >> 13;
+-                        if (latency == latency_escape) latency = chunk.wide[hour][wide++];
+-                        latencies[cursor[record & 4095]++] = latency;
++                        uint32_t key = record & 4095, latency = record >> 13;
++                        auto& group = groups[key]; ++group.count; group.errors += (record >> 12) & 1;
++                        keys[next++] = (key << 19) | latency;
++                        if (latency == latency_escape) {
++                            escapes.push_back((uint64_t(key) << 32) | chunk.wide[hour][wide++]);
++                            ++wide_counts[key];
++                        }
+                     }
+                     Records().swap(chunk.records[hour]); std::vector<uint32_t>().swap(chunk.wide[hour]);
+                 }
++                uint32_t offset = 0, wide_offset = 0;
++                for (size_t key = 0; key < paths.size(); ++key) {
++                    offsets[key] = offset; offset += groups[key].count;
++                    wide_offsets[key] = wide_offset; wide_offset += wide_counts[key];
++                }
++                radix_hour(keys, scratch);
++                std::sort(escapes.begin(), escapes.end());
+                 std::string label = std::string(file.data + first_line, 13) + ":00:00Z";
+                 auto& out = writer.hours[hour]; out.bytes.reserve(order.size() * 100);
+                 for (uint16_t key : order) {
+                     uint64_t n = groups[key].count, errors = groups[key].errors; if (!n) continue;
+-                    auto first = latencies.begin() + offsets[key];
+-                    if (n < 32) std::sort(first, first + n);
+-                    else {
+-                        size_t unselected = 0;
+-                        for (uint64_t percentile : {50, 95, 99}) {
+-                            size_t rank = (percentile * n + 99) / 100 - 1;
+-                            if (rank >= unselected) { std::nth_element(first + unselected, first + rank, first + n); unselected = rank + 1; }
+-                        }
+-                    }
++                    auto quantile = [&](uint64_t percentile) -> uint32_t {
++                        size_t rank = (percentile * n + 99) / 100 - 1;
++                        uint32_t latency = keys[offsets[key] + rank] & latency_escape;
++                        if (latency < latency_escape) return latency;
++                        size_t wide_rank = rank - (n - wide_counts[key]);
++                        return static_cast<uint32_t>(escapes[wide_offsets[key] + wide_rank]);
++                    };
+                     out.text(label); out.text(" "); out.text(paths[key]);
+-                    for (uint64_t value : {n, uint64_t(first[(50 * n + 99) / 100 - 1]), uint64_t(first[(95 * n + 99) / 100 - 1]), uint64_t(first[(99 * n + 99) / 100 - 1]), errors, errors * 1000000 / n}) { out.text(" "); out.number(static_cast<int64_t>(value)); }
++                    for (uint64_t value : {n, uint64_t(quantile(50)), uint64_t(quantile(95)), uint64_t(quantile(99)), errors, errors * 1000000 / n}) { out.text(" "); out.number(static_cast<int64_t>(value)); }
+                     out.text("\n");
+                 }
+                 writer.publish(hour);

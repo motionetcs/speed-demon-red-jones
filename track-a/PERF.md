@@ -675,3 +675,9 @@ Original344/4ded5cfb7095ed0c616cdedeb5986704375e2485, run-6c3cf9fec3c5, passes e
 
 
 350 fixed width8/16/32bitonic fulluint32 network for n5..31 is REJECT_NATIVE_ONLY:1.000004/1.026821/.996326(6/4/7wins), RSSnearflat,15helperlines. Allpublic1/6/12 and13rotating fullreferences input/output/source/ELF hashesPASS; no broader independent/strict/race/untrained/GCC/image/default/actual proof, selectedruntime or officialgain. Exactreconstruction/executeddrivers/patches/scope: ../docs/round349-351-screen-index.json.
+
+
+Original353/781f2ea889c110b470720000729c7eedfadc67af, run-d2118e989284, allactualgatesPASS aftercompleteC352rollback: T0.042726/M21000192/S497/K31.80242/75.123008. Lower unchangedsource repeat; bestunchanged andnotnewalgorithm/causalregression/gain. ExactoriginalA178/C175/D334 source30/Make/README/fullsets/Git/submitted353/original344/bestcomponents/localimages in ../docs/round353-final-source-match.json. CurrentD334image2f14retained. Raw ../docs/board-round353-original-restored.json; originalCimage8freshpublic/untrained3607/default calls andcachedMake/native12PASS withoutnewcompiler/PGO.
+
+
+Round355: REJECT_NATIVE_ONLY: weak/mixed A whole-hour radix time plus3.1–3.5MB nativeRSS; no new broad/rank/escape/strict/race/GNU/image/board proof. Paired screen {"full-seed1951": {"native_rss_delta_bytes": 3506176, "paired_median_ratio": 1.0021749042192536, "paired_wins": 6}, "full-seed2221": {"native_rss_delta_bytes": 3129344, "paired_median_ratio": 0.9636298196769442, "paired_wins": 11}, "public-full-seed1": {"native_rss_delta_bytes": 3096576, "paired_median_ratio": 0.981935252541836, "paired_wins": 8}}. Exact recovered execution record, frozen source reconstruction and driver: docs/round355-proof-archive.json. No production change/official gain.

@@ -675,3 +675,6 @@ Original344/4ded5cfb7095ed0c616cdedeb5986704375e2485, run-8814ff4db4b8, passes e
 
 
 351128byte/filtermap wrapsONLY full64fallback misses, marksONLYsuccessfulwideinserts, originalpackedupdatesunchanged. REJECT_NATIVE_ONLY:1.004330/1.002983/.982436(5/6/9wins), RSSmixed; newactualheader falsenegative/reset/grow/fullID/Floyd/strict/race proofs notperformed. Old13globalnegativefilter proof NOTtransferred. Read-only241prune/185overwrite-arrayduplicates stoppedbefore newcode. Allpublic1/6/12 and13rotating fullreferences input/output/source/ELF hashesPASS; no broader independent/strict/race/untrained/GCC/image/default/actual proof, selectedruntime or officialgain. Exactreconstruction/executeddrivers/patches/scope: ../docs/round349-351-screen-index.json.
+
+
+Original353/781f2ea889c110b470720000729c7eedfadc67af, run-a38b3bbdf626, allactualgatesPASS aftercompleteC352rollback: T0.200089/M70717440/S885/K20.108016/65.168461. Lower unchangedsource repeat; bestunchanged andnotnewalgorithm/causalregression/gain. ExactoriginalA178/C175/D334 source30/Make/README/fullsets/Git/submitted353/original344/bestcomponents/localimages in ../docs/round353-final-source-match.json. CurrentD334image2f14retained. Raw ../docs/board-round353-original-restored.json; originalCimage8freshpublic/untrained3607/default calls andcachedMake/native12PASS withoutnewcompiler/PGO.

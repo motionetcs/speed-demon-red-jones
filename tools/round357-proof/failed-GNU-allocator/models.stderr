@@ -1,0 +1,34 @@
+In function 'void operator delete(void*, size_t)',
+    inlined from 'void std::__new_allocator<_Tp>::deallocate(_Tp*, size_type) [with _Tp = std::jthread]' at /usr/local/include/c++/15.3.0/bits/new_allocator.h:172:59,
+    inlined from 'constexpr void std::allocator< <template-parameter-1-1> >::deallocate(_Tp*, std::size_t) [with _Tp = std::jthread]' at /usr/local/include/c++/15.3.0/bits/allocator.h:215:35,
+    inlined from 'static constexpr void std::allocator_traits<std::allocator<_CharT> >::deallocate(allocator_type&, pointer, size_type) [with _Tp = std::jthread]' at /usr/local/include/c++/15.3.0/bits/alloc_traits.h:649:23,
+    inlined from 'constexpr void std::_Vector_base<_Tp, _Alloc>::_M_deallocate(pointer, std::size_t) [with _Tp = std::jthread; _Alloc = std::allocator<std::jthread>]' at /usr/local/include/c++/15.3.0/bits/stl_vector.h:396:19,
+    inlined from 'constexpr std::vector<_Tp, _Alloc>::_Guard_alloc::~_Guard_alloc() [with _Tp = std::jthread; _Alloc = std::allocator<std::jthread>]' at /usr/local/include/c++/15.3.0/bits/stl_vector.h:1883:27,
+    inlined from 'constexpr void std::vector<_Tp, _Alloc>::_M_realloc_append(_Args&& ...) [with _Args = {parallel<trial(unsigned int, int, int)::<lambda(unsigned int)>, trial(unsigned int, int, int)::<lambda()> >(unsigned int, trial(unsigned int, int, int)::<lambda(unsigned int)>, trial(unsigned int, int, int)::<lambda()>)::<lambda(unsigned int)>&, unsigned int&}; _Tp = std::jthread; _Alloc = std::allocator<std::jthread>]' at /usr/local/include/c++/15.3.0/bits/vector.tcc:640:7,
+    inlined from 'constexpr std::vector<_Tp, _Alloc>::reference std::vector<_Tp, _Alloc>::emplace_back(_Args&& ...) [with _Args = {parallel<trial(unsigned int, int, int)::<lambda(unsigned int)>, trial(unsigned int, int, int)::<lambda()> >(unsigned int, trial(unsigned int, int, int)::<lambda(unsigned int)>, trial(unsigned int, int, int)::<lambda()>)::<lambda(unsigned int)>&, unsigned int&}; _Tp = std::jthread; _Alloc = std::allocator<std::jthread>]' at /usr/local/include/c++/15.3.0/bits/vector.tcc:123:21,
+    inlined from 'void parallel(unsigned int, Function, Cancel) [with Function = trial(unsigned int, int, int)::<lambda(unsigned int)>; Cancel = trial(unsigned int, int, int)::<lambda()>]' at /repo/.build/round357/source/track-c/parallel.hpp:24:68,
+    inlined from 'void trial(unsigned int, int, int)' at /repo/.build/round357/startup_failure_model_gcc.cpp:57:17:
+/repo/.build/round357/startup_failure_model_gcc.cpp:28:55: error: 'void free(void*)' called on pointer returned from a mismatched allocation function [-Werror=mismatched-new-delete]
+   28 | void operator delete(void* p,size_t)noexcept{std::free(p);}
+      |                                              ~~~~~~~~~^~~
+In file included from /usr/local/include/c++/15.3.0/x86_64-linux-gnu/bits/c++allocator.h:33,
+                 from /usr/local/include/c++/15.3.0/bits/allocator.h:46,
+                 from /usr/local/include/c++/15.3.0/string:45,
+                 from /usr/local/include/c++/15.3.0/stdexcept:41,
+                 from /usr/local/include/c++/15.3.0/system_error:45,
+                 from /usr/local/include/c++/15.3.0/bits/fs_fwd.h:35,
+                 from /usr/local/include/c++/15.3.0/filesystem:53,
+                 from /repo/.build/round357/source/track-c/io.hpp:7,
+                 from /repo/.build/round357/startup_failure_model_gcc.cpp:1:
+In member function '_Tp* std::__new_allocator<_Tp>::allocate(size_type, const void*) [with _Tp = std::jthread]',
+    inlined from 'constexpr _Tp* std::allocator< <template-parameter-1-1> >::allocate(std::size_t) [with _Tp = std::jthread]' at /usr/local/include/c++/15.3.0/bits/allocator.h:203:40,
+    inlined from 'static constexpr _Tp* std::allocator_traits<std::allocator<_CharT> >::allocate(allocator_type&, size_type) [with _Tp = std::jthread]' at /usr/local/include/c++/15.3.0/bits/alloc_traits.h:614:28,
+    inlined from 'constexpr std::_Vector_base<_Tp, _Alloc>::pointer std::_Vector_base<_Tp, _Alloc>::_M_allocate(std::size_t) [with _Tp = std::jthread; _Alloc = std::allocator<std::jthread>]' at /usr/local/include/c++/15.3.0/bits/stl_vector.h:387:33,
+    inlined from 'constexpr void std::vector<_Tp, _Alloc>::_M_realloc_append(_Args&& ...) [with _Args = {parallel<trial(unsigned int, int, int)::<lambda(unsigned int)>, trial(unsigned int, int, int)::<lambda()> >(unsigned int, trial(unsigned int, int, int)::<lambda(unsigned int)>, trial(unsigned int, int, int)::<lambda()>)::<lambda(unsigned int)>&, unsigned int&}; _Tp = std::jthread; _Alloc = std::allocator<std::jthread>]' at /usr/local/include/c++/15.3.0/bits/vector.tcc:572:44,
+    inlined from 'constexpr std::vector<_Tp, _Alloc>::reference std::vector<_Tp, _Alloc>::emplace_back(_Args&& ...) [with _Args = {parallel<trial(unsigned int, int, int)::<lambda(unsigned int)>, trial(unsigned int, int, int)::<lambda()> >(unsigned int, trial(unsigned int, int, int)::<lambda(unsigned int)>, trial(unsigned int, int, int)::<lambda()>)::<lambda(unsigned int)>&, unsigned int&}; _Tp = std::jthread; _Alloc = std::allocator<std::jthread>]' at /usr/local/include/c++/15.3.0/bits/vector.tcc:123:21,
+    inlined from 'void parallel(unsigned int, Function, Cancel) [with Function = trial(unsigned int, int, int)::<lambda(unsigned int)>; Cancel = trial(unsigned int, int, int)::<lambda()>]' at /repo/.build/round357/source/track-c/parallel.hpp:24:68,
+    inlined from 'void trial(unsigned int, int, int)' at /repo/.build/round357/startup_failure_model_gcc.cpp:57:17:
+/usr/local/include/c++/15.3.0/bits/new_allocator.h:151:73: note: returned from 'void* operator new(size_t)'
+  151 |         return static_cast<_Tp*>(_GLIBCXX_OPERATOR_NEW(__n * sizeof(_Tp)));
+      |                                                                         ^
+cc1plus: all warnings being treated as errors

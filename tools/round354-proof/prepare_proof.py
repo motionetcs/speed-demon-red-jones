@@ -1,0 +1,10 @@
+from pathlib import Path
+import datetime,hashlib,json,shutil
+r=Path.cwd();w=r/'.build/round354';pre=json.loads((w/'preflight.json').read_text());assert json.loads((w/'confirmation/report.json').read_text())['passed']
+def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+for p,h in pre['source_sha256'].items():assert sha(w/'source'/p)==h,p
+for p,h in pre['root_selected_bindings'].items():assert sha(r/p)==h,p
+main=(w/'source/track-c/main.cpp').read_text();a=main.index('        auto cancel_pipeline=[&]{');b=main.index('        };',a)+len('        };');(w/'cancel_body.inc').write_text(main[a:b]+'\n')
+model=r'/private/tmp/speed-demon-queue354.cpp';shutil.copy2(model,w/'queue_model.cpp');files={name:sha(w/name)for name in ['queue_model.cpp','cancel_body.inc']};manifest={'created_at_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'scope':'Fresh actual354NameQueue/NameWake header and EXACT extractedmain cancellationlambda component model. Orderedbatchedtransfer/boundedownership/every2..12 topology/fullpartialEOF, actualblockedproducerretire/cancel, sticky2publication/retireCAS, activeconsumer/cancel, multiplecancelers, idleownerpublication-beforewait andcancellation-before/afterstamp, uint64wrapseam, repeateddirectactualsend/cancelrace. NativefailfastASAN/UBSAN+TSAN; actualCmain fresh3613ASANsample/3617TSANsample/3623ASANfull pluscountry/allworker/topology/pressure/normalerrors/currentfullrefs. No runtimehooks or transformedproductionqueue, no formalexhaustiveness/organizerperformance guarantee.','preflight_sha256':sha(w/'preflight.json'),'source_sha256':pre['source_sha256'],'model_files_sha256':files,'root_selected_bindings':pre['root_selected_bindings'],'new_seed_folders_must_not_exist':['.data/c/sample-seed3613','.data/c/sample-seed3617','.data/c/full-seed3623']}
+for name in manifest['new_seed_folders_must_not_exist']:assert not(r/name).exists(),'Do not regenerateexistinginput'
+(w/'proof-manifest.json').write_text(json.dumps(manifest,indent=2)+'\n');shutil.copy2('/private/tmp/speed-demon-prepare354-proof.py',w/'prepare_proof.py');print(json.dumps({'prepared354model':files,'root_unchanged':True}))
