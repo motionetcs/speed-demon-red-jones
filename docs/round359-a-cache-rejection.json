@@ -1,0 +1,192 @@
+{
+  "observed_at_utc": "2026-11-02T06:23:59.478436+00:00",
+  "passed": true,
+  "official_score": false,
+  "selected_in_root": false,
+  "source_parent": "781f2ea889c110b470720000729c7eedfadc67af",
+  "decision": {
+    "observed_at_utc": "2026-11-02T06:20:21.769489+00:00",
+    "decision": "REJECT_NATIVE_ONLY",
+    "selected_in_root": false,
+    "official_gain": null,
+    "reason": "Same4096x16B two-choice cuckoo cache substantially reduces complete shared-interner fallback counts, but separate production timing is mixed/flat across independent full cases with only modest mixed RSS savings. Extra probing/relocation/source is not supported by a consistent runtime gain. No claimed phase/CPU/charged-memory causality, Intel score or official gain.",
+    "diagnostic_scope": "One unshipped paired-cache observer runs exact original/direct and exact candidate interners on identical actual per-worker parsed inputs with thread-private counters and equal-ID checks. Counters record hits/misses/conflicts/relocations only, not CPU cost or official gain. Shadow doubles cache metadata only in diagnostic, never candidate; no timing/RSS inference from it.",
+    "diagnostic_totals": {
+      "public-full-seed1": {
+        "direct": {
+          "calls": 3100000,
+          "first_hits": 2843108,
+          "second_hits": 0,
+          "short_misses": 256892,
+          "long_fallbacks": 0,
+          "empty_misses": 17688,
+          "conflict_misses": 239204,
+          "relocation_steps": 0,
+          "dropped_entries": 0
+        },
+        "cuckoo": {
+          "calls": 3100000,
+          "first_hits": 2572697,
+          "second_hits": 504553,
+          "short_misses": 22750,
+          "long_fallbacks": 0,
+          "empty_misses": 20673,
+          "conflict_misses": 2077,
+          "relocation_steps": 9526,
+          "dropped_entries": 665
+        }
+      },
+      "full-seed1951": {
+        "direct": {
+          "calls": 3100000,
+          "first_hits": 2880267,
+          "second_hits": 0,
+          "short_misses": 219733,
+          "long_fallbacks": 0,
+          "empty_misses": 17580,
+          "conflict_misses": 202153,
+          "relocation_steps": 0,
+          "dropped_entries": 0
+        },
+        "cuckoo": {
+          "calls": 3100000,
+          "first_hits": 2603443,
+          "second_hits": 473053,
+          "short_misses": 23504,
+          "long_fallbacks": 0,
+          "empty_misses": 20581,
+          "conflict_misses": 2923,
+          "relocation_steps": 15974,
+          "dropped_entries": 1437
+        }
+      },
+      "full-seed2221": {
+        "direct": {
+          "calls": 3100000,
+          "first_hits": 2894735,
+          "second_hits": 0,
+          "short_misses": 205265,
+          "long_fallbacks": 0,
+          "empty_misses": 18024,
+          "conflict_misses": 187241,
+          "relocation_steps": 0,
+          "dropped_entries": 0
+        },
+        "cuckoo": {
+          "calls": 3100000,
+          "first_hits": 2333800,
+          "second_hits": 743090,
+          "short_misses": 23110,
+          "long_fallbacks": 0,
+          "empty_misses": 20644,
+          "conflict_misses": 2466,
+          "relocation_steps": 12540,
+          "dropped_entries": 1038
+        }
+      }
+    },
+    "production_native_summary": {
+      "public-full-seed1": {
+        "paired_median_ratio": 1.0104515128040783,
+        "paired_wins": 5,
+        "variants": {
+          "control": {
+            "median_elapsed_seconds": 0.03970762499999969,
+            "median_native_rss_bytes": 258981888
+          },
+          "candidate": {
+            "median_elapsed_seconds": 0.04003824999999939,
+            "median_native_rss_bytes": 258670592
+          }
+        }
+      },
+      "full-seed1951": {
+        "paired_median_ratio": 0.9769851943209974,
+        "paired_wins": 8,
+        "variants": {
+          "control": {
+            "median_elapsed_seconds": 0.04083966700000019,
+            "median_native_rss_bytes": 272891904
+          },
+          "candidate": {
+            "median_elapsed_seconds": 0.040671290999999776,
+            "median_native_rss_bytes": 272351232
+          }
+        }
+      },
+      "full-seed2221": {
+        "paired_median_ratio": 1.0068154107803353,
+        "paired_wins": 6,
+        "variants": {
+          "control": {
+            "median_elapsed_seconds": 0.039705709000000144,
+            "median_native_rss_bytes": 252133376
+          },
+          "candidate": {
+            "median_elapsed_seconds": 0.03993833299999938,
+            "median_native_rss_bytes": 252051456
+          }
+        }
+      }
+    },
+    "source_sha256": {
+      "track-a/.speed-demon.toml": "c9ae973186c14661797640f427009129e2a80d1aecefd5d4fa413ee7f3da44d8",
+      "track-a/Dockerfile": "c415bd88f27a18da83c33990744690358b9c158a8b1ea3dc60c289d123f4ff90",
+      "track-a/PERF.md": "6c788af5401097418df08644e96bd495ae5224dcad4adc4046e70ecac3f669cb",
+      "track-a/README.md": "42cdb7309530bef6c9d22f61bd694bc8085ba43bf10bae515e19bd1da29d7b46",
+      "track-a/decimal.hpp": "e6a53e983c0475fe3e49ffe2630a8603f96298b7866e0f4ef3b2ed0f165cb94e",
+      "track-a/endpoint_table.hpp": "98a32101493459a4c94bf0b98fe8bf7040a24a0cdfa03df1586fdfaabdd71a0f",
+      "track-a/io.hpp": "a8838c50064520b806fcd2032cda0e9f246e9d3b6869fb951e3555cd5e8dfead",
+      "track-a/main.cpp": "02661f93bc65fc35d359c80e19d82578968ab68725e8b325e48c630c3e27310c",
+      "track-a/mapped_allocator.hpp": "060bb6a0622338b9151e767d827cbf30c8e4d940cc7e170ad51757c4a6b0808b",
+      "track-a/ordered_output.hpp": "b6f0911f5d6396ca35ad657a1de6364aa3e52a5dd6a9275d95f768e54f4fd69d",
+      "track-a/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420",
+      "track-a/training_generator.py": "d82b43b8f617016808f85cbe9be86af1fee8466296a0848ab8e6908ee3c4b0b4"
+    },
+    "artifact_sha256": {
+      "prepare.py": "f75df8d7c414b106f756236bb578e15d74a051dea7cc78463be3c595aa099f70",
+      "preflight.json": "e3ae2365fcc65398dcb20812306ecab673652347946785368c8288be31a1e9d2",
+      "prepared.json": "402600131a41a6e2400235d8420d6769d7379461091015da0ca9f2f61ec1c860",
+      "diagnostic-transforms.json": "0be4359846f9b9cd159dc5b3ac3fd8ed948aad490af7ca0564eb0b0a827089a0",
+      "endpoint_table.hpp.patch": "767e9aacf31c21c4fb96f2e19d963dfc41b28591a76db2387a07c120dcdcd199",
+      "diagnose.py": "3a9b68a1eb1fcbcecaab693886cdf6d255b07c3f71be2918d9c68bda24b929db",
+      "screen.py": "cae9be07540516bf845f91c3622662c306ea332a6b6641a6719ffe1cab62b0b6",
+      "diagnostic/compile.json": "73db81d90abff692e95b374a690433e563bbe174e9515a55a8084efc80557562",
+      "diagnostic/report.json": "c044748d84c2999abca8d4437e3b5b9bffec5b978f2fcc8cdc4f41606b2a24f1",
+      "compile.json": "4fac0da996d5bfb76f85d3cc718943378e5d26ceebe57276d31380518462b37d",
+      "confirmation/report.json": "44402c83ffd0334bcb8b1ffb8fff9841a408cc39df241c3473c12c75ca3d8709"
+    },
+    "scope_limits": "One unshipped diagnostic compile and3full paired-cache count runs; one separate optimized production compile and90 output/hash-checked native calls only. No new generic cuckoo/cycle/guard/fullkey/publication/long/lifetime/race/strict/untrained/GCC/PGO-image/default/Make/official proof or selected runtime. Original A+Make guard unchanged; authorized C integration progressed independently."
+  },
+  "patch": {
+    "path": "docs/prototype-patches/round359-a-two-choice-endpoint_table.hpp.patch",
+    "sha256": "767e9aacf31c21c4fb96f2e19d963dfc41b28591a76db2387a07c120dcdcd199"
+  },
+  "reconstruction": {
+    "passed": true,
+    "all12_frozen_files_match": true
+  },
+  "archive_files_sha256": {
+    "tools/round359-screen/screen.py": "cae9be07540516bf845f91c3622662c306ea332a6b6641a6719ffe1cab62b0b6",
+    "tools/round359-screen/prepared.json": "402600131a41a6e2400235d8420d6769d7379461091015da0ca9f2f61ec1c860",
+    "tools/round359-screen/diagnostic-transforms.json": "0be4359846f9b9cd159dc5b3ac3fd8ed948aad490af7ca0564eb0b0a827089a0",
+    "tools/round359-screen/README.md": "213d771324bac0c0e036c31871d12cf91190cc7c94019c8a867322a737e22549",
+    "tools/round359-screen/diagnose.py": "3a9b68a1eb1fcbcecaab693886cdf6d255b07c3f71be2918d9c68bda24b929db",
+    "tools/round359-screen/decision.json": "e747ac01d359324b34d903a94f8863d15a1e604221a57c66875850c121d1596a",
+    "tools/round359-screen/preflight.json": "e3ae2365fcc65398dcb20812306ecab673652347946785368c8288be31a1e9d2",
+    "tools/round359-screen/base-a-PERF.md": "6c788af5401097418df08644e96bd495ae5224dcad4adc4046e70ecac3f669cb",
+    "tools/round359-screen/prepare.py": "f75df8d7c414b106f756236bb578e15d74a051dea7cc78463be3c595aa099f70",
+    "tools/round359-screen/compile.json": "4fac0da996d5bfb76f85d3cc718943378e5d26ceebe57276d31380518462b37d",
+    "tools/round359-screen/diagnostic/full-seed1951.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tools/round359-screen/diagnostic/report.json": "c044748d84c2999abca8d4437e3b5b9bffec5b978f2fcc8cdc4f41606b2a24f1",
+    "tools/round359-screen/diagnostic/full-seed2221.stderr": "510df22d44e4187b21abbc873ee981d81f04de1fe69bb4f46567b4bde06a2fa0",
+    "tools/round359-screen/diagnostic/full-seed2221.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tools/round359-screen/diagnostic/full-seed1951.stderr": "823c2cd5179f24fa403586e5c9a4c0de79b21ca03cb9ec33a489fe11dbb28cae",
+    "tools/round359-screen/diagnostic/public-full-seed1.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tools/round359-screen/diagnostic/public-full-seed1.stderr": "501ab76515dd67b0e6403c7ddf0abae53177fe21a88123ee8741592ca6ecd8a4",
+    "tools/round359-screen/diagnostic/compile.json": "73db81d90abff692e95b374a690433e563bbe174e9515a55a8084efc80557562",
+    "tools/round359-screen/confirmation/report.json": "44402c83ffd0334bcb8b1ffb8fff9841a408cc39df241c3473c12c75ca3d8709",
+    "tools/round359-screen/diagnostic-source/endpoint_table.hpp": "3787ce109daf2ca384795392a10ca933db3be47f78f2793981e3d0975c1626d9",
+    "tools/round359-screen/diagnostic-source/main.cpp": "28d8dd56755bdea8b58996abb00a130a4d6df28d6825a6415301ccc06d9889c5"
+  }
+}

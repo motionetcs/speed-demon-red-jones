@@ -1,0 +1,77 @@
+{
+  "scope": "Unshipped paired-cache counts only; added counters reverse exactly to production class bytes before class renaming. Pure candidate contains one4096x16B table; shadow diagnostic contains both tables and reports no timing/memory gain.",
+  "transforms": [
+    {
+      "kind": "direct",
+      "edits_in_order": [
+        {
+          "before": "    Endpoints& shared;",
+          "after": "    CacheCounters& stats;Endpoints& shared;"
+        },
+        {
+          "before": "explicit LocalEndpoints(Endpoints& table):shared(table){}",
+          "after": "explicit LocalEndpoints(Endpoints& table,CacheCounters& counters):stats(counters),shared(table){}"
+        },
+        {
+          "before": "    uint16_t intern(std::string_view value){",
+          "after": "    uint16_t intern(std::string_view value){\n        ++stats.calls;"
+        },
+        {
+          "before": "if(value.size()>UINT16_MAX)return shared.intern(value,std::hash<std::string_view>{}(value));",
+          "after": "if(value.size()>UINT16_MAX){++stats.long_fallbacks;return shared.intern(value,std::hash<std::string_view>{}(value));}"
+        },
+        {
+          "before": "if(cached.id!=UINT16_MAX&&cached.hash==hash&&cached.length==value.size()&&(value.empty()||std::memcmp(cached.data,value.data(),value.size())==0))return cached.id;",
+          "after": "if(cached.id!=UINT16_MAX&&cached.hash==hash&&cached.length==value.size()&&(value.empty()||std::memcmp(cached.data,value.data(),value.size())==0)){++stats.first_hits;return cached.id;}"
+        },
+        {
+          "before": "        uint16_t id=shared.intern(value,std::hash<std::string_view>{}(value));",
+          "after": "        ++stats.short_misses;if(cached.id==UINT16_MAX)++stats.empty_misses;else ++stats.conflict_misses;\n        uint16_t id=shared.intern(value,std::hash<std::string_view>{}(value));"
+        }
+      ],
+      "reverse_edits_restore_exact_production_class": true
+    },
+    {
+      "kind": "cuckoo",
+      "edits_in_order": [
+        {
+          "before": "    Endpoints& shared;",
+          "after": "    CacheCounters& stats;Endpoints& shared;"
+        },
+        {
+          "before": "explicit LocalEndpoints(Endpoints& table):shared(table){}",
+          "after": "explicit LocalEndpoints(Endpoints& table,CacheCounters& counters):stats(counters),shared(table){}"
+        },
+        {
+          "before": "    uint16_t intern(std::string_view value){",
+          "after": "    uint16_t intern(std::string_view value){\n        ++stats.calls;"
+        },
+        {
+          "before": "if(value.size()>UINT16_MAX)return shared.intern(value,std::hash<std::string_view>{}(value));",
+          "after": "if(value.size()>UINT16_MAX){++stats.long_fallbacks;return shared.intern(value,std::hash<std::string_view>{}(value));}"
+        },
+        {
+          "before": "if(matches(slots[first],value,hash))return slots[first].id;",
+          "after": "if(matches(slots[first],value,hash)){++stats.first_hits;return slots[first].id;}"
+        },
+        {
+          "before": "if(matches(slots[other],value,hash))return slots[other].id;",
+          "after": "if(matches(slots[other],value,hash)){++stats.second_hits;return slots[other].id;}"
+        },
+        {
+          "before": "        uint16_t id=shared.intern(value,std::hash<std::string_view>{}(value));",
+          "after": "        ++stats.short_misses;if(slots[first].id==UINT16_MAX||slots[other].id==UINT16_MAX)++stats.empty_misses;else ++stats.conflict_misses;\n        uint16_t id=shared.intern(value,std::hash<std::string_view>{}(value));"
+        },
+        {
+          "before": "        for(unsigned step=0;step<8;++step){",
+          "after": "        for(unsigned step=0;step<8;++step){\n            ++stats.relocation_steps;"
+        },
+        {
+          "before": "        return id;\n    }",
+          "after": "        if(pending.id!=UINT16_MAX)++stats.dropped_entries;\n        return id;\n    }"
+        }
+      ],
+      "reverse_edits_restore_exact_production_class": true
+    }
+  ]
+}

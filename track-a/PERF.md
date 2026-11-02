@@ -681,3 +681,6 @@ Original353/781f2ea889c110b470720000729c7eedfadc67af, run-d2118e989284, allactua
 
 
 Round355: REJECT_NATIVE_ONLY: weak/mixed A whole-hour radix time plus3.1–3.5MB nativeRSS; no new broad/rank/escape/strict/race/GNU/image/board proof. Paired screen {"full-seed1951": {"native_rss_delta_bytes": 3506176, "paired_median_ratio": 1.0021749042192536, "paired_wins": 6}, "full-seed2221": {"native_rss_delta_bytes": 3129344, "paired_median_ratio": 0.9636298196769442, "paired_wins": 11}, "public-full-seed1": {"native_rss_delta_bytes": 3096576, "paired_median_ratio": 0.981935252541836, "paired_wins": 8}}. Exact recovered execution record, frozen source reconstruction and driver: docs/round355-proof-archive.json. No production change/official gain.
+
+
+359 two-choice bounded cache: same-stream diagnostic full authoritative fallback calls fall256892→22750/219733→23504/205265→23110 across public/1951/2221, but separately compiled pure production13-pair time ratios1.010452/.976985/1.006815 (5/8/6wins), RSSdelta-311296/-540672/-81920B are flat/mixed. REJECT_NATIVE_ONLY before new collision/relocation/long-key/full-ID/strict/race/untrained/GNU/image/default/board proof. Native counts/timing do not establish Intel/official/causal gain. Exact prepare/observer/production sources/drivers/rawcounts/report/reconstruction: docs/round359-a-cache-rejection.json.

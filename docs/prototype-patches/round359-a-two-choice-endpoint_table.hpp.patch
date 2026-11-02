@@ -1,0 +1,38 @@
+--- a/track-a/endpoint_table.hpp
++++ b/track-a/endpoint_table.hpp
+@@ -46,12 +46,31 @@
+         uint32_t h=(a^std::rotl(b,11)^std::rotl(c,23)^uint32_t(v.size()))*0x9e3779b1U;return h^(h>>16);
+     }
+ 
++    static size_t second(uint32_t hash){
++        size_t first=hash&4095,other=(hash>>12)&4095;
++        return other==first?(other^1):other;
++    }
++    static bool matches(const Slot& cached,std::string_view value,uint32_t hash){
++        return cached.id!=UINT16_MAX&&cached.hash==hash&&cached.length==value.size()&&(value.empty()||std::memcmp(cached.data,value.data(),value.size())==0);
++    }
+     uint16_t intern(std::string_view value){
+         if(value.size()>UINT16_MAX)return shared.intern(value,std::hash<std::string_view>{}(value));
+-        uint32_t hash=hash_key(value);size_t i=hash&(slots.size()-1);
+-        const auto& cached=slots[i];
+-        if(cached.id!=UINT16_MAX&&cached.hash==hash&&cached.length==value.size()&&(value.empty()||std::memcmp(cached.data,value.data(),value.size())==0))return cached.id;
++        uint32_t hash=hash_key(value);size_t first=hash&4095;
++        if(matches(slots[first],value,hash))return slots[first].id;
++        size_t other=second(hash);
++        if(matches(slots[other],value,hash))return slots[other].id;
+         uint16_t id=shared.intern(value,std::hash<std::string_view>{}(value));
+-        slots[i]={shared.canonical[id].data(),hash,static_cast<uint16_t>(value.size()),id};return id;
++        Slot pending{shared.canonical[id].data(),hash,static_cast<uint16_t>(value.size()),id};
++        if(slots[first].id==UINT16_MAX){slots[first]=pending;return id;}
++        if(slots[other].id==UINT16_MAX){slots[other]=pending;return id;}
++        size_t current=first;
++        for(unsigned step=0;step<8;++step){
++            Slot evicted=slots[current];slots[current]=pending;pending=evicted;
++            if(pending.id==UINT16_MAX)break;
++            size_t primary=pending.hash&4095;
++            current=current==primary?second(pending.hash):primary;
++        }
++        return id;
+     }
+ };
++static_assert(sizeof(LocalEndpoints::Slot)==16);
