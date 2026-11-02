@@ -9,6 +9,3 @@ An exact local synchronization proof selects true record boundaries. Reader work
 No input seed or answer is recognized. All output is computed in the timed run. See `PERF.md` for actual experiments, source/memory costs, independent tests and real board outcomes.
 
 Owner table entries use a32-bit rejection fingerprint and a32-bit stable-block word index. Full length/byte equality still decides names, including collisions; the complete64-bit hash routes owners.64KiB word blocks and dedicated oversized-key blocks retain exact name bytes/country words with checked index arithmetic.
-
-
-Compiler trial362 adds -fno-plt to both unchanged native-ISA full1000003/sample130363 GCC PGO passes. A separate minimal static IFUNC probe showed direct GOT calls instead of a PLT stub; the actual production ELF and real board total K must establish whether this helps. Runtime algorithms and defaults stay original; two existing statements are split across lines for strict diagnostics. No native/emulated speedup or official improvement is claimed.
