@@ -684,3 +684,6 @@ Round355: REJECT_NATIVE_ONLY: weak/mixed A whole-hour radix time plus3.1–3.5MB
 
 
 359 two-choice bounded cache: same-stream diagnostic full authoritative fallback calls fall256892→22750/219733→23504/205265→23110 across public/1951/2221, but separately compiled pure production13-pair time ratios1.010452/.976985/1.006815 (5/8/6wins), RSSdelta-311296/-540672/-81920B are flat/mixed. REJECT_NATIVE_ONLY before new collision/relocation/long-key/full-ID/strict/race/untrained/GNU/image/default/board proof. Native counts/timing do not establish Intel/official/causal gain. Exact prepare/observer/production sources/drivers/rawcounts/report/reconstruction: docs/round359-a-cache-rejection.json.
+
+
+Original358/99aa8f8dadd39cb6edb70dad34f8427b5fa0ff65, run-3d310536a24b, allactualgatesPASS aftercompleteC357 threefile/image rollback: T0.048394/M21147648/S497/K29.840271/73.740138. Unchanged-source repeat; best remains separate, no new algorithm or causal gain. Exact A178/C175/D334/30inputs/Make/README/fullsets/Git/submitted358/original353/best-components/localimages: ../docs/round358-final-source-match.json. Raw ../docs/board-round358-original-restored.json; originalCimage8public/untrained3623/default andcachedMake/native12 passed withoutcompiling/retraining.

@@ -1,0 +1,1175 @@
+{
+  "observed_at_utc": "2026-11-02T06:32:58.823158+00:00",
+  "official_score": false,
+  "executed_programs_or_compilers": false,
+  "scope": "Read-only parsing of already-existing original C production ELF and its already-recorded GNU disassembly. Every direct call-to-PLT used below is checked against the actual ELF E8 bytes and target stub FF25/GOT/IRELATIVE relocation, not inferred from symbol spelling alone. No disassembler rerun, compiler, model, generator, benchmark, training, Docker execution or board fetch. Static call-site counts are NOT execution frequencies, costs or a speedup.",
+  "current_head_context": "99aa8f8dadd39cb6edb70dad34f8427b5fa0ff65",
+  "restored_C_source_sha256": {
+    "track-c/.speed-demon.toml": "3371600b8033a377bc373378e703191dfec36c1ae991b617650dfa480edc00b4",
+    "track-c/Dockerfile": "637e81c6fca4507f4c4e7368efde7b6904d07879ae9ec992c5e25175d50e1fae",
+    "track-c/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+    "track-c/main.cpp": "8f1703c20ec7e17bb708abff7d7a88945e0dcd8b83acc00b137607a7ceee1b0d",
+    "track-c/names.hpp": "f62a25fdb9f229575c42fc013220f7f38dd5a68ea5ac83aa1702d0589c15501b",
+    "track-c/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420",
+    "track-c/quote_scan.hpp": "0b170a766254dee1bc14f9e9180cc1900da01d41f5d09053d5579e01a7fb9cfa",
+    "track-c/training_generator.py": "9e61672eb814fa4e1bc2e3cf30c8e7ca9629804191ce5ae60a66c8b61ba704f2"
+  },
+  "source_anchor": "docs/round353-final-source-match.json",
+  "source_anchor_sha256": "9f0dd8c050441fe4f832f90f62e4ad4aa11a3c407b3077e14ba01cf0a87f78b3",
+  "prior_ELF_image_binding": "docs/c-original-field-abi-inspection.json",
+  "prior_ELF_image_binding_sha256": "4759823305b3025ef24ad9b9f6b65ff247e9305c5393ec3aca157e4e624997e9",
+  "image_id": "sha256:263099fcbeecd9be03c762fc791651c246e2ec2ca2223f5940e186c13645dd63",
+  "local_ELF_path": ".build/c-original-abi/solution",
+  "local_ELF_sha256": "406fe1f9130ba9f98b612caa08f83a75b1299466b4a34ac10d659f928a7ecc83",
+  "ELF_type": 2,
+  "ELF_machine": 62,
+  "local_disassembly_path": ".build/c-original-abi/disassembly.txt",
+  "local_disassembly_sha256": "0694720ed7e841485d0c0203facba00d4e888aae0c4e5608cf40c31944124321",
+  "plt_stub_count": 37,
+  "plt_stubs": [
+    {
+      "address": "0x401018",
+      "got_address": "0x605000",
+      "relocation": {
+        "kind": 37,
+        "resolver": 5354784,
+        "symbols": [
+          {
+            "name": "__libc_memmove_ifunc",
+            "type": 2,
+            "size": 246
+          },
+          {
+            "name": "memmove",
+            "type": 10,
+            "size": 246
+          },
+          {
+            "name": "__libc_memmove",
+            "type": 10,
+            "size": 246
+          }
+        ]
+      }
+    },
+    {
+      "address": "0x401020",
+      "got_address": "0x605008",
+      "relocation": {
+        "kind": 37,
+        "resolver": 5809584,
+        "symbols": [
+          {
+            "name": "__strncasecmp_ifunc",
+            "type": 2,
+            "size": 112
+          },
+          {
+            "name": "__strncasecmp",
+            "type": 10,
+            "size": 112
+          },
+          {
+            "name": "strncasecmp",
+            "type": 10,
+            "size": 112
+          }
+        ]
+      }
+    },
+    {
+      "address": "0x401028",
+      "got_address": "0x605010",
+      "relocation": {
+        "kind": 37,
+        "resolver": 5360928,
+        "symbols": [
+          {
+            "name": "strcspn_ifunc",
+            "type": 2,
+            "size": 26
+          },
+          {
+            "name": "strcspn",
+            "type": 10,
+            "size": 26
+          }
+        ]
+      }
+    },
+    {
+      "address": "0x401030",
+      "got_address": "0x605018",
+      "relocation": {
+        "kind": 37,
+        "resolver": 5363632,
+        "symbols": [
+          {
+            "name": "__libc_strstr_ifunc",
+            "type": 2,
+            "size": 26
+          },
+          {
+            "name": "strstr",
+            "type": 10,
+            "size": 26
+          },
+          {
+            "name": "__libc_strstr",
+            "type": 10,
+            "size": 26
+          }
+        ]
+      }
+    },
+    {
+      "address": "0x401038",
+      "got_address": "0x605020",
+      "relocation": {
+        "kind": 37,
+        "resolver": 5355808,
+        "symbols": [
+          {
+            "name": "strchr_ifunc",
+            "type": 2,
+            "size": 104
+          },
+          {
+            "name": "index",
+            "type": 10,
+            "size": 104
+          },
+          {
+            "name": "strchr",
+            "type": 10,
+            "size": 104
+          }
+        ]
+      }
+    },
+    {
+      "address": "0x401040",
+      "got_address": "0x605028",
+      "relocation": {
+        "kind": 37,
+        "resolver": 5649872,
+        "symbols": [
+          {
+            "name": "__wcpncpy_ifunc",
+            "type": 2,
+            "size": 88
+          },
+          {
+            "name": "__wcpncpy",
+            "type": 10,
+            "size": 88
+          },
+          {
+            "name": "wcpncpy",
+            "type": 10,
+            "size": 88
+          }
+        ]
+      }
+    },
+    {
+      "address": "0x401048",
+      "got_address": "0x605030",
+      "relocation": {
+        "kind": 37,
+        "resolver": 5361248,
+        "symbols": [
+          {
+            "name": "strncmp_ifunc",
+            "type": 2,
+            "size": 112
+          },
+          {
+            "name": "strncmp",
+            "type": 10,
+            "size": 112
+          }
+        ]
+      }
+    },
+    {
+      "address": "0x401050",
+      "got_address": "0x605038",
+      "relocation": {
+        "kind": 37,
+        "resolver": 5637248,
+        "symbols": [
+          {
+            "name": "strrchr_ifunc",
+            "type": 2,
+            "size": 112
+          },
+          {
+            "name": "strrchr",
+            "type": 10,
+            "size": 112
+          },
+          {
+            "name": "rindex",
+            "type": 10,
+            "size": 112
+          }
+        ]
+      }
+    },
+    {
+      "address": "0x401058",
+      "got_address": "0x605040",
+      "relocation": {
+        "kind": 37,
+        "resolver": 5355584,
+        "symbols": [
+          {
+            "name": "__stpcpy_ifunc",
+            "type": 2,
+            "size": 112
+          },
+          {
+            "name": "__stpcpy",
+            "type": 10,
+            "size": 112
+          },
+          {
+            "name": "stpcpy",
+            "type": 10,
+            "size": 112
+          }
+        ]
+      }
+    },
+    {
+      "address": "0x401060",
+      "got_address": "0x605048",
+      "relocation": {
+        "kind": 37,
+        "resolver": 5355696,
+        "symbols": [
+          {
+            "name": "__strcasecmp_l_ifunc",
+            "type": 2,
+            "size": 112
+          },
+          {
+            "name": "__strcasecmp_l",
+            "type": 10,
+            "size": 112
+          },
+          {
+            "name": "strcasecmp_l",
+            "type": 10,
+            "size": 112
+          }
+        ]
+      }
+    },
+    {
+      "address": "0x401068",
+      "got_address": "0x605050",
+      "relocation": {
+        "kind": 37,
+        "resolver": 5499568,
+        "symbols": [
+          {
+            "name": "__wcslen_ifunc",
+            "type": 2,
+            "size": 112
+          },
+          {
+            "name": "wcslen",
+            "type": 10,
+            "size": 112
+          },
+          {
+            "name": "__wcslen",
+            "type": 10,
+            "size": 112
+          }
+        ]
+      }
+    },
+    {
+      "address": "0x401070",
+      "got_address": "0x605058",
+      "relocation": {
+        "kind": 37,
+        "resolver": 5778016,
+        "symbols": [
+          {
+            "name": "strpbrk_ifunc",
+            "type": 2,
+            "size": 26
+          },
+          {
+            "name": "strpbrk",
+            "type": 10,
+            "size": 26
+          }
+        ]
+      }
+    },
+    {
+      "address": "0x401078",
+      "got_address": "0x605060",
+      "relocation": {
+        "kind": 37,
+        "resolver": 5637088,
+        "symbols": [
+          {
+            "name": "__stpncpy_ifunc",
+            "type": 2,
+            "size": 88
+          },
+          {
+            "name": "__stpncpy",
+            "type": 10,
+            "size": 88
+          },
+          {
+            "name": "stpncpy",
+            "type": 10,
+            "size": 88
+          }
+        ]
+      }
+    },
+    {
+      "address": "0x401080",
+      "got_address": "0x605068",
+      "relocation": {
+        "kind": 37,
+        "resolver": 5354528,
+        "symbols": [
+          {
+            "name": "__new_memcpy_ifunc",
+            "type": 2,
+            "size": 246
+          },
+          {
+            "name": "memcpy",
+            "type": 10,
+            "size": 246
+          },
+          {
+            "name": "__new_memcpy",
+            "type": 10,
+            "size": 246
+          }
+        ]
+      }
+    },
+    {
+      "address": "0x401088",
+      "got_address": "0x605070",
+      "relocation": {
+        "kind": 37,
+        "resolver": 5355920,
+        "symbols": [
+          {
+            "name": "__strchrnul_ifunc",
+            "type": 2,
+            "size": 112
+          },
+          {
+            "name": "__strchrnul",
+            "type": 10,
+            "size": 112
+          },
+          {
+            "name": "strchrnul",
+            "type": 10,
+            "size": 112
+          }
+        ]
+      }
+    },
+    {
+      "address": "0x401090",
+      "got_address": "0x605078",
+      "relocation": {
+        "kind": 37,
+        "resolver": 5355296,
+        "symbols": [
+          {
+            "name": "memset_ifunc",
+            "type": 2,
+            "size": 280
+          },
+          {
+            "name": "memset",
+            "type": 10,
+            "size": 280
+          }
+        ]
+      }
+    },
+    {
+      "address": "0x401098",
+      "got_address": "0x605080",
+      "relocation": {
+        "kind": 37,
+        "resolver": 5361136,
+        "symbols": [
+          {
+            "name": "__strncasecmp_l_ifunc",
+            "type": 2,
+            "size": 112
+          },
+          {
+            "name": "__strncasecmp_l",
+            "type": 10,
+            "size": 112
+          },
+          {
+            "name": "strncasecmp_l",
+            "type": 10,
+            "size": 112
+          }
+        ]
+      }
+    },
+    {
+      "address": "0x4010a0",
+      "got_address": "0x605088",
+      "relocation": {
+        "kind": 37,
+        "resolver": 5360816,
+        "symbols": [
+          {
+            "name": "strcpy_ifunc",
+            "type": 2,
+            "size": 112
+          },
+          {
+            "name": "strcpy",
+            "type": 10,
+            "size": 112
+          }
+        ]
+      }
+    },
+    {
+      "address": "0x4010a8",
+      "got_address": "0x605090",
+      "relocation": {
+        "kind": 37,
+        "resolver": 5361360,
+        "symbols": [
+          {
+            "name": "__strnlen_ifunc",
+            "type": 2,
+            "size": 112
+          },
+          {
+            "name": "strnlen",
+            "type": 10,
+            "size": 112
+          },
+          {
+            "name": "__strnlen",
+            "type": 10,
+            "size": 112
+          }
+        ]
+      }
+    },
+    {
+      "address": "0x4010b0",
+      "got_address": "0x605098",
+      "relocation": {
+        "kind": 37,
+        "resolver": 5510080,
+        "symbols": [
+          {
+            "name": "__wmemcmp_ifunc",
+            "type": 2,
+            "size": 104
+          },
+          {
+            "name": "__wmemcmp",
+            "type": 10,
+            "size": 104
+          },
+          {
+            "name": "wmemcmp",
+            "type": 10,
+            "size": 104
+          }
+        ]
+      }
+    },
+    {
+      "address": "0x4010b8",
+      "got_address": "0x6050a0",
+      "relocation": {
+        "kind": 37,
+        "resolver": 5637360,
+        "symbols": [
+          {
+            "name": "strspn_ifunc",
+            "type": 2,
+            "size": 26
+          },
+          {
+            "name": "strspn",
+            "type": 10,
+            "size": 26
+          }
+        ]
+      }
+    },
+    {
+      "address": "0x4010c0",
+      "got_address": "0x6050a8",
+      "relocation": {
+        "kind": 37,
+        "resolver": 5510224,
+        "symbols": [
+          {
+            "name": "__wmemset_ifunc",
+            "type": 2,
+            "size": 94
+          },
+          {
+            "name": "__wmemset",
+            "type": 10,
+            "size": 94
+          },
+          {
+            "name": "wmemset",
+            "type": 10,
+            "size": 94
+          }
+        ]
+      }
+    },
+    {
+      "address": "0x4010c8",
+      "got_address": "0x6050b0",
+      "relocation": {
+        "kind": 37,
+        "resolver": 5495616,
+        "symbols": [
+          {
+            "name": "__wcscmp_ifunc",
+            "type": 2,
+            "size": 112
+          },
+          {
+            "name": "wcscmp",
+            "type": 10,
+            "size": 112
+          },
+          {
+            "name": "__wcscmp",
+            "type": 10,
+            "size": 112
+          }
+        ]
+      }
+    },
+    {
+      "address": "0x4010d0",
+      "got_address": "0x6050b8",
+      "relocation": {
+        "kind": 37,
+        "resolver": 5354288,
+        "symbols": [
+          {
+            "name": "memchr_ifunc",
+            "type": 2,
+            "size": 125
+          },
+          {
+            "name": "__memchr",
+            "type": 10,
+            "size": 125
+          },
+          {
+            "name": "memchr",
+            "type": 10,
+            "size": 125
+          }
+        ]
+      }
+    },
+    {
+      "address": "0x4010d8",
+      "got_address": "0x6050c0",
+      "relocation": {
+        "kind": 37,
+        "resolver": 5355040,
+        "symbols": [
+          {
+            "name": "__mempcpy_ifunc",
+            "type": 2,
+            "size": 246
+          },
+          {
+            "name": "mempcpy",
+            "type": 10,
+            "size": 246
+          },
+          {
+            "name": "__mempcpy",
+            "type": 10,
+            "size": 246
+          }
+        ]
+      }
+    },
+    {
+      "address": "0x4010e0",
+      "got_address": "0x6050c8",
+      "relocation": {
+        "kind": 37,
+        "resolver": 5841808,
+        "symbols": [
+          {
+            "name": "strncpy_ifunc",
+            "type": 2,
+            "size": 88
+          },
+          {
+            "name": "strncpy",
+            "type": 10,
+            "size": 88
+          }
+        ]
+      }
+    },
+    {
+      "address": "0x4010e8",
+      "got_address": "0x6050d0",
+      "relocation": {
+        "kind": 37,
+        "resolver": 5354416,
+        "symbols": [
+          {
+            "name": "memcmp_ifunc",
+            "type": 2,
+            "size": 104
+          },
+          {
+            "name": "bcmp",
+            "type": 10,
+            "size": 104
+          },
+          {
+            "name": "memcmp",
+            "type": 10,
+            "size": 104
+          }
+        ]
+      }
+    },
+    {
+      "address": "0x4010f0",
+      "got_address": "0x6050d8",
+      "relocation": {
+        "kind": 37,
+        "resolver": 5809472,
+        "symbols": [
+          {
+            "name": "__strcasecmp_ifunc",
+            "type": 2,
+            "size": 112
+          },
+          {
+            "name": "strcasecmp",
+            "type": 10,
+            "size": 112
+          },
+          {
+            "name": "__strcasecmp",
+            "type": 10,
+            "size": 112
+          }
+        ]
+      }
+    },
+    {
+      "address": "0x4010f8",
+      "got_address": "0x6050e0",
+      "relocation": {
+        "kind": 37,
+        "resolver": 5509952,
+        "symbols": [
+          {
+            "name": "__wmemchr_ifunc",
+            "type": 2,
+            "size": 125
+          },
+          {
+            "name": "__wmemchr",
+            "type": 10,
+            "size": 125
+          },
+          {
+            "name": "wmemchr",
+            "type": 10,
+            "size": 125
+          }
+        ]
+      }
+    },
+    {
+      "address": "0x401100",
+      "got_address": "0x6050e8",
+      "relocation": {
+        "kind": 37,
+        "resolver": 5495616,
+        "symbols": [
+          {
+            "name": "__wcscmp_ifunc",
+            "type": 2,
+            "size": 112
+          },
+          {
+            "name": "wcscmp",
+            "type": 10,
+            "size": 112
+          },
+          {
+            "name": "__wcscmp",
+            "type": 10,
+            "size": 112
+          }
+        ]
+      }
+    },
+    {
+      "address": "0x401108",
+      "got_address": "0x6050f0",
+      "relocation": {
+        "kind": 37,
+        "resolver": 5499568,
+        "symbols": [
+          {
+            "name": "__wcslen_ifunc",
+            "type": 2,
+            "size": 112
+          },
+          {
+            "name": "wcslen",
+            "type": 10,
+            "size": 112
+          },
+          {
+            "name": "__wcslen",
+            "type": 10,
+            "size": 112
+          }
+        ]
+      }
+    },
+    {
+      "address": "0x401110",
+      "got_address": "0x6050f8",
+      "relocation": {
+        "kind": 37,
+        "resolver": 5650080,
+        "symbols": [
+          {
+            "name": "__wcsnlen_ifunc",
+            "type": 2,
+            "size": 112
+          },
+          {
+            "name": "wcsnlen",
+            "type": 10,
+            "size": 112
+          },
+          {
+            "name": "__wcsnlen",
+            "type": 10,
+            "size": 112
+          }
+        ]
+      }
+    },
+    {
+      "address": "0x401118",
+      "got_address": "0x605100",
+      "relocation": {
+        "kind": 37,
+        "resolver": 5361024,
+        "symbols": [
+          {
+            "name": "strlen_ifunc",
+            "type": 2,
+            "size": 112
+          },
+          {
+            "name": "strlen",
+            "type": 10,
+            "size": 112
+          }
+        ]
+      }
+    },
+    {
+      "address": "0x401120",
+      "got_address": "0x605108",
+      "relocation": {
+        "kind": 37,
+        "resolver": 5509952,
+        "symbols": [
+          {
+            "name": "__wmemchr_ifunc",
+            "type": 2,
+            "size": 125
+          },
+          {
+            "name": "__wmemchr",
+            "type": 10,
+            "size": 125
+          },
+          {
+            "name": "wmemchr",
+            "type": 10,
+            "size": 125
+          }
+        ]
+      }
+    },
+    {
+      "address": "0x401128",
+      "got_address": "0x605110",
+      "relocation": {
+        "kind": 37,
+        "resolver": 5649968,
+        "symbols": [
+          {
+            "name": "__wcschr_ifunc",
+            "type": 2,
+            "size": 112
+          },
+          {
+            "name": "wcschr",
+            "type": 10,
+            "size": 112
+          },
+          {
+            "name": "__wcschr",
+            "type": 10,
+            "size": 112
+          }
+        ]
+      }
+    },
+    {
+      "address": "0x401130",
+      "got_address": "0x605118",
+      "relocation": {
+        "kind": 37,
+        "resolver": 5356032,
+        "symbols": [
+          {
+            "name": "strcmp_ifunc",
+            "type": 2,
+            "size": 128
+          },
+          {
+            "name": "strcmp",
+            "type": 10,
+            "size": 128
+          }
+        ]
+      }
+    },
+    {
+      "address": "0x401138",
+      "got_address": "0x605120",
+      "relocation": {
+        "kind": 37,
+        "resolver": 5510224,
+        "symbols": [
+          {
+            "name": "__wmemset_ifunc",
+            "type": 2,
+            "size": 94
+          },
+          {
+            "name": "__wmemset",
+            "type": 10,
+            "size": 94
+          },
+          {
+            "name": "wmemset",
+            "type": 10,
+            "size": 94
+          }
+        ]
+      }
+    }
+  ],
+  "whole_ELF_direct_PLT_call_sites": 1476,
+  "whole_ELF_direct_PLT_alias_counts": {
+    "strlen": 403,
+    "__new_memcpy/memcpy": 267,
+    "__libc_memmove/memmove": 46,
+    "__memchr/memchr": 62,
+    "memset": 86,
+    "index/strchr": 27,
+    "bcmp/memcmp": 52,
+    "strcmp": 156,
+    "__wcslen/wcslen": 116,
+    "__wmemset/wmemset": 44,
+    "__wmemchr/wmemchr": 37,
+    "strncmp": 20,
+    "__wcscmp/wcscmp": 5,
+    "__wmemcmp/wmemcmp": 16,
+    "__mempcpy/mempcpy": 50,
+    "__strcasecmp_l/strcasecmp_l": 7,
+    "__stpcpy/stpcpy": 15,
+    "__strnlen/strnlen": 11,
+    "__libc_strstr/strstr": 7,
+    "strcspn": 4,
+    "strcpy": 3,
+    "__strncasecmp_l/strncasecmp_l": 12,
+    "__strchrnul/strchrnul": 8,
+    "strspn": 1,
+    "__stpncpy/stpncpy": 1,
+    "__wcsnlen/wcsnlen": 5,
+    "__wcpncpy/wcpncpy": 1,
+    "__wcschr/wcschr": 3,
+    "rindex/strrchr": 3,
+    "strpbrk": 2,
+    "__strncasecmp/strncasecmp": 3,
+    "__strcasecmp/strcasecmp": 1,
+    "strncpy": 2
+  },
+  "default_narrow_worker_functions": [
+    "main::{lambda<typename $T0>(std::vector<$T0, std::allocator<$T0> > const&)#1}::operator()<unsigned char>(std::vector<unsigned char, std::allocator<unsigned char> > const&) const::{lambda(unsigned int)#1}::operator()(unsigned int) const"
+  ],
+  "default_narrow_direct_PLT_calls": [
+    {
+      "caller": "main::{lambda<typename $T0>(std::vector<$T0, std::allocator<$T0> > const&)#1}::operator()<unsigned char>(std::vector<unsigned char, std::allocator<unsigned char> > const&) const::{lambda(unsigned int)#1}::operator()(unsigned int) const",
+      "instruction": "40bf69:\tcall   401090 <_init+0x90>",
+      "call_address": "0x40bf69",
+      "plt": {
+        "address": "0x401090",
+        "got_address": "0x605078",
+        "relocation": {
+          "kind": 37,
+          "resolver": 5355296,
+          "symbols": [
+            {
+              "name": "memset_ifunc",
+              "type": 2,
+              "size": 280
+            },
+            {
+              "name": "memset",
+              "type": 10,
+              "size": 280
+            }
+          ]
+        }
+      }
+    },
+    {
+      "caller": "main::{lambda<typename $T0>(std::vector<$T0, std::allocator<$T0> > const&)#1}::operator()<unsigned char>(std::vector<unsigned char, std::allocator<unsigned char> > const&) const::{lambda(unsigned int)#1}::operator()(unsigned int) const",
+      "instruction": "40c118:\tcall   4010e8 <_init+0xe8>",
+      "call_address": "0x40c118",
+      "plt": {
+        "address": "0x4010e8",
+        "got_address": "0x6050d0",
+        "relocation": {
+          "kind": 37,
+          "resolver": 5354416,
+          "symbols": [
+            {
+              "name": "memcmp_ifunc",
+              "type": 2,
+              "size": 104
+            },
+            {
+              "name": "bcmp",
+              "type": 10,
+              "size": 104
+            },
+            {
+              "name": "memcmp",
+              "type": 10,
+              "size": 104
+            }
+          ]
+        }
+      }
+    },
+    {
+      "caller": "main::{lambda<typename $T0>(std::vector<$T0, std::allocator<$T0> > const&)#1}::operator()<unsigned char>(std::vector<unsigned char, std::allocator<unsigned char> > const&) const::{lambda(unsigned int)#1}::operator()(unsigned int) const",
+      "instruction": "40c1a1:\tcall   4010e8 <_init+0xe8>",
+      "call_address": "0x40c1a1",
+      "plt": {
+        "address": "0x4010e8",
+        "got_address": "0x6050d0",
+        "relocation": {
+          "kind": 37,
+          "resolver": 5354416,
+          "symbols": [
+            {
+              "name": "memcmp_ifunc",
+              "type": 2,
+              "size": 104
+            },
+            {
+              "name": "bcmp",
+              "type": 10,
+              "size": 104
+            },
+            {
+              "name": "memcmp",
+              "type": 10,
+              "size": 104
+            }
+          ]
+        }
+      }
+    },
+    {
+      "caller": "main::{lambda<typename $T0>(std::vector<$T0, std::allocator<$T0> > const&)#1}::operator()<unsigned char>(std::vector<unsigned char, std::allocator<unsigned char> > const&) const::{lambda(unsigned int)#1}::operator()(unsigned int) const",
+      "instruction": "40c226:\tcall   4010e8 <_init+0xe8>",
+      "call_address": "0x40c226",
+      "plt": {
+        "address": "0x4010e8",
+        "got_address": "0x6050d0",
+        "relocation": {
+          "kind": 37,
+          "resolver": 5354416,
+          "symbols": [
+            {
+              "name": "memcmp_ifunc",
+              "type": 2,
+              "size": 104
+            },
+            {
+              "name": "bcmp",
+              "type": 10,
+              "size": 104
+            },
+            {
+              "name": "memcmp",
+              "type": 10,
+              "size": 104
+            }
+          ]
+        }
+      }
+    },
+    {
+      "caller": "main::{lambda<typename $T0>(std::vector<$T0, std::allocator<$T0> > const&)#1}::operator()<unsigned char>(std::vector<unsigned char, std::allocator<unsigned char> > const&) const::{lambda(unsigned int)#1}::operator()(unsigned int) const",
+      "instruction": "40c2a6:\tcall   4010e8 <_init+0xe8>",
+      "call_address": "0x40c2a6",
+      "plt": {
+        "address": "0x4010e8",
+        "got_address": "0x6050d0",
+        "relocation": {
+          "kind": 37,
+          "resolver": 5354416,
+          "symbols": [
+            {
+              "name": "memcmp_ifunc",
+              "type": 2,
+              "size": 104
+            },
+            {
+              "name": "bcmp",
+              "type": 10,
+              "size": 104
+            },
+            {
+              "name": "memcmp",
+              "type": 10,
+              "size": 104
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "default_narrow_PLT_alias_counts": {
+    "memset": 1,
+    "bcmp/memcmp": 4
+  },
+  "default_narrow_other_direct_calls": [
+    {
+      "instruction": "40afed:\tcall   40e870 <std::vector<std::vector<NameEvent, std::allocator<NameEvent> >, std::allocator<std::vector<NameEvent, std::allocator<NameEvent> > > >::vector(unsigned long, std::allocator<std::vector<NameEvent, std::allocator<NameEvent> > > const&)>",
+      "target": "0x40e870"
+    },
+    {
+      "instruction": "40b017:\tcall   40e8e0 <std::vector<NameEvent, std::allocator<NameEvent> >::reserve(unsigned long)>",
+      "target": "0x40e8e0"
+    },
+    {
+      "instruction": "40b2cd:\tcall   410980 <std::_Hash_bytes(void const*, unsigned long, unsigned long)>",
+      "target": "0x410980"
+    },
+    {
+      "instruction": "40b77f:\tcall   40c790 <NameQueue::send(std::vector<NameEvent, std::allocator<NameEvent> >&, std::atomic<bool> const&)>",
+      "target": "0x40c790"
+    },
+    {
+      "instruction": "40b78e:\tcall   40c790 <NameQueue::send(std::vector<NameEvent, std::allocator<NameEvent> >&, std::atomic<bool> const&)>",
+      "target": "0x40c790"
+    },
+    {
+      "instruction": "40b98c:\tcall   40c790 <NameQueue::send(std::vector<NameEvent, std::allocator<NameEvent> >&, std::atomic<bool> const&)>",
+      "target": "0x40c790"
+    },
+    {
+      "instruction": "40ba8b:\tcall   40c860 <void std::vector<NameEvent, std::allocator<NameEvent> >::_M_realloc_append<NameEvent>(NameEvent&&)>",
+      "target": "0x40c860"
+    },
+    {
+      "instruction": "40bafc:\tcall   40e9b0 <std::vector<std::vector<NameEvent, std::allocator<NameEvent> >, std::allocator<std::vector<NameEvent, std::allocator<NameEvent> > > >::~vector()>",
+      "target": "0x40e9b0"
+    },
+    {
+      "instruction": "40bb13:\tcall   40ea00 <std::unique_ptr<Names, std::default_delete<Names> >::~unique_ptr()>",
+      "target": "0x40ea00"
+    },
+    {
+      "instruction": "40bb99:\tcall   40c980 <std::vector<Names::Entry, std::allocator<Names::Entry> >::vector(unsigned long, std::allocator<Names::Entry> const&)>",
+      "target": "0x40c980"
+    },
+    {
+      "instruction": "40bc6d:\tcall   54ac50 <__sched_yield>",
+      "target": "0x54ac50"
+    },
+    {
+      "instruction": "40bc7f:\tcall   40ea70 <Names::~Names()>",
+      "target": "0x40ea70"
+    },
+    {
+      "instruction": "40bca0:\tcall   54ac50 <__sched_yield>",
+      "target": "0x54ac50"
+    },
+    {
+      "instruction": "40c433:\tcall   410ae0 <operator new[](unsigned long)>",
+      "target": "0x410ae0"
+    },
+    {
+      "instruction": "40c49b:\tcall   40d000 <Names::grow()>",
+      "target": "0x40d000"
+    },
+    {
+      "instruction": "40c511:\tcall   410aa0 <operator new(unsigned long)>",
+      "target": "0x410aa0"
+    },
+    {
+      "instruction": "40c5a2:\tcall   40f160 <operator delete(void*, unsigned long)>",
+      "target": "0x40f160"
+    }
+  ],
+  "default_narrow_indirect_calls": [],
+  "primary_docs": "https://gcc.gnu.org/onlinedocs/gcc/Code-Gen-Options.html",
+  "docs_scope": "Current primary GCC manual describes GOT-call substitution for PLT calls. Versioned15.3/15.2 HTML opens were unavailable; this is generic documented behavior, not an exact-version emitted-change proof. Static linking does not itself imply absence of IFUNC PLT stubs, as the bound ELF demonstrates.",
+  "limitations": "Original exact C source/PGO/local image bound. Not the unexposed organizer ELF. A/D current original production ELF/disassembly not located in existing named extracts; their feasibility is not established here. No dynamic frequency, Intel profile, branch-miss, cache or cycle claim. A flags-only candidate would still need actual compiler/linker output showing the intended call transformation, exact current-image checks and a real board score."
+}

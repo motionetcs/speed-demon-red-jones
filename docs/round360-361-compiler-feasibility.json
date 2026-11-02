@@ -1,0 +1,40 @@
+{
+  "observed_at_utc": "2026-11-02T06:44:52.148237+00:00",
+  "passed": true,
+  "official_score": false,
+  "evidence": [
+    {
+      "round": 360,
+      "official_score": false,
+      "selected_in_root": false,
+      "scope": "Read-only original C263 production ELF/disassembly source binding and IFUNCPLT inspection; no compiler/program/profile/training/benchmark/image/board fetch. Four static equality PLT callsites in defaultnarrowworker, not dynamicfrequency/cost. Exact existing ELF/disassembly hashes retained, binaries not tracked. No A/D emittedpath evidence inferred.",
+      "artifacts_sha256": {
+        "tools/round360-review/report.json": "0da422e25d41e997e4fa7deff72ae8487edbfd43c66ac795567dc98662ddd745",
+        "tools/round360-review/README.md": "78bebf580003ba0b3e96da87aa407124df176d1f44e1fc69b88e17f4993247cf",
+        "tools/round360-review/inspect.py": "50768d46a27ec115c2cc0f8c2ab3f8c8b0b3bb72965bd36fadf0b449b373648f",
+        "tools/round360-review/manifest.json": "9fe17ea0d39ad767c5fb46a003e670bb54f4110ddbfc0432a8a9f10c9639b6ea",
+        "tools/round360-review/findings.md": "c26809b9890e604f781a147444325988f2362fd9af0c24502083c69e20c9264f"
+      }
+    },
+    {
+      "round": 361,
+      "official_score": false,
+      "selected_in_root": false,
+      "scope": "One unshipped minimal staticIFUNC equality-call probe, two explicit pinnedGNU15.3 compiler/link modes baseline/fno-plt and smokeinvocations. Expected direct PLT call vs FF15 GOT call confirmed. No PGO, timing, source-production correctness, wholeproduction emission or official gain claim. No selected source changes, no source-dependent models repeated.",
+      "artifacts_sha256": {
+        "tools/round361-review/report.json": "f731c3614dc80e3b83cbe8ebb7bc88fb312e7d9e6e7375a4fa7f8ad187e2f4d1",
+        "tools/round361-review/stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tools/round361-review/stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tools/round361-review/noplt.relocations.txt": "4e566b09138e99952e86adf8e2398aacfc5eb00a56670e59bb99a936ca2371ac",
+        "tools/round361-review/probe.cpp": "ded913d623598902bb480114fb2377ee5aa51c5959a202234fbce938a5b47477",
+        "tools/round361-review/noplt.disassembly.txt": "3b088fb999fd91f86b68a37145afdca4c1db1a20f9c6eef4f2664a72b1321e23",
+        "tools/round361-review/README.md": "814fbc0c85e9759094199681e934d4918fc95e97b2da03ebef97f37626cffa2a",
+        "tools/round361-review/baseline.relocations.txt": "4e566b09138e99952e86adf8e2398aacfc5eb00a56670e59bb99a936ca2371ac",
+        "tools/round361-review/compiler.txt": "721fb65551a2501948f0d810722146aae0537a6e9f474169be47ff398e40ae33",
+        "tools/round361-review/probe.py": "8f8cb75d9880f4d3b7e55033fc7bcd1e95216a687dbf52fcc1500d2d4e1414f2",
+        "tools/round361-review/baseline.disassembly.txt": "9788ad0671dc5b1e03394040e85f45210f1fc059635ecd2f3a653aa24c411f9c"
+      }
+    }
+  ],
+  "candidate362_status": "Isolated Linux proof complete, actual emitted hotcall review and rootMake/source30 proof required before real trial."
+}

@@ -681,3 +681,6 @@ Original353/781f2ea889c110b470720000729c7eedfadc67af, run-a38b3bbdf626, allactua
 
 
 Read-only duplicate audit during357/358: cumulative actual scanned-edge direction policy exactly matches rejected298; eight-lane AVX2 same-bucket lookup matches actual-losing124. Both stopped before any new runtime code/compiler/benchmark/model/training/board run. Primary conceptual sources rechecked: https://arxiv.org/html/2410.14638v3 and https://arxiv.org/html/2608.26952v1 (later paper questions earlier instance-optimality analysis; neither theorem certifies this zero-weight/banded implementation); Intel intrinsic guide https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html . No imported implementations, played-video claim, target or new correctness proof. Current D334 remains exact.
+
+
+Original358/99aa8f8dadd39cb6edb70dad34f8427b5fa0ff65, run-ece0f9410b5f, allactualgatesPASS aftercompleteC357 threefile/image rollback: T0.201593/M70922240/S885/K20.021284/65.074596. Unchanged-source repeat; best remains separate, no new algorithm or causal gain. Exact A178/C175/D334/30inputs/Make/README/fullsets/Git/submitted358/original353/best-components/localimages: ../docs/round358-final-source-match.json. Raw ../docs/board-round358-original-restored.json; originalCimage8public/untrained3623/default andcachedMake/native12 passed withoutcompiling/retraining.
