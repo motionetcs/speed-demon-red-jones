@@ -788,3 +788,6 @@ C332 reader-local metadata-free64-byte aligned totals are flat/mixed.995796/1.02
 
 
 340 new four-lane owner-private probe/payload state machine loses1.041447/1.197465/1.159224/1.180307 (4/2/1/4wins);341 exact presence-bit/rank compact region map loses1.037295/1.060943/1.008576/1.074866 (3/4/6/5wins), mixedRSS. Both REJECT_NATIVE_ONLY after public1/6/12 and13rotating paired full references, exact input/output/source/ELF hashesPASS. No new broad state/growth/rank/guard/lifetime/strict/race/GCC/image/default/actual proof or official gain; old75 sequential-prefetch proof is not transferred to340. Original C175 remains. Exact executed drivers/preflight/patches and complete frozen-target reconstruction: ../docs/round339-341-screen-index.json.
+
+
+343/cdb3159b97f1e0c4c23409dff29fc6284a1ef344 run-122cf7931bc8 passes everyactualgate on unchanged selectedC source: T0.061544/M12259328/S672/K22.98809/68.075145. Lower repeat than retained best; no C algorithm regression/gain inferred from unchanged-source variation. Only A343 scheduling flag rejected and fullyrestored. C175 andCURRENT D334 mapped-prefix/cursor reuse remain selected, with one344 restoration confirmation next. Exactactual records ../docs/board-round343-raptorlake-tune.json.
