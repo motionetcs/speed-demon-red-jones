@@ -1,0 +1,333 @@
+{
+  "started_at_utc": "2026-11-02T02:46:51.405308+00:00",
+  "official_score": false,
+  "selected_in_root": false,
+  "scope": "A342 newactual-header prefix early return: fresh strict native numeric/from_chars/unsigned-modulo/everybyte/arbitrarysuffix/protected-page model plus fresh currentmain sample3541/3547/full3557 ASAN and3563sampleTSAN, independent method/hour/ID4095/latencyescape/ordered every1..12/error cases. Original cache/records/allocator/writer protocols remain source-byte-bound; no old changed-source execution proof relabeled. Early-return native screen is only0.17\u20130.42% and not a robust speed claim; additional correctness/untrained and possible GNU inspection are justified by one-line source cost and structural removal of a dependent reload, not promised Intel/K gain.",
+  "source_sha256": {
+    "track-a/.speed-demon.toml": "c9ae973186c14661797640f427009129e2a80d1aecefd5d4fa413ee7f3da44d8",
+    "track-a/Dockerfile": "c415bd88f27a18da83c33990744690358b9c158a8b1ea3dc60c289d123f4ff90",
+    "track-a/PERF.md": "cd005ba7abd0336a8476f48c500c71141abd6ba9de0e96a1f1cb8c8f82684b1a",
+    "track-a/README.md": "42cdb7309530bef6c9d22f61bd694bc8085ba43bf10bae515e19bd1da29d7b46",
+    "track-a/decimal.hpp": "30b4694081d7b477d01eed2a75578edc180bd7f84ba4305d0dc13f50bba04601",
+    "track-a/endpoint_table.hpp": "913048b747b8f938cf1b438f29648a62d11434b2d71c3fb9a9b5f5aae31df745",
+    "track-a/io.hpp": "a8838c50064520b806fcd2032cda0e9f246e9d3b6869fb951e3555cd5e8dfead",
+    "track-a/main.cpp": "02661f93bc65fc35d359c80e19d82578968ab68725e8b325e48c630c3e27310c",
+    "track-a/mapped_allocator.hpp": "060bb6a0622338b9151e767d827cbf30c8e4d940cc7e170ad51757c4a6b0808b",
+    "track-a/ordered_output.hpp": "b6f0911f5d6396ca35ad657a1de6364aa3e52a5dd6a9275d95f768e54f4fd69d",
+    "track-a/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420",
+    "track-a/training_generator.py": "d82b43b8f617016808f85cbe9be86af1fee8466296a0848ab8e6908ee3c4b0b4"
+  },
+  "compiles": [
+    {
+      "mode": "asan",
+      "unit": "model",
+      "command": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-pthread",
+        "-fno-omit-frame-pointer",
+        "-fsanitize=address,undefined",
+        "-fno-sanitize-recover=all",
+        "-DDECIMAL_HEADER=\"/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round342/source/track-a/decimal.hpp\"",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/tools/test_decimal_prefix.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round342/native-proof/asan/prefix-model"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "binary_sha256": "e235b5cc701d30334b9ccebc38cd4efee7cff527e6061109799ffee0c5a23311"
+    },
+    {
+      "mode": "asan",
+      "unit": "main",
+      "command": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-pthread",
+        "-fno-omit-frame-pointer",
+        "-fsanitize=address,undefined",
+        "-fno-sanitize-recover=all",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round342/source/track-a/main.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round342/native-proof/asan/track-a"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "binary_sha256": "eb28d526b89a7aec2d1373671bf45729f6ca9be36650db272510b6d67144cb76"
+    },
+    {
+      "mode": "tsan",
+      "unit": "model",
+      "command": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-pthread",
+        "-fno-omit-frame-pointer",
+        "-fsanitize=thread",
+        "-DDECIMAL_HEADER=\"/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round342/source/track-a/decimal.hpp\"",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/tools/test_decimal_prefix.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round342/native-proof/tsan/prefix-model"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "binary_sha256": "e2393eb8cb5eb810518b8d7e0bb86b2eb823ab9d976bc4a84806e401df577f7c"
+    },
+    {
+      "mode": "tsan",
+      "unit": "main",
+      "command": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-pthread",
+        "-fno-omit-frame-pointer",
+        "-fsanitize=thread",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round342/source/track-a/main.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round342/native-proof/tsan/track-a"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "binary_sha256": "45f2e64c3de2af6d33599f3d9c5cfaa6126e3d9c13486f85c49f8b4b2a44fe5c"
+    }
+  ],
+  "models": [
+    {
+      "mode": "asan",
+      "returncode": 0,
+      "stdout": "PASS leading decimal byte/reference/guard-page model\n",
+      "stderr": ""
+    },
+    {
+      "mode": "tsan",
+      "returncode": 0,
+      "stdout": "PASS leading decimal byte/reference/guard-page model\n",
+      "stderr": ""
+    }
+  ],
+  "integrations": [
+    {
+      "mode": "asan",
+      "suite": "sample",
+      "command": [
+        "python3",
+        "tools/verify.py",
+        "--run-id",
+        "round342-asan-sample",
+        "--source-root",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round342/source",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round342/native-proof/asan",
+        "--tracks",
+        "a",
+        "--threads",
+        "1",
+        "6",
+        "12",
+        "--scale",
+        "sample",
+        "--seeds",
+        "3541",
+        "3547",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/docs/round342-a-asan-sample.json"
+      ],
+      "report": "docs/round342-a-asan-sample.json",
+      "returncode": 0,
+      "report_sha256": "b56ae2eeddcda76f24f9022eddeb49e4135fd74098ded5ac179e629a12288d2d"
+    },
+    {
+      "mode": "asan",
+      "suite": "full",
+      "command": [
+        "python3",
+        "tools/verify.py",
+        "--run-id",
+        "round342-asan-full",
+        "--source-root",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round342/source",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round342/native-proof/asan",
+        "--tracks",
+        "a",
+        "--threads",
+        "1",
+        "6",
+        "12",
+        "--scale",
+        "full",
+        "--seeds",
+        "3557",
+        "--skip-adversarial",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/docs/round342-a-asan-full.json"
+      ],
+      "report": "docs/round342-a-asan-full.json",
+      "returncode": 0,
+      "report_sha256": "2f450ff977c693c7cc57983cf0af7532f442efc3e182998efdb078b33a02924f"
+    },
+    {
+      "mode": "asan",
+      "suite": "compact_records",
+      "command": [
+        "python3",
+        "-c",
+        "import sys;sys.path.insert(0,'tools');import verify;verify.RUN_ID='round342-asan';import test_compact_records;test_compact_records.main()",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round342/native-proof/asan",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/docs/round342-a-asan-compact_records.json"
+      ],
+      "report": "docs/round342-a-asan-compact_records.json",
+      "returncode": 0,
+      "report_sha256": "da735ca7c759a575a4ec39dc5bbb686d8e1a238cefa8a43a3801b10b34c3572e"
+    },
+    {
+      "mode": "asan",
+      "suite": "method_hours",
+      "command": [
+        "python3",
+        "-c",
+        "import sys;sys.path.insert(0,'tools');import verify;verify.RUN_ID='round342-asan';import test_method_hours;test_method_hours.main()",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round342/native-proof/asan",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/docs/round342-a-asan-method_hours.json"
+      ],
+      "report": "docs/round342-a-asan-method_hours.json",
+      "returncode": 0,
+      "report_sha256": "5a3452baca59146c17ddb43bf3fe7285ded289b804d94362a73b4de493e05bfc"
+    },
+    {
+      "mode": "asan",
+      "suite": "ordered_hours",
+      "command": [
+        "python3",
+        "tools/test_ordered_hours.py",
+        "--run-id",
+        "round342-asan-ordered",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round342/native-proof/asan",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/docs/round342-a-asan-ordered_hours.json"
+      ],
+      "report": "docs/round342-a-asan-ordered_hours.json",
+      "returncode": 0,
+      "report_sha256": "8e97c6c8c8a28e76f9909f367319bb8b367fa7f256d6aeff1163e3c0aa654e98"
+    },
+    {
+      "mode": "tsan",
+      "suite": "sample",
+      "command": [
+        "python3",
+        "tools/verify.py",
+        "--run-id",
+        "round342-tsan-sample",
+        "--source-root",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round342/source",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round342/native-proof/tsan",
+        "--tracks",
+        "a",
+        "--threads",
+        "1",
+        "6",
+        "12",
+        "--scale",
+        "sample",
+        "--seeds",
+        "3563",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/docs/round342-a-tsan-sample.json"
+      ],
+      "report": "docs/round342-a-tsan-sample.json",
+      "returncode": 0,
+      "report_sha256": "0b95dd28bcb564cf49b31677961aa12444151067a883209a0d7f828604cd2938"
+    },
+    {
+      "mode": "tsan",
+      "suite": "compact_records",
+      "command": [
+        "python3",
+        "-c",
+        "import sys;sys.path.insert(0,'tools');import verify;verify.RUN_ID='round342-tsan';import test_compact_records;test_compact_records.main()",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round342/native-proof/tsan",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/docs/round342-a-tsan-compact_records.json"
+      ],
+      "report": "docs/round342-a-tsan-compact_records.json",
+      "returncode": 0,
+      "report_sha256": "883ff99964b0941949a7e022dcb6c2a7641d1bed55dd4ac7d58f990db5b8aef1"
+    },
+    {
+      "mode": "tsan",
+      "suite": "method_hours",
+      "command": [
+        "python3",
+        "-c",
+        "import sys;sys.path.insert(0,'tools');import verify;verify.RUN_ID='round342-tsan';import test_method_hours;test_method_hours.main()",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round342/native-proof/tsan",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/docs/round342-a-tsan-method_hours.json"
+      ],
+      "report": "docs/round342-a-tsan-method_hours.json",
+      "returncode": 0,
+      "report_sha256": "17dc4607cb00b2ae3ca879bc520ea9dd389c59b1dde9282f32ab9ebe3d32cee5"
+    },
+    {
+      "mode": "tsan",
+      "suite": "ordered_hours",
+      "command": [
+        "python3",
+        "tools/test_ordered_hours.py",
+        "--run-id",
+        "round342-tsan-ordered",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round342/native-proof/tsan",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/docs/round342-a-tsan-ordered_hours.json"
+      ],
+      "report": "docs/round342-a-tsan-ordered_hours.json",
+      "returncode": 0,
+      "report_sha256": "0169b99b9f74fe0d3fa5f7c77330d980f1fede653437cc5edee6bcb6ac92fb8a"
+    }
+  ],
+  "model_identity": {
+    "path": "tools/test_decimal_prefix.cpp",
+    "sha256": "045496a36a9ed2966539218365e4253b65fd641bee8ae9a736a727f404623202",
+    "actual_decimal_sha256": "30b4694081d7b477d01eed2a75578edc180bd7f84ba4305d0dc13f50bba04601",
+    "scope": "Existing independently written whole-prefix model freshly executed on newactual header, no copied function; scalar pointer/value plus from_chars independent references. Native TSAN pure-function model is single-threaded, not a new shared-protocol model; wholecurrentmain TSAN covers actual concurrent runtime."
+  },
+  "passed": true,
+  "completed_at_utc": "2026-11-02T02:47:35.151920+00:00"
+}

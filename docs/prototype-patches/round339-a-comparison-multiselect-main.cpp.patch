@@ -1,0 +1,60 @@
+--- a/track-a/main.cpp
++++ b/track-a/main.cpp
+@@ -6,11 +6,49 @@
+ #include <atomic>
+ #include <memory>
+ #include <numeric>
++#include <bit>
+ #include "ordered_output.hpp"
+ 
+ static constexpr uint32_t latency_escape = (1U << 19) - 1;
+ using Records=std::vector<uint32_t,MappedAllocator<uint32_t>>;
+ struct Count { uint32_t count = 0, errors = 0; };
++
++// Partition only intervals containing an exact requested rank; equal values settle together.
++static uint32_t median_three(uint32_t a,uint32_t b,uint32_t c) {
++    if(a>b)std::swap(a,b);
++    if(b>c)std::swap(b,c);
++    return std::max(a,b);
++}
++static void select_quantiles(uint32_t* data,size_t size) {
++    if(!size)return;
++    std::array<size_t,3> ranks{(uint64_t(size)*50+99)/100-1,(uint64_t(size)*95+99)/100-1,(uint64_t(size)*99+99)/100-1};
++    auto split=[&](auto&& self,size_t low,size_t high,unsigned first,unsigned last,unsigned depth)->void {
++        while(first<last){
++            if(high-low<128||!depth){
++                size_t next=low;
++                for(unsigned k=first;k<last;++k)if(ranks[k]>=next){
++                    std::nth_element(data+next,data+ranks[k],data+high);next=ranks[k]+1;
++                }
++                return;
++            }
++            size_t step=(high-low-1)/8;
++            uint32_t pivot=median_three(median_three(data[low],data[low+step],data[low+2*step]),
++                median_three(data[low+3*step],data[low+4*step],data[low+5*step]),
++                median_three(data[low+6*step],data[low+7*step],data[high-1]));
++            size_t less=low,read=low,greater=high;
++            while(read<greater){
++                if(data[read]<pivot){std::swap(data[less],data[read]);++less;++read;}
++                else if(data[read]>pivot){--greater;std::swap(data[read],data[greater]);}
++                else ++read;
++            }
++            unsigned middle=first;while(middle<last&&ranks[middle]<less)++middle;
++            unsigned right=middle;while(right<last&&ranks[right]<greater)++right;
++            if(first<middle)self(self,low,less,first,middle,depth-1);
++            low=greater;first=right;--depth;
++        }
++    };
++    split(split,0,size,0,3,2*std::bit_width(size));
++}
+ 
+ int main(int argc, char** argv) {
+     try {
+@@ -102,6 +140,7 @@
+                     uint64_t n = groups[key].count, errors = groups[key].errors; if (!n) continue;
+                     auto first = latencies.begin() + offsets[key];
+                     if (n < 32) std::sort(first, first + n);
++                    else if(n>=128)select_quantiles(&*first,static_cast<size_t>(n));
+                     else {
+                         size_t unselected = 0;
+                         for (uint64_t percentile : {50, 95, 99}) {

@@ -1,0 +1,117 @@
+{
+  "observed_at_utc": "2026-11-02T03:04:43.558234+00:00",
+  "passed": true,
+  "official_score": false,
+  "selected_in_root": false,
+  "decision": "REJECT_NATIVE_AFTER_STRICT_UNTRAINED",
+  "reason": "Initial0.17\u20130.42% paired differences with7\u20138wins are tiny/flat; new untrained3557 ratio1.000709/6wins and+720896B nativeRSS do not support a substantial or robust native tradeoff. One-line source cost is small but no Intel/GNU/K gain is established. Reject before new GNU/PGO-image/default/rootMake/actual trial; no need to repeat successful native work.",
+  "scope": "Only one added scalar-tail early return after original8byte prefix validation/count/reduction; newstrict wholeprefix and actualmain proof passed but fresh native timing does not support promotion. Actual selected A178 original tail is unchanged. All evidence remains bound to rejected342, not343 original-source scheduling-only hypothesis.",
+  "preflight": "docs/round342-preflight.json",
+  "preflight_sha256": "2b84bf312c59a18dad1fd0114c9f7b014fa6e3e7762132145c84a3baf6c31b30",
+  "screen": "docs/round342-a-prefix-return-screen.json",
+  "screen_sha256": "f1b439bc1c69e85d237af5600348fe98728de120cb5d20687cf1cde66e71013c",
+  "native_proof": "docs/round342-a-native-proof.json",
+  "native_proof_sha256": "6baa46dd77c1afc93fdbc5ae38718512f3a775e1f124cab5de3405d6513f40d8",
+  "fresh_confirmation": "docs/round342-a-fresh-confirmation.json",
+  "fresh_confirmation_sha256": "b5ff91e271055501037a7741d19ec578a1ff819ddc8e12f950259f63157fb248",
+  "integrations": [
+    {
+      "report": "docs/round342-a-asan-sample.json",
+      "sha256": "b56ae2eeddcda76f24f9022eddeb49e4135fd74098ded5ac179e629a12288d2d",
+      "mode": "asan",
+      "valid_invocations": 30,
+      "normal_error_invocations": 0
+    },
+    {
+      "report": "docs/round342-a-asan-full.json",
+      "sha256": "2f450ff977c693c7cc57983cf0af7532f442efc3e182998efdb078b33a02924f",
+      "mode": "asan",
+      "valid_invocations": 3,
+      "normal_error_invocations": 0
+    },
+    {
+      "report": "docs/round342-a-asan-compact_records.json",
+      "sha256": "da735ca7c759a575a4ec39dc5bbb686d8e1a238cefa8a43a3801b10b34c3572e",
+      "mode": "asan",
+      "valid_invocations": 6,
+      "normal_error_invocations": 0
+    },
+    {
+      "report": "docs/round342-a-asan-method_hours.json",
+      "sha256": "5a3452baca59146c17ddb43bf3fe7285ded289b804d94362a73b4de493e05bfc",
+      "mode": "asan",
+      "valid_invocations": 6,
+      "normal_error_invocations": 0
+    },
+    {
+      "report": "docs/round342-a-asan-ordered_hours.json",
+      "sha256": "8e97c6c8c8a28e76f9909f367319bb8b367fa7f256d6aeff1163e3c0aa654e98",
+      "mode": "asan",
+      "valid_invocations": 36,
+      "normal_error_invocations": 3
+    },
+    {
+      "report": "docs/round342-a-tsan-sample.json",
+      "sha256": "0b95dd28bcb564cf49b31677961aa12444151067a883209a0d7f828604cd2938",
+      "mode": "tsan",
+      "valid_invocations": 27,
+      "normal_error_invocations": 0
+    },
+    {
+      "report": "docs/round342-a-tsan-compact_records.json",
+      "sha256": "883ff99964b0941949a7e022dcb6c2a7641d1bed55dd4ac7d58f990db5b8aef1",
+      "mode": "tsan",
+      "valid_invocations": 6,
+      "normal_error_invocations": 0
+    },
+    {
+      "report": "docs/round342-a-tsan-method_hours.json",
+      "sha256": "17dc4607cb00b2ae3ca879bc520ea9dd389c59b1dde9282f32ab9ebe3d32cee5",
+      "mode": "tsan",
+      "valid_invocations": 6,
+      "normal_error_invocations": 0
+    },
+    {
+      "report": "docs/round342-a-tsan-ordered_hours.json",
+      "sha256": "0169b99b9f74fe0d3fa5f7c77330d980f1fede653437cc5edee6bcb6ac92fb8a",
+      "mode": "tsan",
+      "valid_invocations": 36,
+      "normal_error_invocations": 3
+    }
+  ],
+  "native_valid_invocations": 156,
+  "native_normal_error_invocations": 6,
+  "fresh_generated_and_referenced_datasets": [
+    "a/sample-seed3541",
+    "a/sample-seed3547",
+    "a/full-seed3557",
+    "a/sample-seed3563"
+  ],
+  "generation_or_reference_repeats": 0,
+  "optimized_compiles": 1,
+  "native_sanitizer_model_compiles": 2,
+  "native_sanitizer_main_compiles": 2,
+  "model_scope": "Existing independently written actual-header model freshly compiled/run under native failfastASAN/UBSAN andsingle-threadTSAN; unsigneduint64/from_chars/modulo/all-byte/invalidsuffix/random/protected-page. ActualwholemainTSAN sample andevery1..12ordered/concurrent calls cover runtime races; no new sharedprotocol model claimed.",
+  "archive_reconstruction": {
+    "passed": true,
+    "source_parent": "d3ff3c8b371f94cbe1417b78db8415c4e6c027d4",
+    "all_frozen_A_files_match": true,
+    "PERF_note": "Exact frozen PERF archived separately; no compiled source delta except named patch."
+  },
+  "patch": "docs/prototype-patches/round342-a-prefix-return-decimal.hpp.patch",
+  "patch_sha256": "2ccf398efb188c6065e08184f509c6d857389f73b75a6e51a02239f4174e9899",
+  "executed_drivers_and_model": {
+    "tools/round342-proof/prepare.py": "d005a1cb70700741f678cef73236af96ae95f975e1b02cf9b94dcad65090b403",
+    "tools/round342-proof/screen.py": "b89d667c960405799df2644698f1bcd35f2fc6bdf928e6b3f5e29c075eb1aea1",
+    "tools/round342-proof/compile.json": "cdcf2f91d6c7f638984fa2c4b511352b89bcda8290d460798f348fbdb71e7f11",
+    "tools/round342-proof/native_proof.py": "4690660475762cb62ccda1db1f2cb71d8737b09b658820e7b723a50e99ffe972",
+    "tools/round342-proof/confirm_fresh.py": "651061b4669701eff4661074c3656c753a3720a302528f462322719de9178b63",
+    "tools/round342-proof/base-PERF.md": "cd005ba7abd0336a8476f48c500c71141abd6ba9de0e96a1f1cb8c8f82684b1a",
+    "tools/round342-proof/test_decimal_prefix.cpp": "045496a36a9ed2966539218365e4253b65fd641bee8ae9a736a727f404623202"
+  },
+  "GNU_or_new_PGO_or_image_or_actual_work": false,
+  "primary_sources": [
+    "https://eel.is/c++draft/bit.count",
+    "https://arxiv.org/abs/2101.11408"
+  ]
+}

@@ -1,0 +1,28 @@
+from pathlib import Path
+import datetime,hashlib,json,os,subprocess
+r=Path('/Volumes/Vault/Documents/codex/rough/speed-demon-fresh');w=r/'.build/round342';s=w/'source';pre=json.loads((w/'preflight.json').read_text());out=w/'native-proof';assert not out.exists();out.mkdir()
+def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def now():return datetime.datetime.now(datetime.timezone.utc).isoformat()
+def dump(p,x):p.write_text(json.dumps(x,indent=2)+'\n')
+for p,h in pre['source_sha256'].items():assert sha(s/p)==h,p
+for p,h in pre['root_selected_bindings'].items():assert sha(r/p)==h,p
+model=r/'tools/test_decimal_prefix.cpp';report={'started_at_utc':now(),'official_score':False,'selected_in_root':False,'scope':'A342 newactual-header prefix early return: fresh strict native numeric/from_chars/unsigned-modulo/everybyte/arbitrarysuffix/protected-page model plus fresh currentmain sample3541/3547/full3557 ASAN and3563sampleTSAN, independent method/hour/ID4095/latencyescape/ordered every1..12/error cases. Original cache/records/allocator/writer protocols remain source-byte-bound; no old changed-source execution proof relabeled. Early-return native screen is only0.17–0.42% and not a robust speed claim; additional correctness/untrained and possible GNU inspection are justified by one-line source cost and structural removal of a dependent reload, not promised Intel/K gain.','source_sha256':pre['source_sha256'],'compiles':[],'models':[],'integrations':[],'model_identity':{'path':str(model.relative_to(r)),'sha256':sha(model),'actual_decimal_sha256':sha(s/'track-a/decimal.hpp'),'scope':'Existing independently written whole-prefix model freshly executed on newactual header, no copied function; scalar pointer/value plus from_chars independent references. Native TSAN pure-function model is single-threaded, not a new shared-protocol model; wholecurrentmain TSAN covers actual concurrent runtime.'}}
+dump(out/'partial.json',report)
+env=dict(os.environ,ASAN_OPTIONS='halt_on_error=1',UBSAN_OPTIONS='halt_on_error=1:print_stacktrace=1',TSAN_OPTIONS='halt_on_error=1')
+for mode,flags in [('asan',['-fsanitize=address,undefined','-fno-sanitize-recover=all']),('tsan',['-fsanitize=thread'])]:
+ folder=out/mode;folder.mkdir()
+ for unit,source,name,extra in [('model',model,'prefix-model',['-DDECIMAL_HEADER="'+str(s/'track-a/decimal.hpp')+'"']),('main',s/'track-a/main.cpp','track-a',[])]:
+  binary=folder/name;cmd=['clang++','-std=c++20','-O1','-g','-Wall','-Wextra','-Wpedantic','-Werror','-pthread','-fno-omit-frame-pointer',*flags,*extra,str(source),'-o',str(binary)];q=subprocess.run(cmd,capture_output=True,text=True,timeout=240);row={'mode':mode,'unit':unit,'command':cmd,'returncode':q.returncode,'stdout':q.stdout,'stderr':q.stderr};report['compiles'].append(row);dump(out/'partial.json',report);assert q.returncode==0 and not q.stdout and not q.stderr,row;row['binary_sha256']=sha(binary)
+ q=subprocess.run([str(folder/'prefix-model')],capture_output=True,text=True,env=env,timeout=240);row={'mode':mode,'returncode':q.returncode,'stdout':q.stdout,'stderr':q.stderr};report['models'].append(row);dump(out/'partial.json',report);assert q.returncode==0 and q.stdout=='PASS leading decimal byte/reference/guard-page model\n' and not q.stderr,row
+ jobs=[(['--scale','sample','--seeds','3541','3547'],'sample'),(['--scale','full','--seeds','3557','--skip-adversarial'],'full')] if mode=='asan' else [(['--scale','sample','--seeds','3563'],'sample')]
+ for opts,label in jobs:
+  path=r/f'docs/round342-a-{mode}-{label}.json';assert not path.exists();cmd=['python3','tools/verify.py','--run-id',f'round342-{mode}-{label}','--source-root',str(s),'--binary-dir',str(folder),'--tracks','a','--threads','1','6','12',*opts,'--report',str(path)];record={'mode':mode,'suite':label,'command':cmd,'report':str(path.relative_to(r))};report['integrations'].append(record);dump(out/'partial.json',report)
+  q=subprocess.run(cmd,capture_output=True,text=True,env=env,timeout=900);(folder/f'{label}.stdout').write_text(q.stdout);(folder/f'{label}.stderr').write_text(q.stderr);record['returncode']=q.returncode;dump(out/'partial.json',report);assert q.returncode==0,(record,q.stdout[-1800:],q.stderr[-1800:]);assert json.loads(path.read_text())['passed'];record['report_sha256']=sha(path)
+ for tool in ['test_compact_records','test_method_hours','test_ordered_hours']:
+  label=tool.removeprefix('test_');path=r/f'docs/round342-a-{mode}-{label}.json';assert not path.exists()
+  if tool=='test_ordered_hours':cmd=['python3','tools/'+tool+'.py','--run-id',f'round342-{mode}-ordered']
+  else:cmd=['python3','-c',"import sys;sys.path.insert(0,'tools');import verify;verify.RUN_ID='round342-"+mode+"';import "+tool+";"+tool+".main()"]
+  cmd+=['--binary-dir',str(folder),'--report',str(path)];record={'mode':mode,'suite':label,'command':cmd,'report':str(path.relative_to(r))};report['integrations'].append(record);dump(out/'partial.json',report);q=subprocess.run(cmd,capture_output=True,text=True,env=env,timeout=300);(folder/f'{label}.stdout').write_text(q.stdout);(folder/f'{label}.stderr').write_text(q.stderr);record['returncode']=q.returncode;dump(out/'partial.json',report);assert q.returncode==0,(record,q.stdout[-1800:],q.stderr[-1800:]);assert json.loads(path.read_text())['passed'];record['report_sha256']=sha(path)
+for p,h in pre['source_sha256'].items():assert sha(s/p)==h,p
+for p,h in pre['root_selected_bindings'].items():assert sha(r/p)==h,p
+assert sha(model)==report['model_identity']['sha256'];report.update(passed=True,completed_at_utc=now());dump(out/'report.json',report);dump(r/'docs/round342-a-native-proof.json',report);print('PASS A342 fresh native strict prefix and currentmain/untrained/independent/race proof',flush=True)

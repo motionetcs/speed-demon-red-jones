@@ -1,0 +1,36 @@
+--- a/track-d/load_cursors.hpp
++++ b/track-d/load_cursors.hpp
+@@ -21,9 +21,9 @@
+     void release() { std::vector<uint8_t>().swap(values); }
+ };
+ struct SharedCursor {
+-    static constexpr unsigned shift=12, block_size=1U<<shift;
++    static constexpr unsigned shift=5, block_size=1U<<shift;
+     std::vector<uint32_t> base, wide_index;
+-    std::vector<uint16_t> small;
++    std::vector<uint8_t> small;
+     std::vector<uint32_t> wide;
+     std::size_t wide_blocks=0;
+     template<class Allocator> explicit SharedCursor(const std::vector<uint32_t,Allocator>& starts) {
+@@ -31,12 +31,12 @@
+         base.resize(blocks);wide_index.resize(blocks,UINT32_MAX);
+         for(std::size_t block=0;block<blocks;++block) {
+             std::size_t begin=block*block_size,end=std::min(nodes,begin+block_size);base[block]=starts[begin];
+-            if(starts[end]-starts[begin]>UINT16_MAX)wide_index[block]=static_cast<uint32_t>(wide_blocks++);
++            if(starts[end]-starts[begin]>UINT8_MAX)wide_index[block]=static_cast<uint32_t>(wide_blocks++);
+         }
+         small.resize(nodes);wide.resize(wide_blocks*block_size);
+         for(std::size_t node=0;node<nodes;++node) {
+             std::size_t block=node>>shift;uint32_t index=wide_index[block];
+-            if(index==UINT32_MAX)small[node]=static_cast<uint16_t>(starts[node]-base[block]);
++            if(index==UINT32_MAX)small[node]=static_cast<uint8_t>(starts[node]-base[block]);
+             else wide[std::size_t(index)*block_size+(node&(block_size-1))]=starts[node];
+         }
+     }
+@@ -64,5 +64,5 @@
+     }
+     template<bool HasWide> std::pair<uint32_t,uint32_t> range(uint32_t node)const{return {node?end<HasWide>(node-1):0,end<HasWide>(node)};}
+     uint32_t take(uint32_t node) {return wide_blocks ? take<true>(node):take<false>(node);}
+-    void release(){std::vector<uint16_t>().swap(small);std::vector<uint32_t>().swap(wide);}
++    void release(){std::vector<uint8_t>().swap(small);std::vector<uint32_t>().swap(wide);}
+ };

@@ -1,0 +1,82 @@
+--- a/track-c/main.cpp
++++ b/track-c/main.cpp
+@@ -5,7 +5,34 @@
+ #include "names.hpp"
+ #include <array>
+ #include <numeric>
++#include <bit>
++#include <limits>
+ #include <vector>
++
++// Presence plus exact rank addresses only country codes actually in the lookup.
++template<class Code> struct RankedRegions {
++    std::vector<uint64_t> bits;std::vector<uint32_t> prefix;std::vector<Code> codes;size_t extent;
++    explicit RankedRegions(const std::vector<uint16_t>& source):extent(source.size()){
++        if(extent>SIZE_MAX-63)throw std::runtime_error("region bitmap size overflow");
++        size_t count=static_cast<size_t>(std::count_if(source.begin(),source.end(),[](uint16_t x){return x!=UINT16_MAX;}));
++        if(count>UINT32_MAX)throw std::runtime_error("region rank capacity");
++        bits.resize((extent+63)/64);prefix.resize(bits.size());codes.reserve(count);
++        for(size_t word=0;word<bits.size();++word){
++            prefix[word]=static_cast<uint32_t>(codes.size());
++            for(size_t id=word*64;id<std::min(extent,(word+1)*64);++id){
++                uint16_t code=source[id];if(code==UINT16_MAX)continue;
++                if(code>=std::numeric_limits<Code>::max())throw std::runtime_error("region country code width");
++                bits[word]|=uint64_t(1)<<(id%64);codes.push_back(static_cast<Code>(code));
++            }
++        }
++    }
++    size_t size()const{return extent;}
++    Code operator[](size_t id)const{
++        uint64_t word=bits[id/64],bit=uint64_t(1)<<(id%64);
++        if(!(word&bit))return std::numeric_limits<Code>::max();
++        return codes[size_t(prefix[id/64])+std::popcount(word&(bit-1))];
++    }
++};
+ 
+ struct Field { std::string_view value; size_t bytes; bool escaped; };
+ struct Csv {
+@@ -146,11 +173,11 @@
+         }
+         size_t unmatched = groups.size();
+         groups.push_back(Group{"_UNMATCHED"});
+-        std::vector<uint8_t> narrow_lookup;
+-        if (unmatched <= UINT8_MAX) {
+-            narrow_lookup.assign(lookup.begin(), lookup.end());
+-            std::vector<uint16_t>().swap(lookup);
+-        }
++        std::unique_ptr<RankedRegions<uint8_t>> narrow_lookup;
++        std::unique_ptr<RankedRegions<uint16_t>> wide_lookup;
++        if(unmatched<=UINT8_MAX)narrow_lookup=std::make_unique<RankedRegions<uint8_t>>(lookup);
++        else wide_lookup=std::make_unique<RankedRegions<uint16_t>>(lookup);
++        std::vector<uint16_t>().swap(lookup);
+         Csv header{records.data, records.data + records.size};
+         header.bom();
+         for (auto expected : {"id", "name", "note", "region_id", "amount"}) {
+@@ -172,7 +199,7 @@
+         std::vector<std::vector<uint64_t>> distinct(owners,std::vector<uint64_t>(groups.size()));
+         auto queues=std::make_unique<NameQueue[]>(size_t(readers)*owners);
+         std::atomic<bool> canceled{false};
+-        auto consume=[&]<typename Code>(const std::vector<Code>& region_lookup){
++        auto consume=[&]<typename Code>(const RankedRegions<Code>& region_lookup){
+             constexpr Code no_region=std::numeric_limits<Code>::max();
+             parallel(threads,[&](unsigned worker){
+                 try{
+@@ -187,7 +214,8 @@
+                             csv.bom();uint64_t id=csv.integer();Field name=csv.field(name_scratch,false);csv.comma();
+                             uint64_t hash=Names::hash_key(name.value);
+                             Field note=csv.field(unused,false);csv.comma();uint64_t region=csv.integer();int64_t amount=csv.amount();csv.newline();
+-                            size_t country=region<region_lookup.size()&&region_lookup[region]!=no_region?region_lookup[region]:unmatched;
++                            Code mapped=region<region_lookup.size()?region_lookup[region]:no_region;
++                            size_t country=mapped!=no_region?mapped:unmatched;
+                             Group& group=local.groups[country];++group.count;group.ids+=static_cast<int64_t>(id);group.sum+=amount;
+                             group.minimum=std::min(group.minimum,amount);group.maximum=std::max(group.maximum,amount);
+                             group.name_bytes+=name.bytes;group.note_bytes+=note.bytes;
+@@ -216,7 +244,7 @@
+                 }catch(...){canceled.store(true,std::memory_order_relaxed);throw;}
+             });
+         };
+-        if(narrow_lookup.empty())consume(lookup);else consume(narrow_lookup);
++        if(narrow_lookup)consume(*narrow_lookup);else consume(*wide_lookup);
+         for(const auto& local:locals)for(size_t i=0;i<groups.size();++i){auto& group=groups[i];const auto& value=local.groups[i];group.count+=value.count;group.ids+=value.ids;group.sum+=value.sum;group.minimum=std::min(group.minimum,value.minimum);group.maximum=std::max(group.maximum,value.maximum);group.names+=value.names;group.name_bytes+=value.name_bytes;group.note_bytes+=value.note_bytes;}
+         for(const auto& owner:distinct)for(size_t i=0;i<groups.size();++i)groups[i].names+=owner[i];
+         std::sort(groups.begin(), groups.end(), [](const Group& a, const Group& b) { return a.country < b.country; });

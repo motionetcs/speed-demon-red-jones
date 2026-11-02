@@ -1,0 +1,10 @@
+--- a/track-a/decimal.hpp
++++ b/track-a/decimal.hpp
+@@ -18,6 +18,7 @@
+                 digits=(digits*100+(digits>>16))&0x0000ffff0000ffffULL;
+                 value=(digits*10000+(digits>>32))&0xffffffffULL;p+=count;
+             }
++            if(count<8)return value; // The prefix mask already located a non-digit.
+         }
+     }
+     while(p<end&&*p>='0'&&*p<='9')value=value*10+*p++-'0';

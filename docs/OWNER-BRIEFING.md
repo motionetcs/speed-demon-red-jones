@@ -59,3 +59,10 @@ Every member needs individual registration. The team form must point to the corr
 The code and experiment execution are AI-assisted with Codex. The logs report actual measurements, including rejected changes, rather than a fabricated personal development story. The event permits AI; judges still assess whether the entrant can explain the approach. This briefing prepares an explanation and does not attest that the owner has read or understood it.
 
 The emoji reaction counts feed the separate Clicking Devils leaderboard. Demon level follows machine points, and the crown marks the top three overall. Reactions do not change K or the processing-program score. Our entry is the Red Jones row with three counted tracks; B is blank because we entered A/C/D. Real gate records, K, and machine points verify the program results. The saved emoji counts and screenshot are in emoji-status.json and emoji-result.jpg.
+
+
+## Current D memory change
+
+Loading each edge advances a cursor that chooses its exact slot. Once every loading thread has finished, each cursor is the end of that vertex's edge range. For example, if the previous vertex ends at10 and this cursor ends at13, this vertex's edges occupy slots10,11,12. Queries can use these final values, so the separate temporary prefix arrays are no longer needed and are actually unmapped.
+
+Small blocks keep exact16-bit offsets from a block base. Blocks with more than65535 edges keep complete32-bit positions. This changes storage and memory lifetime while preserving every edge, weight, direction and shortest-path calculation. The real334 board result passes every gate and improves D's total K; later timings and final judging can vary. This explanation is preparation and does not certify personal understanding.

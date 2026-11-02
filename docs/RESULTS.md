@@ -1,4 +1,27 @@
-# Results — 1 November 2026
+# Results — 2 November 2026
+
+Complete ordinary public feed **2026-11-02T01:02:42Z**: Red Jones **rank 56 of 114**, best-three geometric machine mean **69.577494**, leader **another ello 84.946836**. Number one remains unachieved.
+
+**Retain D334:** its real score improves **65.319494 → 65.662866** and K **20.248361 → 20.571091 (+1.59%)**. Charged memory is 10.16% lower than the previous best record. Every check/build/correctness/timeout/sandbox gate passes for A/C/D. These are observed records, with no precise causal or final-judging guarantee.
+
+| Track | Best points | K | Rank | Leader |
+| --- | ---: | ---: | ---: | --- |
+| A | 75.305061 | 32.070167 | 61/132 | ALL STAR 88.324731 |
+| C | 68.118071 | 23.033578 | 62/114 | another ello 84.935799 |
+| D | 65.662866 | 20.571091 | 38/115 | SweetDreamsHalloween 76.091177 |
+
+Selected source **d3ff3c8b371f94cbe1417b78db8415c4e6c027d4** on `speed-demon`, PRIVATE/MIT. A178 and C175 remain unchanged; D now actually unmaps dead temporary prefix arrays after joined scatter and reads exact CSR ends from retained narrow/wide cursors. New allocator header is counted normally. [Exact current source/image proof](round334-final-source-match.json), [real records](board-round334-mapped-prefix-ends.json), [comparison](round334-confirmed-comparison.json), [raw feed integrity](round334-feed-proof.json).
+
+| Selected334 | Run | Time | Charged memory | S | K | Points |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| A | run-30b19d94e6cb | 0.043498 | 20832256 | 497 | 31.569596 | 74.963452 |
+| C | run-6438a5f86e5b | 0.062330 | 12607488 | 672 | 22.715108 | 67.815741 |
+| D | run-25ef374683bf | 0.192951 | 69107712 | 885 | 20.571091 | 65.662866 |
+
+A/C latest scores are lower unchanged-source repeats; their bests stay separate. D334 has fresh source-specific native/GCC/strict/race/Floyd/independent/untrained/full-public, exact image/default and root Make proof. One failed unsaved reference-directory attempt is preserved honestly. A README-only lifetime correction is disclosed; no compiled input changed. The following earlier status and logs are historical; words such as current/selected there refer to their recorded time.
+
+## Historical status before334
+### Status saved 1 November 2026
 
 Complete ordinary public feed **2026-11-01T21:11:13Z**: Red Jones **rank 55 of 111**, best-three machine mean **69.456001**, leader another ello **84.867517**. Best scores unchanged; number one unachieved. Original317 passes every real gate after complete C315 rejection/restoration. Shared315 lost totalK despite native speed; its complete source/image change is removed. Best/latest variation and final holdout/judging/eligibility remain separate.
 
@@ -257,3 +280,15 @@ Five further isolated326–330 native screens are rejected before broader proof 
 
 
 Candidate334 fully locally verified for one real D memory tradeoff trial. Mapped temporary prefix arrays actually unmap after joined scatter; exact joined final16/wide32 cursors remain readonly CSR ends. Unchanged own A allocator is copied/counted/COPYed/Make-dependent normally; original full weights/IDs/search/band64/batch32/default12/PGO stay. Native public/1823/2633 paired.989481/1.029585/.989044 and fresh3473 .962724 are mixed timing hypotheses, with~14.1–14.4MB lower processRSS; not official M/K. New actual-header joined-cursor component and copied allocator models pass native ASAN/UBSAN(no recovery),TSAN and pinned GCC strict. Current main fresh3467/3469/3481/sample/adversarial/every-budget/block/normal errors,260ASAN+164TSAN direct independent Floyd/query-budget plus12ASAN full public/untrained replaysPASS. First fresh oracle failed before saving due missing output directory; successful generator reused and only failed unsaved oracle retried, exact failure preserved. Pinned GCC main1294+12, one unchanged allowed full1000003/sample130363 PGO image1828+48, actual noarg/nooverride defaults299+4, actual rootMake/alltrack12/all30/fullsets/README/Make/source/image proofPASS. A README-only lifetime sentence correction is disclosed; frozen compiled inputs remain exact. Imagesha256:2f14abcd438cafffb10cd86a0e8a7601275fa9ada765b9576eaf2cc29e0431cf/ELF6b45fc7b9c30e82390c8e43df377755dcff5f1d42ee8996b40287860a6d48b1d are local replay identities, not organizer identity. Keep only real D totalK>20.248361/65.319494; else full original D/Make/new-header rollback and one cooled confirmation. PRIVATE/MIT; publication only approved Nov2 window; no #1/eligibility/prize guarantee.
+
+
+334/d3ff3c8b371f94cbe1417b78db8415c4e6c027d4 passes every real A/C/D gate. D run-25ef374683bf T0.192951s/M69107712/S885/K20.571091/65.662866 is a new best, up from20.248361/65.319494: totalK+1.594%, points+0.343372. Versus that previous best record, charged memory-7815168B/-10.160%, time-0.906% and source+58/7.013%. These are observed record comparisons, not precise causal estimates. RETAIN exact mapped temporary full-prefix release and readonly joined final cursor ends, including full32-bit wide-block fallback; all original graph/search/full64/band64/batch32/default12/PGO stay. New local imagesha256:2f14abcd438cafffb10cd86a0e8a7601275fa9ada765b9576eaf2cc29e0431cf and ELF6b45fc7b9c30e82390c8e43df377755dcff5f1d42ee8996b40287860a6d48b1d are replay identities, not organizer identities. A/C latest74.963452/67.815741 are lower unchanged-source repeats; historical best75.305061/68.118071 remain. Exact all30/current/Git/per-track-best/Make/README/images in round334-final-source-match.json; actual record board-round334-mapped-prefix-ends.json. Complete ordinary feed 2026-11-02T01:02:42Z: rank56/114, geometric mean69.577494, leader another ello 84.946836. Our machine mean rose while other teams also advanced, so no ranking improvement or #1 claim. Final holdout/judging/eligibility remain separate.
+
+
+335–338 are four isolated native-only rejections: C335 owned32-bit payload length has mixed timings for0.36–0.51MBRSS saving; A336 second-chance cache admission is flat/slower; D337 guarded8-bit/block32 joined cursors are mixed with public3.89% slower for1.20–2.41MBRSSsaving; C338 conditional owner counting is flat/slower. All full-public1/6/12 and13 rotating pairs against saved independent full references pass exact input/output/source/ELF hashes. No broader strict/race/GCC/image/default/actual proof, new board push, official gain or ranking/#1 claim. Current A178/C175/D334 stays exact; best/latest remain those reported334. Exact reconstructible archives and caveats in round335-338-screen-index.json.
+
+
+339comparison-multiselect,340interleaved private C owners and341ranked region lookup are new native-only rejections (round339-341-screen-index.json).342one-line prefix return passes fresh strict/native/currentmain/untrained correctness but fresh3557full timing is flat1.000709/6wins withhigherRSS, so it is rejected before GNU/image/actual work (round342-proof-archive.json). No selected runtime, new real score or ranking gain.343 is now an isolated ORIGINAL-A-C++ build-only explicit RaptorLake scheduling trial, genericISA/fullPGO unchanged; strict pinnedLinux/image/default proof pending. Original334 passing branch is preserved.
+
+
+Candidate343 is fully locally verified for ONE authorized real A scheduling-only trial: only -mtune=raptorlake in both unchanged full1000003/sample130363 PGO passes, genericISA/default12/static runtime and every original A178/163 C++/header unchanged. Rejected342 return absent. Fresh pinned tunedGCC strict original-prefix/ordered models+72currentmain references+3normal deferred sinks, ONE offline allowed-PGO exact image99references+3sinks,24true noarg/noSPEEDoverride defaults and composite native public1/6/12/default source-bound cache/unchangedMake pass. Source30/README/fullsets/Make/localimages bind round343-candidate-source-match.json. No native/emulated/Intel speed or score gain inferred. Keep only real A totalK>32.070167/75.305061; else full original Docker/README/image rollback and one cooled alltrack confirmation. C175/D334 remain, CURRENT D image2f14... not old263. PRIVATE/MIT; publication only approved15:00–16:00UTC, runtime+Gitfreeze15:00/risky starts stop14:00.

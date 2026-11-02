@@ -1,0 +1,44 @@
+--- a/track-c/names.hpp
++++ b/track-c/names.hpp
+@@ -26,8 +26,10 @@
+         return encoded+1;
+     }
+     uint32_t make(std::string_view value){
+-        if(value.size()>UINT32_MAX||words>SIZE_MAX-1-(value.size()+7)/8)throw std::runtime_error("name storage overflow");
+-        size_t extra=1+words+(value.size()+7)/8;
++        if(value.size()>UINT32_MAX||value.size()>SIZE_MAX-sizeof(uint32_t)-7)throw std::runtime_error("name storage overflow");
++        size_t payload=(sizeof(uint32_t)+value.size()+7)/8;
++        if(words>SIZE_MAX-payload)throw std::runtime_error("name storage overflow");
++        size_t extra=words+payload;
+         if(extra>SIZE_MAX/sizeof(uint64_t))throw std::runtime_error("name allocation overflow");
+         if(extra>remaining){
+             if(storage.size()>=size_t(1)<<19)throw std::runtime_error("name block index capacity");
+@@ -38,13 +40,16 @@
+             if(next!=0){remaining=0;return make(value);}
+         }
+         uint32_t index=encode_index(storage.size()-1,next);
+-        auto* data=storage.back().get()+next;std::fill_n(data,1+words,uint64_t(0));data[0]=value.size();
+-        if(!value.empty())std::memcpy(reinterpret_cast<char*>(data+1+words),value.data(),value.size());
++        auto* data=storage.back().get()+next;std::fill_n(data,words,uint64_t(0));
++        char* header=reinterpret_cast<char*>(data+words);uint32_t length=static_cast<uint32_t>(value.size());
++        std::memcpy(header,&length,sizeof(length));
++        if(!value.empty())std::memcpy(header+sizeof(length),value.data(),value.size());
+         next+=extra;remaining=next<8192?8192-next:0;return index;
+     }
+     uint64_t* at(uint32_t index)const{uint32_t encoded=index-1;return storage[encoded>>13].get()+(encoded&8191);}
+     std::string_view bytes(uint32_t index)const{
+-        auto* data=at(index);return {reinterpret_cast<const char*>(data+1+words),static_cast<size_t>(data[0])};
++        const char* header=reinterpret_cast<const char*>(at(index)+words);uint32_t length;std::memcpy(&length,header,sizeof(length));
++        return {header+sizeof(length),length};
+     }
+     void grow(){
+         if(entries.size()>SIZE_MAX/2/sizeof(Entry))throw std::runtime_error("name table overflow");
+@@ -63,7 +68,7 @@
+             if(e.hash==fingerprint&&bytes(e.index)==key)break;
+             i=(i+1)&(entries.size()-1);
+         }
+-        auto& bits=at(entries[i].index)[1+country/64];uint64_t bit=uint64_t(1)<<(country%64);
++        auto& bits=at(entries[i].index)[country/64];uint64_t bit=uint64_t(1)<<(country%64);
+         bool fresh=!(bits&bit);bits|=bit;return fresh;
+     }
+ };
