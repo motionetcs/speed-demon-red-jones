@@ -1,0 +1,44 @@
+--- original/track-d/load_cursors.hpp
++++ candidate334/track-d/load_cursors.hpp
+@@ -5,6 +5,7 @@
+ #include <cstddef>
+ #include <unordered_map>
+ #include <vector>
++#include <utility>
+ 
+ static_assert(std::atomic_ref<uint8_t>::required_alignment <= alignof(uint8_t));
+ static_assert(std::atomic_ref<uint16_t>::required_alignment <= alignof(uint16_t));
+@@ -25,7 +26,7 @@
+     std::vector<uint16_t> small;
+     std::vector<uint32_t> wide;
+     std::size_t wide_blocks=0;
+-    explicit SharedCursor(const std::vector<uint32_t>& starts) {
++    template<class Allocator> explicit SharedCursor(const std::vector<uint32_t,Allocator>& starts) {
+         std::size_t nodes=starts.size()-1, blocks=(nodes+block_size-1)/block_size;
+         base.resize(blocks);wide_index.resize(blocks,UINT32_MAX);
+         for(std::size_t block=0;block<blocks;++block) {
+@@ -47,13 +48,21 @@
+         }
+         return base[block]+std::atomic_ref(small[node]).fetch_add(1,std::memory_order_relaxed);
+     }
+-    template<bool HasWide> void prefetch(uint32_t node) const {
++    template<bool HasWide,bool Write=true> void prefetch(uint32_t node) const {
+         if constexpr (HasWide) {
+             uint32_t index = wide_index[node >> shift];
+-            if (index != UINT32_MAX) { __builtin_prefetch(&wide[size_t(index) * block_size + (node & (block_size - 1))], 1, 1); return; }
++            if (index != UINT32_MAX) { __builtin_prefetch(&wide[size_t(index) * block_size + (node & (block_size - 1))], Write ? 1 : 0, 1); return; }
+         }
+-        __builtin_prefetch(&small[node], 1, 1);
++        __builtin_prefetch(&small[node], Write ? 1 : 0, 1);
+     }
++    // Only after all scatter workers join: the final cursor is each
++    // node's exact exclusive end. No atomic_ref remains alive in this phase.
++    template<bool HasWide> uint32_t end(uint32_t node)const{
++        size_t block=node>>shift;
++        if constexpr(HasWide){uint32_t index=wide_index[block];if(index!=UINT32_MAX)return wide[size_t(index)*block_size+(node&(block_size-1))];}
++        return base[block]+small[node];
++    }
++    template<bool HasWide> std::pair<uint32_t,uint32_t> range(uint32_t node)const{return {node?end<HasWide>(node-1):0,end<HasWide>(node)};}
+     uint32_t take(uint32_t node) {return wide_blocks ? take<true>(node):take<false>(node);}
+     void release(){std::vector<uint16_t>().swap(small);std::vector<uint32_t>().swap(wide);}
+ };

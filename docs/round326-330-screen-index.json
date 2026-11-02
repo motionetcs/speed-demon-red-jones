@@ -1,0 +1,240 @@
+{
+  "observed_at_utc": "2026-11-01T22:43:15.471492+00:00",
+  "source_parent": "ac158dae4e8182de35d80d8cb35b9c214ba5e3ef",
+  "official_score": false,
+  "selected_in_root": false,
+  "screens": [
+    {
+      "round": 326,
+      "track": "a",
+      "report": "docs/round326-a-timed-page-touch-screen.json",
+      "report_sha256": "744ac36db64643f06bb05b0b1b6f92814a0d9e32470cd2614dbfcbd13a367a26",
+      "preflight": "docs/round326-preflight.json",
+      "preflight_sha256": "66cf151e47e21e11573539f12e689002a2088bc0317b8fef742cc8f940d3a626",
+      "raw_report_sha256": "852387e3ef34e0f1b15b1f29c614c389b2b29c3de8c4e5910eaa012d7933b8e6",
+      "driver_sha256": "738348539dda47e3ed1b37eaa7a1587cc77e9d49dd5d272acf7ec0b40ea8f75d",
+      "patches": [
+        {
+          "path": "docs/prototype-patches/round326-a-timed-page-touch-main.cpp.patch",
+          "sha256": "73363506fbe88f835fbabe4ffcdc7693231600bb98fb749a76e778a0d5f841be",
+          "source_path": "track-a/main.cpp",
+          "source_sha256": "bd50a8d96e7eb38d7ee71621b367fbf91e310cab4b7a525f4b3c6ecb2c408818"
+        }
+      ],
+      "decision": {
+        "observed_at_utc": "2026-11-01T22:43:15.471492+00:00",
+        "decision": "REJECT_NATIVE_ONLY",
+        "reason": "Timed worker0 page-stride reads are slower on all three full inputs, paired1.059115/1.048333/1.031972, with1/3/4wins and flat RSS. Reject before new page/guard/EOF/current-main strict/race/GCC/image/default/actual proof; distinct from old51 kernel MAP_POPULATE, no new OS flag or host/counter change.",
+        "no_root_selection": true,
+        "no_broad_or_official_proof": true
+      },
+      "runs": 90
+    },
+    {
+      "round": 327,
+      "track": "a",
+      "report": "docs/round327-a-uint32-renderer-screen.json",
+      "report_sha256": "6457c03e469f08fb515b855f3a257b7efceb2fe128688954c3889aeab392c343",
+      "preflight": "docs/round327-preflight.json",
+      "preflight_sha256": "bbc8e43d432ebd52f8431da0a0c30db7ba9c36bf32b810262697d3c68985a17b",
+      "raw_report_sha256": "31e71eeda3993cef94f6b18e5db876b3673f70323a9c871a6c359b0b9c57cc29",
+      "driver_sha256": "f036de33275d39981b3f63d651c5544647bdfbcdbab9bdfd32c2e1df7c153efa",
+      "patches": [
+        {
+          "path": "docs/prototype-patches/round327-a-uint32-renderer-README.md.patch",
+          "sha256": "8379a9d5ff1f150c30cc4241ff95861a68acb057df545cf1eabbf34f6a932406",
+          "source_path": "track-a/README.md",
+          "source_sha256": "8d2c4a61cedd26ae1c83df76f5836f1ad39d0be127015e0cd174ca9d975129a6"
+        },
+        {
+          "path": "docs/prototype-patches/round327-a-uint32-renderer-io.hpp.patch",
+          "sha256": "62aa4b06280ed42418e9b5f33d3fb2401b927e4747ab03f3f828c6ab10977a5d",
+          "source_path": "track-a/io.hpp",
+          "source_sha256": "91b768854792c53a3b4621b294a88edef6565fcd61fa2e07389735086a1098c0"
+        },
+        {
+          "path": "docs/prototype-patches/round327-a-uint32-renderer-main.cpp.patch",
+          "sha256": "a4333349f00f85d829c18fa3840a0cef37b3be2af0af4085bcc19102ebbb351b",
+          "source_path": "track-a/main.cpp",
+          "source_sha256": "7ec9137858e593e9a6397cdbceeae9c8358715a580c1bd101cb276c16466a4b0"
+        }
+      ],
+      "decision": {
+        "observed_at_utc": "2026-11-01T22:43:15.471492+00:00",
+        "decision": "REJECT_NATIVE_ONLY",
+        "reason": "Exact uint32 renderer has flat/mixed native1.003273/.980398/1.025259,6/9/4wins and flat RSS. Reject before independent uint32 model/caller-bound/current-main strict/race/GCC/image/default/actual proof. A328 Intel formatter trial was considered but never created: no GNU formatter/Intel performance evidence exists. No signed64 model pass is transferred to the new uint32 API.",
+        "no_root_selection": true,
+        "no_broad_or_official_proof": true
+      },
+      "runs": 90
+    },
+    {
+      "round": 328,
+      "track": "c",
+      "report": "docs/round328-c-carried-quote-mask-screen.json",
+      "report_sha256": "a47a382537a533dc12b92bb69ae3389d5d71f0c39bac303caea10fd638e2d4bf",
+      "preflight": "docs/round328-preflight.json",
+      "preflight_sha256": "b895919d1f9d8ca8625e6d8857e1b069472b1df97bffcf91f83d19a7495bffbd",
+      "raw_report_sha256": "f7d3e1319660ea45b5da609c3d1b8e00c19755b6877293df8cbb8b3de8f4aa4d",
+      "driver_sha256": "aaef29f381eec157cd2e6f193827ab5d29847264d8f71f0a916d61ca64de9d17",
+      "patches": [
+        {
+          "path": "docs/prototype-patches/round328-c-carried-quote-mask-README.md.patch",
+          "sha256": "d6fd5bff7363bc79f6b7954ea086b0a05c543ee9f9f6de1411756c043791bac4",
+          "source_path": "track-c/README.md",
+          "source_sha256": "eecaca9591d4433ef568fd0cef78fa6e96d243680cfe1edf2245e148277403ed"
+        },
+        {
+          "path": "docs/prototype-patches/round328-c-carried-quote-mask-main.cpp.patch",
+          "sha256": "a6a6982ade32a0ec2303a9ab2ddcfe5a218b6f605b9c5a9a613c13321492475f",
+          "source_path": "track-c/main.cpp",
+          "source_sha256": "2434e3b518b768d8c4ed0317cf88d6f54f79c97338cc20207ce67f546896cd51"
+        },
+        {
+          "path": "docs/prototype-patches/round328-c-carried-quote-mask-quote_scan.hpp.patch",
+          "sha256": "2842a65101f1ce413d6ca39327dc86a4fe571cb47e5844cefb9fc678f7cf743f",
+          "source_path": "track-c/quote_scan.hpp",
+          "source_sha256": "5d4f56bd817160ab9ae47331eb12d4af4131d93fe5aa0e36f90e474c08b595f1"
+        }
+      ],
+      "decision": {
+        "observed_at_utc": "2026-11-01T22:43:15.471492+00:00",
+        "decision": "REJECT_NATIVE_ONLY",
+        "reason": "Per-Csv exact sixteen-byte quote-mask reuse across escaped pairs/fields is mixed/slower1.014389/1.087410/.990353/1.003004 with4/4/8/6wins and near-flat RSS. Reject before new cursor/seam/carry/all-byte/decode/guard/strict/race/GCC/SSE/scalar/image/default/actual proof. Own277 classifier reused, but no old parity/protocol correctness certificate transferred; no root change.",
+        "no_root_selection": true,
+        "no_broad_or_official_proof": true
+      },
+      "runs": 118
+    },
+    {
+      "round": 329,
+      "track": "c",
+      "report": "docs/round329-c-borrowed-private-offsets-screen.json",
+      "report_sha256": "9b6ee8e98fcdedc2d09ef6698a97ae6b41df1d46f1dc2e32b3e6863fa28f643e",
+      "preflight": "docs/round329-preflight.json",
+      "preflight_sha256": "1923035c12c1a525ca7f6ef7ee8e27266f82fa65c55cdb563580c455af984fbc",
+      "raw_report_sha256": "b330d63925c4c66eb554504f52040d2566a6ac427bc35c92016d90384d64f6ba",
+      "driver_sha256": "8b2c9fda38fae31d1d928bb7b05c27609e1082db33ac1b1f6f22d491266fc9d1",
+      "patches": [
+        {
+          "path": "docs/prototype-patches/round329-c-borrowed-private-offsets-README.md.patch",
+          "sha256": "481bffa84b8886c39bf9e16d793de2cf2d349e162c79283aec1f5136eddc37be",
+          "source_path": "track-c/README.md",
+          "source_sha256": "11ae21074d6658b8fe74b1b70e0a5ee4c0f8e96cc7a752623ab7f8a6c3123fa4"
+        },
+        {
+          "path": "docs/prototype-patches/round329-c-borrowed-private-offsets-main.cpp.patch",
+          "sha256": "a001e00e6af56d0e7f4a2cc66684a9894010537953ff9d0081d85bcbe1bc311c",
+          "source_path": "track-c/main.cpp",
+          "source_sha256": "6289a9a2bc9543d7d7cf807087a543e9a46dfab7e1bf88ff88c8d3f8f12a90d8"
+        },
+        {
+          "path": "docs/prototype-patches/round329-c-borrowed-private-offsets-names.hpp.patch",
+          "sha256": "c0d00ee9392b62919ef31c46eda5240325327b1830a039ca6dea5d4c6b35389f",
+          "source_path": "track-c/names.hpp",
+          "source_sha256": "47282b29a57b9c8224d8a82b3b24c3437ca32360fe5f0a224d10c81f151c4e36"
+        }
+      ],
+      "decision": {
+        "observed_at_utc": "2026-11-01T22:43:15.471492+00:00",
+        "decision": "REJECT_NATIVE_ONLY",
+        "reason": "Private owner offset+length key headers preserve full country words and wider-file owned fallback by design, but native1.222921/1.274283/1.327234/1.330710 with2/1/0/0wins is much slower for only0.59\u20131.08MB process RSS savings. Reject before new bounds/offsetMAX/empty/long/borrowed-lifetime/owned fallback/country/growth/guard/strict/race/GCC/image/default/actual proof. No charged memory or target-phase claim.",
+        "no_root_selection": true,
+        "no_broad_or_official_proof": true
+      },
+      "runs": 118
+    },
+    {
+      "round": 330,
+      "track": "d",
+      "report": "docs/round330-d-radix-prefix-items-screen.json",
+      "report_sha256": "e2251d832450436696750b618729b00f25b4520c3d8ab23fc4d08a2099fbe220",
+      "preflight": "docs/round330-preflight.json",
+      "preflight_sha256": "0e8251abc6e9d2e3d4e38a0c066b65fa39eaf6d5f4b0d59759e9db7a80f11683",
+      "raw_report_sha256": "c569c34710e0ad996dbfbbea2630880df31bf35de91e1ecd764372bd9b0e6228",
+      "driver_sha256": "a4437017d62d4ac412cd7183711b0918d52900a6c54fd70e50eb6bd7424b504c",
+      "patches": [
+        {
+          "path": "docs/prototype-patches/round330-d-radix-prefix-items-README.md.patch",
+          "sha256": "0bef95f9c28cff0f2041ce165408d65da67e9147390287dd7d50c8c9d12bb1ae",
+          "source_path": "track-d/README.md",
+          "source_sha256": "6134ffcf86d3e019432134729bcc450e725ed2be890236f38d5fda5db5327103"
+        },
+        {
+          "path": "docs/prototype-patches/round330-d-radix-prefix-items-radix_heap.hpp.patch",
+          "sha256": "95d74fe778f90d010c82c02f20be0eba0093c1088782e12e338ea8fc01e86885",
+          "source_path": "track-d/radix_heap.hpp",
+          "source_sha256": "d4cc4bb416710bcdb878016311bf94fece9531f3709249338329caa5b114e975"
+        }
+      ],
+      "decision": {
+        "observed_at_utc": "2026-11-01T22:43:15.471492+00:00",
+        "decision": "REJECT_NATIVE_ONLY",
+        "reason": "Lossless radix-prefix packing in six small queue buckets has flat/mixed1.000150/.980398/1.002508 with6/7/5wins for1.79\u20131.95MB lower process RSS. Reject time/source/complexity tradeoff before new monotone-band/multiset/prefix/0/MAX/31-32-64bit/wideID/interleave/redistribution/clear/grow/strict/race/Floyd/GCC/image/default/actual proof. Working radix-prefix invariant is not a general correctness certificate. Proposed touched-bucket reset was detected as exact282 before any implementation/compile/replay; not retried.",
+        "no_root_selection": true,
+        "no_broad_or_official_proof": true
+      },
+      "runs": 90
+    }
+  ],
+  "sessions": {
+    "326": {
+      "id": 31563,
+      "terminal_exit": 0
+    },
+    "327": {
+      "id": 27959,
+      "terminal_exit": 0
+    },
+    "328": {
+      "id": 31744,
+      "terminal_exit": 0
+    },
+    "329": {
+      "id": 48477,
+      "terminal_exit": 0
+    },
+    "330": {
+      "id": 12086,
+      "terminal_exit": 0
+    }
+  },
+  "scope": "Five isolated native-only rejects. No new selected runtime/build/flags/PGO/image/default/host/counter/credentials/grants/visibility/Git push/actual run; no duplicated successful compiler/generator/oracle/model/training/profile/benchmark.",
+  "excluded_PERF_snapshot_prefixes": {
+    "326": {
+      "excluded_log": "track-a/PERF.md",
+      "frozen_prefix_bytes": 106729,
+      "sha256": "aef0274f0ca862192f3790527101aed59a6eca1eac2db68c9fb0e963a4615455",
+      "scope": "Historical excluded PERF log only. For complete frozen preflight reconstruction, use this exact prefix of the current pending PERF log, then verify its digest. Runtime and README reconstruction from original317 and published patches was separately checked byte-for-byte; no runtime proof depends on PERF."
+    },
+    "327": {
+      "excluded_log": "track-a/PERF.md",
+      "frozen_prefix_bytes": 106729,
+      "sha256": "aef0274f0ca862192f3790527101aed59a6eca1eac2db68c9fb0e963a4615455",
+      "scope": "Historical excluded PERF log only. For complete frozen preflight reconstruction, use this exact prefix of the current pending PERF log, then verify its digest. Runtime and README reconstruction from original317 and published patches was separately checked byte-for-byte; no runtime proof depends on PERF."
+    },
+    "328": {
+      "excluded_log": "track-c/PERF.md",
+      "frozen_prefix_bytes": 150717,
+      "sha256": "caad35dfb9e43ea7bbee9a614f37c29b7c0f5806294deb2c271a47e8e42dc9b8",
+      "scope": "Historical excluded PERF log only. For complete frozen preflight reconstruction, use this exact prefix of the current pending PERF log, then verify its digest. Runtime and README reconstruction from original317 and published patches was separately checked byte-for-byte; no runtime proof depends on PERF."
+    },
+    "329": {
+      "excluded_log": "track-c/PERF.md",
+      "frozen_prefix_bytes": 150717,
+      "sha256": "caad35dfb9e43ea7bbee9a614f37c29b7c0f5806294deb2c271a47e8e42dc9b8",
+      "scope": "Historical excluded PERF log only. For complete frozen preflight reconstruction, use this exact prefix of the current pending PERF log, then verify its digest. Runtime and README reconstruction from original317 and published patches was separately checked byte-for-byte; no runtime proof depends on PERF."
+    },
+    "330": {
+      "excluded_log": "track-d/PERF.md",
+      "frozen_prefix_bytes": 115607,
+      "sha256": "6dd4db66f43ce7bf0e9119750120b27328ba9ba5109cedf91bb6382795ca1313",
+      "scope": "Historical excluded PERF log only. For complete frozen preflight reconstruction, use this exact prefix of the current pending PERF log, then verify its digest. Runtime and README reconstruction from original317 and published patches was separately checked byte-for-byte; no runtime proof depends on PERF."
+    }
+  },
+  "archive_reconstruction": {
+    "observed_at_utc": "2026-11-01T22:46:12.520220+00:00",
+    "passed": true,
+    "scope": "All five original317-plus-patch runtime/README reconstructions matched frozen preflight hashes in temporary trees. Excluded PERF snapshots separately match the length-and-SHA-bound current-log prefixes. No compile/benchmark/model/generator/oracle/training duplicated."
+  }
+}

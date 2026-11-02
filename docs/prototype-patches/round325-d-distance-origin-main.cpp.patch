@@ -1,0 +1,28 @@
+--- original317/track-d/main.cpp
++++ prototype325/track-d/main.cpp
+@@ -133,13 +133,24 @@
+             constexpr uint64_t infinity = UINT64_MAX;
+             FastDistances forward, backward;
+             RadixHeap forward_heap, backward_heap;
++            auto origin=[&](uint32_t node,const auto& starts,const auto& adjacency,bool reverse){
++                uint32_t begin=starts[node],end=starts[node+1];
++                if(begin==end||end-begin>16)return uint64_t(0);
++                uint32_t minimum=UINT32_MAX;
++                for(uint32_t i=begin;i<end;++i){
++                    auto edge=adjacency.template get<Compact>(i);uint32_t tag=edge.second;
++                    uint32_t weight=tag==(Compact?EdgeStore::small_limit:uint32_t(UINT16_MAX))?wide_weights.at(i*2+(reverse?1:0)):tag;
++                    minimum=std::min(minimum,weight);
++                }
++                return minimum>UINT32_MAX/2?uint64_t(minimum):uint64_t(0);
++            };
+             for (;;) {
+                 size_t query = next.fetch_add(1, std::memory_order_relaxed);
+                 if (query >= queries.size()) return;
+                 auto [source, target] = queries[query];
+                 if (source == target) { answers[query] = 0; continue; }
+                 if (offsets[source] == offsets[source + 1] || reverse_offsets[target] == reverse_offsets[target + 1]) continue;
+-                forward.reset(); backward.reset(); forward_heap.clear(); backward_heap.clear();
++                forward.reset(origin(source,offsets,edges,false));backward.reset(origin(target,reverse_offsets,reverse_edges,true));forward_heap.clear();backward_heap.clear();
+                 forward.improve(source, 0); backward.improve(target, 0);
+                 forward_heap.push({0, source}); backward_heap.push({0, target});
+                 uint64_t best = infinity;

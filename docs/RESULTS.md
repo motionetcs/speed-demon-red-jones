@@ -1,6 +1,6 @@
 # Results — 1 November 2026
 
-Complete ordinary public feed **2026-11-01T19:57:02Z**: Red Jones **rank 55 of 110**, best-three machine mean **69.456001**, leader another ello **84.295720**. Best scores unchanged; number one unachieved. Original307 passes every real gate after complete C305 rejection/restoration; emitted local address reuse did not establish a best total-K gain. Best/latest variation and final holdout/judging/eligibility remain separate.
+Complete ordinary public feed **2026-11-01T21:11:13Z**: Red Jones **rank 55 of 111**, best-three machine mean **69.456001**, leader another ello **84.867517**. Best scores unchanged; number one unachieved. Original317 passes every real gate after complete C315 rejection/restoration. Shared315 lost totalK despite native speed; its complete source/image change is removed. Best/latest variation and final holdout/judging/eligibility remain separate.
 
 A268 and269 real A K31.952782/75.225434 and31.926607/75.207638 narrowly miss best31.974332/75.240074. Both changes are removed, including the obsolete-member deletion. Complete original A main/io/README/image restored and fresh native/image public/default checks pass. The repeated original270 A result is lower; this is preserved as variation without inventing a causal explanation. No new algorithm or best-score gain is claimed.
 
@@ -8,9 +8,9 @@ C274 passes every real gate but scores C66.057248/K20.948115, below best68.11807
 
 | Track | Best points | K | Rank | Leader |
 | --- | ---: | ---: | ---: | --- |
-| A | 75.305061 | 32.070167 | 57/128 | ALL STAR 88.091687 |
-| C | 68.118071 | 23.033578 | 59/110 | SALAAR 84.304993 |
-| D | 65.319494 | 20.248361 | 38/111 | SweetDreamsHalloween 74.173859 |
+| A | 75.305061 | 32.070167 | 59/129 | ALL STAR 88.091687 |
+| C | 68.118071 | 23.033578 | 60/111 | another ello 84.809504 |
+| D | 65.319494 | 20.248361 | 38/112 | Lex 74.428628 |
 
 Four changes are retained:
 
@@ -23,15 +23,15 @@ A178 changes only the first build-time training104729/sample→1000003/full, kee
 
 A retains163 ordered mapped-output/prefix8/exact4096 cache. C is fully original std::hash/low32 offset/eight-reader/four-owner/512-event with original16-byte quote scan. A/C/D use full1000003/sample130363 offline PGO. D retains12 atomic degree/cursor workers, bidirectional CSR/band64/query32 and arena2. Every new native-ISA/CRC/AVX-quote/radix/weight-skip/query-order prototype is absent. OWNER-BRIEFING describes actual techniques without claiming personal understanding.
 
-All29 selected runtime/build/metadata inputs, complete file sets/README and Make match real295 **30d4105bd5655ba2862d181f76c600dc6237233c**, original291 and each current best-track source. Full original A178/C175/D163 runtime and immutable original images remain selected. [Exact current proof](round295-final-source-match.json); [rejected D290](round290-scored-source-match.json), [rejected C294](round294-scored-source-match.json). Local images are distinct from organizer binaries.
+All29 selected runtime/build/metadata inputs, full file sets/README and Make match real317 **ac158dae4e8182de35d80d8cb35b9c214ba5e3ef**, original307 and each current best-track source. Complete C315 change removed. Original A178/C175/D163 and immutable original local images remain selected. [Exact current proof](round317-final-source-match.json), [post-screen integrity](round320-selected-integrity.json), [rejected C315](round315-scored-source-match.json). Local images are distinct from organizer binaries.
 
-| Selected307 | Run | Time | Charged memory | S | K | Points |
+| Selected317 | Run | Time | Charged memory | S | K | Points |
 | --- | --- | ---: | ---: | ---: | ---: | ---: |
-| A | run-c543d0958a56 | 0.046080 | 20959232 | 497 | 30.635123 | 74.310981 |
-| C | run-444a6215fbda | 0.062359 | 13037568 | 672 | 22.557980 | 67.665010 |
-| D | run-30314d7274e2 | 0.204292 | 78036992 | 827 | 19.711334 | 64.735801 |
+| A | run-40038f1efc00 | 0.050753 | 20967424 | 497 | 29.188452 | 73.260553 |
+| C | run-ffe186682d9e | 0.062917 | 13176832 | 672 | 22.410053 | 67.522144 |
+| D | run-ff629dad4aa9 | 0.204754 | 76722176 | 827 | 19.756109 | 64.785071 |
 
-Every check/build/correctness/timeout/sandbox gatePASS. [Raw record](board-round307-selected-confirmation.json). Lower unchanged-source repeats remain separate from historical best. [Complete comparison](round307-confirmed-comparison.json), [raw feed integrity](round307-feed-proof.json), [exact source/image proof](round307-final-source-match.json).
+Every check/build/correctness/timeout/sandbox gatePASS. [Raw record](board-round317-selected-confirmation.json). Lower unchanged-source repeats remain separate from historical best. [Complete comparison](round317-confirmed-comparison.json), [raw feed integrity](round317-feed-proof.json), [exact source/image proof](round317-final-source-match.json).
 
 Fresh234 original C production **630+50 normal errors** and actual no-argument/no-thread-override **72+9** pass, including230 independent monetary boundaries and all1..12 topologies. Combined public1/6/12 and native/Linux default12 pass. Original-source221 native strict/race executables freshly run monetary cases; original221 GCC177+30 and127 primitives retained. Rejected230 helper/GCC216 proofs are not relabeled as original. Unchanged A81/D996 image/independent/Floyd/full64 proofs retained, no new234 A/D whole-bank replay. Exact native225 executables and immutable images reused; no234 compilation/training. [Production](round234-c-image-matrix.json), [actual defaults](round234-c-default-matrix.json), [public](round234-native-public.json), [defaults](round234-defaults.json).
 
@@ -94,6 +94,8 @@ Fresh234 original C production **630+50 normal errors** and actual no-argument/n
 | [253 /ccf938b](board-round253-selected-confirmation.json) | 70.721921 | 67.316035 | 64.224908 | Confirm original29 restoration after C249 loss |
 | [255 /94f9df9](board-round255-spans-bucket-epochs.json) | 73.471038 | 67.453753 | 64.965742 | Reject A span2048 and D bucket epochs; restore original29 |
 | [256 /da6f728](board-round256-selected-confirmation.json) | 74.899630 | 67.836155 | 64.994696 | Confirm full original29 restoration |
+| [315 /5d98eb0](board-round315-shared-inline.json) | 74.637788 | 65.436187 | 65.030165 | Reject complete shared all-reader C on real K |
+| [317 /ac158da](board-round317-selected-confirmation.json) | 73.260553 | 67.522144 | 64.785071 | Confirm complete original C restoration; bests unchanged |
 
 | Actual / commit | A points | C points | D points | Decision |
 | --- | ---: | ---: | ---: | --- |
@@ -242,3 +244,16 @@ Native exact315 rootMake public1/6/12 and13pairs over public/full2203/2309/2371/
 Pinned offline GCC main240references+28normal errors, one exact allowed-PGO production image657references+54errors,80true noarg/no-thread-override defaults+9errors, actual rootMake/all-track12/public/default andall29/README/file-set/Make/local-image proofPASS. Local C image44cd5493ae76f061c61699cecb37bea76f8775b27409064aaf44a2c6a6431b34 /ELF90131ae35566d97bbc942505a18cb8c1afacbbeaa986a0f805c3f9463bbadedb /30958960B is NOT organizer identity. Only actual C totalK>23.033578/68.118071 supports retention; otherwise full Cmain/names/README/image restore and one cooled all-track confirmation. docs/round315-candidate-source-match.json/preflight/proof-archive and tools/round315-proof bind exactsource. No official gain, #1, holdout/judging/eligibility/human-understanding/prize claim yet. PRIVATE/MIT now; publication only approved Nov2 window.
 
 315/5d98eb0819fa674e944670572684dd36f6c10f12 passes every actual A/C/D gate, but Crun-625fac8333c8 T0.075729s/M13869056/S642/K20.357467/65.436187 loses best23.033578/68.118071. Compared with best, observed time+21.106%, memory+2203648B/+18.890%, source-30 and totalK-11.618%. These record comparisons are not precise causal phase/timing estimates. REJECT full shared all-reader/name-index/main/README/image change, restore complete original307 C and original C263 image. Fresh immutable original public/default8 controlsPASS without compiler/model/training/broad replay. New315 shared strict419087/104586calls, separate plain4136 fault tests/GCC240+28/image657+54/default80+9 remain historical to rejected bytes, never relabeled as original. A/D lower unchanged-source repeats are variation. Exact docs/round315-scored-source-match.json. One cooled317 alltrack real confirmation next; no new best/rank gain.
+
+Original317/ac158dae4e8182de35d80d8cb35b9c214ba5e3ef passes every actual A/C/D gate after full315 rollback. Latest A73.260553/K29.188452, C67.522144/K22.410053, D64.785071/K19.756109 remain lower unchanged-source repeats; best75.305061/68.118071/65.319494 unchanged. All29/current/Git/frozen317/current-best/fullsets/README/Make/original local images bind round317-final-source-match.json and fresh postscreen round320-selected-integrity.json. Complete ordinary raw899104B/SHA dfda2767a6bc9fa973f02fc142ddc7af88baf66775ecd6aa0ac4e8785fd2f04b saved BEFOREparse atfeed21:11:13UTC: rank55/111,mean69.456001,leader anotherello84.867517. No supported official algorithm/rank gain, #1/holdout/judging/eligibility guarantee or owner details/sign-in needed.315 fresh source-specific strict/plain-fault/GCC/PGO-image proof stays rejected history, never original proof.
+
+Four further native-only prototypes321/323/324/325 are rejected before broader proof or actual runs. A321LF-first suffix parsing loses5–6%; C3238-byte/owner-hash events lose11–15%; C32412-byte/full producer-hash events are mixed1.016/.944/.979/1.084; D325exact distance-origin packing is slower1.6–3.5% for smallRSSsavings. Every public1/6/12 and independent full13pair input/output/source/ELF hash passes, but no generic/strict/race/GCC/image/default/official gain is inferred.323initial bounded-type compile failure/source correction is preserved. Current original317 remains selected and no new board run is justified by these screens. Exact reports/preflights/patches/executed wrappers retained.
+
+
+Five further isolated326–330 native screens are rejected before broader proof or organizer submission. A326page reads lose3–6%; A327uint32 conversion is flat/mixed; C328carried quote masks are mixed/slower; C329private borrowed offsets lose22–33% for smallRSSsavings; D330radix-prefix items are flat/mixed for~1.8–2.0MBRSSsaving and extra source. Public1/6/12 and13 rotating pairs over saved independent full references all match exact input/output/source/ELF hashes, but this screening does not certify generic correctness, strict sanitizers, races, GCC/image/default behavior or official gains. All five stay isolated and unselected. No new board run, best/rank gain or #1 claim. Original317 selected runtime remains exact at all29/Git/frozen/best/full sets/README/Make/original-image checks in round330-selected-integrity.json. Reports/preflights/patches/executed drivers/primary-source scope and rejected duplicate282 idea are preserved in round326-330-screen-index.json and round326-330-research.json.
+
+
+331–333 add three isolated native-only rejects: A331eight-row private-cache metadata/prefetch pipeline is4.5–7.2% slower; C332aligned metadata-free reader totals are flat/mixed; D333fused private directional-label buckets lose3.1–6.0% with mixedRSS. All public1/6/12 and13 rotating pairs against saved independent full references pass input/output/source/ELF hashes, but no general/strict/race/GCC/image/default/actual proof or new official gain follows.333native ARM64/NEON executes; its new AVX2/SSE/scalar variants remain unexecuted, not target-certified. Original317 selected runtime and images remain exact in round333-selected-integrity.json. Exact reports/preflights/patches/executed drivers/primary-source scope and complete patch/preflight reconstruction in round331-333-screen-index.json/research.json. No new board run or #1 claim.
+
+
+Candidate334 fully locally verified for one real D memory tradeoff trial. Mapped temporary prefix arrays actually unmap after joined scatter; exact joined final16/wide32 cursors remain readonly CSR ends. Unchanged own A allocator is copied/counted/COPYed/Make-dependent normally; original full weights/IDs/search/band64/batch32/default12/PGO stay. Native public/1823/2633 paired.989481/1.029585/.989044 and fresh3473 .962724 are mixed timing hypotheses, with~14.1–14.4MB lower processRSS; not official M/K. New actual-header joined-cursor component and copied allocator models pass native ASAN/UBSAN(no recovery),TSAN and pinned GCC strict. Current main fresh3467/3469/3481/sample/adversarial/every-budget/block/normal errors,260ASAN+164TSAN direct independent Floyd/query-budget plus12ASAN full public/untrained replaysPASS. First fresh oracle failed before saving due missing output directory; successful generator reused and only failed unsaved oracle retried, exact failure preserved. Pinned GCC main1294+12, one unchanged allowed full1000003/sample130363 PGO image1828+48, actual noarg/nooverride defaults299+4, actual rootMake/alltrack12/all30/fullsets/README/Make/source/image proofPASS. A README-only lifetime sentence correction is disclosed; frozen compiled inputs remain exact. Imagesha256:2f14abcd438cafffb10cd86a0e8a7601275fa9ada765b9576eaf2cc29e0431cf/ELF6b45fc7b9c30e82390c8e43df377755dcff5f1d42ee8996b40287860a6d48b1d are local replay identities, not organizer identity. Keep only real D totalK>20.248361/65.319494; else full original D/Make/new-header rollback and one cooled confirmation. PRIVATE/MIT; publication only approved Nov2 window; no #1/eligibility/prize guarantee.

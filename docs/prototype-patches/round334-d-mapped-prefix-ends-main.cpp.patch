@@ -1,0 +1,86 @@
+--- original/track-d/main.cpp
++++ candidate334/track-d/main.cpp
+@@ -1,6 +1,7 @@
+ #include "radix_heap.hpp"
+ #include "edge_store.hpp"
+ #include "load_cursors.hpp"
++#include "mapped_allocator.hpp"
+ #include "io.hpp"
+ #include "decimal.hpp"
+ #include "distance_map.hpp"
+@@ -74,7 +75,8 @@
+         size_t edge_count = 0;
+         for (const auto& local : locals) edge_count += local.count;
+         if (edge_count != m) throw std::runtime_error("edge count does not match header");
+-        std::vector<uint32_t> offsets(size_t(n) + 1), reverse_offsets(size_t(n) + 1);
++        using Prefix=std::vector<uint32_t,MappedAllocator<uint32_t>>;
++        Prefix offsets(size_t(n) + 1), reverse_offsets(size_t(n) + 1);
+         for (const auto& local : locals) {
+             for (auto [node, count] : local.out_spills) offsets[size_t(node) + 1] += count;
+             for (auto [node, count] : local.in_spills) reverse_offsets[size_t(node) + 1] += count;
+@@ -116,9 +118,10 @@
+         } else {
+             if (wide_cursors) scatter.template operator()<false,true>(); else scatter.template operator()<false,false>();
+         }
++        Prefix().swap(offsets);Prefix().swap(reverse_offsets);
+         std::unordered_map<uint32_t, uint32_t> wide_weights;
+         for (const auto& local : locals) for (auto [index, weight] : local.wide) wide_weights.emplace(index, weight);
+-        locals.clear(); cursor.release(); reverse_cursor.release();
++        locals.clear();
+         Scanner qscan{queries_file.data, queries_file.data + queries_file.size};
+         std::vector<std::pair<uint32_t, uint32_t>> queries;
+         while (qscan.more()) {
+@@ -129,7 +132,7 @@
+         threads = static_cast<unsigned>(std::min<size_t>(threads, queries.size()));
+         std::vector<int64_t> answers(queries.size(), -1);
+         std::atomic<size_t> next{0};
+-        auto worker = [&]<bool Compact>() {
++        auto worker = [&]<bool Compact,bool HasWide>() {
+             constexpr uint64_t infinity = UINT64_MAX;
+             FastDistances forward, backward;
+             RadixHeap forward_heap, backward_heap;
+@@ -138,7 +141,8 @@
+                 if (query >= queries.size()) return;
+                 auto [source, target] = queries[query];
+                 if (source == target) { answers[query] = 0; continue; }
+-                if (offsets[source] == offsets[source + 1] || reverse_offsets[target] == reverse_offsets[target + 1]) continue;
++                auto source_range=cursor.template range<HasWide>(source),target_range=reverse_cursor.template range<HasWide>(target);
++                if(source_range.first==source_range.second||target_range.first==target_range.second)continue;
+                 forward.reset(); backward.reset(); forward_heap.clear(); backward_heap.clear();
+                 forward.improve(source, 0); backward.improve(target, 0);
+                 forward_heap.push({0, source}); backward_heap.push({0, target});
+@@ -150,15 +154,15 @@
+                     auto& heap = from_source ? forward_heap : backward_heap;
+                     auto& own = from_source ? forward : backward;
+                     auto& other = from_source ? backward : forward;
+-                    const auto& starts = from_source ? offsets : reverse_offsets;
++                    const auto& starts = from_source ? cursor : reverse_cursor;
+                     const auto& adjacency = from_source ? edges : reverse_edges;
+                     std::array<Item, 32> work;
+                     std::array<std::pair<uint32_t, uint32_t>, 32> ranges;
+                     size_t count = heap.pop_batch(work.data(), work.size());
+-                    for (size_t k = 0; k < count; ++k) __builtin_prefetch(&starts[work[k].second], 0, 1);
++                    for (size_t k = 0; k < count; ++k) starts.template prefetch<HasWide,false>(work[k].second?work[k].second-1:0);
+                     for (size_t k = 0; k < count; ++k) {
+                         uint32_t node = work[k].second;
+-                        ranges[k] = {starts[node], starts[node + 1]};
++                        ranges[k] = starts.template range<HasWide>(node);
+                         if (ranges[k].first < ranges[k].second) adjacency.template prefetch<Compact>(ranges[k].first);
+                     }
+                     for (size_t k = 0; k < count; ++k) {
+@@ -179,9 +183,12 @@
+                 if (best != infinity) answers[query] = static_cast<int64_t>(best);
+             }
+         };
+-        if (threads) {
+-            if (edges.compact) parallel(threads, [&](unsigned) { worker.template operator()<true>(); });
+-            else parallel(threads, [&](unsigned) { worker.template operator()<false>(); });
++        if(threads){
++            auto run_queries=[&]<bool Compact>(){
++                if(wide_cursors)parallel(threads,[&](unsigned){worker.template operator()<Compact,true>();});
++                else parallel(threads,[&](unsigned){worker.template operator()<Compact,false>();});
++            };
++            if(edges.compact)run_queries.template operator()<true>();else run_queries.template operator()<false>();
+         }
+         Output output;
+         for (int64_t answer : answers) { output.number(answer); output.text("\n"); }

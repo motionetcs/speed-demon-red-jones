@@ -1,0 +1,8 @@
+--- original/track-d/README.md
++++ candidate334/track-d/README.md
+@@ -31,3 +31,5 @@
+ Both loader passes use bounded16-row scratch batches to overlap degree/cursor/edge accesses. The final image caps process-local glibc arenas at2; no host setting is modified. Current exact run IDs and retention decisions are in PERF.md.
+ 
+ Search extracts at most32 full-distance entries from one conservative64-distance band per batch; this changes scheduling and scratch only.
++
++Prototype334 reuses the joined final scatter cursors as exact exclusive CSR ends. Original prefix sums are built in ordinary anonymous mapped vector storage, then actually unmapped after all scatter workers join; the narrower cursor arrays remain read-only for queries, including full32-bit wide-block fallback. No live cursor, adjacency, input or query label is discarded. The allocator is the unchanged event-written A allocator, copied and counted normally. Both graph passes, all weights/IDs, queries, band64/batch32, defaults and PGO stay unchanged. Real peak includes every allocation for its full lifetime; no memory accounting or timer/harness operation is changed.

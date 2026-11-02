@@ -1,0 +1,8 @@
+--- original/track-c/README.md
++++ rejected328/track-c/README.md
+@@ -9,3 +9,5 @@
+ No input seed or answer is recognized. All output is computed in the timed run. See `PERF.md` for actual experiments, source/memory costs, independent tests and real board outcomes.
+ 
+ Owner table entries use a32-bit rejection fingerprint and a32-bit stable-block word index. Full length/byte equality still decides names, including collisions; the complete64-bit hash routes owners.64KiB word blocks and dedicated oversized-key blocks retain exact name bytes/country words with checked index arithmetic.
++
++Prototype328 carries one exact in-range sixteen-byte quote classification per Csv instance. Later searches discard all quote lanes before the current cursor and reuse the remaining lanes, including across escaped pairs and field boundaries. Full original field decoding, canonical raw keys and decoded lengths remain; a bounded scalar tail handles the last fifteen bytes. Each new Csv cursor starts with no cached block. This is parser state from the current input, not an output/result cache or a quote-parity replacement.

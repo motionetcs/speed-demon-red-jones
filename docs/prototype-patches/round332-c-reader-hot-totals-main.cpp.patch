@@ -1,0 +1,27 @@
+--- original/track-c/main.cpp
++++ rejected332/track-c/main.cpp
+@@ -167,8 +167,13 @@
+         unsigned readers=threads==1?1:std::clamp(threads*PIPELINE_READERS/12,1U,threads-1);
+         unsigned owners=threads-readers;
+         auto boundaries=record_boundaries(header.p,records.data+records.size,readers);
+-        struct Local{std::vector<Group> groups;};
+-        std::vector<Local> locals(readers);for(auto& local:locals)local.groups=groups;
++        struct alignas(64) Totals {
++            int64_t count=0,ids=0,sum=0,minimum=INT64_MAX,maximum=INT64_MIN;
++            int64_t names=0,name_bytes=0,note_bytes=0;
++        };
++        static_assert(sizeof(Totals)==64);
++        struct Local{std::vector<Totals> groups;};
++        std::vector<Local> locals(readers);for(auto& local:locals)local.groups.resize(groups.size());
+         std::vector<std::vector<uint64_t>> distinct(owners,std::vector<uint64_t>(groups.size()));
+         auto queues=std::make_unique<NameQueue[]>(size_t(readers)*owners);
+         std::atomic<bool> canceled{false};
+@@ -188,7 +193,7 @@
+                             uint64_t hash=Names::hash_key(name.value);
+                             Field note=csv.field(unused,false);csv.comma();uint64_t region=csv.integer();int64_t amount=csv.amount();csv.newline();
+                             size_t country=region<region_lookup.size()&&region_lookup[region]!=no_region?region_lookup[region]:unmatched;
+-                            Group& group=local.groups[country];++group.count;group.ids+=static_cast<int64_t>(id);group.sum+=amount;
++                            auto& group=local.groups[country];++group.count;group.ids+=static_cast<int64_t>(id);group.sum+=amount;
+                             group.minimum=std::min(group.minimum,amount);group.maximum=std::max(group.maximum,amount);
+                             group.name_bytes+=name.bytes;group.note_bytes+=note.bytes;
+                             if(!owners){group.names+=serial->first(name.value,country,hash);continue;}

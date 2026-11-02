@@ -1,0 +1,145 @@
+--- original/track-d/distance_map.hpp
++++ rejected333/track-d/distance_map.hpp
+@@ -53,65 +53,103 @@
+     }
+ };
+ 
+-// A bucket supplies a node's low bits; its packed tag stores every remaining
+-// bit of a21-bit node ID. Low distance bits store distance+1 (zero means empty).
+-// Nodes/ranges that do not fit, and full buckets, use the exact64-bit map.
+-#ifndef PACKED_BITS
+-#define PACKED_BITS 10
+-#endif
+-struct FastDistances {
+-    static_assert(PACKED_BITS>=0 && PACKED_BITS<=20);
+-    unsigned bits=PACKED_BITS;
+-    std::vector<uint32_t> labels=std::vector<uint32_t>(size_t(8)<<PACKED_BITS);
++// Both directions share bucket lines. Each entry still contains an exact
++// complete node identity, a direction bit and distance+1; zero is empty.
++struct BidirectionalDistances {
++    unsigned bits=10;
++    std::vector<uint32_t> labels=std::vector<uint32_t>(size_t(8)<<10);
+     std::vector<uint32_t> touched;
+-    Distances wide;
++    Distances wide[2];
+     static constexpr uint32_t node_limit=1U<<21;
+-    uint32_t distance_mask()const{return (uint32_t(1)<<(11+bits))-1;}
+-    size_t slot(uint32_t node)const{
++    uint32_t distance_mask()const{return (uint32_t(1)<<(10+bits))-1;}
++    struct Probe {size_t own;uint32_t opposite=0;};
++    template<bool Both> Probe locate(uint32_t node,bool forward)const{
+         size_t start=size_t(node&((1U<<bits)-1))*8;
+-        unsigned shift=11+bits;uint32_t key=node>>bits;
++        unsigned shift=10+bits;uint32_t key=((node>>bits)<<1)|uint32_t(!forward);
++        Probe result{labels.size(),0};
++#if defined(__AVX2__)
++        auto values=_mm256_loadu_si256(reinterpret_cast<const __m256i*>(&labels[start]));
++        auto tags=_mm256_srl_epi32(values,_mm_cvtsi32_si128(shift));
++        auto empty=_mm256_cmpeq_epi32(values,_mm256_setzero_si256());
++        auto own=_mm256_or_si256(_mm256_cmpeq_epi32(tags,_mm256_set1_epi32(key)),empty);
++        unsigned mask=static_cast<unsigned>(_mm256_movemask_ps(_mm256_castsi256_ps(own)));
++        if(mask)result.own=start+std::countr_zero(mask);
++        if constexpr(Both){
++            auto other=_mm256_cmpeq_epi32(tags,_mm256_set1_epi32(key^1));
++            mask=static_cast<unsigned>(_mm256_movemask_ps(_mm256_castsi256_ps(other)));
++            if(mask)result.opposite=labels[start+std::countr_zero(mask)];
++        }
++#else
+         for(unsigned block=0;block<8;block+=4){
++            unsigned own_mask=0,other_mask=0,empty_mask=0;
+ #if defined(__SSE2__)
+             auto values=_mm_loadu_si128(reinterpret_cast<const __m128i*>(&labels[start+block]));
+             auto tags=_mm_srl_epi32(values,_mm_cvtsi32_si128(shift));
+-            auto matches=_mm_or_si128(_mm_cmpeq_epi32(tags,_mm_set1_epi32(key)),_mm_cmpeq_epi32(values,_mm_setzero_si128()));
+-            unsigned mask=static_cast<unsigned>(_mm_movemask_ps(_mm_castsi128_ps(matches)));
+-            if(mask)return start+block+std::countr_zero(mask);
++            auto empty=_mm_cmpeq_epi32(values,_mm_setzero_si128());
++            auto own=_mm_or_si128(_mm_cmpeq_epi32(tags,_mm_set1_epi32(key)),empty);
++            own_mask=static_cast<unsigned>(_mm_movemask_ps(_mm_castsi128_ps(own)));
++            if constexpr(Both){
++                other_mask=static_cast<unsigned>(_mm_movemask_ps(_mm_castsi128_ps(_mm_cmpeq_epi32(tags,_mm_set1_epi32(key^1)))));
++                empty_mask=static_cast<unsigned>(_mm_movemask_ps(_mm_castsi128_ps(empty)));
++            }
+ #elif defined(__ARM_NEON) && __BYTE_ORDER__==__ORDER_LITTLE_ENDIAN__
+             auto values=vld1q_u32(&labels[start+block]);auto tags=vshlq_u32(values,vdupq_n_s32(-int(shift)));
+-            auto matches=vorrq_u32(vceqq_u32(tags,vdupq_n_u32(key)),vceqq_u32(values,vdupq_n_u32(0)));
+-            uint64_t mask=vget_lane_u64(vreinterpret_u64_u16(vmovn_u32(matches)),0);
+-            if(mask)return start+block+std::countr_zero(mask)/16;
++            auto empty=vceqq_u32(values,vdupq_n_u32(0));
++            auto own=vorrq_u32(vceqq_u32(tags,vdupq_n_u32(key)),empty);
++            auto mask=[](uint32x4_t v){return vget_lane_u64(vreinterpret_u64_u16(vmovn_u32(v)),0);};
++            uint64_t a=mask(own);if(a)own_mask=1U<<(std::countr_zero(a)/16);
++            if constexpr(Both){uint64_t b=mask(vceqq_u32(tags,vdupq_n_u32(key^1)));if(b)other_mask=1U<<(std::countr_zero(b)/16);empty_mask=mask(empty)!=0;}
+ #else
+-            for(unsigned i=0;i<4;++i){auto v=labels[start+block+i];if(!v||(v>>shift)==key)return start+block+i;}
++            for(unsigned i=0;i<4;++i){uint32_t v=labels[start+block+i];own_mask|=unsigned(!v||(v>>shift)==key)<<i;if constexpr(Both){other_mask|=unsigned((v>>shift)==(key^1))<<i;empty_mask|=unsigned(!v)<<i;}}
+ #endif
++            if(result.own==labels.size()&&own_mask)result.own=start+block+std::countr_zero(own_mask);
++            if constexpr(Both){
++                if(other_mask&&!result.opposite)result.opposite=labels[start+block+std::countr_zero(other_mask)];
++                if(empty_mask)break;
++            }else if(own_mask)break;
+         }
+-        return labels.size();
++#endif
++        return result;
+     }
+     void grow(){
+-        unsigned old_bits=bits,old_shift=11+bits;uint32_t old_mask=distance_mask();
++        unsigned old_bits=bits,old_shift=10+bits;uint32_t old_mask=distance_mask();
+         auto previous=std::move(labels);++bits;labels.assign(previous.size()*2,0);
+         for(auto& index:touched){
+-            uint32_t value=previous[index];uint32_t node=((value>>old_shift)<<old_bits)|(index>>3);
+-            size_t next=slot(node);if(next==labels.size())throw std::logic_error("packed rehash overflow");
+-            index=static_cast<uint32_t>(next);labels[next]=((node>>bits)<<(11+bits))|(value&old_mask);
++            uint32_t value=previous[index],tag=value>>old_shift;
++            uint32_t node=((tag>>1)<<old_bits)|(index>>3);
++            bool forward=!(tag&1);size_t next=locate<false>(node,forward).own;
++            if(next==labels.size())throw std::logic_error("direction rehash overflow");
++            index=static_cast<uint32_t>(next);uint32_t key=((node>>bits)<<1)|uint32_t(!forward);
++            labels[next]=(key<<(10+bits))|(value&old_mask);
+         }
+     }
+-    void reset(){for(uint32_t index:touched)labels[index]=0;touched.clear();wide.reset();}
+-    uint64_t get(uint32_t node)const{
+-        if(node>=node_limit||touched.empty())return wide.get(node);
+-        size_t index=slot(node);uint32_t value=index<labels.size()?labels[index]:0;
+-        return value?uint64_t((value&distance_mask())-1):wide.get(node);
++    void reset(){for(uint32_t index:touched)labels[index]=0;touched.clear();wide[0].reset();wide[1].reset();}
++    uint64_t get(uint32_t node,bool forward)const{
++        const auto& fallback=wide[forward?0:1];
++        if(node>=node_limit||touched.empty())return fallback.get(node);
++        size_t index=locate<false>(node,forward).own;uint32_t value=index<labels.size()?labels[index]:0;
++        return value?uint64_t((value&distance_mask())-1):fallback.get(node);
+     }
+-    bool improve(uint32_t node,uint64_t distance){
+-        if(node>=node_limit)return wide.improve(node,distance);
++    bool improve(uint32_t node,uint64_t distance,bool forward,uint64_t& opposite){
++        auto& fallback=wide[forward?0:1];const auto& other=wide[forward?1:0];
++        if(node>=node_limit){if(!fallback.improve(node,distance))return false;opposite=other.get(node);return true;}
+         if(touched.size()*2>=labels.size()&&bits<20)grow();
+-        size_t index=slot(node);
+-        if(index==labels.size())return wide.improve(node,distance);
+-        uint32_t value=labels[index];uint64_t previous=value?uint64_t((value&distance_mask())-1):wide.get(node);
++        Probe probe=locate<true>(node,forward);uint32_t value=probe.own<labels.size()?labels[probe.own]:0;
++        uint32_t mask=distance_mask();uint64_t previous=value?uint64_t((value&mask)-1):fallback.get(node);
+         if(distance>=previous)return false;
+-        if(distance>=distance_mask())return wide.improve(node,distance);
+-        if(!value)touched.push_back(static_cast<uint32_t>(index));
+-        labels[index]=((node>>bits)<<(11+bits))|static_cast<uint32_t>(distance+1);return true;
++        if(distance>=mask||probe.own==labels.size()){
++            if(!fallback.improve(node,distance))return false;
++        }else{
++            if(!value)touched.push_back(static_cast<uint32_t>(probe.own));
++            uint32_t key=((node>>bits)<<1)|uint32_t(!forward);
++            labels[probe.own]=(key<<(10+bits))|static_cast<uint32_t>(distance+1);
++        }
++        opposite=probe.opposite?uint64_t((probe.opposite&mask)-1):other.get(node);return true;
+     }
++    struct View {
++        BidirectionalDistances& owner;bool forward;
++        uint64_t get(uint32_t node)const{return owner.get(node,forward);}
++        bool improve(uint32_t node,uint64_t distance){uint64_t ignored;return owner.improve(node,distance,forward,ignored);}
++    };
++    View view(bool forward){return {*this,forward};}
+ };

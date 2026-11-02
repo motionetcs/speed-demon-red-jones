@@ -1,0 +1,150 @@
+{
+  "observed_at_utc": "2026-11-01T23:30:34.599878+00:00",
+  "source_parent": "ac158dae4e8182de35d80d8cb35b9c214ba5e3ef",
+  "official_score": false,
+  "selected_in_root": false,
+  "screens": [
+    {
+      "round": 331,
+      "track": "a",
+      "report": "docs/round331-a-private-cache-pipeline-screen.json",
+      "report_sha256": "ed1cdb7995163a985bdd6d1ba10b3ddf39b0b9967d7ab5c666e2a4745d1bfee6",
+      "preflight": "docs/round331-preflight.json",
+      "preflight_sha256": "c71fe300d41bc4bf6114e42fcc93f7ae439ca848a44ee14e9b0b010b1013fe6b",
+      "raw_report_sha256": "bad8c0c351ea78855feed15dab7b0dcbbf8e8b13e9e9bb40b5a22437ce44834b",
+      "driver_sha256": "c32ff9c8f74899352d034958cfc93a63a939fdc3b271d7b768b92d0c7429185c",
+      "patches": [
+        {
+          "path": "docs/prototype-patches/round331-a-private-cache-pipeline-README.md.patch",
+          "sha256": "fe62e4c03b973592eb14c6b532882f82935088404fa2ad75669884f108a138e2",
+          "source_path": "track-a/README.md",
+          "source_sha256": "acfc1f261cda27698675c2106931244a907c3f44ef35d3e6412c2d950614ee02"
+        },
+        {
+          "path": "docs/prototype-patches/round331-a-private-cache-pipeline-endpoint_table.hpp.patch",
+          "sha256": "ab3c22c103848d24407e5e783efefd8621fb1b0e5465222a8e77ce9db8b5a8df",
+          "source_path": "track-a/endpoint_table.hpp",
+          "source_sha256": "802a9f07c16f6e9b65ca259e390f5a5793d2d8477c2dcc640ee393287d25f064"
+        },
+        {
+          "path": "docs/prototype-patches/round331-a-private-cache-pipeline-main.cpp.patch",
+          "sha256": "0209ff8ff8018b7ebdfb385500aad03add6d4f3ae01b2cc5da95f35576f2221a",
+          "source_path": "track-a/main.cpp",
+          "source_sha256": "3b9e0a8c6734e058210acf67982f214459a99fe00e8c4965934d19e355485e1b"
+        }
+      ],
+      "excluded_PERF_snapshot": {
+        "path": "track-a/PERF.md",
+        "prefix_bytes": 107746,
+        "sha256": "427919109150100b7366a5356f968af21b8718d12a625cc3a81a3d356f8a8c14",
+        "scope": "Historical excluded log only; exact current log prefix, not a runtime proof."
+      },
+      "decision": {
+        "observed_at_utc": "2026-11-01T23:30:34.599878+00:00",
+        "decision": "REJECT_NATIVE_ONLY",
+        "reason": "A331 eight-row parsed metadata/prehashed private-cache prefetch pipeline is slower1.050166/1.044649/1.072121 (1/2/3wins), mixedRSS. Reject before new pending/partial/long/collision/guard/prefetch/lifetime/current-main strict/race/GCC/image/default/actual proof. Old57 shared-table batching predates the materially newer private4096 cache; no old proof transferred.",
+        "no_root_selection": true,
+        "no_broad_or_official_proof": true
+      },
+      "session": {
+        "id": 37740,
+        "terminal_exit": 0
+      },
+      "runs": 90,
+      "archive_reconstruction_passed": true
+    },
+    {
+      "round": 332,
+      "track": "c",
+      "report": "docs/round332-c-reader-hot-totals-screen.json",
+      "report_sha256": "24c6415f2f5ca1ce26443a9b796a25b568657a1953a78cbf8c5f4dc0971b801a",
+      "preflight": "docs/round332-preflight.json",
+      "preflight_sha256": "e04fcaacfe417233f23efde307f96472fa5bf4b053d5f7e9bfeb8ab1eaa26665",
+      "raw_report_sha256": "30f67ca3f03e45e921f18f87faf5b9e430fbaf84a9ba7b9ccfc4f3af2f9088d3",
+      "driver_sha256": "2faac1954eec6c0b9bdbbc7731f297ab2c67f75b1a6cdf702e9906ad0f31d9b3",
+      "patches": [
+        {
+          "path": "docs/prototype-patches/round332-c-reader-hot-totals-README.md.patch",
+          "sha256": "6a8c0d5201e8186a423e819d1b53a2a5113fbd460fda50a9de4dc3521d23912e",
+          "source_path": "track-c/README.md",
+          "source_sha256": "cdfc1b2eaa71aef82fe1fdac2fc60a7cd20243aa3f171cff01d657b6d7140ee2"
+        },
+        {
+          "path": "docs/prototype-patches/round332-c-reader-hot-totals-main.cpp.patch",
+          "sha256": "ddc445dbfca5711fc740bf81e2c9ae61d23067deb7778b2190ce898e5d066be5",
+          "source_path": "track-c/main.cpp",
+          "source_sha256": "eb6fe7e08b788a0943fbdc85397b968d3742c8b2de18fae06930f816db827590"
+        }
+      ],
+      "excluded_PERF_snapshot": {
+        "path": "track-c/PERF.md",
+        "prefix_bytes": 151893,
+        "sha256": "6e92116d2727b6356b1481f014d39ce10929cac3d8ef0f102a6f2243fb7e802d",
+        "scope": "Historical excluded log only; exact current log prefix, not a runtime proof."
+      },
+      "decision": {
+        "observed_at_utc": "2026-11-01T23:30:34.599878+00:00",
+        "decision": "REJECT_NATIVE_ONLY",
+        "reason": "C332 reader-local metadata-free64-byte aligned totals are flat/mixed.995796/1.022479/.991888/.996914 (9/4/9/7wins), mixedRSS. Reject before fresh initialization/empty/all-country/signed cents/reduction/over-alignment/lifetime/current-main strict/race/GCC/image/default/actual proof. Old49/51 counterline retains metadata in128-byte Group and predates the owner pipeline; no old correctness or target result transferred.",
+        "no_root_selection": true,
+        "no_broad_or_official_proof": true
+      },
+      "session": {
+        "id": 40058,
+        "terminal_exit": 0
+      },
+      "runs": 118,
+      "archive_reconstruction_passed": true
+    },
+    {
+      "round": 333,
+      "track": "d",
+      "report": "docs/round333-d-fused-directional-labels-screen.json",
+      "report_sha256": "3efc1e9abeda9db2ae360ed28f732f15ec3379352a5d8c72e45d4be435bc4da1",
+      "preflight": "docs/round333-preflight.json",
+      "preflight_sha256": "bd8f47d2ecac45e1331f141c72cb330f00f52299cf8fd625710478d6a4ceef17",
+      "raw_report_sha256": "fa1fdc311f98fedb6a037a68c4a467cd86d64d0dbf7f5a58fac6ad0f71833a3e",
+      "driver_sha256": "7998a0c2aef8b35f1163e8c0bf4f07177c240a17f395b7d5802bc8d33e02996e",
+      "patches": [
+        {
+          "path": "docs/prototype-patches/round333-d-fused-directional-labels-README.md.patch",
+          "sha256": "43855a7a5baa5b6111771788f2cec8d989df57839e1fd27df0d0ece890d33a39",
+          "source_path": "track-d/README.md",
+          "source_sha256": "09d571b0c699cfde19da143cfff2944e2ba54e36c1173f0b4687732c6d9de129"
+        },
+        {
+          "path": "docs/prototype-patches/round333-d-fused-directional-labels-distance_map.hpp.patch",
+          "sha256": "5af8ae4f1be70c4b236f184cb4d9766079438754c5625c9acca4d8a334af89fe",
+          "source_path": "track-d/distance_map.hpp",
+          "source_sha256": "49d396f4436990f3d16c104776bc43f0621d8f22623a3ccc32564bb11c0301f2"
+        },
+        {
+          "path": "docs/prototype-patches/round333-d-fused-directional-labels-main.cpp.patch",
+          "sha256": "d85482e7508ef01d17cd0bf8a02874ba553391b7fc69b3a090f4f5a9d72741e3",
+          "source_path": "track-d/main.cpp",
+          "source_sha256": "5601b62a5fdb35132af9aec1092789dd4aae9802fa01aab0dcc62195a708d97b"
+        }
+      ],
+      "excluded_PERF_snapshot": {
+        "path": "track-d/PERF.md",
+        "prefix_bytes": 116576,
+        "sha256": "7d45c6b8d41e34e546a33927411b9166846626333b700f383b2c07dfa8853325",
+        "scope": "Historical excluded log only; exact current log prefix, not a runtime proof."
+      },
+      "decision": {
+        "observed_at_utc": "2026-11-01T23:30:34.599878+00:00",
+        "decision": "REJECT_NATIVE_ONLY",
+        "reason": "D333 shared private directional-tag distance buckets/fused improve-and-opposite lookup lose1.060427/1.047442/1.030757 (2wins each), RSSmixed. Reject before fresh two-direction/stdmap/dense-prefix/empty-tag0/opposite/collision/fullbucket/widefallback/migration/grow/reset/guard/strict/race/Floyd/untrained/GCC/image/default/actual proof. Native ARM64/NEON was executed; new AVX2, SSE and scalar paths were not compiled/executed and have no proof or target gain. Working tag/migration reasoning is not a correctness certificate. No actual trial justified by the losing native tradeoff and extra source.",
+        "no_root_selection": true,
+        "no_broad_or_official_proof": true
+      },
+      "session": {
+        "id": 98928,
+        "terminal_exit": 0
+      },
+      "runs": 90,
+      "archive_reconstruction_passed": true
+    }
+  ],
+  "scope": "Three isolated native-only rejects; no selected source/build/default/PGO/image/Git/board/visibility/credentials/grants/host/counter changes, no duplicate successful compiler/generator/oracle/model/training/profile/benchmark."
+}

@@ -1,0 +1,39 @@
+--- original/track-c/main.cpp
++++ rejected328/track-c/main.cpp
+@@ -11,6 +11,27 @@
+ struct Csv {
+     const char* p;
+     const char* end;
++    const char* quote_base = nullptr;
++    uint64_t quote_bits = 0;
++    const char* next_quote() {
++        const char* begin = p;
++        if (quote_base && begin >= quote_base && begin < quote_base + 16) {
++            unsigned skip = static_cast<unsigned>(begin - quote_base) * quote_lane_bits;
++            uint64_t remaining = quote_bits & (UINT64_MAX << skip);
++            if (remaining) return quote_base + std::countr_zero(remaining) / quote_lane_bits;
++            begin = quote_base + 16;
++        }
++        quote_base = nullptr;
++        while (end - begin >= 16) {
++            uint64_t mask = quote_block_mask(begin);
++            if (mask) {
++                quote_base = begin; quote_bits = mask;
++                return begin + std::countr_zero(mask) / quote_lane_bits;
++            }
++            begin += 16;
++        }
++        return static_cast<const char*>(std::memchr(begin, '\"', end - begin));
++    }
+     void bom() {
+         if (end - p >= 3 && std::memcmp(p, "\xef\xbb\xbf", 3) == 0) p += 3;
+     }
+@@ -25,7 +46,7 @@
+         size_t bytes = 0;
+         bool escaped = false;
+         while (p < end) {
+-            const char* quote = find_quote(p, end);
++            const char* quote = next_quote();
+             if (!quote) throw std::runtime_error("unterminated quoted field");
+             bytes += static_cast<size_t>(quote - segment);
+             if (quote + 1 < end && quote[1] == '"') {

@@ -1,0 +1,47 @@
+--- original/track-c/names.hpp
++++ rejected329/track-c/names.hpp
+@@ -17,7 +17,9 @@
+ struct Names {
+     struct Entry {uint32_t hash=0,index=0;};
+     std::vector<Entry> entries;std::vector<std::unique_ptr<uint64_t[]>> storage;size_t words,used=0,next=0,remaining=0;
+-    explicit Names(size_t countries):entries(16384),words((countries+63)/64){}
++    const char* input_base;
++    size_t input_size;
++    explicit Names(size_t countries,const char* base=nullptr,size_t size=0):entries(16384),words((countries+63)/64),input_base(size<=UINT32_MAX?base:nullptr),input_size(size){}
+     static uint64_t hash_key(std::string_view key){uint64_t h=std::hash<std::string_view>{}(key);return h<2?h+2:h;}
+     static uint32_t encode_index(size_t block,size_t word){
+         if(block>=(size_t(1)<<19)||word>=8192)throw std::runtime_error("name block/word index capacity");
+@@ -27,7 +29,13 @@
+     }
+     uint32_t make(std::string_view value){
+         if(value.size()>UINT32_MAX||words>SIZE_MAX-1-(value.size()+7)/8)throw std::runtime_error("name storage overflow");
+-        size_t extra=1+words+(value.size()+7)/8;
++        size_t extra=1+words+(input_base?0:(value.size()+7)/8);
++        uint64_t header=value.size();
++        if(input_base){
++            uintptr_t address=reinterpret_cast<uintptr_t>(value.data()),base=reinterpret_cast<uintptr_t>(input_base);
++            if(address<base||address-base>input_size||value.size()>input_size-(address-base))throw std::runtime_error("name outside input mapping");
++            header=(uint64_t(address-base)<<32)|static_cast<uint32_t>(value.size());
++        }
+         if(extra>SIZE_MAX/sizeof(uint64_t))throw std::runtime_error("name allocation overflow");
+         if(extra>remaining){
+             if(storage.size()>=size_t(1)<<19)throw std::runtime_error("name block index capacity");
+@@ -38,13 +46,15 @@
+             if(next!=0){remaining=0;return make(value);}
+         }
+         uint32_t index=encode_index(storage.size()-1,next);
+-        auto* data=storage.back().get()+next;std::fill_n(data,1+words,uint64_t(0));data[0]=value.size();
+-        if(!value.empty())std::memcpy(reinterpret_cast<char*>(data+1+words),value.data(),value.size());
++        auto* data=storage.back().get()+next;std::fill_n(data,1+words,uint64_t(0));data[0]=header;
++        if(!input_base&&!value.empty())std::memcpy(reinterpret_cast<char*>(data+1+words),value.data(),value.size());
+         next+=extra;remaining=next<8192?8192-next:0;return index;
+     }
+     uint64_t* at(uint32_t index)const{uint32_t encoded=index-1;return storage[encoded>>13].get()+(encoded&8191);}
+     std::string_view bytes(uint32_t index)const{
+-        auto* data=at(index);return {reinterpret_cast<const char*>(data+1+words),static_cast<size_t>(data[0])};
++        auto* data=at(index);
++        if(input_base)return {input_base+(data[0]>>32),static_cast<uint32_t>(data[0])};
++        return {reinterpret_cast<const char*>(data+1+words),static_cast<size_t>(data[0])};
+     }
+     void grow(){
+         if(entries.size()>SIZE_MAX/2/sizeof(Entry))throw std::runtime_error("name table overflow");

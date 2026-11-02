@@ -1,0 +1,8 @@
+--- original/track-d/README.md
++++ rejected333/track-d/README.md
+@@ -31,3 +31,5 @@
+ Both loader passes use bounded16-row scratch batches to overlap degree/cursor/edge accesses. The final image caps process-local glibc arenas at2; no host setting is modified. Current exact run IDs and retention decisions are in PERF.md.
+ 
+ Search extracts at most32 full-distance entries from one conservative64-distance band per batch; this changes scheduling and scratch only.
++
++Prototype333 stores both frontier directions in one private exact bucket table. A direction bit joins the complete node tag; low distance bits store distance+1, with complete uint64 per-direction fallbacks for large IDs, distances and full buckets. A fused successful improvement also reports the exact opposite label from the same bucket probe. Current band64/batch32 heaps, full path arithmetic, stale reopens, stopping and graph loading stay unchanged. The table is private to one query worker and resets once between queries. This trades more tag comparison/one less packed-distance bit for shared lookup/cache lines; no correctness or speed claim follows from the design alone.

@@ -1,0 +1,42 @@
+{
+  "observed_at_utc": "2026-11-01T23:30:34.599878+00:00",
+  "official_specs": {
+    "a": {
+      "path": "tools/official/specs/a-ingest.md",
+      "sha256": "a410d9d9dafffdefcc73ece39199355f87306287ca66eab03490c2b385ee33d5"
+    },
+    "c": {
+      "path": "tools/official/specs/c-join.md",
+      "sha256": "30cae675b37ee6cecc94441b70975fe04829f825568df0c98aa0afcf7b61da23"
+    },
+    "d": {
+      "path": "tools/official/specs/d-traverse.md",
+      "sha256": "69a51041d87d7e7e3da5512930a376fac1d9e51803363d437f3144ef202c59ba"
+    }
+  },
+  "primary_sources": [
+    {
+      "url": "https://gcc.gnu.org/onlinedocs/gcc/Other-Builtins.html",
+      "read_scope": "prefetch semantics: computed address must itself be valid, locality/read hint only. No copied implementation or speed/phase claim."
+    },
+    {
+      "url": "https://www.intel.com/content/www/us/en/developer/articles/technical/data-alignment-to-assist-vectorization.html",
+      "read_scope": "General alignment/cache and compiler guidance, not actual target alignment/timing or an AVX512 claim for this target."
+    },
+    {
+      "url": "https://eel.is/c++draft/basic.align",
+      "read_scope": "Type/object alignment and extended-alignment semantics; not an executed independent allocation/lifetime test."
+    },
+    {
+      "url": "https://eel.is/c++draft/expr.shift",
+      "read_scope": "Integral promotion and valid unsigned shift semantics.333 directional packing reasoning is own code/design, not a transferred theorem."
+    },
+    {
+      "url": "https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/goldberg-sofsem07.pdf",
+      "read_scope": "Primary bidirectional shortest-path labels/meeting/conservative stop background only.333 changes storage/probing, and this survey does not prove its SIMD/growth/fallback protocol or current batched solver."
+    }
+  ],
+  "no_imported_implementation": true,
+  "no_video_playback_or_new_transcript_claim": true,
+  "outcome": "Three native-only losing/flat screens rejected, no new official gain or selected source change."
+}

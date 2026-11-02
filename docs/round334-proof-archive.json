@@ -1,0 +1,100 @@
+{
+  "observed_at_utc": "2026-11-02T00:54:47.893194+00:00",
+  "passed": true,
+  "official_score": false,
+  "source_sha256": {
+    "source/track-d/training_generator.py": "bbf37741159004149c5896265a98ae00b90e90a05ad48c2912ecf8bdce126d65",
+    "source/track-d/Dockerfile": "512831e9b8ff2061dbcc7ff8dabd4e3bf4bd184d4acb75c5e9ce732fa274633e",
+    "source/track-d/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+    "source/track-d/edge_store.hpp": "31db14bd58fb3bb45a90c963cf57397a50d5195782d01dc366b2a380d3b74ed6",
+    "source/track-d/README.md": "d0afe5691a24b5ddfad2f0a306df3d8d91f692c7486e3720de3dbc3a27880395",
+    "source/track-d/PERF.md": "8c062db63bf05af02601942efe9cab5cc67a39964253ab6a46bbe73ac3f3be69",
+    "source/track-d/mapped_allocator.hpp": "060bb6a0622338b9151e767d827cbf30c8e4d940cc7e170ad51757c4a6b0808b",
+    "source/track-d/load_cursors.hpp": "c25acd31f52e5245de3972723594483df495d3c09e131ab5977c7b7f581ddc79",
+    "source/track-d/radix_heap.hpp": "7fb2052bb951ca391c5b1883d8e673f554a43ab3d06286e43597105c2d82b6e3",
+    "source/track-d/.speed-demon.toml": "6d6100843803548ba58c1c1eaf2d1dbaecb9a431fd5c9a8408d214580466465c",
+    "source/track-d/distance_map.hpp": "07b254af4e7a149bdae50e426c3355446e104333e6a8dcd43cd29181db4a8604",
+    "source/track-d/main.cpp": "c7c973f84cc510f2f5f59f2d7898bab50b13705a06f4dee4b5b99caf40b4d42a",
+    "source/track-d/decimal.hpp": "aee2210ac5894050834ffd37903718b3b7bdc6673240559baa85b350bea9b581",
+    "source/track-d/parallel.hpp": "614e48333aabbd7a9d7b008119d41acc7f908e467769772d01e10d84c282bdab"
+  },
+  "candidate_Makefile_sha256": "1f2ce8ab1814a60f5ef05dbd0f0147c5176ed3f9258c757a6dd0026d496ae8aa",
+  "README_editorial_change": {
+    "path": "track-d/README.md",
+    "frozen_proof_context_sha256": "d0afe5691a24b5ddfad2f0a306df3d8d91f692c7486e3720de3dbc3a27880395",
+    "submitted_sha256": "8ba0c948d4d5ec48e61333cc3436365ad4126b296790751e9e07c5b1d4afd52d",
+    "scope": "README-only correction of one inherited sentence; no compiled/COPYed runtime input or model changes. All actual code/metadata/Make hashes remain the exact locally verified334 candidate. Docker COPY excludes README."
+  },
+  "patches": [
+    {
+      "path": "docs/prototype-patches/round334-d-mapped-prefix-ends-Dockerfile.patch",
+      "sha256": "787c79883797b641c20b2f0020fb8f037170c09c06d8a06c62a734c704dd9ccd",
+      "frozen_source_path": "track-d/Dockerfile",
+      "frozen_source_sha256": "512831e9b8ff2061dbcc7ff8dabd4e3bf4bd184d4acb75c5e9ce732fa274633e"
+    },
+    {
+      "path": "docs/prototype-patches/round334-d-mapped-prefix-ends-README.md.patch",
+      "sha256": "998b6fbe79e03df1f0f85a4b91b3e9cb749b90f0e771c79bfa39b4aab44942ed",
+      "frozen_source_path": "track-d/README.md",
+      "frozen_source_sha256": "d0afe5691a24b5ddfad2f0a306df3d8d91f692c7486e3720de3dbc3a27880395"
+    },
+    {
+      "path": "docs/prototype-patches/round334-d-mapped-prefix-ends-load_cursors.hpp.patch",
+      "sha256": "6921dfd90f352630b0beb1339bab7484cd0d1f5ac86d9ca42448ab9c325d399d",
+      "frozen_source_path": "track-d/load_cursors.hpp",
+      "frozen_source_sha256": "c25acd31f52e5245de3972723594483df495d3c09e131ab5977c7b7f581ddc79"
+    },
+    {
+      "path": "docs/prototype-patches/round334-d-mapped-prefix-ends-main.cpp.patch",
+      "sha256": "260120f615dfc1c8084bbcabe7abfa7a4f070992a41022295ff005fc25cce7f2",
+      "frozen_source_path": "track-d/main.cpp",
+      "frozen_source_sha256": "c7c973f84cc510f2f5f59f2d7898bab50b13705a06f4dee4b5b99caf40b4d42a"
+    },
+    {
+      "path": "docs/prototype-patches/round334-d-mapped-prefix-ends-mapped_allocator.hpp.patch",
+      "sha256": "7573b86091144b4b44b660bb81dd33f0310d818c713e7492ba712a53eb1c914d",
+      "frozen_source_path": "track-d/mapped_allocator.hpp",
+      "frozen_source_sha256": "060bb6a0622338b9151e767d827cbf30c8e4d940cc7e170ad51757c4a6b0808b"
+    },
+    {
+      "path": "docs/prototype-patches/round334-d-mapped-prefix-ends-Makefile.patch",
+      "sha256": "412c898003c4ce89dce87f44522c744a349e4885bc7d174fd671048774556213",
+      "scope": "Root build dependency"
+    },
+    {
+      "path": "docs/prototype-patches/round334-d-mapped-prefix-ends-README-editorial.patch",
+      "sha256": "a5b2f9929844dd1fdb9a02578a9134e974be73835347e115e5a1ebac8f1b2d09",
+      "scope": "README editorial only"
+    }
+  ],
+  "excluded_PERF_snapshot": {
+    "path": "track-d/PERF.md",
+    "prefix_bytes": 117592,
+    "sha256": "8c062db63bf05af02601942efe9cab5cc67a39964253ab6a46bbe73ac3f3be69",
+    "scope": "Excluded historical log, not compiled source."
+  },
+  "proof_runner_sha256": {
+    "tools/round334-proof/screen.py": "603af37307e5666ed525e9890076aa0c0d9f1c4a1ac09262ebf78999d0594b2e",
+    "tools/round334-proof/linux_chain.py": "24a63130acffe797e597bb25251ffed726a4a130ccb4147d2bb058f715a2a0f9",
+    "tools/round334-proof/model-plan.json": "08fef479d6914ba3f8725f942504425201efb1abf86bd1a8ae81b58362cebce9",
+    "tools/round334-proof/joined_cursor_model.cpp": "47a60a6d84281c19e4564a1d5cbb8e02e974bd1559bc528a64ef8829d0269718",
+    "tools/round334-proof/fresh-generate.json": "70d8840f201160483f38717335d7f632895b63259479a0965de960e2a4cc5830",
+    "tools/round334-proof/linux_models.py": "c8161e0a9b4f7e22a797853ad6fefd3ae95df63769162f599d54c225673a3f90",
+    "tools/round334-proof/fresh_confirmation_failed_v1.py": "746ea076e6d404c68e84801c4f936bb9ad95de7910ca3fbcc89dc736e50c77c6",
+    "tools/round334-proof/README.md": "d40710dc595118f1ab43fa1a750d8a0745b381e358a0f03026a224e2feaf80b7",
+    "tools/round334-proof/native_proof.py": "f6e06002913ca40169f15e615f415dfdf1ea54ccf55654f46733335d9c432481",
+    "tools/round334-proof/fresh-oracle-failed-output-directory.json": "b0d45837547df8eb348adb819857607c4124366168dcfb4575c8adc13dd0cb39",
+    "tools/round334-proof/fresh-oracle.json": "127d4cda0d860eb76f14eeb79567d73d91d205fb2d99d335b05ad25456fe3a53",
+    "tools/round334-proof/linux_proof.py": "e1bcd08468fb914a06e62de92dee74b4ee3245656a8764c0a1fffea0dde07cd0",
+    "tools/round334-proof/fresh_confirmation_resume.py": "404d6cc082efb561e9342fdad5c7db8a1f5af846d0313a61bc2ce11000997b94"
+  },
+  "native_report_sha256": "6d4b8dcf6003954d52731cfc3f430cff4c5151aaf5a5e75f06803e7482dba2bd",
+  "linux_report_sha256": {
+    "models": "898b1ac4de5dc5a8bae780f21b409f4c67ffb04a2a1fbdb1d7cd0b74c2406b3b",
+    "gcc": "14278e30d70df0c8f7ab738e15147d3a0948a5c21f93f094b7652cb692a2be03",
+    "build": "03fdb9d87bdc5ecb1f45c359203bc08c796b3f73bb3a1670fd779184a86f0478",
+    "image": "bcd63de16b3a6186f0fad8ae5674c5e2450be6fb625a29e099f1153a05ad9b47",
+    "defaults": "bd0adf4f47f81937b1be326af4faf4fe4464e34654ec32c749f21c917d85b86f"
+  },
+  "scope": "Fresh source-specific joined-cursor/allocator/native strict/race/main/Floyd/width/budget/untrained/public/pinned GCC/models/one allowed PGO image/default proof. Frozen runtime exact; separate README correction disclosed. Original unchanged primitives source-bound, no old136 proof substitution. Local source/image identity only; actual board needed."
+}

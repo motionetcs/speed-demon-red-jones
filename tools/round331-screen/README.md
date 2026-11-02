@@ -1,0 +1,5 @@
+# Rejected native screen 331
+
+A331 eight-row parsed metadata/prehashed private-cache prefetch pipeline is slower1.050166/1.044649/1.072121 (1/2/3wins), mixedRSS. Reject before new pending/partial/long/collision/guard/prefetch/lifetime/current-main strict/race/GCC/image/default/actual proof. Old57 shared-table batching predates the materially newer private4096 cache; no old proof transferred.
+
+One optimized compile and the public1/6/12 plus rotating thirteen-pair full screens ran under the shared lock. Reports bind input/output/source/control/candidate hashes before and after. Reconstruct source from original317 plus the exact patches, and the excluded PERF log from the length/SHA-bound prefix in round331-333-screen-index.json. All source/preflight bytes were verified in a temporary tree. The exact executed driver expects ignored `.build/round331` layout and the local input/reference banks it names. This is screening only, not broad correctness/strict/race/GCC/image/default/organizer proof. No candidate was selected.

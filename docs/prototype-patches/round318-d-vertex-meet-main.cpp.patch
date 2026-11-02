@@ -1,0 +1,21 @@
+--- original317/track-d/main.cpp
++++ prototype318/track-d/main.cpp
+@@ -164,15 +164,13 @@
+                     for (size_t k = 0; k < count; ++k) {
+                         auto [d, u] = work[k];
+                         if (d != own.get(u)) continue; // Earlier items may improve this label within the band.
++                        uint64_t opposite = other.get(u);
++                        if (opposite != infinity) best = std::min(best, d + opposite);
+                         for (uint32_t i = ranges[k].first; i < ranges[k].second; ++i) {
+                             auto [destination, tag] = adjacency.template get<Compact>(i);
+                             uint32_t weight = tag == (Compact ? EdgeStore::small_limit : uint32_t(UINT16_MAX)) ? wide_weights.at(i * 2 + (from_source ? 0 : 1)) : tag;
+                             uint64_t candidate = d + weight;
+-                            if (own.improve(destination, candidate)) {
+-                                heap.push({candidate, destination});
+-                                uint64_t opposite = other.get(destination);
+-                                if (opposite != infinity) best = std::min(best, candidate + opposite);
+-                            }
++                            if (own.improve(destination, candidate)) heap.push({candidate, destination});
+                         }
+                     }
+                 }

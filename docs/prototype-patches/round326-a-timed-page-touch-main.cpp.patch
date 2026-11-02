@@ -1,0 +1,20 @@
+--- original/track-a/main.cpp
++++ rejected326/track-a/main.cpp
+@@ -37,6 +37,17 @@
+         };
+         std::vector<Chunk> chunks(threads);
+         parallel(threads, [&](unsigned worker) {
++            // All work remains inside the timed program and the requested workers.
++            // Worker0 populates the ordinary read-only input while peers parse.
++            if(worker==0){
++                long page_size=sysconf(_SC_PAGESIZE);
++                if(page_size>0)for(size_t offset=0;offset<file.size;){
++                    char observed=*static_cast<const volatile char*>(file.data+offset);(void)observed;
++                    size_t stride=static_cast<size_t>(page_size);
++                    if(file.size-offset<=stride)break;
++                    offset+=stride;
++                }
++            }
+             const char* p = boundaries[worker]; const char* limit = boundaries[worker + 1];
+             auto& chunk = chunks[worker];
+             LocalEndpoints local_names(endpoints);

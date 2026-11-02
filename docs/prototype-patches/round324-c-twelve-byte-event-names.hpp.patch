@@ -1,0 +1,15 @@
+--- original317/track-c/names.hpp
++++ prototype324/track-c/names.hpp
+@@ -73,9 +73,9 @@
+ };
+ // One producer and one consumer transfer a vector through release/acquire.
+ // Every key borrows immutable input; the consumer copies each unique key.
+-struct NameQueue {
+-    alignas(64) std::atomic<bool> ready{false};std::vector<NameEvent> rows;
+-    void send(std::vector<NameEvent>& batch,const std::atomic<bool>& canceled){
++template<class Event=NameEvent> struct NameQueue {
++    alignas(64) std::atomic<bool> ready{false};std::vector<Event> rows;
++    void send(std::vector<Event>& batch,const std::atomic<bool>& canceled){
+         while(ready.load(std::memory_order_acquire)){
+             if(canceled.load(std::memory_order_relaxed))throw std::runtime_error("name pipeline canceled");
+             std::this_thread::yield();

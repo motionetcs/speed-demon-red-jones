@@ -1,0 +1,56 @@
+--- original317/track-a/main.cpp
++++ prototype321/track-a/main.cpp
+@@ -11,6 +11,34 @@
+ static constexpr uint32_t latency_escape = (1U << 19) - 1;
+ using Records=std::vector<uint32_t,MappedAllocator<uint32_t>>;
+ struct Count { uint32_t count = 0, errors = 0; };
++
++struct RowTail { const char* endpoint_end;uint64_t latency;bool error; };
++inline RowTail parse_row_tail(const char* line,const char* endpoint,const char* finish){
++    const char* number=finish;uint64_t latency=0;bool decoded=false;
++    if constexpr(std::endian::native==std::endian::little){
++        if(finish-line>=8){
++            uint64_t bytes;std::memcpy(&bytes,finish-8,8);
++            uint64_t spaces=bytes^0x2020202020202020ULL;
++            uint64_t equal=~(((spaces&0x7f7f7f7f7f7f7f7fULL)+0x7f7f7f7f7f7f7f7fULL)|spaces|0x7f7f7f7f7f7f7f7fULL)&0x8080808080808080ULL;
++            if(equal){
++                unsigned count=7-(63-std::countl_zero(equal))/8;
++                if(!count)throw std::runtime_error("invalid latency");
++                number=finish-count;uint64_t digits=(bytes^0x3030303030303030ULL)&(UINT64_MAX<<((8-count)*8));
++                if((digits&0xf0f0f0f0f0f0f0f0ULL)|((digits+0x0606060606060606ULL)&0x1010101010101010ULL))throw std::runtime_error("invalid latency");
++                digits=(digits*10+(digits>>8))&0x00ff00ff00ff00ffULL;
++                digits=(digits*100+(digits>>16))&0x0000ffff0000ffffULL;
++                latency=(digits*10000+(digits>>32))&0xffffffffULL;decoded=true;
++            }
++        }
++    }
++    if(!decoded){
++        while(number>endpoint&&number[-1]>='0'&&number[-1]<='9')--number;
++        const char* p=number;latency=decimal_digits(p,finish);
++        if(p!=finish||p==number||p-number>10||latency>UINT32_MAX)throw std::runtime_error("invalid latency");
++    }
++    if(number-endpoint<5||number[-1]!=' '||number[-5]!=' ')throw std::runtime_error("missing endpoint/status");
++    return {number-5,latency,number[-4]=='5'};
++}
+ 
+ int main(int argc, char** argv) {
+     try {
+@@ -50,13 +78,11 @@
+                 p += 28; while (p < limit && *p != ' ') ++p;
+                 if (p == limit) throw std::runtime_error("missing endpoint");
+                 const char* start = ++p;
+-                p = static_cast<const char*>(std::memchr(start, ' ', limit - start));
+-                if (!p || limit - p < 5) throw std::runtime_error("missing endpoint/status");
+-                std::string_view endpoint(start, p - start);
+-                bool error = p[1] == '5'; p += 5; start = p;
+-                uint64_t latency = decimal_digits(p, limit);
+-                if (p == start || p - start > 10 || latency > UINT32_MAX || p == limit || *p != '\n') throw std::runtime_error("invalid latency");
+-                ++p;
++                const char* finish=static_cast<const char*>(std::memchr(start,'\n',limit-start));
++                if(!finish)throw std::runtime_error("invalid latency");
++                auto tail=parse_row_tail(line,start,finish);
++                std::string_view endpoint(start,tail.endpoint_end-start);
++                uint64_t latency=tail.latency;bool error=tail.error;p=finish+1;
+                 uint16_t key = local_names.intern(endpoint);
+                 if (chunk.first[hour] == UINT32_MAX) {
+                     chunk.first[hour] = static_cast<uint32_t>(line - file.data);

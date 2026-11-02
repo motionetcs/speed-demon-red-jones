@@ -1,0 +1,47 @@
+--- original317/track-d/distance_map.hpp
++++ prototype325/track-d/distance_map.hpp
+@@ -61,7 +61,7 @@
+ #endif
+ struct FastDistances {
+     static_assert(PACKED_BITS>=0 && PACKED_BITS<=20);
+-    unsigned bits=PACKED_BITS;
++    unsigned bits=PACKED_BITS;uint64_t base=0;
+     std::vector<uint32_t> labels=std::vector<uint32_t>(size_t(8)<<PACKED_BITS);
+     std::vector<uint32_t> touched;
+     Distances wide;
+@@ -97,21 +97,30 @@
+             index=static_cast<uint32_t>(next);labels[next]=((node>>bits)<<(11+bits))|(value&old_mask);
+         }
+     }
+-    void reset(){for(uint32_t index:touched)labels[index]=0;touched.clear();wide.reset();}
++    void reset(uint64_t origin=0){for(uint32_t index:touched)labels[index]=0;touched.clear();wide.reset();base=origin;}
++    void unbias(){
++        uint32_t mask=distance_mask();unsigned shift=11+bits;
++        for(uint32_t index:touched){uint32_t value=labels[index];uint32_t node=((value>>shift)<<bits)|(index>>3);wide.improve(node,base+uint64_t((value&mask)-1));labels[index]=0;}
++        touched.clear();base=0;
++    }
+     uint64_t get(uint32_t node)const{
+         if(node>=node_limit||touched.empty())return wide.get(node);
+         size_t index=slot(node);uint32_t value=index<labels.size()?labels[index]:0;
+-        return value?uint64_t((value&distance_mask())-1):wide.get(node);
++        return value?base+uint64_t((value&distance_mask())-1):wide.get(node);
+     }
+     bool improve(uint32_t node,uint64_t distance){
+         if(node>=node_limit)return wide.improve(node,distance);
+         if(touched.size()*2>=labels.size()&&bits<20)grow();
+         size_t index=slot(node);
+         if(index==labels.size())return wide.improve(node,distance);
+-        uint32_t value=labels[index];uint64_t previous=value?uint64_t((value&distance_mask())-1):wide.get(node);
++        uint32_t value=labels[index];uint64_t previous=value?base+uint64_t((value&distance_mask())-1):wide.get(node);
+         if(distance>=previous)return false;
+-        if(distance>=distance_mask())return wide.improve(node,distance);
++        uint64_t relative=distance-base;
++        if(relative>=distance_mask()){
++            if(distance<base&&value){unbias();return improve(node,distance);}
++            return wide.improve(node,distance);
++        }
+         if(!value)touched.push_back(static_cast<uint32_t>(index));
+-        labels[index]=((node>>bits)<<(11+bits))|static_cast<uint32_t>(distance+1);return true;
++        labels[index]=((node>>bits)<<(11+bits))|static_cast<uint32_t>(relative+1);return true;
+     }
+ };

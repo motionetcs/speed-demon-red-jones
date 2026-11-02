@@ -1,0 +1,64 @@
+{
+  "observed_at_utc": "2026-11-01T22:43:15.471492+00:00",
+  "official_specs": {
+    "a": {
+      "path": "tools/official/specs/a-ingest.md",
+      "sha256": "a410d9d9dafffdefcc73ece39199355f87306287ca66eab03490c2b385ee33d5"
+    },
+    "c": {
+      "path": "tools/official/specs/c-join.md",
+      "sha256": "30cae675b37ee6cecc94441b70975fe04829f825568df0c98aa0afcf7b61da23"
+    },
+    "d": {
+      "path": "tools/official/specs/d-traverse.md",
+      "sha256": "69a51041d87d7e7e3da5512930a376fac1d9e51803363d437f3144ef202c59ba"
+    }
+  },
+  "primary_sources": [
+    {
+      "url": "https://man7.org/linux/man-pages/man3/sysconf.3.html",
+      "read_scope": "Section3 runtime page-size API, corrects invalid section2 URL in frozen326 metadata; no mapping/OS/accounting change."
+    },
+    {
+      "url": "https://cdn.kernel.org/doc/html/latest/mm/page_tables.html",
+      "read_scope": "Primary kernel page table/fault semantics; no measured frequency/phase/performance inference."
+    },
+    {
+      "url": "https://eel.is/c++draft/charconv.to.chars",
+      "read_scope": "Unsigned integer to_chars semantics for327; caller bounds are local source reasoning, not an executed independent model."
+    },
+    {
+      "url": "https://arxiv.org/html/1902.08318v7",
+      "read_scope": "Primary SIMD structural bitmap concept only;328 retains scalar field/escape state and reuses only exact quote masks, not copied parser/library code."
+    },
+    {
+      "url": "https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html",
+      "read_scope": "Official instruction reference index. Generic mask concept, not target timing or a throughput certificate."
+    },
+    {
+      "url": "https://eel.is/c++draft/string.view.template",
+      "read_scope": "Non-owning view and invalidation/lifetime semantics.329 private input slices only; no implementation imported."
+    },
+    {
+      "url": "https://man7.org/linux/man-pages/man2/mmap.2.html",
+      "read_scope": "Mapping lifetime and ordinary reads only. No changed mapping flag or host setting."
+    },
+    {
+      "url": "https://dspace.mit.edu/entities/publication/750bd90a-3a01-4fb2-9b0d-1a3a26f71918",
+      "read_scope": "Primary author repository publication metadata for radix heaps; search abstracts at DOI/Princeton motivate monotone radix concept, no implementation/theorem transferred to330."
+    }
+  ],
+  "failed_requests": [
+    {
+      "url": "https://www.cs.princeton.edu/research/techreps/682",
+      "result": "403 Forbidden; stopped, no retry/access bypass or full paper-read claim."
+    },
+    {
+      "url": "https://man7.org/linux/man-pages/man2/sysconf.2.html",
+      "result": "Incorrect frozen326 link failed; correct section3 page used and correction disclosed without rewriting frozen preflight."
+    }
+  ],
+  "working_invariants_are_not_proofs": true,
+  "no_video_playback_or_transcript_claim": true,
+  "outcome": "All five native-only screens rejected; no actual gain or rank change claimed, selected original317 preserved."
+}

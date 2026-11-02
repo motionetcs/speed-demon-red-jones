@@ -1,0 +1,5 @@
+# Rejected native screen 332
+
+C332 reader-local metadata-free64-byte aligned totals are flat/mixed.995796/1.022479/.991888/.996914 (9/4/9/7wins), mixedRSS. Reject before fresh initialization/empty/all-country/signed cents/reduction/over-alignment/lifetime/current-main strict/race/GCC/image/default/actual proof. Old49/51 counterline retains metadata in128-byte Group and predates the owner pipeline; no old correctness or target result transferred.
+
+One optimized compile and the public1/6/12 plus rotating thirteen-pair full screens ran under the shared lock. Reports bind input/output/source/control/candidate hashes before and after. Reconstruct source from original317 plus the exact patches, and the excluded PERF log from the length/SHA-bound prefix in round331-333-screen-index.json. All source/preflight bytes were verified in a temporary tree. The exact executed driver expects ignored `.build/round332` layout and the local input/reference banks it names. This is screening only, not broad correctness/strict/race/GCC/image/default/organizer proof. No candidate was selected.

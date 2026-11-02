@@ -1,0 +1,15 @@
+--- original/track-a/endpoint_table.hpp
++++ rejected331/track-a/endpoint_table.hpp
+@@ -46,9 +46,10 @@
+         uint32_t h=(a^std::rotl(b,11)^std::rotl(c,23)^uint32_t(v.size()))*0x9e3779b1U;return h^(h>>16);
+     }
+ 
+-    uint16_t intern(std::string_view value){
++    uint16_t intern(std::string_view value){return intern_hashed(value,hash_key(value));}
++    uint16_t intern_hashed(std::string_view value,uint32_t hash){
+         if(value.size()>UINT16_MAX)return shared.intern(value,std::hash<std::string_view>{}(value));
+-        uint32_t hash=hash_key(value);size_t i=hash&(slots.size()-1);
++        size_t i=hash&(slots.size()-1);
+         const auto& cached=slots[i];
+         if(cached.id!=UINT16_MAX&&cached.hash==hash&&cached.length==value.size()&&(value.empty()||std::memcmp(cached.data,value.data(),value.size())==0))return cached.id;
+         uint16_t id=shared.intern(value,std::hash<std::string_view>{}(value));

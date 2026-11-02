@@ -1,0 +1,8 @@
+--- original/track-c/README.md
++++ rejected329/track-c/README.md
+@@ -9,3 +9,5 @@
+ No input seed or answer is recognized. All output is computed in the timed run. See `PERF.md` for actual experiments, source/memory costs, independent tests and real board outcomes.
+ 
+ Owner table entries use a32-bit rejection fingerprint and a32-bit stable-block word index. Full length/byte equality still decides names, including collisions; the complete64-bit hash routes owners.64KiB word blocks and dedicated oversized-key blocks retain exact name bytes/country words with checked index arithmetic.
++
++Prototype329 keeps the selected private-owner pipeline. For a records mapping of at most UINT32_MAX bytes, each private key header stores exact 32-bit length and input-relative offset beside the full country bitmap; full equality reads the still-mapped canonical input. The one-worker path uses the same representation. Wider mappings retain the complete owned-key layout. Bounds are checked before storing an offset and every private table dies before the immutable input mapping. No field length or country width is shortened.

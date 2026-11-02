@@ -1,0 +1,67 @@
+--- original/track-d/radix_heap.hpp
++++ rejected330/track-d/radix_heap.hpp
+@@ -35,9 +35,52 @@
+     Item pop() { prepare(); Item item = buckets[0].back(); buckets[0].pop_back(); --count; return item; }
+ };
+ 
++// The high distance prefix is implicit in a radix bucket and its last key.
++// Only six small buckets with <=11 varying distance bits and 21-bit IDs pack.
++struct PrefixDistanceQueue {
++    std::array<std::vector<uint64_t>,33> buckets;
++    std::array<std::vector<uint32_t>,6> narrow;
++    uint64_t last=0;
++    size_t count=0;
++    static constexpr uint32_t node_mask=(1U<<21)-1;
++    static uint64_t key(uint64_t item){return (item>>32)>>RADIX_BATCH_BUCKET_BITS;}
++    bool empty()const{return count==0;}
++    void clear(){for(auto& b:buckets)b.clear();for(auto& b:narrow)b.clear();last=0;count=0;}
++    bool zero_nonempty()const{return !buckets[0].empty()||!narrow[0].empty();}
++    uint64_t decode(uint32_t word,unsigned index,uint64_t prefix)const{
++        uint64_t distance=((prefix>>index)<<(index+RADIX_BATCH_BUCKET_BITS))|(word>>21);
++        return distance<<32|(word&node_mask);
++    }
++    void place(uint64_t item){
++        unsigned index=std::bit_width(key(item)^last);
++        if(index<6&&uint32_t(item)<=node_mask){
++            uint64_t mask=(uint64_t(1)<<(index+RADIX_BATCH_BUCKET_BITS))-1;
++            narrow[index].push_back(static_cast<uint32_t>(((item>>32)&mask)<<21)|uint32_t(item));
++        }else buckets[index].push_back(item);
++    }
++    void push(uint64_t item){place(item);++count;}
++    void prepare(){
++        if(zero_nonempty())return;
++        unsigned index=1;
++        while(buckets[index].empty()&&(index>=6||narrow[index].empty()))++index;
++        uint64_t prefix=last,minimum=UINT64_MAX;
++        for(uint64_t item:buckets[index])minimum=std::min(minimum,key(item));
++        if(index<6)for(uint32_t word:narrow[index])minimum=std::min(minimum,key(decode(word,index,prefix)));
++        last=minimum;
++        for(uint64_t item:buckets[index])place(item);
++        buckets[index].clear();
++        if(index<6){for(uint32_t word:narrow[index])place(decode(word,index,prefix));narrow[index].clear();}
++    }
++    uint64_t minimum(){prepare();return last<<RADIX_BATCH_BUCKET_BITS;}
++    uint64_t take_zero(){
++        if(!narrow[0].empty()){uint32_t word=narrow[0].back();narrow[0].pop_back();return decode(word,0,last);}
++        uint64_t item=buckets[0].back();buckets[0].pop_back();return item;
++    }
++    uint64_t pop(){prepare();uint64_t item=take_zero();--count;return item;}
++};
+ struct RadixHeap {
+     using Item = std::pair<uint64_t, uint32_t>;
+-    DistanceQueue<uint64_t> small;
++    PrefixDistanceQueue small;
+     DistanceQueue<Item> wide;
+     size_t count = 0;
+     bool empty() const { return count == 0; }
+@@ -52,8 +95,8 @@
+         size_t size = 0;
+         if (!small.empty()) {
+             small.prepare();
+-            while (size < limit && !small.buckets[0].empty()) {
+-                uint64_t item = small.buckets[0].back(); small.buckets[0].pop_back(); --small.count;
++            while (size < limit && small.zero_nonempty()) {
++                uint64_t item = small.take_zero(); --small.count;
+                 output[size++] = {item >> 32, uint32_t(item)};
+             }
+         } else {

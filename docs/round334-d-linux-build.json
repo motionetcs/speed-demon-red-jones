@@ -1,0 +1,104 @@
+{
+  "started_at_utc": "2026-11-02T00:45:31.415857+00:00",
+  "official_score": false,
+  "mode": "build",
+  "track": "d",
+  "source_sha256": {
+    "track-d/training_generator.py": "bbf37741159004149c5896265a98ae00b90e90a05ad48c2912ecf8bdce126d65",
+    "track-d/Dockerfile": "512831e9b8ff2061dbcc7ff8dabd4e3bf4bd184d4acb75c5e9ce732fa274633e",
+    "track-d/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+    "track-d/edge_store.hpp": "31db14bd58fb3bb45a90c963cf57397a50d5195782d01dc366b2a380d3b74ed6",
+    "track-d/README.md": "d0afe5691a24b5ddfad2f0a306df3d8d91f692c7486e3720de3dbc3a27880395",
+    "track-d/PERF.md": "8c062db63bf05af02601942efe9cab5cc67a39964253ab6a46bbe73ac3f3be69",
+    "track-d/mapped_allocator.hpp": "060bb6a0622338b9151e767d827cbf30c8e4d940cc7e170ad51757c4a6b0808b",
+    "track-d/load_cursors.hpp": "c25acd31f52e5245de3972723594483df495d3c09e131ab5977c7b7f581ddc79",
+    "track-d/radix_heap.hpp": "7fb2052bb951ca391c5b1883d8e673f554a43ab3d06286e43597105c2d82b6e3",
+    "track-d/.speed-demon.toml": "6d6100843803548ba58c1c1eaf2d1dbaecb9a431fd5c9a8408d214580466465c",
+    "track-d/distance_map.hpp": "07b254af4e7a149bdae50e426c3355446e104333e6a8dcd43cd29181db4a8604",
+    "track-d/main.cpp": "c7c973f84cc510f2f5f59f2d7898bab50b13705a06f4dee4b5b99caf40b4d42a",
+    "track-d/decimal.hpp": "aee2210ac5894050834ffd37903718b3b7bdc6673240559baa85b350bea9b581",
+    "track-d/parallel.hpp": "614e48333aabbd7a9d7b008119d41acc7f908e467769772d01e10d84c282bdab"
+  },
+  "manifest_sha256": "11b52a44a524f0e44556808b86b9482f214d1588ba5e37bfe6d231e55bd60dfb",
+  "native_report_sha256": "6d4b8dcf6003954d52731cfc3f430cff4c5151aaf5a5e75f06803e7482dba2bd",
+  "candidate_Makefile_sha256": "1f2ce8ab1814a60f5ef05dbd0f0147c5176ed3f9258c757a6dd0026d496ae8aa",
+  "scope": "Fresh exact D334 mapped temporary prefix arrays and joined final cursor CSR-end ranges under pinned offline Linux/amd64 GCC strict ASAN/UBSAN and one unchanged allowed-PGO production image. New joined-cursor and copied allocator models separately GCC validated; original search/map/heap/parser/edge primitives retained only by exact source bytes. Old262 records are input/expected data only, never its bypass-source proof. Whole changed main freshly executes all references. Native/VM time or memory is not organizer K/ELF evidence.",
+  "commands": [
+    {
+      "label": "build",
+      "argv": [
+        "docker",
+        "build",
+        "--platform",
+        "linux/amd64",
+        "--network=none",
+        "-t",
+        "speed-demon-fresh/track-d:round334-mapped-prefix-ends",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round334/source/track-d"
+      ]
+    },
+    {
+      "label": "inspect",
+      "argv": [
+        "docker",
+        "image",
+        "inspect",
+        "speed-demon-fresh/track-d:round334-mapped-prefix-ends"
+      ]
+    },
+    {
+      "label": "original-config",
+      "argv": [
+        "docker",
+        "image",
+        "inspect",
+        "sha256:c4d3c407647521f82a295be8f0ebaa3de8d755d121a0439f7ddc5ea51968bb04"
+      ]
+    },
+    {
+      "label": "elf",
+      "argv": [
+        "docker",
+        "run",
+        "--rm",
+        "--pull=never",
+        "--platform",
+        "linux/amd64",
+        "--network=none",
+        "--read-only",
+        "--memory=8g",
+        "--memory-swap=8g",
+        "--pids-limit=512",
+        "--cap-drop=ALL",
+        "--security-opt=no-new-privileges",
+        "--user",
+        "65534:65534",
+        "--tmpfs",
+        "/tmp:rw,exec,size=1g",
+        "-e",
+        "MALLOC_ARENA_MAX=2",
+        "--entrypoint",
+        "sha256sum",
+        "sha256:2f14abcd438cafffb10cd86a0e8a7601275fa9ada765b9576eaf2cc29e0431cf",
+        "/app/solution"
+      ]
+    }
+  ],
+  "image_id": "sha256:2f14abcd438cafffb10cd86a0e8a7601275fa9ada765b9576eaf2cc29e0431cf",
+  "image_tag": "speed-demon-fresh/track-d:round334-mapped-prefix-ends",
+  "image_bytes": 30973397,
+  "elf_sha256": "6b45fc7b9c30e82390c8e43df377755dcff5f1d42ee8996b40287860a6d48b1d",
+  "image_config": {
+    "User": "65534:65534",
+    "Env": [
+      "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "MALLOC_ARENA_MAX=2"
+    ],
+    "Entrypoint": [
+      "/app/solution"
+    ]
+  },
+  "training": "Unchanged pinned native GCC/full1000003 then sample130363/default thread budget12, actual query cap12 bounded by Q. Only executable enters final image; no publicseed1 training.",
+  "passed": true,
+  "completed_at_utc": "2026-11-02T00:47:25.529094+00:00"
+}

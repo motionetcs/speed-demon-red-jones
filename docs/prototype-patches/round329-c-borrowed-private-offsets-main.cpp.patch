@@ -1,0 +1,20 @@
+--- original/track-c/main.cpp
++++ rejected329/track-c/main.cpp
+@@ -178,7 +178,7 @@
+                 try{
+                     if(worker<readers){
+                         auto& local=locals[worker];std::unique_ptr<Names> serial;
+-                        if(!owners)serial=std::make_unique<Names>(groups.size());
++                        if(!owners)serial=std::make_unique<Names>(groups.size(),records.data,records.size);
+                         std::vector<std::vector<NameEvent>> batches(owners);
+                         for(auto& batch:batches)batch.reserve(NAME_BATCH);
+                         Csv csv{boundaries[worker],boundaries[worker+1]};std::string name_scratch,unused;
+@@ -199,7 +199,7 @@
+                         // An empty published batch is the ordered end-of-stream marker.
+                         for(unsigned owner=0;owner<owners;++owner){auto& batch=batches[owner];auto& queue=queues[size_t(worker)*owners+owner];if(!batch.empty())queue.send(batch,canceled);queue.send(batch,canceled);}
+                     }else{
+-                        unsigned owner=worker-readers;Names names(groups.size());std::array<bool,12> finished{};unsigned remaining=readers;
++                        unsigned owner=worker-readers;Names names(groups.size(),records.data,records.size);std::array<bool,12> finished{};unsigned remaining=readers;
+                         while(remaining){
+                             if(canceled.load(std::memory_order_relaxed))throw std::runtime_error("name pipeline canceled");
+                             bool progress=false;

@@ -1,0 +1,7 @@
+# Rejected native screen 330
+
+Lossless radix-prefix packing in six small queue buckets has flat/mixed1.000150/.980398/1.002508 with6/7/5wins for1.79–1.95MB lower process RSS. Reject time/source/complexity tradeoff before new monotone-band/multiset/prefix/0/MAX/31-32-64bit/wideID/interleave/redistribution/clear/grow/strict/race/Floyd/GCC/image/default/actual proof. Working radix-prefix invariant is not a general correctness certificate. Proposed touched-bucket reset was detected as exact282 before any implementation/compile/replay; not retried.
+
+The exact source can be reconstructed from original317 plus the linked patches and checked against the frozen preflight. The driver expects the ignored `.build/round330` source/binary/output layout and the local input/reference banks it names. One successful optimized compile and the recorded public1/6/12 and rotating thirteen-pair full screens were executed under the shared lock. Reports bind input/output/source/binary hashes before and after. This archive is not an independent/adversarial/sanitizer/race/GCC/image/default/organizer proof, and no prototype was selected.
+
+The frozen preflight also hashes the excluded historical PERF log. Its byte-exact reconstruction uses the length/SHA-bound prefix recorded in `docs/round326-330-screen-index.json`; the runtime/README source patches do not alter that log. General correctness and performance evidence remain limited to the executed screen.

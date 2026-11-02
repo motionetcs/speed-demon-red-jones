@@ -1,0 +1,102 @@
+--- original317/track-c/main.cpp
++++ prototype324/track-c/main.cpp
+@@ -2,6 +2,7 @@
+ #include "quote_scan.hpp"
+ #include "parallel.hpp"
+ #include <atomic>
++#include <bit>
+ #include "names.hpp"
+ #include <array>
+ #include <numeric>
+@@ -76,6 +77,17 @@
+     }
+ };
+ 
++// Small descriptors refer to immutable mapped input. Long-key sentinels reparse
++// that one field. The producer routes with the full hash; its low32 fingerprint
++// is sufficient for the original owner table, whose equality still reads all bytes.
++struct SmallNameEvent {
++    uint32_t offset,hash;uint16_t length,country;
++    std::string_view value(const char* base,const char* end)const{
++        if(length!=UINT16_MAX)return {base+offset,length};
++        Csv csv{base+offset,end};std::string unused;return csv.field(unused,false).value;
++    }
++};
++static_assert(sizeof(SmallNameEvent)==12);
+ // A singleton quote followed by comma, with a non-separator predecessor,
+ // cannot be an opening/escaped quote. It ends a quoted text field.
+ // Parse from that known field boundary to the next real record end.
+@@ -170,21 +182,21 @@
+         struct Local{std::vector<Group> groups;};
+         std::vector<Local> locals(readers);for(auto& local:locals)local.groups=groups;
+         std::vector<std::vector<uint64_t>> distinct(owners,std::vector<uint64_t>(groups.size()));
+-        auto queues=std::make_unique<NameQueue[]>(size_t(readers)*owners);
+         std::atomic<bool> canceled{false};
+-        auto consume=[&]<typename Code>(const std::vector<Code>& region_lookup){
++        auto consume=[&]<typename Code,typename Event>(const std::vector<Code>& region_lookup){
++            auto queues=std::make_unique<NameQueue<Event>[]>(size_t(readers)*owners);
+             constexpr Code no_region=std::numeric_limits<Code>::max();
+             parallel(threads,[&](unsigned worker){
+                 try{
+                     if(worker<readers){
+                         auto& local=locals[worker];std::unique_ptr<Names> serial;
+                         if(!owners)serial=std::make_unique<Names>(groups.size());
+-                        std::vector<std::vector<NameEvent>> batches(owners);
++                        std::vector<std::vector<Event>> batches(owners);
+                         for(auto& batch:batches)batch.reserve(NAME_BATCH);
+                         Csv csv{boundaries[worker],boundaries[worker+1]};std::string name_scratch,unused;
+                         while(csv.p<csv.end){
+                             if(canceled.load(std::memory_order_relaxed))throw std::runtime_error("name pipeline canceled");
+-                            csv.bom();uint64_t id=csv.integer();Field name=csv.field(name_scratch,false);csv.comma();
++                            csv.bom();uint64_t id=csv.integer();const char* name_start=csv.p;Field name=csv.field(name_scratch,false);csv.comma();
+                             uint64_t hash=Names::hash_key(name.value);
+                             Field note=csv.field(unused,false);csv.comma();uint64_t region=csv.integer();int64_t amount=csv.amount();csv.newline();
+                             size_t country=region<region_lookup.size()&&region_lookup[region]!=no_region?region_lookup[region]:unmatched;
+@@ -192,7 +204,11 @@
+                             group.minimum=std::min(group.minimum,amount);group.maximum=std::max(group.maximum,amount);
+                             group.name_bytes+=name.bytes;group.note_bytes+=note.bytes;
+                             if(!owners){group.names+=serial->first(name.value,country,hash);continue;}
+-                            unsigned owner=hash%owners;NameEvent event{name.value,hash,static_cast<uint16_t>(country)};
++                            unsigned owner=hash%owners;Event event;
++                            if constexpr(std::is_same_v<Event,SmallNameEvent>){
++                                bool long_key=name.value.size()>=UINT16_MAX;
++                                event={static_cast<uint32_t>((long_key?name_start:name.value.data())-records.data),static_cast<uint32_t>(hash),static_cast<uint16_t>(long_key?UINT16_MAX:name.value.size()),static_cast<uint16_t>(country)};
++                            }else event={name.value,hash,static_cast<uint16_t>(country)};
+                             auto& batch=batches[owner];batch.push_back(std::move(event));
+                             if(batch.size()==NAME_BATCH)queues[size_t(worker)*owners+owner].send(batch,canceled);
+                         }
+@@ -204,10 +220,17 @@
+                             if(canceled.load(std::memory_order_relaxed))throw std::runtime_error("name pipeline canceled");
+                             bool progress=false;
+                             for(unsigned reader=0;reader<readers;++reader){
+-                                if(finished[reader])continue;auto& queue=queues[size_t(reader)*owners+owner];
+-                                if(!queue.ready.load(std::memory_order_acquire))continue;progress=true;
++                                if(finished[reader])continue;
++                                auto& queue=queues[size_t(reader)*owners+owner];
++                                if(!queue.ready.load(std::memory_order_acquire))continue;
++                                progress=true;
+                                 if(queue.rows.empty()){finished[reader]=true;--remaining;}
+-                                else for(const auto& e:queue.rows)distinct[owner][e.country]+=names.first(e.value(),e.country,e.hash);
++                                else for(const auto& e:queue.rows){
++                                    std::string_view key;uint64_t hash;
++                                    if constexpr(std::is_same_v<Event,SmallNameEvent>){key=e.value(records.data,records.data+records.size);hash=e.hash;}
++                                    else{key=e.value();hash=e.hash;}
++                                    distinct[owner][e.country]+=names.first(key,e.country,hash);
++                                }
+                                 queue.rows.clear();queue.ready.store(false,std::memory_order_release);
+                             }
+                             if(!progress)std::this_thread::yield();
+@@ -216,7 +239,12 @@
+                 }catch(...){canceled.store(true,std::memory_order_relaxed);throw;}
+             });
+         };
+-        if(narrow_lookup.empty())consume(lookup);else consume(narrow_lookup);
++        auto run_events=[&]<typename Event>(){
++            if(narrow_lookup.empty())consume.template operator()<uint16_t,Event>(lookup);
++            else consume.template operator()<uint8_t,Event>(narrow_lookup);
++        };
++        if(records.size<=UINT32_MAX)run_events.template operator()<SmallNameEvent>();
++        else run_events.template operator()<NameEvent>();
+         for(const auto& local:locals)for(size_t i=0;i<groups.size();++i){auto& group=groups[i];const auto& value=local.groups[i];group.count+=value.count;group.ids+=value.ids;group.sum+=value.sum;group.minimum=std::min(group.minimum,value.minimum);group.maximum=std::max(group.maximum,value.maximum);group.names+=value.names;group.name_bytes+=value.name_bytes;group.note_bytes+=value.note_bytes;}
+         for(const auto& owner:distinct)for(size_t i=0;i<groups.size();++i)groups[i].names+=owner[i];
+         std::sort(groups.begin(), groups.end(), [](const Group& a, const Group& b) { return a.country < b.country; });

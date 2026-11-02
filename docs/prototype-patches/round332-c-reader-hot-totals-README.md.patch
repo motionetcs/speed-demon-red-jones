@@ -1,0 +1,8 @@
+--- original/track-c/README.md
++++ rejected332/track-c/README.md
+@@ -9,3 +9,5 @@
+ No input seed or answer is recognized. All output is computed in the timed run. See `PERF.md` for actual experiments, source/memory costs, independent tests and real board outcomes.
+ 
+ Owner table entries use a32-bit rejection fingerprint and a32-bit stable-block word index. Full length/byte equality still decides names, including collisions; the complete64-bit hash routes owners.64KiB word blocks and dedicated oversized-key blocks retain exact name bytes/country words with checked index arithmetic.
++
++Prototype332 reader-local country totals contain only the eight original signed64 counters in an aligned64-byte element, without duplicating immutable country string views. Output country metadata remains in the original Group vector. Initialization, all per-record arithmetic, one-worker distinct-name updates and final reduction are unchanged. The private name table and bounded SPSC ownership protocol stay identical.

@@ -1,0 +1,8 @@
+--- original/track-d/README.md
++++ rejected330/track-d/README.md
+@@ -31,3 +31,5 @@
+ Both loader passes use bounded16-row scratch batches to overlap degree/cursor/edge accesses. The final image caps process-local glibc arenas at2; no host setting is modified. Current exact run IDs and retention decisions are in PERF.md.
+ 
+ Search extracts at most32 full-distance entries from one conservative64-distance band per batch; this changes scheduling and scratch only.
++
++Prototype330 losslessly packs pending small-queue items into 32 bits only in radix buckets zero through five and only for complete node IDs below 2^21. Their at most eleven varying low distance bits and full node ID fit; the remaining prefix is reconstructed from the monotone queue last key. Redistribution saves the old prefix before changing last. Other buckets/nodes retain full 64-bit items, and distances beyond UINT32_MAX retain the original full-distance queue. Exact path labels, graph, bands, batch size and stopping rule stay unchanged. No shortest-path value is rounded.

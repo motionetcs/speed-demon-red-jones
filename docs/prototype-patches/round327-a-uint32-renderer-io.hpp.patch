@@ -1,0 +1,11 @@
+--- original/track-a/io.hpp
++++ rejected327/track-a/io.hpp
+@@ -64,7 +64,7 @@
+ struct Output {
+     std::basic_string<char,std::char_traits<char>,MappedAllocator<char>> bytes;
+     void text(std::string_view s) { bytes.append(s); }
+-    void number(int64_t n) {
++    void number(uint32_t n) {
+         char b[32];
+         auto r = std::to_chars(b, b + sizeof b, n);
+         bytes.append(b, r.ptr);

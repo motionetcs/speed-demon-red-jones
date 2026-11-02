@@ -1,0 +1,25 @@
+{
+  "observed_at_utc": "2026-11-01T21:48:43.798194+00:00",
+  "official_specs": {
+    "a_path": "tools/official/specs/a-ingest.md",
+    "a_sha256": "a410d9d9dafffdefcc73ece39199355f87306287ca66eab03490c2b385ee33d5",
+    "d_path": "tools/official/specs/d-traverse.md",
+    "d_sha256": "69a51041d87d7e7e3da5512930a376fac1d9e51803363d437f3144ef202c59ba"
+  },
+  "primary_sources": [
+    {
+      "url": "https://arxiv.org/html/2101.11408",
+      "read_scope": "Primary number-parsing paper, concept of parallel/SWAR decimal reduction only; mainly floating point and not a source of copied implementation or guaranteed speed."
+    },
+    {
+      "url": "https://simdjson.org/talks/",
+      "read_scope": "Author-maintained talk list and titles/links only; no video playback/transcript claim, no library code imported."
+    },
+    {
+      "url": "https://ir.cwi.nl/pub/4527",
+      "read_scope": "Primary CWI abstract describing cache costs and partitioned hash joins. Informs traffic/partitioning idea only, no implementation imported or performance/theorem transferred."
+    }
+  ],
+  "working_invariants_are_not_proofs": true,
+  "outcome": "All four native-only prototypes rejected before broader proof; selected source unchanged, no official gain."
+}
