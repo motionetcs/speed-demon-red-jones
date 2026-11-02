@@ -65,7 +65,7 @@ int main(int argc, char** argv) {
                 while (count < batch.size() && input.more()) {
                     uint32_t u = input.number(), v = input.number(); input.number();
                     if (u >= n || v >= n) throw std::runtime_error("node outside graph");
-                    __builtin_prefetch(&degree.values[u], 1, 1); __builtin_prefetch(&reverse_degree.values[v], 1, 1);
+                    __builtin_prefetch(&degree.values[u], 0, 3); __builtin_prefetch(&reverse_degree.values[v], 0, 3);
                     batch[count++] = {u,v};
                 }
                 local.count += count;

@@ -1,0 +1,9 @@
+--- a/track-c/README.md
++++ b/track-c/README.md
+@@ -9,3 +9,6 @@
+ No input seed or answer is recognized. All output is computed in the timed run. See `PERF.md` for actual experiments, source/memory costs, independent tests and real board outcomes.
+ 
+ Owner table entries use a32-bit rejection fingerprint and a32-bit stable-block word index. Full length/byte equality still decides names, including collisions; the complete64-bit hash routes owners.64KiB word blocks and dedicated oversized-key blocks retain exact name bytes/country words with checked index arithmetic.
++
++
++Owner workers update their exact per-name country bitmaps for every event, then materialize per-country distinct counts once after all of their reader queues end. Set-bit iteration uses the full dynamic country width and every exact stored name. The single-worker path retains immediate counting; the original canonical keys, private hash owners and SPSC protocol are unchanged.

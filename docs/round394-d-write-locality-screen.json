@@ -1,0 +1,144 @@
+{
+  "observed_at_utc": "2026-11-02T12:44:21.443954+00:00",
+  "decision": "REJECT_AFTER_NATIVE_AND_TARGET_EMISSION_PROBE",
+  "source_parent": "9a1dbc4b00846389bbba70d80c976a2407a70b54",
+  "scope": "D394 ONLY temporal-locality hints1->3 for existing imminent graph-loader WRITES: main degree counters, SharedCursor prefetch<HasWide,Write=true> narrow/wide buffers, EdgeStore prefetch<Compact,Write=true> compact/wide buffers. Every address expression/rw intent/batch16/atomic/synchronization/graph parse/fullrange/overflow/spill/slot/edge/weight remains exact; Write=false query paths keep locality1 by compile-time bool. No new prefetch location, memory access, cache/host control or algorithm bypass; no ISA/PGO/compiler/default change. This is a general data-independent locality-hint hypothesis, not guaranteed L1 residency/target cache effect/Intel gain. New exact code/build still needs relevant strict/race graph/cursor/edge/Floyd/untrained/GNU/image/default/Make/real proof if promising. Original source-bound primitive proofs are not relabeled as new-code execution.",
+  "official_score": false,
+  "selected_in_root": false,
+  "summary": {
+    "public-full-seed1": {
+      "paired_median_ratio": 0.798653344714994,
+      "paired_wins": 12,
+      "native_rss_delta_bytes": -3801088
+    },
+    "full-seed1823": {
+      "paired_median_ratio": 0.8109877537736454,
+      "paired_wins": 13,
+      "native_rss_delta_bytes": 6373376
+    },
+    "full-seed2633": {
+      "paired_median_ratio": 0.790167970766291,
+      "paired_wins": 13,
+      "native_rss_delta_bytes": -1114112
+    }
+  },
+  "runs": 90,
+  "limitations": "ARM native ratios.798653/.810988/.790168 (12/13/13wins) are substantial LOCAL hypotheses, not Intel gains. Before broad replay/build, one pinnedGCC -march=raptorlake standalone emission probe shows write rw1/locality1 AND3 both compile to the same prefetchw+ret, while positive-control read rw0/locality1 vs3 differ prefetcht2 vs prefetcht0. That probe is not a production/organizer ELF or complete equivalence/performance proof, but removes the proposed target-instruction mechanism. STOP before current-main strict/race/untrained/GNUproduction/image/default/actual work rather than transferring ARM improvement to Intel. No selected source or board change.",
+  "patches": [
+    {
+      "path": "docs/prototype-patches/round394-d-write-locality-README.md.patch",
+      "sha256": "8396908a458aa23c0fcdc50aa0ceef1c344c276df71ba4a53f30784d5304122a"
+    },
+    {
+      "path": "docs/prototype-patches/round394-d-write-locality-edge_store.hpp.patch",
+      "sha256": "218dd3f1dd5fd32cd3d6c83715eaad36ace33c29e86ff582fffb68cae284c76b"
+    },
+    {
+      "path": "docs/prototype-patches/round394-d-write-locality-load_cursors.hpp.patch",
+      "sha256": "f3459a968f9a7c9663a981117754228d3eed54cfed90583564b25a89d05eb917"
+    },
+    {
+      "path": "docs/prototype-patches/round394-d-write-locality-main.cpp.patch",
+      "sha256": "bf2136d3e36ce85ff2360731d2c06753d81b6f2d985e0ec8411b35ad07a9ddec"
+    }
+  ],
+  "frozen_source_sha256": {
+    "track-d/training_generator.py": "bbf37741159004149c5896265a98ae00b90e90a05ad48c2912ecf8bdce126d65",
+    "track-d/Dockerfile": "512831e9b8ff2061dbcc7ff8dabd4e3bf4bd184d4acb75c5e9ce732fa274633e",
+    "track-d/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+    "track-d/edge_store.hpp": "1dfc710f164f767e1dd3d65bdeed35dcb525a37e1f54522319800e7a8f70b900",
+    "track-d/README.md": "b2891cfbf8c20333de97b5e427ebd13c99f69274638ea6efc2fbb5afadc7cf94",
+    "track-d/PERF.md": "6cf3179dc39f656876d0fe7faf4a61f867e02ba74063487ddf973755c6d130dc",
+    "track-d/mapped_allocator.hpp": "060bb6a0622338b9151e767d827cbf30c8e4d940cc7e170ad51757c4a6b0808b",
+    "track-d/load_cursors.hpp": "4604be73c367092d4b67c100b037031d30651f27d191b8edf29b358dcd24d360",
+    "track-d/radix_heap.hpp": "7fb2052bb951ca391c5b1883d8e673f554a43ab3d06286e43597105c2d82b6e3",
+    "track-d/.speed-demon.toml": "6d6100843803548ba58c1c1eaf2d1dbaecb9a431fd5c9a8408d214580466465c",
+    "track-d/distance_map.hpp": "07b254af4e7a149bdae50e426c3355446e104333e6a8dcd43cd29181db4a8604",
+    "track-d/main.cpp": "270ac381547b77817f29f9c5efee5896243aab5c91bab7b3d0797a992e5f0c3c",
+    "track-d/decimal.hpp": "aee2210ac5894050834ffd37903718b3b7bdc6673240559baa85b350bea9b581",
+    "track-d/parallel.hpp": "614e48333aabbd7a9d7b008119d41acc7f908e467769772d01e10d84c282bdab"
+  },
+  "reconstruction_passed": true,
+  "emission_probe": {
+    "observed_at_utc": "2026-11-02T12:42:39.607935+00:00",
+    "passed": true,
+    "official_score": false,
+    "scope": "One standalone emitted-instruction probe under exact pinned GCC image, explicit -march=raptorlake. This is not a production source/ELF, organizer executable, timing, cache effect or sanitizer proof. Actual production Docker flags remain unchanged. Read-only query hints are included only as a positive control for locality operand changes. No training/generator/oracle or production image build.",
+    "command": [
+      "docker",
+      "run",
+      "--rm",
+      "-i",
+      "--platform",
+      "linux/amd64",
+      "--network",
+      "none",
+      "--read-only",
+      "--user",
+      "65534:65534",
+      "--memory",
+      "8g",
+      "--memory-swap",
+      "8g",
+      "--pids-limit",
+      "512",
+      "--cap-drop",
+      "ALL",
+      "--security-opt",
+      "no-new-privileges",
+      "--tmpfs",
+      "/tmp:rw,noexec,nosuid,size=256m",
+      "gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce",
+      "g++",
+      "-x",
+      "c++",
+      "-std=c++20",
+      "-O3",
+      "-march=raptorlake",
+      "-S",
+      "-masm=intel",
+      "-fno-asynchronous-unwind-tables",
+      "-fno-ident",
+      "-o",
+      "-",
+      "-"
+    ],
+    "returncode": 0,
+    "source_sha256": "65e776805129c2167a6fa0083b82438260676d2bc7d568e5180fe5e3161e5a9c",
+    "assembly_sha256": "c3e3184421bdcb086d9f81d7c0b7d155aa6f51c53dde3cd04581f3723705b0ac",
+    "instruction_bodies": {
+      "write_low": [
+        "prefetchw\t[rdi]",
+        "ret"
+      ],
+      "write_high": [
+        "prefetchw\t[rdi]",
+        "ret"
+      ],
+      "read_low": [
+        "prefetcht2\t[rdi]",
+        "ret"
+      ],
+      "read_high": [
+        "prefetcht0\t[rdi]",
+        "ret"
+      ]
+    },
+    "write_instructions_identical": true,
+    "read_instructions_differ": true
+  },
+  "files": {
+    "tools/round394-screen/screen.py": "8d06b1e75b0c25d12a7a7215940913228dda4b4063f836fe984b7b52005163eb",
+    "tools/round394-screen/base-d-PERF.md": "6cf3179dc39f656876d0fe7faf4a61f867e02ba74063487ddf973755c6d130dc",
+    "tools/round394-screen/report.json": "dedf21361e49bd2e42ba9c7785d425c3707041030745d2ce665d5b57c7c0c81b",
+    "tools/round394-screen/frozen.json": "ce05da1a47e89ebb4f1d7c62bebabf4d8aa6d883bf7f79667f8caf282fbd9b52",
+    "tools/round394-screen/README.md": "2a7d759d4ddd8944e2c546b78c690e6057c9b323ccb047ce24c1ed4e1913dd6c",
+    "tools/round394-screen/close_and_prepare395.py": "ecf83687e5afa04258b98b943ed9728a1f0075a428e53185cb4a2024c799988c",
+    "tools/round394-screen/emission.py": "0279e59eb3265eb879c1e6fc6302b04bcd841f06bd49c80c9f810b9a203a0f8e",
+    "tools/round394-screen/prepare.py": "76fd29056d86b7cba01b5ac82b52c9666bb7e9f6c177f7c7e5d7fa4adbe9f5d8",
+    "tools/round394-screen/emission/report.json": "9f859f42772012f637f75e55542945d54977175b309ff4590801b634e4baf709",
+    "tools/round394-screen/emission/probe.s": "c3e3184421bdcb086d9f81d7c0b7d155aa6f51c53dde3cd04581f3723705b0ac",
+    "tools/round394-screen/emission/prefetch.cpp": "65e776805129c2167a6fa0083b82438260676d2bc7d568e5180fe5e3161e5a9c",
+    "tools/round394-screen/emission/probe.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

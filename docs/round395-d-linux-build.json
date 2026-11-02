@@ -1,0 +1,107 @@
+{
+  "started_at_utc": "2026-11-02T12:54:33.533786+00:00",
+  "official_score": false,
+  "mode": "build",
+  "source_sha256": {
+    "source/track-d/training_generator.py": "bbf37741159004149c5896265a98ae00b90e90a05ad48c2912ecf8bdce126d65",
+    "source/track-d/Dockerfile": "512831e9b8ff2061dbcc7ff8dabd4e3bf4bd184d4acb75c5e9ce732fa274633e",
+    "source/track-d/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+    "source/track-d/edge_store.hpp": "036df4db07c83aa2ab8c9550b3cf1e859284b1950d0e59be6b25693e917607b5",
+    "source/track-d/README.md": "75089e4f7cd4bba1b0795de82de063cfbc9bbcedcbc1e8875944d1cc65525f98",
+    "source/track-d/PERF.md": "73a1ddd6d44b88680c1632206056e48c991a509cd6ea68c711873e35c8e2c744",
+    "source/track-d/mapped_allocator.hpp": "060bb6a0622338b9151e767d827cbf30c8e4d940cc7e170ad51757c4a6b0808b",
+    "source/track-d/load_cursors.hpp": "764bb22ac3b843227158de55eff13621b67a1d00ece8a062e4699f57b72e0d47",
+    "source/track-d/radix_heap.hpp": "7fb2052bb951ca391c5b1883d8e673f554a43ab3d06286e43597105c2d82b6e3",
+    "source/track-d/.speed-demon.toml": "6d6100843803548ba58c1c1eaf2d1dbaecb9a431fd5c9a8408d214580466465c",
+    "source/track-d/distance_map.hpp": "07b254af4e7a149bdae50e426c3355446e104333e6a8dcd43cd29181db4a8604",
+    "source/track-d/main.cpp": "99528794efa73da17db666b00153f9093e1029b651cba61adb9dd52adc34ed19",
+    "source/track-d/decimal.hpp": "aee2210ac5894050834ffd37903718b3b7bdc6673240559baa85b350bea9b581",
+    "source/track-d/parallel.hpp": "614e48333aabbd7a9d7b008119d41acc7f908e467769772d01e10d84c282bdab"
+  },
+  "source_manifest_sha256": "368ea1855bf94afbe66dac0154d808401363db7341d9dbbd6d2d544c2192ba42",
+  "proof_plan_sha256": "416bc8381cb1f591b2a073875cf1e331a51fa579684be6b3f5ee665a153ed98d",
+  "native_report_sha256": "cd6d707112db198a6dc8b963f91a2cf4744b88cfef34a5dc701b95457d0d4ad6",
+  "scope": "Exact395 loader read-prefetch/high-locality operands, unchanged actual addresses/atomic writes/synchronization, strict pinned offline Linux proof and one allowed nativePGO production image. Saved independent input/reference bytes are reused only by content hash; every current code replay is fresh. No Mac/emulated timing or local ELF represents organizer timing/chargedM/ELF. Actual defaults use the true entrypoint without arguments or worker override.",
+  "commands": [
+    {
+      "label": "build",
+      "argv": [
+        "docker",
+        "build",
+        "--platform",
+        "linux/amd64",
+        "--network=none",
+        "--progress=plain",
+        "-t",
+        "speed-demon-fresh/track-d:round395-loader-read-hints",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round395/source/track-d"
+      ],
+      "script_sha256": null
+    },
+    {
+      "label": "inspect",
+      "argv": [
+        "docker",
+        "image",
+        "inspect",
+        "speed-demon-fresh/track-d:round395-loader-read-hints"
+      ],
+      "script_sha256": null
+    },
+    {
+      "label": "original-config",
+      "argv": [
+        "docker",
+        "image",
+        "inspect",
+        "sha256:2f14abcd438cafffb10cd86a0e8a7601275fa9ada765b9576eaf2cc29e0431cf"
+      ],
+      "script_sha256": null
+    },
+    {
+      "label": "elf",
+      "argv": [
+        "docker",
+        "run",
+        "--rm",
+        "--pull=never",
+        "--platform",
+        "linux/amd64",
+        "--network=none",
+        "--read-only",
+        "--memory=8g",
+        "--memory-swap=8g",
+        "--pids-limit=512",
+        "--cap-drop=ALL",
+        "--security-opt=no-new-privileges",
+        "--user",
+        "65534:65534",
+        "--tmpfs",
+        "/tmp:rw,exec,size=1g",
+        "-e",
+        "MALLOC_ARENA_MAX=2",
+        "--entrypoint",
+        "sha256sum",
+        "sha256:7fd038d3b96505f9e742643df6d04f5c92bb0b050a74adebcd37b168f3147147",
+        "/app/solution"
+      ],
+      "script_sha256": null
+    }
+  ],
+  "image_id": "sha256:7fd038d3b96505f9e742643df6d04f5c92bb0b050a74adebcd37b168f3147147",
+  "image_bytes": 30973423,
+  "image_config": {
+    "User": "65534:65534",
+    "Env": [
+      "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "MALLOC_ARENA_MAX=2"
+    ],
+    "Entrypoint": [
+      "/app/solution"
+    ]
+  },
+  "elf_sha256": "9f9f1980328babd2310cc0327869ede0cf089da0198939e7034b7caeb9ef3897",
+  "training": "Unchanged byte-identical official generator full1000003 then sample130363/default12, both original -march=native PGO passes, one normal offline image build. Only executable enters runtime. Published seed1 and reference outputs are never training inputs or runtime cached answers.",
+  "passed": true,
+  "completed_at_utc": "2026-11-02T12:55:54.268601+00:00"
+}

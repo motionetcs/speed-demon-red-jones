@@ -1,0 +1,68 @@
+{
+  "observed_at_utc": "2026-11-02T12:42:39.607935+00:00",
+  "passed": true,
+  "official_score": false,
+  "scope": "One standalone emitted-instruction probe under exact pinned GCC image, explicit -march=raptorlake. This is not a production source/ELF, organizer executable, timing, cache effect or sanitizer proof. Actual production Docker flags remain unchanged. Read-only query hints are included only as a positive control for locality operand changes. No training/generator/oracle or production image build.",
+  "command": [
+    "docker",
+    "run",
+    "--rm",
+    "-i",
+    "--platform",
+    "linux/amd64",
+    "--network",
+    "none",
+    "--read-only",
+    "--user",
+    "65534:65534",
+    "--memory",
+    "8g",
+    "--memory-swap",
+    "8g",
+    "--pids-limit",
+    "512",
+    "--cap-drop",
+    "ALL",
+    "--security-opt",
+    "no-new-privileges",
+    "--tmpfs",
+    "/tmp:rw,noexec,nosuid,size=256m",
+    "gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce",
+    "g++",
+    "-x",
+    "c++",
+    "-std=c++20",
+    "-O3",
+    "-march=raptorlake",
+    "-S",
+    "-masm=intel",
+    "-fno-asynchronous-unwind-tables",
+    "-fno-ident",
+    "-o",
+    "-",
+    "-"
+  ],
+  "returncode": 0,
+  "source_sha256": "65e776805129c2167a6fa0083b82438260676d2bc7d568e5180fe5e3161e5a9c",
+  "assembly_sha256": "c3e3184421bdcb086d9f81d7c0b7d155aa6f51c53dde3cd04581f3723705b0ac",
+  "instruction_bodies": {
+    "write_low": [
+      "prefetchw\t[rdi]",
+      "ret"
+    ],
+    "write_high": [
+      "prefetchw\t[rdi]",
+      "ret"
+    ],
+    "read_low": [
+      "prefetcht2\t[rdi]",
+      "ret"
+    ],
+    "read_high": [
+      "prefetcht0\t[rdi]",
+      "ret"
+    ]
+  },
+  "write_instructions_identical": true,
+  "read_instructions_differ": true
+}

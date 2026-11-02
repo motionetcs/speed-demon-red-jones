@@ -1,0 +1,11 @@
+--- a/track-d/main.cpp
++++ b/track-d/main.cpp
+@@ -65,7 +65,7 @@
+                 while (count < batch.size() && input.more()) {
+                     uint32_t u = input.number(), v = input.number(); input.number();
+                     if (u >= n || v >= n) throw std::runtime_error("node outside graph");
+-                    __builtin_prefetch(&degree.values[u], 1, 1); __builtin_prefetch(&reverse_degree.values[v], 1, 1);
++                    __builtin_prefetch(&degree.values[u], 1, 3); __builtin_prefetch(&reverse_degree.values[v], 1, 3);
+                     batch[count++] = {u,v};
+                 }
+                 local.count += count;

@@ -1,0 +1,73 @@
+{
+  "observed_at_utc": "2026-11-02T12:34:12.141023+00:00",
+  "decision": "REJECT_NATIVE_ONLY",
+  "scope": "C393 owner-private deferred distinct-count materialization. Original Names::first full-key/table/arena/country-bit update unchanged; owner ignores its bool return on each event and after all reader EOFs traverses its occupied entries and complete dynamic membership words, removing each nonzero lowest set bit to increment the corresponding distinct country once. Main serial owners0 path still immediate original first-return count. No new input-domain/group-count/key bound, no fixed words, no destructive bitmap scan, no cross-owner merge, no protocol/queue/batch/thread/hash/parser/ISA/PGO/default/host change. Potential benefit removes per-row distinct-array load/add/store and dead first-return extraction; cost adds final table/word/setbit scan. Work depends on actual unique names/memberships, not seed recognition. No native/target gain assumed. Before promotion requires new extracted padding-zero/last-word/collision/empty/grow/index/stdset/allwidth/guard/privateowner/count conservation, main strict/race/independent/adversarial/untrained/GNU/image/true-default/rootMake/real proof.",
+  "source_parent": "9a1dbc4b00846389bbba70d80c976a2407a70b54",
+  "selected_in_root": false,
+  "official_score": false,
+  "summary": {
+    "public-full-seed1": {
+      "paired_median_ratio": 1.013720154807412,
+      "paired_wins": 5,
+      "native_rss_delta_bytes": -573440
+    },
+    "full-seed2203": {
+      "paired_median_ratio": 1.0345197266086168,
+      "paired_wins": 0,
+      "native_rss_delta_bytes": -49152
+    },
+    "full-seed2309": {
+      "paired_median_ratio": 1.0009170815176993,
+      "paired_wins": 5,
+      "native_rss_delta_bytes": -770048
+    },
+    "full-seed2371": {
+      "paired_median_ratio": 1.0314450640730968,
+      "paired_wins": 2,
+      "native_rss_delta_bytes": -147456
+    }
+  },
+  "runs": 118,
+  "limitations": "Post-EOF owner-private reduction is slower/flat on all four full inputs:1.013720/1.034520/1.000917/1.031445 (5/0/5/2wins). Small native RSS reductions do not establish chargedM/Intel/totalK. REJECT before new padding-zero/last-word/collision/empty/grow/index/stdset/allwidth/guard/countconservation/privateowner/lifetime models, strict/race/untrained/GNU/image/default/actual proof. Unchanged Names::first/queue/parser provenance is not a correctness certificate for new reduction. No seed/domain-bound or target cause is inferred.",
+  "duplicate_review": "Own all C PERF and prototype patches searched before code.338 conditional per-row counter is exact duplicate of first considered if(first) idea; stopped before implementation/compile. Old round2 private-membership prototype does deferred set-bit reduction BUT uses shared concurrent names, thread-private sparse membership and a postjoin cross-thread union/fourword width, with slower native result.393 instead traverses existing current owner-private exact offset arena with no added private memberships/merge/allocation/fixed4-width. This is an explicit materially new-layout retest, not invented novelty or reused old proof. No current private-owner post-EOF materialization found.",
+  "patches": [
+    {
+      "path": "docs/prototype-patches/round393-c-deferred-README.md.patch",
+      "sha256": "6eb7c210e34ec335b813df0a33edaa3a6b192a9f6e79791a910f0ffbc342118a"
+    },
+    {
+      "path": "docs/prototype-patches/round393-c-deferred-main.cpp.patch",
+      "sha256": "5c042881639c5699cfa1ff7e8c2672f9cf7ea0cbc44750a423cafde497918e0a"
+    },
+    {
+      "path": "docs/prototype-patches/round393-c-deferred-names.hpp.patch",
+      "sha256": "226b47a386879f3d185e8eb11b0dc1ff0164700468cfe3cad5ae5be05bc76543"
+    }
+  ],
+  "frozen_source_sha256": {
+    "track-c/training_generator.py": "9e61672eb814fa4e1bc2e3cf30c8e7ca9629804191ce5ae60a66c8b61ba704f2",
+    "track-c/Dockerfile": "637e81c6fca4507f4c4e7368efde7b6904d07879ae9ec992c5e25175d50e1fae",
+    "track-c/names.hpp": "13774d0317601992303a7d35b35680d0542579397c18f38763b78ef9f93b0ab5",
+    "track-c/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+    "track-c/quote_scan.hpp": "0b170a766254dee1bc14f9e9180cc1900da01d41f5d09053d5579e01a7fb9cfa",
+    "track-c/README.md": "e9ca16d42abe3095d48f8a51e2766f3fe31e66f5f9de295e1ca4351686f7d425",
+    "track-c/PERF.md": "32f317af5a40b50f9fad8124b01599119d3e12128b910cf5d36be7465933e15f",
+    "track-c/.speed-demon.toml": "3371600b8033a377bc373378e703191dfec36c1ae991b617650dfa480edc00b4",
+    "track-c/main.cpp": "1198c8315e8cdc90ff99a5baaa433fe9e7039d37ae1536f31eb2109f290a457e",
+    "track-c/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420"
+  },
+  "reconstruction_passed": true,
+  "reconstructed_file_count": 10,
+  "files": {
+    "tools/round393-screen/screen.py": "1512e4b8059e1fccf07a59099445eb1314987af8aebc8db84a4a73f6da5216b8",
+    "tools/round393-screen/report.json": "1a4d6242a6c60bb4f7b8d28ae440da29768552a2bb6de8512fa5aa7cd071cf75",
+    "tools/round393-screen/close.py": "5f116ffe8c9783adf5ffcf0fbe4cec2799063acf9755cd24856935b3df8b6fe3",
+    "tools/round393-screen/README.md": "ed8cfd0451624586b1d300e71cc0fc8f3c86b584a3cf02580be13a37db6bf3d3",
+    "tools/round393-screen/base-c-PERF.md": "32f317af5a40b50f9fad8124b01599119d3e12128b910cf5d36be7465933e15f",
+    "tools/round393-screen/preflight.json": "8f3716eb623dbef2a366c4f40e39ef00a4f61944440e1024b3c050d336d06920",
+    "tools/round393-screen/prepare.py": "28f72007adfccac39f40e14e371b3cb8647529c6dbec43db392a176af6d7154b",
+    "tools/round393-screen/compile.json": "dfc523357f14f73069b506122f6d449155b307d4f046472b1be7a8b9f7507056",
+    "tools/round393-screen/prior-executive-summaries.json": "0c9a3a73d1fee164b61b1bd1ef78f55b273535fc95ff19f189ba863f473d23a6"
+  },
+  "report_cleanup": "Replaced stale round281 executive best/latest tables in all3 PERF logs using verified392 and historical-best records; exact previous captions archived. Chronological measurements and executed proof remain unchanged. This is report metadata only; all30 runtime/build inputs/Make/trackREADME/fullsets remain exact392."
+}

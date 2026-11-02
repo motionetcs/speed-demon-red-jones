@@ -1,17 +1,19 @@
 # Track A optimization log
 
-## Current retained result
+## Selected implementation and measured records
 
-The retained implementation parses disjoint input ranges into four-byte records, compares complete endpoint names after hashing, computes exact nearest-rank percentiles, and publishes completed hours in output order. Wide latencies keep all32 bits. Mapped buffers are released when their hour is consumed.
+One-pass request parsing produces exact four-byte endpoint/error/latency records with full32-bit latency escapes. Hour owners count/scatter and select exact nearest-rank percentiles. Full endpoint bytes resolve hash collisions. Mapped record/output buffers release completed-hour storage; ordered output and the bounded decimal decoder are retained. Twelve-worker production default is restored; rejected391 final ENV8 is absent.
 
-The two material retained layout changes are mapped records (real145, run-1fc76115f2d9) and ordered mapped output with bounded prefix8 decoding (real163, run-271fd6ddf3b9; exact actual ID is preserved in the linked raw record). The final full/sample PGO recipe is actual178. Each choice pays its measured source cost. Later better observations of identical source are kept separate from algorithm changes. Rejected spans, output windows, calendars and method dispatch remain in the historical log.
+Selected passing source: `9a1dbc4b00846389bbba70d80c976a2407a70b54` (**A178/C175/D334**). Exact runtime/build/input and replay-image bindings: [round392-final-source-match.json](../docs/round392-final-source-match.json). Local images identify our replays, not organizer executables.
 
 | Record | Run ID | T seconds | Charged memory bytes | S | K | Machine points |
 | --- | --- | ---: | ---: | ---: | ---: | ---: |
-| Best observed | run-004bfb2aafff | 0.042474 | 20746240 | 497 | 31.974332 | 75.240074 |
-| Passing original281 | run-623d051300f1 | 0.042998 | 21250048 | 497 | 31.626769 | 75.002741 |
+| Historical best | run-1f7d6bf1c413 | 0.042078 | 20922368 | 497 | 32.070167 | 75.305061 |
+| Latest passing392 | run-de91e786828a | 0.045192 | 21450752 | 497 | 30.791557 | 74.421583 |
 
-These are real public-board records, not final holdout or judging totals. All five gates pass for both rows. Local native timing/RSS and emulated Linux checks are labeled separately throughout this log. The observed best is not a promise of repeatable timing or victory. [Current source and decisions](../docs/RESULTS.md), [exact passing source proof](../docs/round281-final-source-match.json), [latest raw record](../docs/board-round281-selected-confirmation.json).
+Every check/build/correctness/timeout/sandbox gate passed for these records. Historical best and unchanged-source repeat variation stay separate. Native Apple timing/process RSS and emulated Linux correctness do not establish Intel timing or charged memory. No final holdout, judging, eligibility, personal understanding, prize or victory guarantee is made. [Current combined results and leader comparison](../docs/RESULTS.md), [real latest records](../docs/board-round392-original-restored.json).
+
+The chronological log below preserves successful and rejected experiments as recorded, including historical defaults and provisional decisions that later entries supersede. Its earlier statements are dated experiment context. The previous round281 executive captions are preserved verbatim in tools/round393-screen/prior-executive-summaries.json; the current records above replace those stale captions.
 
 ## Historical experiments
 
@@ -729,3 +731,6 @@ A391 ONLY final-image ENV default8, nativefallback12 and original GENERIC full10
 
 
 A391/2f9301902991bfcd188fd6e96c9dbd53b2dbe8a9, runrun-8a407cb43703, all real gatesPASS: T0.058275/M18710528/S498/K27.858751/72.248082 points. REJECT real totalK below best32.070167/75.305061 despite native time hypothesis; source increased497→498. Full Docker/README/image rollback to A178/C175/D334 original385, all30/Make/README/fullsets/submitted proof docs/round392-candidate-source-match.json. Eight fresh original-image replays at1/6/12/default12 public/untrained3911 incl true default and cached actual Make/native12 PASS; no compiler/model/training/reference repeated. A391 native/GNU/image/default/source evidence remains historical; no gain claim. One cooled ordinary392 confirmation, earliest12:14:10UTC after391dispatch12:09:10. PRIVATE/MIT and approved publication window unchanged.
+
+
+Original392/9a1dbc4b00846389bbba70d80c976a2407a70b54, run-de91e786828a, every actual gatePASS: T0.045192/M21450752/S497/K30.791557/74.421583 points after complete A391 final ENV8 Docker/README/image rollback. Source30/Make/README/fullsets/current/Git/submitted392/passing385/per-track-best/localimages exact in docs/round392-final-source-match.json. Unchanged-source repeat; historical best stays separate, no new algorithm/causal/ranking gain. Fresh original A image8/public+saved independent untrained3911 incl true defaults and cached Make/native12 passed without repeated compiler/model/training/reference.

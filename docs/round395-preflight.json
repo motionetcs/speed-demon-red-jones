@@ -1,0 +1,71 @@
+{
+  "created_at_utc": "2026-11-02T12:44:21.449403+00:00",
+  "source_parent": "9a1dbc4b00846389bbba70d80c976a2407a70b54",
+  "official_score": false,
+  "selected_in_root": false,
+  "scope": "D395 existing imminent-loader address hints change rw1/locality1 -> rw0/locality3 for degree counters, narrow/wide cursors, compact/wide edges. Read-only query instantiations stay rw0/locality1. Every address expression, bounds, parser, batch16, actual atomic RMW/store, sync/ownership, graph/weights/full64query/band64/batch32/default12/nativeISA/allowedPGO remains exact. GCC rw is advisory intent: a read-prefetch before a later write does NOT replace ownership/synchronization or skip the write. RaptorLake standalone probe394 indicates an actual instruction choice prefetchw->prefetcht0, unlike rw1-only locality394 with identical target instructions. Native high-locality gains from394 are not395 or Intel evidence; new ARM read-vs-write behavior, x86 cache effects and totalK are unknown. No host/cache-control/seed/domain/answer shortcut. Need fresh actual changed-code strict/race and relevant graph/cursor/edge/fullrange/independentFloyd/untrained/pinnedGNU/exactimage/true-default/rootMake/source/real proof before promotion.",
+  "source_sha256": {
+    "source/track-d/training_generator.py": "bbf37741159004149c5896265a98ae00b90e90a05ad48c2912ecf8bdce126d65",
+    "source/track-d/Dockerfile": "512831e9b8ff2061dbcc7ff8dabd4e3bf4bd184d4acb75c5e9ce732fa274633e",
+    "source/track-d/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+    "source/track-d/edge_store.hpp": "036df4db07c83aa2ab8c9550b3cf1e859284b1950d0e59be6b25693e917607b5",
+    "source/track-d/README.md": "75089e4f7cd4bba1b0795de82de063cfbc9bbcedcbc1e8875944d1cc65525f98",
+    "source/track-d/PERF.md": "73a1ddd6d44b88680c1632206056e48c991a509cd6ea68c711873e35c8e2c744",
+    "source/track-d/mapped_allocator.hpp": "060bb6a0622338b9151e767d827cbf30c8e4d940cc7e170ad51757c4a6b0808b",
+    "source/track-d/load_cursors.hpp": "764bb22ac3b843227158de55eff13621b67a1d00ece8a062e4699f57b72e0d47",
+    "source/track-d/radix_heap.hpp": "7fb2052bb951ca391c5b1883d8e673f554a43ab3d06286e43597105c2d82b6e3",
+    "source/track-d/.speed-demon.toml": "6d6100843803548ba58c1c1eaf2d1dbaecb9a431fd5c9a8408d214580466465c",
+    "source/track-d/distance_map.hpp": "07b254af4e7a149bdae50e426c3355446e104333e6a8dcd43cd29181db4a8604",
+    "source/track-d/main.cpp": "99528794efa73da17db666b00153f9093e1029b651cba61adb9dd52adc34ed19",
+    "source/track-d/decimal.hpp": "aee2210ac5894050834ffd37903718b3b7bdc6673240559baa85b350bea9b581",
+    "source/track-d/parallel.hpp": "614e48333aabbd7a9d7b008119d41acc7f908e467769772d01e10d84c282bdab"
+  },
+  "root_inputs_sha256": {
+    "track-a/.speed-demon.toml": "c9ae973186c14661797640f427009129e2a80d1aecefd5d4fa413ee7f3da44d8",
+    "track-a/Dockerfile": "c415bd88f27a18da83c33990744690358b9c158a8b1ea3dc60c289d123f4ff90",
+    "track-a/decimal.hpp": "e6a53e983c0475fe3e49ffe2630a8603f96298b7866e0f4ef3b2ed0f165cb94e",
+    "track-a/endpoint_table.hpp": "913048b747b8f938cf1b438f29648a62d11434b2d71c3fb9a9b5f5aae31df745",
+    "track-a/io.hpp": "a8838c50064520b806fcd2032cda0e9f246e9d3b6869fb951e3555cd5e8dfead",
+    "track-a/main.cpp": "02661f93bc65fc35d359c80e19d82578968ab68725e8b325e48c630c3e27310c",
+    "track-a/mapped_allocator.hpp": "060bb6a0622338b9151e767d827cbf30c8e4d940cc7e170ad51757c4a6b0808b",
+    "track-a/ordered_output.hpp": "b6f0911f5d6396ca35ad657a1de6364aa3e52a5dd6a9275d95f768e54f4fd69d",
+    "track-a/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420",
+    "track-a/training_generator.py": "d82b43b8f617016808f85cbe9be86af1fee8466296a0848ab8e6908ee3c4b0b4",
+    "track-c/.speed-demon.toml": "3371600b8033a377bc373378e703191dfec36c1ae991b617650dfa480edc00b4",
+    "track-c/Dockerfile": "637e81c6fca4507f4c4e7368efde7b6904d07879ae9ec992c5e25175d50e1fae",
+    "track-c/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+    "track-c/main.cpp": "8f1703c20ec7e17bb708abff7d7a88945e0dcd8b83acc00b137607a7ceee1b0d",
+    "track-c/names.hpp": "f62a25fdb9f229575c42fc013220f7f38dd5a68ea5ac83aa1702d0589c15501b",
+    "track-c/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420",
+    "track-c/quote_scan.hpp": "0b170a766254dee1bc14f9e9180cc1900da01d41f5d09053d5579e01a7fb9cfa",
+    "track-c/training_generator.py": "9e61672eb814fa4e1bc2e3cf30c8e7ca9629804191ce5ae60a66c8b61ba704f2",
+    "track-d/.speed-demon.toml": "6d6100843803548ba58c1c1eaf2d1dbaecb9a431fd5c9a8408d214580466465c",
+    "track-d/Dockerfile": "512831e9b8ff2061dbcc7ff8dabd4e3bf4bd184d4acb75c5e9ce732fa274633e",
+    "track-d/decimal.hpp": "aee2210ac5894050834ffd37903718b3b7bdc6673240559baa85b350bea9b581",
+    "track-d/distance_map.hpp": "07b254af4e7a149bdae50e426c3355446e104333e6a8dcd43cd29181db4a8604",
+    "track-d/edge_store.hpp": "31db14bd58fb3bb45a90c963cf57397a50d5195782d01dc366b2a380d3b74ed6",
+    "track-d/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+    "track-d/load_cursors.hpp": "c25acd31f52e5245de3972723594483df495d3c09e131ab5977c7b7f581ddc79",
+    "track-d/main.cpp": "c7c973f84cc510f2f5f59f2d7898bab50b13705a06f4dee4b5b99caf40b4d42a",
+    "track-d/mapped_allocator.hpp": "060bb6a0622338b9151e767d827cbf30c8e4d940cc7e170ad51757c4a6b0808b",
+    "track-d/parallel.hpp": "614e48333aabbd7a9d7b008119d41acc7f908e467769772d01e10d84c282bdab",
+    "track-d/radix_heap.hpp": "7fb2052bb951ca391c5b1883d8e673f554a43ab3d06286e43597105c2d82b6e3",
+    "track-d/training_generator.py": "bbf37741159004149c5896265a98ae00b90e90a05ad48c2912ecf8bdce126d65",
+    "Makefile": "1f2ce8ab1814a60f5ef05dbd0f0147c5176ed3f9258c757a6dd0026d496ae8aa"
+  },
+  "control_binary": "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round334/final-make/track-d",
+  "control_binary_sha256": "cf0ab08ff09b091ad9954cd365e92a1b0d014c5c31f5ecb2a74f15453761c404",
+  "duplicate_review": "All own prototype patches searched before code. Old11 rw0/locality3 prefetch targets neighbor distance labels, not graph-loader degree/cursor/edge addresses; it was rejected.38 retained loader uses rw1/locality1.394 only changes rw1 locality and is stopped after same-instruction target probe. No loader rw0/high-locality proposal found. No rejected proof or measured gain transferred.",
+  "primary_sources": [
+    {
+      "url": "https://gcc.gnu.org/onlinedocs/gcc-15.1.0/gcc/Other-Builtins.html",
+      "scope": "Official GCC builtin-prefetch: compile-time locality0..3, high-locality requests retention at more cache levels; address evaluation remains valid and hardware effect depends on target. Fifteen-point-two direct URL was inaccessible,15.1 primary docs read; actual compiler remains pinned15.3.0."
+    }
+  ],
+  "frozen_spec": {
+    "path": "tools/official/specs/d-traverse.md",
+    "sha256": "69a51041d87d7e7e3da5512930a376fac1d9e51803363d437f3144ef202c59ba",
+    "scope": "Exact directed shortest paths/full nodeIDs/nonnegative full weights/64-bit distances; no task-domain restriction introduced."
+  },
+  "target_hypothesis_source": "tools/round394-screen/emission/report.json standalone pinnedGCC RaptorLake probe only, not production/organizer ELF."
+}

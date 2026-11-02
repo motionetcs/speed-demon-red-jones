@@ -1,17 +1,19 @@
 # Track C optimization log
 
-## Current retained result
+## Selected implementation and measured records
 
-The retained implementation parses the full CSV grammar, uses exact integer cents, and transfers borrowed canonical name views from eight readers to four private hash owners at the default12 workers. Full key bytes resolve collisions; country membership is exact. Eight-byte table entries point into stable owned blocks, and queue events currently occupy32 bytes.
+Quote-aware CSV readers compute exact integer-cent country aggregates and route canonical name bytes through bounded512-event SPSC vectors to private hash owners. Every full key decides equality; exact dynamic country bitmaps record distinct membership. Offset arenas keep complete keys stable. Default topology is eight readers/four owners; one worker uses the exact serial path. Rejected384 four-word specialization and393 deferred counters are absent.
 
-The retained table change is actual128, run-5f755c073a9a (exact actual ID is preserved in the linked raw record). It trades slightly more source/time for lower charged memory. Later higher observations of the identical table are variation. Alternate parsers, hashes, owner counts, queue layouts and PGO worker counts are recorded as rejected or unselected experiments; none is claimed accepted merely from a native screen.
+Selected passing source: `9a1dbc4b00846389bbba70d80c976a2407a70b54` (**A178/C175/D334**). Exact runtime/build/input and replay-image bindings: [round392-final-source-match.json](../docs/round392-final-source-match.json). Local images identify our replays, not organizer executables.
 
 | Record | Run ID | T seconds | Charged memory bytes | S | K | Machine points |
 | --- | --- | ---: | ---: | ---: | ---: | ---: |
-| Best observed | run-5faf38e26ef1 | 0.062531 | 11665408 | 672 | 23.033578 | 68.118071 |
-| Passing original281 | run-39625ab36f08 | 0.061231 | 12447744 | 672 | 22.976574 | 68.064264 |
+| Historical best | run-5faf38e26ef1 | 0.062531 | 11665408 | 672 | 23.033578 | 68.118071 |
+| Latest passing392 | run-30440b2e281f | 0.070614 | 13320192 | 672 | 21.107733 | 66.222079 |
 
-These are real public-board records, not final holdout or judging totals. All five gates pass for both rows. Local native timing/RSS and emulated Linux checks are labeled separately throughout this log. The observed best is not a promise of repeatable timing or victory. [Current source and decisions](../docs/RESULTS.md), [exact passing source proof](../docs/round281-final-source-match.json), [latest raw record](../docs/board-round281-selected-confirmation.json).
+Every check/build/correctness/timeout/sandbox gate passed for these records. Historical best and unchanged-source repeat variation stay separate. Native Apple timing/process RSS and emulated Linux correctness do not establish Intel timing or charged memory. No final holdout, judging, eligibility, personal understanding, prize or victory guarantee is made. [Current combined results and leader comparison](../docs/RESULTS.md), [real latest records](../docs/board-round392-original-restored.json).
+
+The chronological log below preserves successful and rejected experiments as recorded, including historical defaults and provisional decisions that later entries supersede. Its earlier statements are dated experiment context. The previous round281 executive captions are preserved verbatim in tools/round393-screen/prior-executive-summaries.json; the current records above replace those stale captions.
 
 ## Historical experiments
 
@@ -866,3 +868,9 @@ Original385/108506457565e394919de18e995eb1bb7179ecd3, run-d407ddfad67d, every ac
 
 
 C390 original512event vector staging/queue BOTH partners reserved beforelaunch in main-owned alignedperreader array: REJECT_NATIVE_ONLY. {"full-seed2203": {"native_rss_delta_bytes": 393216, "paired_median_ratio": 1.022260580611241, "paired_wins": 1}, "full-seed2309": {"native_rss_delta_bytes": 196608, "paired_median_ratio": 0.9731042549952039, "paired_wins": 12}, "full-seed2371": {"native_rss_delta_bytes": 81920, "paired_median_ratio": 1.0038624689435345, "paired_wins": 6}, "public-full-seed1": {"native_rss_delta_bytes": -344064, "paired_median_ratio": 0.9877958295344597, "paired_wins": 9}}. Startup/main-owned both-vector reservation has mixed native .987796/1.022261/.973104/1.003862 (9/1/12/6wins), RSSmixed. No GNU allocator/arena/chargedM/target cause was measured. Reject before new source-extracted staging/empty-size/capacity/ownership/end/cancel/prelaunchfault/lifetime/every-budget strict/race/untrained/GNU/image/default/actual proof. Unchanged NameQueue/header protocol is provenance, not a certificate for changed staging lifetime. Standard reserve/thread-construction semantics motivated a working argument only. Onecompile118full-reference calls, fullpublic1/6/12 and13rotating4full/before-after input/output/source/ELF hashesPASS. No selected runtime or board action; exact docs/round390-c-main-buffer-allocation-screen.json/tools/round390-screen.
+
+
+Original392/9a1dbc4b00846389bbba70d80c976a2407a70b54, run-30440b2e281f, every actual gatePASS: T0.070614/M13320192/S672/K21.107733/66.222079 points after complete A391 final ENV8 Docker/README/image rollback. Source30/Make/README/fullsets/current/Git/submitted392/passing385/per-track-best/localimages exact in docs/round392-final-source-match.json. Unchanged-source repeat; historical best stays separate, no new algorithm/causal/ranking gain. Fresh original A image8/public+saved independent untrained3911 incl true defaults and cached Make/native12 passed without repeated compiler/model/training/reference.
+
+
+C393 owner-private post-EOF membership materialization: REJECT_NATIVE_ONLY. {"full-seed2203": {"native_rss_delta_bytes": -49152, "paired_median_ratio": 1.0345197266086168, "paired_wins": 0}, "full-seed2309": {"native_rss_delta_bytes": -770048, "paired_median_ratio": 1.0009170815176993, "paired_wins": 5}, "full-seed2371": {"native_rss_delta_bytes": -147456, "paired_median_ratio": 1.0314450640730968, "paired_wins": 2}, "public-full-seed1": {"native_rss_delta_bytes": -573440, "paired_median_ratio": 1.013720154807412, "paired_wins": 5}}. Post-EOF owner-private reduction is slower/flat on all four full inputs:1.013720/1.034520/1.000917/1.031445 (5/0/5/2wins). Small native RSS reductions do not establish chargedM/Intel/totalK. REJECT before new padding-zero/last-word/collision/empty/grow/index/stdset/allwidth/guard/countconservation/privateowner/lifetime models, strict/race/untrained/GNU/image/default/actual proof. Unchanged Names::first/queue/parser provenance is not a correctness certificate for new reduction. No seed/domain-bound or target cause is inferred. Onecompile118calls, fullpublic1/6/12 and13rotating4fulls, all before/after source/ELF/input/output hashesPASS. Explicit materially new layout retest of historical shared/private-membership2 concept; stopped exact conditional per-row counter338 duplicate before new code/compile. No selected runtime or board action. Exact docs/round393-c-deferred-counts-screen.json/tools/round393-screen.
