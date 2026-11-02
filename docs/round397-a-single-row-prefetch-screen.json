@@ -1,0 +1,66 @@
+{
+  "observed_at_utc": "2026-11-02T13:33:06.015803+00:00",
+  "decision": "REJECT_NATIVE_ONLY",
+  "source_parent": "f12a357ed21efbba6dcf6c1d2555b45ebae4be0d",
+  "scope": "A397 single-row early private-cache hash and read-prefetch overlap with original latency decoding. Same existing32bit sampledhash computed once immediately after bounded endpoint delimiter; prefetch address is ONLY the private4096slot, rw0/locality3, no loaded canonical pointer or sharedtable read. After unchanged latency/uint32/newline validation, intern_hashed executes original full-key cache/globalstdhash fallback body with supplied exact hash. Original one-arg API wraps the same hash/body; long values may compute an extra safe bounded sampledhash but still use full stdhash fallback without cache insertion. No key length/domain/endpointID/hour/latency/status/quantile/sync/default/ISA/PGO change. No pending arrays/batching/dynamic jobs/cacheassociativity or answer/seed/host shortcut. Need new actual-header prehash-vs-onarg/collision/0/1/long/guard/progress/cancel/privateowner and currentmain independent/adversarial/untrained/strict/race/GNU/image/default/Make/real proof if promising. Prefetch is an advisory hint, not a valid-address exemption or target-speed guarantee.",
+  "official_score": false,
+  "selected_in_root": false,
+  "runs": 90,
+  "summary": {
+    "public-full-seed1": {
+      "paired_median_ratio": 0.9957401907672726,
+      "paired_wins": 8,
+      "native_rss_delta_bytes": -32768
+    },
+    "full-seed1951": {
+      "paired_median_ratio": 1.0024504220513393,
+      "paired_wins": 5,
+      "native_rss_delta_bytes": -65536
+    },
+    "full-seed2221": {
+      "paired_median_ratio": 1.0055676420233366,
+      "paired_wins": 6,
+      "native_rss_delta_bytes": 229376
+    }
+  },
+  "limitations": "Single-row prehash/cache hint is weak/mixed .995740/1.002450/1.005568 (8/5/6wins), near-flat RSS. REJECT before new actual-header prehash-vs-wrapper/guard/collision/long/privateowner/cancel models, main strict/race/untrained/GNU/image/default/actual proof. No target gain or general-correctness certificate is inferred; original root untouched.",
+  "patches": [
+    {
+      "path": "docs/prototype-patches/round397-a-single-row-README.md.patch",
+      "sha256": "9c9858f65b79e5896aa77f875c855903f9b2e34f06622b8ba3c5f186214fbd5a"
+    },
+    {
+      "path": "docs/prototype-patches/round397-a-single-row-endpoint_table.hpp.patch",
+      "sha256": "2cc25b5ef907c789b6be2a1cb4f09e2071cc87215e6f374f2334b535330aac05"
+    },
+    {
+      "path": "docs/prototype-patches/round397-a-single-row-main.cpp.patch",
+      "sha256": "0a564769d945f3d2c9f735a44280dfbcdf9aeeadb8a1f8e5fce0469a91415bd4"
+    }
+  ],
+  "frozen_source_sha256": {
+    "track-a/training_generator.py": "d82b43b8f617016808f85cbe9be86af1fee8466296a0848ab8e6908ee3c4b0b4",
+    "track-a/Dockerfile": "c415bd88f27a18da83c33990744690358b9c158a8b1ea3dc60c289d123f4ff90",
+    "track-a/io.hpp": "a8838c50064520b806fcd2032cda0e9f246e9d3b6869fb951e3555cd5e8dfead",
+    "track-a/ordered_output.hpp": "b6f0911f5d6396ca35ad657a1de6364aa3e52a5dd6a9275d95f768e54f4fd69d",
+    "track-a/README.md": "484defe237cc1a1feaea95c68a355d60a45df6217438cc6fb6473e28337f6880",
+    "track-a/endpoint_table.hpp": "68bdf1f95b7313656ba6e441c3f818c58b92868a617f3ed62fb76ae6828a4317",
+    "track-a/PERF.md": "30d63b2ee5a5208f53e0222d9306a067bc1ecd3b62f2287a0ce2039c4d1fceb4",
+    "track-a/mapped_allocator.hpp": "060bb6a0622338b9151e767d827cbf30c8e4d940cc7e170ad51757c4a6b0808b",
+    "track-a/.speed-demon.toml": "c9ae973186c14661797640f427009129e2a80d1aecefd5d4fa413ee7f3da44d8",
+    "track-a/main.cpp": "d7abd82387d559740b0477d8efe9fd933b4ffaee4a70656d2ad6e0527bfe783c",
+    "track-a/decimal.hpp": "e6a53e983c0475fe3e49ffe2630a8603f96298b7866e0f4ef3b2ed0f165cb94e",
+    "track-a/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420"
+  },
+  "reconstruction_passed": true,
+  "files": {
+    "tools/round397-screen/screen.py": "9fc138ca7663bca16d1f4affbd88b5f3f33b0b61d4ace19989ae453eaf2ba680",
+    "tools/round397-screen/close_and_prepare398.py": "9d3ea87dc74224d1eec5c2d1ade5e730cae7dace8bb261a1a003ead33f9145a8",
+    "tools/round397-screen/report.json": "d2618d5febda27d89c524ee58286096e0940206df3086e8c63f60f8f5969a0a0",
+    "tools/round397-screen/README.md": "c2f37a204c8bbef41f76a687ab809fa20e97e7abf0b3c77610c60191f8566dce",
+    "tools/round397-screen/preflight.json": "250b99c707f3875418b364d9125fd8e5f5ca2b07dd51c025fafaab0a21a4556c",
+    "tools/round397-screen/base-a-PERF.md": "30d63b2ee5a5208f53e0222d9306a067bc1ecd3b62f2287a0ce2039c4d1fceb4",
+    "tools/round397-screen/prepare.py": "f886fc4ceffc5583e15646af96190e11fec92df321e7adc91fd76c50a366949c",
+    "tools/round397-screen/compile.json": "740200d7812a8398b0c4bfcc0f23fd021595c8d0035b972364b9c11893c0dcfe"
+  }
+}

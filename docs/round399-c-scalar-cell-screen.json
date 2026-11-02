@@ -1,0 +1,81 @@
+{
+  "observed_at_utc": "2026-11-02T13:55:33.659348+00:00",
+  "decision": "REJECT_AFTER_NATIVE_UNTRAINED_CONFIRMATION",
+  "source_parent": "f12a357ed21efbba6dcf6c1d2555b45ebae4be0d",
+  "scope": "C399 scalar64-bit private table cells, numeric LOW32 full arena index/HIGH32 original rejection fingerprint. Same8B per slot (uint64 alignment8 vs struct4, ordinary actual allocators align both), original low32 hash home/probe/load threshold/doubling/arena/index/countrybits/fullkey equality. Snapshot cell supplies index directly; fingerprint shifted only after occupied check. Grow extracts the same fingerprint and copies whole cells; index0 alone empty, hash0/1/MAX legal. Original end-of-loop index reload retained, no rejected305 pointer carry, cache/hint/grouping/sharedtable/bitwidth/domain/queue/parser/role/default/ISA/PGO change. One explicit allocation-exception hardening: own uninitialized slab in unique_ptr before storage-vector push; no zero-fill pass/capacity change. Compiler may still split/reshape loads; no guaranteed single-load/uop/Intel benefit. Existing original GNU static code has two field reads, but is not a frequency/performance or new-code proof. Need fresh actual-header numeric encode/decode/allindex/0/1/MAX/empty/grow/collision/fullkey/guard/arena/fault/country/privateowner models, main strict/race/untrained/GNU/image/default/Make/real proof if promising. No old struct/group4 correctness or native gain transferred.",
+  "official_score": false,
+  "selected_in_root": false,
+  "initial_runs": 118,
+  "confirmation_runs": 32,
+  "summary": {
+    "public-full-seed1": {
+      "paired_median_ratio": 0.9756912972252684,
+      "paired_wins": 10,
+      "native_rss_delta_bytes": 344064
+    },
+    "full-seed2203": {
+      "paired_median_ratio": 0.9819255878767876,
+      "paired_wins": 8,
+      "native_rss_delta_bytes": -311296
+    },
+    "full-seed2309": {
+      "paired_median_ratio": 0.9643639542243191,
+      "paired_wins": 11,
+      "native_rss_delta_bytes": 245760
+    },
+    "full-seed2371": {
+      "paired_median_ratio": 1.012866014426122,
+      "paired_wins": 4,
+      "native_rss_delta_bytes": 229376
+    }
+  },
+  "untrained_confirmation": {
+    "paired_median_ratio": 0.995829581440522,
+    "paired_wins": 8,
+    "native_rss_delta_bytes": -507904
+  },
+  "limitations": "Initial native .975691/.981926/.964364/1.012866 is modest/mixed,10/8/11/4wins, small/mixed RSS. Saved independent3863 confirmation is essentially flat .995830/8wins, RSS-507904B. Global medians cross host regimes and cannot establish a causal gain. REJECT before new numeric-cell encode/decode/indexMAX/0/1/collision/guard/grow/arena/fault/privateowner/strict/race/GNU/image/true-default/actual proof; no target gain or generalized correctness certificate. A source-level review found no concrete counterexample, not a test pass. Complete candidate includes disclosed exception-safety change, so even hypothetical timing could not be attributed solely to fewer loads.",
+  "scope_correction": {
+    "raw_report_path": ".build/round399/untrained-confirmation/report-as-executed.json",
+    "raw_report_sha256": "78430983f2bf133a149752a4e761261d8b8130af0247f741e0b260d524b70df3",
+    "scope": "The executed generic wrapper inherited the words Python-Dijkstra from D395. Actual data was C records/regions CSV, actual binary track-c, actual reference source .build/round384/fresh-confirmation/report.json and actual expected aggregates hash f48ff355... . No oracle was run. Caption corrected only; original driver/report, all32 measurements/input/output/source/binary hashes remain unchanged."
+  },
+  "patches": [
+    {
+      "path": "docs/prototype-patches/round399-c-scalar-cell-README.md.patch",
+      "sha256": "5c763def0aa866e3b4f71dd88da290bc34791c620e907af142d33ceeab8e897f"
+    },
+    {
+      "path": "docs/prototype-patches/round399-c-scalar-cell-names.hpp.patch",
+      "sha256": "514e9caf12e63c57a79e8b2aef79edf0e2cccf87b660a85a5804db17e9a02599"
+    }
+  ],
+  "frozen_source_sha256": {
+    "track-c/training_generator.py": "9e61672eb814fa4e1bc2e3cf30c8e7ca9629804191ce5ae60a66c8b61ba704f2",
+    "track-c/Dockerfile": "637e81c6fca4507f4c4e7368efde7b6904d07879ae9ec992c5e25175d50e1fae",
+    "track-c/names.hpp": "d30f595869f334c2d6e7465a15a5fcde42dadfb099a8e157eace2f49fce8e816",
+    "track-c/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+    "track-c/quote_scan.hpp": "0b170a766254dee1bc14f9e9180cc1900da01d41f5d09053d5579e01a7fb9cfa",
+    "track-c/README.md": "157bdf6ff832596eeacf8550b9728d2067987e4fde524674d12220f891604582",
+    "track-c/PERF.md": "5e00ee8263e981fdcb5e5f9def98efe6462fd90f2cf169ba7f79a2f3c6a646c7",
+    "track-c/.speed-demon.toml": "3371600b8033a377bc373378e703191dfec36c1ae991b617650dfa480edc00b4",
+    "track-c/main.cpp": "8f1703c20ec7e17bb708abff7d7a88945e0dcd8b83acc00b137607a7ceee1b0d",
+    "track-c/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420"
+  },
+  "reconstruction_passed": true,
+  "files": {
+    "tools/round399-screen/screen.py": "0fc003eccc460456bbf8633e695ec37aa3536fe0ae225d4edb819337e4eb2d1d",
+    "tools/round399-screen/report.json": "9eac00963b286250b9f25b65716f6ca2da0350d8c3e55de4805731fb16ec7efa",
+    "tools/round399-screen/close.py": "a6ab81a3481b220e2898c83a1fefdfd2e05106b37a4a6c0ae2ae79153ebe6cea",
+    "tools/round399-screen/confirmation-as-executed.json": "78430983f2bf133a149752a4e761261d8b8130af0247f741e0b260d524b70df3",
+    "tools/round399-screen/readonly-binding.json": "1224e59492a154649577c461ce3e40d77eb7a2e136633f70493a3dec70fe1d7d",
+    "tools/round399-screen/README.md": "69645019e7ea3750ed8afb095f29bb7e0b6fe4e59efae9333f4a11378f736756",
+    "tools/round399-screen/base-c-PERF.md": "5e00ee8263e981fdcb5e5f9def98efe6462fd90f2cf169ba7f79a2f3c6a646c7",
+    "tools/round399-screen/confirmation.json": "165d35cfe70f2a58053d7dd49080fb326f8538a4b0bd3bc062c6cca95291a34c",
+    "tools/round399-screen/preflight.json": "a826f760449d8c2acbff45b1b2c4acd48facf204bb6f1de27951e2eedb5a189f",
+    "tools/round399-screen/prepare.py": "764d38451cf7608e6c4f180777d45a369fd884a58b7d26417896c88c1f0023ac",
+    "tools/round399-screen/compile.json": "76b77b89aafd75f0635aa98ca1a176d0cb221226bba44df87a93903bec310727",
+    "tools/round399-screen/confirm.py": "edfe1f4390c35c49e7c60c5a0e1ca360639f448cbd9b950006b8741eb49f070e",
+    "tools/round399-screen/readonly-review.md": "9feb3c833f2a77c74676af768727d0d89e7b133e7b3bf9eb150d4ebb174aeccb"
+  }
+}

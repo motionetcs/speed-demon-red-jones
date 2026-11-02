@@ -4,14 +4,14 @@
 
 One-pass request parsing produces exact four-byte endpoint/error/latency records with full32-bit latency escapes. Hour owners count/scatter and select exact nearest-rank percentiles. Full endpoint bytes resolve hash collisions. Mapped record/output buffers release completed-hour storage; ordered output and the bounded decimal decoder are retained. Twelve-worker production default is restored; rejected391 final ENV8 is absent.
 
-Selected passing source: `9a1dbc4b00846389bbba70d80c976a2407a70b54` (**A178/C175/D334**). Exact runtime/build/input and replay-image bindings: [round392-final-source-match.json](../docs/round392-final-source-match.json). Local images identify our replays, not organizer executables.
+Selected passing source: `f12a357ed21efbba6dcf6c1d2555b45ebae4be0d` (**A178/C175/D334**). Exact runtime/build/input and replay-image bindings: [round396-final-source-match.json](../docs/round396-final-source-match.json). Local images identify our replays, not organizer executables.
 
 | Record | Run ID | T seconds | Charged memory bytes | S | K | Machine points |
 | --- | --- | ---: | ---: | ---: | ---: | ---: |
 | Historical best | run-1f7d6bf1c413 | 0.042078 | 20922368 | 497 | 32.070167 | 75.305061 |
-| Latest passing392 | run-de91e786828a | 0.045192 | 21450752 | 497 | 30.791557 | 74.421583 |
+| Latest passing396 | run-8d1cf2902efa | 0.049712 | 21049344 | 497 | 29.469489 | 73.46863 |
 
-Every check/build/correctness/timeout/sandbox gate passed for these records. Historical best and unchanged-source repeat variation stay separate. Native Apple timing/process RSS and emulated Linux correctness do not establish Intel timing or charged memory. No final holdout, judging, eligibility, personal understanding, prize or victory guarantee is made. [Current combined results and leader comparison](../docs/RESULTS.md), [real latest records](../docs/board-round392-original-restored.json).
+Every check/build/correctness/timeout/sandbox gate passed for these records. Historical best and unchanged-source repeat variation stay separate. Native Apple timing/process RSS and emulated Linux correctness do not establish Intel timing or charged memory. No final holdout, judging, eligibility, personal understanding, prize or victory guarantee is made. [Current combined results and leader comparison](../docs/RESULTS.md), [real latest records](../docs/board-round396-original-restored.json).
 
 The chronological log below preserves successful and rejected experiments as recorded, including historical defaults and provisional decisions that later entries supersede. Its earlier statements are dated experiment context. The previous round281 executive captions are preserved verbatim in tools/round393-screen/prior-executive-summaries.json; the current records above replace those stale captions.
 
@@ -734,3 +734,12 @@ A391/2f9301902991bfcd188fd6e96c9dbd53b2dbe8a9, runrun-8a407cb43703, all real gat
 
 
 Original392/9a1dbc4b00846389bbba70d80c976a2407a70b54, run-de91e786828a, every actual gatePASS: T0.045192/M21450752/S497/K30.791557/74.421583 points after complete A391 final ENV8 Docker/README/image rollback. Source30/Make/README/fullsets/current/Git/submitted392/passing385/per-track-best/localimages exact in docs/round392-final-source-match.json. Unchanged-source repeat; historical best stays separate, no new algorithm/causal/ranking gain. Fresh original A image8/public+saved independent untrained3911 incl true defaults and cached Make/native12 passed without repeated compiler/model/training/reference.
+
+
+Original396/f12a357ed21efbba6dcf6c1d2555b45ebae4be0d, run-8d1cf2902efa, every actual gatePASS: T0.049712/M21049344/S497/K29.469489/73.46863 after full D395 three compiled files/README/original image rollback. Source30/Make/README/fullsets/current/Git/submitted396/passing392/per-track-best/localimages match docs/round396-final-source-match.json. Fresh original D image8 and cached actualMake/native12 pass; no compiler/model/training/reference repeated. Historical best/latest and same-source variation separate, no new algorithm/causal/rank gain.
+
+
+A397 single-row prehash/cache-prefetch: REJECT_NATIVE_ONLY. {"full-seed1951": {"native_rss_delta_bytes": -65536, "paired_median_ratio": 1.0024504220513393, "paired_wins": 5}, "full-seed2221": {"native_rss_delta_bytes": 229376, "paired_median_ratio": 1.0055676420233366, "paired_wins": 6}, "public-full-seed1": {"native_rss_delta_bytes": -32768, "paired_median_ratio": 0.9957401907672726, "paired_wins": 8}}. Single-row prehash/cache hint is weak/mixed .995740/1.002450/1.005568 (8/5/6wins), near-flat RSS. REJECT before new actual-header prehash-vs-wrapper/guard/collision/long/privateowner/cancel models, main strict/race/untrained/GNU/image/default/actual proof. No target gain or general-correctness certificate is inferred; original root untouched. Fullpublic1/6/12 and13rotating3fulls/input/output/source/ELF hashesPASS; onecompile90calls. Exact docs/round397-a-single-row-prefetch-screen.json/tools/round397-screen.
+
+
+Final evidence selection400 retains exact original396 A178/C175/D334. Later397/398/399 prototypes are rejected and absent from runtime. This evidence-only head will be real-confirmed once; no new algorithm/gain is claimed. Source30/Make/README/fullsets/MIT/localimages in docs/round400-candidate-source-match.json; prior real passing396 proof remains source-bound. Postcommit self-identity records will be retained locally and on the official board without another self-referential evidence commit. Runtime and Git freeze15:00UTC; keep PRIVATE until approved15:00–16:00UTC publication after final frozen-source/history/privacy review.

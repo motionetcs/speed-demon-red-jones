@@ -1,0 +1,72 @@
+--- a/track-c/names.hpp
++++ b/track-c/names.hpp
+@@ -1,6 +1,7 @@
+ #pragma once
+ #define SPEED_DEMON_OFFSET_NAMES 1
+ #include <algorithm>
++#include <bit>
+ #include <atomic>
+ #include <thread>
+ #include <cstdint>
+@@ -16,8 +17,8 @@
+ // One owner owns the relocatable arena. Word indices survive every growth.
+ struct Names {
+     struct Entry {uint32_t hash=0,index=0;};
+-    std::vector<Entry> entries;std::vector<std::unique_ptr<uint64_t[]>> storage;size_t words,used=0,next=0,remaining=0;
+-    explicit Names(size_t countries):entries(16384),words((countries+63)/64){}
++    std::vector<Entry> entries;std::vector<std::unique_ptr<uint64_t[]>> storage;size_t words,used=0,next=0,remaining=0,country_count;
++    explicit Names(size_t countries):entries(16384),words((countries+63)/64),country_count(countries){if(countries>SIZE_MAX-63)throw std::runtime_error("country width overflow");}
+     static uint64_t hash_key(std::string_view key){uint64_t h=std::hash<std::string_view>{}(key);return h<2?h+2:h;}
+     static uint32_t encode_index(size_t block,size_t word){
+         if(block>=(size_t(1)<<19)||word>=8192)throw std::runtime_error("name block/word index capacity");
+@@ -31,7 +32,7 @@
+         if(extra>SIZE_MAX/sizeof(uint64_t))throw std::runtime_error("name allocation overflow");
+         if(extra>remaining){
+             if(storage.size()>=size_t(1)<<19)throw std::runtime_error("name block index capacity");
+-            size_t capacity=std::max<size_t>(8192,extra);storage.emplace_back(new uint64_t[capacity]);next=0;remaining=capacity;
++            size_t capacity=std::max<size_t>(8192,extra);std::unique_ptr<uint64_t[]> block(new uint64_t[capacity]);storage.push_back(std::move(block));next=0;remaining=capacity;
+         }
+         // Oversized keys use a dedicated block with a representable zero offset.
+         if(next>=8192||next+extra>8192){
+@@ -52,7 +53,7 @@
+         for(auto e:entries)if(e.index){size_t i=e.hash&(larger.size()-1);while(larger[i].index)i=(i+1)&(larger.size()-1);larger[i]=e;}
+         entries.swap(larger);
+     }
+-    bool first(std::string_view key,size_t country,uint64_t hash){
++    uint32_t intern(std::string_view key,uint64_t hash){
+         uint32_t fingerprint=static_cast<uint32_t>(hash);size_t i=fingerprint&(entries.size()-1);
+         for(;;){
+             auto& e=entries[i];
+@@ -63,8 +64,31 @@
+             if(e.hash==fingerprint&&bytes(e.index)==key)break;
+             i=(i+1)&(entries.size()-1);
+         }
+-        auto& bits=at(entries[i].index)[1+country/64];uint64_t bit=uint64_t(1)<<(country%64);
++        return entries[i].index;
++    }
++    bool first(std::string_view key,size_t country,uint64_t hash){
++        if(country>=country_count)throw std::runtime_error("country outside name table");
++        auto& bits=at(intern(key,hash))[1+country/64];uint64_t bit=uint64_t(1)<<(country%64);
+         bool fresh=!(bits&bit);bits|=bit;return fresh;
++    }
++    void merge_from(const Names& other){
++        if(country_count!=other.country_count||words!=other.words)throw std::runtime_error("incompatible name country widths");
++        for(const auto& e:other.entries)if(e.index){
++            uint32_t index=intern(other.bytes(e.index),e.hash);
++            auto* destination=at(index)+1;const auto* source=other.at(e.index)+1;
++            for(size_t word=0;word<words;++word)destination[word]|=source[word];
++        }
++    }
++    void add_counts(std::vector<uint64_t>& counts)const{
++        if(counts.size()!=country_count)throw std::runtime_error("incompatible country counts");
++        for(const auto& e:entries)if(e.index){
++            const auto* membership=at(e.index)+1;
++            for(size_t word=0;word<words;++word)for(uint64_t bits=membership[word];bits;bits&=bits-1){
++                size_t country=word*64+std::countr_zero(bits);
++                if(country>=counts.size())throw std::runtime_error("name membership padding set");
++                ++counts[country];
++            }
++        }
+     }
+ };
+ struct NameEvent {

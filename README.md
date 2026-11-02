@@ -42,3 +42,7 @@ Official references and generators are pinned under `tools/official`, outside th
 See [working state](docs/STATE.md), [submission status](docs/SUBMISSION.md), and each track's `PERF.md`. Reports distinguish observed local validation from completed external steps. No official board run or prize is claimed without evidence.
 
 The [official rules](https://speeddemon.dev/) set freeze at **2 November 2026, 8:30 PM IST (15:00 UTC)** and require public OSI-licensed source within one hour afterward. MIT attribution is preserved in `LICENSE`.
+
+## Final runtime selection
+
+The selected A/C/D runtime is unchanged from the real passing original396 source. The final evidence commit collects results and rejected experiments; it adds no runtime optimization. [Finalization record](docs/FINALIZATION.md) explains source identity, the15:00UTC freeze, the approved publication window and why postcommit board verification is recorded separately. Historical best points and unchanged-source repeats remain separate in [results](docs/RESULTS.md).

@@ -1,0 +1,9 @@
+--- a/track-c/README.md
++++ b/track-c/README.md
+@@ -9,3 +9,6 @@
+ No input seed or answer is recognized. All output is computed in the timed run. See `PERF.md` for actual experiments, source/memory costs, independent tests and real board outcomes.
+ 
+ Owner table entries use a32-bit rejection fingerprint and a32-bit stable-block word index. Full length/byte equality still decides names, including collisions; the complete64-bit hash routes owners.64KiB word blocks and dedicated oversized-key blocks retain exact name bytes/country words with checked index arithmetic.
++
++
++Private name-table entries are numeric eight-byte cells with the complete32-bit arena index in low bits and the32-bit rejection fingerprint in high bits. A zero index alone means empty; every hit still checks the full name bytes and all dynamic country words. This keeps the original footprint, ownership, pipeline and growth while allowing the compiler to use one cell snapshot for probing. Owned uninitialized slab allocation is protected before storage-vector insertion can throw.
