@@ -1,3 +1,13 @@
+# Original385 restored; cooled real confirmation pending
+
+C384/ce9361c5d7e9e74c6165cf202c49c84d670fe103, runrun-deb54b8db79d, all real gatesPASS: T0.061894/M12939264/S684/K22.616733/67.721494 points. REJECT real totalK below best23.033578/68.118071 despite native time hypothesis; source increased672→684. Full main/names/README/image rollback to A178/C175/D334 original377, all30/Make/README/fullsets/submitted proof docs/round385-candidate-source-match.json. Fresh original image8 public/untrained3863 incl true default and cached actual Make/native12 PASS; no compiler/model/training/reference repeated. C384 native/GNU/image/default/source evidence remains historical; no gain claim. One cooled ordinary385 confirmation, earliest10:37:02UTC after384dispatch10:32:02. PRIVATE/MIT and approved publication window unchanged.
+
+HEADstillrejected384; selected working source original377 restored and snapshotted. No new candidate until real confirmation.
+
+# C384 real board trial pending
+
+C384 PRIVATE pushed at2026-11-02T10:30:49.582128+00:00, HEAD/origin ce9361c5d7e9e74c6165cf202c49c84d670fe103; ONE normal all-track real trial pending. Baseline C K23.033578/points68.118071; keep only supported totalK gain, otherwise restore original377 main/names/README/image and one cooled real confirmation. Source30/Make/fullsets/README/submitted snapshot/local images bind docs/round384-committed-source-match.json. No new A/D candidate or extra training. Private until approved15:00–16:00UTC, risky starts stop14:00/runtime+Gitfreeze15:00.
+
 # C384 all local proof passed; real trial next
 
 C384 exact FOUR-word arena/key offsets chosen only at actual country words==4, generic exact all others; original representation/queue/CSV/hash/native/full1000003+sample130363/default12 retained. New actual-header model native ASAN/TSAN/GNU, exact current main strict/race, independent country seam fixtures and saved adversarial/untrained/full refs, one exact PGO image and true defaults PASS. Native screen/confirmation are hypotheses only. One real all-track board trial required. Retain C ONLY if supported totalK>23.033578/68.118071, otherwise restore all3 C main/names/README and originalCimage and make one cooled confirmation. No #1/holdout/judging/eligibility/prize guarantee. Root now has ONLY C384 main/names/README changed; candidate30/Make/README/fullsets/submitted binding docs/round384-candidate-source-match.json. Original377 whole C rollback saved .build/round384/original-retained and immutable originalC263image. Commit/push/ordinary all-track watcher next; do not start another candidate before real decision/restoration. No official gain yet.

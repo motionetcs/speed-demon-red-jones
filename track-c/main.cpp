@@ -172,7 +172,7 @@ int main(int argc, char** argv) {
         std::vector<std::vector<uint64_t>> distinct(owners,std::vector<uint64_t>(groups.size()));
         auto queues=std::make_unique<NameQueue[]>(size_t(readers)*owners);
         std::atomic<bool> canceled{false};
-        auto consume=[&]<size_t FixedWords,typename Code>(const std::vector<Code>& region_lookup){
+        auto consume=[&]<typename Code>(const std::vector<Code>& region_lookup){
             constexpr Code no_region=std::numeric_limits<Code>::max();
             parallel(threads,[&](unsigned worker){
                 try{
@@ -191,7 +191,7 @@ int main(int argc, char** argv) {
                             Group& group=local.groups[country];++group.count;group.ids+=static_cast<int64_t>(id);group.sum+=amount;
                             group.minimum=std::min(group.minimum,amount);group.maximum=std::max(group.maximum,amount);
                             group.name_bytes+=name.bytes;group.note_bytes+=note.bytes;
-                            if(!owners){group.names+=serial->first<FixedWords>(name.value,country,hash);continue;}
+                            if(!owners){group.names+=serial->first(name.value,country,hash);continue;}
                             unsigned owner=hash%owners;NameEvent event{name.value,hash,static_cast<uint16_t>(country)};
                             auto& batch=batches[owner];batch.push_back(std::move(event));
                             if(batch.size()==NAME_BATCH)queues[size_t(worker)*owners+owner].send(batch,canceled);
@@ -204,12 +204,10 @@ int main(int argc, char** argv) {
                             if(canceled.load(std::memory_order_relaxed))throw std::runtime_error("name pipeline canceled");
                             bool progress=false;
                             for(unsigned reader=0;reader<readers;++reader){
-                                if(finished[reader])continue;
-                                auto& queue=queues[size_t(reader)*owners+owner];
-                                if(!queue.ready.load(std::memory_order_acquire))continue;
-                                progress=true;
+                                if(finished[reader])continue;auto& queue=queues[size_t(reader)*owners+owner];
+                                if(!queue.ready.load(std::memory_order_acquire))continue;progress=true;
                                 if(queue.rows.empty()){finished[reader]=true;--remaining;}
-                                else for(const auto& e:queue.rows)distinct[owner][e.country]+=names.first<FixedWords>(e.value(),e.country,e.hash);
+                                else for(const auto& e:queue.rows)distinct[owner][e.country]+=names.first(e.value(),e.country,e.hash);
                                 queue.rows.clear();queue.ready.store(false,std::memory_order_release);
                             }
                             if(!progress)std::this_thread::yield();
@@ -218,11 +216,7 @@ int main(int argc, char** argv) {
                 }catch(...){canceled.store(true,std::memory_order_relaxed);throw;}
             });
         };
-        auto dispatch=[&]<typename Code>(const std::vector<Code>& values){
-            if((groups.size()+63)/64==4)consume.template operator()<4>(values);
-            else consume.template operator()<0>(values);
-        };
-        if(narrow_lookup.empty())dispatch(lookup);else dispatch(narrow_lookup);
+        if(narrow_lookup.empty())consume(lookup);else consume(narrow_lookup);
         for(const auto& local:locals)for(size_t i=0;i<groups.size();++i){auto& group=groups[i];const auto& value=local.groups[i];group.count+=value.count;group.ids+=value.ids;group.sum+=value.sum;group.minimum=std::min(group.minimum,value.minimum);group.maximum=std::max(group.maximum,value.maximum);group.names+=value.names;group.name_bytes+=value.name_bytes;group.note_bytes+=value.note_bytes;}
         for(const auto& owner:distinct)for(size_t i=0;i<groups.size();++i)groups[i].names+=owner[i];
         std::sort(groups.begin(), groups.end(), [](const Group& a, const Group& b) { return a.country < b.country; });
