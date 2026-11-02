@@ -1,0 +1,10 @@
+{
+  "observed_at_utc": "2026-11-02T11:53:12.854678+00:00",
+  "stage": "native ASAN expected-output-open test setup",
+  "failure": "Saved output-open case has valid empty input and requires summary.txt to be a DIRECTORY. Initial driver replayed it into a normal directory, correctly got empty successful output, and incorrectly expected rc1. This was a fixture setup omission, not runtime defect.",
+  "preserved_failed_output": ".build/round391/proof/native/asan/error-1-attempt1-unblocked",
+  "preserved_failed_output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "corrected_setup": "Create summary.txt directory before native/GNU/image/true-default8 output-open attempts. Keep normal invalid-input cases unchanged.",
+  "completed_work_reused": "All successful cached-ASAN valid case markers and successful late-invalid marker; no compiler/model/generator/oracle/PGO repetition. No GCC/image/build work had begun.",
+  "runtime_source_changed": false
+}

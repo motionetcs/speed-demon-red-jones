@@ -1,0 +1,46 @@
+--- a/track-d/distance_map.hpp
++++ b/track-d/distance_map.hpp
+@@ -1,5 +1,6 @@
+ #pragma once
+ #include <cstdint>
++#include <array>
+ #include <bit>
+ #include <stdexcept>
+ #if defined(__SSE2__)
+@@ -66,6 +67,20 @@
+     std::vector<uint32_t> touched;
+     Distances wide;
+     static constexpr uint32_t node_limit=1U<<21;
++    std::array<uint64_t,512> seen{};
++    static std::pair<size_t,uint64_t> filter_key(uint32_t node){
++        uint32_t hash=node*0x9e3779b1U;
++        return {hash>>23,(uint64_t(1)<<(hash&63))|(uint64_t(1)<<((hash>>6)&63))};
++    }
++    uint64_t maybe_get(uint32_t node)const{
++        auto [word,mask]=filter_key(node);
++        return (seen[word]&mask)==mask?get(node):UINT64_MAX;
++    }
++    bool improve(uint32_t node,uint64_t distance){
++        bool changed=improve_exact(node,distance);
++        if(changed){auto [word,mask]=filter_key(node);seen[word]|=mask;}
++        return changed;
++    }
+     uint32_t distance_mask()const{return (uint32_t(1)<<(11+bits))-1;}
+     size_t slot(uint32_t node)const{
+         size_t start=size_t(node&((1U<<bits)-1))*8;
+@@ -97,13 +112,13 @@
+             index=static_cast<uint32_t>(next);labels[next]=((node>>bits)<<(11+bits))|(value&old_mask);
+         }
+     }
+-    void reset(){for(uint32_t index:touched)labels[index]=0;touched.clear();wide.reset();}
++    void reset(){for(uint32_t index:touched)labels[index]=0;touched.clear();wide.reset();seen.fill(0);}
+     uint64_t get(uint32_t node)const{
+         if(node>=node_limit||touched.empty())return wide.get(node);
+         size_t index=slot(node);uint32_t value=index<labels.size()?labels[index]:0;
+         return value?uint64_t((value&distance_mask())-1):wide.get(node);
+     }
+-    bool improve(uint32_t node,uint64_t distance){
++    bool improve_exact(uint32_t node,uint64_t distance){
+         if(node>=node_limit)return wide.improve(node,distance);
+         if(touched.size()*2>=labels.size()&&bits<20)grow();
+         size_t index=slot(node);

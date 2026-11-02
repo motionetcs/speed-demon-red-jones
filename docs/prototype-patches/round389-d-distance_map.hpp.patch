@@ -1,0 +1,11 @@
+--- a/track-d/distance_map.hpp
++++ b/track-d/distance_map.hpp
+@@ -13,7 +13,7 @@
+ 
+ struct Distances {
+     struct Label { uint32_t node = 0, epoch = 0; uint64_t distance = 0; };
+-    std::vector<Label> labels = std::vector<Label>(4096);
++    std::vector<Label> labels = std::vector<Label>(256);
+     uint32_t epoch = 0;
+     size_t used = 0;
+     static size_t hash(uint32_t node) {

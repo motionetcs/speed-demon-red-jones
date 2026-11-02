@@ -1,0 +1,40 @@
+--- a/track-d/main.cpp
++++ b/track-d/main.cpp
+@@ -132,13 +132,18 @@
+         threads = static_cast<unsigned>(std::min<size_t>(threads, queries.size()));
+         std::vector<int64_t> answers(queries.size(), -1);
+         std::atomic<size_t> next{0};
+-        auto worker = [&]<bool Compact,bool HasWide>() {
++        auto worker = [&]<bool Compact,bool HasWide>(unsigned worker_index) {
+             constexpr uint64_t infinity = UINT64_MAX;
+             FastDistances forward, backward;
+             RadixHeap forward_heap, backward_heap;
++            size_t max_forward_wide=0,max_backward_wide=0,query_count=0;
+             for (;;) {
+                 size_t query = next.fetch_add(1, std::memory_order_relaxed);
+-                if (query >= queries.size()) return;
++                if (query >= queries.size()) {
++                    std::fprintf(stderr,"{\"worker\":%u,\"queries\":%zu,\"forward_wide_max_used\":%zu,\"backward_wide_max_used\":%zu,\"forward_wide_final_capacity\":%zu,\"backward_wide_final_capacity\":%zu,\"forward_packed_final_bits\":%u,\"backward_packed_final_bits\":%u}\n",worker_index,query_count,max_forward_wide,max_backward_wide,forward.wide.labels.size(),backward.wide.labels.size(),forward.bits,backward.bits);
++                    return;
++                }
++                ++query_count;
+                 auto [source, target] = queries[query];
+                 if (source == target) { answers[query] = 0; continue; }
+                 auto source_range=cursor.template range<HasWide>(source),target_range=reverse_cursor.template range<HasWide>(target);
+@@ -181,12 +186,14 @@
+                     }
+                 }
+                 if (best != infinity) answers[query] = static_cast<int64_t>(best);
++                max_forward_wide=std::max(max_forward_wide,forward.wide.used);
++                max_backward_wide=std::max(max_backward_wide,backward.wide.used);
+             }
+         };
+         if(threads){
+             auto run_queries=[&]<bool Compact>(){
+-                if(wide_cursors)parallel(threads,[&](unsigned){worker.template operator()<Compact,true>();});
+-                else parallel(threads,[&](unsigned){worker.template operator()<Compact,false>();});
++                if(wide_cursors)parallel(threads,[&](unsigned index){worker.template operator()<Compact,true>(index);});
++                else parallel(threads,[&](unsigned index){worker.template operator()<Compact,false>(index);});
+             };
+             if(edges.compact)run_queries.template operator()<true>();else run_queries.template operator()<false>();
+         }

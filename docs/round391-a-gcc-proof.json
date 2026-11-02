@@ -1,0 +1,424 @@
+{
+  "started_at_utc": "2026-11-02T11:53:23.557875+00:00",
+  "official_score": false,
+  "selected_in_root": false,
+  "mode": "gcc",
+  "track": "a",
+  "source_sha256": {
+    "track-a/training_generator.py": "d82b43b8f617016808f85cbe9be86af1fee8466296a0848ab8e6908ee3c4b0b4",
+    "track-a/Dockerfile": "4c9a93221521659b575453ff238f945f9cd01957154eea8f7c518fd17d14026a",
+    "track-a/io.hpp": "a8838c50064520b806fcd2032cda0e9f246e9d3b6869fb951e3555cd5e8dfead",
+    "track-a/ordered_output.hpp": "b6f0911f5d6396ca35ad657a1de6364aa3e52a5dd6a9275d95f768e54f4fd69d",
+    "track-a/README.md": "eeba2de4e1437143c3524e1cb4c36246de46ebef8e81fe9a49388ce679b1d52f",
+    "track-a/endpoint_table.hpp": "913048b747b8f938cf1b438f29648a62d11434b2d71c3fb9a9b5f5aae31df745",
+    "track-a/PERF.md": "fc73dd5f63bfb125cf46d3f2ddf7dca9cf32e5d9702ef48138eb1fcce684d909",
+    "track-a/mapped_allocator.hpp": "060bb6a0622338b9151e767d827cbf30c8e4d940cc7e170ad51757c4a6b0808b",
+    "track-a/.speed-demon.toml": "c9ae973186c14661797640f427009129e2a80d1aecefd5d4fa413ee7f3da44d8",
+    "track-a/main.cpp": "02661f93bc65fc35d359c80e19d82578968ab68725e8b325e48c630c3e27310c",
+    "track-a/decimal.hpp": "e6a53e983c0475fe3e49ffe2630a8603f96298b7866e0f4ef3b2ed0f165cb94e",
+    "track-a/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420"
+  },
+  "unchanged_A_cpp_sha256": {
+    "track-a/io.hpp": "a8838c50064520b806fcd2032cda0e9f246e9d3b6869fb951e3555cd5e8dfead",
+    "track-a/ordered_output.hpp": "b6f0911f5d6396ca35ad657a1de6364aa3e52a5dd6a9275d95f768e54f4fd69d",
+    "track-a/endpoint_table.hpp": "913048b747b8f938cf1b438f29648a62d11434b2d71c3fb9a9b5f5aae31df745",
+    "track-a/mapped_allocator.hpp": "060bb6a0622338b9151e767d827cbf30c8e4d940cc7e170ad51757c4a6b0808b",
+    "track-a/main.cpp": "02661f93bc65fc35d359c80e19d82578968ab68725e8b325e48c630c3e27310c",
+    "track-a/decimal.hpp": "e6a53e983c0475fe3e49ffe2630a8603f96298b7866e0f4ef3b2ed0f165cb94e",
+    "track-a/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420"
+  },
+  "scope": "A391 ONLY final-image ENV SPEED_DEMON_THREADS=8, native fallback12 and exact original generic GCC/full1000003+sample130363/default12 PGO recipe/C++/headers unchanged. Requested1..12 remain valid. Same native binary8-vs12 threefull13pair screen1.021535/1.030547/1.008418 (3/4/4wins) is slower, but allthree nativeRSS medians lower1.75\u20132.61MB. This is a combined memory/time hypothesis, NOT lower chargedM or Intel SMT/P-E cause. Need actual totalK including +ENV source line; only real board decides. Fresh cached exact-source nativeASAN/TSAN8 and pinned historical-tune GNU strict8 data executions, new actual Dockerfile offline final-config/image/output/default8 replay and exact all30/Make/source/one real trial required. Cache build prefix preferred; report actual cache/build/ELF receipts honestly, no claim new compilation when cached. No new data/reference/model/algorithm/host/identity/counter/seed/answer shortcut.",
+  "commands": [
+    {
+      "label": "replay",
+      "argv": [
+        "docker",
+        "run",
+        "--rm",
+        "--pull=never",
+        "--platform",
+        "linux/amd64",
+        "--network=none",
+        "--read-only",
+        "--memory=8g",
+        "--memory-swap=8g",
+        "--pids-limit=512",
+        "--cap-drop=ALL",
+        "--security-opt=no-new-privileges",
+        "--user",
+        "65534:65534",
+        "--tmpfs",
+        "/tmp:rw,exec,size=1g",
+        "-i",
+        "--entrypoint",
+        "/bin/sh",
+        "-v",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh:/repo:ro",
+        "-v",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round391/proof/gcc:/out:rw",
+        "gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce",
+        "-s"
+      ],
+      "stdin": "set -eu\nmkdir -p /out/stdio\nexport ASAN_OPTIONS=halt_on_error=1\nexport UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1\nif ! test -f /out/stdio/valid-0.code; then\nset +e\nSPEED_DEMON_THREADS=8 /repo/.build/round343/linux-proof/gcc/solution --data /repo/.data/a/sample-seed2237 --out /out/valid-0 >/out/stdio/valid-0.stdout 2>/out/stdio/valid-0.stderr\ncode=$?\nset -e\necho \"$code\" >/out/stdio/valid-0.code\nfi\ntest \"$(cat /out/stdio/valid-0.code)\" -eq 0\nif ! test -f /out/stdio/valid-1.code; then\nset +e\nSPEED_DEMON_THREADS=8 /repo/.build/round343/linux-proof/gcc/solution --data /repo/.data/a/sample-seed2243 --out /out/valid-1 >/out/stdio/valid-1.stdout 2>/out/stdio/valid-1.stderr\ncode=$?\nset -e\necho \"$code\" >/out/stdio/valid-1.code\nfi\ntest \"$(cat /out/stdio/valid-1.code)\" -eq 0\nif ! test -f /out/stdio/valid-2.code; then\nset +e\nSPEED_DEMON_THREADS=8 /repo/.build/round343/linux-proof/gcc/solution --data /repo/.data/cases/round342-tsan-sample-a-worked --out /out/valid-2 >/out/stdio/valid-2.stdout 2>/out/stdio/valid-2.stderr\ncode=$?\nset -e\necho \"$code\" >/out/stdio/valid-2.code\nfi\ntest \"$(cat /out/stdio/valid-2.code)\" -eq 0\nif ! test -f /out/stdio/valid-3.code; then\nset +e\nSPEED_DEMON_THREADS=8 /repo/.build/round343/linux-proof/gcc/solution --data /repo/.data/cases/round342-tsan-sample-a-official-edge-cases --out /out/valid-3 >/out/stdio/valid-3.stdout 2>/out/stdio/valid-3.stderr\ncode=$?\nset -e\necho \"$code\" >/out/stdio/valid-3.code\nfi\ntest \"$(cat /out/stdio/valid-3.code)\" -eq 0\nif ! test -f /out/stdio/valid-4.code; then\nset +e\nSPEED_DEMON_THREADS=8 /repo/.build/round343/linux-proof/gcc/solution --data /repo/.build/round376/dynamic-fixtures/empty --out /out/valid-4 >/out/stdio/valid-4.stdout 2>/out/stdio/valid-4.stderr\ncode=$?\nset -e\necho \"$code\" >/out/stdio/valid-4.code\nfi\ntest \"$(cat /out/stdio/valid-4.code)\" -eq 0\nif ! test -f /out/stdio/valid-5.code; then\nset +e\nSPEED_DEMON_THREADS=8 /repo/.build/round343/linux-proof/gcc/solution --data /repo/.data/cases/round342-tsan-sample-a-count-error-wrap-65535 --out /out/valid-5 >/out/stdio/valid-5.stdout 2>/out/stdio/valid-5.stderr\ncode=$?\nset -e\necho \"$code\" >/out/stdio/valid-5.code\nfi\ntest \"$(cat /out/stdio/valid-5.code)\" -eq 0\nif ! test -f /out/stdio/valid-6.code; then\nset +e\nSPEED_DEMON_THREADS=8 /repo/.build/round343/linux-proof/gcc/solution --data /repo/.data/cases/round342-tsan-sample-a-count-error-wrap-65536 --out /out/valid-6 >/out/stdio/valid-6.stdout 2>/out/stdio/valid-6.stderr\ncode=$?\nset -e\necho \"$code\" >/out/stdio/valid-6.code\nfi\ntest \"$(cat /out/stdio/valid-6.code)\" -eq 0\nif ! test -f /out/stdio/valid-7.code; then\nset +e\nSPEED_DEMON_THREADS=8 /repo/.build/round343/linux-proof/gcc/solution --data /repo/.data/cases/round342-tsan-sample-a-count-error-wrap-140000 --out /out/valid-7 >/out/stdio/valid-7.stdout 2>/out/stdio/valid-7.stderr\ncode=$?\nset -e\necho \"$code\" >/out/stdio/valid-7.code\nfi\ntest \"$(cat /out/stdio/valid-7.code)\" -eq 0\nif ! test -f /out/stdio/valid-8.code; then\nset +e\nSPEED_DEMON_THREADS=8 /repo/.build/round343/linux-proof/gcc/solution --data /repo/.data/cases/round342-tsan-sample-a-nearest-rank-101 --out /out/valid-8 >/out/stdio/valid-8.stdout 2>/out/stdio/valid-8.stderr\ncode=$?\nset -e\necho \"$code\" >/out/stdio/valid-8.code\nfi\ntest \"$(cat /out/stdio/valid-8.code)\" -eq 0\nif ! test -f /out/stdio/valid-9.code; then\nset +e\nSPEED_DEMON_THREADS=8 /repo/.build/round343/linux-proof/gcc/solution --data /repo/.data/cases/round342-tsan-sample-a-many-endpoints-partitions --out /out/valid-9 >/out/stdio/valid-9.stdout 2>/out/stdio/valid-9.stderr\ncode=$?\nset -e\necho \"$code\" >/out/stdio/valid-9.code\nfi\ntest \"$(cat /out/stdio/valid-9.code)\" -eq 0\nif ! test -f /out/stdio/valid-10.code; then\nset +e\nSPEED_DEMON_THREADS=8 /repo/.build/round343/linux-proof/gcc/solution --data /repo/.data/a/full-seed2221 --out /out/valid-10 >/out/stdio/valid-10.stdout 2>/out/stdio/valid-10.stderr\ncode=$?\nset -e\necho \"$code\" >/out/stdio/valid-10.code\nfi\ntest \"$(cat /out/stdio/valid-10.code)\" -eq 0\nif ! test -f /out/stdio/valid-11.code; then\nset +e\nSPEED_DEMON_THREADS=8 /repo/.build/round343/linux-proof/gcc/solution --data /repo/.data/a/sample-seed2249 --out /out/valid-11 >/out/stdio/valid-11.stdout 2>/out/stdio/valid-11.stderr\ncode=$?\nset -e\necho \"$code\" >/out/stdio/valid-11.code\nfi\ntest \"$(cat /out/stdio/valid-11.code)\" -eq 0\nif ! test -f /out/stdio/valid-12.code; then\nset +e\nSPEED_DEMON_THREADS=8 /repo/.build/round343/linux-proof/gcc/solution --data /repo/.data/cases/round342-tsan-a-latency-escape-partitions --out /out/valid-12 >/out/stdio/valid-12.stdout 2>/out/stdio/valid-12.stderr\ncode=$?\nset -e\necho \"$code\" >/out/stdio/valid-12.code\nfi\ntest \"$(cat /out/stdio/valid-12.code)\" -eq 0\nif ! test -f /out/stdio/valid-13.code; then\nset +e\nSPEED_DEMON_THREADS=8 /repo/.build/round343/linux-proof/gcc/solution --data /repo/.data/cases/round342-tsan-a-endpoint-id-4095 --out /out/valid-13 >/out/stdio/valid-13.stdout 2>/out/stdio/valid-13.stderr\ncode=$?\nset -e\necho \"$code\" >/out/stdio/valid-13.code\nfi\ntest \"$(cat /out/stdio/valid-13.code)\" -eq 0\nif ! test -f /out/stdio/valid-14.code; then\nset +e\nSPEED_DEMON_THREADS=8 /repo/.build/round343/linux-proof/gcc/solution --data /repo/.data/cases/round342-tsan-a-method-hours-ordered --out /out/valid-14 >/out/stdio/valid-14.stdout 2>/out/stdio/valid-14.stderr\ncode=$?\nset -e\necho \"$code\" >/out/stdio/valid-14.code\nfi\ntest \"$(cat /out/stdio/valid-14.code)\" -eq 0\nif ! test -f /out/stdio/valid-15.code; then\nset +e\nSPEED_DEMON_THREADS=8 /repo/.build/round343/linux-proof/gcc/solution --data /repo/.data/cases/round342-tsan-a-method-hours-shuffled --out /out/valid-15 >/out/stdio/valid-15.stdout 2>/out/stdio/valid-15.stderr\ncode=$?\nset -e\necho \"$code\" >/out/stdio/valid-15.code\nfi\ntest \"$(cat /out/stdio/valid-15.code)\" -eq 0\nif ! test -f /out/stdio/valid-16.code; then\nset +e\nSPEED_DEMON_THREADS=8 /repo/.build/round343/linux-proof/gcc/solution --data /repo/.data/cases/round342-tsan-ordered-a-first-hour-lag --out /out/valid-16 >/out/stdio/valid-16.stdout 2>/out/stdio/valid-16.stderr\ncode=$?\nset -e\necho \"$code\" >/out/stdio/valid-16.code\nfi\ntest \"$(cat /out/stdio/valid-16.code)\" -eq 0\nif ! test -f /out/stdio/valid-17.code; then\nset +e\nSPEED_DEMON_THREADS=8 /repo/.build/round343/linux-proof/gcc/solution --data /repo/.data/cases/round342-tsan-ordered-a-empty-prefix-and-holes --out /out/valid-17 >/out/stdio/valid-17.stdout 2>/out/stdio/valid-17.stderr\ncode=$?\nset -e\necho \"$code\" >/out/stdio/valid-17.code\nfi\ntest \"$(cat /out/stdio/valid-17.code)\" -eq 0\nif ! test -f /out/stdio/valid-18.code; then\nset +e\nSPEED_DEMON_THREADS=8 /repo/.build/round343/linux-proof/gcc/solution --data /repo/.data/cases/round342-tsan-ordered-a-unordered-publish --out /out/valid-18 >/out/stdio/valid-18.stdout 2>/out/stdio/valid-18.stderr\ncode=$?\nset -e\necho \"$code\" >/out/stdio/valid-18.code\nfi\ntest \"$(cat /out/stdio/valid-18.code)\" -eq 0\nif ! test -f /out/stdio/valid-19.code; then\nset +e\nSPEED_DEMON_THREADS=8 /repo/.build/round343/linux-proof/gcc/solution --data /repo/.data/a/sample-seed3541 --out /out/valid-19 >/out/stdio/valid-19.stdout 2>/out/stdio/valid-19.stderr\ncode=$?\nset -e\necho \"$code\" >/out/stdio/valid-19.code\nfi\ntest \"$(cat /out/stdio/valid-19.code)\" -eq 0\nif ! test -f /out/stdio/valid-20.code; then\nset +e\nSPEED_DEMON_THREADS=8 /repo/.build/round343/linux-proof/gcc/solution --data /repo/.data/a/sample-seed3547 --out /out/valid-20 >/out/stdio/valid-20.stdout 2>/out/stdio/valid-20.stderr\ncode=$?\nset -e\necho \"$code\" >/out/stdio/valid-20.code\nfi\ntest \"$(cat /out/stdio/valid-20.code)\" -eq 0\nif ! test -f /out/stdio/valid-21.code; then\nset +e\nSPEED_DEMON_THREADS=8 /repo/.build/round343/linux-proof/gcc/solution --data /repo/.data/a/full-seed3557 --out /out/valid-21 >/out/stdio/valid-21.stdout 2>/out/stdio/valid-21.stderr\ncode=$?\nset -e\necho \"$code\" >/out/stdio/valid-21.code\nfi\ntest \"$(cat /out/stdio/valid-21.code)\" -eq 0\nif ! test -f /out/stdio/valid-22.code; then\nset +e\nSPEED_DEMON_THREADS=8 /repo/.build/round343/linux-proof/gcc/solution --data /repo/.data/a/sample-seed3563 --out /out/valid-22 >/out/stdio/valid-22.stdout 2>/out/stdio/valid-22.stderr\ncode=$?\nset -e\necho \"$code\" >/out/stdio/valid-22.code\nfi\ntest \"$(cat /out/stdio/valid-22.code)\" -eq 0\nif ! test -f /out/stdio/valid-23.code; then\nset +e\nSPEED_DEMON_THREADS=8 /repo/.build/round343/linux-proof/gcc/solution --data /repo/.data/a/public-full-seed1 --out /out/valid-23 >/out/stdio/valid-23.stdout 2>/out/stdio/valid-23.stderr\ncode=$?\nset -e\necho \"$code\" >/out/stdio/valid-23.code\nfi\ntest \"$(cat /out/stdio/valid-23.code)\" -eq 0\nif ! test -f /out/stdio/valid-24.code; then\nset +e\nSPEED_DEMON_THREADS=8 /repo/.build/round343/linux-proof/gcc/solution --data /repo/.data/a/full-seed1951 --out /out/valid-24 >/out/stdio/valid-24.stdout 2>/out/stdio/valid-24.stderr\ncode=$?\nset -e\necho \"$code\" >/out/stdio/valid-24.code\nfi\ntest \"$(cat /out/stdio/valid-24.code)\" -eq 0\nif ! test -f /out/stdio/valid-25.code; then\nset +e\nSPEED_DEMON_THREADS=8 /repo/.build/round343/linux-proof/gcc/solution --data /repo/.data/a/full-seed3911 --out /out/valid-25 >/out/stdio/valid-25.stdout 2>/out/stdio/valid-25.stderr\ncode=$?\nset -e\necho \"$code\" >/out/stdio/valid-25.code\nfi\ntest \"$(cat /out/stdio/valid-25.code)\" -eq 0\nif ! test -f /out/stdio/valid-26.code; then\nset +e\nSPEED_DEMON_THREADS=8 /repo/.build/round343/linux-proof/gcc/solution --data /repo/.build/round376/dynamic-fixtures/shuffled-all-ids --out /out/valid-26 >/out/stdio/valid-26.stdout 2>/out/stdio/valid-26.stderr\ncode=$?\nset -e\necho \"$code\" >/out/stdio/valid-26.code\nfi\ntest \"$(cat /out/stdio/valid-26.code)\" -eq 0\nif ! test -f /out/stdio/valid-27.code; then\nset +e\nSPEED_DEMON_THREADS=8 /repo/.build/round343/linux-proof/gcc/solution --data /repo/.data/a/sample-seed3923 --out /out/valid-27 >/out/stdio/valid-27.stdout 2>/out/stdio/valid-27.stderr\ncode=$?\nset -e\necho \"$code\" >/out/stdio/valid-27.code\nfi\ntest \"$(cat /out/stdio/valid-27.code)\" -eq 0\nif ! test -f /out/stdio/valid-28.code; then\nset +e\nSPEED_DEMON_THREADS=8 /repo/.build/round343/linux-proof/gcc/solution --data /repo/.data/a/sample-seed3929 --out /out/valid-28 >/out/stdio/valid-28.stdout 2>/out/stdio/valid-28.stderr\ncode=$?\nset -e\necho \"$code\" >/out/stdio/valid-28.code\nfi\ntest \"$(cat /out/stdio/valid-28.code)\" -eq 0\nif ! test -f /out/stdio/error-0.code; then\nset +e\nSPEED_DEMON_THREADS=8 /repo/.build/round343/linux-proof/gcc/solution --data /repo/.build/round376/dynamic-fixtures/late-invalid-latency --out /out/error-0 >/out/stdio/error-0.stdout 2>/out/stdio/error-0.stderr\ncode=$?\nset -e\necho \"$code\" >/out/stdio/error-0.code\nfi\ntest \"$(cat /out/stdio/error-0.code)\" -eq 1\nmkdir -p /out/error-1/summary.txt\nif ! test -f /out/stdio/error-1.code; then\nset +e\nSPEED_DEMON_THREADS=8 /repo/.build/round343/linux-proof/gcc/solution --data /repo/.build/round376/dynamic-fixtures/empty --out /out/error-1 >/out/stdio/error-1.stdout 2>/out/stdio/error-1.stderr\ncode=$?\nset -e\necho \"$code\" >/out/stdio/error-1.code\nfi\ntest \"$(cat /out/stdio/error-1.code)\" -eq 1\n",
+      "returncode": 0
+    }
+  ],
+  "reference_content_deduplication": true,
+  "input_cases": 29,
+  "normal_error_cases": 2,
+  "cached_binary_binding": {
+    "report": "docs/round343-a-linux-gcc.json",
+    "binary": ".build/round343/linux-proof/gcc/solution",
+    "binary_sha256": "1067ee8fbf1674feba4cf7ff384b7c7fd20bc6ee7ff73005f97a2c092977ae7f",
+    "historical_strict_flags": "g++ -std=c++20 -O1 -g -mtune=raptorlake -Wall -Wextra -Wpedantic -Werror -pthread -fsanitize=address,undefined -fno-sanitize-recover=all -fno-omit-frame-pointer ",
+    "scope": "Cached pinned GNU15.3 failfastASAN/UBSAN original exact C++ source; historical -mtune=raptorlake scheduling flag explicitly retained/disclosed for fresh requested8 logic checks. This is NOT a new generic production compile or deployment of rejected tune flag. New actual production Dockerfile remains original GENERIC flags/recipe except final ENV8."
+  },
+  "image_id": "gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce",
+  "runs": [
+    {
+      "case": "sample-seed2237",
+      "data_folder": ".data/a/sample-seed2237",
+      "expected_sha256": "3b6c91baa825e8a964372c57a253d50a26c009aefc6e64c60a724bfca9a7e76d",
+      "inputs_sha256": {
+        "requests.log": "847c39f1ddcdeaa34ea691ecb1d255975f9cbc31ccea0ed094a323369c11b4fd"
+      },
+      "threads": 8,
+      "reference_source": "docs/round343-a-linux-image.json input/expected bytes ONLY; no rejected source proof",
+      "sha256": "3b6c91baa825e8a964372c57a253d50a26c009aefc6e64c60a724bfca9a7e76d"
+    },
+    {
+      "case": "sample-seed2243",
+      "data_folder": ".data/a/sample-seed2243",
+      "expected_sha256": "09a65e9421e9d54ef89fcb93be7350dc823d9bd1b957db4e0819032ac3ae8bdb",
+      "inputs_sha256": {
+        "requests.log": "bc759a179c384301c231e083165ed468a5fe6604c63975b218ff8bd3977c3dfe"
+      },
+      "threads": 8,
+      "reference_source": "docs/round343-a-linux-image.json input/expected bytes ONLY; no rejected source proof",
+      "sha256": "09a65e9421e9d54ef89fcb93be7350dc823d9bd1b957db4e0819032ac3ae8bdb"
+    },
+    {
+      "case": "round342-tsan-sample-a-worked",
+      "data_folder": ".data/cases/round342-tsan-sample-a-worked",
+      "inputs_sha256": {
+        "requests.log": "6a9acf26f676d7930132fd1d3a389c459d42c465954a42019f1288a3843d411c"
+      },
+      "expected_sha256": "0782f9b9a885bdbcdfadf330f6bea55accdc06018c0108f69ea43372d2fac692",
+      "threads": 8,
+      "reference_source": ".build/round376/native-proof/tsan/matrix.json input/expected bytes ONLY; no rejected source proof",
+      "sha256": "0782f9b9a885bdbcdfadf330f6bea55accdc06018c0108f69ea43372d2fac692"
+    },
+    {
+      "case": "round342-tsan-sample-a-official-edge-cases",
+      "data_folder": ".data/cases/round342-tsan-sample-a-official-edge-cases",
+      "inputs_sha256": {
+        "requests.log": "cca76417b6276cef282c2826264d3821e8948f5f78989862f3948cda79d544bc"
+      },
+      "expected_sha256": "1f43d4bbd4b84dc66319a414138225ff5c2ab9f30aeb2398ec0e54b339011459",
+      "threads": 8,
+      "reference_source": ".build/round376/native-proof/tsan/matrix.json input/expected bytes ONLY; no rejected source proof",
+      "sha256": "1f43d4bbd4b84dc66319a414138225ff5c2ab9f30aeb2398ec0e54b339011459"
+    },
+    {
+      "case": "round376-empty",
+      "data_folder": ".build/round376/dynamic-fixtures/empty",
+      "inputs_sha256": {
+        "requests.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "threads": 8,
+      "reference_source": ".build/round376/native-proof/tsan/matrix.json input/expected bytes ONLY; no rejected source proof",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "case": "round342-tsan-sample-a-count-error-wrap-65535",
+      "data_folder": ".data/cases/round342-tsan-sample-a-count-error-wrap-65535",
+      "inputs_sha256": {
+        "requests.log": "8e147bc257a6c84aa3951abb1588afed1ddea995fa4b01e7f6b9a52bf72698ce"
+      },
+      "expected_sha256": "21eea75d26c42f8dfc4776a5e5548591318d7147bb199ff54937921c60be6486",
+      "threads": 8,
+      "reference_source": ".build/round376/native-proof/tsan/matrix.json input/expected bytes ONLY; no rejected source proof",
+      "sha256": "21eea75d26c42f8dfc4776a5e5548591318d7147bb199ff54937921c60be6486"
+    },
+    {
+      "case": "round342-tsan-sample-a-count-error-wrap-65536",
+      "data_folder": ".data/cases/round342-tsan-sample-a-count-error-wrap-65536",
+      "inputs_sha256": {
+        "requests.log": "a73ceb1f71d1efd6d2e1e274b05812bb0f44efb4c38e18f534c74d805c808929"
+      },
+      "expected_sha256": "a99938d5c305bb3528d55eb96b41d7b5cfa320a279e98ef358c67b7cceca5be0",
+      "threads": 8,
+      "reference_source": ".build/round376/native-proof/tsan/matrix.json input/expected bytes ONLY; no rejected source proof",
+      "sha256": "a99938d5c305bb3528d55eb96b41d7b5cfa320a279e98ef358c67b7cceca5be0"
+    },
+    {
+      "case": "round342-tsan-sample-a-count-error-wrap-140000",
+      "data_folder": ".data/cases/round342-tsan-sample-a-count-error-wrap-140000",
+      "inputs_sha256": {
+        "requests.log": "bc6a02bd98bbfa343ca822a44714fff9358451200cc5120cc7cf377615c864f6"
+      },
+      "expected_sha256": "b84dc22963d5bb0b3a0982bd9d4b963060f00ae4503ed1c2bbda28254c9bb148",
+      "threads": 8,
+      "reference_source": ".build/round376/native-proof/tsan/matrix.json input/expected bytes ONLY; no rejected source proof",
+      "sha256": "b84dc22963d5bb0b3a0982bd9d4b963060f00ae4503ed1c2bbda28254c9bb148"
+    },
+    {
+      "case": "round342-tsan-sample-a-nearest-rank-101",
+      "data_folder": ".data/cases/round342-tsan-sample-a-nearest-rank-101",
+      "inputs_sha256": {
+        "requests.log": "85fc50f4693d8a2742df1bf9259fddd44cf9c9924084cff8bd3325c1bd87d36b"
+      },
+      "expected_sha256": "d80768de7a334cbd5b8f82e085498a5c060db88cf066ae57311b1f9ef6730777",
+      "threads": 8,
+      "reference_source": ".build/round376/native-proof/tsan/matrix.json input/expected bytes ONLY; no rejected source proof",
+      "sha256": "d80768de7a334cbd5b8f82e085498a5c060db88cf066ae57311b1f9ef6730777"
+    },
+    {
+      "case": "round342-tsan-sample-a-many-endpoints-partitions",
+      "data_folder": ".data/cases/round342-tsan-sample-a-many-endpoints-partitions",
+      "inputs_sha256": {
+        "requests.log": "ad63d9c26a41a50e71d3dbe48058d596e0e29db0a1e8fbf684b69331121ec256"
+      },
+      "expected_sha256": "64f490464ec9b7b08cbd15abf7772043d2221767e8c9a84a16d2f6692ff129dd",
+      "threads": 8,
+      "reference_source": ".build/round376/native-proof/tsan/matrix.json input/expected bytes ONLY; no rejected source proof",
+      "sha256": "64f490464ec9b7b08cbd15abf7772043d2221767e8c9a84a16d2f6692ff129dd"
+    },
+    {
+      "case": "full-seed2221",
+      "inputs_sha256": {
+        "requests.log": "24e7c7918e60b453eaa7cdd381c352e5898fdfbd3a311b9866dc8eb1ff2f9afa"
+      },
+      "expected_sha256": "ea635765c200e5a93b6206c35cee288527c17dd02836f05828aa2c92edbd7550",
+      "data_folder": ".data/a/full-seed2221",
+      "threads": 8,
+      "reference_source": "docs/round194-sanitize-full.json independent oracle; input hash docs/round235-a-hour-run-profile.json; expected hashes only from268, no source-specific proof inherited",
+      "sha256": "ea635765c200e5a93b6206c35cee288527c17dd02836f05828aa2c92edbd7550"
+    },
+    {
+      "case": "sample-seed2249",
+      "data_folder": ".data/a/sample-seed2249",
+      "expected_sha256": "d2d6b131c52fd4d6580e0edd6753469a3e7dae9fc9b1e979f1d9dae0e30c0f65",
+      "inputs_sha256": {
+        "requests.log": "a95f9530ab1369a8aea30fc1c7b365ed84c1d4c6884ecc6535a7ba4df680096d"
+      },
+      "threads": 8,
+      "reference_source": "docs/round343-a-linux-image.json input/expected bytes ONLY; no rejected source proof",
+      "sha256": "d2d6b131c52fd4d6580e0edd6753469a3e7dae9fc9b1e979f1d9dae0e30c0f65"
+    },
+    {
+      "case": "round342-tsan-a-latency-escape-partitions",
+      "data_folder": ".data/cases/round342-tsan-a-latency-escape-partitions",
+      "inputs_sha256": {
+        "requests.log": "1c6f5a11ac7cdcd6c1cc3642fa4cfac8a0eb15c09b6faa807d55fe1171d7486f"
+      },
+      "expected_sha256": "99be0d0cbbf65462541c1729e0b682c118bce9c3efd1d1936b6fc8f41f8f041d",
+      "threads": 8,
+      "reference_source": ".build/round376/native-proof/tsan/matrix.json input/expected bytes ONLY; no rejected source proof",
+      "sha256": "99be0d0cbbf65462541c1729e0b682c118bce9c3efd1d1936b6fc8f41f8f041d"
+    },
+    {
+      "case": "round342-tsan-a-endpoint-id-4095",
+      "data_folder": ".data/cases/round342-tsan-a-endpoint-id-4095",
+      "inputs_sha256": {
+        "requests.log": "aeb1b1498eb23042cc23d9d8e000e0237db137fbcd382ffb9a78781c984a6585"
+      },
+      "expected_sha256": "87f786a27e82eb2a5063f2645bb79d1ba686aeb5e0616a206e1f97bc9d0266df",
+      "threads": 8,
+      "reference_source": ".build/round376/native-proof/tsan/matrix.json input/expected bytes ONLY; no rejected source proof",
+      "sha256": "87f786a27e82eb2a5063f2645bb79d1ba686aeb5e0616a206e1f97bc9d0266df"
+    },
+    {
+      "case": "round342-tsan-a-method-hours-ordered",
+      "data_folder": ".data/cases/round342-tsan-a-method-hours-ordered",
+      "inputs_sha256": {
+        "requests.log": "d38145ea2121fe383295a8d54b3421b2f2deafaebdabed2e75c11ba093010a43"
+      },
+      "expected_sha256": "5e148f39ded086406d96d85240d30d6dccf32c9f854fb915943a036d517f7fb4",
+      "threads": 8,
+      "reference_source": ".build/round376/native-proof/tsan/matrix.json input/expected bytes ONLY; no rejected source proof",
+      "sha256": "5e148f39ded086406d96d85240d30d6dccf32c9f854fb915943a036d517f7fb4"
+    },
+    {
+      "case": "round342-tsan-a-method-hours-shuffled",
+      "data_folder": ".data/cases/round342-tsan-a-method-hours-shuffled",
+      "inputs_sha256": {
+        "requests.log": "2149fd835ff3a7c61ab7c3bcb2f553b661ad3ed31d34edcdeb7c2a79614b42ad"
+      },
+      "expected_sha256": "5e148f39ded086406d96d85240d30d6dccf32c9f854fb915943a036d517f7fb4",
+      "threads": 8,
+      "reference_source": ".build/round376/native-proof/tsan/matrix.json input/expected bytes ONLY; no rejected source proof",
+      "sha256": "5e148f39ded086406d96d85240d30d6dccf32c9f854fb915943a036d517f7fb4"
+    },
+    {
+      "case": "round342-tsan-ordered-a-first-hour-lag",
+      "data_folder": ".data/cases/round342-tsan-ordered-a-first-hour-lag",
+      "inputs_sha256": {
+        "requests.log": "d79db3fd6e2b47d218884fe1d5beef792ca4000716aab1a3761bbd20a4ffd137"
+      },
+      "expected_sha256": "968c0135b31421516456af6a797d3b79d548fbd57a5a07981161c03e690da0c5",
+      "threads": 8,
+      "reference_source": ".build/round376/native-proof/tsan/matrix.json input/expected bytes ONLY; no rejected source proof",
+      "sha256": "968c0135b31421516456af6a797d3b79d548fbd57a5a07981161c03e690da0c5"
+    },
+    {
+      "case": "round342-tsan-ordered-a-empty-prefix-and-holes",
+      "data_folder": ".data/cases/round342-tsan-ordered-a-empty-prefix-and-holes",
+      "inputs_sha256": {
+        "requests.log": "bac08a6cc6333a5f413e7f97a1f01bf97afb1570f0e4ef22271b6f8a1fad7fbf"
+      },
+      "expected_sha256": "64626f6879971c72a600888fa8c46e7a43209a954fb4a45c4ae246dbf53b75f2",
+      "threads": 8,
+      "reference_source": ".build/round376/native-proof/tsan/matrix.json input/expected bytes ONLY; no rejected source proof",
+      "sha256": "64626f6879971c72a600888fa8c46e7a43209a954fb4a45c4ae246dbf53b75f2"
+    },
+    {
+      "case": "round342-tsan-ordered-a-unordered-publish",
+      "data_folder": ".data/cases/round342-tsan-ordered-a-unordered-publish",
+      "inputs_sha256": {
+        "requests.log": "c879e2be9d49463978b10c123173caf8eb01d5266debc60f18d11478884a88b0"
+      },
+      "expected_sha256": "4bf8966abc9afb4572697c442ba3ee38513cbf0cfe9ae60dfc7a197607f868d7",
+      "threads": 8,
+      "reference_source": ".build/round376/native-proof/tsan/matrix.json input/expected bytes ONLY; no rejected source proof",
+      "sha256": "4bf8966abc9afb4572697c442ba3ee38513cbf0cfe9ae60dfc7a197607f868d7"
+    },
+    {
+      "case": "sample-seed3541",
+      "data_folder": ".data/a/sample-seed3541",
+      "inputs_sha256": {
+        "requests.log": "74c109c57d2b215ad3f148af27bd16f9a309634c3e108203550cfb6da205b4ec"
+      },
+      "expected_sha256": "aa670b5fd6fe08bdf2c81d166b0400b868465764c8e0a73e7a3736b1653b4de6",
+      "threads": 8,
+      "reference_source": ".build/round376/native-proof/asan/matrix.json input/expected bytes ONLY; no rejected source proof",
+      "sha256": "aa670b5fd6fe08bdf2c81d166b0400b868465764c8e0a73e7a3736b1653b4de6"
+    },
+    {
+      "case": "sample-seed3547",
+      "data_folder": ".data/a/sample-seed3547",
+      "inputs_sha256": {
+        "requests.log": "b96b2920897a2815769c9a9cbabd1e57d85b20084e57ce5ec55c74d8081c1484"
+      },
+      "expected_sha256": "ca5a25919e775d84ee27ed0722df33081c84b5e75888be54250ad988052e4d04",
+      "threads": 8,
+      "reference_source": ".build/round376/native-proof/asan/matrix.json input/expected bytes ONLY; no rejected source proof",
+      "sha256": "ca5a25919e775d84ee27ed0722df33081c84b5e75888be54250ad988052e4d04"
+    },
+    {
+      "case": "full-seed3557",
+      "data_folder": ".data/a/full-seed3557",
+      "inputs_sha256": {
+        "requests.log": "590b63b356cd238b1f468c59febf711786b7b9587e31216f42843c6a01537b3f"
+      },
+      "expected_sha256": "5e367fbbf426093cdadb660c2ef9d5d70e125927503d2709e4ec991105c8542f",
+      "threads": 8,
+      "reference_source": ".build/round376/native-proof/asan/matrix.json input/expected bytes ONLY; no rejected source proof",
+      "sha256": "5e367fbbf426093cdadb660c2ef9d5d70e125927503d2709e4ec991105c8542f"
+    },
+    {
+      "case": "sample-seed3563",
+      "data_folder": ".data/a/sample-seed3563",
+      "inputs_sha256": {
+        "requests.log": "3421be87953f53e172adabf3041ab3cbd91708641ebaae97e02d5485c168ce1f"
+      },
+      "expected_sha256": "0467de54fddbe84df3bd9769fed304e529d90c8e6853537d5bbc65e3e388f9cf",
+      "threads": 8,
+      "reference_source": ".build/round376/native-proof/tsan/matrix.json input/expected bytes ONLY; no rejected source proof",
+      "sha256": "0467de54fddbe84df3bd9769fed304e529d90c8e6853537d5bbc65e3e388f9cf"
+    },
+    {
+      "case": "public-full-seed1",
+      "inputs_sha256": {
+        "requests.log": "7ec80ba45bceef51ac7f79d3a14521fc6187b2dcb87b5e5542d08063fe5d962a"
+      },
+      "expected_sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3",
+      "data_folder": ".data/a/public-full-seed1",
+      "threads": 8,
+      "reference_source": "Published official full-public hashes; expected hashes only from268, no source-specific proof inherited",
+      "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+    },
+    {
+      "case": "full-seed1951",
+      "inputs_sha256": {
+        "requests.log": "ac261cd7e1241b078bf71458317d7dc3856c9b34d92fba72eb15c6770bc4bd3b"
+      },
+      "expected_sha256": "507b929374addfcfaf5eae69a5dede0427a1fa5fd329bf603e24c5274d8725a2",
+      "data_folder": ".data/a/full-seed1951",
+      "threads": 8,
+      "reference_source": "docs/round178-sanitize-full.json independent oracle; input hash docs/round235-a-hour-run-profile.json; expected hashes only from268, no source-specific proof inherited",
+      "sha256": "507b929374addfcfaf5eae69a5dede0427a1fa5fd329bf603e24c5274d8725a2"
+    },
+    {
+      "case": "full-seed3911",
+      "data_folder": ".data/a/full-seed3911",
+      "inputs_sha256": {
+        "requests.log": "fd0e6b2e983af264da8e0a38fac8911c0e0a7588204bdb870e10d2cc7aa8d1ab"
+      },
+      "expected_sha256": "26af4d943431aab4b3ddfaa3203a1f3ac8a369f16692dc2aa55333d4dfbfc752",
+      "threads": 8,
+      "reference_source": ".build/round376/native-proof/asan/matrix.json input/expected bytes ONLY; no rejected source proof",
+      "sha256": "26af4d943431aab4b3ddfaa3203a1f3ac8a369f16692dc2aa55333d4dfbfc752"
+    },
+    {
+      "case": "round376-shuffled-all-ids",
+      "data_folder": ".build/round376/dynamic-fixtures/shuffled-all-ids",
+      "inputs_sha256": {
+        "requests.log": "90274dd349e94d8d86ceef95a08ac6210fe3bd444a47d05db0b38d86924a1830"
+      },
+      "expected_sha256": "f97fc9fa58324c82c788509cda3276b09f72c57905d8c1e077438e8d6e9d28b3",
+      "threads": 8,
+      "reference_source": ".build/round376/native-proof/tsan/matrix.json input/expected bytes ONLY; no rejected source proof",
+      "sha256": "f97fc9fa58324c82c788509cda3276b09f72c57905d8c1e077438e8d6e9d28b3"
+    },
+    {
+      "case": "sample-seed3923",
+      "data_folder": ".data/a/sample-seed3923",
+      "inputs_sha256": {
+        "requests.log": "013874a5b449444ea2e0aba9b7517cc34a24287140bb31550672f65df1aa160d"
+      },
+      "expected_sha256": "8b7496d1bd5cc12ce78e6683d5420260702e6031e606346f0882b0caf44139bb",
+      "threads": 8,
+      "reference_source": "docs/round376-a-image-proof.json input/expected bytes ONLY; no rejected source proof",
+      "sha256": "8b7496d1bd5cc12ce78e6683d5420260702e6031e606346f0882b0caf44139bb"
+    },
+    {
+      "case": "sample-seed3929",
+      "data_folder": ".data/a/sample-seed3929",
+      "inputs_sha256": {
+        "requests.log": "39b29e1cd830d724bef3cc5fc67840d6516026d4a364e3e73175a2b71053a0de"
+      },
+      "expected_sha256": "22651c4fe85b1065323288307e3270d3d9f16c1d3c012e8c3527584509cc7099",
+      "threads": 8,
+      "reference_source": "docs/round376-a-image-proof.json input/expected bytes ONLY; no rejected source proof",
+      "sha256": "22651c4fe85b1065323288307e3270d3d9f16c1d3c012e8c3527584509cc7099"
+    }
+  ],
+  "expected_failures": [
+    {
+      "case": "late-invalid",
+      "data_folder": ".build/round376/dynamic-fixtures/late-invalid-latency",
+      "inputs_sha256": {
+        "requests.log": "84e2231576f146755d8426bd05c67f2626fb2c9b54412f3597a58d6b7a2189b8"
+      },
+      "threads": 8,
+      "reference_source": ".build/round376/native-proof/tsan/matrix.json input/expected bytes ONLY; no rejected source proof",
+      "stderr": "track-a: invalid latency\n"
+    },
+    {
+      "case": "output-open",
+      "data_folder": ".build/round376/dynamic-fixtures/empty",
+      "inputs_sha256": {
+        "requests.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "threads": 8,
+      "reference_source": ".build/round376/native-proof/tsan/matrix.json input/expected bytes ONLY; no rejected source proof",
+      "stderr": "track-a: cannot open summary.txt\n"
+    }
+  ],
+  "compilation": false,
+  "model_reexecution": false,
+  "passed": true,
+  "completed_at_utc": "2026-11-02T11:53:35.168242+00:00"
+}

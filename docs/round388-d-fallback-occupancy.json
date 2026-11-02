@@ -1,0 +1,86 @@
+{
+  "observed_at_utc": "2026-11-02T11:19:03.568374+00:00",
+  "source_commit": "108506457565e394919de18e995eb1bb7179ecd3",
+  "official_score": false,
+  "selected_in_root": false,
+  "diagnostic_only": true,
+  "scope": "UNSCORED native currentD334 occupancy-only observer: record per-worker maximum current-query full64 fallback used and final retained capacity, packed finalbits, query assignment count, printed once at workerexit. No production parameter/capacity/hash/algorithm changed; own map/header bytes original. Observed values characterize only these actual instrumented native runs, not bounds for arbitrary inputs, target scheduler/chargedM or speed. No cached answers or seed/domain/runtime cutoff; outputs still fully computed. No model/generator/oracle/training/image/board work.",
+  "note": "Unscored native occupancy observer leaves original4096 allocation and all algorithms intact. All three fulls retained4096 per direction, but largest observed current-query fallback used607/478/435 at12workers. These are NOT maximum-valid-input bounds, target scheduler/chargedM or speed data. A smaller ordinary power-of-two initial capacity with unchanged doubling may reduce eager/retained workspace; estimate is post-hoc from these observed maxima, not a real candidate allocation/peak observation. Initialcapacity256 trial is not a capacity/domain/answer limit; every larger map still grows exactly.",
+  "observations": [
+    {
+      "case": "public-full-seed1",
+      "threads": 1,
+      "sum_final_fallback_label_bytes": 131072,
+      "max_used_any_direction": 607,
+      "hypothetical_256_start_retained_bytes_from_same_observed_maxima": 49152
+    },
+    {
+      "case": "public-full-seed1",
+      "threads": 6,
+      "sum_final_fallback_label_bytes": 786432,
+      "max_used_any_direction": 607,
+      "hypothetical_256_start_retained_bytes_from_same_observed_maxima": 155648
+    },
+    {
+      "case": "public-full-seed1",
+      "threads": 12,
+      "sum_final_fallback_label_bytes": 1572864,
+      "max_used_any_direction": 607,
+      "hypothetical_256_start_retained_bytes_from_same_observed_maxima": 290816
+    },
+    {
+      "case": "full-seed1823",
+      "threads": 1,
+      "sum_final_fallback_label_bytes": 131072,
+      "max_used_any_direction": 304,
+      "hypothetical_256_start_retained_bytes_from_same_observed_maxima": 24576
+    },
+    {
+      "case": "full-seed1823",
+      "threads": 6,
+      "sum_final_fallback_label_bytes": 786432,
+      "max_used_any_direction": 312,
+      "hypothetical_256_start_retained_bytes_from_same_observed_maxima": 126976
+    },
+    {
+      "case": "full-seed1823",
+      "threads": 12,
+      "sum_final_fallback_label_bytes": 1572864,
+      "max_used_any_direction": 478,
+      "hypothetical_256_start_retained_bytes_from_same_observed_maxima": 262144
+    },
+    {
+      "case": "full-seed2633",
+      "threads": 1,
+      "sum_final_fallback_label_bytes": 131072,
+      "max_used_any_direction": 289,
+      "hypothetical_256_start_retained_bytes_from_same_observed_maxima": 24576
+    },
+    {
+      "case": "full-seed2633",
+      "threads": 6,
+      "sum_final_fallback_label_bytes": 786432,
+      "max_used_any_direction": 339,
+      "hypothetical_256_start_retained_bytes_from_same_observed_maxima": 167936
+    },
+    {
+      "case": "full-seed2633",
+      "threads": 12,
+      "sum_final_fallback_label_bytes": 1572864,
+      "max_used_any_direction": 435,
+      "hypothetical_256_start_retained_bytes_from_same_observed_maxima": 290816
+    }
+  ],
+  "patch": {
+    "path": "docs/prototype-patches/round388-d-fallback-occupancy-main.cpp.patch",
+    "sha256": "a293b30250cab002edbfac031e338761f672ca961197db1fa1e164f236050dba"
+  },
+  "reconstruction_passed": true,
+  "files": {
+    "tools/round388-profile/base-d-PERF.md": "6fe6a376dd2b8fc71344638ad8bd092e57e8a342396e73a55265a0b770e19e21",
+    "tools/round388-profile/report.json": "1ef529b24edc2609f4dfebc25767520c42a3471fcf42889541600599b017e184",
+    "tools/round388-profile/frozen.json": "0b825ba57a760deb6fbc8ad7b97f7627637812b9ba3011b5c72dd0b4bc40c8c4",
+    "tools/round388-profile/profile.py": "4619c4d1c7c5df08882982276a85eed0d8d7ab14adf8a8c4ccabb011c60d56fd",
+    "tools/round388-profile/README.md": "dc1b76444b4ca396d6e909a6bc955ad42380cdccec34c8cef041ee595fabade2"
+  }
+}

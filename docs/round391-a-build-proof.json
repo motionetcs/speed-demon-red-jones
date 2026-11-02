@@ -1,0 +1,149 @@
+{
+  "started_at_utc": "2026-11-02T11:53:35.224342+00:00",
+  "official_score": false,
+  "selected_in_root": false,
+  "mode": "build",
+  "track": "a",
+  "source_sha256": {
+    "track-a/training_generator.py": "d82b43b8f617016808f85cbe9be86af1fee8466296a0848ab8e6908ee3c4b0b4",
+    "track-a/Dockerfile": "4c9a93221521659b575453ff238f945f9cd01957154eea8f7c518fd17d14026a",
+    "track-a/io.hpp": "a8838c50064520b806fcd2032cda0e9f246e9d3b6869fb951e3555cd5e8dfead",
+    "track-a/ordered_output.hpp": "b6f0911f5d6396ca35ad657a1de6364aa3e52a5dd6a9275d95f768e54f4fd69d",
+    "track-a/README.md": "eeba2de4e1437143c3524e1cb4c36246de46ebef8e81fe9a49388ce679b1d52f",
+    "track-a/endpoint_table.hpp": "913048b747b8f938cf1b438f29648a62d11434b2d71c3fb9a9b5f5aae31df745",
+    "track-a/PERF.md": "fc73dd5f63bfb125cf46d3f2ddf7dca9cf32e5d9702ef48138eb1fcce684d909",
+    "track-a/mapped_allocator.hpp": "060bb6a0622338b9151e767d827cbf30c8e4d940cc7e170ad51757c4a6b0808b",
+    "track-a/.speed-demon.toml": "c9ae973186c14661797640f427009129e2a80d1aecefd5d4fa413ee7f3da44d8",
+    "track-a/main.cpp": "02661f93bc65fc35d359c80e19d82578968ab68725e8b325e48c630c3e27310c",
+    "track-a/decimal.hpp": "e6a53e983c0475fe3e49ffe2630a8603f96298b7866e0f4ef3b2ed0f165cb94e",
+    "track-a/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420"
+  },
+  "unchanged_A_cpp_sha256": {
+    "track-a/io.hpp": "a8838c50064520b806fcd2032cda0e9f246e9d3b6869fb951e3555cd5e8dfead",
+    "track-a/ordered_output.hpp": "b6f0911f5d6396ca35ad657a1de6364aa3e52a5dd6a9275d95f768e54f4fd69d",
+    "track-a/endpoint_table.hpp": "913048b747b8f938cf1b438f29648a62d11434b2d71c3fb9a9b5f5aae31df745",
+    "track-a/mapped_allocator.hpp": "060bb6a0622338b9151e767d827cbf30c8e4d940cc7e170ad51757c4a6b0808b",
+    "track-a/main.cpp": "02661f93bc65fc35d359c80e19d82578968ab68725e8b325e48c630c3e27310c",
+    "track-a/decimal.hpp": "e6a53e983c0475fe3e49ffe2630a8603f96298b7866e0f4ef3b2ed0f165cb94e",
+    "track-a/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420"
+  },
+  "scope": "A391 ONLY final-image ENV SPEED_DEMON_THREADS=8, native fallback12 and exact original generic GCC/full1000003+sample130363/default12 PGO recipe/C++/headers unchanged. Requested1..12 remain valid. Same native binary8-vs12 threefull13pair screen1.021535/1.030547/1.008418 (3/4/4wins) is slower, but allthree nativeRSS medians lower1.75\u20132.61MB. This is a combined memory/time hypothesis, NOT lower chargedM or Intel SMT/P-E cause. Need actual totalK including +ENV source line; only real board decides. Fresh cached exact-source nativeASAN/TSAN8 and pinned historical-tune GNU strict8 data executions, new actual Dockerfile offline final-config/image/output/default8 replay and exact all30/Make/source/one real trial required. Cache build prefix preferred; report actual cache/build/ELF receipts honestly, no claim new compilation when cached. No new data/reference/model/algorithm/host/identity/counter/seed/answer shortcut.",
+  "commands": [
+    {
+      "label": "build",
+      "argv": [
+        "docker",
+        "build",
+        "--pull=false",
+        "--platform",
+        "linux/amd64",
+        "--network=none",
+        "--progress=plain",
+        "-t",
+        "speed-demon-fresh/track-a:round391-runtime8",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round391/source/track-a"
+      ],
+      "stdin": null,
+      "returncode": 0
+    },
+    {
+      "label": "inspect",
+      "argv": [
+        "docker",
+        "image",
+        "inspect",
+        "speed-demon-fresh/track-a:round391-runtime8"
+      ],
+      "stdin": null,
+      "returncode": 0
+    },
+    {
+      "label": "original-config",
+      "argv": [
+        "docker",
+        "image",
+        "inspect",
+        "sha256:b57c3ff9ccff3ea71b97c41e9d1c694afa00f6387485dccc3098f2bfcfd5cf91"
+      ],
+      "stdin": null,
+      "returncode": 0
+    },
+    {
+      "label": "elf",
+      "argv": [
+        "docker",
+        "run",
+        "--rm",
+        "--pull=never",
+        "--platform",
+        "linux/amd64",
+        "--network=none",
+        "--read-only",
+        "--memory=8g",
+        "--memory-swap=8g",
+        "--pids-limit=512",
+        "--cap-drop=ALL",
+        "--security-opt=no-new-privileges",
+        "--user",
+        "65534:65534",
+        "--tmpfs",
+        "/tmp:rw,exec,size=1g",
+        "--entrypoint",
+        "sha256sum",
+        "sha256:639252d212aff2b36490edebce64fbb51a0457ac50a0ab926ed99965987e6d15",
+        "/app/solution"
+      ],
+      "stdin": null,
+      "returncode": 0
+    },
+    {
+      "label": "original-elf",
+      "argv": [
+        "docker",
+        "run",
+        "--rm",
+        "--pull=never",
+        "--platform",
+        "linux/amd64",
+        "--network=none",
+        "--read-only",
+        "--memory=8g",
+        "--memory-swap=8g",
+        "--pids-limit=512",
+        "--cap-drop=ALL",
+        "--security-opt=no-new-privileges",
+        "--user",
+        "65534:65534",
+        "--tmpfs",
+        "/tmp:rw,exec,size=1g",
+        "--entrypoint",
+        "sha256sum",
+        "sha256:b57c3ff9ccff3ea71b97c41e9d1c694afa00f6387485dccc3098f2bfcfd5cf91",
+        "/app/solution"
+      ],
+      "stdin": null,
+      "returncode": 0
+    }
+  ],
+  "image_id": "sha256:639252d212aff2b36490edebce64fbb51a0457ac50a0ab926ed99965987e6d15",
+  "image_tag": "speed-demon-fresh/track-a:round391-runtime8",
+  "image_bytes": 121521940,
+  "elf_sha256": "8dd0a2e5698b99e3d470e3b960035403e734dc3dbf3fafab31d0e075b9351fe9",
+  "original_image_id": "sha256:b57c3ff9ccff3ea71b97c41e9d1c694afa00f6387485dccc3098f2bfcfd5cf91",
+  "original_elf_sha256": "8dd0a2e5698b99e3d470e3b960035403e734dc3dbf3fafab31d0e075b9351fe9",
+  "elf_equals_original": true,
+  "image_config": {
+    "User": "65534:65534",
+    "Env": [
+      "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "SPEED_DEMON_THREADS=8"
+    ],
+    "Entrypoint": [
+      "/app/solution"
+    ]
+  },
+  "cache_observation": "See exact BuildKit logs; CACHED lines identify actual reused instructions, never inferred compilation. Exact executable equals cached original.",
+  "training": "Build-stage Dockerfile/official generator/C++/flags exact original GENERIC recipe: full1000003 then sample130363, nativefallback12/default12 build training; final ENV8 only. Source and exact build receipts preserved; public1 never trained. Only executable enters allowlisted finalbase.",
+  "passed": true,
+  "completed_at_utc": "2026-11-02T11:53:38.038923+00:00"
+}

@@ -1,0 +1,64 @@
+{
+  "observed_at_utc": "2026-11-02T11:34:51.236327+00:00",
+  "decision": "REJECT_NATIVE_ONLY",
+  "scope": "C390 ONLY moves producer vector objects/both per-connection vector capacity reservations to main-thread startup before original parallel(). Per-reader alignas64 stdarray12<vector<NameEvent>> record (owners<=11 within supported threads<=12), reserve512 ONLY active owner links, including initially EMPTY queue.rows swap partner. Reader uses its own original-vector staging; all sends still swap original vectors with unchanged SPSC ready/acquire/release/clear/EOF/cancel/full32byte events/canonicalraw keys. No array payload copy/sharedtable/custom allocator/host arena knob/threadrole/batchcount/hash/parser/membership/PGO/ISA/default change. At owners0 serial path unchanged apart from empty320-byte staging record. Standardreserve does NOT add elements; empty EOF semantics same. Hypothesis eliminate ordinary batch-buffer allocations from producer hot loops and change allocator placement/fragmentation, NOT proven arena count/residentM/Intel speed/K. Extra startup serialization/alignment/source may lose. Need fresh extracted staging/initialized-empty/capacity-stable/vectorownership/EOF/partialbatch/cancel/prelaunch failure/lifetime/every1..12/currentmain independent/adversarial/untrained/strict/race/GNU/image/default/Make/real proof if promising. Original startup thread-creation behavior is unchanged; no claim to fix old357callback issue.",
+  "source_parent": "108506457565e394919de18e995eb1bb7179ecd3",
+  "selected_in_root": false,
+  "official_score": false,
+  "summary": {
+    "public-full-seed1": {
+      "paired_median_ratio": 0.9877958295344597,
+      "paired_wins": 9,
+      "native_rss_delta_bytes": -344064
+    },
+    "full-seed2203": {
+      "paired_median_ratio": 1.022260580611241,
+      "paired_wins": 1,
+      "native_rss_delta_bytes": 393216
+    },
+    "full-seed2309": {
+      "paired_median_ratio": 0.9731042549952039,
+      "paired_wins": 12,
+      "native_rss_delta_bytes": 196608
+    },
+    "full-seed2371": {
+      "paired_median_ratio": 1.0038624689435345,
+      "paired_wins": 6,
+      "native_rss_delta_bytes": 81920
+    }
+  },
+  "runs": 118,
+  "limitations": "Startup/main-owned both-vector reservation has mixed native .987796/1.022261/.973104/1.003862 (9/1/12/6wins), RSSmixed. No GNU allocator/arena/chargedM/target cause was measured. Reject before new source-extracted staging/empty-size/capacity/ownership/end/cancel/prelaunchfault/lifetime/every-budget strict/race/untrained/GNU/image/default/actual proof. Unchanged NameQueue/header protocol is provenance, not a certificate for changed staging lifetime. Standard reserve/thread-construction semantics motivated a working argument only.",
+  "patches": [
+    {
+      "path": "docs/prototype-patches/round390-c-README.md.patch",
+      "sha256": "47573bd690df74e734f8d5830615c81569010587644ef8e5d1df4156e7370d6d"
+    },
+    {
+      "path": "docs/prototype-patches/round390-c-main.cpp.patch",
+      "sha256": "68202d4822d035794d9723c44d894e735159b97849c8b6c955f639ae7792f541"
+    }
+  ],
+  "frozen_source_sha256": {
+    "track-c/training_generator.py": "9e61672eb814fa4e1bc2e3cf30c8e7ca9629804191ce5ae60a66c8b61ba704f2",
+    "track-c/Dockerfile": "637e81c6fca4507f4c4e7368efde7b6904d07879ae9ec992c5e25175d50e1fae",
+    "track-c/names.hpp": "f62a25fdb9f229575c42fc013220f7f38dd5a68ea5ac83aa1702d0589c15501b",
+    "track-c/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+    "track-c/quote_scan.hpp": "0b170a766254dee1bc14f9e9180cc1900da01d41f5d09053d5579e01a7fb9cfa",
+    "track-c/README.md": "c15c054b16c5a6491ac576470057505f86d7e226d8abe03ee34a60ed44ec1246",
+    "track-c/PERF.md": "75c5fefbe321d401325e3ba5afd76461146fa8864a191bf9e04baa1441a108f3",
+    "track-c/.speed-demon.toml": "3371600b8033a377bc373378e703191dfec36c1ae991b617650dfa480edc00b4",
+    "track-c/main.cpp": "f34689f31ac255e538a4c3e6f0407d9684d284167725cf05ccb3f99cb26f6cec",
+    "track-c/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420"
+  },
+  "reconstruction_passed": true,
+  "files": {
+    "tools/round390-screen/screen.py": "08e4968c893141eec1cd3ac942174198d9fdb564df6cbdeef24f2a44ca301886",
+    "tools/round390-screen/report.json": "9eb4b176df45f79f3ed36ab33335f1c650523887491168eb990a0bf4838dbcf5",
+    "tools/round390-screen/README.md": "3a07e3f2d4a18796c1093f3de6ec09f2ae6f3d57a4a2fde2433e8ba3db6cb9e4",
+    "tools/round390-screen/base-c-PERF.md": "75c5fefbe321d401325e3ba5afd76461146fa8864a191bf9e04baa1441a108f3",
+    "tools/round390-screen/preflight.json": "efc165b79b491dadbde1b000aad4518de9631478d2a3cf66e40de6adda2bf32c",
+    "tools/round390-screen/prepare.py": "b2b9733111289b8f1226539f77b252353553323c9f049f6cd7b94d1b19c151bc",
+    "tools/round390-screen/compile.json": "dccbc52de4a51628e6854d6f92560ebaaa8d645af0ef3d3d5cfdc14973d0f2b0"
+  }
+}

@@ -1,0 +1,9 @@
+--- a/track-d/README.md
++++ b/track-d/README.md
+@@ -33,3 +33,6 @@
+ Search extracts at most32 full-distance entries from one conservative64-distance band per batch; this changes scheduling and scratch only.
+ 
+ Prototype334 reuses the joined final scatter cursors as exact exclusive CSR ends. Original prefix sums are built in ordinary anonymous mapped vector storage, then actually unmapped after all scatter workers join; the narrower cursor arrays remain read-only for queries, including full32-bit wide-block fallback. No live cursor, adjacency, input or query label is discarded. The allocator is the unchanged event-written A allocator, copied and counted normally. Both graph passes, all weights/IDs, queries, band64/batch32, defaults and PGO stay unchanged. Real peak includes every allocation for its full lifetime; no memory accounting or timer/harness operation is changed.
++
++
++The exact full-width fallback map starts at256 labels and doubles normally as needed at the original load threshold. This changes its initial allocation only; complete32-bit node IDs,64-bit distances, epoch reset/wrap, collision resolution and arbitrary growth retain the original algorithm. The packed map and graph/search behavior are unchanged.

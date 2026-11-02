@@ -1,0 +1,25 @@
+--- a/track-c/main.cpp
++++ b/track-c/main.cpp
+@@ -171,6 +171,12 @@
+         std::vector<Local> locals(readers);for(auto& local:locals)local.groups=groups;
+         std::vector<std::vector<uint64_t>> distinct(owners,std::vector<uint64_t>(groups.size()));
+         auto queues=std::make_unique<NameQueue[]>(size_t(readers)*owners);
++        struct alignas(64) Producer { std::array<std::vector<NameEvent>,12> batches; };
++        std::vector<Producer> producers(readers);
++        for(unsigned reader=0;reader<readers;++reader)for(unsigned owner=0;owner<owners;++owner){
++            producers[reader].batches[owner].reserve(NAME_BATCH);
++            queues[size_t(reader)*owners+owner].rows.reserve(NAME_BATCH);
++        }
+         std::atomic<bool> canceled{false};
+         auto consume=[&]<typename Code>(const std::vector<Code>& region_lookup){
+             constexpr Code no_region=std::numeric_limits<Code>::max();
+@@ -179,8 +185,7 @@
+                     if(worker<readers){
+                         auto& local=locals[worker];std::unique_ptr<Names> serial;
+                         if(!owners)serial=std::make_unique<Names>(groups.size());
+-                        std::vector<std::vector<NameEvent>> batches(owners);
+-                        for(auto& batch:batches)batch.reserve(NAME_BATCH);
++                        auto& batches=producers[worker].batches;
+                         Csv csv{boundaries[worker],boundaries[worker+1]};std::string name_scratch,unused;
+                         while(csv.p<csv.end){
+                             if(canceled.load(std::memory_order_relaxed))throw std::runtime_error("name pipeline canceled");

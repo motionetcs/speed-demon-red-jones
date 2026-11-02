@@ -1,0 +1,61 @@
+{
+  "observed_at_utc": "2026-11-02T11:15:56.590746+00:00",
+  "decision": "REJECT_NATIVE_ONLY",
+  "scope": "A387 ONLY removes sampled middle4byte load/rotation/xor from private4096 cache hash for v.size>=4. First4/last4/length/finalmix retained, existing shortkey FNV and >65535full-key sharedfallback unchanged. Every cache hit still fullhashfingerprint+length+COMPLETE byte equality; shared originalstdhash/canonical release publication/full4096 IDs unchanged. Colliding middle variations cause misses, never equality. Main/parser/records/latencyfull32/quantiles/output/allocator/threads/genericISA/PGO/default12 exact original. Hypothesis fewer per-row cache-hash loads/ops, possibly worse conflict misses; no resident/Intel/K claim. Need fresh exact-header all-byte/length/guard/fullsamplecollision/fullkey/globalID/lifetime/overflow/strict/race/untrained/GNU/image/default/Make/real proof if promising.",
+  "source_parent": "108506457565e394919de18e995eb1bb7179ecd3",
+  "selected_in_root": false,
+  "official_score": false,
+  "summary": {
+    "public-full-seed1": {
+      "paired_median_ratio": 0.9949724894836864,
+      "paired_wins": 7,
+      "native_rss_delta_bytes": -131072
+    },
+    "full-seed1951": {
+      "paired_median_ratio": 1.0022860592406795,
+      "paired_wins": 6,
+      "native_rss_delta_bytes": -114688
+    },
+    "full-seed2221": {
+      "paired_median_ratio": 1.0094522122707439,
+      "paired_wins": 5,
+      "native_rss_delta_bytes": 81920
+    }
+  },
+  "runs": 90,
+  "limitations": "Removing middle4byte cache-hash sample gives flat/mixed native .994972/1.002286/1.009452 with RSSnearflat. Reject before new all-byte/length/guard/fullsamplecollision/fullkey/ID/lifetime/overflow/strict/race/untrained/GNU/image/default/Make/actual proof. Fewer sampled loads are not a demonstrated speed/sourceS/totalK gain. Full-key fallback body unchanged is provenance, not new model proof.",
+  "patches": [
+    {
+      "path": "docs/prototype-patches/round387-a-README.md.patch",
+      "sha256": "b43ed42c5f8e97aa8e6f2e714d40938e8190e5411a8429b95d7dd3c0d63d2d88"
+    },
+    {
+      "path": "docs/prototype-patches/round387-a-endpoint_table.hpp.patch",
+      "sha256": "119a4f6f304c052f4442b52d1ef822e469d88bfb30615e6a7b68ef44f3bbf3ad"
+    }
+  ],
+  "frozen_source_sha256": {
+    "track-a/training_generator.py": "d82b43b8f617016808f85cbe9be86af1fee8466296a0848ab8e6908ee3c4b0b4",
+    "track-a/Dockerfile": "c415bd88f27a18da83c33990744690358b9c158a8b1ea3dc60c289d123f4ff90",
+    "track-a/io.hpp": "a8838c50064520b806fcd2032cda0e9f246e9d3b6869fb951e3555cd5e8dfead",
+    "track-a/ordered_output.hpp": "b6f0911f5d6396ca35ad657a1de6364aa3e52a5dd6a9275d95f768e54f4fd69d",
+    "track-a/README.md": "adff26ce41ca36d7027d82a35d87ee3cc597881258766290bdd5579e5a1d6d67",
+    "track-a/endpoint_table.hpp": "f4f76b72d5ec5d89d9c7151fc11f27013fd9c70cbbc7cdcdcde77deb5d749b82",
+    "track-a/PERF.md": "fd4fe00e150d89e5bd6b8439aa485de5ac21eac46615a995c961dded3eaa09e7",
+    "track-a/mapped_allocator.hpp": "060bb6a0622338b9151e767d827cbf30c8e4d940cc7e170ad51757c4a6b0808b",
+    "track-a/.speed-demon.toml": "c9ae973186c14661797640f427009129e2a80d1aecefd5d4fa413ee7f3da44d8",
+    "track-a/main.cpp": "02661f93bc65fc35d359c80e19d82578968ab68725e8b325e48c630c3e27310c",
+    "track-a/decimal.hpp": "e6a53e983c0475fe3e49ffe2630a8603f96298b7866e0f4ef3b2ed0f165cb94e",
+    "track-a/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420"
+  },
+  "reconstruction_passed": true,
+  "files": {
+    "tools/round387-screen/screen.py": "7bc359adb6a042e1576bb83214a418814b12b1c6101c271b4488eef11d2d4b6f",
+    "tools/round387-screen/report.json": "d5b27da284d53c72d6aa0295b0f122a0cad42c193ea83bc2f027a5d415d45a00",
+    "tools/round387-screen/README.md": "c13c45b4d2537f912ddc2ab7f03e913af020021b52221d659577eb20b22cf583",
+    "tools/round387-screen/preflight.json": "c6ae9b941b50fba7a0048f3c4c7a3826cd4d5b457c0b7cf054cc41cd23bcb420",
+    "tools/round387-screen/base-a-PERF.md": "fd4fe00e150d89e5bd6b8439aa485de5ac21eac46615a995c961dded3eaa09e7",
+    "tools/round387-screen/prepare.py": "a74aed85810db6c73baf7008fea5f4fd1021114b8b355ba67584fcd0f9700a33",
+    "tools/round387-screen/compile.json": "ddef45699653b44c7fa1bf3a887a60f1588a8333a8d393aa829a3a39d0f83fdb"
+  }
+}

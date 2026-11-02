@@ -1,0 +1,11 @@
+--- a/track-d/main.cpp
++++ b/track-d/main.cpp
+@@ -174,7 +174,7 @@
+                             uint64_t candidate = d + weight;
+                             if (own.improve(destination, candidate)) {
+                                 heap.push({candidate, destination});
+-                                uint64_t opposite = other.get(destination);
++                                uint64_t opposite = other.maybe_get(destination);
+                                 if (opposite != infinity) best = std::min(best, candidate + opposite);
+                             }
+                         }
