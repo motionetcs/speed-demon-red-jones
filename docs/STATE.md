@@ -1,3 +1,13 @@
+# Original377 restored; cooled real confirmation pending
+
+A376/12600981e5650a9b08a26e9c52bbfa815359c32f, runrun-64efac0fab1f, all real gatesPASS: T0.044304/M21278720/S505/K31.074212/74.620006 points. REJECT real totalK below best32.070167/75.305061 despite native time hypothesis; source increased497→505. Full main/README/image rollback to A178/C175/D334 original371, all30/Make/README/fullsets/submitted proof docs/round377-candidate-source-match.json. Fresh original image8 public/untrained3911 incl true default and cached actual Make/native12 PASS; no compiler/model/training/reference repeated. A376 native/GNU/image/default/source evidence remains historical; no gain claim. One cooled ordinary377 confirmation, earliest09:39:22UTC after376dispatch09:34:22. PRIVATE/MIT and approved publication window unchanged.
+
+HEADstillrejected376; selected working source original371 restored and snapshotted. No new candidate until real confirmation.
+
+# C376 real board trial pending
+
+A376 PRIVATE pushed at2026-11-02T09:33:54.986960+00:00, HEAD/origin 12600981e5650a9b08a26e9c52bbfa815359c32f; ONE normal all-track real trial pending. Baseline A K32.070167/points75.305061; keep only supported totalK gain, otherwise restore original371 main/README/image and one cooled real confirmation. Source30/Make/fullsets/README/submitted snapshot/local images bind docs/round376-committed-source-match.json. No new C/D candidate or extra training. Private until approved15:00–16:00UTC, risky starts stop14:00/runtime+Gitfreeze15:00.
+
 # A376 locally validated; ONE private real trial pending
 
 A376 locally validated for ONE real dynamic-parser trial. Same requestedworkers claim4MiB newline jobs, exact original parser/private state/downstream output; no host scheduling/seed/domain/answer shortcuts. Native3full paired.967164/.972460/.954856; fresh independent3911.932848/11wins,RSS+262144B are hypotheses. Source-extracted partition/claim model10750042 checks EACH nativeASAN/UBSAN,TSAN and genericGNU; new55.6MB325000-row shuffled4096endpoint fixture independent full-sort/oneofficialref; actualmainASAN114+6/TSAN105+6 plus fresh3923/3929 pass. PinnedGNU78+6, ONE original allowedPGO image123+6,26 true noargument/nooverride defaults+2, cached actualMake/native16 PASS. Local imagesha256:a7c60768bcd671e02ee3508a5dd1f4d3be32e41e0d87b5a985d4b33fd494f554/ELFe179bafb4c5375ee6f1d488630721ee1a32531ffdef9db4c5d76c86a07e4cda2 are not organizer identities. Actual S/K unmeasured until board. Keep only A K>32.070167/75.305061; otherwise full main/README/image rollback. Exact all30/source/Make/fullsets/archive/snapshot proof docs/round376-candidate-source-match.json. C/D unchanged; PRIVATE/MIT, stop risky14:00/runtime+Git15:00/publication ONLY approved15:00–16:00UTC.
