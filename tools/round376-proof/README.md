@@ -1,0 +1,7 @@
+# A376 dynamic parser trial
+
+Same requested workers claim immutable newline-aligned4MiB ranges from one atomic counter, keeping their original private cache/hour/wide-escape state. Original body and downstream aggregation/output are exact. The initial reserve remains the original average per-worker byte estimate, not rejected374reserve512.
+
+One initial optimized compile and saved controls were reused. Fresh full3911 paired.932848/11of13 wins and earlier.967164/.972460/.954856 are native hypotheses, not Intel/cgroup/K. New source-extracted range/claim model passes10750042 checks in each ASAN/UBSAN andTSAN, and again on pinned GNU; new55.6MB shuffled325000-row4096-endpoint fixture activates more than12 real jobs and matches an independent full-sort oracle plus one official reference. Native actualmain114+6/105+6 and fresh3923/3929 samples pass. Pinned genericGNU78+6, one unchanged allowed full1000003/sample130363 PGO image123+6,26 actual defaults+2 and cached rootMake/native16 pass. Source-byte-bound unchanged headers are provenance; no C357 fault/cancellation proof is transferred.
+
+One initial Python SyntaxError occurred before any execution and is preserved; no completed generation/reference/compiler/model/PGO repeated. Original prototype preparation was a logged inline Python invocation, not a saved pre-execution file. Parent371+two patches+frozen PERF reconstruct all12 context files; no historical preparation script is fabricated. Real A totalK must exceed32.070167/75.305061 to retain, otherwise full main/README/original image rollback.

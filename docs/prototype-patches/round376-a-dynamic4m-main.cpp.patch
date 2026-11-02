@@ -1,0 +1,46 @@
+--- a/track-a/main.cpp
++++ b/track-a/main.cpp
+@@ -19,10 +19,12 @@
+         if (file.size > UINT32_MAX) throw std::runtime_error("input exceeds uint32 capacity");
+         const char* end = file.data + file.size;
+         unsigned threads = worker_count();
+-        std::vector<const char*> boundaries(threads + 1);
++        constexpr size_t parse_block_bytes = size_t(1) << 22;
++        size_t parts = (file.size + parse_block_bytes - 1) / parse_block_bytes;
++        std::vector<const char*> boundaries(parts + 1);
+         boundaries.front() = file.data; boundaries.back() = end;
+-        for (unsigned i = 1; i < threads; ++i) {
+-            const char* p = file.data + file.size * i / threads;
++        for (size_t i = 1; i < parts; ++i) {
++            const char* p = file.data + i * parse_block_bytes;
+             if (p > file.data && p[-1] != '\n') {
+                 const char* newline = static_cast<const char*>(std::memchr(p, '\n', end - p)); p = newline ? newline + 1 : end;
+             }
+@@ -36,12 +38,16 @@
+             Chunk() { first.fill(UINT32_MAX); }
+         };
+         std::vector<Chunk> chunks(threads);
++        std::atomic<size_t> next_part{0};
+         parallel(threads, [&](unsigned worker) {
+-            const char* p = boundaries[worker]; const char* limit = boundaries[worker + 1];
+             auto& chunk = chunks[worker];
+             LocalEndpoints local_names(endpoints);
+-            size_t reserve_hint = (limit - p) / (72 * 64);
+-            while (p < limit) {
++            size_t reserve_hint = (file.size / threads) / (72 * 64);
++            for (;;) {
++                size_t part = next_part.fetch_add(1, std::memory_order_relaxed);
++                if (part >= parts) break;
++                const char* p = boundaries[part]; const char* limit = boundaries[part + 1];
++                while (p < limit) {
+                 if (limit - p < 28) throw std::runtime_error("truncated timestamp");
+                 const char* line = p;
+                 int month = (p[5] - '0') * 10 + p[6] - '0', day = (p[8] - '0') * 10 + p[9] - '0';
+@@ -64,6 +70,7 @@
+                 }
+                 chunk.records[hour].push_back(std::min(uint32_t(latency), latency_escape) << 13 | uint32_t(error) << 12 | key);
+                 if (latency >= latency_escape) chunk.wide[hour].push_back(static_cast<uint32_t>(latency));
++                }
+             }
+         });
+         std::vector<std::string_view> paths(endpoints.canonical.begin(),endpoints.canonical.begin()+endpoints.used.load());

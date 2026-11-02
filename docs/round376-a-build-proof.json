@@ -1,0 +1,106 @@
+{
+  "started_at_utc": "2026-11-02T09:28:31.997436+00:00",
+  "mode": "build",
+  "track": "a",
+  "official_score": false,
+  "selected_in_root": false,
+  "source_sha256": {
+    "track-a/training_generator.py": "d82b43b8f617016808f85cbe9be86af1fee8466296a0848ab8e6908ee3c4b0b4",
+    "track-a/Dockerfile": "c415bd88f27a18da83c33990744690358b9c158a8b1ea3dc60c289d123f4ff90",
+    "track-a/io.hpp": "a8838c50064520b806fcd2032cda0e9f246e9d3b6869fb951e3555cd5e8dfead",
+    "track-a/ordered_output.hpp": "b6f0911f5d6396ca35ad657a1de6364aa3e52a5dd6a9275d95f768e54f4fd69d",
+    "track-a/README.md": "3d440b8d74ab55d793afa6c79a865fe5ee3a5a393b962c4673ee5d7202d2ce4a",
+    "track-a/endpoint_table.hpp": "913048b747b8f938cf1b438f29648a62d11434b2d71c3fb9a9b5f5aae31df745",
+    "track-a/PERF.md": "61ed91dddc95a88199bfe002309eaa3b21e969d1afa1a25c0a9c426a3c8bc41c",
+    "track-a/mapped_allocator.hpp": "060bb6a0622338b9151e767d827cbf30c8e4d940cc7e170ad51757c4a6b0808b",
+    "track-a/.speed-demon.toml": "c9ae973186c14661797640f427009129e2a80d1aecefd5d4fa413ee7f3da44d8",
+    "track-a/main.cpp": "7c815fe835a41a7d82dedd5b55dd14136b34ee957e35b14c14688a3a6c2826ff",
+    "track-a/decimal.hpp": "e6a53e983c0475fe3e49ffe2630a8603f96298b7866e0f4ef3b2ed0f165cb94e",
+    "track-a/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420"
+  },
+  "scope": "A376 one coarser4MiB parameter of the same dynamically claimed newline-aligned parser jobs375. Selected root is original371, never375. Shared counter/exact range coverage/private state/average reserve and every original parsing/output/default/PGO rule identical to375 except constant20->22. Hypothesis fewer worker/hour fragments and allocations versus3751MiB at possible worse load balance. Earlier375 weak/mixed time with~2MB higher native RSS; no proof or gain transferred. Only one coarser follow-up, no parameter sweep or target timing claim.",
+  "commands": [
+    {
+      "label": "build",
+      "argv": [
+        "docker",
+        "build",
+        "--platform",
+        "linux/amd64",
+        "--network=none",
+        "--pull=false",
+        "-t",
+        "speed-demon-fresh/track-a:round376-dynamic4m",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round376/source/track-a"
+      ],
+      "stdin": null,
+      "returncode": 0
+    },
+    {
+      "label": "inspect",
+      "argv": [
+        "docker",
+        "image",
+        "inspect",
+        "speed-demon-fresh/track-a:round376-dynamic4m"
+      ],
+      "stdin": null,
+      "returncode": 0
+    },
+    {
+      "label": "original-config",
+      "argv": [
+        "docker",
+        "image",
+        "inspect",
+        "sha256:b57c3ff9ccff3ea71b97c41e9d1c694afa00f6387485dccc3098f2bfcfd5cf91"
+      ],
+      "stdin": null,
+      "returncode": 0
+    },
+    {
+      "label": "elf",
+      "argv": [
+        "docker",
+        "run",
+        "--rm",
+        "--pull=never",
+        "--platform",
+        "linux/amd64",
+        "--network=none",
+        "--read-only",
+        "--memory=8g",
+        "--memory-swap=8g",
+        "--pids-limit=512",
+        "--cap-drop=ALL",
+        "--security-opt=no-new-privileges",
+        "--user",
+        "65534:65534",
+        "--tmpfs",
+        "/tmp:rw,exec,size=1g",
+        "--entrypoint",
+        "sha256sum",
+        "sha256:a7c60768bcd671e02ee3508a5dd1f4d3be32e41e0d87b5a985d4b33fd494f554",
+        "/app/solution"
+      ],
+      "stdin": null,
+      "returncode": 0
+    }
+  ],
+  "image_id": "sha256:a7c60768bcd671e02ee3508a5dd1f4d3be32e41e0d87b5a985d4b33fd494f554",
+  "image_tag": "speed-demon-fresh/track-a:round376-dynamic4m",
+  "image_bytes": 30959355,
+  "elf_sha256": "e179bafb4c5375ee6f1d488630721ee1a32531ffdef9db4c5d76c86a07e4cda2",
+  "image_config": {
+    "User": "65534:65534",
+    "Env": [
+      "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+    ],
+    "Entrypoint": [
+      "/app/solution"
+    ]
+  },
+  "training": "One unchanged generic/static -O3 A PGO full1000003 then sample130363/default12, byte-identical official generator. No publicseed1 or validation data trained; only executable in final image. Local image/ELF identity, not organizer identity.",
+  "passed": true,
+  "completed_at_utc": "2026-11-02T09:28:49.162691+00:00"
+}

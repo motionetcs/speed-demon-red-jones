@@ -1,0 +1,37 @@
+--- a/track-d/distance_map.hpp
++++ b/track-d/distance_map.hpp
+@@ -90,14 +90,23 @@
+     }
+     void grow(){
+         unsigned old_bits=bits,old_shift=11+bits;uint32_t old_mask=distance_mask();
+-        auto previous=std::move(labels);++bits;labels.assign(previous.size()*2,0);
++        size_t old_size=size_t(8)<<old_bits;
++        std::vector<uint32_t> previous;
++        if(labels.size()==old_size)previous=std::move(labels);
++        else previous.assign(labels.begin(),labels.begin()+old_size);
++        ++bits;
++        if(labels.empty())labels.assign(old_size*2,0);
++        else std::fill_n(labels.begin(),old_size*2,uint32_t(0));
+         for(auto& index:touched){
+             uint32_t value=previous[index];uint32_t node=((value>>old_shift)<<old_bits)|(index>>3);
+             size_t next=slot(node);if(next==labels.size())throw std::logic_error("packed rehash overflow");
+             index=static_cast<uint32_t>(next);labels[next]=((node>>bits)<<(11+bits))|(value&old_mask);
+         }
+     }
+-    void reset(){for(uint32_t index:touched)labels[index]=0;touched.clear();wide.reset();}
++    void reset(){
++        for(uint32_t index:touched)labels[index]=0;
++        touched.clear();wide.reset();bits=PACKED_BITS;
++    }
+     uint64_t get(uint32_t node)const{
+         if(node>=node_limit||touched.empty())return wide.get(node);
+         size_t index=slot(node);uint32_t value=index<labels.size()?labels[index]:0;
+@@ -105,7 +114,7 @@
+     }
+     bool improve(uint32_t node,uint64_t distance){
+         if(node>=node_limit)return wide.improve(node,distance);
+-        if(touched.size()*2>=labels.size()&&bits<20)grow();
++        if(touched.size()*2>=(size_t(8)<<bits)&&bits<20)grow();
+         size_t index=slot(node);
+         if(index==labels.size())return wide.improve(node,distance);
+         uint32_t value=labels[index];uint64_t previous=value?uint64_t((value&distance_mask())-1):wide.get(node);

@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "official_score": false,
+  "scope": "One new325000-row52MB+ shuffled fixture activates>12 production4MiB jobs,4096 distinct ASCII endpoints, first/last hours, every method/status boundary and complete uint32 latency escapes; separate full-sort quantiles match one official-reference invocation. Empty and appended out-of-range-latency fixtures are separately labeled. No cached runtime answers.",
+  "rows": 325000,
+  "valid": {
+    "case": "round376-shuffled-all-ids",
+    "data_folder": ".build/round376/dynamic-fixtures/shuffled-all-ids",
+    "inputs_sha256": {
+      "requests.log": "90274dd349e94d8d86ceef95a08ac6210fe3bd444a47d05db0b38d86924a1830"
+    },
+    "expected_sha256": "f97fc9fa58324c82c788509cda3276b09f72c57905d8c1e077438e8d6e9d28b3"
+  },
+  "empty": {
+    "case": "round376-empty",
+    "data_folder": ".build/round376/dynamic-fixtures/empty",
+    "inputs_sha256": {
+      "requests.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "invalid": {
+    "case": "round376-late-invalid-latency",
+    "data_folder": ".build/round376/dynamic-fixtures/late-invalid-latency",
+    "inputs_sha256": {
+      "requests.log": "84e2231576f146755d8426bd05c67f2626fb2c9b54412f3597a58d6b7a2189b8"
+    },
+    "expected_returncode": 1,
+    "scope": "Out-of-domain normal-error fixture, no official-reference pass claimed."
+  },
+  "generator_driver": ".build/round376/native_proof.py"
+}

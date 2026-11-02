@@ -1,0 +1,11 @@
+--- a/track-a/main.cpp
++++ b/track-a/main.cpp
+@@ -40,7 +40,7 @@
+             const char* p = boundaries[worker]; const char* limit = boundaries[worker + 1];
+             auto& chunk = chunks[worker];
+             LocalEndpoints local_names(endpoints);
+-            size_t reserve_hint = (limit - p) / (72 * 64);
++            size_t reserve_hint = (limit - p) / 512;
+             while (p < limit) {
+                 if (limit - p < 28) throw std::runtime_error("truncated timestamp");
+                 const char* line = p;

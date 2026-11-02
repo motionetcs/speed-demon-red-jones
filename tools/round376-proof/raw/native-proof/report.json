@@ -1,0 +1,218 @@
+{
+  "started_at_utc": "2026-11-02T09:23:49.970354+00:00",
+  "official_score": false,
+  "selected_in_root": false,
+  "source_sha256": {
+    "track-a/training_generator.py": "d82b43b8f617016808f85cbe9be86af1fee8466296a0848ab8e6908ee3c4b0b4",
+    "track-a/Dockerfile": "c415bd88f27a18da83c33990744690358b9c158a8b1ea3dc60c289d123f4ff90",
+    "track-a/io.hpp": "a8838c50064520b806fcd2032cda0e9f246e9d3b6869fb951e3555cd5e8dfead",
+    "track-a/ordered_output.hpp": "b6f0911f5d6396ca35ad657a1de6364aa3e52a5dd6a9275d95f768e54f4fd69d",
+    "track-a/README.md": "3d440b8d74ab55d793afa6c79a865fe5ee3a5a393b962c4673ee5d7202d2ce4a",
+    "track-a/endpoint_table.hpp": "913048b747b8f938cf1b438f29648a62d11434b2d71c3fb9a9b5f5aae31df745",
+    "track-a/PERF.md": "61ed91dddc95a88199bfe002309eaa3b21e969d1afa1a25c0a9c426a3c8bc41c",
+    "track-a/mapped_allocator.hpp": "060bb6a0622338b9151e767d827cbf30c8e4d940cc7e170ad51757c4a6b0808b",
+    "track-a/.speed-demon.toml": "c9ae973186c14661797640f427009129e2a80d1aecefd5d4fa413ee7f3da44d8",
+    "track-a/main.cpp": "7c815fe835a41a7d82dedd5b55dd14136b34ee957e35b14c14688a3a6c2826ff",
+    "track-a/decimal.hpp": "e6a53e983c0475fe3e49ffe2630a8603f96298b7866e0f4ef3b2ed0f165cb94e",
+    "track-a/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420"
+  },
+  "scope": "A376 source-specific strict ASAN/UBSAN and TSAN actual partition/claim independent model plus actual main. Saved342 data/reference bytes reused by hash only, no old execution proof or generation/reference repeated. New shuffled multi-job/4096endpoint/full32escape fixture has independent full-sort oracle and one official-reference comparison; fresh3923/3929 samples generated once. Original cache/allocator/writer/decimal headers unchanged, retained only as provenance.",
+  "compiles": [
+    {
+      "mode": "asan",
+      "source": ".build/round376/partitions_model.cpp",
+      "command": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-pthread",
+        "-fno-omit-frame-pointer",
+        "-fsanitize=address,undefined",
+        "-fno-sanitize-recover=all",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round376/partitions_model.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round376/native-proof/asan/partition-model"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "binary_sha256": "9e805213d5d27ec90be4d8fa187c0446a5acd63b16496778c8ad22d0da0be7bb"
+    },
+    {
+      "mode": "asan",
+      "source": ".build/round376/source/track-a/main.cpp",
+      "command": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-pthread",
+        "-fno-omit-frame-pointer",
+        "-fsanitize=address,undefined",
+        "-fno-sanitize-recover=all",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round376/source/track-a/main.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round376/native-proof/asan/track-a"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "binary_sha256": "263e17d5aca71229ac6b0a2a5778a2514cd50bad44e88eb7a6e449174f77136a"
+    },
+    {
+      "mode": "tsan",
+      "source": ".build/round376/partitions_model.cpp",
+      "command": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-pthread",
+        "-fno-omit-frame-pointer",
+        "-fsanitize=thread",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round376/partitions_model.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round376/native-proof/tsan/partition-model"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "binary_sha256": "b9fbc24c5b2388817d1da1fe46ade7a31769f6b5565871fe84a68fc2ac9ad6ae"
+    },
+    {
+      "mode": "tsan",
+      "source": ".build/round376/source/track-a/main.cpp",
+      "command": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-pthread",
+        "-fno-omit-frame-pointer",
+        "-fsanitize=thread",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round376/source/track-a/main.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round376/native-proof/tsan/track-a"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "binary_sha256": "a12e913152e6355872c205b6ddc4b37603dee3dbe5206814694f5c41a4d624db"
+    }
+  ],
+  "models": [
+    {
+      "mode": "asan",
+      "returncode": 0,
+      "stdout": "PASS376 extracted partition/claim independent-oracle/empty/equal-boundary/all-worker/guard model 10750042 checks\n",
+      "stderr": "",
+      "binary_sha256": "9e805213d5d27ec90be4d8fa187c0446a5acd63b16496778c8ad22d0da0be7bb",
+      "passed": true
+    },
+    {
+      "mode": "tsan",
+      "returncode": 0,
+      "stdout": "PASS376 extracted partition/claim independent-oracle/empty/equal-boundary/all-worker/guard model 10750042 checks\n",
+      "stderr": "",
+      "binary_sha256": "b9fbc24c5b2388817d1da1fe46ade7a31769f6b5565871fe84a68fc2ac9ad6ae",
+      "passed": true
+    }
+  ],
+  "matrices": [
+    {
+      "mode": "asan",
+      "path": ".build/round376/native-proof/asan/matrix.json",
+      "sha256": "2cdfb9fafa0aba2e530b8dab1ac7627d7f5d8251866cd3185fe357bb7384f709",
+      "valid_calls": 114,
+      "normal_errors": 6
+    },
+    {
+      "mode": "tsan",
+      "path": ".build/round376/native-proof/tsan/matrix.json",
+      "sha256": "9cd5a712971175cf32732aeef4f142cb2ee49ce0f1cac292e7454e4f489c9c8f",
+      "valid_calls": 105,
+      "normal_errors": 6
+    }
+  ],
+  "fresh_suites": [
+    {
+      "mode": "asan",
+      "path": "docs/round376-a-asan-fresh-sample3923.json",
+      "sha256": "d9a8035fa0f46328597ecd67798a965b26fc4efb58ea4840b6ac7d241a9fec28",
+      "command": [
+        "python3",
+        "tools/verify.py",
+        "--run-id",
+        "round376-asan-fresh-sample3923",
+        "--source-root",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round376/source",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round376/native-proof/asan",
+        "--tracks",
+        "a",
+        "--threads",
+        "1",
+        "6",
+        "12",
+        "--scale",
+        "sample",
+        "--seeds",
+        "3923",
+        "--skip-adversarial",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/docs/round376-a-asan-fresh-sample3923.json"
+      ]
+    },
+    {
+      "mode": "tsan",
+      "path": "docs/round376-a-tsan-fresh-sample3929.json",
+      "sha256": "15cb13c9d678b4a027a10c63b8552c9d0d25c6b2bc0b677aaab207365de21c36",
+      "command": [
+        "python3",
+        "tools/verify.py",
+        "--run-id",
+        "round376-tsan-fresh-sample3929",
+        "--source-root",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round376/source",
+        "--binary-dir",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round376/native-proof/tsan",
+        "--tracks",
+        "a",
+        "--threads",
+        "1",
+        "6",
+        "12",
+        "--scale",
+        "sample",
+        "--seeds",
+        "3929",
+        "--skip-adversarial",
+        "--report",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/docs/round376-a-tsan-fresh-sample3929.json"
+      ]
+    }
+  ],
+  "new_fixtures": {
+    "path": "docs/round376-a-dynamic-fixtures.json",
+    "sha256": "257814cb98061cc8b628967396db819a448117d431afbbe033e2f22b1f1505ae"
+  },
+  "passed": true,
+  "completed_at_utc": "2026-11-02T09:24:33.581068+00:00"
+}

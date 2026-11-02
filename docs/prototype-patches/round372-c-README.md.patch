@@ -1,0 +1,9 @@
+--- a/track-c/README.md
++++ b/track-c/README.md
+@@ -9,3 +9,6 @@
+ No input seed or answer is recognized. All output is computed in the timed run. See `PERF.md` for actual experiments, source/memory costs, independent tests and real board outcomes.
+ 
+ Owner table entries use a32-bit rejection fingerprint and a32-bit stable-block word index. Full length/byte equality still decides names, including collisions; the complete64-bit hash routes owners.64KiB word blocks and dedicated oversized-key blocks retain exact name bytes/country words with checked index arithmetic.
++
++
++Each owner keeps an8192-entry lookup hint table of fingerprint and stable arena index. A hint must match the entire key before it can skip primary probing. Misses use the original authoritative table, whose growth does not change arena indices. Country membership is still computed and updated on every row; the hints contain no stored answers or data from earlier runs.

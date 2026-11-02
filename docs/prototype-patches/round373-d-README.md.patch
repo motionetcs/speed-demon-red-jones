@@ -1,0 +1,9 @@
+--- a/track-d/README.md
++++ b/track-d/README.md
+@@ -33,3 +33,6 @@
+ Search extracts at most32 full-distance entries from one conservative64-distance band per batch; this changes scheduling and scratch only.
+ 
+ Prototype334 reuses the joined final scatter cursors as exact exclusive CSR ends. Original prefix sums are built in ordinary anonymous mapped vector storage, then actually unmapped after all scatter workers join; the narrower cursor arrays remain read-only for queries, including full32-bit wide-block fallback. No live cursor, adjacency, input or query label is discarded. The allocator is the unchanged event-written A allocator, copied and counted normally. Both graph passes, all weights/IDs, queries, band64/batch32, defaults and PGO stay unchanged. Real peak includes every allocation for its full lifetime; no memory accounting or timer/harness operation is changed.
++
++
++A query clears its touched labels and starts with the original logical bucket span while retaining allocated backing storage. Growth reuses that storage when it is large enough, copies only the active prefix for exact rehashing, and moves the old array when more backing storage is required. This changes lookup locality, not node identity, distance width or the full-width fallback.
