@@ -1,0 +1,955 @@
+{
+  "started_at_utc": "2026-11-02T04:09:06.399475+00:00",
+  "official_score": false,
+  "selected_in_root": false,
+  "scope": "D347 ONLY full64 fallback Distances::labels uses alreadycounted own D MappedAllocator<Label>, same4096 initial16byte labels and default constructors, epoch/live-count/hash/probe/loadfactor/grow/copy/reset/improve/get unchanged. Old vector storage actually unmaps after private grow rehash scope; current packed32bit labels/touched vectors/graph/prefixjoinedends/radix/search/full64/band64/batch32/12workers/arena2/PGO/flags unchanged. No header added/COPY/Make changes because334 alreadycounted allocator. Hypothesis reduce retained private fallback grow buffers under ordinary resource lifetime, possible syscall cost; not officialchargedM. No allocator env/tunable, host/harness/timer/counter/exemption/seed/outputcache change. Fresh actual16byte Label construction/align/epoch/sentinel/stdmap/grow/move/unmap/overflow/exception/private lifetime/race/currentmain/Floyd/untrained/GCC/image/default proof needed if native supports. Preserve existing API reset-before-first-use precondition; no new behavior claimed before reset.",
+  "frozen_manifest_sha256": "29da5822a2b718a490445e4b127d3d0959af67ac8a19eca94fe4f3cf2608a88b",
+  "source_sha256": {
+    "source/track-d/.speed-demon.toml": "6d6100843803548ba58c1c1eaf2d1dbaecb9a431fd5c9a8408d214580466465c",
+    "source/track-d/Dockerfile": "512831e9b8ff2061dbcc7ff8dabd4e3bf4bd184d4acb75c5e9ce732fa274633e",
+    "source/track-d/PERF.md": "843569904a4c47fe17b87780b6fa64a86788fcc13cf63094b3085d12e226ddad",
+    "source/track-d/README.md": "8ba0c948d4d5ec48e61333cc3436365ad4126b296790751e9e07c5b1d4afd52d",
+    "source/track-d/decimal.hpp": "aee2210ac5894050834ffd37903718b3b7bdc6673240559baa85b350bea9b581",
+    "source/track-d/distance_map.hpp": "10ff32e4d3e7979183841308ff34423e860f7c647544da5e4f6af792c0331e0e",
+    "source/track-d/edge_store.hpp": "31db14bd58fb3bb45a90c963cf57397a50d5195782d01dc366b2a380d3b74ed6",
+    "source/track-d/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+    "source/track-d/load_cursors.hpp": "c25acd31f52e5245de3972723594483df495d3c09e131ab5977c7b7f581ddc79",
+    "source/track-d/main.cpp": "c7c973f84cc510f2f5f59f2d7898bab50b13705a06f4dee4b5b99caf40b4d42a",
+    "source/track-d/mapped_allocator.hpp": "060bb6a0622338b9151e767d827cbf30c8e4d940cc7e170ad51757c4a6b0808b",
+    "source/track-d/parallel.hpp": "614e48333aabbd7a9d7b008119d41acc7f908e467769772d01e10d84c282bdab",
+    "source/track-d/radix_heap.hpp": "7fb2052bb951ca391c5b1883d8e673f554a43ab3d06286e43597105c2d82b6e3",
+    "source/track-d/training_generator.py": "bbf37741159004149c5896265a98ae00b90e90a05ad48c2912ecf8bdce126d65"
+  },
+  "runs": [
+    {
+      "case": "public-full-seed1",
+      "variant": "control",
+      "threads": 1,
+      "round": -2,
+      "elapsed_seconds_including_launch_and_time": 0.6923444999999999,
+      "native_process_rss_bytes": 158302208,
+      "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+    },
+    {
+      "case": "public-full-seed1",
+      "variant": "candidate",
+      "threads": 1,
+      "round": -2,
+      "elapsed_seconds_including_launch_and_time": 1.1500273330000002,
+      "native_process_rss_bytes": 158400512,
+      "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+    },
+    {
+      "case": "public-full-seed1",
+      "variant": "control",
+      "threads": 6,
+      "round": -2,
+      "elapsed_seconds_including_launch_and_time": 0.20557570899999966,
+      "native_process_rss_bytes": 160448512,
+      "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+    },
+    {
+      "case": "public-full-seed1",
+      "variant": "candidate",
+      "threads": 6,
+      "round": -2,
+      "elapsed_seconds_including_launch_and_time": 0.2127729579999995,
+      "native_process_rss_bytes": 162037760,
+      "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+    },
+    {
+      "case": "public-full-seed1",
+      "variant": "control",
+      "threads": 12,
+      "round": -2,
+      "elapsed_seconds_including_launch_and_time": 0.18741916599999975,
+      "native_process_rss_bytes": 174702592,
+      "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+    },
+    {
+      "case": "public-full-seed1",
+      "variant": "candidate",
+      "threads": 12,
+      "round": -2,
+      "elapsed_seconds_including_launch_and_time": 0.18483820900000048,
+      "native_process_rss_bytes": 165232640,
+      "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+    },
+    {
+      "case": "public-full-seed1",
+      "variant": "control",
+      "threads": 12,
+      "round": -1,
+      "elapsed_seconds_including_launch_and_time": 0.18898812500000073,
+      "native_process_rss_bytes": 171163648,
+      "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+    },
+    {
+      "case": "public-full-seed1",
+      "variant": "candidate",
+      "threads": 12,
+      "round": -1,
+      "elapsed_seconds_including_launch_and_time": 0.18467466599999938,
+      "native_process_rss_bytes": 165167104,
+      "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+    },
+    {
+      "case": "full-seed1823",
+      "variant": "control",
+      "threads": 12,
+      "round": -1,
+      "elapsed_seconds_including_launch_and_time": 0.18972699999999953,
+      "native_process_rss_bytes": 170819584,
+      "sha256": "d5ede1a4d936ea3b4bbaae08357d980ffb6c734141e2652cfdacc7c816738442"
+    },
+    {
+      "case": "full-seed1823",
+      "variant": "candidate",
+      "threads": 12,
+      "round": -1,
+      "elapsed_seconds_including_launch_and_time": 0.19174824999999984,
+      "native_process_rss_bytes": 168345600,
+      "sha256": "d5ede1a4d936ea3b4bbaae08357d980ffb6c734141e2652cfdacc7c816738442"
+    },
+    {
+      "case": "full-seed2633",
+      "variant": "control",
+      "threads": 12,
+      "round": -1,
+      "elapsed_seconds_including_launch_and_time": 0.18169212499999965,
+      "native_process_rss_bytes": 172441600,
+      "sha256": "24d52d8aecb3a004d261a98b4f4f3a3b7a5ae121628390a39c6652a36187d643"
+    },
+    {
+      "case": "full-seed2633",
+      "variant": "candidate",
+      "threads": 12,
+      "round": -1,
+      "elapsed_seconds_including_launch_and_time": 0.178522375,
+      "native_process_rss_bytes": 175357952,
+      "sha256": "24d52d8aecb3a004d261a98b4f4f3a3b7a5ae121628390a39c6652a36187d643"
+    },
+    {
+      "case": "public-full-seed1",
+      "variant": "control",
+      "threads": 12,
+      "round": 0,
+      "elapsed_seconds_including_launch_and_time": 0.18430337499999982,
+      "native_process_rss_bytes": 174653440,
+      "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+    },
+    {
+      "case": "public-full-seed1",
+      "variant": "candidate",
+      "threads": 12,
+      "round": 0,
+      "elapsed_seconds_including_launch_and_time": 0.18763466600000012,
+      "native_process_rss_bytes": 175259648,
+      "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+    },
+    {
+      "case": "full-seed1823",
+      "variant": "candidate",
+      "threads": 12,
+      "round": 0,
+      "elapsed_seconds_including_launch_and_time": 0.18773029100000027,
+      "native_process_rss_bytes": 169279488,
+      "sha256": "d5ede1a4d936ea3b4bbaae08357d980ffb6c734141e2652cfdacc7c816738442"
+    },
+    {
+      "case": "full-seed1823",
+      "variant": "control",
+      "threads": 12,
+      "round": 0,
+      "elapsed_seconds_including_launch_and_time": 0.1910339169999995,
+      "native_process_rss_bytes": 170704896,
+      "sha256": "d5ede1a4d936ea3b4bbaae08357d980ffb6c734141e2652cfdacc7c816738442"
+    },
+    {
+      "case": "full-seed2633",
+      "variant": "control",
+      "threads": 12,
+      "round": 0,
+      "elapsed_seconds_including_launch_and_time": 0.1798930830000005,
+      "native_process_rss_bytes": 174473216,
+      "sha256": "24d52d8aecb3a004d261a98b4f4f3a3b7a5ae121628390a39c6652a36187d643"
+    },
+    {
+      "case": "full-seed2633",
+      "variant": "candidate",
+      "threads": 12,
+      "round": 0,
+      "elapsed_seconds_including_launch_and_time": 0.17431495800000008,
+      "native_process_rss_bytes": 162873344,
+      "sha256": "24d52d8aecb3a004d261a98b4f4f3a3b7a5ae121628390a39c6652a36187d643"
+    },
+    {
+      "case": "full-seed1823",
+      "variant": "candidate",
+      "threads": 12,
+      "round": 1,
+      "elapsed_seconds_including_launch_and_time": 0.18976491699999976,
+      "native_process_rss_bytes": 175243264,
+      "sha256": "d5ede1a4d936ea3b4bbaae08357d980ffb6c734141e2652cfdacc7c816738442"
+    },
+    {
+      "case": "full-seed1823",
+      "variant": "control",
+      "threads": 12,
+      "round": 1,
+      "elapsed_seconds_including_launch_and_time": 0.19555504199999962,
+      "native_process_rss_bytes": 164724736,
+      "sha256": "d5ede1a4d936ea3b4bbaae08357d980ffb6c734141e2652cfdacc7c816738442"
+    },
+    {
+      "case": "full-seed2633",
+      "variant": "control",
+      "threads": 12,
+      "round": 1,
+      "elapsed_seconds_including_launch_and_time": 0.1795177920000004,
+      "native_process_rss_bytes": 164659200,
+      "sha256": "24d52d8aecb3a004d261a98b4f4f3a3b7a5ae121628390a39c6652a36187d643"
+    },
+    {
+      "case": "full-seed2633",
+      "variant": "candidate",
+      "threads": 12,
+      "round": 1,
+      "elapsed_seconds_including_launch_and_time": 0.17731399999999997,
+      "native_process_rss_bytes": 164462592,
+      "sha256": "24d52d8aecb3a004d261a98b4f4f3a3b7a5ae121628390a39c6652a36187d643"
+    },
+    {
+      "case": "public-full-seed1",
+      "variant": "candidate",
+      "threads": 12,
+      "round": 1,
+      "elapsed_seconds_including_launch_and_time": 0.18875808299999974,
+      "native_process_rss_bytes": 173211648,
+      "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+    },
+    {
+      "case": "public-full-seed1",
+      "variant": "control",
+      "threads": 12,
+      "round": 1,
+      "elapsed_seconds_including_launch_and_time": 0.18460391599999948,
+      "native_process_rss_bytes": 168574976,
+      "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+    },
+    {
+      "case": "full-seed2633",
+      "variant": "control",
+      "threads": 12,
+      "round": 2,
+      "elapsed_seconds_including_launch_and_time": 0.18039687499999957,
+      "native_process_rss_bytes": 169279488,
+      "sha256": "24d52d8aecb3a004d261a98b4f4f3a3b7a5ae121628390a39c6652a36187d643"
+    },
+    {
+      "case": "full-seed2633",
+      "variant": "candidate",
+      "threads": 12,
+      "round": 2,
+      "elapsed_seconds_including_launch_and_time": 0.17740766699999888,
+      "native_process_rss_bytes": 172441600,
+      "sha256": "24d52d8aecb3a004d261a98b4f4f3a3b7a5ae121628390a39c6652a36187d643"
+    },
+    {
+      "case": "public-full-seed1",
+      "variant": "candidate",
+      "threads": 12,
+      "round": 2,
+      "elapsed_seconds_including_launch_and_time": 0.1873067920000011,
+      "native_process_rss_bytes": 163807232,
+      "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+    },
+    {
+      "case": "public-full-seed1",
+      "variant": "control",
+      "threads": 12,
+      "round": 2,
+      "elapsed_seconds_including_launch_and_time": 0.19801975000000027,
+      "native_process_rss_bytes": 175751168,
+      "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+    },
+    {
+      "case": "full-seed1823",
+      "variant": "control",
+      "threads": 12,
+      "round": 2,
+      "elapsed_seconds_including_launch_and_time": 0.20840645900000077,
+      "native_process_rss_bytes": 165576704,
+      "sha256": "d5ede1a4d936ea3b4bbaae08357d980ffb6c734141e2652cfdacc7c816738442"
+    },
+    {
+      "case": "full-seed1823",
+      "variant": "candidate",
+      "threads": 12,
+      "round": 2,
+      "elapsed_seconds_including_launch_and_time": 0.19176779200000027,
+      "native_process_rss_bytes": 174522368,
+      "sha256": "d5ede1a4d936ea3b4bbaae08357d980ffb6c734141e2652cfdacc7c816738442"
+    },
+    {
+      "case": "public-full-seed1",
+      "variant": "candidate",
+      "threads": 12,
+      "round": 3,
+      "elapsed_seconds_including_launch_and_time": 0.18444604099999928,
+      "native_process_rss_bytes": 173293568,
+      "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+    },
+    {
+      "case": "public-full-seed1",
+      "variant": "control",
+      "threads": 12,
+      "round": 3,
+      "elapsed_seconds_including_launch_and_time": 0.18510929099999984,
+      "native_process_rss_bytes": 174129152,
+      "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+    },
+    {
+      "case": "full-seed1823",
+      "variant": "control",
+      "threads": 12,
+      "round": 3,
+      "elapsed_seconds_including_launch_and_time": 0.18911829099999977,
+      "native_process_rss_bytes": 174178304,
+      "sha256": "d5ede1a4d936ea3b4bbaae08357d980ffb6c734141e2652cfdacc7c816738442"
+    },
+    {
+      "case": "full-seed1823",
+      "variant": "candidate",
+      "threads": 12,
+      "round": 3,
+      "elapsed_seconds_including_launch_and_time": 0.20316666599999955,
+      "native_process_rss_bytes": 162725888,
+      "sha256": "d5ede1a4d936ea3b4bbaae08357d980ffb6c734141e2652cfdacc7c816738442"
+    },
+    {
+      "case": "full-seed2633",
+      "variant": "candidate",
+      "threads": 12,
+      "round": 3,
+      "elapsed_seconds_including_launch_and_time": 0.1803825830000001,
+      "native_process_rss_bytes": 174227456,
+      "sha256": "24d52d8aecb3a004d261a98b4f4f3a3b7a5ae121628390a39c6652a36187d643"
+    },
+    {
+      "case": "full-seed2633",
+      "variant": "control",
+      "threads": 12,
+      "round": 3,
+      "elapsed_seconds_including_launch_and_time": 0.1800387919999995,
+      "native_process_rss_bytes": 163463168,
+      "sha256": "24d52d8aecb3a004d261a98b4f4f3a3b7a5ae121628390a39c6652a36187d643"
+    },
+    {
+      "case": "full-seed1823",
+      "variant": "control",
+      "threads": 12,
+      "round": 4,
+      "elapsed_seconds_including_launch_and_time": 0.18865104200000005,
+      "native_process_rss_bytes": 170082304,
+      "sha256": "d5ede1a4d936ea3b4bbaae08357d980ffb6c734141e2652cfdacc7c816738442"
+    },
+    {
+      "case": "full-seed1823",
+      "variant": "candidate",
+      "threads": 12,
+      "round": 4,
+      "elapsed_seconds_including_launch_and_time": 0.1903838750000002,
+      "native_process_rss_bytes": 164397056,
+      "sha256": "d5ede1a4d936ea3b4bbaae08357d980ffb6c734141e2652cfdacc7c816738442"
+    },
+    {
+      "case": "full-seed2633",
+      "variant": "candidate",
+      "threads": 12,
+      "round": 4,
+      "elapsed_seconds_including_launch_and_time": 0.18221199999999982,
+      "native_process_rss_bytes": 174751744,
+      "sha256": "24d52d8aecb3a004d261a98b4f4f3a3b7a5ae121628390a39c6652a36187d643"
+    },
+    {
+      "case": "full-seed2633",
+      "variant": "control",
+      "threads": 12,
+      "round": 4,
+      "elapsed_seconds_including_launch_and_time": 0.18362316700000036,
+      "native_process_rss_bytes": 175046656,
+      "sha256": "24d52d8aecb3a004d261a98b4f4f3a3b7a5ae121628390a39c6652a36187d643"
+    },
+    {
+      "case": "public-full-seed1",
+      "variant": "control",
+      "threads": 12,
+      "round": 4,
+      "elapsed_seconds_including_launch_and_time": 0.1841674590000011,
+      "native_process_rss_bytes": 175652864,
+      "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+    },
+    {
+      "case": "public-full-seed1",
+      "variant": "candidate",
+      "threads": 12,
+      "round": 4,
+      "elapsed_seconds_including_launch_and_time": 0.18444349999999865,
+      "native_process_rss_bytes": 170803200,
+      "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+    },
+    {
+      "case": "full-seed2633",
+      "variant": "candidate",
+      "threads": 12,
+      "round": 5,
+      "elapsed_seconds_including_launch_and_time": 0.17731858299999992,
+      "native_process_rss_bytes": 173817856,
+      "sha256": "24d52d8aecb3a004d261a98b4f4f3a3b7a5ae121628390a39c6652a36187d643"
+    },
+    {
+      "case": "full-seed2633",
+      "variant": "control",
+      "threads": 12,
+      "round": 5,
+      "elapsed_seconds_including_launch_and_time": 0.18207816700000024,
+      "native_process_rss_bytes": 174243840,
+      "sha256": "24d52d8aecb3a004d261a98b4f4f3a3b7a5ae121628390a39c6652a36187d643"
+    },
+    {
+      "case": "public-full-seed1",
+      "variant": "control",
+      "threads": 12,
+      "round": 5,
+      "elapsed_seconds_including_launch_and_time": 0.18514958300000117,
+      "native_process_rss_bytes": 166002688,
+      "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+    },
+    {
+      "case": "public-full-seed1",
+      "variant": "candidate",
+      "threads": 12,
+      "round": 5,
+      "elapsed_seconds_including_launch_and_time": 0.18636491700000057,
+      "native_process_rss_bytes": 164462592,
+      "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+    },
+    {
+      "case": "full-seed1823",
+      "variant": "candidate",
+      "threads": 12,
+      "round": 5,
+      "elapsed_seconds_including_launch_and_time": 0.1896997080000009,
+      "native_process_rss_bytes": 161497088,
+      "sha256": "d5ede1a4d936ea3b4bbaae08357d980ffb6c734141e2652cfdacc7c816738442"
+    },
+    {
+      "case": "full-seed1823",
+      "variant": "control",
+      "threads": 12,
+      "round": 5,
+      "elapsed_seconds_including_launch_and_time": 0.19036512499999958,
+      "native_process_rss_bytes": 173899776,
+      "sha256": "d5ede1a4d936ea3b4bbaae08357d980ffb6c734141e2652cfdacc7c816738442"
+    },
+    {
+      "case": "public-full-seed1",
+      "variant": "control",
+      "threads": 12,
+      "round": 6,
+      "elapsed_seconds_including_launch_and_time": 0.190268541,
+      "native_process_rss_bytes": 163315712,
+      "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+    },
+    {
+      "case": "public-full-seed1",
+      "variant": "candidate",
+      "threads": 12,
+      "round": 6,
+      "elapsed_seconds_including_launch_and_time": 0.2074844589999998,
+      "native_process_rss_bytes": 170360832,
+      "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+    },
+    {
+      "case": "full-seed1823",
+      "variant": "candidate",
+      "threads": 12,
+      "round": 6,
+      "elapsed_seconds_including_launch_and_time": 0.1943640000000002,
+      "native_process_rss_bytes": 173506560,
+      "sha256": "d5ede1a4d936ea3b4bbaae08357d980ffb6c734141e2652cfdacc7c816738442"
+    },
+    {
+      "case": "full-seed1823",
+      "variant": "control",
+      "threads": 12,
+      "round": 6,
+      "elapsed_seconds_including_launch_and_time": 0.19033737500000036,
+      "native_process_rss_bytes": 164085760,
+      "sha256": "d5ede1a4d936ea3b4bbaae08357d980ffb6c734141e2652cfdacc7c816738442"
+    },
+    {
+      "case": "full-seed2633",
+      "variant": "control",
+      "threads": 12,
+      "round": 6,
+      "elapsed_seconds_including_launch_and_time": 0.17744516600000004,
+      "native_process_rss_bytes": 173096960,
+      "sha256": "24d52d8aecb3a004d261a98b4f4f3a3b7a5ae121628390a39c6652a36187d643"
+    },
+    {
+      "case": "full-seed2633",
+      "variant": "candidate",
+      "threads": 12,
+      "round": 6,
+      "elapsed_seconds_including_launch_and_time": 0.18164712499999958,
+      "native_process_rss_bytes": 173178880,
+      "sha256": "24d52d8aecb3a004d261a98b4f4f3a3b7a5ae121628390a39c6652a36187d643"
+    },
+    {
+      "case": "full-seed1823",
+      "variant": "candidate",
+      "threads": 12,
+      "round": 7,
+      "elapsed_seconds_including_launch_and_time": 0.1864912909999994,
+      "native_process_rss_bytes": 173178880,
+      "sha256": "d5ede1a4d936ea3b4bbaae08357d980ffb6c734141e2652cfdacc7c816738442"
+    },
+    {
+      "case": "full-seed1823",
+      "variant": "control",
+      "threads": 12,
+      "round": 7,
+      "elapsed_seconds_including_launch_and_time": 0.19353262499999957,
+      "native_process_rss_bytes": 166346752,
+      "sha256": "d5ede1a4d936ea3b4bbaae08357d980ffb6c734141e2652cfdacc7c816738442"
+    },
+    {
+      "case": "full-seed2633",
+      "variant": "control",
+      "threads": 12,
+      "round": 7,
+      "elapsed_seconds_including_launch_and_time": 0.18688041700000113,
+      "native_process_rss_bytes": 168443904,
+      "sha256": "24d52d8aecb3a004d261a98b4f4f3a3b7a5ae121628390a39c6652a36187d643"
+    },
+    {
+      "case": "full-seed2633",
+      "variant": "candidate",
+      "threads": 12,
+      "round": 7,
+      "elapsed_seconds_including_launch_and_time": 0.18113120800000004,
+      "native_process_rss_bytes": 172294144,
+      "sha256": "24d52d8aecb3a004d261a98b4f4f3a3b7a5ae121628390a39c6652a36187d643"
+    },
+    {
+      "case": "public-full-seed1",
+      "variant": "candidate",
+      "threads": 12,
+      "round": 7,
+      "elapsed_seconds_including_launch_and_time": 0.18452049999999964,
+      "native_process_rss_bytes": 174850048,
+      "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+    },
+    {
+      "case": "public-full-seed1",
+      "variant": "control",
+      "threads": 12,
+      "round": 7,
+      "elapsed_seconds_including_launch_and_time": 0.18272133299999993,
+      "native_process_rss_bytes": 164954112,
+      "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+    },
+    {
+      "case": "full-seed2633",
+      "variant": "control",
+      "threads": 12,
+      "round": 8,
+      "elapsed_seconds_including_launch_and_time": 0.17736099999999944,
+      "native_process_rss_bytes": 175505408,
+      "sha256": "24d52d8aecb3a004d261a98b4f4f3a3b7a5ae121628390a39c6652a36187d643"
+    },
+    {
+      "case": "full-seed2633",
+      "variant": "candidate",
+      "threads": 12,
+      "round": 8,
+      "elapsed_seconds_including_launch_and_time": 0.17935587499999883,
+      "native_process_rss_bytes": 172261376,
+      "sha256": "24d52d8aecb3a004d261a98b4f4f3a3b7a5ae121628390a39c6652a36187d643"
+    },
+    {
+      "case": "public-full-seed1",
+      "variant": "candidate",
+      "threads": 12,
+      "round": 8,
+      "elapsed_seconds_including_launch_and_time": 0.18437170800000047,
+      "native_process_rss_bytes": 175702016,
+      "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+    },
+    {
+      "case": "public-full-seed1",
+      "variant": "control",
+      "threads": 12,
+      "round": 8,
+      "elapsed_seconds_including_launch_and_time": 0.18400512499999877,
+      "native_process_rss_bytes": 164593664,
+      "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+    },
+    {
+      "case": "full-seed1823",
+      "variant": "control",
+      "threads": 12,
+      "round": 8,
+      "elapsed_seconds_including_launch_and_time": 0.19442424999999908,
+      "native_process_rss_bytes": 166084608,
+      "sha256": "d5ede1a4d936ea3b4bbaae08357d980ffb6c734141e2652cfdacc7c816738442"
+    },
+    {
+      "case": "full-seed1823",
+      "variant": "candidate",
+      "threads": 12,
+      "round": 8,
+      "elapsed_seconds_including_launch_and_time": 0.21812008300000052,
+      "native_process_rss_bytes": 162545664,
+      "sha256": "d5ede1a4d936ea3b4bbaae08357d980ffb6c734141e2652cfdacc7c816738442"
+    },
+    {
+      "case": "public-full-seed1",
+      "variant": "candidate",
+      "threads": 12,
+      "round": 9,
+      "elapsed_seconds_including_launch_and_time": 0.18453500000000034,
+      "native_process_rss_bytes": 174735360,
+      "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+    },
+    {
+      "case": "public-full-seed1",
+      "variant": "control",
+      "threads": 12,
+      "round": 9,
+      "elapsed_seconds_including_launch_and_time": 0.18651566699999833,
+      "native_process_rss_bytes": 162906112,
+      "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+    },
+    {
+      "case": "full-seed1823",
+      "variant": "control",
+      "threads": 12,
+      "round": 9,
+      "elapsed_seconds_including_launch_and_time": 0.1883559169999991,
+      "native_process_rss_bytes": 172015616,
+      "sha256": "d5ede1a4d936ea3b4bbaae08357d980ffb6c734141e2652cfdacc7c816738442"
+    },
+    {
+      "case": "full-seed1823",
+      "variant": "candidate",
+      "threads": 12,
+      "round": 9,
+      "elapsed_seconds_including_launch_and_time": 0.18917029200000002,
+      "native_process_rss_bytes": 174129152,
+      "sha256": "d5ede1a4d936ea3b4bbaae08357d980ffb6c734141e2652cfdacc7c816738442"
+    },
+    {
+      "case": "full-seed2633",
+      "variant": "candidate",
+      "threads": 12,
+      "round": 9,
+      "elapsed_seconds_including_launch_and_time": 0.18048775000000106,
+      "native_process_rss_bytes": 172457984,
+      "sha256": "24d52d8aecb3a004d261a98b4f4f3a3b7a5ae121628390a39c6652a36187d643"
+    },
+    {
+      "case": "full-seed2633",
+      "variant": "control",
+      "threads": 12,
+      "round": 9,
+      "elapsed_seconds_including_launch_and_time": 0.17908158299999855,
+      "native_process_rss_bytes": 168345600,
+      "sha256": "24d52d8aecb3a004d261a98b4f4f3a3b7a5ae121628390a39c6652a36187d643"
+    },
+    {
+      "case": "full-seed1823",
+      "variant": "control",
+      "threads": 12,
+      "round": 10,
+      "elapsed_seconds_including_launch_and_time": 0.18807266600000005,
+      "native_process_rss_bytes": 172736512,
+      "sha256": "d5ede1a4d936ea3b4bbaae08357d980ffb6c734141e2652cfdacc7c816738442"
+    },
+    {
+      "case": "full-seed1823",
+      "variant": "candidate",
+      "threads": 12,
+      "round": 10,
+      "elapsed_seconds_including_launch_and_time": 0.18964674999999787,
+      "native_process_rss_bytes": 176504832,
+      "sha256": "d5ede1a4d936ea3b4bbaae08357d980ffb6c734141e2652cfdacc7c816738442"
+    },
+    {
+      "case": "full-seed2633",
+      "variant": "candidate",
+      "threads": 12,
+      "round": 10,
+      "elapsed_seconds_including_launch_and_time": 0.18098475000000036,
+      "native_process_rss_bytes": 174768128,
+      "sha256": "24d52d8aecb3a004d261a98b4f4f3a3b7a5ae121628390a39c6652a36187d643"
+    },
+    {
+      "case": "full-seed2633",
+      "variant": "control",
+      "threads": 12,
+      "round": 10,
+      "elapsed_seconds_including_launch_and_time": 0.17650549999999754,
+      "native_process_rss_bytes": 173129728,
+      "sha256": "24d52d8aecb3a004d261a98b4f4f3a3b7a5ae121628390a39c6652a36187d643"
+    },
+    {
+      "case": "public-full-seed1",
+      "variant": "control",
+      "threads": 12,
+      "round": 10,
+      "elapsed_seconds_including_launch_and_time": 0.18508279099999925,
+      "native_process_rss_bytes": 176537600,
+      "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+    },
+    {
+      "case": "public-full-seed1",
+      "variant": "candidate",
+      "threads": 12,
+      "round": 10,
+      "elapsed_seconds_including_launch_and_time": 0.18605641699999964,
+      "native_process_rss_bytes": 167788544,
+      "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+    },
+    {
+      "case": "full-seed2633",
+      "variant": "candidate",
+      "threads": 12,
+      "round": 11,
+      "elapsed_seconds_including_launch_and_time": 0.1791367500000014,
+      "native_process_rss_bytes": 172457984,
+      "sha256": "24d52d8aecb3a004d261a98b4f4f3a3b7a5ae121628390a39c6652a36187d643"
+    },
+    {
+      "case": "full-seed2633",
+      "variant": "control",
+      "threads": 12,
+      "round": 11,
+      "elapsed_seconds_including_launch_and_time": 0.17623170799999954,
+      "native_process_rss_bytes": 168263680,
+      "sha256": "24d52d8aecb3a004d261a98b4f4f3a3b7a5ae121628390a39c6652a36187d643"
+    },
+    {
+      "case": "public-full-seed1",
+      "variant": "control",
+      "threads": 12,
+      "round": 11,
+      "elapsed_seconds_including_launch_and_time": 0.23170316699999915,
+      "native_process_rss_bytes": 163479552,
+      "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+    },
+    {
+      "case": "public-full-seed1",
+      "variant": "candidate",
+      "threads": 12,
+      "round": 11,
+      "elapsed_seconds_including_launch_and_time": 0.22061641700000223,
+      "native_process_rss_bytes": 165969920,
+      "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+    },
+    {
+      "case": "full-seed1823",
+      "variant": "candidate",
+      "threads": 12,
+      "round": 11,
+      "elapsed_seconds_including_launch_and_time": 0.19500470799999903,
+      "native_process_rss_bytes": 165363712,
+      "sha256": "d5ede1a4d936ea3b4bbaae08357d980ffb6c734141e2652cfdacc7c816738442"
+    },
+    {
+      "case": "full-seed1823",
+      "variant": "control",
+      "threads": 12,
+      "round": 11,
+      "elapsed_seconds_including_launch_and_time": 0.19320329099999967,
+      "native_process_rss_bytes": 168460288,
+      "sha256": "d5ede1a4d936ea3b4bbaae08357d980ffb6c734141e2652cfdacc7c816738442"
+    },
+    {
+      "case": "public-full-seed1",
+      "variant": "control",
+      "threads": 12,
+      "round": 12,
+      "elapsed_seconds_including_launch_and_time": 0.18628654099999764,
+      "native_process_rss_bytes": 174882816,
+      "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+    },
+    {
+      "case": "public-full-seed1",
+      "variant": "candidate",
+      "threads": 12,
+      "round": 12,
+      "elapsed_seconds_including_launch_and_time": 0.18770699999999962,
+      "native_process_rss_bytes": 172064768,
+      "sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e"
+    },
+    {
+      "case": "full-seed1823",
+      "variant": "candidate",
+      "threads": 12,
+      "round": 12,
+      "elapsed_seconds_including_launch_and_time": 0.18854237500000082,
+      "native_process_rss_bytes": 173244416,
+      "sha256": "d5ede1a4d936ea3b4bbaae08357d980ffb6c734141e2652cfdacc7c816738442"
+    },
+    {
+      "case": "full-seed1823",
+      "variant": "control",
+      "threads": 12,
+      "round": 12,
+      "elapsed_seconds_including_launch_and_time": 0.19177383399999925,
+      "native_process_rss_bytes": 171343872,
+      "sha256": "d5ede1a4d936ea3b4bbaae08357d980ffb6c734141e2652cfdacc7c816738442"
+    },
+    {
+      "case": "full-seed2633",
+      "variant": "control",
+      "threads": 12,
+      "round": 12,
+      "elapsed_seconds_including_launch_and_time": 0.17865433300000078,
+      "native_process_rss_bytes": 172949504,
+      "sha256": "24d52d8aecb3a004d261a98b4f4f3a3b7a5ae121628390a39c6652a36187d643"
+    },
+    {
+      "case": "full-seed2633",
+      "variant": "candidate",
+      "threads": 12,
+      "round": 12,
+      "elapsed_seconds_including_launch_and_time": 0.17757516700000053,
+      "native_process_rss_bytes": 175751168,
+      "sha256": "24d52d8aecb3a004d261a98b4f4f3a3b7a5ae121628390a39c6652a36187d643"
+    }
+  ],
+  "compile": {
+    "command": [
+      "clang++",
+      "-std=c++20",
+      "-O3",
+      "-DNDEBUG",
+      "-Wall",
+      "-Wextra",
+      "-Wpedantic",
+      "-pthread",
+      "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round347/source/track-d/main.cpp",
+      "-o",
+      "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round347/track-d-bin"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "binary_sha256": {
+    "control": "cf0ab08ff09b091ad9954cd365e92a1b0d014c5c31f5ecb2a74f15453761c404",
+    "candidate": "6511a87f7af25af886c4148f7e35afa1a44f0b548e4bd17811a8b34c8aed7464"
+  },
+  "cases": [
+    {
+      "case": "public-full-seed1",
+      "reference_sha256": "a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e",
+      "inputs_sha256": {
+        "queries.txt": "160f1ef48378dcb567a8d9ddd2676ee777b044a5ede3ad4c7b42e812aa4b3a6f",
+        "graph.txt": "fe6471f2712d10b23c2ec58a4cbc7db1ea3e742daf6b6db62829e74d6c4a26c7"
+      },
+      "data_folder": "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.data/d/public-full-seed1",
+      "reference_source": "docs/round262-degree2-native-confirmation.json input/expected bytes only; changed-main proof is not reused"
+    },
+    {
+      "case": "full-seed1823",
+      "reference_sha256": "d5ede1a4d936ea3b4bbaae08357d980ffb6c734141e2652cfdacc7c816738442",
+      "inputs_sha256": {
+        "queries.txt": "950e5e75796498d0f2385abbed99f1e7d95f193252f05fea62346746bad5a2ae",
+        "graph.txt": "93b90d76a897ceb25e72e5b56ccadf351494f1bb98f51a4ffae838e979df1287"
+      },
+      "data_folder": "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.data/d/full-seed1823",
+      "reference_source": "docs/round262-degree2-native-confirmation.json input/expected bytes only; changed-main proof is not reused"
+    },
+    {
+      "case": "full-seed2633",
+      "reference_sha256": "24d52d8aecb3a004d261a98b4f4f3a3b7a5ae121628390a39c6652a36187d643",
+      "inputs_sha256": {
+        "queries.txt": "0d089a537df58cbd58f1cf0d833e4653715737da864a151f456ede9bb57c8fe8",
+        "graph.txt": "501422ae8344c472708e960e6c38dd5b3be853c3acefe6a47406a65882d2fd61"
+      },
+      "data_folder": "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.data/d/full-seed2633",
+      "reference_source": "docs/round262-degree2-native-confirmation.json input/expected bytes only; changed-main proof is not reused"
+    }
+  ],
+  "passed": true,
+  "completed_at_utc": "2026-11-02T04:09:26.929175+00:00",
+  "summary": {
+    "public-full-seed1": {
+      "paired_median_ratio": 1.0052604890748615,
+      "paired_wins": 4,
+      "variants": {
+        "control": {
+          "median_elapsed_seconds": 0.18510929099999984,
+          "median_native_rss_bytes": 168574976
+        },
+        "candidate": {
+          "median_elapsed_seconds": 0.18636491700000057,
+          "median_native_rss_bytes": 172064768
+        }
+      }
+    },
+    "full-seed1823": {
+      "paired_median_ratio": 1.004323596587629,
+      "paired_wins": 6,
+      "variants": {
+        "control": {
+          "median_elapsed_seconds": 0.1910339169999995,
+          "median_native_rss_bytes": 170082304
+        },
+        "candidate": {
+          "median_elapsed_seconds": 0.18976491699999976,
+          "median_native_rss_bytes": 173178880
+        }
+      }
+    },
+    "full-seed2633": {
+      "paired_median_ratio": 0.993959474803221,
+      "paired_wins": 7,
+      "variants": {
+        "control": {
+          "median_elapsed_seconds": 0.1795177920000004,
+          "median_native_rss_bytes": 172949504
+        },
+        "candidate": {
+          "median_elapsed_seconds": 0.17935587499999883,
+          "median_native_rss_bytes": 172457984
+        }
+      }
+    }
+  },
+  "decision": "REJECT_NATIVE_ONLY",
+  "decision_reason": "Native ratios1.005260/1.004324/.993959 are flat/mixed; RSS+3489792/+3096576/-491520B. No supported time/memory/source case. Reject before new full64label epoch/stdmap/growth/allocator/lifetime/strict/race/Floyd/untrained/GCC/image/default/actual proof; reset-before-first-use original precondition unchanged.",
+  "source_specific_broad_proof_performed": false,
+  "official_trial_performed": false,
+  "production_image_built": false,
+  "charged_memory_measured": false,
+  "score_gain_claimed": false,
+  "archive_reconstruction": {
+    "passed": true,
+    "source_parent": "4ded5cfb7095ed0c616cdedeb5986704375e2485",
+    "file_count": 14,
+    "all_frozen_target_files_match": true,
+    "PERF_note": "Exact frozen native target PERF preserved separately; changes were isolated and never selected."
+  },
+  "executed_drivers": {
+    "tools/round347-screen/prepare.py": "404f3ae17a10087eac632f18ec3e4980c29795cfe01cebe7c10f3edc4857b89b",
+    "tools/round347-screen/screen.py": "773e4e68a19ef7c9cc40ea624a613a51ea2b9335089bb2172d950f38855054a3",
+    "tools/round347-screen/compile.json": "685b28064da30542f692a4996794e76b19ef80e34b4c503d24308d38f417e604",
+    "tools/round347-screen/base-PERF.md": "843569904a4c47fe17b87780b6fa64a86788fcc13cf63094b3085d12e226ddad"
+  }
+}

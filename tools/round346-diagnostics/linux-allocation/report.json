@@ -1,0 +1,427 @@
+{
+  "started_at_utc": "2026-11-02T04:01:35.556936+00:00",
+  "official_score": false,
+  "selected_in_root": false,
+  "scope": "Read-only allocation-lifetime diagnostic for new345mappedcache and346narrow-first hypotheses. Two fresh instrumented-source copies pertrack, oneGCC-O3static compile each, noPGO/no sanitizers/no performance measurement or host/allocator tunable. malloc_info snapshots allarenas plus mmap at completed/joined phases only. XML allocator-ownedcurrent/max bytes are NOT process peakRSS, cgroupchargedM, dynamicthreshold value, source-specific correctness or a causal official gain. Explicit currentglibc behavior question justifies new diagnostic, not unchanged-state polling. All instrumentation stays in ignoredunscored diagnostic snapshots, never candidate/selected runtime or images.",
+  "compiler_image": "gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce",
+  "sources": [
+    {
+      "track": "a",
+      "variant": "control",
+      "base_main_sha256": "02661f93bc65fc35d359c80e19d82578968ab68725e8b325e48c630c3e27310c",
+      "instrumented_main_sha256": "1437832d9ddd3d9a5ffb0b758bcedd96c6a6a0eb2152b5ee8119dcdc1550622c",
+      "instrumentation_scope": "Only malloc.h, diagnostic helper and two joined/main-thread calls; no algorithm edit. Same helper/call phases for paired originals and candidates.",
+      "files_sha256": {
+        "a-control/track-a/training_generator.py": "d82b43b8f617016808f85cbe9be86af1fee8466296a0848ab8e6908ee3c4b0b4",
+        "a-control/track-a/Dockerfile": "c415bd88f27a18da83c33990744690358b9c158a8b1ea3dc60c289d123f4ff90",
+        "a-control/track-a/io.hpp": "a8838c50064520b806fcd2032cda0e9f246e9d3b6869fb951e3555cd5e8dfead",
+        "a-control/track-a/ordered_output.hpp": "b6f0911f5d6396ca35ad657a1de6364aa3e52a5dd6a9275d95f768e54f4fd69d",
+        "a-control/track-a/README.md": "42cdb7309530bef6c9d22f61bd694bc8085ba43bf10bae515e19bd1da29d7b46",
+        "a-control/track-a/endpoint_table.hpp": "913048b747b8f938cf1b438f29648a62d11434b2d71c3fb9a9b5f5aae31df745",
+        "a-control/track-a/mapped_allocator.hpp": "060bb6a0622338b9151e767d827cbf30c8e4d940cc7e170ad51757c4a6b0808b",
+        "a-control/track-a/.speed-demon.toml": "c9ae973186c14661797640f427009129e2a80d1aecefd5d4fa413ee7f3da44d8",
+        "a-control/track-a/main.cpp": "1437832d9ddd3d9a5ffb0b758bcedd96c6a6a0eb2152b5ee8119dcdc1550622c",
+        "a-control/track-a/decimal.hpp": "e6a53e983c0475fe3e49ffe2630a8603f96298b7866e0f4ef3b2ed0f165cb94e",
+        "a-control/track-a/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420"
+      }
+    },
+    {
+      "track": "a",
+      "variant": "candidate",
+      "base_main_sha256": "02661f93bc65fc35d359c80e19d82578968ab68725e8b325e48c630c3e27310c",
+      "instrumented_main_sha256": "1437832d9ddd3d9a5ffb0b758bcedd96c6a6a0eb2152b5ee8119dcdc1550622c",
+      "instrumentation_scope": "Only malloc.h, diagnostic helper and two joined/main-thread calls; no algorithm edit. Same helper/call phases for paired originals and candidates.",
+      "files_sha256": {
+        "a-candidate/track-a/training_generator.py": "d82b43b8f617016808f85cbe9be86af1fee8466296a0848ab8e6908ee3c4b0b4",
+        "a-candidate/track-a/Dockerfile": "c415bd88f27a18da83c33990744690358b9c158a8b1ea3dc60c289d123f4ff90",
+        "a-candidate/track-a/io.hpp": "a8838c50064520b806fcd2032cda0e9f246e9d3b6869fb951e3555cd5e8dfead",
+        "a-candidate/track-a/ordered_output.hpp": "b6f0911f5d6396ca35ad657a1de6364aa3e52a5dd6a9275d95f768e54f4fd69d",
+        "a-candidate/track-a/README.md": "42cdb7309530bef6c9d22f61bd694bc8085ba43bf10bae515e19bd1da29d7b46",
+        "a-candidate/track-a/endpoint_table.hpp": "7371c2726918f0a1b3a316011d2fb98c578e9e30a486762e51d2b561eb65cb67",
+        "a-candidate/track-a/PERF.md": "04245272185893d5db13956737f13a372b34fee8149f150ccc2b7c1fc741750e",
+        "a-candidate/track-a/mapped_allocator.hpp": "060bb6a0622338b9151e767d827cbf30c8e4d940cc7e170ad51757c4a6b0808b",
+        "a-candidate/track-a/.speed-demon.toml": "c9ae973186c14661797640f427009129e2a80d1aecefd5d4fa413ee7f3da44d8",
+        "a-candidate/track-a/main.cpp": "1437832d9ddd3d9a5ffb0b758bcedd96c6a6a0eb2152b5ee8119dcdc1550622c",
+        "a-candidate/track-a/decimal.hpp": "e6a53e983c0475fe3e49ffe2630a8603f96298b7866e0f4ef3b2ed0f165cb94e",
+        "a-candidate/track-a/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420"
+      }
+    },
+    {
+      "track": "c",
+      "variant": "control",
+      "base_main_sha256": "8f1703c20ec7e17bb708abff7d7a88945e0dcd8b83acc00b137607a7ceee1b0d",
+      "instrumented_main_sha256": "af9bc1e09b61e7b3476827fd38f58c48bb6e098534ff854e3a3d73dba01a6e9c",
+      "instrumentation_scope": "Only malloc.h, diagnostic helper and two joined/main-thread calls; no algorithm edit. Same helper/call phases for paired originals and candidates.",
+      "files_sha256": {
+        "c-control/track-c/training_generator.py": "9e61672eb814fa4e1bc2e3cf30c8e7ca9629804191ce5ae60a66c8b61ba704f2",
+        "c-control/track-c/Dockerfile": "637e81c6fca4507f4c4e7368efde7b6904d07879ae9ec992c5e25175d50e1fae",
+        "c-control/track-c/names.hpp": "f62a25fdb9f229575c42fc013220f7f38dd5a68ea5ac83aa1702d0589c15501b",
+        "c-control/track-c/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+        "c-control/track-c/quote_scan.hpp": "0b170a766254dee1bc14f9e9180cc1900da01d41f5d09053d5579e01a7fb9cfa",
+        "c-control/track-c/README.md": "6a64233dcbf8967678d87f403c99969067f468ee5066b0f172751f437cccb841",
+        "c-control/track-c/.speed-demon.toml": "3371600b8033a377bc373378e703191dfec36c1ae991b617650dfa480edc00b4",
+        "c-control/track-c/main.cpp": "af9bc1e09b61e7b3476827fd38f58c48bb6e098534ff854e3a3d73dba01a6e9c",
+        "c-control/track-c/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420"
+      }
+    },
+    {
+      "track": "c",
+      "variant": "candidate",
+      "base_main_sha256": "b9a11e8bf1d086295aa94e8f98e394a6914d7fc262f21118b676199852a909a1",
+      "instrumented_main_sha256": "bb6fe54373a0effeac8e7e13818ecbbc39e4ee71b35a6718ffca01b556fc6be3",
+      "instrumentation_scope": "Only malloc.h, diagnostic helper and two joined/main-thread calls; no algorithm edit. Same helper/call phases for paired originals and candidates.",
+      "files_sha256": {
+        "c-candidate/track-c/training_generator.py": "9e61672eb814fa4e1bc2e3cf30c8e7ca9629804191ce5ae60a66c8b61ba704f2",
+        "c-candidate/track-c/Dockerfile": "637e81c6fca4507f4c4e7368efde7b6904d07879ae9ec992c5e25175d50e1fae",
+        "c-candidate/track-c/names.hpp": "f62a25fdb9f229575c42fc013220f7f38dd5a68ea5ac83aa1702d0589c15501b",
+        "c-candidate/track-c/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+        "c-candidate/track-c/quote_scan.hpp": "0b170a766254dee1bc14f9e9180cc1900da01d41f5d09053d5579e01a7fb9cfa",
+        "c-candidate/track-c/README.md": "6a64233dcbf8967678d87f403c99969067f468ee5066b0f172751f437cccb841",
+        "c-candidate/track-c/PERF.md": "03cf8894f3d20b3eae3ed7a76c02065107e4a85121fabe7664bd2ce30c30e9eb",
+        "c-candidate/track-c/.speed-demon.toml": "3371600b8033a377bc373378e703191dfec36c1ae991b617650dfa480edc00b4",
+        "c-candidate/track-c/main.cpp": "bb6fe54373a0effeac8e7e13818ecbbc39e4ee71b35a6718ffca01b556fc6be3",
+        "c-candidate/track-c/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420"
+      }
+    }
+  ],
+  "cases": [
+    {
+      "track": "a",
+      "case": "public-full-seed1",
+      "data_folder": ".data/a/public-full-seed1",
+      "inputs_sha256": {
+        "requests.log": "7ec80ba45bceef51ac7f79d3a14521fc6187b2dcb87b5e5542d08063fe5d962a"
+      },
+      "expected_sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3"
+    },
+    {
+      "track": "a",
+      "case": "full-seed1951",
+      "data_folder": ".data/a/full-seed1951",
+      "inputs_sha256": {
+        "requests.log": "ac261cd7e1241b078bf71458317d7dc3856c9b34d92fba72eb15c6770bc4bd3b"
+      },
+      "expected_sha256": "507b929374addfcfaf5eae69a5dede0427a1fa5fd329bf603e24c5274d8725a2"
+    },
+    {
+      "track": "c",
+      "case": "public-full-seed1",
+      "data_folder": ".data/c/public-full-seed1",
+      "inputs_sha256": {
+        "regions.csv": "414c57c4f3ec968f9bce28c59eebfdf57a9425322b468db7ee964c18c4852fe1",
+        "records.csv": "36166f4ac44101a22ebf25b4f949436a681a2698cb0f2ae1f7f6853010259f48"
+      },
+      "expected_sha256": "d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536"
+    },
+    {
+      "track": "c",
+      "case": "full-seed2203",
+      "data_folder": ".data/c/full-seed2203",
+      "inputs_sha256": {
+        "regions.csv": "b10babc48a7df6f63c3ed69207cbba8f54320865806f9901b9163c18dc121b1b",
+        "records.csv": "4867fad678af7b9375175c4b5fe84444feafab7fdc3f30472681b6459bf6aef4"
+      },
+      "expected_sha256": "2778d89810ab63e1bd11510397114abfe2c520ca1b4c707989ff39dec5aafb92"
+    }
+  ],
+  "commands": [
+    {
+      "argv": [
+        "docker",
+        "run",
+        "--rm",
+        "--pull=never",
+        "--platform",
+        "linux/amd64",
+        "--network=none",
+        "--read-only",
+        "--memory=8g",
+        "--memory-swap=8g",
+        "--pids-limit=512",
+        "--cap-drop=ALL",
+        "--security-opt=no-new-privileges",
+        "--user",
+        "65534:65534",
+        "--tmpfs",
+        "/tmp:rw,exec,size=1g",
+        "-i",
+        "-v",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh:/repo:ro",
+        "-v",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round346/linux-allocation:/out:rw",
+        "gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce",
+        "/bin/sh",
+        "-s"
+      ],
+      "stdin": "set -eu\nmkdir -p /out/stdio\ngetconf GNU_LIBC_VERSION >/out/glibc.txt\ng++ --version >/out/gcc.txt\ng++ -std=c++20 -O3 -DNDEBUG -pthread -static /repo/.build/round346/linux-allocation/a-control/track-a/main.cpp -o /out/a-control-bin\nsha256sum /out/a-control-bin >/out/a-control-bin.sha256\ng++ -std=c++20 -O3 -DNDEBUG -pthread -static /repo/.build/round346/linux-allocation/a-candidate/track-a/main.cpp -o /out/a-candidate-bin\nsha256sum /out/a-candidate-bin >/out/a-candidate-bin.sha256\ng++ -std=c++20 -O3 -DNDEBUG -pthread -static -march=native /repo/.build/round346/linux-allocation/c-control/track-c/main.cpp -o /out/c-control-bin\nsha256sum /out/c-control-bin >/out/c-control-bin.sha256\ng++ -std=c++20 -O3 -DNDEBUG -pthread -static -march=native /repo/.build/round346/linux-allocation/c-candidate/track-c/main.cpp -o /out/c-candidate-bin\nsha256sum /out/c-candidate-bin >/out/c-candidate-bin.sha256\nSPEED_DEMON_THREADS=12 /out/a-control-bin --data /repo/.data/a/public-full-seed1 --out /out/0-a-control >/out/stdio/0-a-control.out 2>/out/stdio/0-a-control.err\nSPEED_DEMON_THREADS=12 /out/a-candidate-bin --data /repo/.data/a/public-full-seed1 --out /out/0-a-candidate >/out/stdio/0-a-candidate.out 2>/out/stdio/0-a-candidate.err\nSPEED_DEMON_THREADS=12 /out/a-control-bin --data /repo/.data/a/full-seed1951 --out /out/1-a-control >/out/stdio/1-a-control.out 2>/out/stdio/1-a-control.err\nSPEED_DEMON_THREADS=12 /out/a-candidate-bin --data /repo/.data/a/full-seed1951 --out /out/1-a-candidate >/out/stdio/1-a-candidate.out 2>/out/stdio/1-a-candidate.err\nSPEED_DEMON_THREADS=12 /out/c-control-bin --data /repo/.data/c/public-full-seed1 --out /out/2-c-control >/out/stdio/2-c-control.out 2>/out/stdio/2-c-control.err\nSPEED_DEMON_THREADS=12 /out/c-candidate-bin --data /repo/.data/c/public-full-seed1 --out /out/2-c-candidate >/out/stdio/2-c-candidate.out 2>/out/stdio/2-c-candidate.err\nSPEED_DEMON_THREADS=12 /out/c-control-bin --data /repo/.data/c/full-seed2203 --out /out/3-c-control >/out/stdio/3-c-control.out 2>/out/stdio/3-c-control.err\nSPEED_DEMON_THREADS=12 /out/c-candidate-bin --data /repo/.data/c/full-seed2203 --out /out/3-c-candidate >/out/stdio/3-c-candidate.out 2>/out/stdio/3-c-candidate.err\n"
+    }
+  ],
+  "returncode": 0,
+  "runs": [
+    {
+      "track": "a",
+      "case": "public-full-seed1",
+      "variant": "control",
+      "phases": {
+        "parsed": {
+          "heap_count": 12,
+          "allocator_system_current_bytes": 1811008,
+          "allocator_system_max_bytes": 1811008,
+          "allocator_mmap_bytes": 200704,
+          "allocator_free_fast_bytes": 288,
+          "allocator_free_rest_bytes": 1221137,
+          "allocator_current_brk_plus_mmap_bytes": 2011712
+        },
+        "joined": {
+          "heap_count": 12,
+          "allocator_system_current_bytes": 3818048,
+          "allocator_system_max_bytes": 3818048,
+          "allocator_mmap_bytes": 0,
+          "allocator_free_fast_bytes": 464,
+          "allocator_free_rest_bytes": 3622458,
+          "allocator_current_brk_plus_mmap_bytes": 3818048
+        }
+      },
+      "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3",
+      "diagnostic_binary_sha256": "895880168264d3afd4e617f3f2f49271dbd757e6d7f581329f2b2c2a82200050",
+      "stderr_XML_sha256": "e39bb03372b57ed617037dc1f84ba75396d1f385477734801fef27d32503800e"
+    },
+    {
+      "track": "a",
+      "case": "public-full-seed1",
+      "variant": "candidate",
+      "phases": {
+        "parsed": {
+          "heap_count": 12,
+          "allocator_system_current_bytes": 1761856,
+          "allocator_system_max_bytes": 1761856,
+          "allocator_mmap_bytes": 200704,
+          "allocator_free_fast_bytes": 2384,
+          "allocator_free_rest_bytes": 1169901,
+          "allocator_current_brk_plus_mmap_bytes": 1962560
+        },
+        "joined": {
+          "heap_count": 12,
+          "allocator_system_current_bytes": 2884160,
+          "allocator_system_max_bytes": 2884160,
+          "allocator_mmap_bytes": 0,
+          "allocator_free_fast_bytes": 1136,
+          "allocator_free_rest_bytes": 2686863,
+          "allocator_current_brk_plus_mmap_bytes": 2884160
+        }
+      },
+      "sha256": "495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3",
+      "diagnostic_binary_sha256": "d0c7867df6cfc781b38061a0704446e1f10382c771fa8eb971125af6a8661227",
+      "stderr_XML_sha256": "742514aec111ab35a3109c8e48726a07499233e1f388c2a3482d7cec5033b325"
+    },
+    {
+      "track": "a",
+      "case": "full-seed1951",
+      "variant": "control",
+      "phases": {
+        "parsed": {
+          "heap_count": 12,
+          "allocator_system_current_bytes": 2024000,
+          "allocator_system_max_bytes": 2024000,
+          "allocator_mmap_bytes": 200704,
+          "allocator_free_fast_bytes": 480,
+          "allocator_free_rest_bytes": 992559,
+          "allocator_current_brk_plus_mmap_bytes": 2224704
+        },
+        "joined": {
+          "heap_count": 12,
+          "allocator_system_current_bytes": 3187264,
+          "allocator_system_max_bytes": 3785280,
+          "allocator_mmap_bytes": 0,
+          "allocator_free_fast_bytes": 416,
+          "allocator_free_rest_bytes": 2991691,
+          "allocator_current_brk_plus_mmap_bytes": 3187264
+        }
+      },
+      "sha256": "507b929374addfcfaf5eae69a5dede0427a1fa5fd329bf603e24c5274d8725a2",
+      "diagnostic_binary_sha256": "895880168264d3afd4e617f3f2f49271dbd757e6d7f581329f2b2c2a82200050",
+      "stderr_XML_sha256": "ce845655615c7d31d71012d49589f6df00ea5d20c405ff1916c49d288859ac6e"
+    },
+    {
+      "track": "a",
+      "case": "full-seed1951",
+      "variant": "candidate",
+      "phases": {
+        "parsed": {
+          "heap_count": 12,
+          "allocator_system_current_bytes": 1761856,
+          "allocator_system_max_bytes": 1761856,
+          "allocator_mmap_bytes": 200704,
+          "allocator_free_fast_bytes": 2304,
+          "allocator_free_rest_bytes": 728607,
+          "allocator_current_brk_plus_mmap_bytes": 1962560
+        },
+        "joined": {
+          "heap_count": 12,
+          "allocator_system_current_bytes": 3117632,
+          "allocator_system_max_bytes": 3117632,
+          "allocator_mmap_bytes": 0,
+          "allocator_free_fast_bytes": 1184,
+          "allocator_free_rest_bytes": 2921295,
+          "allocator_current_brk_plus_mmap_bytes": 3117632
+        }
+      },
+      "sha256": "507b929374addfcfaf5eae69a5dede0427a1fa5fd329bf603e24c5274d8725a2",
+      "diagnostic_binary_sha256": "d0c7867df6cfc781b38061a0704446e1f10382c771fa8eb971125af6a8661227",
+      "stderr_XML_sha256": "8917c0151ace3d2a8ea0e7f015f28a3b5d9ad4e5e25364e6150c76deda6e586e"
+    },
+    {
+      "track": "c",
+      "case": "public-full-seed1",
+      "variant": "control",
+      "phases": {
+        "regions": {
+          "heap_count": 1,
+          "allocator_system_current_bytes": 287296,
+          "allocator_system_max_bytes": 287296,
+          "allocator_mmap_bytes": 1003520,
+          "allocator_free_fast_bytes": 0,
+          "allocator_free_rest_bytes": 152689,
+          "allocator_current_brk_plus_mmap_bytes": 1290816
+        },
+        "joined": {
+          "heap_count": 12,
+          "allocator_system_current_bytes": 8626752,
+          "allocator_system_max_bytes": 8626752,
+          "allocator_mmap_bytes": 1003520,
+          "allocator_free_fast_bytes": 1328,
+          "allocator_free_rest_bytes": 7770030,
+          "allocator_current_brk_plus_mmap_bytes": 9630272
+        }
+      },
+      "sha256": "d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536",
+      "diagnostic_binary_sha256": "6ca524be4f31505ac6ec06fb815ec38c9044e6705e30ccb0a8f16ac5a3e339d2",
+      "stderr_XML_sha256": "d5223bc5f1a363e042b71c2309374eeb81226aa9e156d87ec1f3c4f447f4a8ad"
+    },
+    {
+      "track": "c",
+      "case": "public-full-seed1",
+      "variant": "candidate",
+      "phases": {
+        "regions": {
+          "heap_count": 1,
+          "allocator_system_current_bytes": 287296,
+          "allocator_system_max_bytes": 287296,
+          "allocator_mmap_bytes": 1003520,
+          "allocator_free_fast_bytes": 0,
+          "allocator_free_rest_bytes": 152689,
+          "allocator_current_brk_plus_mmap_bytes": 1290816
+        },
+        "joined": {
+          "heap_count": 12,
+          "allocator_system_current_bytes": 2531904,
+          "allocator_system_max_bytes": 7578176,
+          "allocator_mmap_bytes": 1003520,
+          "allocator_free_fast_bytes": 1280,
+          "allocator_free_rest_bytes": 1675231,
+          "allocator_current_brk_plus_mmap_bytes": 3535424
+        }
+      },
+      "sha256": "d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536",
+      "diagnostic_binary_sha256": "fd6f9083d1c7e50310317874f7b8f8bb7965e3f8dcc2d04ba356779af54fbe8c",
+      "stderr_XML_sha256": "3824123893d4b521dcd5d4f5b2d40d525e7d034a5c59b2097e663ce2d88b4d1b"
+    },
+    {
+      "track": "c",
+      "case": "full-seed2203",
+      "variant": "control",
+      "phases": {
+        "regions": {
+          "heap_count": 1,
+          "allocator_system_current_bytes": 287296,
+          "allocator_system_max_bytes": 287296,
+          "allocator_mmap_bytes": 1003520,
+          "allocator_free_fast_bytes": 0,
+          "allocator_free_rest_bytes": 152657,
+          "allocator_current_brk_plus_mmap_bytes": 1290816
+        },
+        "joined": {
+          "heap_count": 12,
+          "allocator_system_current_bytes": 8606272,
+          "allocator_system_max_bytes": 8606272,
+          "allocator_mmap_bytes": 1003520,
+          "allocator_free_fast_bytes": 2304,
+          "allocator_free_rest_bytes": 7747968,
+          "allocator_current_brk_plus_mmap_bytes": 9609792
+        }
+      },
+      "sha256": "2778d89810ab63e1bd11510397114abfe2c520ca1b4c707989ff39dec5aafb92",
+      "diagnostic_binary_sha256": "6ca524be4f31505ac6ec06fb815ec38c9044e6705e30ccb0a8f16ac5a3e339d2",
+      "stderr_XML_sha256": "311737769835335aa502c7f1d3f9ec010616f083f348f89a902ef007fa2c18fd"
+    },
+    {
+      "track": "c",
+      "case": "full-seed2203",
+      "variant": "candidate",
+      "phases": {
+        "regions": {
+          "heap_count": 1,
+          "allocator_system_current_bytes": 287296,
+          "allocator_system_max_bytes": 287296,
+          "allocator_mmap_bytes": 1003520,
+          "allocator_free_fast_bytes": 0,
+          "allocator_free_rest_bytes": 152657,
+          "allocator_current_brk_plus_mmap_bytes": 1290816
+        },
+        "joined": {
+          "heap_count": 12,
+          "allocator_system_current_bytes": 2511424,
+          "allocator_system_max_bytes": 7557696,
+          "allocator_mmap_bytes": 1003520,
+          "allocator_free_fast_bytes": 2304,
+          "allocator_free_rest_bytes": 1653120,
+          "allocator_current_brk_plus_mmap_bytes": 3514944
+        }
+      },
+      "sha256": "2778d89810ab63e1bd11510397114abfe2c520ca1b4c707989ff39dec5aafb92",
+      "diagnostic_binary_sha256": "fd6f9083d1c7e50310317874f7b8f8bb7965e3f8dcc2d04ba356779af54fbe8c",
+      "stderr_XML_sha256": "535ae164cf78a7b2e9059aa19a6a760dbb7bdd783b918104fc9fde14ff0151c9"
+    }
+  ],
+  "passed": true,
+  "completed_at_utc": "2026-11-02T04:01:53.242065+00:00",
+  "comparison": [
+    {
+      "track": "a",
+      "case": "public-full-seed1",
+      "phase_current_allocator_deltas": {
+        "parsed": -49152,
+        "joined": -933888
+      }
+    },
+    {
+      "track": "a",
+      "case": "full-seed1951",
+      "phase_current_allocator_deltas": {
+        "parsed": -262144,
+        "joined": -69632
+      }
+    },
+    {
+      "track": "c",
+      "case": "public-full-seed1",
+      "phase_current_allocator_deltas": {
+        "regions": 0,
+        "joined": -6094848
+      }
+    },
+    {
+      "track": "c",
+      "case": "full-seed2203",
+      "phase_current_allocator_deltas": {
+        "regions": 0,
+        "joined": -6094848
+      }
+    }
+  ],
+  "glibc": "glibc 2.41",
+  "primary_sources": [
+    "https://sourceware.org/glibc/manual/latest/html_node/Malloc-Tunable-Parameters.html",
+    "https://man7.org/linux/man-pages/man3/malloc_info.3.html"
+  ]
+}

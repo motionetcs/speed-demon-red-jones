@@ -1,3 +1,9 @@
+# Verified original344 submission source
+
+Original344 realconfirms allA/C/D gates after complete343A scheduling rollback. Current selectedA178/C175/D334 exact30/Make/README/Git/snapshots/best-source/images; best75.305061/68.118071/65.662866 unchanged, latest73.956258/67.716671/64.213755 lower repeats. Complete feed03:29:55UTC rank56/115, geomean69.577494, leaderanotherello84.946836; #1 unachieved. New343image/proofs remain rejected-source history. No sign-in, privacy finding or new review blocker.
+
+Passing recordedbranch head 4ded5cfb7095ed0c616cdedeb5986704375e2485, PRIVATE/MIT. Exact proof docs/round344-final-source-match.json. Publication stays restricted to owner-approved2026-11-02 15:00–16:00UTC after exact frozen-source and finalsecret/privacy/history/image review. No runtime or Git changes after15:00UTC. Post344 result/comparison/source/audit/review docs need NEXT validated candidate or ONE final pre-freeze evidence head; no docs-only score loops.
+
 # Submission status
 
 This is the fresh local entry. Check actual external state before treating it as submitted.
@@ -89,3 +95,6 @@ Candidate343 is fully locally verified for ONE authorized real A scheduling-only
 
 
 343/cdb3159b97f1e0c4c23409dff29fc6284a1ef344 passes every actualA/C/D gate but A run-8a5700245b83 T0.046861/M21053440/S497/K30.351527/74.109027 loses best32.070167/75.305061. ObservedK-5.359%,time+11.367%,memory+131072B,Sunchanged; records are not precise causal estimates. REJECT complete tune-only Docker/README change, exact original A178/C175/D334/source30/Make/README/images restored. OriginalAimageB57 freshpublic+newfull3557 at1/6/12/true-default8callsPASS without newcompiler/training. C68.075145/D65.380282 are lower unchanged-source repeats; bestC68.118071/D65.662866 stay. Exact rejected343 source/image/strict proof remains historical, never relabeledoriginal. One cooled344 alltrack confirmation next, source proof round344-candidate-source-match.json. No new best/rank/#1 claim.
+
+
+Candidate352 locally verified for ONE real C compiler trial: only explicit -fno-unroll-loops -fno-peel-loops in both original-O3 -march=native full1000003/sample130363 PGO passes; two originalmain queue statements split acrosslines, tokenidentitychecked. OriginalC175 parser/nameowner/table/region/numeric/default12 and A178/D334 stay. Fresh independent3593/3599samples+3607full references generatedONCE; new pinnedGCCfailfaststrict raw/decoded/guard/numeric402810/offsetname models+231mainrefs/25errors, ONEofflinePGOimage645refs/50errors,75true noarg/nooverride defaults/9errors, actualrootMakeCcompile+16nativecompositepublic/fresh/defaultcallsPASS. No newconcurrency/TSAN claim; originalheader/raceproofsource-bound. LocalCimagesha256:781c8864b0a390391e66c61820dd9e91e7a6b71317c3d7297e014b23d76d2e27/ELF48be4b5eca9798e595ff04e7f45523039abf612bb47731f160747c3e1103a982 are notorganizeridentities. ActualtotalC K>23.033578/68.118071 required, elsecompleteDocker/main2linebreak/README/image263rollback andonecooledalltrackconfirmation. No native/emulatedspeed/score/#1gain claimed. Source30/Make/README/fullsets/exactimages in round352-candidate-source-match.json. PRIVATE/MIT; publication onlyapproved15:00–16:00UTC, runtime+Gitfreeze15:00, risky startsstop14:00.

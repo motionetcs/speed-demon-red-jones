@@ -1,0 +1,65 @@
+{
+  "created_at_utc": "2026-11-02T04:39:58.659675+00:00",
+  "source_parent": "4ded5cfb7095ed0c616cdedeb5986704375e2485",
+  "official_score": false,
+  "selected_in_root": false,
+  "scope": "C349 changes Csv::field interface only: return ordinary fullwidth string_view and write decoded bytecount through optional caller-owned size_t pointer, replacing32byte aggregate return with unused escaped member. Rawview/decodedview/scratch/doubledquotes/unquoted/BOM/EOF/terminator/count algorithm untouched. Readername+note each have independent localfullwidth counters; hash/canonicalencodedrawname/event get sameview, noteview discarded; no new pointer lifetime or narrowed integer/field domain. Header/tail callers need nocount and pass defaultnullptr. Intended reduce aggregate-return stores/hiddenreturn ABIcost, subject to actualinlining/optimization; no measuredGCCpath/causality or target gain yet. Original nameowner table/private512SPSC queues/roles12/numeric/group/PGO/flags unchanged. No catalogue/seed/outputcache/host/harness/timer/counter/tunable/exemption changes. Fresh actualCsv field differential decoded/raw/count/guard/fullbyte/escape/long/unquoted/header/malformed/model, currentmain independent/adversarial/untrained/strict/race/pinnedGCC/image/default/Make proof needed before promotion.",
+  "source_sha256": {
+    "track-c/.speed-demon.toml": "3371600b8033a377bc373378e703191dfec36c1ae991b617650dfa480edc00b4",
+    "track-c/Dockerfile": "637e81c6fca4507f4c4e7368efde7b6904d07879ae9ec992c5e25175d50e1fae",
+    "track-c/PERF.md": "1609f29591ea235f3b3e9fc4c2bb46bffc4c5270587a4fda058a5a70e27ffaae",
+    "track-c/README.md": "6a64233dcbf8967678d87f403c99969067f468ee5066b0f172751f437cccb841",
+    "track-c/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+    "track-c/main.cpp": "d3ff2909870cbacc0a1cfc52bd15ee274b212cab7baf0c8da8e0f3af67db6d08",
+    "track-c/names.hpp": "f62a25fdb9f229575c42fc013220f7f38dd5a68ea5ac83aa1702d0589c15501b",
+    "track-c/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420",
+    "track-c/quote_scan.hpp": "0b170a766254dee1bc14f9e9180cc1900da01d41f5d09053d5579e01a7fb9cfa",
+    "track-c/training_generator.py": "9e61672eb814fa4e1bc2e3cf30c8e7ca9629804191ce5ae60a66c8b61ba704f2"
+  },
+  "control_binary": "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round263/final-make/track-c",
+  "control_binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+  "root_selected_bindings": {
+    "track-a/.speed-demon.toml": "c9ae973186c14661797640f427009129e2a80d1aecefd5d4fa413ee7f3da44d8",
+    "track-a/Dockerfile": "c415bd88f27a18da83c33990744690358b9c158a8b1ea3dc60c289d123f4ff90",
+    "track-a/decimal.hpp": "e6a53e983c0475fe3e49ffe2630a8603f96298b7866e0f4ef3b2ed0f165cb94e",
+    "track-a/endpoint_table.hpp": "913048b747b8f938cf1b438f29648a62d11434b2d71c3fb9a9b5f5aae31df745",
+    "track-a/io.hpp": "a8838c50064520b806fcd2032cda0e9f246e9d3b6869fb951e3555cd5e8dfead",
+    "track-a/main.cpp": "02661f93bc65fc35d359c80e19d82578968ab68725e8b325e48c630c3e27310c",
+    "track-a/mapped_allocator.hpp": "060bb6a0622338b9151e767d827cbf30c8e4d940cc7e170ad51757c4a6b0808b",
+    "track-a/ordered_output.hpp": "b6f0911f5d6396ca35ad657a1de6364aa3e52a5dd6a9275d95f768e54f4fd69d",
+    "track-a/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420",
+    "track-a/training_generator.py": "d82b43b8f617016808f85cbe9be86af1fee8466296a0848ab8e6908ee3c4b0b4",
+    "track-c/.speed-demon.toml": "3371600b8033a377bc373378e703191dfec36c1ae991b617650dfa480edc00b4",
+    "track-c/Dockerfile": "637e81c6fca4507f4c4e7368efde7b6904d07879ae9ec992c5e25175d50e1fae",
+    "track-c/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+    "track-c/main.cpp": "8f1703c20ec7e17bb708abff7d7a88945e0dcd8b83acc00b137607a7ceee1b0d",
+    "track-c/names.hpp": "f62a25fdb9f229575c42fc013220f7f38dd5a68ea5ac83aa1702d0589c15501b",
+    "track-c/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420",
+    "track-c/quote_scan.hpp": "0b170a766254dee1bc14f9e9180cc1900da01d41f5d09053d5579e01a7fb9cfa",
+    "track-c/training_generator.py": "9e61672eb814fa4e1bc2e3cf30c8e7ca9629804191ce5ae60a66c8b61ba704f2",
+    "track-d/.speed-demon.toml": "6d6100843803548ba58c1c1eaf2d1dbaecb9a431fd5c9a8408d214580466465c",
+    "track-d/Dockerfile": "512831e9b8ff2061dbcc7ff8dabd4e3bf4bd184d4acb75c5e9ce732fa274633e",
+    "track-d/decimal.hpp": "aee2210ac5894050834ffd37903718b3b7bdc6673240559baa85b350bea9b581",
+    "track-d/distance_map.hpp": "07b254af4e7a149bdae50e426c3355446e104333e6a8dcd43cd29181db4a8604",
+    "track-d/edge_store.hpp": "31db14bd58fb3bb45a90c963cf57397a50d5195782d01dc366b2a380d3b74ed6",
+    "track-d/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+    "track-d/load_cursors.hpp": "c25acd31f52e5245de3972723594483df495d3c09e131ab5977c7b7f581ddc79",
+    "track-d/main.cpp": "c7c973f84cc510f2f5f59f2d7898bab50b13705a06f4dee4b5b99caf40b4d42a",
+    "track-d/mapped_allocator.hpp": "060bb6a0622338b9151e767d827cbf30c8e4d940cc7e170ad51757c4a6b0808b",
+    "track-d/parallel.hpp": "614e48333aabbd7a9d7b008119d41acc7f908e467769772d01e10d84c282bdab",
+    "track-d/radix_heap.hpp": "7fb2052bb951ca391c5b1883d8e673f554a43ab3d06286e43597105c2d82b6e3",
+    "track-d/training_generator.py": "bbf37741159004149c5896265a98ae00b90e90a05ad48c2912ecf8bdce126d65",
+    "Makefile": "1f2ce8ab1814a60f5ef05dbd0f0147c5176ed3f9258c757a6dd0026d496ae8aa"
+  },
+  "duplicate_check": "179compiletime decode specialization and181forcedfieldinline change functiontemplate/inline attribute, not aggregate-return interface.230amountprefix changesnumericbody;328cachedquotemasks changessearch;277CSVscanner changesstructuralparser. OwnPERF/patches have no fullwidthstringview return plus optional countparameter field trial. No previous proof transferred.",
+  "primary_sources": [
+    {
+      "url": "https://gitlab.com/x86-psABIs/x86-64-ABI/-/blob/master/x86-64-ABI/low-level-sys-info.tex",
+      "scope": "Primary ABI aggregate classification/return storage motivation only. C++compiler may inline/constprop and remove ABIcost; no dynamicfrequency/speed prediction."
+    },
+    {
+      "url": "https://15721.courses.cs.cmu.edu/spring2024/slides/09-hashjoins.pdf",
+      "scope": "Primary lecture slides text on synchronization/cache tradeoffs, not copied implementation or playedvideo; supports evaluating wholepipeline, not predicted349gain."
+    }
+  ]
+}

@@ -1,0 +1,443 @@
+{
+  "observed_at_utc": "2026-11-02T04:19:00.367167+00:00",
+  "passed": true,
+  "official_score": false,
+  "selected_runtime_changed": false,
+  "selected_source": "A178/C175/D334",
+  "selected_commit": "4ded5cfb7095ed0c616cdedeb5986704375e2485",
+  "scope": "Three new isolated rejected candidates, one optimized native compile per candidate plus original immutable controls, public1/6/12 and13rotating paired full reference runs. Two explicitly unscored allocation diagnostics use separate instrumented sources, four plus two newGCC static compiles and eight plus four main invocations; v2adds genuinelynew live-before-destruction samples, not a repeat of completed v1. No production image/training/PGO, new generator/oracle, broad strict/race or board push/run. NativeRSS and sampled allocator snapshots are NOT chargedM or exactpeak. Rootpassing344 untouched.",
+  "candidates": [
+    {
+      "round": 345,
+      "track": "a",
+      "report": "docs/round345-a-mapped-cache-screen.json",
+      "report_sha256": "2a0be6ecaeaa277a2c9b743eb7f1ca84d0e3698e1a117b6fc0cb922fd853fca2",
+      "preflight": "docs/round345-preflight.json",
+      "preflight_sha256": "71e9d8aabd55118cf627648bcc566e2f4284d390eb583411e486f0b99acf1dba",
+      "patches": [
+        {
+          "path": "docs/prototype-patches/round345-a-mapped-cache-endpoint_table.hpp.patch",
+          "sha256": "a10bdeb692bb0d1b8d19d96fcde535f0c27c3eea32042f4544c382274c2165a0"
+        }
+      ],
+      "executed_drivers": {
+        "tools/round345-screen/prepare.py": "9f0d383e7ad21ff9dabce35b75cce76a725ea5e1c8bbde9369db6009d276880d",
+        "tools/round345-screen/screen.py": "a7023090b59fd9a6944788c3f6aa74ed6f34fb4e980c06b91557bdeb761f1bff",
+        "tools/round345-screen/compile.json": "49af84bde6d6d4d2817ab28d6221b1f5048047edb2fb89e54216a1468a223bf2",
+        "tools/round345-screen/base-PERF.md": "04245272185893d5db13956737f13a372b34fee8149f150ccc2b7c1fc741750e"
+      },
+      "archive_reconstruction": {
+        "passed": true,
+        "source_parent": "4ded5cfb7095ed0c616cdedeb5986704375e2485",
+        "file_count": 12,
+        "all_frozen_target_files_match": true,
+        "PERF_note": "Exact frozen native target PERF preserved separately; changes were isolated and never selected."
+      },
+      "scope": "A345 only private4096-slot endpoint front-cache vector uses the already-counted own MappedAllocator<Slot> instead of std::allocator. Full Slot constructor/defaultUINT16_MAX, exact sampled-hash/length/complete equality/shared canonical fallback, IDs/cancel/long keys/parser/records/latencies/output/threads/PGO/flags unchanged. Cache metadata actually unmaps at parser-local destruction; canonical views still borrow independent immutable input, never metadata. No new allocator source/header COPY/Make dependency beyond existing countedmapped header. Hypothesis reduce retained anonymous cache pages during aggregation at possible mmap/munmap cost; native RSS is not chargedM. No allocator tunable/env/host/timer/counter/harness/exemption/seed/outputcache change. Fresh actualSlot construction/alignment/value/cache/collision/ID4095/long/canonical lifetime/unmap/exception/race/currentmain/strict/untrained/GCC/image/default proof required if supported.",
+      "decision": "REJECT_NATIVE_AFTER_ALLOCATION_DIAGNOSTIC",
+      "reason": "Native ratios1.032011/.988266/.990955 are weak/mixed, RSSmixed. Separate GCC allocation snapshots show small inconsistent parsed/joined current-allocator differences, not peak/charged memory. No robust time/memory/source case; reject before fresh complete cache/allocator/collision/lifetime/strict/race/untrained/production-GCC/image/default/actual proof.",
+      "summary": {
+        "public-full-seed1": {
+          "paired_median_ratio": 1.032010691749533,
+          "paired_wins": 4,
+          "variants": {
+            "control": {
+              "median_elapsed_seconds": 0.03958979100000004,
+              "median_native_rss_bytes": 259129344
+            },
+            "candidate": {
+              "median_elapsed_seconds": 0.03985008300000015,
+              "median_native_rss_bytes": 258654208
+            }
+          }
+        },
+        "full-seed1951": {
+          "paired_median_ratio": 0.988266247318176,
+          "paired_wins": 9,
+          "variants": {
+            "control": {
+              "median_elapsed_seconds": 0.040576041999999646,
+              "median_native_rss_bytes": 272236544
+            },
+            "candidate": {
+              "median_elapsed_seconds": 0.04025749999999917,
+              "median_native_rss_bytes": 272465920
+            }
+          }
+        },
+        "full-seed2221": {
+          "paired_median_ratio": 0.9909546354904403,
+          "paired_wins": 9,
+          "variants": {
+            "control": {
+              "median_elapsed_seconds": 0.03941270799999952,
+              "median_native_rss_bytes": 252297216
+            },
+            "candidate": {
+              "median_elapsed_seconds": 0.03901849999999962,
+              "median_native_rss_bytes": 252313600
+            }
+          }
+        }
+      }
+    },
+    {
+      "round": 346,
+      "track": "c",
+      "report": "docs/round346-c-narrow-first-regions-screen.json",
+      "report_sha256": "16b6288fd8b8abe01364a92168c282e1179c97c7b7fd983d1266909dbed85de4",
+      "preflight": "docs/round346-preflight.json",
+      "preflight_sha256": "9777c5d2caaa66a15b45a0fcf6ef5884a3c543c76e200105c17bf9dcdca6cb9d",
+      "patches": [
+        {
+          "path": "docs/prototype-patches/round346-c-narrow-first-regions-main.cpp.patch",
+          "sha256": "8b7cf285248336883aef13c8457bcc535191afaba2ccbe26b9826919f2cfec9d"
+        }
+      ],
+      "executed_drivers": {
+        "tools/round346-screen/prepare.py": "83fa3e53f0142eb0a1d9b4b05b47cc4b1a423877f38c002a1175d6c3bfd02feb",
+        "tools/round346-screen/screen.py": "06f679f5c49593f90ea7d154d5ca886f6a9d36ba4f4c751dc34183e3050cfebb",
+        "tools/round346-screen/compile.json": "2fe3bff4540ee5ecea4f742581d33d96e07617590609fec1416b14783f2b7b87",
+        "tools/round346-screen/base-PERF.md": "03cf8894f3d20b3eae3ed7a76c02065107e4a85121fabe7664bd2ce30c30e9eb"
+      },
+      "archive_reconstruction": {
+        "passed": true,
+        "source_parent": "4ded5cfb7095ed0c616cdedeb5986704375e2485",
+        "file_count": 10,
+        "all_frozen_target_files_match": true,
+        "PERF_note": "Exact frozen native target PERF preserved separately; changes were isolated and never selected."
+      },
+      "scope": "C346 dense region lookup starts at existing uint8 width and promotes ONCE to fulluint16 only when actual dense country code>=255. On promotion map every old missing255 to missing65535 BEFORE writing newlyvalid255, preserve all old codes/holes, original duplicate-ID lastwrite/order semantics and arbitrary indexgrowth; guard unrepresentableSIZE_MAX. Ordinary<=255-country inputs avoid original2MB uint16 map plus conversion into1MB map. Final record lookup/type dispatch, original data grammar/parser/names/queues/roles/default12/PGO/flags unchanged. No rank bitmap/per-record extra loads, country/domain narrowing, catalogue/seed/cached output/allocator tunable/env/host/timer/harness/counter/exemption change. Allocation-lifetime/defaultglibc-pattern hypothesis only, not measured chargedM or guaranteed dynamicthreshold behavior. Fresh actual RegionLookup vsindependent map/word/allcountry255/256/overwrites/holes/largeid/overflow/guard/exception/narrowwide/lifetime/currentmain strict/race/untrained/GCC/image/default/Make proof required if screen supports.",
+      "decision": "REJECT_NATIVE_AFTER_LIVE_ALLOCATION_DIAGNOSTIC",
+      "reason": "Native ratios.984552/1.007633/.978598/1.028059 are mixed; RSS lower. v1postJOIN allocator savings6094848B do NOT establish a live footprint or peak gain. Distinct v2serialized snapshots BEFORE owner payload destruction show maximum sampled live allocator bytes16384B HIGHER on BOTH public/full2203; postjoin retention alone is insufficient. Reject before wide/promotion/fullcountry/stdmap/holes/overwrites/guard/strict/race/untrained/productionGCC/image/default/actual proof. No allocator tuning applied.",
+      "summary": {
+        "public-full-seed1": {
+          "paired_median_ratio": 0.9845515201573531,
+          "paired_wins": 7,
+          "variants": {
+            "control": {
+              "median_elapsed_seconds": 0.05989716699999992,
+              "median_native_rss_bytes": 217071616
+            },
+            "candidate": {
+              "median_elapsed_seconds": 0.05959999999999965,
+              "median_native_rss_bytes": 215416832
+            }
+          }
+        },
+        "full-seed2203": {
+          "paired_median_ratio": 1.0076330989739786,
+          "paired_wins": 5,
+          "variants": {
+            "control": {
+              "median_elapsed_seconds": 0.05937341600000057,
+              "median_native_rss_bytes": 216121344
+            },
+            "candidate": {
+              "median_elapsed_seconds": 0.059705165999998755,
+              "median_native_rss_bytes": 215482368
+            }
+          }
+        },
+        "full-seed2309": {
+          "paired_median_ratio": 0.9785981488804097,
+          "paired_wins": 11,
+          "variants": {
+            "control": {
+              "median_elapsed_seconds": 0.06010033300000028,
+              "median_native_rss_bytes": 216432640
+            },
+            "candidate": {
+              "median_elapsed_seconds": 0.05875541700000042,
+              "median_native_rss_bytes": 215924736
+            }
+          }
+        },
+        "full-seed2371": {
+          "paired_median_ratio": 1.0280591341072876,
+          "paired_wins": 3,
+          "variants": {
+            "control": {
+              "median_elapsed_seconds": 0.05913533299999951,
+              "median_native_rss_bytes": 215793664
+            },
+            "candidate": {
+              "median_elapsed_seconds": 0.06019704200000042,
+              "median_native_rss_bytes": 215285760
+            }
+          }
+        }
+      }
+    },
+    {
+      "round": 347,
+      "track": "d",
+      "report": "docs/round347-d-mapped-wide-labels-screen.json",
+      "report_sha256": "241a2400e2fce9ac4484eb8fd22bba0a67718ab0f7e90eb391f09363098ea902",
+      "preflight": "docs/round347-frozen.json",
+      "preflight_sha256": "29da5822a2b718a490445e4b127d3d0959af67ac8a19eca94fe4f3cf2608a88b",
+      "patches": [
+        {
+          "path": "docs/prototype-patches/round347-d-mapped-wide-labels-distance_map.hpp.patch",
+          "sha256": "b7149030c6888827daea6e3edd6c9d3e2463da4ac10761216d1d83c64d5f9ee3"
+        }
+      ],
+      "executed_drivers": {
+        "tools/round347-screen/prepare.py": "404f3ae17a10087eac632f18ec3e4980c29795cfe01cebe7c10f3edc4857b89b",
+        "tools/round347-screen/screen.py": "773e4e68a19ef7c9cc40ea624a613a51ea2b9335089bb2172d950f38855054a3",
+        "tools/round347-screen/compile.json": "685b28064da30542f692a4996794e76b19ef80e34b4c503d24308d38f417e604",
+        "tools/round347-screen/base-PERF.md": "843569904a4c47fe17b87780b6fa64a86788fcc13cf63094b3085d12e226ddad"
+      },
+      "archive_reconstruction": {
+        "passed": true,
+        "source_parent": "4ded5cfb7095ed0c616cdedeb5986704375e2485",
+        "file_count": 14,
+        "all_frozen_target_files_match": true,
+        "PERF_note": "Exact frozen native target PERF preserved separately; changes were isolated and never selected."
+      },
+      "scope": "D347 ONLY full64 fallback Distances::labels uses alreadycounted own D MappedAllocator<Label>, same4096 initial16byte labels and default constructors, epoch/live-count/hash/probe/loadfactor/grow/copy/reset/improve/get unchanged. Old vector storage actually unmaps after private grow rehash scope; current packed32bit labels/touched vectors/graph/prefixjoinedends/radix/search/full64/band64/batch32/12workers/arena2/PGO/flags unchanged. No header added/COPY/Make changes because334 alreadycounted allocator. Hypothesis reduce retained private fallback grow buffers under ordinary resource lifetime, possible syscall cost; not officialchargedM. No allocator env/tunable, host/harness/timer/counter/exemption/seed/outputcache change. Fresh actual16byte Label construction/align/epoch/sentinel/stdmap/grow/move/unmap/overflow/exception/private lifetime/race/currentmain/Floyd/untrained/GCC/image/default proof needed if native supports. Preserve existing API reset-before-first-use precondition; no new behavior claimed before reset.",
+      "decision": "REJECT_NATIVE_ONLY",
+      "reason": "Native ratios1.005260/1.004324/.993959 are flat/mixed; RSS+3489792/+3096576/-491520B. No supported time/memory/source case. Reject before new full64label epoch/stdmap/growth/allocator/lifetime/strict/race/Floyd/untrained/GCC/image/default/actual proof; reset-before-first-use original precondition unchanged.",
+      "summary": {
+        "public-full-seed1": {
+          "paired_median_ratio": 1.0052604890748615,
+          "paired_wins": 4,
+          "variants": {
+            "control": {
+              "median_elapsed_seconds": 0.18510929099999984,
+              "median_native_rss_bytes": 168574976
+            },
+            "candidate": {
+              "median_elapsed_seconds": 0.18636491700000057,
+              "median_native_rss_bytes": 172064768
+            }
+          }
+        },
+        "full-seed1823": {
+          "paired_median_ratio": 1.004323596587629,
+          "paired_wins": 6,
+          "variants": {
+            "control": {
+              "median_elapsed_seconds": 0.1910339169999995,
+              "median_native_rss_bytes": 170082304
+            },
+            "candidate": {
+              "median_elapsed_seconds": 0.18976491699999976,
+              "median_native_rss_bytes": 173178880
+            }
+          }
+        },
+        "full-seed2633": {
+          "paired_median_ratio": 0.993959474803221,
+          "paired_wins": 7,
+          "variants": {
+            "control": {
+              "median_elapsed_seconds": 0.1795177920000004,
+              "median_native_rss_bytes": 172949504
+            },
+            "candidate": {
+              "median_elapsed_seconds": 0.17935587499999883,
+              "median_native_rss_bytes": 172457984
+            }
+          }
+        }
+      }
+    }
+  ],
+  "allocation_diagnostics": [
+    {
+      "kind": "linux-allocation",
+      "report": "tools/round346-diagnostics/linux-allocation/report.json",
+      "report_sha256": "1c76c82e0332a8649b052e52ee429fb05da1f11ae00742d21dc629d7d6fdd2d1",
+      "files_sha256": {
+        "tools/round346-diagnostics/linux-allocation/a-candidate/track-a/.speed-demon.toml": "c9ae973186c14661797640f427009129e2a80d1aecefd5d4fa413ee7f3da44d8",
+        "tools/round346-diagnostics/linux-allocation/a-candidate/track-a/Dockerfile": "c415bd88f27a18da83c33990744690358b9c158a8b1ea3dc60c289d123f4ff90",
+        "tools/round346-diagnostics/linux-allocation/a-candidate/track-a/PERF.md": "04245272185893d5db13956737f13a372b34fee8149f150ccc2b7c1fc741750e",
+        "tools/round346-diagnostics/linux-allocation/a-candidate/track-a/README.md": "42cdb7309530bef6c9d22f61bd694bc8085ba43bf10bae515e19bd1da29d7b46",
+        "tools/round346-diagnostics/linux-allocation/a-candidate/track-a/decimal.hpp": "e6a53e983c0475fe3e49ffe2630a8603f96298b7866e0f4ef3b2ed0f165cb94e",
+        "tools/round346-diagnostics/linux-allocation/a-candidate/track-a/endpoint_table.hpp": "7371c2726918f0a1b3a316011d2fb98c578e9e30a486762e51d2b561eb65cb67",
+        "tools/round346-diagnostics/linux-allocation/a-candidate/track-a/io.hpp": "a8838c50064520b806fcd2032cda0e9f246e9d3b6869fb951e3555cd5e8dfead",
+        "tools/round346-diagnostics/linux-allocation/a-candidate/track-a/main.cpp": "1437832d9ddd3d9a5ffb0b758bcedd96c6a6a0eb2152b5ee8119dcdc1550622c",
+        "tools/round346-diagnostics/linux-allocation/a-candidate/track-a/mapped_allocator.hpp": "060bb6a0622338b9151e767d827cbf30c8e4d940cc7e170ad51757c4a6b0808b",
+        "tools/round346-diagnostics/linux-allocation/a-candidate/track-a/ordered_output.hpp": "b6f0911f5d6396ca35ad657a1de6364aa3e52a5dd6a9275d95f768e54f4fd69d",
+        "tools/round346-diagnostics/linux-allocation/a-candidate/track-a/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420",
+        "tools/round346-diagnostics/linux-allocation/a-candidate/track-a/training_generator.py": "d82b43b8f617016808f85cbe9be86af1fee8466296a0848ab8e6908ee3c4b0b4",
+        "tools/round346-diagnostics/linux-allocation/a-candidate-bin.sha256": "90b606d8c8fd35213b042ba73c24be03fceedf0bc6f38060ff89e0aca63d1843",
+        "tools/round346-diagnostics/linux-allocation/a-control/track-a/.speed-demon.toml": "c9ae973186c14661797640f427009129e2a80d1aecefd5d4fa413ee7f3da44d8",
+        "tools/round346-diagnostics/linux-allocation/a-control/track-a/Dockerfile": "c415bd88f27a18da83c33990744690358b9c158a8b1ea3dc60c289d123f4ff90",
+        "tools/round346-diagnostics/linux-allocation/a-control/track-a/README.md": "42cdb7309530bef6c9d22f61bd694bc8085ba43bf10bae515e19bd1da29d7b46",
+        "tools/round346-diagnostics/linux-allocation/a-control/track-a/decimal.hpp": "e6a53e983c0475fe3e49ffe2630a8603f96298b7866e0f4ef3b2ed0f165cb94e",
+        "tools/round346-diagnostics/linux-allocation/a-control/track-a/endpoint_table.hpp": "913048b747b8f938cf1b438f29648a62d11434b2d71c3fb9a9b5f5aae31df745",
+        "tools/round346-diagnostics/linux-allocation/a-control/track-a/io.hpp": "a8838c50064520b806fcd2032cda0e9f246e9d3b6869fb951e3555cd5e8dfead",
+        "tools/round346-diagnostics/linux-allocation/a-control/track-a/main.cpp": "1437832d9ddd3d9a5ffb0b758bcedd96c6a6a0eb2152b5ee8119dcdc1550622c",
+        "tools/round346-diagnostics/linux-allocation/a-control/track-a/mapped_allocator.hpp": "060bb6a0622338b9151e767d827cbf30c8e4d940cc7e170ad51757c4a6b0808b",
+        "tools/round346-diagnostics/linux-allocation/a-control/track-a/ordered_output.hpp": "b6f0911f5d6396ca35ad657a1de6364aa3e52a5dd6a9275d95f768e54f4fd69d",
+        "tools/round346-diagnostics/linux-allocation/a-control/track-a/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420",
+        "tools/round346-diagnostics/linux-allocation/a-control/track-a/training_generator.py": "d82b43b8f617016808f85cbe9be86af1fee8466296a0848ab8e6908ee3c4b0b4",
+        "tools/round346-diagnostics/linux-allocation/a-control-bin.sha256": "19c3ea88c2b68159405de939b517a1459f073c28b372fd4b5449f5b502e63fd6",
+        "tools/round346-diagnostics/linux-allocation/c-candidate/track-c/.speed-demon.toml": "3371600b8033a377bc373378e703191dfec36c1ae991b617650dfa480edc00b4",
+        "tools/round346-diagnostics/linux-allocation/c-candidate/track-c/Dockerfile": "637e81c6fca4507f4c4e7368efde7b6904d07879ae9ec992c5e25175d50e1fae",
+        "tools/round346-diagnostics/linux-allocation/c-candidate/track-c/PERF.md": "03cf8894f3d20b3eae3ed7a76c02065107e4a85121fabe7664bd2ce30c30e9eb",
+        "tools/round346-diagnostics/linux-allocation/c-candidate/track-c/README.md": "6a64233dcbf8967678d87f403c99969067f468ee5066b0f172751f437cccb841",
+        "tools/round346-diagnostics/linux-allocation/c-candidate/track-c/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+        "tools/round346-diagnostics/linux-allocation/c-candidate/track-c/main.cpp": "bb6fe54373a0effeac8e7e13818ecbbc39e4ee71b35a6718ffca01b556fc6be3",
+        "tools/round346-diagnostics/linux-allocation/c-candidate/track-c/names.hpp": "f62a25fdb9f229575c42fc013220f7f38dd5a68ea5ac83aa1702d0589c15501b",
+        "tools/round346-diagnostics/linux-allocation/c-candidate/track-c/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420",
+        "tools/round346-diagnostics/linux-allocation/c-candidate/track-c/quote_scan.hpp": "0b170a766254dee1bc14f9e9180cc1900da01d41f5d09053d5579e01a7fb9cfa",
+        "tools/round346-diagnostics/linux-allocation/c-candidate/track-c/training_generator.py": "9e61672eb814fa4e1bc2e3cf30c8e7ca9629804191ce5ae60a66c8b61ba704f2",
+        "tools/round346-diagnostics/linux-allocation/c-candidate-bin.sha256": "e180869ce84099f590f3c7f8a4abff14d981f64eeaf8cd60017e7f5b7aef9210",
+        "tools/round346-diagnostics/linux-allocation/c-control/track-c/.speed-demon.toml": "3371600b8033a377bc373378e703191dfec36c1ae991b617650dfa480edc00b4",
+        "tools/round346-diagnostics/linux-allocation/c-control/track-c/Dockerfile": "637e81c6fca4507f4c4e7368efde7b6904d07879ae9ec992c5e25175d50e1fae",
+        "tools/round346-diagnostics/linux-allocation/c-control/track-c/README.md": "6a64233dcbf8967678d87f403c99969067f468ee5066b0f172751f437cccb841",
+        "tools/round346-diagnostics/linux-allocation/c-control/track-c/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+        "tools/round346-diagnostics/linux-allocation/c-control/track-c/main.cpp": "af9bc1e09b61e7b3476827fd38f58c48bb6e098534ff854e3a3d73dba01a6e9c",
+        "tools/round346-diagnostics/linux-allocation/c-control/track-c/names.hpp": "f62a25fdb9f229575c42fc013220f7f38dd5a68ea5ac83aa1702d0589c15501b",
+        "tools/round346-diagnostics/linux-allocation/c-control/track-c/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420",
+        "tools/round346-diagnostics/linux-allocation/c-control/track-c/quote_scan.hpp": "0b170a766254dee1bc14f9e9180cc1900da01d41f5d09053d5579e01a7fb9cfa",
+        "tools/round346-diagnostics/linux-allocation/c-control/track-c/training_generator.py": "9e61672eb814fa4e1bc2e3cf30c8e7ca9629804191ce5ae60a66c8b61ba704f2",
+        "tools/round346-diagnostics/linux-allocation/c-control-bin.sha256": "6f88ad347d9137d7402d26807f73a5a476fcece836f3562c012a06e0a5dc643d",
+        "tools/round346-diagnostics/linux-allocation/gcc.txt": "721fb65551a2501948f0d810722146aae0537a6e9f474169be47ff398e40ae33",
+        "tools/round346-diagnostics/linux-allocation/glibc.txt": "0584cb92f3422fd95c4a1d03a2843f3e844cfe5466619885dafbc31ebed1e323",
+        "tools/round346-diagnostics/linux-allocation/report.json": "1c76c82e0332a8649b052e52ee429fb05da1f11ae00742d21dc629d7d6fdd2d1",
+        "tools/round346-diagnostics/linux-allocation/stdio/0-a-candidate.err": "742514aec111ab35a3109c8e48726a07499233e1f388c2a3482d7cec5033b325",
+        "tools/round346-diagnostics/linux-allocation/stdio/0-a-candidate.out": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tools/round346-diagnostics/linux-allocation/stdio/0-a-control.err": "e39bb03372b57ed617037dc1f84ba75396d1f385477734801fef27d32503800e",
+        "tools/round346-diagnostics/linux-allocation/stdio/0-a-control.out": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tools/round346-diagnostics/linux-allocation/stdio/1-a-candidate.err": "8917c0151ace3d2a8ea0e7f015f28a3b5d9ad4e5e25364e6150c76deda6e586e",
+        "tools/round346-diagnostics/linux-allocation/stdio/1-a-candidate.out": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tools/round346-diagnostics/linux-allocation/stdio/1-a-control.err": "ce845655615c7d31d71012d49589f6df00ea5d20c405ff1916c49d288859ac6e",
+        "tools/round346-diagnostics/linux-allocation/stdio/1-a-control.out": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tools/round346-diagnostics/linux-allocation/stdio/2-c-candidate.err": "3824123893d4b521dcd5d4f5b2d40d525e7d034a5c59b2097e663ce2d88b4d1b",
+        "tools/round346-diagnostics/linux-allocation/stdio/2-c-candidate.out": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tools/round346-diagnostics/linux-allocation/stdio/2-c-control.err": "d5223bc5f1a363e042b71c2309374eeb81226aa9e156d87ec1f3c4f447f4a8ad",
+        "tools/round346-diagnostics/linux-allocation/stdio/2-c-control.out": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tools/round346-diagnostics/linux-allocation/stdio/3-c-candidate.err": "535ae164cf78a7b2e9059aa19a6a760dbb7bdd783b918104fc9fde14ff0151c9",
+        "tools/round346-diagnostics/linux-allocation/stdio/3-c-candidate.out": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tools/round346-diagnostics/linux-allocation/stdio/3-c-control.err": "311737769835335aa502c7f1d3f9ec010616f083f348f89a902ef007fa2c18fd",
+        "tools/round346-diagnostics/linux-allocation/stdio/3-c-control.out": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tools/round346-diagnostics/linux-allocation/linux_allocation.py": "0f39e5de44babc25364a51ad1cf6e23dfc2256442e1cb52157aeeba240a6dc82"
+      },
+      "passed": true,
+      "returncode": 0,
+      "run_count": 8,
+      "comparison": [
+        {
+          "track": "a",
+          "case": "public-full-seed1",
+          "phase_current_allocator_deltas": {
+            "parsed": -49152,
+            "joined": -933888
+          }
+        },
+        {
+          "track": "a",
+          "case": "full-seed1951",
+          "phase_current_allocator_deltas": {
+            "parsed": -262144,
+            "joined": -69632
+          }
+        },
+        {
+          "track": "c",
+          "case": "public-full-seed1",
+          "phase_current_allocator_deltas": {
+            "regions": 0,
+            "joined": -6094848
+          }
+        },
+        {
+          "track": "c",
+          "case": "full-seed2203",
+          "phase_current_allocator_deltas": {
+            "regions": 0,
+            "joined": -6094848
+          }
+        }
+      ],
+      "scope": "Read-only allocation-lifetime diagnostic for new345mappedcache and346narrow-first hypotheses. Two fresh instrumented-source copies pertrack, oneGCC-O3static compile each, noPGO/no sanitizers/no performance measurement or host/allocator tunable. malloc_info snapshots allarenas plus mmap at completed/joined phases only. XML allocator-ownedcurrent/max bytes are NOT process peakRSS, cgroupchargedM, dynamicthreshold value, source-specific correctness or a causal official gain. Explicit currentglibc behavior question justifies new diagnostic, not unchanged-state polling. All instrumentation stays in ignoredunscored diagnostic snapshots, never candidate/selected runtime or images."
+    },
+    {
+      "kind": "linux-allocation-live",
+      "report": "tools/round346-diagnostics/linux-allocation-live/report.json",
+      "report_sha256": "52589e8378b926700efdea0d46f3dfc29ea6d10d142f122a9861767a16b85f08",
+      "files_sha256": {
+        "tools/round346-diagnostics/linux-allocation-live/candidate/track-c/.speed-demon.toml": "3371600b8033a377bc373378e703191dfec36c1ae991b617650dfa480edc00b4",
+        "tools/round346-diagnostics/linux-allocation-live/candidate/track-c/Dockerfile": "637e81c6fca4507f4c4e7368efde7b6904d07879ae9ec992c5e25175d50e1fae",
+        "tools/round346-diagnostics/linux-allocation-live/candidate/track-c/PERF.md": "03cf8894f3d20b3eae3ed7a76c02065107e4a85121fabe7664bd2ce30c30e9eb",
+        "tools/round346-diagnostics/linux-allocation-live/candidate/track-c/README.md": "6a64233dcbf8967678d87f403c99969067f468ee5066b0f172751f437cccb841",
+        "tools/round346-diagnostics/linux-allocation-live/candidate/track-c/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+        "tools/round346-diagnostics/linux-allocation-live/candidate/track-c/main.cpp": "fa3cfef8491cecb2e845e26ec03914c0cc7e665a0b83015ec1553466c1aac5ae",
+        "tools/round346-diagnostics/linux-allocation-live/candidate/track-c/names.hpp": "f62a25fdb9f229575c42fc013220f7f38dd5a68ea5ac83aa1702d0589c15501b",
+        "tools/round346-diagnostics/linux-allocation-live/candidate/track-c/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420",
+        "tools/round346-diagnostics/linux-allocation-live/candidate/track-c/quote_scan.hpp": "0b170a766254dee1bc14f9e9180cc1900da01d41f5d09053d5579e01a7fb9cfa",
+        "tools/round346-diagnostics/linux-allocation-live/candidate/track-c/training_generator.py": "9e61672eb814fa4e1bc2e3cf30c8e7ca9629804191ce5ae60a66c8b61ba704f2",
+        "tools/round346-diagnostics/linux-allocation-live/candidate-bin.sha256": "6041beed2d3fc15a69105ce5bcb8b55cc482bdb6dd3a8e1332e43278c57124d8",
+        "tools/round346-diagnostics/linux-allocation-live/control/track-c/.speed-demon.toml": "3371600b8033a377bc373378e703191dfec36c1ae991b617650dfa480edc00b4",
+        "tools/round346-diagnostics/linux-allocation-live/control/track-c/Dockerfile": "637e81c6fca4507f4c4e7368efde7b6904d07879ae9ec992c5e25175d50e1fae",
+        "tools/round346-diagnostics/linux-allocation-live/control/track-c/README.md": "6a64233dcbf8967678d87f403c99969067f468ee5066b0f172751f437cccb841",
+        "tools/round346-diagnostics/linux-allocation-live/control/track-c/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+        "tools/round346-diagnostics/linux-allocation-live/control/track-c/main.cpp": "b1cc6d4b89785bc2fd731ea8d488dc6eddf307cef0e591cb22ed17b1dce61b49",
+        "tools/round346-diagnostics/linux-allocation-live/control/track-c/names.hpp": "f62a25fdb9f229575c42fc013220f7f38dd5a68ea5ac83aa1702d0589c15501b",
+        "tools/round346-diagnostics/linux-allocation-live/control/track-c/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420",
+        "tools/round346-diagnostics/linux-allocation-live/control/track-c/quote_scan.hpp": "0b170a766254dee1bc14f9e9180cc1900da01d41f5d09053d5579e01a7fb9cfa",
+        "tools/round346-diagnostics/linux-allocation-live/control/track-c/training_generator.py": "9e61672eb814fa4e1bc2e3cf30c8e7ca9629804191ce5ae60a66c8b61ba704f2",
+        "tools/round346-diagnostics/linux-allocation-live/control-bin.sha256": "33c1c2784241c10fd58b66aea72b90e11e0084a085e3c57403e4693f9cc71f91",
+        "tools/round346-diagnostics/linux-allocation-live/glibc.txt": "0584cb92f3422fd95c4a1d03a2843f3e844cfe5466619885dafbc31ebed1e323",
+        "tools/round346-diagnostics/linux-allocation-live/report.json": "52589e8378b926700efdea0d46f3dfc29ea6d10d142f122a9861767a16b85f08",
+        "tools/round346-diagnostics/linux-allocation-live/stdio/0-candidate.err": "b692510600faa782d59e952c6382a430b6b6b4291aae6bf732cc966425c0710a",
+        "tools/round346-diagnostics/linux-allocation-live/stdio/0-candidate.out": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tools/round346-diagnostics/linux-allocation-live/stdio/0-control.err": "04f9b8df5d3b8aef9ea73ad43e9ac8e0a4dd8cebd5559fe8e096271222a0d3da",
+        "tools/round346-diagnostics/linux-allocation-live/stdio/0-control.out": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tools/round346-diagnostics/linux-allocation-live/stdio/1-candidate.err": "6934cb96d200ff28aca1e36a4d8b2038f68a2049cb4c07197fd5e4e62f2383cd",
+        "tools/round346-diagnostics/linux-allocation-live/stdio/1-candidate.out": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tools/round346-diagnostics/linux-allocation-live/stdio/1-control.err": "5005210057feabf87a3b711b0c84cd5ab2b4d750e0e29ba86693f9f142eb2fce",
+        "tools/round346-diagnostics/linux-allocation-live/stdio/1-control.out": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tools/round346-diagnostics/linux-allocation-live/linux_allocation_live.py": "8ebaeba312a9462d1d0fb75df98831a0949f31c6611f91825c2bf7b5771684ab"
+      },
+      "passed": true,
+      "returncode": 0,
+      "run_count": 4,
+      "comparison": [
+        {
+          "case": "public-full-seed1",
+          "sampled_live_allocator_candidate_minus_control_bytes": 16384,
+          "control": 9630272,
+          "candidate": 9646656,
+          "scope": "Sampled allocator bytes withpayloadstillalive, NOT actualpeak or chargedM; compareseparately withv1postjoinretention."
+        },
+        {
+          "case": "full-seed2203",
+          "sampled_live_allocator_candidate_minus_control_bytes": 16384,
+          "control": 9609792,
+          "candidate": 9626176,
+          "scope": "Sampled allocator bytes withpayloadstillalive, NOT actualpeak or chargedM; compareseparately withv1postjoinretention."
+        }
+      ],
+      "scope": "New live-owner allocation diagnostic resolves whether346 v1postJOIN allocator-retention savings existed while name payloads were stillLIVE. Same two v1source snapshots get serialized read-only malloc_info immediately BEFORE each owner Names destructor, plus original region/joined snapshots. One new GCCcompile/source each, no originalsuccessful diagnostic repeated. No production runtime/image/header modification, no training, sanitizers, benchmark, counter/tunable/host/harness manipulation. Snapshot serialization perturbs scheduling; sampled allocator state is NOT processpeak/cgroupchargedM or precisecausal timing. Need actualvalidated image/board before scoreclaim."
+    }
+  ],
+  "primary_sources": [
+    {
+      "url": "https://sourceware.org/glibc/manual/latest/html_node/Malloc-Tunable-Parameters.html",
+      "scope": "Allocation/mmap release and default adaptive threshold background only. NO env/mallopt/tunable changes or measured threshold values; allocation history explanation remains an inference."
+    },
+    {
+      "url": "https://sourceware.org/glibc/manual/latest/html_node/Statistics-of-Malloc.html",
+      "scope": "Primary allocator statistics background; not actual process/cgroup memory."
+    },
+    {
+      "url": "https://man7.org/linux/man-pages/man3/malloc_info.3.html",
+      "scope": "Documented XMLallarenas/MTsafe/options0/success0; independentlywritten instrumentation only, no copied sample implementation."
+    }
+  ],
+  "new_board_dispatches": 0,
+  "new_production_images": 0,
+  "models_sanitizers_new_generators_or_oracles": 0,
+  "all_sessions_completed": [
+    93124,
+    13275,
+    33294,
+    50502,
+    64098
+  ]
+}

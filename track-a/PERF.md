@@ -663,3 +663,15 @@ Candidate343 is fully locally verified for ONE authorized real A scheduling-only
 
 
 343/cdb3159b97f1e0c4c23409dff29fc6284a1ef344 passes every actualA/C/D gate but A run-8a5700245b83 T0.046861/M21053440/S497/K30.351527/74.109027 loses best32.070167/75.305061. ObservedK-5.359%,time+11.367%,memory+131072B,Sunchanged; records are not precise causal estimates. REJECT complete tune-only Docker/README change, exact original A178/C175/D334/source30/Make/README/images restored. OriginalAimageB57 freshpublic+newfull3557 at1/6/12/true-default8callsPASS without newcompiler/training. C68.075145/D65.380282 are lower unchanged-source repeats; bestC68.118071/D65.662866 stay. Exact rejected343 source/image/strict proof remains historical, never relabeledoriginal. One cooled344 alltrack confirmation next, source proof round344-candidate-source-match.json. No new best/rank/#1 claim.
+
+
+Original344/4ded5cfb7095ed0c616cdedeb5986704375e2485, run-6c3cf9fec3c5, passes everyactualgate after complete A343 rollback: T0.047345/M21254144/S497/K30.138744/73.956258. Lower unchanged-source repeat; preserve historical best separately, no new algorithm/regression/rank gain claimed. CurrentA178/C175/D334 source30/Make/README/fullsets/Git/snapshots/best-component/localimages bind ../docs/round344-final-source-match.json. CurrentD334image2f14 remains; no newcompiler/training/broad replay. Actual ../docs/board-round344-original-restored.json.
+
+
+345 maps only the existing private4096 endpoint-cache metadata vector with own countedallocator. Native ratios1.032011/.988266/.990955, wins4/9/9, RSSmixed; separate unscored GCC allocator snapshotsparsed/joined do not establish a peak/K gain. REJECT_NATIVE_AFTER_ALLOCATION_DIAGNOSTIC before broad strict/race/lifetime/untrained/productionimage/default/actual proof. No selected runtime/officialgain; exact patches, executed drivers, complete frozen target reconstruction and raw XML/source-bound diagnostics in ../docs/round345-347-screen-index.json.
+
+
+348 single fullstdhash reused for direct4096cache and originalsharedfallback removes5 physicalsource lines but native1.019082/.993562/1.019246 (6/8/5wins), RSSmixed, lacks a supportedgain. Public1/6/12 and13rotating three-full input/output/source/ELF hashesPASS; REJECT_NATIVE_ONLY before new collision/eviction/guard/ID4095/strict/race/untrained/GCC/image/default/actual proof. No officialS/K inferred from line delta; originalsampled cache unchanged. Exact executeddrivers/preflight/patch/frozen-source reconstruction: ../docs/round348-a-full-standard-cache-screen.json.
+
+
+350 fixed width8/16/32bitonic fulluint32 network for n5..31 is REJECT_NATIVE_ONLY:1.000004/1.026821/.996326(6/4/7wins), RSSnearflat,15helperlines. Allpublic1/6/12 and13rotating fullreferences input/output/source/ELF hashesPASS; no broader independent/strict/race/untrained/GCC/image/default/actual proof, selectedruntime or officialgain. Exactreconstruction/executeddrivers/patches/scope: ../docs/round349-351-screen-index.json.

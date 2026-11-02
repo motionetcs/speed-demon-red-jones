@@ -1,0 +1,5 @@
+# C352 exact compiler trial
+
+Explicit no-unroll/no-peel at end of both original native-ISA GCC full1000003/sample130363 PGO passes; two existing queue statement linebreaks only, token equality checked. Every CSV/name/table/queue/region/money/worker algorithm is original C175; no rejected349 parser return change. New failfast strict GCC231 references/25 normalerrors plus exact raw/decoded byte/guard/numeric402810/offsetname models; one offlinePGO image645 references/50 errors;75 true noargument/nooverride defaults/9 errors. Fresh3593/3599samples and3607full data+officialreferences were generated once using unchanged native263 control and reused as input/referencebytes only. Original race/header protocol proof remains sourceidentity bound, no newTSAN claimed.
+
+Local compiler/image identities and emulated correctness are not organizer ELF/timing or score gains. Real totalK must exceed23.033578, else fullmain/Docker/README/image rollback. Reconstruction uses recordedparent plus three disclosedpatches and separately frozenexcludedPERFs. Only executable entersfinalimage, no PGOdata/traininginputs/publicseed1.

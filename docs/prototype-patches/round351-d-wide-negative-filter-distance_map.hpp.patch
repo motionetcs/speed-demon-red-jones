@@ -1,0 +1,56 @@
+--- a/track-d/distance_map.hpp
++++ b/track-d/distance_map.hpp
+@@ -1,5 +1,6 @@
+ #pragma once
+ #include <cstdint>
++#include <array>
+ #include <bit>
+ #include <stdexcept>
+ #if defined(__SSE2__)
+@@ -66,6 +67,18 @@
+     std::vector<uint32_t> touched;
+     Distances wide;
+     static constexpr uint32_t node_limit=1U<<21;
++    // Only wide-fallback inserts mark this small exact negative filter.
++    std::array<uint64_t,16> wide_buckets{};
++    uint64_t fallback(uint32_t node)const{
++        if(node<node_limit&&!(wide_buckets[(node&1023)>>6]&(uint64_t(1)<<(node&63))))return UINT64_MAX;
++        return wide.get(node);
++    }
++    bool improve_wide(uint32_t node,uint64_t distance){
++        bool changed=wide.improve(node,distance);
++        if(changed&&node<node_limit)wide_buckets[(node&1023)>>6]|=uint64_t(1)<<(node&63);
++        return changed;
++    }
++
+     uint32_t distance_mask()const{return (uint32_t(1)<<(11+bits))-1;}
+     size_t slot(uint32_t node)const{
+         size_t start=size_t(node&((1U<<bits)-1))*8;
+@@ -97,20 +110,20 @@
+             index=static_cast<uint32_t>(next);labels[next]=((node>>bits)<<(11+bits))|(value&old_mask);
+         }
+     }
+-    void reset(){for(uint32_t index:touched)labels[index]=0;touched.clear();wide.reset();}
++    void reset(){for(uint32_t index:touched)labels[index]=0;touched.clear();wide.reset();wide_buckets.fill(0);}
+     uint64_t get(uint32_t node)const{
+-        if(node>=node_limit||touched.empty())return wide.get(node);
++        if(node>=node_limit||touched.empty())return fallback(node);
+         size_t index=slot(node);uint32_t value=index<labels.size()?labels[index]:0;
+-        return value?uint64_t((value&distance_mask())-1):wide.get(node);
++        return value?uint64_t((value&distance_mask())-1):fallback(node);
+     }
+     bool improve(uint32_t node,uint64_t distance){
+-        if(node>=node_limit)return wide.improve(node,distance);
++        if(node>=node_limit)return improve_wide(node,distance);
+         if(touched.size()*2>=labels.size()&&bits<20)grow();
+         size_t index=slot(node);
+-        if(index==labels.size())return wide.improve(node,distance);
+-        uint32_t value=labels[index];uint64_t previous=value?uint64_t((value&distance_mask())-1):wide.get(node);
++        if(index==labels.size())return improve_wide(node,distance);
++        uint32_t value=labels[index];uint64_t previous=value?uint64_t((value&distance_mask())-1):fallback(node);
+         if(distance>=previous)return false;
+-        if(distance>=distance_mask())return wide.improve(node,distance);
++        if(distance>=distance_mask())return improve_wide(node,distance);
+         if(!value)touched.push_back(static_cast<uint32_t>(index));
+         labels[index]=((node>>bits)<<(11+bits))|static_cast<uint32_t>(distance+1);return true;
+     }

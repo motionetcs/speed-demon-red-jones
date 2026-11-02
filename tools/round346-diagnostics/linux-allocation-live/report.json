@@ -1,0 +1,351 @@
+{
+  "started_at_utc": "2026-11-02T04:11:29.646298+00:00",
+  "official_score": false,
+  "selected_in_root": false,
+  "scope": "New live-owner allocation diagnostic resolves whether346 v1postJOIN allocator-retention savings existed while name payloads were stillLIVE. Same two v1source snapshots get serialized read-only malloc_info immediately BEFORE each owner Names destructor, plus original region/joined snapshots. One new GCCcompile/source each, no originalsuccessful diagnostic repeated. No production runtime/image/header modification, no training, sanitizers, benchmark, counter/tunable/host/harness manipulation. Snapshot serialization perturbs scheduling; sampled allocator state is NOT processpeak/cgroupchargedM or precisecausal timing. Need actualvalidated image/board before scoreclaim.",
+  "previous_diagnostic_sha256": "1c76c82e0332a8649b052e52ee429fb05da1f11ae00742d21dc629d7d6fdd2d1",
+  "sources": [
+    {
+      "variant": "control",
+      "v1instrumented_main_sha256": "af9bc1e09b61e7b3476827fd38f58c48bb6e098534ff854e3a3d73dba01a6e9c",
+      "live_instrumented_main_sha256": "b1cc6d4b89785bc2fd731ea8d488dc6eddf307cef0e591cb22ed17b1dce61b49",
+      "files_sha256": {
+        "control/track-c/training_generator.py": "9e61672eb814fa4e1bc2e3cf30c8e7ca9629804191ce5ae60a66c8b61ba704f2",
+        "control/track-c/Dockerfile": "637e81c6fca4507f4c4e7368efde7b6904d07879ae9ec992c5e25175d50e1fae",
+        "control/track-c/names.hpp": "f62a25fdb9f229575c42fc013220f7f38dd5a68ea5ac83aa1702d0589c15501b",
+        "control/track-c/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+        "control/track-c/quote_scan.hpp": "0b170a766254dee1bc14f9e9180cc1900da01d41f5d09053d5579e01a7fb9cfa",
+        "control/track-c/README.md": "6a64233dcbf8967678d87f403c99969067f468ee5066b0f172751f437cccb841",
+        "control/track-c/.speed-demon.toml": "3371600b8033a377bc373378e703191dfec36c1ae991b617650dfa480edc00b4",
+        "control/track-c/main.cpp": "b1cc6d4b89785bc2fd731ea8d488dc6eddf307cef0e591cb22ed17b1dce61b49",
+        "control/track-c/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420"
+      },
+      "scope": "Only additional mutex serialization and owner-before-destruction diagnostics; original andcandidate algorithms unchanged from frozen345/346sources."
+    },
+    {
+      "variant": "candidate",
+      "v1instrumented_main_sha256": "bb6fe54373a0effeac8e7e13818ecbbc39e4ee71b35a6718ffca01b556fc6be3",
+      "live_instrumented_main_sha256": "fa3cfef8491cecb2e845e26ec03914c0cc7e665a0b83015ec1553466c1aac5ae",
+      "files_sha256": {
+        "candidate/track-c/training_generator.py": "9e61672eb814fa4e1bc2e3cf30c8e7ca9629804191ce5ae60a66c8b61ba704f2",
+        "candidate/track-c/Dockerfile": "637e81c6fca4507f4c4e7368efde7b6904d07879ae9ec992c5e25175d50e1fae",
+        "candidate/track-c/names.hpp": "f62a25fdb9f229575c42fc013220f7f38dd5a68ea5ac83aa1702d0589c15501b",
+        "candidate/track-c/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+        "candidate/track-c/quote_scan.hpp": "0b170a766254dee1bc14f9e9180cc1900da01d41f5d09053d5579e01a7fb9cfa",
+        "candidate/track-c/README.md": "6a64233dcbf8967678d87f403c99969067f468ee5066b0f172751f437cccb841",
+        "candidate/track-c/PERF.md": "03cf8894f3d20b3eae3ed7a76c02065107e4a85121fabe7664bd2ce30c30e9eb",
+        "candidate/track-c/.speed-demon.toml": "3371600b8033a377bc373378e703191dfec36c1ae991b617650dfa480edc00b4",
+        "candidate/track-c/main.cpp": "fa3cfef8491cecb2e845e26ec03914c0cc7e665a0b83015ec1553466c1aac5ae",
+        "candidate/track-c/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420"
+      },
+      "scope": "Only additional mutex serialization and owner-before-destruction diagnostics; original andcandidate algorithms unchanged from frozen345/346sources."
+    }
+  ],
+  "cases": [
+    {
+      "track": "c",
+      "case": "public-full-seed1",
+      "data_folder": ".data/c/public-full-seed1",
+      "inputs_sha256": {
+        "regions.csv": "414c57c4f3ec968f9bce28c59eebfdf57a9425322b468db7ee964c18c4852fe1",
+        "records.csv": "36166f4ac44101a22ebf25b4f949436a681a2698cb0f2ae1f7f6853010259f48"
+      },
+      "expected_sha256": "d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536"
+    },
+    {
+      "track": "c",
+      "case": "full-seed2203",
+      "data_folder": ".data/c/full-seed2203",
+      "inputs_sha256": {
+        "regions.csv": "b10babc48a7df6f63c3ed69207cbba8f54320865806f9901b9163c18dc121b1b",
+        "records.csv": "4867fad678af7b9375175c4b5fe84444feafab7fdc3f30472681b6459bf6aef4"
+      },
+      "expected_sha256": "2778d89810ab63e1bd11510397114abfe2c520ca1b4c707989ff39dec5aafb92"
+    }
+  ],
+  "primary_source": "https://man7.org/linux/man-pages/man3/malloc_info.3.html",
+  "command": {
+    "argv": [
+      "docker",
+      "run",
+      "--rm",
+      "--pull=never",
+      "--platform",
+      "linux/amd64",
+      "--network=none",
+      "--read-only",
+      "--memory=8g",
+      "--memory-swap=8g",
+      "--pids-limit=512",
+      "--cap-drop=ALL",
+      "--security-opt=no-new-privileges",
+      "--user",
+      "65534:65534",
+      "--tmpfs",
+      "/tmp:rw,exec,size=1g",
+      "-i",
+      "-v",
+      "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh:/repo:ro",
+      "-v",
+      "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round346/linux-allocation-live:/out:rw",
+      "gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce",
+      "/bin/sh",
+      "-s"
+    ],
+    "stdin": "set -eu\nmkdir -p /out/stdio\ngetconf GNU_LIBC_VERSION >/out/glibc.txt\ng++ -std=c++20 -O3 -DNDEBUG -pthread -static -march=native /repo/.build/round346/linux-allocation-live/control/track-c/main.cpp -o /out/control-bin\nsha256sum /out/control-bin >/out/control-bin.sha256\ng++ -std=c++20 -O3 -DNDEBUG -pthread -static -march=native /repo/.build/round346/linux-allocation-live/candidate/track-c/main.cpp -o /out/candidate-bin\nsha256sum /out/candidate-bin >/out/candidate-bin.sha256\nSPEED_DEMON_THREADS=12 /out/control-bin --data /repo/.data/c/public-full-seed1 --out /out/0-control >/out/stdio/0-control.out 2>/out/stdio/0-control.err\nSPEED_DEMON_THREADS=12 /out/candidate-bin --data /repo/.data/c/public-full-seed1 --out /out/0-candidate >/out/stdio/0-candidate.out 2>/out/stdio/0-candidate.err\nSPEED_DEMON_THREADS=12 /out/control-bin --data /repo/.data/c/full-seed2203 --out /out/1-control >/out/stdio/1-control.out 2>/out/stdio/1-control.err\nSPEED_DEMON_THREADS=12 /out/candidate-bin --data /repo/.data/c/full-seed2203 --out /out/1-candidate >/out/stdio/1-candidate.out 2>/out/stdio/1-candidate.err\n"
+  },
+  "returncode": 0,
+  "runs": [
+    {
+      "case": "public-full-seed1",
+      "variant": "control",
+      "states": [
+        {
+          "phase": "regions",
+          "heap_count": 1,
+          "allocator_system_current_bytes": 287296,
+          "allocator_system_max_bytes": 287296,
+          "allocator_mmap_bytes": 1003520,
+          "allocator_current_brk_plus_mmap_bytes": 1290816
+        },
+        {
+          "phase": "owner_done",
+          "heap_count": 12,
+          "allocator_system_current_bytes": 8626752,
+          "allocator_system_max_bytes": 8626752,
+          "allocator_mmap_bytes": 1003520,
+          "allocator_current_brk_plus_mmap_bytes": 9630272
+        },
+        {
+          "phase": "owner_done",
+          "heap_count": 12,
+          "allocator_system_current_bytes": 8626752,
+          "allocator_system_max_bytes": 8626752,
+          "allocator_mmap_bytes": 1003520,
+          "allocator_current_brk_plus_mmap_bytes": 9630272
+        },
+        {
+          "phase": "owner_done",
+          "heap_count": 12,
+          "allocator_system_current_bytes": 8626752,
+          "allocator_system_max_bytes": 8626752,
+          "allocator_mmap_bytes": 1003520,
+          "allocator_current_brk_plus_mmap_bytes": 9630272
+        },
+        {
+          "phase": "owner_done",
+          "heap_count": 12,
+          "allocator_system_current_bytes": 8626752,
+          "allocator_system_max_bytes": 8626752,
+          "allocator_mmap_bytes": 1003520,
+          "allocator_current_brk_plus_mmap_bytes": 9630272
+        },
+        {
+          "phase": "joined",
+          "heap_count": 12,
+          "allocator_system_current_bytes": 8626752,
+          "allocator_system_max_bytes": 8626752,
+          "allocator_mmap_bytes": 1003520,
+          "allocator_current_brk_plus_mmap_bytes": 9630272
+        }
+      ],
+      "max_sampled_live_owner_allocator_current_bytes": 9630272,
+      "sha256": "d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536",
+      "binary_sha256": "9250ae8055e86d3cda5287e293fa754ad0f0c46030dbf9eab064a4174929e7c5",
+      "stderr_XML_sha256": "04f9b8df5d3b8aef9ea73ad43e9ac8e0a4dd8cebd5559fe8e096271222a0d3da"
+    },
+    {
+      "case": "public-full-seed1",
+      "variant": "candidate",
+      "states": [
+        {
+          "phase": "regions",
+          "heap_count": 1,
+          "allocator_system_current_bytes": 287296,
+          "allocator_system_max_bytes": 287296,
+          "allocator_mmap_bytes": 1003520,
+          "allocator_current_brk_plus_mmap_bytes": 1290816
+        },
+        {
+          "phase": "owner_done",
+          "heap_count": 12,
+          "allocator_system_current_bytes": 7578176,
+          "allocator_system_max_bytes": 7578176,
+          "allocator_mmap_bytes": 2068480,
+          "allocator_current_brk_plus_mmap_bytes": 9646656
+        },
+        {
+          "phase": "owner_done",
+          "heap_count": 12,
+          "allocator_system_current_bytes": 6332992,
+          "allocator_system_max_bytes": 7578176,
+          "allocator_mmap_bytes": 1802240,
+          "allocator_current_brk_plus_mmap_bytes": 8135232
+        },
+        {
+          "phase": "owner_done",
+          "heap_count": 12,
+          "allocator_system_current_bytes": 5022272,
+          "allocator_system_max_bytes": 7578176,
+          "allocator_mmap_bytes": 1536000,
+          "allocator_current_brk_plus_mmap_bytes": 6558272
+        },
+        {
+          "phase": "owner_done",
+          "heap_count": 12,
+          "allocator_system_current_bytes": 3777088,
+          "allocator_system_max_bytes": 7578176,
+          "allocator_mmap_bytes": 1269760,
+          "allocator_current_brk_plus_mmap_bytes": 5046848
+        },
+        {
+          "phase": "joined",
+          "heap_count": 12,
+          "allocator_system_current_bytes": 2531904,
+          "allocator_system_max_bytes": 7578176,
+          "allocator_mmap_bytes": 1003520,
+          "allocator_current_brk_plus_mmap_bytes": 3535424
+        }
+      ],
+      "max_sampled_live_owner_allocator_current_bytes": 9646656,
+      "sha256": "d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536",
+      "binary_sha256": "a6eb831de34bb0eb20e0c26e4c42b000a89fda293f6d515945efcaa1a2e0de70",
+      "stderr_XML_sha256": "b692510600faa782d59e952c6382a430b6b6b4291aae6bf732cc966425c0710a"
+    },
+    {
+      "case": "full-seed2203",
+      "variant": "control",
+      "states": [
+        {
+          "phase": "regions",
+          "heap_count": 1,
+          "allocator_system_current_bytes": 287296,
+          "allocator_system_max_bytes": 287296,
+          "allocator_mmap_bytes": 1003520,
+          "allocator_current_brk_plus_mmap_bytes": 1290816
+        },
+        {
+          "phase": "owner_done",
+          "heap_count": 12,
+          "allocator_system_current_bytes": 8606272,
+          "allocator_system_max_bytes": 8606272,
+          "allocator_mmap_bytes": 1003520,
+          "allocator_current_brk_plus_mmap_bytes": 9609792
+        },
+        {
+          "phase": "owner_done",
+          "heap_count": 12,
+          "allocator_system_current_bytes": 8606272,
+          "allocator_system_max_bytes": 8606272,
+          "allocator_mmap_bytes": 1003520,
+          "allocator_current_brk_plus_mmap_bytes": 9609792
+        },
+        {
+          "phase": "owner_done",
+          "heap_count": 12,
+          "allocator_system_current_bytes": 8606272,
+          "allocator_system_max_bytes": 8606272,
+          "allocator_mmap_bytes": 1003520,
+          "allocator_current_brk_plus_mmap_bytes": 9609792
+        },
+        {
+          "phase": "owner_done",
+          "heap_count": 12,
+          "allocator_system_current_bytes": 8606272,
+          "allocator_system_max_bytes": 8606272,
+          "allocator_mmap_bytes": 1003520,
+          "allocator_current_brk_plus_mmap_bytes": 9609792
+        },
+        {
+          "phase": "joined",
+          "heap_count": 12,
+          "allocator_system_current_bytes": 8606272,
+          "allocator_system_max_bytes": 8606272,
+          "allocator_mmap_bytes": 1003520,
+          "allocator_current_brk_plus_mmap_bytes": 9609792
+        }
+      ],
+      "max_sampled_live_owner_allocator_current_bytes": 9609792,
+      "sha256": "2778d89810ab63e1bd11510397114abfe2c520ca1b4c707989ff39dec5aafb92",
+      "binary_sha256": "9250ae8055e86d3cda5287e293fa754ad0f0c46030dbf9eab064a4174929e7c5",
+      "stderr_XML_sha256": "5005210057feabf87a3b711b0c84cd5ab2b4d750e0e29ba86693f9f142eb2fce"
+    },
+    {
+      "case": "full-seed2203",
+      "variant": "candidate",
+      "states": [
+        {
+          "phase": "regions",
+          "heap_count": 1,
+          "allocator_system_current_bytes": 287296,
+          "allocator_system_max_bytes": 287296,
+          "allocator_mmap_bytes": 1003520,
+          "allocator_current_brk_plus_mmap_bytes": 1290816
+        },
+        {
+          "phase": "owner_done",
+          "heap_count": 12,
+          "allocator_system_current_bytes": 7557696,
+          "allocator_system_max_bytes": 7557696,
+          "allocator_mmap_bytes": 2068480,
+          "allocator_current_brk_plus_mmap_bytes": 9626176
+        },
+        {
+          "phase": "owner_done",
+          "heap_count": 12,
+          "allocator_system_current_bytes": 6312512,
+          "allocator_system_max_bytes": 7557696,
+          "allocator_mmap_bytes": 1802240,
+          "allocator_current_brk_plus_mmap_bytes": 8114752
+        },
+        {
+          "phase": "owner_done",
+          "heap_count": 12,
+          "allocator_system_current_bytes": 5001792,
+          "allocator_system_max_bytes": 7557696,
+          "allocator_mmap_bytes": 1536000,
+          "allocator_current_brk_plus_mmap_bytes": 6537792
+        },
+        {
+          "phase": "owner_done",
+          "heap_count": 12,
+          "allocator_system_current_bytes": 3756608,
+          "allocator_system_max_bytes": 7557696,
+          "allocator_mmap_bytes": 1269760,
+          "allocator_current_brk_plus_mmap_bytes": 5026368
+        },
+        {
+          "phase": "joined",
+          "heap_count": 12,
+          "allocator_system_current_bytes": 2511424,
+          "allocator_system_max_bytes": 7557696,
+          "allocator_mmap_bytes": 1003520,
+          "allocator_current_brk_plus_mmap_bytes": 3514944
+        }
+      ],
+      "max_sampled_live_owner_allocator_current_bytes": 9626176,
+      "sha256": "2778d89810ab63e1bd11510397114abfe2c520ca1b4c707989ff39dec5aafb92",
+      "binary_sha256": "a6eb831de34bb0eb20e0c26e4c42b000a89fda293f6d515945efcaa1a2e0de70",
+      "stderr_XML_sha256": "6934cb96d200ff28aca1e36a4d8b2038f68a2049cb4c07197fd5e4e62f2383cd"
+    }
+  ],
+  "passed": true,
+  "completed_at_utc": "2026-11-02T04:11:37.519129+00:00",
+  "comparison": [
+    {
+      "case": "public-full-seed1",
+      "sampled_live_allocator_candidate_minus_control_bytes": 16384,
+      "control": 9630272,
+      "candidate": 9646656,
+      "scope": "Sampled allocator bytes withpayloadstillalive, NOT actualpeak or chargedM; compareseparately withv1postjoinretention."
+    },
+    {
+      "case": "full-seed2203",
+      "sampled_live_allocator_candidate_minus_control_bytes": 16384,
+      "control": 9609792,
+      "candidate": 9626176,
+      "scope": "Sampled allocator bytes withpayloadstillalive, NOT actualpeak or chargedM; compareseparately withv1postjoinretention."
+    }
+  ],
+  "glibc": "glibc 2.41"
+}

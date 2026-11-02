@@ -1,5 +1,27 @@
 # Results — 2 November 2026
 
+Complete ordinary public feed **2026-11-02T03:29:55Z**: Red Jones **rank56/115**, geometric machine mean **69.577494**, leader **another ello84.946836**. Number one remains unachieved; final holdout and judging are separate.
+
+Original **A178/C175/D334** is restored and real-confirmed at **4ded5cfb7095ed0c616cdedeb5986704375e2485**, PRIVATE/MIT. All five gates pass for every track. A343 explicit scheduling trial passed locally and on the real board but lost totalK30.351527 versus32.070167; its complete Docker/README change is removed. D334's earlier measured memory/source tradeoff remains selected. No new best or ranking gain from this round.
+
+| Track | Best points | Best K | Rank | Leader |
+| --- | ---: | ---: | ---: | --- |
+| A |75.305061|32.070167|61/133|Kirk Mates88.348390|
+| C |68.118071|23.033578|63/115|another ello84.935799|
+| D |65.662866|20.571091|38/116|SweetDreamsHalloween76.336001|
+
+| Latest344 | Run | Time | Charged memory | S | K | Points |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+|A|run-6c3cf9fec3c5|0.047345|21254144|497|30.138744|73.956258|
+|C|run-8ace212fa27b|0.062885|12615680|672|22.611711|67.716671|
+|D|run-8814ff4db4b8|0.219552|69857280|885|19.243103|64.213755|
+
+Lower latest records are unchanged-source variation, not hidden regressions or gains. [Exact source/image proof](round344-final-source-match.json), [real records](board-round344-original-restored.json), [leader comparison](round344-confirmed-comparison.json), [full-feed integrity](round344-feed-proof.json). These are local image/source identities and public practice records, not organizer ELF, eligibility or human-understanding certification.
+
+## Historical status before344
+
+# Results — 2 November 2026
+
 Complete ordinary public feed **2026-11-02T01:02:42Z**: Red Jones **rank 56 of 114**, best-three geometric machine mean **69.577494**, leader **another ello 84.946836**. Number one remains unachieved.
 
 **Retain D334:** its real score improves **65.319494 → 65.662866** and K **20.248361 → 20.571091 (+1.59%)**. Charged memory is 10.16% lower than the previous best record. Every check/build/correctness/timeout/sandbox gate passes for A/C/D. These are observed records, with no precise causal or final-judging guarantee.
@@ -295,3 +317,15 @@ Candidate343 is fully locally verified for ONE authorized real A scheduling-only
 
 
 343/cdb3159b97f1e0c4c23409dff29fc6284a1ef344 passes every actualA/C/D gate but A run-8a5700245b83 T0.046861/M21053440/S497/K30.351527/74.109027 loses best32.070167/75.305061. ObservedK-5.359%,time+11.367%,memory+131072B,Sunchanged; records are not precise causal estimates. REJECT complete tune-only Docker/README change, exact original A178/C175/D334/source30/Make/README/images restored. OriginalAimageB57 freshpublic+newfull3557 at1/6/12/true-default8callsPASS without newcompiler/training. C68.075145/D65.380282 are lower unchanged-source repeats; bestC68.118071/D65.662866 stay. Exact rejected343 source/image/strict proof remains historical, never relabeledoriginal. One cooled344 alltrack confirmation next, source proof round344-candidate-source-match.json. No new best/rank/#1 claim.
+
+
+345A mapped private cache,346C narrow-first region construction and347D mapped full64fallback labels are completed rejected screens, not new selected algorithms or board trials.346 diagnostic correctly distinguishes postjoin allocator-retention -6.09MB from sampled live footprint +16384B; no peak/chargedM gain inferred. All native public1/6/12/thirteen rotating pairs and diagnostic output hashes pass, but no source-specific broad strict/race/untrained/productionimage/default proof or actual trial was justified. Current344 A178/C175/D334 and historicalbest/latest stay unchanged. Exact reconstruction and caveats: round345-347-screen-index.json.
+
+
+348A single fullstandardhash cache/fallback reuse is another native-only reject (round348-a-full-standard-cache-screen.json), no actual trial or selected-source change; lowerphysicalsource count does not prove officialS/K gain. Passing344 source and all historical best/latest remain.
+
+
+349C fieldreturn interface,350A smallbitonic networks and351D fallback-only negativefilter are further completed rejected screens (round349-351-screen-index.json). Allpublic/fullreferences hashes pass but flat/mixed native tradeoffs do not justify changedsourcepromotion.349defaultnarroworiginalGCCalreadyinlinesfield, so hiddenreturnABIcost is not established there. No newboardrun, best/rankinggain or selectedruntimechange.
+
+
+Candidate352 locally verified for ONE real C compiler trial: only explicit -fno-unroll-loops -fno-peel-loops in both original-O3 -march=native full1000003/sample130363 PGO passes; two originalmain queue statements split acrosslines, tokenidentitychecked. OriginalC175 parser/nameowner/table/region/numeric/default12 and A178/D334 stay. Fresh independent3593/3599samples+3607full references generatedONCE; new pinnedGCCfailfaststrict raw/decoded/guard/numeric402810/offsetname models+231mainrefs/25errors, ONEofflinePGOimage645refs/50errors,75true noarg/nooverride defaults/9errors, actualrootMakeCcompile+16nativecompositepublic/fresh/defaultcallsPASS. No newconcurrency/TSAN claim; originalheader/raceproofsource-bound. LocalCimagesha256:781c8864b0a390391e66c61820dd9e91e7a6b71317c3d7297e014b23d76d2e27/ELF48be4b5eca9798e595ff04e7f45523039abf612bb47731f160747c3e1103a982 are notorganizeridentities. ActualtotalC K>23.033578/68.118071 required, elsecompleteDocker/main2linebreak/README/image263rollback andonecooledalltrackconfirmation. No native/emulatedspeed/score/#1gain claimed. Source30/Make/README/fullsets/exactimages in round352-candidate-source-match.json. PRIVATE/MIT; publication onlyapproved15:00–16:00UTC, runtime+Gitfreeze15:00, risky startsstop14:00.

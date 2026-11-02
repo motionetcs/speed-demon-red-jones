@@ -1,0 +1,66 @@
+{
+  "observed_at_utc": "2026-11-02T04:52:16.777556+00:00",
+  "official_score": false,
+  "source_commit": "4ded5cfb7095ed0c616cdedeb5986704375e2485",
+  "local_original_image_id": "sha256:263099fcbeecd9be03c762fc791651c246e2ec2ca2223f5940e186c13645dd63",
+  "local_original_ELF_sha256": "406fe1f9130ba9f98b612caa08f83a75b1299466b4a34ac10d659f928a7ecc83",
+  "disassembly_path": ".build/c-original-abi/disassembly.txt",
+  "disassembly_sha256": "0694720ed7e841485d0c0203facba00d4e888aae0c4e5608cf40c31944124321",
+  "field_definitions": [
+    {
+      "line": 10192,
+      "symbol": "000000000040aa70 <Csv::field(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, bool)>:"
+    }
+  ],
+  "field_direct_calls": [
+    {
+      "line": 491,
+      "caller": "0000000000401140 <main.cold>:",
+      "instruction": "  40185f:\tcall   40aa70 <Csv::field(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, bool)>",
+      "clip": "  401830:\tcall   401118 <_init+0x118>\n  401835:\tmov    $0x1,%ecx\n  40183a:\tmov    %r15,0xd0(%rsp)\n  401842:\tlea    0x1e0(%rsp),%rdx\n  40184a:\tmov    %rax,0x70(%rsp)\n  40184f:\tlea    0xd0(%rsp),%rsi\n  401857:\tlea    0x480(%rsp),%rdi\n  40185f:\tcall   40aa70 <Csv::field(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, bool)>\n  401864:\tmov    0x70(%rsp),%rax\n  401869:\tcmp    0x480(%rsp),%rax\n  401871:\tvmovdqa 0x480(%rsp),%xmm0\n  40187a:\tvmovdqa %xmm0,0x420(%rsp)"
+    },
+    {
+      "line": 2488,
+      "caller": "0000000000403868 <main::{lambda<typename $T0>(std::vector<$T0, std::allocator<$T0> > const&)#1}::operator()<unsigned short>(std::vector<unsigned short, std::allocator<unsigned short> > const&) const::{lambda(unsigned int)#1}::operator()(unsigned int) const>:",
+      "instruction": "  403a30:\tcall   40aa70 <Csv::field(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, bool)>",
+      "clip": "  403a0f:\tlea    0x40(%rsp),%rdi\n  403a14:\tcall   40ae40 <Csv::integer()>\n  403a19:\tlea    0xb0(%rsp),%rdi\n  403a21:\txor    %ecx,%ecx\n  403a23:\tmov    %rax,%r14\n  403a26:\tlea    0x70(%rsp),%rdx\n  403a2b:\tlea    0x40(%rsp),%rsi\n  403a30:\tcall   40aa70 <Csv::field(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, bool)>\n  403a35:\tmov    0xb0(%rsp),%rax\n  403a3d:\tlea    0x40(%rsp),%rdi\n  403a42:\tmov    %rax,0x18(%rsp)\n  403a47:\tmov    0xb8(%rsp),%rax"
+    },
+    {
+      "line": 2507,
+      "caller": "0000000000403868 <main::{lambda<typename $T0>(std::vector<$T0, std::allocator<$T0> > const&)#1}::operator()<unsigned short>(std::vector<unsigned short, std::allocator<unsigned short> > const&) const::{lambda(unsigned int)#1}::operator()(unsigned int) const>:",
+      "instruction": "  403a91:\tcall   40aa70 <Csv::field(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, bool)>",
+      "clip": "  403a70:\tcmp    $0x1,%rax\n  403a74:\tja     403a7a <main::{lambda<typename $T0>(std::vector<$T0, std::allocator<$T0> > const&)#1}::operator()<unsigned short>(std::vector<unsigned short, std::allocator<unsigned short> > const&) const::{lambda(unsigned int)#1}::operator()(unsigned int) const+0x212>\n  403a76:\tadd    $0x2,%r12\n  403a7a:\tlea    0xd0(%rsp),%rdi\n  403a82:\txor    %ecx,%ecx\n  403a84:\tlea    0x90(%rsp),%rdx\n  403a8c:\tlea    0x40(%rsp),%rsi\n  403a91:\tcall   40aa70 <Csv::field(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, bool)>\n  403a96:\tlea    0x40(%rsp),%rdi\n  403a9b:\tcall   40ad60 <Csv::comma()>\n  403aa0:\tlea    0x40(%rsp),%rdi\n  403aa5:\tcall   40ae40 <Csv::integer()>"
+    },
+    {
+      "line": 9559,
+      "caller": "0000000000409e80 <main>:",
+      "instruction": "  40a003:\tcall   40aa70 <Csv::field(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, bool)>",
+      "clip": "  409fcf:\tlea    0x200(%rsp),%rdi\n  409fd7:\tlea    (%rbx,%r15,1),%rax\n  409fdb:\tmovb   $0x0,0x1f0(%rsp)\n  409fe3:\tlea    0x1e0(%rsp),%rdx\n  409feb:\tmov    %rbx,0xc0(%rsp)\n  409ff3:\tlea    0xc0(%rsp),%rsi\n  409ffb:\tmov    %rax,0xc8(%rsp)\n  40a003:\tcall   40aa70 <Csv::field(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, bool)>\n  40a008:\tlea    0xc0(%rsp),%rdi\n  40a010:\tcall   40ad60 <Csv::comma()>\n  40a015:\tlea    0x220(%rsp),%rdi\n  40a01d:\txor    %ecx,%ecx"
+    },
+    {
+      "line": 9566,
+      "caller": "0000000000409e80 <main>:",
+      "instruction": "  40a02f:\tcall   40aa70 <Csv::field(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, bool)>",
+      "clip": "  40a003:\tcall   40aa70 <Csv::field(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, bool)>\n  40a008:\tlea    0xc0(%rsp),%rdi\n  40a010:\tcall   40ad60 <Csv::comma()>\n  40a015:\tlea    0x220(%rsp),%rdi\n  40a01d:\txor    %ecx,%ecx\n  40a01f:\tlea    0x1e0(%rsp),%rdx\n  40a027:\tlea    0xc0(%rsp),%rsi\n  40a02f:\tcall   40aa70 <Csv::field(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, bool)>\n  40a034:\tlea    0xc0(%rsp),%rdi\n  40a03c:\tcall   40adc0 <Csv::newline()>\n  40a041:\tcmpq   $0x9,0x200(%rsp)\n  40a04a:\tvmovdqa 0x200(%rsp),%xmm0"
+    },
+    {
+      "line": 12792,
+      "caller": "000000000040d260 <record_boundaries(char const*, char const*, unsigned int)>:",
+      "instruction": "  40d39f:\tcall   40aa70 <Csv::field(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, bool)>",
+      "clip": "  40d37f:\tmov    %rcx,0x68(%rsp)\n  40d384:\tmovb   $0x0,0x70(%rsp)\n  40d389:\tmov    %rdx,0x50(%rsp)\n  40d38e:\tlea    0x50(%rsp),%rsi\n  40d393:\txor    %ecx,%ecx\n  40d395:\tlea    0x60(%rsp),%rdx\n  40d39a:\tlea    0x20(%rsp),%rdi\n  40d39f:\tcall   40aa70 <Csv::field(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, bool)>\n  40d3a4:\tmov    0x50(%rsp),%rax\n  40d3a9:\tcmp    %rax,%rbx\n  40d3ac:\tje     40d3ce <record_boundaries(char const*, char const*, unsigned int)+0x16e>\n  40d3ae:\tcmpb   $0x2c,(%rax)"
+    }
+  ],
+  "default_narrow_worker_definitions": [
+    {
+      "line": 10554,
+      "symbol": "000000000040af80 <main::{lambda<typename $T0>(std::vector<$T0, std::allocator<$T0> > const&)#1}::operator()<unsigned char>(std::vector<unsigned char, std::allocator<unsigned char> > const&) const::{lambda(unsigned int)#1}::operator()(unsigned int) const>:"
+    },
+    {
+      "line": 12883,
+      "symbol": "000000000040d4e0 <parallel<main::{lambda<typename $T0>(std::vector<$T0, std::allocator<$T0> > const&)#1}::operator()<unsigned char>(std::vector<unsigned char, std::allocator<unsigned char> > const&) const::{lambda(unsigned int)#1}>(unsigned int, main::{lambda<typename $T0>(std::vector<$T0, std::allocator<$T0> > const&)#1}::operator()<unsigned char>(std::vector<unsigned char, std::allocator<unsigned char> > const&) const::{lambda(unsigned int)#1})::{lambda(unsigned int)#1}::operator()(unsigned int) const>:"
+    }
+  ],
+  "default_narrow_direct_field_calls": [],
+  "scope": "Read-only static inspection of own existing original localGCC PGO ELF/disassembly, not organizerELF, dynamicfrequency or precise causal timing. Fullpublic241groups selectunsignedchar. All6directfieldcalls are main/header/boundary or unsignedshortworker; none are currentdefaultnarrowworker, stronglysupporting field alreadyinlined there. Thus a hypothetical32byte aggregate-return ABI cost is not established in its scoredhotreader path. New349interface may still change inlined register/codegen, but tiny native ratios are not enough to justify broad promotion.",
+  "decision": "REJECT349 before new broad model/strict/race/untrained/GCC/PGO/image/default/actual proof. Frozen prototype/native reports unchanged; no selectedruntime or boardaction."
+}

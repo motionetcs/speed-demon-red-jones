@@ -1,0 +1,298 @@
+{
+  "observed_at_utc": "2026-11-02T04:52:17.124983+00:00",
+  "passed": true,
+  "official_score": false,
+  "selected_runtime_changed": false,
+  "selected_source": "A178/C175/D334",
+  "selected_commit": "4ded5cfb7095ed0c616cdedeb5986704375e2485",
+  "scope": "Three new isolated rejected screens. Oneoptimized nativecompile/candidate, currentexactimmutablecontrols/public1/6/12 and13rotating pairedsaved independentfullreferences allinput/output/source/ELF hashesPASS.349 additionally read-onlymaps originalGCC fieldcalls, no compiler/profile repeated. No newgenerator/oracle/strict/race/GCC/PGO/image/default/boardwork for349\u2013351.",
+  "candidates": [
+    {
+      "round": 349,
+      "track": "c",
+      "report": "docs/round349-c-field-view-return-screen.json",
+      "report_sha256": "685b9b44d5e14ddbf7f508598e86048fdd6154d86ae82cfe7b14b1d515963ca1",
+      "preflight": "docs/round349-preflight.json",
+      "preflight_sha256": "804e0cc05a9bcd6808e349b5a4d73cb0edef1ca7de15593f934901f4a1a27b01",
+      "patches": [
+        {
+          "path": "docs/prototype-patches/round349-c-field-view-return-main.cpp.patch",
+          "sha256": "fe262ee2c4575134e50c5591ace15fd1759ebd84327555e2d0848debcc12de05"
+        }
+      ],
+      "executed_drivers": {
+        "tools/round349-screen/prepare.py": "6a44226227971453705297cc94e18a6195bf004f035ccd33c3e6e42c2f62e80e",
+        "tools/round349-screen/screen.py": "5a482f299752192dfdfb9053cec469fb1190c9abad74f20c553fea032c062aee",
+        "tools/round349-screen/compile.json": "84f23decbf0a5a923ecd910f6b7fc59a2a50f326223f477e8de1829b25e75592",
+        "tools/round349-screen/base-PERF.md": "1609f29591ea235f3b3e9fc4c2bb46bffc4c5270587a4fda058a5a70e27ffaae"
+      },
+      "archive_reconstruction": {
+        "passed": true,
+        "source_parent": "4ded5cfb7095ed0c616cdedeb5986704375e2485",
+        "file_count": 10,
+        "all_frozen_target_files_match": true,
+        "PERF_note": "Exact native frozen PERF archived separately; no compiled source apart from namedpatch differs from parent."
+      },
+      "scope": "C349 changes Csv::field interface only: return ordinary fullwidth string_view and write decoded bytecount through optional caller-owned size_t pointer, replacing32byte aggregate return with unused escaped member. Rawview/decodedview/scratch/doubledquotes/unquoted/BOM/EOF/terminator/count algorithm untouched. Readername+note each have independent localfullwidth counters; hash/canonicalencodedrawname/event get sameview, noteview discarded; no new pointer lifetime or narrowed integer/field domain. Header/tail callers need nocount and pass defaultnullptr. Intended reduce aggregate-return stores/hiddenreturn ABIcost, subject to actualinlining/optimization; no measuredGCCpath/causality or target gain yet. Original nameowner table/private512SPSC queues/roles12/numeric/group/PGO/flags unchanged. No catalogue/seed/outputcache/host/harness/timer/counter/tunable/exemption changes. Fresh actualCsv field differential decoded/raw/count/guard/fullbyte/escape/long/unquoted/header/malformed/model, currentmain independent/adversarial/untrained/strict/race/pinnedGCC/image/default/Make proof needed before promotion.",
+      "decision": "REJECT_NATIVE_AFTER_TARGET_PATH_REVIEW",
+      "reason": "Native public/2203/2309/2371 .991036/.994175/.994497/.995426 with10/8/7/7wins is tiny, RSSmixed. Own originalGCC PGO has no direct Csv::field calls in defaultnarrowworker, supporting alreadyinlined fields and leaving proposed hiddenaggregate-return ABI saving unsupported there. Reject before broad changedinterface model/strict/race/untrained/GCC/image/default/actual proof; static code does not establish dynamicfrequency or causality.",
+      "summary": {
+        "public-full-seed1": {
+          "paired_median_ratio": 0.9910357499099317,
+          "paired_wins": 10,
+          "variants": {
+            "control": {
+              "median_elapsed_seconds": 0.06429450000000081,
+              "median_native_rss_bytes": 215891968
+            },
+            "candidate": {
+              "median_elapsed_seconds": 0.06288225000000125,
+              "median_native_rss_bytes": 215744512
+            }
+          }
+        },
+        "full-seed2203": {
+          "paired_median_ratio": 0.9941745891232301,
+          "paired_wins": 8,
+          "variants": {
+            "control": {
+              "median_elapsed_seconds": 0.06356949999999983,
+              "median_native_rss_bytes": 215859200
+            },
+            "candidate": {
+              "median_elapsed_seconds": 0.06216408300000076,
+              "median_native_rss_bytes": 216023040
+            }
+          }
+        },
+        "full-seed2309": {
+          "paired_median_ratio": 0.9944972923505649,
+          "paired_wins": 7,
+          "variants": {
+            "control": {
+              "median_elapsed_seconds": 0.06334791699999975,
+              "median_native_rss_bytes": 216547328
+            },
+            "candidate": {
+              "median_elapsed_seconds": 0.06224087500000053,
+              "median_native_rss_bytes": 216465408
+            }
+          }
+        },
+        "full-seed2371": {
+          "paired_median_ratio": 0.9954258458997184,
+          "paired_wins": 7,
+          "variants": {
+            "control": {
+              "median_elapsed_seconds": 0.06418154099999995,
+              "median_native_rss_bytes": 216236032
+            },
+            "candidate": {
+              "median_elapsed_seconds": 0.06337762499999933,
+              "median_native_rss_bytes": 216186880
+            }
+          }
+        }
+      }
+    },
+    {
+      "round": 350,
+      "track": "a",
+      "report": "docs/round350-a-small-bitonic-screen.json",
+      "report_sha256": "2615f01d75c331f6e0c5fe9a1f185b329ea90ffbbf8d808f62fbe00f6de4e856",
+      "preflight": "docs/round350-preflight.json",
+      "preflight_sha256": "34c7844681276555cf6a80104b8eb464625513e58ee65e864b07605bc17d8bcf",
+      "patches": [
+        {
+          "path": "docs/prototype-patches/round350-a-small-bitonic-main.cpp.patch",
+          "sha256": "3e0e82659790cc701539a0f56e69b3df9e1edc62d25410027b96b4eb8ee422f5"
+        }
+      ],
+      "executed_drivers": {
+        "tools/round350-screen/prepare.py": "a87ad9e3f51c2e4a6b1ac00a36acf79692fb25301e2a17cf4ac8e26ac7ee9de1",
+        "tools/round350-screen/screen.py": "1182405b316c6ce05f10b315b3cab41d0d951878c2db059d6b4f8cf2cd696228",
+        "tools/round350-screen/compile.json": "7c3dae14c4a61db3ed685ac0635f2a17af8e4e862663a081ddb451fb3ec1a01e",
+        "tools/round350-screen/base-PERF.md": "4e40366532cc697eb2dc798e5e3aaa9a582c3b5a8a973e3b43d02af096020f2e"
+      },
+      "archive_reconstruction": {
+        "passed": true,
+        "source_parent": "4ded5cfb7095ed0c616cdedeb5986704375e2485",
+        "file_count": 12,
+        "all_frozen_target_files_match": true,
+        "PERF_note": "Exact native frozen PERF archived separately; no compiled source apart from namedpatch differs from parent."
+      },
+      "scope": "A350 only n5..31smallgroup ordering uses an independentlywritten generic recursive fixed-stage bitonic compare-exchange network of width8/16/32, fullunsigned32 min/max, localstack sentinelUINT32MAXpadding and exactlycount copyin/copyout. Equal realMAX values remain indistinguishable and correct, no rounded/droppedlatencies or percentilechange. n0..4and>=32originalsort/nth remain, actualnneverzero athelper. Entireparse/cache/records/escape/countryhour/count/error/output/threads/PGO/flags unchanged; no SIMDtarget/host/harness/counter/domain/catalogue/seed/outputcache/exemption changes. Branch/locality/source tradeoff hypothesis only; fresh independent fullsort/multiset/allranks/n=0..32/dense binary duplicate/uint32MAX/guard/count/precondition/strict/race/currentmain/adversarial/untrained/pinnedGCC/image/default/Make proof needed before promotion.",
+      "decision": "REJECT_NATIVE_ONLY",
+      "reason": "Native1.000004/1.026821/.996326 with6/4/7wins, nearlyflatRSS, is flat/mixed for15helperlines. Reject before new stdsort/multiset/allranks/densebinaryduplicate/fulluint32/guard/strict/race/untrained/GCC/image/default/actual proof.",
+      "summary": {
+        "public-full-seed1": {
+          "paired_median_ratio": 1.0000040572205944,
+          "paired_wins": 6,
+          "variants": {
+            "control": {
+              "median_elapsed_seconds": 0.04171670800000005,
+              "median_native_rss_bytes": 258441216
+            },
+            "candidate": {
+              "median_elapsed_seconds": 0.04141783300000057,
+              "median_native_rss_bytes": 258441216
+            }
+          }
+        },
+        "full-seed1951": {
+          "paired_median_ratio": 1.0268214283446018,
+          "paired_wins": 4,
+          "variants": {
+            "control": {
+              "median_elapsed_seconds": 0.04139520799999996,
+              "median_native_rss_bytes": 272252928
+            },
+            "candidate": {
+              "median_elapsed_seconds": 0.04268150000000004,
+              "median_native_rss_bytes": 271908864
+            }
+          }
+        },
+        "full-seed2221": {
+          "paired_median_ratio": 0.9963264752929348,
+          "paired_wins": 7,
+          "variants": {
+            "control": {
+              "median_elapsed_seconds": 0.0415472910000001,
+              "median_native_rss_bytes": 251658240
+            },
+            "candidate": {
+              "median_elapsed_seconds": 0.04079049999999995,
+              "median_native_rss_bytes": 251641856
+            }
+          }
+        }
+      }
+    },
+    {
+      "round": 351,
+      "track": "d",
+      "report": "docs/round351-d-wide-negative-filter-screen.json",
+      "report_sha256": "96e5044fc04bed44f3822bab033cbcd6ddcc117273b9681582402b38567590b2",
+      "preflight": "docs/round351-frozen.json",
+      "preflight_sha256": "029bd7d8fede9ea97f057d7ae02184a3d64a8c1cb8c4d1a429d524c779eb01b4",
+      "patches": [
+        {
+          "path": "docs/prototype-patches/round351-d-wide-negative-filter-distance_map.hpp.patch",
+          "sha256": "579b770cee4aa6c89f0e4b53c8304cad3c4fcf1c34e21f1cda9a8461c9192218"
+        }
+      ],
+      "executed_drivers": {
+        "tools/round351-screen/prepare.py": "9b9e08bef92f1ece60c146f01526c832cb95207f6e6405f8d9b19b2687a06dde",
+        "tools/round351-screen/screen.py": "27c270a4bdd6f2468b7cf8e90dd050c54425b13e6a290e9c3075a4eecae05232",
+        "tools/round351-screen/compile.json": "f2b1e1b943a6ed306f4eba4c7978fcf9136ab279a48b8d5736cc1e839038caad",
+        "tools/round351-screen/base-PERF.md": "f7b4c336efe73c51b237e9fd6fa573469433b36396b47d2cafef44bd61e52c8d"
+      },
+      "archive_reconstruction": {
+        "passed": true,
+        "source_parent": "4ded5cfb7095ed0c616cdedeb5986704375e2485",
+        "file_count": 14,
+        "all_frozen_target_files_match": true,
+        "PERF_note": "Exact native frozen PERF archived separately; no compiled source apart from namedpatch differs from parent."
+      },
+      "scope": "D351 ONLY compact-map fallback miss checks get128byte negativefilter keyedby low10actualnodebits. Mark ONLY successful full64fallback inserts for compact-domain nodes, never ordinary compactimprove; clear with original per-queryreset. A missingbit proves no live fallbacklabel; presentbit still does originalfull64node/epoch/hash/equality lookup. IDs>=21bit always bypassfilter. Fixedlow10 remains valid through compactgrowth toanybits; staleones only falsepositives, no filterdecides distance/identity. Allwideimprovepaths pass helper; compactvalue authority/promotion and existingused/epoch/MAX semantics unchanged. Original334 graph/cursors/mappedprefix/heap/band64/batch32/threads12/arena2/PGO/flags unchanged. No seed/catalogue/outputcache/harness/host/counter/timer/tunable/exemption changes. New actual-header independentstdmap falsepositive/negative/collidinglow10/allcompactbits/grow/fullbucket/0/MAX/hugeIDs/epochs/reset/wide-to-packed/strict/race/Floyd/adversarial/untrained/pinnedGCC/image/default/Make proof required before promotion.",
+      "decision": "REJECT_NATIVE_ONLY",
+      "reason": "Native1.004330/1.002983/.982436 with5/6/9wins is mixed/mostlyflat for128bytes/map and newfilterlogic, RSSmixed. Reject before new false-negative/stdmap/allcompactbits/grow/epochs/0/MAX/fullID/widepacked/strict/race/Floyd/untrained/GCC/image/default/actual proof. No old13globalfilter proof transferred.",
+      "summary": {
+        "public-full-seed1": {
+          "paired_median_ratio": 1.0043304319215622,
+          "paired_wins": 5,
+          "variants": {
+            "control": {
+              "median_elapsed_seconds": 0.1849588330000005,
+              "median_native_rss_bytes": 173277184
+            },
+            "candidate": {
+              "median_elapsed_seconds": 0.18589729199999994,
+              "median_native_rss_bytes": 171032576
+            }
+          }
+        },
+        "full-seed1823": {
+          "paired_median_ratio": 1.0029833131478223,
+          "paired_wins": 6,
+          "variants": {
+            "control": {
+              "median_elapsed_seconds": 0.18980120800000044,
+              "median_native_rss_bytes": 172490752
+            },
+            "candidate": {
+              "median_elapsed_seconds": 0.1891452919999992,
+              "median_native_rss_bytes": 172949504
+            }
+          }
+        },
+        "full-seed2633": {
+          "paired_median_ratio": 0.9824364171946915,
+          "paired_wins": 9,
+          "variants": {
+            "control": {
+              "median_elapsed_seconds": 0.18064383299999953,
+              "median_native_rss_bytes": 172851200
+            },
+            "candidate": {
+              "median_elapsed_seconds": 0.17787812499999944,
+              "median_native_rss_bytes": 172212224
+            }
+          }
+        }
+      }
+    }
+  ],
+  "C349_path_review": {
+    "path": "docs/round349-target-path-review.json",
+    "sha256": "705b50f94e80c440f478eddfaf83747dfc39e7beaa983ee9e542b72597eca8f8"
+  },
+  "read_only_rejections": [
+    {
+      "concept": "Dskiprelax candidate>=finitebest",
+      "duplicate": "Own241 exactlyimplemented/strictproved/actualK19.888460 lostold20.248361, stoppedbeforecode/compile."
+    },
+    {
+      "concept": "Dmake_unique_for_overwrite adjacency",
+      "duplicate": "Own185 exactstdC++20 overwritearrays alreadynative1.004704 loss, stoppedbeforecode/compile."
+    },
+    {
+      "concept": "DinplaceMSD packedrow loader/adopt-forwardstorage",
+      "reason": "Design-only: even8Brows adoptedasforward need~20MBextra livebuild storage vsselected4Bforward, plus sort/weightescape/full-domainfallback/lifetime/sourcecomplexity. Own209already4.7%native for~173MBextra and302onepass8Brows~1%for40MBextra; no credible substantialwholeK hypothesis established. No implementation/measurement/proof/gain claimed."
+    },
+    {
+      "concept": "Cempty-name specialowner bypass or readercache",
+      "reason": "Frozen generator emptyname1%,100000ordinarynames; additional runtimeper-country keyfilter/branches/storage not supported as a largegain. No inputcatalogue/hash-onlyequality assumptions or specialcase code added."
+    }
+  ],
+  "primary_sources": [
+    {
+      "url": "https://15721.courses.cs.cmu.edu/spring2024/slides/09-hashjoins.pdf",
+      "scope": "Primarylecture slides inspected on synchronization/cache/hashpartitioning andRobinHoodconcept; no implementationcopied or playedvideo/theorem/gainclaim."
+    },
+    {
+      "url": "https://www.microsoft.com/en-us/research/publication/vip-hashing-adapting-to-skew-in-popularity-of-data-on-the-fly/",
+      "scope": "Authorinstitutional abstract on online skew tradeoffs, not competitorcode/library or a workloadgainprediction."
+    },
+    {
+      "url": "https://15721.courses.cs.cmu.edu/spring2016/slides/12.pdf",
+      "scope": "Primarylecture slides bitonicfixedcompareconcept, no implementationcopied or playedvideo/performance claim."
+    },
+    {
+      "url": "https://dl.acm.org/doi/10.1145/1468075.1468121",
+      "scope": "Publisher returned403; citationmetadata only, stopped withoutaccessworkaround."
+    },
+    {
+      "url": "https://gitlab.com/x86-psABIs/x86-64-ABI/-/blob/master/x86-64-ABI/low-level-sys-info.tex",
+      "scope": "Primary ABI page metadata/aggregate-return hypothesis; returnedLoading. Actual localemittedpathreview narrows thathypothesis; no uninspectedABIcontents asserted."
+    }
+  ],
+  "new_board_dispatches": 0,
+  "new_production_images": 0,
+  "all_sessions_completed": [
+    7893,
+    6882,
+    70053
+  ]
+}

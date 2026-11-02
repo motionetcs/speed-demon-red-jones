@@ -1,0 +1,36 @@
+--- a/track-a/main.cpp
++++ b/track-a/main.cpp
+@@ -11,6 +11,21 @@
+ static constexpr uint32_t latency_escape = (1U << 19) - 1;
+ using Records=std::vector<uint32_t,MappedAllocator<uint32_t>>;
+ struct Count { uint32_t count = 0, errors = 0; };
++
++template<size_t Width,size_t Span=2,size_t Gap=1>
++void small_network_layer(std::array<uint32_t,Width>& values){
++    for(size_t i=0;i<Width;++i){
++        size_t other=i^Gap;if(other<=i)continue;
++        uint32_t a=values[i],b=values[other],low=std::min(a,b),high=std::max(a,b);
++        if(i&Span){values[i]=high;values[other]=low;}else{values[i]=low;values[other]=high;}
++    }
++    if constexpr(Gap>1)small_network_layer<Width,Span,Gap/2>(values);
++    else if constexpr(Span<Width)small_network_layer<Width,Span*2,Span>(values);
++}
++template<size_t Width> void small_network(uint32_t* first,size_t count){
++    std::array<uint32_t,Width> values;values.fill(UINT32_MAX);std::copy_n(first,count,values.begin());
++    small_network_layer(values);std::copy_n(values.begin(),count,first);
++}
+ 
+ int main(int argc, char** argv) {
+     try {
+@@ -101,7 +116,10 @@
+                 for (uint16_t key : order) {
+                     uint64_t n = groups[key].count, errors = groups[key].errors; if (!n) continue;
+                     auto first = latencies.begin() + offsets[key];
+-                    if (n < 32) std::sort(first, first + n);
++                    if(n<5)std::sort(first,first+n);
++                    else if(n<=8)small_network<8>(&*first,n);
++                    else if(n<=16)small_network<16>(&*first,n);
++                    else if(n<32)small_network<32>(&*first,n);
+                     else {
+                         size_t unselected = 0;
+                         for (uint64_t percentile : {50, 95, 99}) {

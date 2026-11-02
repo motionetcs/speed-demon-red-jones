@@ -1,0 +1,18 @@
+--- a/track-d/distance_map.hpp
++++ b/track-d/distance_map.hpp
+@@ -1,4 +1,5 @@
+ #pragma once
++#include "mapped_allocator.hpp"
+ #include <cstdint>
+ #include <bit>
+ #include <stdexcept>
+@@ -13,7 +14,8 @@
+ 
+ struct Distances {
+     struct Label { uint32_t node = 0, epoch = 0; uint64_t distance = 0; };
+-    std::vector<Label> labels = std::vector<Label>(4096);
++    using LabelStorage=std::vector<Label,MappedAllocator<Label>>;
++    LabelStorage labels=LabelStorage(4096);
+     uint32_t epoch = 0;
+     size_t used = 0;
+     static size_t hash(uint32_t node) {

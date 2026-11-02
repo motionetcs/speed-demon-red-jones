@@ -1,0 +1,25 @@
+--- a/track-a/endpoint_table.hpp
++++ b/track-a/endpoint_table.hpp
+@@ -40,18 +40,13 @@
+     struct Slot{const char* data=nullptr;uint32_t hash=0;uint16_t length=0,id=UINT16_MAX;};
+     Endpoints& shared;std::vector<Slot> slots=std::vector<Slot>(4096);
+     explicit LocalEndpoints(Endpoints& table):shared(table){}
+-    static uint32_t hash_key(std::string_view v){
+-        if(v.size()<4){uint32_t h=2166136261U;for(unsigned char c:v)h=(h^c)*16777619U;return h;}
+-        uint32_t a,b,c;std::memcpy(&a,v.data(),4);std::memcpy(&b,v.data()+(v.size()-4)/2,4);std::memcpy(&c,v.data()+v.size()-4,4);
+-        uint32_t h=(a^std::rotl(b,11)^std::rotl(c,23)^uint32_t(v.size()))*0x9e3779b1U;return h^(h>>16);
+-    }
+-
+     uint16_t intern(std::string_view value){
+-        if(value.size()>UINT16_MAX)return shared.intern(value,std::hash<std::string_view>{}(value));
+-        uint32_t hash=hash_key(value);size_t i=hash&(slots.size()-1);
++        uint64_t full_hash=std::hash<std::string_view>{}(value);
++        if(value.size()>UINT16_MAX)return shared.intern(value,full_hash);
++        uint32_t hash=static_cast<uint32_t>(full_hash);size_t i=hash&(slots.size()-1);
+         const auto& cached=slots[i];
+         if(cached.id!=UINT16_MAX&&cached.hash==hash&&cached.length==value.size()&&(value.empty()||std::memcmp(cached.data,value.data(),value.size())==0))return cached.id;
+-        uint16_t id=shared.intern(value,std::hash<std::string_view>{}(value));
++        uint16_t id=shared.intern(value,full_hash);
+         slots[i]={shared.canonical[id].data(),hash,static_cast<uint16_t>(value.size()),id};return id;
+     }
+ };

@@ -666,3 +666,12 @@ Candidate334 fully locally verified for one real D memory tradeoff trial. Mapped
 
 
 343/cdb3159b97f1e0c4c23409dff29fc6284a1ef344 run-aec03159fe58 passes everyactualgate on unchanged selectedD source: T0.197842/M69279744/S885/K20.305123/65.380282. Lower repeat than retained best; no D algorithm regression/gain inferred from unchanged-source variation. Only A343 scheduling flag rejected and fullyrestored. C175 andCURRENT D334 mapped-prefix/cursor reuse remain selected, with one344 restoration confirmation next. Exactactual records ../docs/board-round343-raptorlake-tune.json.
+
+
+Original344/4ded5cfb7095ed0c616cdedeb5986704375e2485, run-8814ff4db4b8, passes everyactualgate after complete A343 rollback: T0.219552/M69857280/S885/K19.243103/64.213755. Lower unchanged-source repeat; preserve historical best separately, no new algorithm/regression/rank gain claimed. CurrentA178/C175/D334 source30/Make/README/fullsets/Git/snapshots/best-component/localimages bind ../docs/round344-final-source-match.json. CurrentD334image2f14 remains; no newcompiler/training/broad replay. Actual ../docs/board-round344-original-restored.json.
+
+
+347 maps only full64 fallback label vectors, packed32bit labels unchanged. Native1.005260/1.004324/.993959 (4/6/7wins), RSS+3489792/+3096576/-491520B; REJECT_NATIVE_ONLY before broad epochs/allocator/strict/race/Floyd/untrained/GCC/productionimage/default/actual proof. No selected runtime/officialgain; exact patches, executed drivers, complete frozen target reconstruction and raw XML/source-bound diagnostics in ../docs/round345-347-screen-index.json.
+
+
+351128byte/filtermap wrapsONLY full64fallback misses, marksONLYsuccessfulwideinserts, originalpackedupdatesunchanged. REJECT_NATIVE_ONLY:1.004330/1.002983/.982436(5/6/9wins), RSSmixed; newactualheader falsenegative/reset/grow/fullID/Floyd/strict/race proofs notperformed. Old13globalnegativefilter proof NOTtransferred. Read-only241prune/185overwrite-arrayduplicates stoppedbefore newcode. Allpublic1/6/12 and13rotating fullreferences input/output/source/ELF hashesPASS; no broader independent/strict/race/untrained/GCC/image/default/actual proof, selectedruntime or officialgain. Exactreconstruction/executeddrivers/patches/scope: ../docs/round349-351-screen-index.json.
