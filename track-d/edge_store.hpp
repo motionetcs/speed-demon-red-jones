@@ -33,7 +33,7 @@ struct EdgeStore {
     }
     std::pair<uint32_t,uint32_t> get(uint32_t index) const { return compact ? get<true>(index) : get<false>(index); }
     template<bool Compact, bool Write = false> void prefetch(uint32_t index) const {
-        if constexpr (Compact) __builtin_prefetch(&small[index], 0, Write ? 3 : 1);
-        else __builtin_prefetch(&wide[index], 0, Write ? 3 : 1);
+        if constexpr (Compact) __builtin_prefetch(&small[index], Write, 1);
+        else __builtin_prefetch(&wide[index], Write, 1);
     }
 };

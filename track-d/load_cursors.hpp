@@ -51,9 +51,9 @@ struct SharedCursor {
     template<bool HasWide,bool Write=true> void prefetch(uint32_t node) const {
         if constexpr (HasWide) {
             uint32_t index = wide_index[node >> shift];
-            if (index != UINT32_MAX) { __builtin_prefetch(&wide[size_t(index) * block_size + (node & (block_size - 1))], 0, Write ? 3 : 1); return; }
+            if (index != UINT32_MAX) { __builtin_prefetch(&wide[size_t(index) * block_size + (node & (block_size - 1))], Write ? 1 : 0, 1); return; }
         }
-        __builtin_prefetch(&small[node], 0, Write ? 3 : 1);
+        __builtin_prefetch(&small[node], Write ? 1 : 0, 1);
     }
     // Only after all scatter workers join: the final cursor is each
     // node's exact exclusive end. No atomic_ref remains alive in this phase.
