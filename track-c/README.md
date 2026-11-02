@@ -9,6 +9,3 @@ An exact local synchronization proof selects true record boundaries. Reader work
 No input seed or answer is recognized. All output is computed in the timed run. See `PERF.md` for actual experiments, source/memory costs, independent tests and real board outcomes.
 
 Owner table entries use a32-bit rejection fingerprint and a32-bit stable-block word index. Full length/byte equality still decides names, including collisions; the complete64-bit hash routes owners.64KiB word blocks and dedicated oversized-key blocks retain exact name bytes/country words with checked index arithmetic.
-
-
-Compiler trial352 disables loop unrolling and peeling explicitly in both unchanged full1000003/sample130363 native-ISA GCC PGO passes. The intended instruction-footprint tradeoff requires a real board measurement. The CSV and owner algorithms remain original; two existing queue statements are split across lines for strict compiler diagnostics. No local or emulated speedup is claimed.
