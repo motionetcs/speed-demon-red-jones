@@ -1,0 +1,3 @@
+# A369 output-reserve capacity gate
+
+Read-only savedvalidated359 fullsummary byte/hour counts compared with current writer reserve (1842 global paths*100=184200 bytes/hour). All216 nonemptyhour buffers fit; max148050/149491/149097, so no observed appendgrowth/copy overlap exists. REJECT_BEFORE_IMPLEMENTATION_NO_CAPACITY_CROSSING. This is not a new input/program/profile/model/benchmark run. Unused virtual mmapcapacity is not physical/chargedM saving; no shrinkreserve/RSSgain claimed. Actualrequestedreserve implies capacityatleastthatlarge, not an exact capacity assertion.306 broader numeric/exact-map/two-pass output history checked. No source/CPP candidate or selectedruntime/board change.

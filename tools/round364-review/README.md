@@ -1,0 +1,3 @@
+# A364 read-only eligibility and algebra
+
+Same16B/4..12 exact-key encoding was rejected before implementation: only3.462/1.267/1.626% of actual calls qualify. Counts come from already-validated359 summary group multiplicities, not unique-key lengths, a rawinput pass, or a new program/profile. Hit-by-length joint counts unavailable; bounds only. Expanded32B/4..28 proposal covers44.712/40.409/53.359% but doubles cache bytes; array size is not processRSS/chargedM. Read-only algebra/union/bounds review is not a model/compiler/runtime/general-correctness certificate. No candidate, test/model/benchmark/compiler/generator/oracle/training/board run occurred in364.

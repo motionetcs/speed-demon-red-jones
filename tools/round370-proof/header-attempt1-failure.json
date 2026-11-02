@@ -1,0 +1,11 @@
+{
+  "observed_at_utc": "2026-11-02T08:35:35.869945+00:00",
+  "stage": "new test fixture oracle, before any solution execution",
+  "returncode": 1,
+  "successful_prior_oracle": "mask-0/reference aggregates.txt preserved and reused by exact hash, never rerun",
+  "failed_fixture": "mask-1 BOM before quoted id header",
+  "reason": "Official reference strips BOM after csv.reader; its stated first field is never quoted. BOM plus quoted first header field is beyond frozen literal-header spec. Original and370 intentionally accept this compatibility extension; use unchanged worked payload hand-computed expected output and original-control runs, not an official-reference pass claim.",
+  "runtime_edited": false,
+  "compiler_or_solution_executed": false,
+  "driver_sha256": "0d92a468b54338590ce15bed0bbb712d572af28c3fdb931d9066b332792d42a0"
+}

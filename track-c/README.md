@@ -9,3 +9,6 @@ An exact local synchronization proof selects true record boundaries. Reader work
 No input seed or answer is recognized. All output is computed in the timed run. See `PERF.md` for actual experiments, source/memory costs, independent tests and real board outcomes.
 
 Owner table entries use a32-bit rejection fingerprint and a32-bit stable-block word index. Full length/byte equality still decides names, including collisions; the complete64-bit hash routes owners.64KiB word blocks and dedicated oversized-key blocks retain exact name bytes/country words with checked index arithmetic.
+
+
+The field lexer returns the exact raw canonical interior and unescaped byte count. Every expected header label has no literal quote, so comparing its canonical interior to that label also accepts the same quoted headers without needing a decoded scratch string. Record grammar, byte equality, lengths and all worker/owner protocols are preserved.

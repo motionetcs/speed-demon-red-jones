@@ -1,0 +1,67 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 962B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/debian:13-slim@sha256:62bd423aeee912639ca8ee681c2b762cb3e25137e0a92b20be455898a9f034ad
+#2 ...
+
+#3 [auth] library/gcc:pull token for registry-1.docker.io
+#3 DONE 0.0s
+
+#4 [auth] library/debian:pull token for registry-1.docker.io
+#4 DONE 0.0s
+
+#5 [internal] load metadata for docker.io/library/gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce
+#5 DONE 1.8s
+
+#2 [internal] load metadata for docker.io/library/debian:13-slim@sha256:62bd423aeee912639ca8ee681c2b762cb3e25137e0a92b20be455898a9f034ad
+#2 DONE 2.4s
+
+#6 [internal] load .dockerignore
+#6 transferring context: 2B done
+#6 DONE 0.0s
+
+#7 [stage-1 1/2] FROM docker.io/library/debian:13-slim@sha256:62bd423aeee912639ca8ee681c2b762cb3e25137e0a92b20be455898a9f034ad
+#7 resolve docker.io/library/debian:13-slim@sha256:62bd423aeee912639ca8ee681c2b762cb3e25137e0a92b20be455898a9f034ad 0.0s done
+#7 DONE 0.0s
+
+#8 [build 1/6] FROM docker.io/library/gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce
+#8 resolve docker.io/library/gcc:15@sha256:eb5e64286ad47187b32bda75c6b6916166ecb41da56559b8b09e0001748d2cce 0.0s done
+#8 DONE 0.0s
+
+#9 [internal] load build context
+#9 transferring context: 12.33kB done
+#9 DONE 0.0s
+
+#10 [build 2/6] WORKDIR /src
+#10 CACHED
+
+#11 [build 3/6] COPY training_generator.py main.cpp quote_scan.hpp io.hpp parallel.hpp names.hpp ./
+#11 DONE 0.0s
+
+#12 [build 4/6] RUN g++ -std=c++20 -O3 -march=native -DNDEBUG -pthread -static -fprofile-generate=/profile -fprofile-update=atomic main.cpp -o /solution
+#12 DONE 3.6s
+
+#13 [build 5/6] RUN python3 training_generator.py --seed 1000003 --scale full --out /training && /solution --data /training --out /training-output && python3 training_generator.py --seed 130363 --scale sample --out /training && /solution --data /training --out /training-output
+#13 DONE 18.8s
+
+#14 [build 6/6] RUN g++ -std=c++20 -O3 -march=native -DNDEBUG -pthread -static -fprofile-use=/profile -fprofile-correction -Werror=missing-profile main.cpp -o /solution
+#14 DONE 3.0s
+
+#7 [stage-1 1/2] FROM docker.io/library/debian:13-slim@sha256:62bd423aeee912639ca8ee681c2b762cb3e25137e0a92b20be455898a9f034ad
+#7 CACHED
+
+#15 [stage-1 2/2] COPY --from=build /solution /app/solution
+#15 DONE 0.0s
+
+#16 exporting to image
+#16 exporting layers 0.1s done
+#16 exporting manifest sha256:8bf26554333e1c51b736314006a426930feeac0e1d92928e1c188833152722bb done
+#16 exporting config sha256:a517ef138f33983f61bdbfc01db1cad681a66241e1bad4b93d7cfe7cd7821699 done
+#16 exporting attestation manifest sha256:8cb6ac24dbf1a8c3b2dd05881151cc8bc18e4785fada26721858ed69b7b00c94 done
+#16 exporting manifest list sha256:38bf1dff80de852ff502f822a523bdfe660e998152b65c35a133185f08b26bb7
+#16 exporting manifest list sha256:38bf1dff80de852ff502f822a523bdfe660e998152b65c35a133185f08b26bb7 done
+#16 naming to docker.io/speed-demon-fresh/track-c:round370-raw-fields done
+#16 DONE 0.1s

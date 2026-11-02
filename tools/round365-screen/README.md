@@ -1,0 +1,5 @@
+# A365 exact4..28-byte cache encoding, native rejection
+
+Complete-key representation uses three8-byte payloadwords, the unchangedfull32 sampledhash and full length/ID in align32 slots. Input-key-derived caching only, no precomputedanswers or catalogue recognition.4..7/8..24 samplecoverage and25..28 conditionalbijection reasoning reviewed; encoded() internalprecondition4..28 only. Exact sharedglobalprefix/hashfunction and all other A files unchanged.
+
+One optimizedcompile/90calls fullpublic1/6/12 plus13 rotatingpairs public/full1951/full2221 pass all source/input/output/control/candidatehashes. Ratios.998224/1.005213/1.011549 and7/5/5wins are flat/losing with mixed nativeRSS. REJECT_NATIVE_ONLY before new exact-key/forcedcollision/unionlifetime/guard/unaligned/endian/long/full-ID/strict/race/untrained/GNU/image/default/board proof. Read-only mathematical/source review found no concrete guarded counterexample but is not a correctness certificate. Header/source growth/cache bytes would be charged normally. Apple timing/RSS is not Intel/chargedM/officialgain. Recordedparent +onepatch +frozen excludedPERF reconstruct all12files exactly.

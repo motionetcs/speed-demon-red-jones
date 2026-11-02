@@ -1,0 +1,68 @@
+{
+  "observed_at_utc": "2026-11-02T07:18:38.009861+00:00",
+  "official_score": false,
+  "scope": "Read-only classification of the already-saved364 weighted call-length dictionary ONLY. No summary or raw-input reread, program/profile/model/compiler/benchmark/generator/oracle/image/board run.",
+  "prior_traffic_sha256": "87c2649459c16bf5c0a59a5d7e3440d16f40db39d52cd7a14198051a117274b3",
+  "runs": [
+    {
+      "case": "public-full-seed1",
+      "actual_observed_calls": 3100000,
+      "eligible_4_to_28_calls": 1386078,
+      "eligible_fraction": 0.44712193548387097,
+      "weighted_ranges": {
+        "4_to_7": 534,
+        "8_to_24": 1173278,
+        "25_to_28": 212266,
+        "29_to_32": 193994
+      },
+      "eligible_cache_hit_fraction_bounds_NOT_joint_measurement": {
+        "lower": 0.3642535483870968,
+        "upper": 0.44712193548387097
+      }
+    },
+    {
+      "case": "full-seed1951",
+      "actual_observed_calls": 3100000,
+      "eligible_4_to_28_calls": 1252666,
+      "eligible_fraction": 0.4040858064516129,
+      "weighted_ranges": {
+        "4_to_7": 329,
+        "8_to_24": 998869,
+        "25_to_28": 253468,
+        "29_to_32": 148707
+      },
+      "eligible_cache_hit_fraction_bounds_NOT_joint_measurement": {
+        "lower": 0.3332041935483871,
+        "upper": 0.4040858064516129
+      }
+    },
+    {
+      "case": "full-seed2221",
+      "actual_observed_calls": 3100000,
+      "eligible_4_to_28_calls": 1654117,
+      "eligible_fraction": 0.5335861290322581,
+      "weighted_ranges": {
+        "4_to_7": 261,
+        "8_to_24": 1294675,
+        "25_to_28": 359181,
+        "29_to_32": 248191
+      },
+      "eligible_cache_hit_fraction_bounds_NOT_joint_measurement": {
+        "lower": 0.4673716129032258,
+        "upper": 0.5335861290322581
+      }
+    }
+  ],
+  "nominal_cache_payload_bytes": {
+    "old_per_slot": 16,
+    "new_per_slot": 32,
+    "slots_per_worker": 4096,
+    "old_per_worker": 65536,
+    "new_per_worker": 131072,
+    "increment_per_worker": 65536,
+    "increment_at_12_workers": 786432
+  },
+  "memory_limit": "Exact allocated slot-array payload arithmetic, not measured process peak/RSS/chargedM. Standard over-aligned allocator behavior, page touching, lifetimes and possible arena reuse/unmapping can change the peak.",
+  "eligibility_limit": "These are actual per-call byte-length counts, not unique-name weights. Exact hit-by-length counters are absent; only loose valid bounds are available. No time/K improvement inferred.",
+  "status": "Read-only extension; not an implemented or tested candidate."
+}

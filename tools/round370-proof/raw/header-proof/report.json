@@ -1,0 +1,4442 @@
+{
+  "started_at_utc": "2026-11-02T08:35:35.990500+00:00",
+  "scope": "New actual-main compatibility fixtures for all32 quoted-record-header masks plus BOM/terminator/EOF and quoted-region-header extensions. These extensions exceed the frozen literal generator header; no narrower generator-only acceptance is used. Supported new fixtures official-reference compared once; BOM+quoted-first-header extensions use unchanged official hand-computed worked payload output plus original-control executions because reference assumes unquoted first field; oldcontrol and new370 ASAN/TSAN actually run. No new compiler or old generator/oracle repetition.",
+  "official_score": false,
+  "source_sha256": {
+    "track-c/training_generator.py": "9e61672eb814fa4e1bc2e3cf30c8e7ca9629804191ce5ae60a66c8b61ba704f2",
+    "track-c/Dockerfile": "637e81c6fca4507f4c4e7368efde7b6904d07879ae9ec992c5e25175d50e1fae",
+    "track-c/names.hpp": "f62a25fdb9f229575c42fc013220f7f38dd5a68ea5ac83aa1702d0589c15501b",
+    "track-c/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+    "track-c/quote_scan.hpp": "0b170a766254dee1bc14f9e9180cc1900da01d41f5d09053d5579e01a7fb9cfa",
+    "track-c/README.md": "7e25ba820e076e9da1153bfabb22709c9a464fd203a0d1cb9affcfc37f97ba95",
+    "track-c/PERF.md": "98a2ec14c2f6f85920ef4e62b390c45d6e0fcfed2d9a87828891ffd56baa1222",
+    "track-c/.speed-demon.toml": "3371600b8033a377bc373378e703191dfec36c1ae991b617650dfa480edc00b4",
+    "track-c/main.cpp": "06e04e95334417cb5e969cb19e85381c70e6c3fde4d30241f9e6eec587899d04",
+    "track-c/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420"
+  },
+  "checks": [
+    {
+      "case": "round370-header-mask-0",
+      "data_folder": ".build/round370/header-data/mask-0",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "c44f59fac6e90a9ea00f061d71dc460651fdcaf95975476f23fcfa8d91a0ae6d"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "exact saved successful first-attempt official-reference output, not rerun",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-mask-1",
+      "data_folder": ".build/round370/header-data/mask-1",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "8eeda40efead05cb5ee5132326b401485ba5399efc3cc0cb37512bef3de56e57"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "hand-computed official WORKED_OUTPUT or empty-output invariant; official reference does not support BOM+quoted-first-header extension",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-mask-2",
+      "data_folder": ".build/round370/header-data/mask-2",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "aadb693083ae3f3e4d03c5852ff9bb9da6a1102b13b9cf720c17ff708c924c00"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "new fixture official reference executed once",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-mask-3",
+      "data_folder": ".build/round370/header-data/mask-3",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "65d4fc3dee53345f7fc2a1bc82728b41bd471467cb812d563ef7e8b75bd4f8dd"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "hand-computed official WORKED_OUTPUT or empty-output invariant; official reference does not support BOM+quoted-first-header extension",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-mask-4",
+      "data_folder": ".build/round370/header-data/mask-4",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "027f40d1d6ef4ade04885076cb6ce36480b41cbc0f6d7fd7d7ec581bd675e438"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "new fixture official reference executed once",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-mask-5",
+      "data_folder": ".build/round370/header-data/mask-5",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "45b0b15767a608f69957c747b48d9f45cc4ea87fe1deab243c2c3b2eed9b9d82"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "hand-computed official WORKED_OUTPUT or empty-output invariant; official reference does not support BOM+quoted-first-header extension",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-mask-6",
+      "data_folder": ".build/round370/header-data/mask-6",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "5220a9e878a32520552947f22d01a2d2f1acf45d9165856306cf19960c7e27bd"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "new fixture official reference executed once",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-mask-7",
+      "data_folder": ".build/round370/header-data/mask-7",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "f1a4994f7c02b97557946b46a00c9e27e3142f33e656f49639be232714aba261"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "hand-computed official WORKED_OUTPUT or empty-output invariant; official reference does not support BOM+quoted-first-header extension",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-mask-8",
+      "data_folder": ".build/round370/header-data/mask-8",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "c1bf43e90ece03530d9101f11e53355920840622b47dcfddec5f4432a4e2b2a3"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "new fixture official reference executed once",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-mask-9",
+      "data_folder": ".build/round370/header-data/mask-9",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "b5281f5955c83ea9acbbd02df8189a1de11e244d5bbd240a5b5812d8b1ad0438"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "hand-computed official WORKED_OUTPUT or empty-output invariant; official reference does not support BOM+quoted-first-header extension",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-mask-10",
+      "data_folder": ".build/round370/header-data/mask-10",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "a60da646348739f9cb7c51f65537a6b3872843a118e365d06352d1baf739155c"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "new fixture official reference executed once",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-mask-11",
+      "data_folder": ".build/round370/header-data/mask-11",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "075c0b8be4683c020b7e8f0254e8eb3666fe6f2153d8359a2e6d824710d150da"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "hand-computed official WORKED_OUTPUT or empty-output invariant; official reference does not support BOM+quoted-first-header extension",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-mask-12",
+      "data_folder": ".build/round370/header-data/mask-12",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "e9c7e6ce4f41ae0f992ed411ba5efbeb4d1157a453a6d6f502a8be10b075e6b4"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "new fixture official reference executed once",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-mask-13",
+      "data_folder": ".build/round370/header-data/mask-13",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "9e60d29a313c4881674f6366854457a5854d7dbde34b98753d48b64aee1175a0"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "hand-computed official WORKED_OUTPUT or empty-output invariant; official reference does not support BOM+quoted-first-header extension",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-mask-14",
+      "data_folder": ".build/round370/header-data/mask-14",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "6a6c7ae886f2af910e9a1fe2154532cb587eeb2d5b83e26b61472005b20f06d1"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "new fixture official reference executed once",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-mask-15",
+      "data_folder": ".build/round370/header-data/mask-15",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "c8d2bc343604a6558704bb9219f4952b816d10e6b86f3f715da8eabae16b31a0"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "hand-computed official WORKED_OUTPUT or empty-output invariant; official reference does not support BOM+quoted-first-header extension",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-mask-16",
+      "data_folder": ".build/round370/header-data/mask-16",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "f2b046444c14717da021a65bb4c4556321050b1c58e2090308bb97178fb48f2f"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "new fixture official reference executed once",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-mask-17",
+      "data_folder": ".build/round370/header-data/mask-17",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "5f5aa78289ec39291499c36943bf7525cf8019bf5a247beaec1b940dc2545dd9"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "hand-computed official WORKED_OUTPUT or empty-output invariant; official reference does not support BOM+quoted-first-header extension",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-mask-18",
+      "data_folder": ".build/round370/header-data/mask-18",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "0b187d7f3b591e9507e0ac2a30e0c43bc2aa4783779fb16501e5e6dc0826a973"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "new fixture official reference executed once",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-mask-19",
+      "data_folder": ".build/round370/header-data/mask-19",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "81b3a63726626258af84c227af82270a36c17c9ff618b5b02664d8d98a987541"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "hand-computed official WORKED_OUTPUT or empty-output invariant; official reference does not support BOM+quoted-first-header extension",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-mask-20",
+      "data_folder": ".build/round370/header-data/mask-20",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "ebe95b9bfec8f500944623147ec95ae964930545fdb4ca5a2bbe02b3db28f8df"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "new fixture official reference executed once",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-mask-21",
+      "data_folder": ".build/round370/header-data/mask-21",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "553b7ea767312be1ec9f21de307b27b2958dcedd62321be97353aad3c23b78e9"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "hand-computed official WORKED_OUTPUT or empty-output invariant; official reference does not support BOM+quoted-first-header extension",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-mask-22",
+      "data_folder": ".build/round370/header-data/mask-22",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "b02ee50abf26b7181223d67e705880e400692b59533711b5788236a0f2a01732"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "new fixture official reference executed once",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-mask-23",
+      "data_folder": ".build/round370/header-data/mask-23",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "a721bf523ac627c4eb7af01d950d33e5bbe0f99bc9518065b36c6fe3e4b40803"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "hand-computed official WORKED_OUTPUT or empty-output invariant; official reference does not support BOM+quoted-first-header extension",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-mask-24",
+      "data_folder": ".build/round370/header-data/mask-24",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "116edbcff0d3b671b107048dc2785445d0a7109537e5a589306f7009205bd92c"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "new fixture official reference executed once",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-mask-25",
+      "data_folder": ".build/round370/header-data/mask-25",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "867050eb7985becfe112567ced514598a69b0e633399f85f414c179547b4db54"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "hand-computed official WORKED_OUTPUT or empty-output invariant; official reference does not support BOM+quoted-first-header extension",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-mask-26",
+      "data_folder": ".build/round370/header-data/mask-26",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "4a910b9e882f6b2503a4d5e15efab54d0b6e5dbf4449f4c80aa678995f35951c"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "new fixture official reference executed once",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-mask-27",
+      "data_folder": ".build/round370/header-data/mask-27",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "cc421c54237fe45f7413d90d456dce7f01625cff4964c6e40c0eaf79deca2e03"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "hand-computed official WORKED_OUTPUT or empty-output invariant; official reference does not support BOM+quoted-first-header extension",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-mask-28",
+      "data_folder": ".build/round370/header-data/mask-28",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "b941e37407d017a6449f6c61ea5164106be4d8a34d521d89158d79b9a91f9ccf"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "new fixture official reference executed once",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-mask-29",
+      "data_folder": ".build/round370/header-data/mask-29",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "4dda3ef987d0cac2bba4ae0131025f63920c62a7ccf17bc688549665ac284910"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "hand-computed official WORKED_OUTPUT or empty-output invariant; official reference does not support BOM+quoted-first-header extension",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-mask-30",
+      "data_folder": ".build/round370/header-data/mask-30",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "6e3b18d80112ba4cf1a6281fde02d018713b8a6716ff503a0fddac0924259db4"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "new fixture official reference executed once",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-mask-31",
+      "data_folder": ".build/round370/header-data/mask-31",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "c5c45d979e2961e8e6fc0969b9f466393f7b49d396cf90cd5c79943d94a68bfc"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "hand-computed official WORKED_OUTPUT or empty-output invariant; official reference does not support BOM+quoted-first-header extension",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-cross-0-0-1",
+      "data_folder": ".build/round370/header-data/cross-0-0-1",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "9a393a6a6667c00b8b36facfa58ed6dbe4693679a32fb2e5ed89c583e0299747"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "new fixture official reference executed once",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-cross-0-1-0",
+      "data_folder": ".build/round370/header-data/cross-0-1-0",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "e652929cc0cd937ca9b5e0973ba91994e3f238d4f9d1108ba1141dced9752b1d"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "new fixture official reference executed once",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-cross-0-1-1",
+      "data_folder": ".build/round370/header-data/cross-0-1-1",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "4975925d8ba116c9812f3c77914d0b3b477ba09904ca65dc227d4b2e7174b24f"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "new fixture official reference executed once",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-cross-31-0-0",
+      "data_folder": ".build/round370/header-data/cross-31-0-0",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "711c74e1b5854caf08fcbff9a907c8803ae4d0829ff59db8ec78290a6d0f908e"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "new fixture official reference executed once",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-cross-31-0-1",
+      "data_folder": ".build/round370/header-data/cross-31-0-1",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "3bcfffd789b45c2f0346a4c094d0e7ca684df6d0788b9018ab84d88cc4918566"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "new fixture official reference executed once",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-cross-31-1-0",
+      "data_folder": ".build/round370/header-data/cross-31-1-0",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "dc7e8213389ae6807a40973e4b4fd6fc14aef842a5b131567aa51234f487e70c"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "hand-computed official WORKED_OUTPUT or empty-output invariant; official reference does not support BOM+quoted-first-header extension",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-region-0-1",
+      "data_folder": ".build/round370/header-data/region-0-1",
+      "inputs_sha256": {
+        "regions.csv": "791986705387140228b20453c68a804cd80869a99b9817faa259aa62d8ff3ff1",
+        "records.csv": "4975925d8ba116c9812f3c77914d0b3b477ba09904ca65dc227d4b2e7174b24f"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "new fixture official reference executed once",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-region-1-0",
+      "data_folder": ".build/round370/header-data/region-1-0",
+      "inputs_sha256": {
+        "regions.csv": "ed8208c5ffa0198ec88fa178b2a0cc007e0972c243330880362c6d8194c19d17",
+        "records.csv": "4975925d8ba116c9812f3c77914d0b3b477ba09904ca65dc227d4b2e7174b24f"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "new fixture official reference executed once",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-region-1-1",
+      "data_folder": ".build/round370/header-data/region-1-1",
+      "inputs_sha256": {
+        "regions.csv": "462082ad8ee25890c4e5d627acfc2a438c23fbcecd716380fdd3507b03f6ffd8",
+        "records.csv": "4975925d8ba116c9812f3c77914d0b3b477ba09904ca65dc227d4b2e7174b24f"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "new fixture official reference executed once",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-region-2-0",
+      "data_folder": ".build/round370/header-data/region-2-0",
+      "inputs_sha256": {
+        "regions.csv": "410ffdbb67bf925ca414807539f6dee38fd0a8ffecf5910627d2ad7a3626b5da",
+        "records.csv": "4975925d8ba116c9812f3c77914d0b3b477ba09904ca65dc227d4b2e7174b24f"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "new fixture official reference executed once",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-region-2-1",
+      "data_folder": ".build/round370/header-data/region-2-1",
+      "inputs_sha256": {
+        "regions.csv": "d0f633de2b20ce2642566ba39347f065e75cdd04f7a20c990ecfd83ace9ef26a",
+        "records.csv": "4975925d8ba116c9812f3c77914d0b3b477ba09904ca65dc227d4b2e7174b24f"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "new fixture official reference executed once",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-region-3-0",
+      "data_folder": ".build/round370/header-data/region-3-0",
+      "inputs_sha256": {
+        "regions.csv": "ea9c9a5773429e20a8191a05f100e09dbe7078d70a7b653040ee24b8047b6770",
+        "records.csv": "4975925d8ba116c9812f3c77914d0b3b477ba09904ca65dc227d4b2e7174b24f"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "new fixture official reference executed once",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-region-3-1",
+      "data_folder": ".build/round370/header-data/region-3-1",
+      "inputs_sha256": {
+        "regions.csv": "34e2cd5d259cadf47e11ca2cdcdabe983be9addce1ed5884c843693bdabe1f85",
+        "records.csv": "4975925d8ba116c9812f3c77914d0b3b477ba09904ca65dc227d4b2e7174b24f"
+      },
+      "reference_sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444",
+      "reference_kind": "new fixture official reference executed once",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "72ed9e59bff2dad354a9fb4cbc2d4b102477f634230b47e86035864c88d27444"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-empty-eof-0-0",
+      "data_folder": ".build/round370/header-data/empty-eof-0-0",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "8f6a0ed6c6a2bb2f160cf50055ae5891c63ac47304b2c7f2ede4b2f0b3325076"
+      },
+      "reference_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reference_kind": "new fixture official reference executed once",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-empty-eof-0-1",
+      "data_folder": ".build/round370/header-data/empty-eof-0-1",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "42790f099b49160efe8a2a5ebc80cdc978e774d6f62335e5dc2c574ab6c32ccf"
+      },
+      "reference_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reference_kind": "new fixture official reference executed once",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-empty-eof-31-0",
+      "data_folder": ".build/round370/header-data/empty-eof-31-0",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "dd8fd4e45badf0911f24e27419ed5846f5a3dd46de3590a3d403cbd888082738"
+      },
+      "reference_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reference_kind": "new fixture official reference executed once",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-empty-eof-31-1",
+      "data_folder": ".build/round370/header-data/empty-eof-31-1",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "c7270f2e3225f791eb619af50a65d6958ea479418936d26f93991c7a7fa8cc12"
+      },
+      "reference_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reference_kind": "hand-computed official WORKED_OUTPUT or empty-output invariant; official reference does not support BOM+quoted-first-header extension",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 0,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    }
+  ],
+  "expected_failures": [
+    {
+      "case": "round370-header-bad-0-suffix",
+      "data_folder": ".build/round370/header-data/bad-0-suffix",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "b0981916167ec73f58829c425c80f86cfeaafb32256a408d47f838420378171e"
+      },
+      "expected_error": "bad records header",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 1,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 1,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 1,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 1,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 1,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 1,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 1,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 1,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 1,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "stderr": "track-c: bad records header\n"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-bad-0-quote",
+      "data_folder": ".build/round370/header-data/bad-0-quote",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "a1327d14b928d7c9bf2051f86f4eccb9586d275d7ea983aaaedc927145109c39"
+      },
+      "expected_error": "bad records header",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 1,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 1,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 1,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 1,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 1,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 1,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 1,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 1,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 1,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "stderr": "track-c: bad records header\n"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-bad-1-suffix",
+      "data_folder": ".build/round370/header-data/bad-1-suffix",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "e3f3f32d77fe287841190120a4f74a670ccb99325ad28607496d01893bce38ee"
+      },
+      "expected_error": "bad records header",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 1,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 1,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 1,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 1,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 1,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 1,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 1,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 1,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 1,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "stderr": "track-c: bad records header\n"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-bad-1-quote",
+      "data_folder": ".build/round370/header-data/bad-1-quote",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "587cfa0273998e0719c7592570b0737f73d9b12e4e70ed128ca675e864e04897"
+      },
+      "expected_error": "bad records header",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 1,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 1,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 1,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 1,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 1,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 1,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 1,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 1,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 1,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "stderr": "track-c: bad records header\n"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-bad-2-suffix",
+      "data_folder": ".build/round370/header-data/bad-2-suffix",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "897da4450f159e8ef6a5857425e8a328198f4a4f55e91389b458564324fa7453"
+      },
+      "expected_error": "bad records header",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 1,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 1,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 1,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 1,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 1,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 1,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 1,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 1,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 1,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "stderr": "track-c: bad records header\n"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-bad-2-quote",
+      "data_folder": ".build/round370/header-data/bad-2-quote",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "eacec9227073ff85ad049629052a8bd0cf81ab3dcacf48bc16ecbbf500f76d1c"
+      },
+      "expected_error": "bad records header",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 1,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 1,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 1,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 1,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 1,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 1,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 1,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 1,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 1,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "stderr": "track-c: bad records header\n"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-bad-3-suffix",
+      "data_folder": ".build/round370/header-data/bad-3-suffix",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "f686f272ab7b1977b9d4a7c445a9965595c6da7057109bf17ce0ef29aae118da"
+      },
+      "expected_error": "bad records header",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 1,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 1,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 1,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 1,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 1,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 1,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 1,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 1,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 1,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "stderr": "track-c: bad records header\n"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-bad-3-quote",
+      "data_folder": ".build/round370/header-data/bad-3-quote",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "f94b8729f0575bf25df252d375406cf485886785d301f110bfdcdcf1bd105e34"
+      },
+      "expected_error": "bad records header",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 1,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 1,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 1,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 1,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 1,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 1,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 1,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 1,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 1,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "stderr": "track-c: bad records header\n"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-bad-4-suffix",
+      "data_folder": ".build/round370/header-data/bad-4-suffix",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "680a38556bd54309b71fe819df44ae4236f680dd2e94fd9a6c3da98a4b5c26b9"
+      },
+      "expected_error": "bad records header",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 1,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 1,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 1,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 1,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 1,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 1,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 1,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 1,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 1,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "stderr": "track-c: bad records header\n"
+        }
+      ]
+    },
+    {
+      "case": "round370-header-bad-4-quote",
+      "data_folder": ".build/round370/header-data/bad-4-quote",
+      "inputs_sha256": {
+        "regions.csv": "b1c06e96460aeef52d640a799018355f663efe962ebf3aec89cc18e5ba1282ac",
+        "records.csv": "b9de9dbb49179b9492d9b2380c8902a1d18512d4bbf38db736d5c1f03171be2f"
+      },
+      "expected_error": "bad records header",
+      "runs": [
+        {
+          "mode": "original",
+          "requested_threads": 1,
+          "returncode": 1,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 6,
+          "returncode": 1,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "original",
+          "requested_threads": 12,
+          "returncode": 1,
+          "binary_sha256": "db8972d55c2a7b58a42f83dc42aab8df84fe9bdf4761dfd121368a6e0278037a",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 1,
+          "returncode": 1,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 6,
+          "returncode": 1,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "asan",
+          "requested_threads": 12,
+          "returncode": 1,
+          "binary_sha256": "d0645e6416c29a72d74ef8269032f0ce4a925367f94fd16a3acdadd8b829629e",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 1,
+          "returncode": 1,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 6,
+          "returncode": 1,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "stderr": "track-c: bad records header\n"
+        },
+        {
+          "mode": "tsan",
+          "requested_threads": 12,
+          "returncode": 1,
+          "binary_sha256": "39877a7638cc7763a90f333d0a9e76280a9595a813e6739a9ff1056e01efb1b1",
+          "stderr": "track-c: bad records header\n"
+        }
+      ]
+    }
+  ],
+  "passed": true,
+  "completed_at_utc": "2026-11-02T08:35:47.724491+00:00",
+  "distinct_valid_fixtures": 49,
+  "distinct_invalid_fixtures": 10,
+  "valid_calls": 441,
+  "normal_error_calls": 90
+}

@@ -1,0 +1,46 @@
+--- a/track-a/endpoint_table.hpp
++++ b/track-a/endpoint_table.hpp
+@@ -37,7 +37,11 @@
+ };
+ 
+ struct LocalEndpoints {
+-    struct Slot{const char* data=nullptr;uint32_t hash=0;uint16_t length=0,id=UINT16_MAX;};
++    struct alignas(32) Slot {
++        union { const char* data=nullptr; uint64_t words[3]; };
++        uint32_t hash=0;uint16_t length=0,id=UINT16_MAX;
++    };
++    static_assert(sizeof(Slot)==32);
+     Endpoints& shared;std::vector<Slot> slots=std::vector<Slot>(4096);
+     explicit LocalEndpoints(Endpoints& table):shared(table){}
+     static uint32_t hash_key(std::string_view v){
+@@ -45,13 +49,26 @@
+         uint32_t a,b,c;std::memcpy(&a,v.data(),4);std::memcpy(&b,v.data()+(v.size()-4)/2,4);std::memcpy(&c,v.data()+v.size()-4,4);
+         uint32_t h=(a^std::rotl(b,11)^std::rotl(c,23)^uint32_t(v.size()))*0x9e3779b1U;return h^(h>>16);
+     }
+-
++    // Through24 bytes these samples cover the complete key. At25..28 the
++    // prefix contains a,b; the full hash bijectively determines the last c4.
++    static std::array<uint64_t,3> encoded(std::string_view v){
++        std::array<uint64_t,3> key{};
++        if(v.size()<8){uint32_t a,c;std::memcpy(&a,v.data(),4);std::memcpy(&c,v.data()+v.size()-4,4);key[0]=uint64_t(a)<<32|c;}
++        else if(v.size()<=24){std::memcpy(&key[0],v.data(),8);std::memcpy(&key[1],v.data()+(v.size()-8)/2,8);std::memcpy(&key[2],v.data()+v.size()-8,8);}
++        else std::memcpy(key.data(),v.data(),24);
++        return key;
++    }
+     uint16_t intern(std::string_view value){
+         if(value.size()>UINT16_MAX)return shared.intern(value,std::hash<std::string_view>{}(value));
+         uint32_t hash=hash_key(value);size_t i=hash&(slots.size()-1);
+-        const auto& cached=slots[i];
+-        if(cached.id!=UINT16_MAX&&cached.hash==hash&&cached.length==value.size()&&(value.empty()||std::memcmp(cached.data,value.data(),value.size())==0))return cached.id;
++        const auto& cached=slots[i];bool packed=value.size()>=4&&value.size()<=28;
++        if(cached.id!=UINT16_MAX&&cached.hash==hash&&cached.length==value.size()){
++            if(packed){auto key=encoded(value);if(cached.words[0]==key[0]&&cached.words[1]==key[1]&&cached.words[2]==key[2])return cached.id;}
++            else if(value.empty()||std::memcmp(cached.data,value.data(),value.size())==0)return cached.id;
++        }
+         uint16_t id=shared.intern(value,std::hash<std::string_view>{}(value));
+-        slots[i]={shared.canonical[id].data(),hash,static_cast<uint16_t>(value.size()),id};return id;
++        if(packed){auto key=encoded(value);slots[i]=Slot{.words={key[0],key[1],key[2]},.hash=hash,.length=static_cast<uint16_t>(value.size()),.id=id};}
++        else slots[i]=Slot{.data=shared.canonical[id].data(),.hash=hash,.length=static_cast<uint16_t>(value.size()),.id=id};
++        return id;
+     }
+ };

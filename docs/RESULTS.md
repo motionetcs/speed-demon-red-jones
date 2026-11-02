@@ -1,26 +1,27 @@
 # Results — 2 November 2026
 
-Feed **2026-11-02T06:33:04Z**: Red Jones **59/116**, best-three geometric machine mean **69.577494**. Leader **another ello 84.948491**. Number one remains unachieved; holdout scoring and judging are separate.
+Feed **2026-11-02T07:06:57Z**: Red Jones **59/116**, best-three geometric machine mean **69.577494**. Leader **another ello 84.948491**. Number one remains unachieved; holdout scoring and judging are separate.
 
-Selected source **99aa8f8dadd39cb6edb70dad34f8427b5fa0ff65**, `speed-demon`, PRIVATE/MIT: **A178/C175/D334**. Every real check/build/correctness/timeout/sandbox gate passes for all three.
+Selected source **72b55e083ab3251e4687f1e03df32625bccfd6c1**, `speed-demon`, PRIVATE/MIT: **A178/C175/D334**. Every real check/build/correctness/timeout/sandbox gate passes for all three.
 
 | Track | Best points | Best K | Rank | Track leader |
 | --- | ---: | ---: | ---: | --- |
-| A | 75.305061 | 32.070167 | 62/134 | Kirk Mates 88.348390 |
-| C | 68.118071 | 23.033578 | 67/116 | NickTrapp 85.101398 |
+| A | 75.305061 | 32.070167 | 62/137 | Kirk Mates 88.388517 |
+| C | 68.118071 | 23.033578 | 67/117 | NickTrapp 85.101398 |
 | D | 65.662866 | 20.571091 | 39/117 | SweetDreams 76.681057 |
 
-| Latest358 | Run | Time | Charged memory | S | K | Points |
+| Latest363 | Run | Time | Charged memory | S | K | Points |
 | --- | --- | ---: | ---: | ---: | ---: | ---: |
-| A | run-3d310536a24b | 0.048394 | 21147648 | 497 | 29.840271 | 73.740138 |
-| C | run-a4803ba81b36 | 0.074937 | 12431360 | 672 | 20.774817 | 65.87686 |
-| D | run-ece0f9410b5f | 0.201593 | 70922240 | 885 | 20.021284 | 65.074596 |
+| A | run-c1a82c29d3e5 | 0.043479 | 20791296 | 497 | 31.588925 | 74.976743 |
+| C | run-962b79bfbea7 | 0.062545 | 13152256 | 672 | 22.484992 | 67.594637 |
+| D | run-4b2c4cafbc38 | 0.210042 | 70770688 | 885 | 19.622863 | 64.638119 |
 
 These latest records use the restored original source; preserve historical bests separately from repeat variation. No new retained algorithm or ranking gain is claimed.
 
-[Exact selected source/image proof](round358-final-source-match.json), [real records](board-round358-original-restored.json), [leader comparison](round358-confirmed-comparison.json), [raw-feed integrity](round358-feed-proof.json). Local images are replay identities, not organizer ELFs.
+[Exact selected source/image proof](round363-final-source-match.json), [real records](board-round363-original-restored.json), [leader comparison](round363-confirmed-comparison.json), [raw-feed integrity](round363-feed-proof.json). Local images are replay identities, not organizer ELFs.
 
-C357 standard atomic waits at batch boundaries passed all local and real gates but lost: run-74166fe13b92, T0.093872/M12972032/S722/K18.207246/63.012213 points, below retained K23.033578/68.118071. Its native improvement did not transfer; no target phase explanation is measured. All three C files and the local image are fully restored. Its new native ASAN/TSAN, actual GNU15.3 models/fault recovery/main231+25, one original-PGO image645+50,77 true defaults+9 and actualMake16 proofs remain historical. [Rejected source and result](round357-scored-source-match.json), [exact evidence archive](round357-proof-archive.json).
+C362 -fno-plt in both original static/native PGO passes passed all local and real gates but lost: run-6c16f2baccbd, T0.076354/M12271616/S672/K20.634447/65.729642 points, below retained K23.033578/68.118071. Exact production instructions replaced four equality and one memset PLT calls with direct GOT calls, but this did not establish a target score gain. No dynamic-frequency, phase or causal timing claim is made. Docker, two token-identical style line breaks, README and local image are fully restored. New GNU strict models/main237+25, one original-PGO image651+50,77 true defaults+9 and cached actual Make16 proofs remain historical. [Rejected source and result](round362-scored-source-match.json), [exact evidence archive](round362-proof-archive.json). C357's earlier standard-wait trial was also rejected and fully removed.
+
 
 A355 whole-hour radix and A359 two-choice cache were rejected after native screens. A359 reduced authoritative-interner fallback counts89–91% but production timing was mixed; counts are not official gains. C354/356 were superseded before GNU/image/board. [354–357 decisions](round354-357-index.json), [359 exact diagnostic and screen](round359-a-cache-rejection.json). D edge-work balancing and eight-lane AVX2 proposals matched earlier rejected298/124 and stopped before repeated code or measurements.
 
@@ -29,7 +30,4 @@ C352's earlier compiler flags were also rejected and fully removed. D334's earli
 Publication is authorized only for motionetcs/speed-demon-red-jones during2 November15:00–16:00UTC, after frozen passing-source preservation and final privacy/history/image review. Stop risky new starts14:00UTC and runtime/commits/pushes15:00UTC. Keep private before the window.
 
 
-Candidate362 locally validated for ONE real C compilerflag trial: -fno-plt in BOTH unchanged originalstatic -O3 -march=native full1000003/sample130363 PGO passes. Two original queue statement linebreaks/tokenidentity and disclosedREADME only. No parser/queue/name/country/money/default12 algorithm change; A178/D334 exact. Prior independent234/352/356 data/referencebytes reused byhash without generator/oracle repetition; new pinnedGNU failfast raw/decoded/guard/numeric402810/name models+237valid/25errors, ONEofflinePGOimage651+50,77true noarg/nooverride defaults+9PASS. Original native race/header proof retained only by exact CPP/token identity, no newTSAN claimed. ActualrootMake uses exact-source cachedA263/C352formattedCPP/currentD334 controls with16 public/fresh3623/default outputsPASS; no repeatedclang. Actual production ownIFUNC/GOT callshape inspected and image/source bound, not a timing/frequency or organizerELF claim. Localimagesha256:a7539af57e13740cfa13cc7c5a6f44bdd2204016e101e3e43425c256229a69c5/ELF9efaeb73cd89e56187e47daaa763684faf1572c89fb750eb983972fd440f7eb6 not organizeridentities. Retain ONLY real CtotalK>23.033578/68.118071; else completeDocker/main2linebreak/README/image263rollback. Source30/Make/README/fullsets/localimages in round362-candidate-source-match.json. PRIVATE/MIT; publication onlyapproved15:00–16:00UTC, runtime+Gitfreeze15:00/risky14:00. No newscoregain.
-
-
-362/fe3dca6c41e718b9150e34ab444774a28d166809 passes allrealA/C/Dgates, but C run-6c16f2baccbd T.076354/M12271616/S672/K20.634447/65.729642 loses retainedbestK23.033578/68.118071. REJECT complete -fno-plt inboth originalstatic/nativePGOpasses andmain2tokenidenticalstylelinebreaks/README/imagechange; exact original A178/C175/D334/source30/Make/README/images358 restored. Fresh originalC263public+untrained3623 at1/6/12/true-default8imagecalls, cachedrootMake/native12PASS, no compiler/model/PGO/reference regeneration repeated. New362GNUmodels/main237+25/oneimage651+50/default77+9/Make16 and actualproduction4memcmp+1memset GOTcall transformation remain historical. Fewerstaticstubjumps did not establish a target gain; no dynamicfrequency/phase/causal claim. A74.632678/D65.247823 lowerunchangedrepeats variation. Onecooled363push only>=06:57:29UTC afterdispatch06:52:29. Exactrejectedsource round362-scored-source-match.json/board-round362-noplt.json; restoredproof round363-candidate-source-match.json. Bestscores unchanged; PRIVATE/MIT/publicationwindow unchanged.
+C370 locally validated for ONE official source-simplification trial. Current555050 raw/count/header/bounds model; ASAN411+30 and TSAN396+30 main plus fresh3851/3853/3863; new actual-header integration441valid+90error calls; pinnedGNU15.3 raw555050/numeric402810 and159+10 actualmain PASS. ONE original allowed full1000003/sample130363 PGO image sha256:38bf1dff80de852ff502f822a523bdfe660e998152b65c35a133185f08b26bb7, ELF 7be7c543c7a9c79a201ad051fd98f6dd7028b7d6601f5740dff652555d89c1a3, image804+80, actual noarg/nooverride defaults128+9, cached actualMake/native16 PASS. Local identities are not organizer identities. Native timing weak/mixed, fresh3863 paired1.0205925954/4wins, RSS not chargedM; exact canonicalS/totalK only realboard. No GNU/image/PGO proof repetitions, source-specific cancellation fault proof not transferred. Only main/README changed, original headers/default12/ISA/PGO untouched; preserve passing363 snapshot. Keep only C K>23.033578/points68.118071, else full main/README/image rollback and one cooled confirmation. Exact archive docs/round370-proof-archive.json. PRIVATE/MIT, publication only approved15:00–16:00UTC; stop risky14:00/runtime+Git15:00.

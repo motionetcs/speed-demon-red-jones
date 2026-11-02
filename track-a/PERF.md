@@ -687,3 +687,12 @@ Round355: REJECT_NATIVE_ONLY: weak/mixed A whole-hour radix time plus3.1–3.5MB
 
 
 Original358/99aa8f8dadd39cb6edb70dad34f8427b5fa0ff65, run-3d310536a24b, allactualgatesPASS aftercompleteC357 threefile/image rollback: T0.048394/M21147648/S497/K29.840271/73.740138. Unchanged-source repeat; best remains separate, no new algorithm or causal gain. Exact A178/C175/D334/30inputs/Make/README/fullsets/Git/submitted358/original353/best-components/localimages: ../docs/round358-final-source-match.json. Raw ../docs/board-round358-original-restored.json; originalCimage8public/untrained3623/default andcachedMake/native12 passed withoutcompiling/retraining.
+
+
+Original363/72b55e083ab3251e4687f1e03df32625bccfd6c1, run-c1a82c29d3e5, allactualgatesPASS aftercompleteC362 Docker/mainstyle/README/image rollback: T0.043479/M20791296/S497/K31.588925/74.976743. Unchanged-source repeat; best remains separate, no new algorithm or causal gain. Exact A178/C175/D334/30inputs/Make/README/fullsets/Git/submitted363/original358/best-components/localimages: ../docs/round363-final-source-match.json. Raw ../docs/board-round363-original-restored.json; originalCimage8public/untrained3623/default andcachedMake/native12 passed withoutcompiling/retraining.
+
+
+364 read-only same16B4..12 exactencoding rejected beforeimplementation: actualcallcoverage3.462/1.267/1.626%, weightedfromalreadyvalidated359summary multiplicities, hit-lengthjointcounts absent. Wider32B4..28 coverage44.712/40.409/53.359% motivated isolated365. Onecompile/90legaldata fullpublic1/6/12/threefull13-pair input/output/source/binaryhashesPASS;365 ratios.998224/1.005213/1.011549 (7/5/5wins), nativeRSS-114688/-81920/+245760B flat/mixed. REJECT before broad exactkey/union/guard/collision/endian/ID/strict/race/untrained/GNU/image/default/board proof. Readonlybijection/bounds/source argument is not correctness or Intelgain. No selectedruntime change. Exact sources/drivers/patch/reconstruction/traffic/review: docs/round364-365-a-cache-rejection.json.
+
+
+369 read-only outputreserve gate: alreadyvalidated359summarybyte/hour buffers all fit initial1842*100=184200 reserve; all216nonemptyhours no crossing, maxima148050/149491/149097B. REJECT_BEFORE_IMPLEMENTATION; norawinput/program/profile/compiler/model/benchmark/boardrun. Unusedmmapvirtualreserve is notphysical/chargedM saving, no reserve-shrinkgainclaimed. Exact source/output/hash/lifetime/arithmetic and306duplicate review tools/round369-review/docs/round369-a-reserve-review.json.
