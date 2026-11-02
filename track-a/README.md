@@ -24,9 +24,6 @@ Per-worker exact direct caches point at globally published immutable views. Samp
 
 Compact record vectors use a stateless mapped allocator; after an hour has been fully scattered, its record storage returns directly to the operating system. The unchanged cache retains borrowed input views. Wide latency escapes and all quantiles remain exact.
 
-The retained163 aggregation algorithm supports the requested worker count; current container defaults are stated below. Finished hour output is published under one mutex; each publisher flushes only consecutive completed hours, then releases directly mapped output bytes. Empty hours also publish. No extra writer thread or assumption about input order is used. The bounded leading eight-digit decoder validates bytes and retains exact full-uint32/scalar tails.
+The retained163 design keeps all twelve aggregation workers. Finished hour output is published under one mutex; each publisher flushes only consecutive completed hours, then releases directly mapped output bytes. Empty hours also publish. No extra writer thread or assumption about input order is used. The bounded leading eight-digit decoder validates bytes and retains exact full-uint32/scalar tails.
 
-The retained178 build changed only the first build-time PGO workload to independent seed1000003/full; second130363/sample and all C++ source, generic flags and runtime contracts remain unchanged. Published public seed1 is never used for training. Only the compiled executable enters the final image. Recorded board comparisons and retained source identities are in PERF.md.
-
-
-The final container defaults to eight workers through SPEED_DEMON_THREADS=8. The native executable fallback and both unchanged full1000003/sample130363 profile-training runs remain twelve; explicit1..12 overrides remain supported. The C++ algorithm and all source/header bytes are unchanged. Fewer runtime workspaces are a memory/time tradeoff to be decided by actual total score.
+Candidate178 changes only the first build-time PGO workload to independent seed1000003/full; second130363/sample and all C++ source, generic flags and runtime contracts remain unchanged. Published public seed1 is never used for training. Only the compiled executable enters the final image. This is an unconfirmed compiler-profile experiment.
