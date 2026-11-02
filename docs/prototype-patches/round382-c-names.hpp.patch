@@ -1,0 +1,61 @@
+--- a/track-c/names.hpp
++++ b/track-c/names.hpp
+@@ -25,9 +25,10 @@
+         if(encoded==UINT32_MAX)throw std::runtime_error("name word index capacity");
+         return encoded+1;
+     }
+-    uint32_t make(std::string_view value){
+-        if(value.size()>UINT32_MAX||words>SIZE_MAX-1-(value.size()+7)/8)throw std::runtime_error("name storage overflow");
+-        size_t extra=1+words+(value.size()+7)/8;
++    template<bool OneWord=false> uint32_t make(std::string_view value){
++        const size_t country_words=OneWord?1:words;
++        if(value.size()>UINT32_MAX||country_words>SIZE_MAX-1-(value.size()+7)/8)throw std::runtime_error("name storage overflow");
++        size_t extra=1+country_words+(value.size()+7)/8;
+         if(extra>SIZE_MAX/sizeof(uint64_t))throw std::runtime_error("name allocation overflow");
+         if(extra>remaining){
+             if(storage.size()>=size_t(1)<<19)throw std::runtime_error("name block index capacity");
+@@ -35,16 +36,16 @@
+         }
+         // Oversized keys use a dedicated block with a representable zero offset.
+         if(next>=8192||next+extra>8192){
+-            if(next!=0){remaining=0;return make(value);}
++            if(next!=0){remaining=0;return make<OneWord>(value);}
+         }
+         uint32_t index=encode_index(storage.size()-1,next);
+-        auto* data=storage.back().get()+next;std::fill_n(data,1+words,uint64_t(0));data[0]=value.size();
+-        if(!value.empty())std::memcpy(reinterpret_cast<char*>(data+1+words),value.data(),value.size());
++        auto* data=storage.back().get()+next;std::fill_n(data,1+country_words,uint64_t(0));data[0]=value.size();
++        if(!value.empty())std::memcpy(reinterpret_cast<char*>(data+1+country_words),value.data(),value.size());
+         next+=extra;remaining=next<8192?8192-next:0;return index;
+     }
+     uint64_t* at(uint32_t index)const{uint32_t encoded=index-1;return storage[encoded>>13].get()+(encoded&8191);}
+-    std::string_view bytes(uint32_t index)const{
+-        auto* data=at(index);return {reinterpret_cast<const char*>(data+1+words),static_cast<size_t>(data[0])};
++    template<bool OneWord=false> std::string_view bytes(uint32_t index)const{
++        auto* data=at(index);return {reinterpret_cast<const char*>(data+1+(OneWord?1:words)),static_cast<size_t>(data[0])};
+     }
+     void grow(){
+         if(entries.size()>SIZE_MAX/2/sizeof(Entry))throw std::runtime_error("name table overflow");
+@@ -52,18 +53,18 @@
+         for(auto e:entries)if(e.index){size_t i=e.hash&(larger.size()-1);while(larger[i].index)i=(i+1)&(larger.size()-1);larger[i]=e;}
+         entries.swap(larger);
+     }
+-    bool first(std::string_view key,size_t country,uint64_t hash){
++    template<bool OneWord=false> bool first(std::string_view key,size_t country,uint64_t hash){
+         uint32_t fingerprint=static_cast<uint32_t>(hash);size_t i=fingerprint&(entries.size()-1);
+         for(;;){
+             auto& e=entries[i];
+             if(!e.index){
+                 if(used>=entries.size()*7/8){grow();i=fingerprint&(entries.size()-1);continue;}
+-                uint32_t index=make(key);e={fingerprint,index};++used;break;
++                uint32_t index=make<OneWord>(key);e={fingerprint,index};++used;break;
+             }
+-            if(e.hash==fingerprint&&bytes(e.index)==key)break;
++            if(e.hash==fingerprint&&bytes<OneWord>(e.index)==key)break;
+             i=(i+1)&(entries.size()-1);
+         }
+-        auto& bits=at(entries[i].index)[1+country/64];uint64_t bit=uint64_t(1)<<(country%64);
++        auto& bits=at(entries[i].index)[1+(OneWord?0:country/64)];uint64_t bit=uint64_t(1)<<(country%64);
+         bool fresh=!(bits&bit);bits|=bit;return fresh;
+     }
+ };

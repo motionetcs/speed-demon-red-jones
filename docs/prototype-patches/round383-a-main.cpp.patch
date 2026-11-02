@@ -1,0 +1,29 @@
+--- a/track-a/main.cpp
++++ b/track-a/main.cpp
+@@ -74,7 +74,7 @@
+         std::atomic<unsigned> next_hour{0};
+         parallel(threads, [&](unsigned) {
+             std::vector<Count> groups(paths.size());
+-            std::vector<uint32_t> offsets(paths.size()), cursor(paths.size()), latencies;
++            std::vector<uint32_t> cursor(paths.size()), latencies;
+             for (;;) {
+                 unsigned hour = next_hour.fetch_add(1, std::memory_order_relaxed); if (hour >= 72) return;
+                 std::fill(groups.begin(), groups.end(), Count{});
+@@ -85,7 +85,7 @@
+                 }
+                 if(!count){writer.publish(hour);continue;}
+                 uint32_t offset = 0;
+-                for (uint16_t key : order) { cursor[key] = offsets[key] = offset; offset += groups[key].count; }
++                for (uint16_t key : order) { cursor[key] = offset; offset += groups[key].count; }
+                 latencies.resize(count);
+                 for (auto& chunk : chunks) {
+                     size_t wide = 0;
+@@ -100,7 +100,7 @@
+                 auto& out = writer.hours[hour]; out.bytes.reserve(order.size() * 100);
+                 for (uint16_t key : order) {
+                     uint64_t n = groups[key].count, errors = groups[key].errors; if (!n) continue;
+-                    auto first = latencies.begin() + offsets[key];
++                    auto first = latencies.begin() + (cursor[key] - groups[key].count);
+                     if (n < 32) std::sort(first, first + n);
+                     else {
+                         size_t unselected = 0;

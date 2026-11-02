@@ -1,0 +1,72 @@
+--- a/track-d/main.cpp
++++ b/track-d/main.cpp
+@@ -43,10 +43,13 @@
+         const char* edge_start = scan.p;
+         while (edge_start < graph.data + graph.size && *edge_start <= ' ') ++edge_start;
+         unsigned loaders = std::min(threads, 12U);
+-        std::vector<const char*> boundaries(loaders + 1);
++        constexpr size_t parse_block_bytes = size_t(1) << 21;
++        size_t edge_bytes = static_cast<size_t>(graph.data + graph.size - edge_start);
++        size_t parts = edge_bytes / parse_block_bytes + (edge_bytes % parse_block_bytes != 0);
++        std::vector<const char*> boundaries(parts + 1);
+         boundaries.front() = edge_start; boundaries.back() = graph.data + graph.size;
+-        for (unsigned i = 1; i < loaders; ++i) {
+-            const char* p = edge_start + (graph.data + graph.size - edge_start) * i / loaders;
++        for (size_t i = 1; i < parts; ++i) {
++            const char* p = edge_start + i * parse_block_bytes;
+             if (p > edge_start && p[-1] != '\n') {
+                 const char* newline = static_cast<const char*>(std::memchr(p, '\n', graph.data + graph.size - p));
+                 p = newline ? newline + 1 : graph.data + graph.size;
+@@ -56,11 +59,15 @@
+         struct Local { size_t count = 0; DegreeBytes::Spills out_spills, in_spills; std::vector<std::pair<uint32_t, uint32_t>> wide; };
+         std::vector<Local> locals(loaders);
+         DegreeBytes degree(n), reverse_degree(n);
++        std::atomic<size_t> next_part{0};
+         parallel(loaders, [&](unsigned worker) {
+             auto& local = locals[worker];
+-            Scanner input{boundaries[worker], boundaries[worker + 1]};
+             std::array<std::pair<uint32_t,uint32_t>, 16> batch;
+-            while (input.more()) {
++            for (;;) {
++                size_t part = next_part.fetch_add(1, std::memory_order_relaxed);
++                if (part >= parts) break;
++                Scanner input{boundaries[part], boundaries[part + 1]};
++                while (input.more()) {
+                 size_t count = 0;
+                 while (count < batch.size() && input.more()) {
+                     uint32_t u = input.number(), v = input.number(); input.number();
+@@ -70,6 +77,7 @@
+                 }
+                 local.count += count;
+                 for (size_t i=0;i<count;++i) { auto [u,v]=batch[i]; degree.add(u, local.out_spills); reverse_degree.add(v, local.in_spills); }
++                }
+             }
+         });
+         size_t edge_count = 0;
+@@ -90,12 +98,16 @@
+         bool wide_cursors = cursor.wide_blocks || reverse_cursor.wide_blocks;
+         EdgeStore edges(m, n), reverse_edges(m, n);
+         auto scatter = [&]<bool Compact, bool WideCursors>() {
++            next_part.store(0, std::memory_order_relaxed);
+             parallel(loaders, [&](unsigned worker) {
+             auto& local = locals[worker];
+-            Scanner input{boundaries[worker], boundaries[worker + 1]};
+             struct Row { uint32_t u, v, value, out, in; };
+             std::array<Row, 16> batch;
+-            while (input.more()) {
++            for (;;) {
++                size_t part = next_part.fetch_add(1, std::memory_order_relaxed);
++                if (part >= parts) break;
++                Scanner input{boundaries[part], boundaries[part + 1]};
++                while (input.more()) {
+                 size_t count = 0;
+                 while (count < batch.size() && input.more()) {
+                     auto& row = batch[count++]; row.u=input.number(); row.v=input.number(); row.value=input.number();
+@@ -109,6 +121,7 @@
+                     auto& row=batch[i]; uint32_t weight=std::min(row.value, Compact ? EdgeStore::small_limit : uint32_t(UINT16_MAX));
+                     edges.set<Compact>(row.out,row.v,weight); reverse_edges.set<Compact>(row.in,row.u,weight);
+                     if(row.value >= (Compact ? EdgeStore::small_limit : uint32_t(UINT16_MAX))) { local.wide.emplace_back(row.out*2,row.value); local.wide.emplace_back(row.in*2+1,row.value); }
++                }
+                 }
+             }
+         });

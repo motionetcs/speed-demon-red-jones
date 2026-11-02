@@ -1,0 +1,80 @@
+{
+  "observed_at_utc": "2026-11-02T10:08:56.066526+00:00",
+  "decision": "REJECT_IDEAS_READ_ONLY_BEFORE_IMPLEMENTATION",
+  "source_commit": "77904f6fba5375cb0d3e7e8d738ba681b61d7971",
+  "scope": "Read-only static inspection of immutable CURRENTD334 local PGO replay ELF. No compilation, program/data/reference/model/training/timing run; no organizer ELF, instruction frequency, cache-miss or speed claim. Temporary container used only to copy own executable, then removed.",
+  "image_id": "sha256:2f14abcd438cafffb10cd86a0e8a7601275fa9ada765b9576eaf2cc29e0431cf",
+  "elf_sha256": "6b45fc7b9c30e82390c8e43df377755dcff5f1d42ee8996b40287860a6d48b1d",
+  "query_static_direct_calls": [
+    "40f00e:\tcall   413210 <FastDistances::FastDistances()>",
+    "40f01b:\tcall   413210 <FastDistances::FastDistances()>",
+    "40f02f:\tcall   401090 <_init+0x90>",
+    "40f043:\tcall   401090 <_init+0x90>",
+    "40f099:\tcall   410da0 <std::pair<unsigned int, unsigned int> SharedCursor::range<false>(unsigned int) const>",
+    "40f0a7:\tcall   410da0 <std::pair<unsigned int, unsigned int> SharedCursor::range<false>(unsigned int) const>",
+    "40f0cb:\tcall   410de0 <FastDistances::reset()>",
+    "40f0d8:\tcall   410de0 <FastDistances::reset()>",
+    "40f0e5:\tcall   410e60 <RadixHeap::clear()>",
+    "40f0f2:\tcall   410e60 <RadixHeap::clear()>",
+    "40f103:\tcall   410ef0 <FastDistances::improve(unsigned int, unsigned long)>",
+    "40f114:\tcall   410ef0 <FastDistances::improve(unsigned int, unsigned long)>",
+    "40f13b:\tcall   411310 <RadixHeap::push(std::pair<unsigned long, unsigned int>)>",
+    "40f158:\tcall   411310 <RadixHeap::push(std::pair<unsigned long, unsigned int>)>",
+    "40f965:\tcall   413400 <DistanceQueue<std::pair<unsigned long, unsigned int> >::push(std::pair<unsigned long, unsigned int>)>",
+    "40fbc4:\tcall   413320 <void std::vector<unsigned long, std::allocator<unsigned long> >::_M_realloc_append<unsigned long const&>(unsigned long const&)>",
+    "41013e:\tcall   413320 <void std::vector<unsigned long, std::allocator<unsigned long> >::_M_realloc_append<unsigned long const&>(unsigned long const&)>",
+    "410162:\tcall   4136a0 <std::array<std::vector<std::pair<unsigned long, unsigned int>, std::allocator<std::pair<unsigned long, unsigned int> > >, 65ul>::~array()>",
+    "41016f:\tcall   413720 <std::array<std::vector<unsigned long, std::allocator<unsigned long> >, 33ul>::~array()>",
+    "41017c:\tcall   4136a0 <std::array<std::vector<std::pair<unsigned long, unsigned int>, std::allocator<std::pair<unsigned long, unsigned int> > >, 65ul>::~array()>",
+    "410189:\tcall   413720 <std::array<std::vector<unsigned long, std::allocator<unsigned long> >, 33ul>::~array()>",
+    "410196:\tcall   413770 <FastDistances::~FastDistances()>",
+    "4101a3:\tcall   413770 <FastDistances::~FastDistances()>",
+    "4101ca:\tcall   413320 <void std::vector<unsigned long, std::allocator<unsigned long> >::_M_realloc_append<unsigned long const&>(unsigned long const&)>",
+    "4101e4:\tcall   413320 <void std::vector<unsigned long, std::allocator<unsigned long> >::_M_realloc_append<unsigned long const&>(unsigned long const&)>",
+    "410291:\tcall   415630 <operator new(unsigned long)>",
+    "4102ce:\tcall   401080 <_init+0x80>",
+    "41030b:\tcall   413e60 <operator delete(void*, unsigned long)>",
+    "4103da:\tcall   411710 <FastDistances::grow()>",
+    "41044b:\tcall   413580 <DistanceQueue<std::pair<unsigned long, unsigned int> >::prepare()>",
+    "4104c5:\tcall   406539 <std::__throw_out_of_range(char const*)>",
+    "4104f5:\tcall   411930 <std::vector<Distances::Label, std::allocator<Distances::Label> >::_M_default_append(unsigned long)>",
+    "4105c4:\tcall   413e60 <operator delete(void*, unsigned long)>",
+    "410612:\tcall   413580 <DistanceQueue<std::pair<unsigned long, unsigned int> >::prepare()>",
+    "410633:\tcall   413580 <DistanceQueue<std::pair<unsigned long, unsigned int> >::prepare()>",
+    "410673:\tcall   411930 <std::vector<Distances::Label, std::allocator<Distances::Label> >::_M_default_append(unsigned long)>",
+    "410729:\tcall   413e60 <operator delete(void*, unsigned long)>"
+  ],
+  "query_function_decimal_bytes": 6060,
+  "reasoning": "Read-only original local PGO ELF inspection: compact ordinary-cursor query function6060B, get309B/improve913B remain emitted as fallback symbols. BUT the query body has no direct get calls and only TWO improve calls at source/target initialization; all per-edge uses were already inlined. Reject forced-inline proposal before source/compile because the claimed hot call overhead is absent in this body. Also reject blanket unroll/peel suppression before source/compile: the assumed giant >32KB query body is unsupported. Neither static fact establishes dynamic frequencies/cache misses or target speed. No candidate380 attributes were created.",
+  "primary_sources": [
+    {
+      "url": "https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/Optimize-Options.html",
+      "use": "PGO loop unroll/peel behavior and code size tradeoff; conceptual documentation only."
+    },
+    {
+      "url": "https://gcc.gnu.org/onlinedocs/gcc-15.2.0/gcc/Common-Function-Attributes.html",
+      "use": "always_inline direct-call compiler semantics; no speed theorem."
+    }
+  ],
+  "ignored_raw_files_sha256": {
+    "create.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "remove.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "report.json": "cd67f9f90df6ec7fdc95838fbffd945c5995fd2f06a05e68a8ecb5e7fa607822",
+    "symbols.stdout": "0627c7d1642b98f7c5396b6b138140097ceffc4d45252edf7488102b5c72c19b",
+    "remove.stdout": "150315edd43c0a7e8af7dc7e2e80fd7c7d156be360b1e9f14fbb24277af7a93b",
+    "symbols.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "create.stdout": "150315edd43c0a7e8af7dc7e2e80fd7c7d156be360b1e9f14fbb24277af7a93b",
+    "disassembly.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "copy.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sections.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "original-solution": "6b45fc7b9c30e82390c8e43df377755dcff5f1d42ee8996b40287860a6d48b1d",
+    "copy.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sections.stdout": "7215fdf74f7e09ce1e0866f6810152ab8e5a67aa6bef3cef98cbab4020ff25e7",
+    "disassembly.stdout": "98f07f37cb816d4fb200a14a84c07355dfcbc945be35fb10e46444b70c6267ea"
+  },
+  "archived_files_sha256": {
+    "tools/round379-inspection/report.json": "cd67f9f90df6ec7fdc95838fbffd945c5995fd2f06a05e68a8ecb5e7fa607822",
+    "tools/round379-inspection/inspect.py": "b0b59e3b05c3d35caf2d1902431c95d63dc6ef627359741c4d2f68dbac995c17"
+  },
+  "privacy": "Only own function symbol/call metadata archived. Full static runtime/stdlib disassembly remains ignored; no external implementation imported."
+}

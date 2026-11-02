@@ -1,0 +1,7 @@
+# D378: rejected after native screening
+
+D378 dynamic2MiB newline-aligned edge jobs for BOTH existing degree and scatter passes, same requested<=12 loaders. Single immutable edge-start..EOF boundary array, one relaxed atomic counter reset between joined firstpass and secondpass launch. Per-loader count/overflowSpills/wideweight vectors persist privately across claims; original16-row scratch/atomics/CSR334/cursorfullwidth/PGO/nativeISA/default12/band64/querybatch32/full64 search unchanged. No new graph preprocessing/filter, ID/weight/seed/order shortcut, answercache or host scheduling change. Hypothesis less loader tail imbalance, not a P/E or target speed claim; new counter/job overhead may lose. If promising, require new exact coverage/passreset/partialbatch/private-spill/wrap/slotownership/weight-sidecar/largeIDs/independentFloyd/currentmain strict/race/untrained/GNU/image/default/Make/source/real proof. No A376 scheduler proof is transferred to this different parser and2pass protocol.
+
+Weak/mixed native time and small/mixed native process RSS do not support the extra two-pass job protocol. No fresh boundary/claim/pass-reset/partialbatch/private-spill/overflow/slotownership/weight-sidecar/Floyd/strict/race/untrained/GNU/image/default/Make/actual proof; no general correctness, charged memory, Intel timing or total-K gain claimed.
+
+One native compile and90 hash-checked legal-data calls; no selected runtime/image/board change.

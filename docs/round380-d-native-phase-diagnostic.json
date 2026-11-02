@@ -1,0 +1,110 @@
+{
+  "observed_at_utc": "2026-11-02T10:11:25.495599+00:00",
+  "source_commit": "77904f6fba5375cb0d3e7e8d738ba681b61d7971",
+  "official_score": false,
+  "selected_in_root": false,
+  "diagnostic_only": true,
+  "scope": "UNSCORED current D334 native-only phase diagnostic copy. Seven ordinary steady-clock phase boundaries, one stderr JSON emitted after output. Selected runtime unchanged; timings do not compare equal binaries or establish Intel/board, dynamic cache/call frequency, causal improvement or correctness outside exact replayed data. No new runtime algorithm, compiler/training image, generator or reference. Native copied source compiled once. Reuses only independently expected full data/reference bytes.",
+  "note": "Native-only instrumented currentD phase medians at12 workers: degree40.0\u201341.0ms/scatter41.4\u201346.0ms/query99.7\u2013112.6ms/prefix8.7\u20139.2ms;6-worker degree33.7\u201336.4ms/scatter43.6\u201345.4ms/query120.2\u2013135.8ms. Timings are of an instrumented Apple ARM copy and do not establish target phases, cache/call frequencies, scheduling causes or speed gains. This motivates screening a six-loader cap while retaining requested query workers, not reducing all work to six threads.",
+  "runs": 27,
+  "summary": {
+    "public-full-seed1": {
+      "1": {
+        "startup_and_boundary_degree_allocation": 0.000589583,
+        "degree_decode_and_atomic_counts": 0.095479459,
+        "prefix_cursor_edge_allocation": 0.009094125,
+        "scatter_decode_and_atomic_writes": 0.115673417,
+        "prefix_release_escape_merge_queries": 0.000637208,
+        "bidirectional_queries": 0.57343125,
+        "output": 0.000298625
+      },
+      "6": {
+        "startup_and_boundary_degree_allocation": 0.000622375,
+        "degree_decode_and_atomic_counts": 0.035504083,
+        "prefix_cursor_edge_allocation": 0.009403041,
+        "scatter_decode_and_atomic_writes": 0.044270292,
+        "prefix_release_escape_merge_queries": 0.000572875,
+        "bidirectional_queries": 0.131637375,
+        "output": 0.000276666
+      },
+      "12": {
+        "startup_and_boundary_degree_allocation": 0.000789167,
+        "degree_decode_and_atomic_counts": 0.04073075,
+        "prefix_cursor_edge_allocation": 0.009184125,
+        "scatter_decode_and_atomic_writes": 0.045992959,
+        "prefix_release_escape_merge_queries": 0.000407958,
+        "bidirectional_queries": 0.1077915,
+        "output": 0.000299958
+      }
+    },
+    "full-seed1823": {
+      "1": {
+        "startup_and_boundary_degree_allocation": 0.00039,
+        "degree_decode_and_atomic_counts": 0.09452875,
+        "prefix_cursor_edge_allocation": 0.008711917,
+        "scatter_decode_and_atomic_writes": 0.114753417,
+        "prefix_release_escape_merge_queries": 0.000557375,
+        "bidirectional_queries": 0.601325959,
+        "output": 0.000286917
+      },
+      "6": {
+        "startup_and_boundary_degree_allocation": 0.000397416,
+        "degree_decode_and_atomic_counts": 0.036389417,
+        "prefix_cursor_edge_allocation": 0.009226125,
+        "scatter_decode_and_atomic_writes": 0.043638917,
+        "prefix_release_escape_merge_queries": 0.000565208,
+        "bidirectional_queries": 0.135829541,
+        "output": 0.000296708
+      },
+      "12": {
+        "startup_and_boundary_degree_allocation": 0.0008095,
+        "degree_decode_and_atomic_counts": 0.04000325,
+        "prefix_cursor_edge_allocation": 0.009001292,
+        "scatter_decode_and_atomic_writes": 0.041661208,
+        "prefix_release_escape_merge_queries": 0.000531792,
+        "bidirectional_queries": 0.112563708,
+        "output": 0.00032
+      }
+    },
+    "full-seed2633": {
+      "1": {
+        "startup_and_boundary_degree_allocation": 0.000819542,
+        "degree_decode_and_atomic_counts": 0.09432575,
+        "prefix_cursor_edge_allocation": 0.00926475,
+        "scatter_decode_and_atomic_writes": 0.113412334,
+        "prefix_release_escape_merge_queries": 0.000625,
+        "bidirectional_queries": 0.531390875,
+        "output": 0.000509666
+      },
+      "6": {
+        "startup_and_boundary_degree_allocation": 0.000588667,
+        "degree_decode_and_atomic_counts": 0.033725583,
+        "prefix_cursor_edge_allocation": 0.008955625,
+        "scatter_decode_and_atomic_writes": 0.045361958,
+        "prefix_release_escape_merge_queries": 0.000538834,
+        "bidirectional_queries": 0.120223583,
+        "output": 0.00029775
+      },
+      "12": {
+        "startup_and_boundary_degree_allocation": 0.000439792,
+        "degree_decode_and_atomic_counts": 0.041002917,
+        "prefix_cursor_edge_allocation": 0.008742084,
+        "scatter_decode_and_atomic_writes": 0.041363291,
+        "prefix_release_escape_merge_queries": 0.000404959,
+        "bidirectional_queries": 0.099745666,
+        "output": 0.00030525
+      }
+    }
+  },
+  "patch": {
+    "path": "docs/prototype-patches/round380-d-phase-instrumentation-main.cpp.patch",
+    "sha256": "d01d74f206bed2161f5e3483b67f64cc896ec0574aeefdc4de4e6be878476d28"
+  },
+  "reconstruction_passed": true,
+  "files": {
+    "tools/round380-profile/base-d-PERF.md": "61e7fa71cbac5b3af9ec8782c1864eb8abe68a6d61fc28afffc54bc259f27fab",
+    "tools/round380-profile/report.json": "b39d714db33d0482526394095181dc22c683c851488b9331e43d36e125b58121",
+    "tools/round380-profile/frozen.json": "e3a7b2bc39d8849d74ca2002d012576a0a79741cecf539a482a2b51863afb6f3",
+    "tools/round380-profile/profile.py": "78fb5a30f9c268f7ee5feaeedd59520b1e4f0b070cb8a3b56bf194e349250489"
+  }
+}

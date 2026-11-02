@@ -1,0 +1,11 @@
+--- a/track-d/main.cpp
++++ b/track-d/main.cpp
+@@ -42,7 +42,7 @@
+         uint32_t n = scan.number(), m = scan.number();
+         const char* edge_start = scan.p;
+         while (edge_start < graph.data + graph.size && *edge_start <= ' ') ++edge_start;
+-        unsigned loaders = std::min(threads, 12U);
++        unsigned loaders = std::min(threads, 6U);
+         std::vector<const char*> boundaries(loaders + 1);
+         boundaries.front() = edge_start; boundaries.back() = graph.data + graph.size;
+         for (unsigned i = 1; i < loaders; ++i) {

@@ -1,0 +1,157 @@
+{
+  "started_at_utc": "2026-11-02T10:24:41.034301+00:00",
+  "source_sha256": {
+    "track-c/training_generator.py": "9e61672eb814fa4e1bc2e3cf30c8e7ca9629804191ce5ae60a66c8b61ba704f2",
+    "track-c/Dockerfile": "637e81c6fca4507f4c4e7368efde7b6904d07879ae9ec992c5e25175d50e1fae",
+    "track-c/names.hpp": "ac11bdf046f43b3e39fc0e7179a476b6b55a9bf61e21f7c3a5b9ffd35cf840cb",
+    "track-c/io.hpp": "5271be588b911fc980ff69827f0a1d447e6f24bef12d917f2cf3a7893088a269",
+    "track-c/quote_scan.hpp": "0b170a766254dee1bc14f9e9180cc1900da01d41f5d09053d5579e01a7fb9cfa",
+    "track-c/README.md": "4268acd9055ff966b2d30c87154f6a929923454fbb0a3c836704d94815db2234",
+    "track-c/PERF.md": "4f0746445f90956a3cb03e657ac9785fb06dd4946c96decc88bb35f71228a35d",
+    "track-c/.speed-demon.toml": "3371600b8033a377bc373378e703191dfec36c1ae991b617650dfa480edc00b4",
+    "track-c/main.cpp": "9a21e42da45681dd336e824d62bd38e8a2bd14c24cdf1119711c279b2bf51df9",
+    "track-c/parallel.hpp": "9bffce5e62727713b5e406337d61b6da7aeb533c353fb20faad5ddcfc4fd3420"
+  },
+  "final_manifest_sha256": "67c95a964910ce729aedb3df7321e739066185b019eae7e7285b9e3e05eb02ee",
+  "scope": "Fresh exact-final384 main ASAN/UBSAN(no recovery) and TSAN, fresh actual changed-header fixed4/generic0/dispatch/stdset/arena/private-owner model in both modes. Source-independent370 saved data/reference bytes reused ONLY as fixtures, no old source proof or generator/oracle/PGO repetition. New country fixtures each1..12 plus untrained3863/full public and source-bound unchanged headers. Native timing/heap not target score.",
+  "official_score": false,
+  "selected_in_root": false,
+  "compiles": [
+    {
+      "label": "asan-names-model",
+      "argv": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-pthread",
+        "-fno-omit-frame-pointer",
+        "-fsanitize=address,undefined",
+        "-fno-sanitize-recover=all",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round384/fixed_words_model.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round384/native-proof/asan/names-model"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "binary_sha256": "f40627c9235619d5d0269e8aed91838a06b3cdeac7bf2881621b5498e6a491bb"
+    },
+    {
+      "label": "asan-main",
+      "argv": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-pthread",
+        "-fno-omit-frame-pointer",
+        "-fsanitize=address,undefined",
+        "-fno-sanitize-recover=all",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round384/source/track-c/main.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round384/native-proof/asan/track-c"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "binary_sha256": "c10604a5eb601736bbbea626add3314b19ea1ea3702a4f201f1ddfddd21a4cb0"
+    },
+    {
+      "label": "tsan-names-model",
+      "argv": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-pthread",
+        "-fno-omit-frame-pointer",
+        "-fsanitize=thread",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round384/fixed_words_model.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round384/native-proof/tsan/names-model"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "binary_sha256": "04bbcd546b84c5fff333e6d3b6355aaaf237c97cfe56eabf58bb1d3161d0907f"
+    },
+    {
+      "label": "tsan-main",
+      "argv": [
+        "clang++",
+        "-std=c++20",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Werror",
+        "-pthread",
+        "-fno-omit-frame-pointer",
+        "-fsanitize=thread",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round384/source/track-c/main.cpp",
+        "-o",
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round384/native-proof/tsan/track-c"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "binary_sha256": "636d41fe091d85f1437c0c7583c540e93e0e7b415ec88b3fc3df56c1c581593d"
+    }
+  ],
+  "models": [
+    {
+      "mode": "asan",
+      "argv": [
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round384/native-proof/asan/names-model"
+      ],
+      "returncode": 0,
+      "stdout": "PASS offset-name independent std::set, low32 fingerprint collisions including0/1, full-key collisions, all-country words, table/block growth, exact full/partial/oversized blocks, long NUL/UTF8 keys, encoded-index boundaries and overflow guards\nPASS384 exact changed-header FixedWords4/generic0/selected dispatch: independent set, full-key/low32 zero/MAX collisions, 193/241/256 growth, all country words and192/193/256/257 seams, exact/oversized/1MiB arena blocks, stable indices, four private owners; original generic all-boundary/overflow model also executed\n",
+      "stderr": "",
+      "binary_sha256": "f40627c9235619d5d0269e8aed91838a06b3cdeac7bf2881621b5498e6a491bb",
+      "passed": true
+    },
+    {
+      "mode": "tsan",
+      "argv": [
+        "/Volumes/Vault/Documents/codex/rough/speed-demon-fresh/.build/round384/native-proof/tsan/names-model"
+      ],
+      "returncode": 0,
+      "stdout": "PASS offset-name independent std::set, low32 fingerprint collisions including0/1, full-key collisions, all-country words, table/block growth, exact full/partial/oversized blocks, long NUL/UTF8 keys, encoded-index boundaries and overflow guards\nPASS384 exact changed-header FixedWords4/generic0/selected dispatch: independent set, full-key/low32 zero/MAX collisions, 193/241/256 growth, all country words and192/193/256/257 seams, exact/oversized/1MiB arena blocks, stable indices, four private owners; original generic all-boundary/overflow model also executed\n",
+      "stderr": "",
+      "binary_sha256": "04bbcd546b84c5fff333e6d3b6355aaaf237c97cfe56eabf58bb1d3161d0907f",
+      "passed": true
+    }
+  ],
+  "matrices": [
+    {
+      "mode": "asan",
+      "path": ".build/round384/native-proof/asan/matrix.json",
+      "sha256": "ccab426b7d3a98ea2fc4d7f42e7896e1548e36f72bbe08ba3c427be9a25a0b4d",
+      "valid_calls": 684,
+      "normal_errors": 60
+    },
+    {
+      "mode": "tsan",
+      "path": ".build/round384/native-proof/tsan/matrix.json",
+      "sha256": "90d0b0f2e79f43dc4e34307f7278126ac1e142ce3b7b201c4caf1b43a9a309e2",
+      "valid_calls": 669,
+      "normal_errors": 60
+    }
+  ],
+  "passed": true,
+  "completed_at_utc": "2026-11-02T10:26:03.835611+00:00"
+}
